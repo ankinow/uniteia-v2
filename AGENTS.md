@@ -45,3 +45,9 @@ bun run build
 bun run typecheck
 bun run test
 ```
+
+## Git Cadence
+
+- Commit small, verified changes as soon as a milestone is complete.
+- Push to `origin/main` after checks pass.
+- Keep the history linear and descriptive.
