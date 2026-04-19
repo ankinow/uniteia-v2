@@ -1,0 +1,18 @@
+{
+  "name": "uniteia-v2",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "bun@1.3.6",
+  "description": "UniTeia v2 content backend scaffold",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run src/cli.ts",
+    "build": "bunx tsc -p tsconfig.json",
+    "typecheck": "bunx tsc -p tsconfig.json --noEmit",
+    "test": "bun test",
+    "check": "bunx tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0"
+  }
+}
