@@ -39,7 +39,8 @@
     "@unocss/preset-icons": "^66.0.0",
     "@unocss/preset-typography": "^66.0.0",
     "@unocss/preset-web-fonts": "^66.0.0",
-    "@unocss/preset-wind3": "^66.0.0"
+    "@unocss/preset-wind3": "^66.0.0",
+    "gray-matter": "^4.0.3"
   },
   "engines": {
     "node": ">=20.0.0"
