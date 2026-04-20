@@ -1,20 +1,12 @@
 import { component$ } from '@builder.io/qwik'
-import type { DocumentHead } from '@builder.io/qwik-city'
 import { Footer } from '~/components/footer'
 import { LangSwitcher } from '~/components/lang-switcher'
 import { SiteShell } from '~/components/site-shell'
 import { useI18n, useProvideI18n } from '~/i18n/context'
-import { onLanguageNegotiation } from '~/i18n/middleware'
 import { DEFAULT_LANGUAGE } from '~/i18n/types'
 
 /**
- * Middleware: Language negotiation for 500 page
- * Runs on every request to determine user's preferred language
- */
-export const onRequest = onLanguageNegotiation
-
-/**
- * 500 Internal Server Error Page
+ * 500 Internal Server Error Page Component
  *
  * Follows JRPG-brutalist aesthetic:
  * - Minimal animation (respects prefers-reduced-motion)
@@ -22,10 +14,8 @@ export const onRequest = onLanguageNegotiation
  * - Clear error message with retry and navigation options
  * - Multilingual support (en/pt/es/ja/zh)
  */
-export default component$(() => {
-  // Note: For error pages, we use the default language as fallback
+export const ServerError = component$(() => {
   useProvideI18n(DEFAULT_LANGUAGE)
-
   return (
     <SiteShell>
       <header q:slot="header" class="site-header w-full">
@@ -41,7 +31,6 @@ export default component$(() => {
             <span class="text-brand-primary">Uni</span>
             <span>Teia</span>
           </a>
-
           <div class="nav-links hidden md:flex items-center gap-6">
             <a href="/" class="text-bone-secondary hover:text-bone-primary transition-colors">
               Home
@@ -59,15 +48,12 @@ export default component$(() => {
               Blog
             </a>
           </div>
-
           <LangSwitcher />
         </nav>
       </header>
-
       <main class="flex-1 flex items-center justify-center px-4 py-16">
         <ErrorContent />
       </main>
-
       <Footer q:slot="footer" />
     </SiteShell>
   )
@@ -78,7 +64,6 @@ export default component$(() => {
  */
 const ErrorContent = component$(() => {
   const { t } = useI18n()
-
   return (
     <div class="error-content text-center max-w-2xl mx-auto">
       {/* Large 500 number */}
@@ -106,6 +91,7 @@ const ErrorContent = component$(() => {
       <div class="error-actions flex flex-col sm:flex-row items-center justify-center gap-4">
         {/* Retry button - reloads the current page */}
         <button
+          type="button"
           onClick$={() => window.location.reload()}
           class="retry-button inline-flex items-center gap-2 px-6 py-3 bg-brand-primary text-void font-semibold rounded-lg hover:bg-brand-primary/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 focus:ring-offset-void"
           data-testid="error-retry-button"
@@ -160,20 +146,3 @@ const ErrorContent = component$(() => {
     </div>
   )
 })
-
-/**
- * Document head metadata for 500 page
- */
-export const head: DocumentHead = {
-  title: '500 - Server Error | UniTeia',
-  meta: [
-    {
-      name: 'description',
-      content: 'An internal server error occurred. Please try again later.',
-    },
-    {
-      name: 'robots',
-      content: 'noindex, nofollow',
-    },
-  ],
-}

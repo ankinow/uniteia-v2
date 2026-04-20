@@ -9,7 +9,7 @@
  * - Lowercase ASCII letters only
  * - Examples: "solar-system", "ai-ethics", "climate-science-basics"
  */
-export const SLUG_PATTERN = /^[a-z]+(-[a-z]+){1,5}$/;
+export const SLUG_PATTERN = /^[a-z]+(-[a-z]+){1,5}$/
 
 /**
  * Banned slug terms that are reserved or problematic
@@ -52,7 +52,7 @@ export const BANNED_SLUG_TERMS = new Set([
   'top',
   'new',
   'latest',
-]);
+])
 
 /**
  * Validates a slug against the pattern
@@ -60,7 +60,7 @@ export const BANNED_SLUG_TERMS = new Set([
  * @returns true if valid, false otherwise
  */
 export function isValidSlugPattern(slug: string): boolean {
-  return SLUG_PATTERN.test(slug);
+  return SLUG_PATTERN.test(slug)
 }
 
 /**
@@ -69,13 +69,13 @@ export function isValidSlugPattern(slug: string): boolean {
  * @returns The banned term found, or null if clean
  */
 export function findBannedSlugTerm(slug: string): string | null {
-  const segments = slug.split('-');
+  const segments = slug.split('-')
   for (const segment of segments) {
     if (BANNED_SLUG_TERMS.has(segment) || BANNED_SLUG_TERMS.has(slug)) {
-      return segment === slug ? slug : segment;
+      return segment === slug ? slug : segment
     }
   }
-  return null;
+  return null
 }
 
 /**
@@ -85,25 +85,25 @@ export function findBannedSlugTerm(slug: string): string | null {
  */
 export function validateSlug(slug: string): { valid: boolean; error?: string } {
   if (!slug || typeof slug !== 'string') {
-    return { valid: false, error: 'Slug must be a non-empty string' };
+    return { valid: false, error: 'Slug must be a non-empty string' }
   }
 
   if (!isValidSlugPattern(slug)) {
     return {
       valid: false,
       error: `Slug "${slug}" does not match pattern ${SLUG_PATTERN.toString()}. Must be 2-6 lowercase hyphen-separated segments.`,
-    };
+    }
   }
 
-  const bannedTerm = findBannedSlugTerm(slug);
+  const bannedTerm = findBannedSlugTerm(slug)
   if (bannedTerm) {
     return {
       valid: false,
       error: `Slug "${slug}" contains banned term "${bannedTerm}"`,
-    };
+    }
   }
 
-  return { valid: true };
+  return { valid: true }
 }
 
 /**
@@ -112,8 +112,8 @@ export function validateSlug(slug: string): { valid: boolean; error?: string } {
  * @returns Array of segments, or empty array if invalid
  */
 export function parseSlugSegments(slug: string): string[] {
-  if (!isValidSlugPattern(slug)) return [];
-  return slug.split('-');
+  if (!isValidSlugPattern(slug)) return []
+  return slug.split('-')
 }
 
 /**
@@ -130,5 +130,5 @@ export function suggestSlugFromTitle(title: string): string {
     .replace(/^-|-$/g, '')
     .split('-')
     .slice(0, 6)
-    .join('-');
+    .join('-')
 }

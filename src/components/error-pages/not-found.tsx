@@ -1,20 +1,12 @@
 import { component$ } from '@builder.io/qwik'
-import type { DocumentHead } from '@builder.io/qwik-city'
 import { Footer } from '~/components/footer'
 import { LangSwitcher } from '~/components/lang-switcher'
 import { SiteShell } from '~/components/site-shell'
 import { useI18n, useProvideI18n } from '~/i18n/context'
-import { onLanguageNegotiation } from '~/i18n/middleware'
 import { DEFAULT_LANGUAGE } from '~/i18n/types'
 
 /**
- * Middleware: Language negotiation for 404 page
- * Runs on every request to determine user's preferred language
- */
-export const onRequest = onLanguageNegotiation
-
-/**
- * 404 Not Found Error Page
+ * 404 Not Found Error Page Component
  *
  * Follows JRPG-brutalist aesthetic:
  * - Minimal animation (respects prefers-reduced-motion)
@@ -22,11 +14,8 @@ export const onRequest = onLanguageNegotiation
  * - Clear error message with navigation back to home
  * - Multilingual support (en/pt/es/ja/zh)
  */
-export default component$(() => {
-  // Note: In a real implementation, we'd use routeLoader$ to get the language
-  // For error pages, we use the default language as fallback
+export const NotFound = component$(() => {
   useProvideI18n(DEFAULT_LANGUAGE)
-
   return (
     <SiteShell>
       <header q:slot="header" class="site-header w-full">
@@ -62,11 +51,9 @@ export default component$(() => {
           <LangSwitcher />
         </nav>
       </header>
-
       <main class="flex-1 flex items-center justify-center px-4 py-16">
         <ErrorContent />
       </main>
-
       <Footer q:slot="footer" />
     </SiteShell>
   )
@@ -77,7 +64,6 @@ export default component$(() => {
  */
 const ErrorContent = component$(() => {
   const { t } = useI18n()
-
   return (
     <div class="error-content text-center max-w-2xl mx-auto">
       {/* Large 404 number */}
@@ -133,20 +119,3 @@ const ErrorContent = component$(() => {
     </div>
   )
 })
-
-/**
- * Document head metadata for 404 page
- */
-export const head: DocumentHead = {
-  title: '404 - Page Not Found | UniTeia',
-  meta: [
-    {
-      name: 'description',
-      content: 'The page you are looking for does not exist.',
-    },
-    {
-      name: 'robots',
-      content: 'noindex, nofollow',
-    },
-  ],
-}
