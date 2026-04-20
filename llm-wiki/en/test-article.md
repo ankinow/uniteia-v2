@@ -13,8 +13,8 @@ referral_links:
   - url: https://example.com/docs
     title: Example Documentation
 metadata:
-  created_at: 2025-01-15T10:00:00Z
-  updated_at: 2025-01-20T14:30:00Z
+  created_at: "2025-01-15T10:00:00Z"
+  updated_at: "2025-01-20T14:30:00Z"
   author: UniTeia System
   version: 1
 ---
