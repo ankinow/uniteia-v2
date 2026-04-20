@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uniteia.com/schemas/llm-wiki-v1.schema.json",
+  "title": "LLM Wiki Content v1",
+  "description": "Schema for LLM-generated wiki content with multilingual support",
+  "type": "object",
+  "required": ["slug", "lang", "title", "content", "subjects", "referral_links"],
+  "additionalProperties": false,
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z]+(-[a-z]+){1,5}$",
+      "description": "URL slug with 2-6 hyphenated segments, lowercase letters only",
+      "examples": ["solar-system", "artificial-intelligence", "climate-change-causes"]
+    },
+    "lang": {
+      "type": "string",
+      "enum": ["en", "pt", "es", "ja", "zh"],
+      "description": "ISO 639-1 language code matching SupportedLanguage type"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Article title"
+    },
+    "content": {
+      "type": "string",
+      "minLength": 100,
+      "description": "Main article content in markdown format"
+    },
+    "subjects": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 50
+      },
+      "minItems": 1,
+      "maxItems": 10,
+      "description": "Subject tags for categorization"
+    },
+    "referral_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["url", "title"],
+        "additionalProperties": false,
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "External reference URL"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "Link title"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "Optional link description"
+          }
+        }
+      },
+      "maxItems": 5,
+      "description": "External reference links, maximum 5 per article"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "author": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  }
+}
