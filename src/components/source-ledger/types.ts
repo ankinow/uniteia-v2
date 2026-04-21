@@ -5,7 +5,8 @@
 export interface SourceLedgerProps {
   /** External referral links (max 5 per article per schema) */
   referralLinks: ReferralLinkSlot[]
-
+  /** i18n label for the sources heading */
+  sourcesLabel?: string | undefined
   /** Optional CSS class for additional styling */
   class?: string
 }

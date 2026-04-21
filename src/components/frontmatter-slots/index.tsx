@@ -14,6 +14,18 @@ const LANG_LABELS: Record<string, string> = {
 }
 
 /**
+ * Default English labels when i18n context is not available
+ */
+const DEFAULT_LABELS = {
+  subjectsLabel: 'Subjects',
+  published: 'Published',
+  updated: 'Updated',
+  byAuthor: 'by {author}',
+  version: 'v{version}',
+  readInLang: 'Read in {lang}',
+}
+
+/**
  * FrontmatterSlots - Article metadata display component
  *
  * Renders three metadata sections below the article header:
@@ -24,6 +36,8 @@ const LANG_LABELS: Record<string, string> = {
  * Follows S01 isolation pattern with types.ts + index.tsx.
  */
 export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
+  const labels = props.labels ?? DEFAULT_LABELS
+
   return (
     <div
       data-testid="frontmatter-slots"
@@ -31,7 +45,7 @@ export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
     >
       {/* Subject tag pills */}
       {props.subjects.length > 0 && (
-        <div class="flex flex-wrap items-center gap-2" aria-label="Subjects">
+        <div class="flex flex-wrap items-center gap-2" aria-label={labels.subjectsLabel}>
           {props.subjects.map(subject => (
             <span
               key={subject}
@@ -55,19 +69,23 @@ export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
         <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-bone-secondary">
           {props.metadata.created_at && (
             <time dateTime={props.metadata.created_at} class="font-mono text-xs text-bone-muted">
-              Created: {props.metadata.created_at}
+              {labels.published}: {props.metadata.created_at}
             </time>
           )}
           {props.metadata.updated_at && (
             <time dateTime={props.metadata.updated_at} class="font-mono text-xs text-bone-muted">
-              Updated: {props.metadata.updated_at}
+              {labels.updated}: {props.metadata.updated_at}
             </time>
           )}
           {props.metadata.author && (
-            <span class="text-xs text-bone-muted">by {props.metadata.author}</span>
+            <span class="text-xs text-bone-muted">
+              {labels.byAuthor.replace('{author}', props.metadata.author)}
+            </span>
           )}
           {props.metadata.version != null && (
-            <span class="font-mono text-xs text-bone-muted">v{props.metadata.version}</span>
+            <span class="font-mono text-xs text-bone-muted">
+              {labels.version.replace('{version}', String(props.metadata.version))}
+            </span>
           )}
         </div>
       )}
@@ -91,4 +109,4 @@ export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
   )
 })
 
-export type { FrontmatterSlotsProps, ArticleMetadataSlots } from './types'
+export type { FrontmatterSlotsProps, FrontmatterLabels, ArticleMetadataSlots } from './types'

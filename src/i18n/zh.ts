@@ -38,4 +38,13 @@ export const zh: TranslationStrings = {
     message: '此内容在您的语言中不可用。正在以英语显示。',
     dismiss: '关闭',
   },
+  article: {
+    subjectsLabel: '主题',
+    sourcesLabel: '来源',
+    published: '发布',
+    updated: '更新',
+    byAuthor: '作者：{author}',
+    version: 'v{version}',
+    readInLang: '以{lang}阅读',
+  },
 }

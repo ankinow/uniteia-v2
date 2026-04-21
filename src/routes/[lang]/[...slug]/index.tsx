@@ -4,6 +4,7 @@ import { AdaptiveHeader } from '~/components/adaptive-header'
 import { ArticleFrame } from '~/components/article-frame'
 import { FrontmatterSlots } from '~/components/frontmatter-slots'
 import { SourceLedger } from '~/components/source-ledger'
+import { useI18n } from '~/i18n/context'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
 import type { ContentValidationError, LlmWikiContent } from './types'
 
@@ -71,31 +72,27 @@ export const useContent = routeLoader$<LlmWikiContent>(async ({ params, error })
   // Initialize AJV with Draft 2020-12 support and validate
   const ajv = new Ajv2020({ allErrors: true, strict: true })
   addFormats(ajv)
-
   const schemaPath = resolve(__dirname, '../../../../schemas/llm-wiki-v1.schema.json')
   const schemaContent = readFileSync(schemaPath, 'utf-8')
   const schema = JSON.parse(schemaContent) as object
   ajv.addSchema(schema)
   const validate = ajv.compile(schema)
-
   const valid = validate(contentObject)
   if (!valid) {
-    const errors = (validate.errors as { instancePath: string; message?: string }[] | null)?.map(
-      err => `${err.instancePath || '/'}: ${err.message ?? 'unknown error'}`
-    ) ?? ['Unknown validation error']
-
+    const errors =
+      (validate.errors as { instancePath: string; message?: string }[] | null)?.map(
+        err => `${err.instancePath || '/'}: ${err.message ?? 'unknown error'}`
+      ) ?? ['Unknown validation error']
     const validationError: ContentValidationError = {
       slug,
       lang,
       errors,
     }
-
     // Log validation failures to server console (not client-exposed)
     console.error(
       `[content-validation] Validation failed for ${lang}/${slug}:`,
       JSON.stringify(validationError, null, 2)
     )
-
     throw error(404, `Article not found: ${lang}/${slug}`)
   }
 
@@ -113,23 +110,39 @@ export const useContent = routeLoader$<LlmWikiContent>(async ({ params, error })
 
 /**
  * Content route page component
- * Uses ArticleFrame + AdaptiveHeader components for content display
+ * Uses ArticleFrame + AdaptiveHeader + FrontmatterSlots + SourceLedger
+ * with i18n-aware labels from the translation context
  */
 export default component$(() => {
   const content = useContent()
+  const { t } = useI18n()
 
   return (
     <ArticleFrame>
-      <AdaptiveHeader title={content.value.title} subtitle={content.value.subjects.join(', ')} />
+      <AdaptiveHeader
+        title={content.value.title}
+        subtitle={content.value.subjects.join(', ')}
+      />
       <FrontmatterSlots
         subjects={content.value.subjects}
         lang={content.value.lang}
         metadata={content.value.metadata}
+        labels={{
+          subjectsLabel: t.article.subjectsLabel,
+          published: t.article.published,
+          updated: t.article.updated,
+          byAuthor: t.article.byAuthor,
+          version: t.article.version,
+          readInLang: t.article.readInLang,
+        }}
       />
       <div class="prose prose-invert mt-8 max-w-none text-bone-primary">
         {content.value.content}
       </div>
-      <SourceLedger referralLinks={content.value.referral_links} />
+      <SourceLedger
+        referralLinks={content.value.referral_links}
+        sourcesLabel={t.article.sourcesLabel}
+      />
     </ArticleFrame>
   )
 })

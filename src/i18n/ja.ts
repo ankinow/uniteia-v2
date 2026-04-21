@@ -38,4 +38,13 @@ export const ja: TranslationStrings = {
     message: 'このコンテンツは選択した言語で利用できません。英語で表示しています。',
     dismiss: '閉じる',
   },
+  article: {
+    subjectsLabel: 'テーマ',
+    sourcesLabel: '出典',
+    published: '公開',
+    updated: '更新',
+    byAuthor: '{author} 著',
+    version: 'v{version}',
+    readInLang: '{lang}で読む',
+  },
 }
