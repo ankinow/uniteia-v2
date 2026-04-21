@@ -47,4 +47,10 @@ export const ja: TranslationStrings = {
     version: 'v{version}',
     readInLang: '{lang}で読む',
   },
+  niche: {
+    topicsLabel: 'トピック',
+    exploreNiche: '{niche}を探す',
+    articleCount: '{count}件の記事',
+    allNiches: 'すべてのトピック',
+  },
 }

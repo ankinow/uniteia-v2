@@ -1,0 +1,52 @@
+# UniTeia Niche Configuration
+# Adding a niche = adding an entry here with zero code changes.
+# Each niche must have:
+#   slug:        2-6 lowercase hyphen-separated segments (must pass SLUG_PATTERN)
+#   icon:        Lucide icon name string
+#   title:       map of SupportedLanguage → display string
+#   description: map of SupportedLanguage → short description
+
+- slug: ai-agents
+  icon: Bot
+  title:
+    en: AI Agents
+    pt: Agentes de IA
+    es: Agentes de IA
+    ja: AIエージェント
+    zh: AI智能体
+  description:
+    en: Autonomous AI systems that perceive, reason, and act to accomplish goals.
+    pt: Sistemas de IA autônomos que percebem, raciocinam e agem para atingir objetivos.
+    es: Sistemas de IA autónomos que perciben, razonan y actúan para lograr objetivos.
+    ja: 目標を達成するために知覚・推論・行動する自律的なAIシステム。
+    zh: 能够感知、推理和行动以实现目标的自主AI系统。
+
+- slug: language-models
+  icon: MessageSquareText
+  title:
+    en: Language Models
+    pt: Modelos de Linguagem
+    es: Modelos de Lenguaje
+    ja: 言語モデル
+    zh: 语言模型
+  description:
+    en: Large-scale models that understand and generate human language.
+    pt: Modelos de grande escala que compreendem e geram linguagem humana.
+    es: Modelos a gran escala que comprenden y generan lenguaje humano.
+    ja: 人間の言語を理解し生成する大規模モデル。
+    zh: 理解和生成人类语言的大规模模型。
+
+- slug: prompt-engineering
+  icon: PenTool
+  title:
+    en: Prompt Engineering
+    pt: Engenharia de Prompts
+    es: Ingeniería de Prompts
+    ja: プロンプトエンジニアリング
+    zh: 提示工程
+  description:
+    en: Techniques for crafting effective inputs to steer AI model outputs.
+    pt: Técnicas para criar entradas eficazes que orientam as saídas de modelos de IA.
+    es: Técnicas para crear entradas efectivas que dirigen las salidas de modelos de IA.
+    ja: AIモデルの出力を制御するための効果的な入力手法。
+    zh: 精心设计有效输入以引导AI模型输出的技术。

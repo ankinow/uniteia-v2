@@ -79,10 +79,9 @@ export const useContent = routeLoader$<LlmWikiContent>(async ({ params, error })
   const validate = ajv.compile(schema)
   const valid = validate(contentObject)
   if (!valid) {
-    const errors =
-      (validate.errors as { instancePath: string; message?: string }[] | null)?.map(
-        err => `${err.instancePath || '/'}: ${err.message ?? 'unknown error'}`
-      ) ?? ['Unknown validation error']
+    const errors = (validate.errors as { instancePath: string; message?: string }[] | null)?.map(
+      err => `${err.instancePath || '/'}: ${err.message ?? 'unknown error'}`
+    ) ?? ['Unknown validation error']
     const validationError: ContentValidationError = {
       slug,
       lang,
@@ -119,10 +118,7 @@ export default component$(() => {
 
   return (
     <ArticleFrame>
-      <AdaptiveHeader
-        title={content.value.title}
-        subtitle={content.value.subjects.join(', ')}
-      />
+      <AdaptiveHeader title={content.value.title} subtitle={content.value.subjects.join(', ')} />
       <FrontmatterSlots
         subjects={content.value.subjects}
         lang={content.value.lang}

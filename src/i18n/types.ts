@@ -49,6 +49,12 @@ export interface TranslationStrings {
     version: string
     readInLang: string
   }
+  niche: {
+    topicsLabel: string
+    exploreNiche: string
+    articleCount: string
+    allNiches: string
+  }
 }
 
 export type SupportedLanguage = 'en' | 'pt' | 'es' | 'ja' | 'zh'

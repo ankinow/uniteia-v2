@@ -47,4 +47,10 @@ export const zh: TranslationStrings = {
     version: 'v{version}',
     readInLang: '以{lang}阅读',
   },
+  niche: {
+    topicsLabel: '专题',
+    exploreNiche: '探索{niche}',
+    articleCount: '{count}篇文章',
+    allNiches: '所有专题',
+  },
 }

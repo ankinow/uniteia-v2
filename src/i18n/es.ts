@@ -47,4 +47,10 @@ export const es: TranslationStrings = {
     version: 'v{version}',
     readInLang: 'Leer en {lang}',
   },
+  niche: {
+    topicsLabel: 'Temas',
+    exploreNiche: 'Explorar {niche}',
+    articleCount: '{count} artículos',
+    allNiches: 'Todos los Temas',
+  },
 }

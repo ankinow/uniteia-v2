@@ -19,6 +19,7 @@
     "@biomejs/biome": "^1.9.4",
     "@cloudflare/workers-types": "^4.20250409.0",
     "@types/node": "^22.14.0",
+    "@types/js-yaml": "^4.0.9",
     "ajv": "^8.18.0",
     "ajv-formats": "^3.0.1",
     "autoprefixer": "^10.4.21",
@@ -40,7 +41,8 @@
     "@unocss/preset-typography": "^66.0.0",
     "@unocss/preset-web-fonts": "^66.0.0",
     "@unocss/preset-wind3": "^66.0.0",
-    "gray-matter": "^4.0.3"
+    "gray-matter": "^4.0.3",
+    "js-yaml": "^4.1.0"
   },
   "engines": {
     "node": ">=20.0.0"
