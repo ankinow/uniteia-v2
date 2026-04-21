@@ -2,6 +2,8 @@ import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$ } from '@builder.io/qwik-city'
 import { AdaptiveHeader } from '~/components/adaptive-header'
 import { ArticleFrame } from '~/components/article-frame'
+import { FrontmatterSlots } from '~/components/frontmatter-slots'
+import { SourceLedger } from '~/components/source-ledger'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
 import type { ContentValidationError, LlmWikiContent } from './types'
 
@@ -119,9 +121,15 @@ export default component$(() => {
   return (
     <ArticleFrame>
       <AdaptiveHeader title={content.value.title} subtitle={content.value.subjects.join(', ')} />
+      <FrontmatterSlots
+        subjects={content.value.subjects}
+        lang={content.value.lang}
+        metadata={content.value.metadata}
+      />
       <div class="prose prose-invert mt-8 max-w-none text-bone-primary">
         {content.value.content}
       </div>
+      <SourceLedger referralLinks={content.value.referral_links} />
     </ArticleFrame>
   )
 })
