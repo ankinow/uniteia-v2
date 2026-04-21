@@ -40,6 +40,15 @@
     }
   },
   "files": {
-    "ignore": ["dist", "node_modules", ".qwik", "runs", ".bg-shell", "content", "data"]
+    "ignore": [
+      "dist",
+      "node_modules",
+      ".qwik",
+      "runs",
+      ".bg-shell",
+      "content",
+      "data",
+      ".gsd"
+    ]
   }
 }

@@ -2,7 +2,6 @@
  * Translation type contract for UniTeia i18n system
  * All language files must implement this interface
  */
-
 export interface TranslationStrings {
   nav: {
     home: string
@@ -40,6 +39,15 @@ export interface TranslationStrings {
   fallbackBanner: {
     message: string
     dismiss: string
+  }
+  article: {
+    subjectsLabel: string
+    sourcesLabel: string
+    published: string
+    updated: string
+    byAuthor: string
+    version: string
+    readInLang: string
   }
 }
 

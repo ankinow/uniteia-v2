@@ -38,4 +38,13 @@ export const pt: TranslationStrings = {
     message: 'Este conteúdo não está disponível no seu idioma. Exibindo em inglês.',
     dismiss: 'Dispensar',
   },
+  article: {
+    subjectsLabel: 'Assuntos',
+    sourcesLabel: 'Fontes',
+    published: 'Publicado',
+    updated: 'Atualizado',
+    byAuthor: 'por {author}',
+    version: 'v{version}',
+    readInLang: 'Ler em {lang}',
+  },
 }
