@@ -1,5 +1,5 @@
-import type { SupportedLanguage } from '~/i18n/types'
 import type { VerdictLevel } from '~/components/editorial-verdict/types'
+import type { SupportedLanguage } from '~/i18n/types'
 
 /**
  * Types for content loading and validation
