@@ -8,7 +8,7 @@ import { QualityRing } from '~/components/quality-ring'
 import { SourceLedger } from '~/components/source-ledger'
 import { useI18n } from '~/i18n/context'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
-import type { ContentValidationError, LlmWikiContent } from './types'
+import type { ContentValidationError, LlmWikiContent } from '~/types/content'
 
 /**
  * Supported language codes for quick lookup

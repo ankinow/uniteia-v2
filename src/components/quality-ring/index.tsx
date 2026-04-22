@@ -50,7 +50,15 @@ export const QualityRing = component$<QualityRingProps>(
         style={{ '--whisper-duration': '250ms' } as any}
       >
         <div class="relative" style={{ width: `${size}px`, height: `${size}px` }}>
-          <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} class="-rotate-90">
+          <svg
+            width={size}
+            height={size}
+            viewBox={`0 0 ${size} ${size}`}
+            class="-rotate-90"
+            role="img"
+            aria-label={`${t.qualityRing.qualityScore}: ${clampedScore}/100`}
+          >
+            <title>{`${t.qualityRing.qualityScore}: ${clampedScore}/100`}</title>
             {/* Background ring */}
             <circle
               cx={size / 2}
