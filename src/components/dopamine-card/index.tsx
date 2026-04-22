@@ -1,24 +1,31 @@
 import { component$ } from '@builder.io/qwik'
+import { getTranslation } from '~/i18n/context'
 import { QualityRing } from '~/components/quality-ring'
 import type { DopamineCardProps } from './types'
 
 /**
  * dopamine-card — engaging card with whisper animation.
  * R012 compliant: 1 whisper per viewport (hover-only), max -2px translateY, ≤250ms.
- * Uses CSS custom properties for motion tokens.
+ * Uses CSS custom properties for motion tokens:
+ *   --whisper-y: -2px (max translate distance)
+ *   --whisper-duration: 250ms (max animation duration)
+ * Respects prefers-reduced-motion via motion-reduce: variant.
  */
 export const DopamineCard = component$<DopamineCardProps>(
   ({ title, description, href, score, icon, lang, class: className }) => {
+    const t = getTranslation(lang)
+
     return (
       <a
         href={href}
         data-testid="dopamine-card"
         class={[
-          'group relative flex flex-col gap-3 rounded-lg border border-brand-primary/20 bg-void/raised p-4 transition-colors duration-200',
-          /* Whisper animation: hover-only, -2px translateY, 250ms */
+          'group relative flex flex-col gap-3 rounded-lg border border-brand-primary/20 bg-void/raised p-4',
+          /* Whisper animation: hover-only, -2px translateY, ≤250ms */
           'hover:-translate-y-[var(--whisper-y,2px)]',
           'hover:border-brand-primary',
-          'motion-reduce:translate-y-0',
+          /* Respect prefers-reduced-motion — disable translate on hover */
+          'motion-reduce:hover:translate-y-0',
           className,
         ]}
         style={{
@@ -26,14 +33,14 @@ export const DopamineCard = component$<DopamineCardProps>(
           '--whisper-duration': '250ms',
           transitionProperty: 'transform, color, border-color',
           transitionDuration: 'var(--whisper-duration)',
-        }}
+        } as any}
         lang={lang}
       >
         {/* Header row: icon + title */}
         <div class="flex items-start gap-3">
           {icon && (
             <div
-              class={`i-lucide-${icon} mt-0.5 h-5 w-5 flex-shrink-0 text-brand-primary`}
+              class={`i-lucide-${icon} mt-0.5 h-5 w-5 shrink-0 text-brand-primary`}
               aria-hidden="true"
             />
           )}
@@ -47,13 +54,13 @@ export const DopamineCard = component$<DopamineCardProps>(
           {description}
         </p>
 
-        {/* Footer: QualityRing (if score provided) + read more */}
+        {/* Footer: QualityRing (if score provided) + read more link */}
         <div class="mt-auto flex items-center justify-between pt-2">
           {score !== undefined && (
             <QualityRing score={score} lang={lang} size={32} strokeWidth={3} />
           )}
           <span class="ml-auto text-xs text-brand-primary/60 group-hover:text-brand-primary transition-colors duration-200">
-            →
+            {t.dopamineCard.readMore} →
           </span>
         </div>
       </a>
