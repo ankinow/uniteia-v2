@@ -7,6 +7,7 @@ export const pt: TranslationStrings = {
     blog: 'Blog',
     projects: 'Projetos',
     contact: 'Contato',
+    topics: 'Tópicos',
   },
   footer: {
     copyright: '© {year} UniTeia. Todos os direitos reservados.',

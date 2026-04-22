@@ -9,6 +9,7 @@ export interface TranslationStrings {
     blog: string
     projects: string
     contact: string
+    topics: string
   }
   footer: {
     copyright: string

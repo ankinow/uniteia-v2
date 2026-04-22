@@ -7,6 +7,7 @@ export const ja: TranslationStrings = {
     blog: 'ブログ',
     projects: 'プロジェクト',
     contact: 'お問い合わせ',
+    topics: 'トピック',
   },
   footer: {
     copyright: '© {year} UniTeia. 全著作権所有。',

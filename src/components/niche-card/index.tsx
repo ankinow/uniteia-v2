@@ -14,7 +14,6 @@ export const NicheCard = component$<NicheCardProps>(({ niche, lang, class: class
   return (
     <a
       href={href}
-      data-testid="niche-card"
       data-testid={`niche-card-${niche.slug}`}
       class={[
         'niche-card',
@@ -38,9 +37,7 @@ export const NicheCard = component$<NicheCardProps>(({ niche, lang, class: class
           <h3 class="text-bone-primary font-semibold text-base leading-tight">
             {niche.title[lang]}
           </h3>
-          <p class="text-bone-muted text-sm mt-1 leading-relaxed">
-            {niche.description[lang]}
-          </p>
+          <p class="text-bone-muted text-sm mt-1 leading-relaxed">{niche.description[lang]}</p>
         </div>
       </div>
     </a>

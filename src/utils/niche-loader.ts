@@ -1,5 +1,5 @@
-import type { NichesConfig, NicheConfig, NicheValidationError } from '../types/niche'
 import type { SupportedLanguage } from '../i18n/types'
+import type { NicheConfig, NicheValidationError, NichesConfig } from '../types/niche'
 
 /** All supported languages — used to validate that title/description maps are complete */
 const SUPPORTED_LANGS: SupportedLanguage[] = ['en', 'pt', 'es', 'ja', 'zh']
@@ -78,7 +78,7 @@ export function validateNicheConfig(entry: unknown): NicheValidationError | null
  * Returns the NicheConfig if found, or undefined.
  */
 export function findNicheBySlug(niches: NichesConfig, slug: string): NicheConfig | undefined {
-  return niches.find((n) => n.slug === slug)
+  return niches.find(n => n.slug === slug)
 }
 
 /**

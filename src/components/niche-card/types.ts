@@ -1,6 +1,6 @@
 import type { ClassList } from '@builder.io/qwik'
-import type { NicheConfig } from '~/types/niche'
 import type { SupportedLanguage } from '~/i18n/types'
+import type { NicheConfig } from '~/types/niche'
 
 /**
  * NicheCard component props

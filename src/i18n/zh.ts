@@ -7,6 +7,7 @@ export const zh: TranslationStrings = {
     blog: '博客',
     projects: '项目',
     contact: '联系我们',
+    topics: '主题',
   },
   footer: {
     copyright: '© {year} UniTeia. 保留所有权利。',
