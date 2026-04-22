@@ -18,8 +18,8 @@ const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
  * import() per D001), so this loader is fully server-only.
  */
 export const useNicheData = routeLoader$<NicheRouteData>(async ({ params, error }) => {
-  const lang = params.lang
-  const nicheSlug = params.niche
+  const lang = params.lang ?? ''
+  const nicheSlug = params.niche ?? ''
 
   // Validate language parameter
   if (!lang || !VALID_LANG_CODES.has(lang)) {
