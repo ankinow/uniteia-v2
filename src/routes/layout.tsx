@@ -49,7 +49,7 @@ export default component$(() => {
       if (!target.closest('[data-topics-dropdown]')) {
         topicsOpen.value = false
       }
-    }),
+    })
   )
 
   return (

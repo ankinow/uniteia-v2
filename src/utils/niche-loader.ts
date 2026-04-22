@@ -28,7 +28,7 @@ export function validateNicheConfig(entry: unknown): NicheValidationError | null
     const SLUG_PATTERN = /^[a-z]+(-[a-z]+){1,5}$/
     if (!SLUG_PATTERN.test(slug)) {
       errors.push(
-        `slug "${slug}" does not match pattern ${SLUG_PATTERN.toString()}. Must be 2-6 lowercase hyphen-separated segments.`,
+        `slug "${slug}" does not match pattern ${SLUG_PATTERN.toString()}. Must be 2-6 lowercase hyphen-separated segments.`
       )
     }
   }
