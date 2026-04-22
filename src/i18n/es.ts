@@ -54,4 +54,19 @@ export const es: TranslationStrings = {
     articleCount: '{count} artículos',
     allNiches: 'Todos los Temas',
   },
+  editorial: {
+    verdictLabel: 'Veredicto',
+    trusted: 'Confiable',
+    caution: 'Precaución',
+    flagged: 'Señalado',
+    qualityScore: 'Puntuación de Calidad',
+    editorialQuality: 'Calidad Editorial',
+  },
+  qualityRing: {
+    qualityScore: 'Puntuación de Calidad',
+    editorialQuality: 'Calidad Editorial',
+  },
+  dopamineCard: {
+    readMore: 'Leer más',
+  },
 }

@@ -56,6 +56,21 @@ export interface TranslationStrings {
     articleCount: string
     allNiches: string
   }
+  editorial: {
+    verdictLabel: string
+    trusted: string
+    caution: string
+    flagged: string
+    qualityScore: string
+    editorialQuality: string
+  }
+  qualityRing: {
+    qualityScore: string
+    editorialQuality: string
+  }
+  dopamineCard: {
+    readMore: string
+  }
 }
 
 export type SupportedLanguage = 'en' | 'pt' | 'es' | 'ja' | 'zh'

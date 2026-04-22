@@ -54,4 +54,19 @@ export const zh: TranslationStrings = {
     articleCount: '{count}篇文章',
     allNiches: '所有主题',
   },
+  editorial: {
+    verdictLabel: '判定',
+    trusted: '可信',
+    caution: '注意',
+    flagged: '已标记',
+    qualityScore: '质量评分',
+    editorialQuality: '编辑质量',
+  },
+  qualityRing: {
+    qualityScore: '质量评分',
+    editorialQuality: '编辑质量',
+  },
+  dopamineCard: {
+    readMore: '阅读更多',
+  },
 }

@@ -2,7 +2,9 @@ import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$ } from '@builder.io/qwik-city'
 import { AdaptiveHeader } from '~/components/adaptive-header'
 import { ArticleFrame } from '~/components/article-frame'
+import { EditorialVerdict } from '~/components/editorial-verdict'
 import { FrontmatterSlots } from '~/components/frontmatter-slots'
+import { QualityRing } from '~/components/quality-ring'
 import { SourceLedger } from '~/components/source-ledger'
 import { useI18n } from '~/i18n/context'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
@@ -119,6 +121,19 @@ export default component$(() => {
   return (
     <ArticleFrame>
       <AdaptiveHeader title={content.value.title} subtitle={content.value.subjects.join(', ')} />
+      {/* Editorial verdict — derived from content metadata if available */}
+      <div class="mt-3 flex items-center gap-4">
+        <EditorialVerdict
+          verdict={content.value.verdict ?? 'trusted'}
+          lang={content.value.lang}
+        />
+        <QualityRing
+          score={content.value.quality_score ?? 85}
+          lang={content.value.lang}
+          size={40}
+          strokeWidth={3}
+        />
+      </div>
       <FrontmatterSlots
         subjects={content.value.subjects}
         lang={content.value.lang}

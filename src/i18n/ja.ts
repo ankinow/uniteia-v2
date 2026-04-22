@@ -54,4 +54,19 @@ export const ja: TranslationStrings = {
     articleCount: '{count}記事',
     allNiches: 'すべてのトピック',
   },
+  editorial: {
+    verdictLabel: '判定',
+    trusted: '信頼済み',
+    caution: '注意',
+    flagged: '要注意',
+    qualityScore: '品質スコア',
+    editorialQuality: '編集品質',
+  },
+  qualityRing: {
+    qualityScore: '品質スコア',
+    editorialQuality: '編集品質',
+  },
+  dopamineCard: {
+    readMore: '続きを読む',
+  },
 }

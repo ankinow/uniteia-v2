@@ -3,6 +3,7 @@
  * Defines the typed content returned by the routeLoader$
  */
 import type { SupportedLanguage } from '~/i18n/types'
+import type { VerdictLevel } from '~/components/editorial-verdict/types'
 
 /**
  * Referral link from article frontmatter
@@ -35,6 +36,10 @@ export interface LlmWikiContent {
   subjects: string[]
   referral_links: ReferralLink[]
   metadata?: ArticleMetadata
+  /** Editorial verdict level (defaults to 'trusted' if absent) */
+  verdict?: VerdictLevel
+  /** Quality score 0-100 (defaults to 85 if absent) */
+  quality_score?: number
 }
 
 /**
