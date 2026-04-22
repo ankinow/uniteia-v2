@@ -64,7 +64,7 @@ export const EditorialVerdict = component$<EditorialVerdictProps>(
       >
         <span class={`inline-block h-2 w-2 rounded-full ${dot}`} aria-hidden="true" />
         <span class={color}>{label}</span>
-      </div>
+      </output>
     )
   }
 )
