@@ -50,7 +50,7 @@ export const EditorialVerdict = component$<EditorialVerdictProps>(
     const label = t.editorial[VERDICT_I18N_KEYS[verdict]]
 
     return (
-      <div
+      <output
         data-testid="editorial-verdict"
         data-verdict={verdict}
         data-lang={lang}
@@ -60,16 +60,10 @@ export const EditorialVerdict = component$<EditorialVerdictProps>(
           bg,
           className,
         ]}
-        role="status"
         aria-label={`${t.editorial.verdictLabel}: ${label}`}
       >
-        <span
-          class={`inline-block h-2 w-2 rounded-full ${dot}`}
-          aria-hidden="true"
-        />
-        <span class={color}>
-          {label}
-        </span>
+        <span class={`inline-block h-2 w-2 rounded-full ${dot}`} aria-hidden="true" />
+        <span class={color}>{label}</span>
       </div>
     )
   }

@@ -1,9 +1,9 @@
+import type { VerdictLevel } from '~/components/editorial-verdict/types'
 /**
  * Types for the [lang]/[...slug] content route
  * Defines the typed content returned by the routeLoader$
  */
 import type { SupportedLanguage } from '~/i18n/types'
-import type { VerdictLevel } from '~/components/editorial-verdict/types'
 
 /**
  * Referral link from article frontmatter

@@ -123,10 +123,7 @@ export default component$(() => {
       <AdaptiveHeader title={content.value.title} subtitle={content.value.subjects.join(', ')} />
       {/* Editorial verdict — derived from content metadata if available */}
       <div class="mt-3 flex items-center gap-4">
-        <EditorialVerdict
-          verdict={content.value.verdict ?? 'trusted'}
-          lang={content.value.lang}
-        />
+        <EditorialVerdict verdict={content.value.verdict ?? 'trusted'} lang={content.value.lang} />
         <QualityRing
           score={content.value.quality_score ?? 85}
           lang={content.value.lang}

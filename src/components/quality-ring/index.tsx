@@ -50,12 +50,7 @@ export const QualityRing = component$<QualityRingProps>(
         style={{ '--whisper-duration': '250ms' } as any}
       >
         <div class="relative" style={{ width: `${size}px`, height: `${size}px` }}>
-          <svg
-            width={size}
-            height={size}
-            viewBox={`0 0 ${size} ${size}`}
-            class="-rotate-90"
-          >
+          <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} class="-rotate-90">
             {/* Background ring */}
             <circle
               cx={size / 2}
@@ -78,14 +73,12 @@ export const QualityRing = component$<QualityRingProps>(
               stroke-dasharray={circumference}
               stroke-dashoffset={animatedOffset.value}
               style={{
-                transition: `stroke-dashoffset var(--whisper-duration, 250ms) ease-out`,
+                transition: 'stroke-dashoffset var(--whisper-duration, 250ms) ease-out',
               }}
             />
           </svg>
           {/* Score number centered within the ring */}
-          <span
-            class="absolute inset-0 flex items-center justify-center text-sm font-semibold text-bone"
-          >
+          <span class="absolute inset-0 flex items-center justify-center text-sm font-semibold text-bone">
             {clampedScore}
           </span>
         </div>

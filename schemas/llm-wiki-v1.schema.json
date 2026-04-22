@@ -68,6 +68,19 @@
       "maxItems": 5,
       "description": "External reference links, maximum 5 per article"
     },
+    "verdict": {
+      "type": "string",
+      "enum": ["trusted", "caution", "flagged"],
+      "description": "Editorial verdict level — trusted, caution, or flagged",
+      "default": "trusted"
+    },
+    "quality_score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Editorial quality score 0-100 (0-39=flagged, 40-69=caution, 70-100=trusted)",
+      "default": 85
+    },
     "metadata": {
       "type": "object",
       "properties": {

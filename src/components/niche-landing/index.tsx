@@ -1,6 +1,5 @@
 import { component$ } from '@builder.io/qwik'
 import { DopamineCard } from '~/components/dopamine-card'
-import { NicheCard } from '~/components/niche-card'
 import { useI18n } from '~/i18n/context'
 import type { NicheLandingProps } from './types'
 
@@ -30,13 +29,9 @@ export const NicheLanding = component$<NicheLandingProps>(
               class={`i-lucide-${niche.icon} text-brand-primary text-4xl shrink-0`}
               aria-hidden="true"
             />
-            <h1 class="text-3xl font-bold text-bone-primary leading-tight">
-              {niche.title[lang]}
-            </h1>
+            <h1 class="text-3xl font-bold text-bone-primary leading-tight">{niche.title[lang]}</h1>
           </div>
-          <p class="text-bone-muted text-lg leading-relaxed max-w-2xl">
-            {niche.description[lang]}
-          </p>
+          <p class="text-bone-muted text-lg leading-relaxed max-w-2xl">{niche.description[lang]}</p>
         </header>
 
         {/* Placeholder article list area */}
@@ -55,9 +50,7 @@ export const NicheLanding = component$<NicheLandingProps>(
         {/* Related niches grid — using DopamineCard for richer engagement */}
         {otherNiches.length > 0 && (
           <section aria-label={t.niche.allNiches}>
-            <h2 class="text-xl font-semibold text-bone-primary mb-4">
-              {t.niche.allNiches}
-            </h2>
+            <h2 class="text-xl font-semibold text-bone-primary mb-4">{t.niche.allNiches}</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {otherNiches.map(related => (
                 <DopamineCard

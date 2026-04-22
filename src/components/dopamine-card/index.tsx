@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik'
-import { getTranslation } from '~/i18n/context'
 import { QualityRing } from '~/components/quality-ring'
+import { getTranslation } from '~/i18n/context'
 import type { DopamineCardProps } from './types'
 
 /**
@@ -28,12 +28,14 @@ export const DopamineCard = component$<DopamineCardProps>(
           'motion-reduce:hover:translate-y-0',
           className,
         ]}
-        style={{
-          '--whisper-y': '-2px',
-          '--whisper-duration': '250ms',
-          transitionProperty: 'transform, color, border-color',
-          transitionDuration: 'var(--whisper-duration)',
-        } as any}
+        style={
+          {
+            '--whisper-y': '-2px',
+            '--whisper-duration': '250ms',
+            transitionProperty: 'transform, color, border-color',
+            transitionDuration: 'var(--whisper-duration)',
+          } as any
+        }
         lang={lang}
       >
         {/* Header row: icon + title */}
@@ -50,9 +52,7 @@ export const DopamineCard = component$<DopamineCardProps>(
         </div>
 
         {/* Description */}
-        <p class="text-sm text-bone/70 leading-relaxed">
-          {description}
-        </p>
+        <p class="text-sm text-bone/70 leading-relaxed">{description}</p>
 
         {/* Footer: QualityRing (if score provided) + read more link */}
         <div class="mt-auto flex items-center justify-between pt-2">
