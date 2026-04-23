@@ -20,9 +20,17 @@ export async function loadContent(slug: string, lang: SupportedLanguage): Promis
   const { validateSlug } = await import('~/utils/url-validation')
 
   // @ts-ignore - Vite glob import for content
-  const contentModules = import.meta.glob('../../llm-wiki/**/*.md', { as: 'raw', eager: true })
+  const contentModules = import.meta.glob('../../llm-wiki/**/*.md', {
+    query: '?raw',
+    import: 'default',
+    eager: true,
+  })
   // @ts-ignore - Vite glob import for schema
-  const _schemaModules = import.meta.glob('../../schemas/*.schema.json', { as: 'raw', eager: true })
+  const _schemaModules = import.meta.glob('../../schemas/*.schema.json', {
+    query: '?raw',
+    import: 'default',
+    eager: true,
+  })
 
   const contentKey = `../../llm-wiki/${lang}/${slug}.md`
   const rawContent = contentModules[contentKey]

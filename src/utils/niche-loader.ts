@@ -96,7 +96,11 @@ export async function loadNichesConfig(): Promise<NichesConfig> {
     const yaml = await import('js-yaml')
 
     // @ts-ignore - Vite glob import
-    const modules = import.meta.glob('../../config/niches.yaml', { as: 'raw', eager: true })
+    const modules = import.meta.glob('../../config/niches.yaml', {
+      query: '?raw',
+      import: 'default',
+      eager: true,
+    })
     const raw = modules['../../config/niches.yaml']
 
     if (!raw) {
