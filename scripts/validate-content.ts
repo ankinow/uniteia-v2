@@ -14,8 +14,8 @@
 
 import { globSync, readFileSync } from 'node:fs'
 import { relative, resolve } from 'node:path'
-import { findBannedSlugTerm, validateSlug } from '../src/utils/url-validation'
 import { validateContent } from '../src/utils/schema-validation'
+import { findBannedSlugTerm, validateSlug } from '../src/utils/url-validation'
 
 // Load schema
 const ROOT_DIR = resolve(import.meta.dir, '..')

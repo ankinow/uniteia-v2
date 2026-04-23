@@ -29,10 +29,7 @@ export const NicheCard = component$<NicheCardProps>(({ niche, lang, class: class
       ]}
     >
       <div class="flex items-start gap-3">
-        <div
-          class={`i-lucide-${niche.icon} text-action text-2xl shrink-0`}
-          aria-hidden="true"
-        />
+        <div class={`i-lucide-${niche.icon} text-action text-2xl shrink-0`} aria-hidden="true" />
         <div class="min-w-0">
           <h3 class="text-bone-primary font-semibold text-base leading-tight">
             {niche.title[lang]}

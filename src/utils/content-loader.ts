@@ -15,14 +15,14 @@ import { ContentLoaderError } from '~/types/content'
 export async function loadContent(slug: string, lang: SupportedLanguage): Promise<LlmWikiContent> {
   // Dynamic imports for browser-safe modules (gray-matter works in worker)
   const matter = (await import('gray-matter')).default
-  const Ajv2020 = (await import('ajv/dist/2020')).default
-  const addFormats = (await import('ajv-formats')).default
+  const _Ajv2020 = (await import('ajv/dist/2020')).default
+  const _addFormats = (await import('ajv-formats')).default
   const { validateSlug } = await import('~/utils/url-validation')
 
   // @ts-ignore - Vite glob import for content
   const contentModules = import.meta.glob('../../llm-wiki/**/*.md', { as: 'raw', eager: true })
   // @ts-ignore - Vite glob import for schema
-  const schemaModules = import.meta.glob('../../schemas/*.schema.json', { as: 'raw', eager: true })
+  const _schemaModules = import.meta.glob('../../schemas/*.schema.json', { as: 'raw', eager: true })
 
   const contentKey = `../../llm-wiki/${lang}/${slug}.md`
   const rawContent = contentModules[contentKey]

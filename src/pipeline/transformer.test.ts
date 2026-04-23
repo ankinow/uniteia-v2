@@ -1,7 +1,6 @@
-import { describe, expect, it, vi } from 'vitest'
+import { readFileSync } from 'node:fs'
+import { describe, expect, it } from 'vitest'
 import { transformCoreToOutputs } from './transformer'
-import { readFileSync, writeFileSync } from 'node:fs'
-import { join } from 'node:path'
 
 /**
  * TDD for R001: Implement deterministic pipeline: core.yaml -> blog.md + short.json
@@ -27,19 +26,19 @@ metadata:
   version: 1
 `
     const outputDir = '/tmp/pipeline-test'
-    
+
     // We expect the function to return the paths of the created files
     const result = await transformCoreToOutputs(coreYaml, outputDir)
-    
+
     expect(result.blogMd).toContain('blog.md')
     expect(result.shortJson).toContain('short.json')
-    
+
     // Verify blog.md content (should have frontmatter)
     const blogMdContent = readFileSync(result.blogMd, 'utf-8')
     expect(blogMdContent).toContain('---')
     expect(blogMdContent).toContain('title: Test Pipeline Entity')
     expect(blogMdContent).toContain('This is a test content')
-    
+
     // Verify short.json content
     const shortJsonContent = JSON.parse(readFileSync(result.shortJson, 'utf-8'))
     expect(shortJsonContent.slug).toBe('test-pipeline-entity')
@@ -53,7 +52,7 @@ lang: fr
 title: Short
 `
     const outputDir = '/tmp/pipeline-test-invalid'
-    
+
     await expect(transformCoreToOutputs(invalidYaml, outputDir)).rejects.toThrow()
   })
 })

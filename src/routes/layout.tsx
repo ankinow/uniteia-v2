@@ -3,7 +3,7 @@ import { type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
 import { Footer } from '~/components/footer'
 import { LangSwitcher } from '~/components/lang-switcher'
 import { SiteShell } from '~/components/site-shell'
-import { getTranslation, useI18n, useProvideI18n } from '~/i18n/context'
+import { getTranslation, useProvideI18n } from '~/i18n/context'
 import { DEFAULT_LANGUAGE, LANGUAGE_COOKIE_NAME, type SupportedLanguage } from '~/i18n/types'
 import type { NichesConfig } from '~/types/niche'
 import { loadNichesConfig } from '~/utils/niche-loader'
@@ -39,8 +39,8 @@ export default component$(() => {
   const topicsOpen = useSignal(false)
 
   useProvideI18n(lang)
-  
-  // Get translation directly for layout use since useI18n() 
+
+  // Get translation directly for layout use since useI18n()
   // only works in children of this component.
   const t = getTranslation(lang)
 

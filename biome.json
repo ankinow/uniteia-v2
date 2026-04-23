@@ -40,6 +40,20 @@
     }
   },
   "files": {
-    "ignore": ["dist", "node_modules", ".qwik", "runs", ".bg-shell", "content", "data", ".gsd", ".wrangler", "playwright-report", "test-results", "llm-wiki"]
+    "ignore": [
+      "dist",
+      "node_modules",
+      ".qwik",
+      "runs",
+      ".bg-shell",
+      "content",
+      "data",
+      ".gsd",
+      ".wrangler",
+      "playwright-report",
+      "test-results",
+      "llm-wiki",
+      "server"
+    ]
   }
 }

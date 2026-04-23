@@ -1,7 +1,7 @@
-import Ajv2020, { type DefinedError } from 'ajv/dist/2020'
-import addFormats from 'ajv-formats'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import addFormats from 'ajv-formats'
+import Ajv2020, { type DefinedError } from 'ajv/dist/2020'
 
 const SCHEMA_PATH = resolve(import.meta.dirname, '../../schemas/llm-wiki-v1.schema.json')
 
@@ -21,7 +21,7 @@ function getAjv() {
 export function validateContent(data: unknown): { valid: boolean; errors: string[] } {
   const ajv = getAjv()
   const valid = ajv.validate('https://uniteia.com/schemas/llm-wiki-v1.schema.json', data)
-  
+
   if (!valid) {
     const errors = (ajv.errors as DefinedError[]).map(err => {
       const path = err.instancePath || 'root'
@@ -29,6 +29,6 @@ export function validateContent(data: unknown): { valid: boolean; errors: string
     })
     return { valid: false, errors }
   }
-  
+
   return { valid: true, errors: [] }
 }

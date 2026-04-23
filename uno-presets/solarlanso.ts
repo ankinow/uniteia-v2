@@ -191,7 +191,7 @@ export const presetSolarLanso = (): Preset<SolarLansoTheme> => {
 
       // Action button
       'btn-action':
-        'px-4 py-2 rounded-lg bg-action text-void font-medium transition-all duration-base ease-solar hover:bg-action-hi',
+        'px-4 py-2 rounded-none bg-action text-void font-medium transition-all duration-base ease-solar hover:bg-action-hi',
 
       // Verified state
       'text-verified': 'text-verified',
