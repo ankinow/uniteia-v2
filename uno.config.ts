@@ -20,27 +20,29 @@ export default defineConfig({
       },
     }),
     presetWebFonts({
-      provider: 'google',
+      provider: 'fontshare',
       fonts: {
-        sans: 'Inter:400,500,600,700',
-        mono: 'JetBrains Mono:400,500',
+        sans: 'Satoshi:400,500,700',
+        display: 'Satoshi:700,900',
+        mono: {
+          name: 'JetBrains Mono',
+          provider: 'google',
+        },
       },
     }),
     presetSolarLanso(),
   ],
   theme: {
-    colors: {
-      void: 'oklch(8% 0.01 260)',
-    },
     fontFamily: {
-      sans: 'Inter, system-ui, -apple-system, sans-serif',
-      mono: 'JetBrains Mono, Menlo, monospace',
+      sans: 'Satoshi, Inter, sans-serif',
+      display: 'Satoshi, sans-serif',
+      mono: 'JetBrains Mono, monospace',
     },
   },
   shortcuts: {
-    btn: 'px-4 py-2 rounded-lg font-medium transition-colors duration-200',
-    'btn-primary': 'btn bg-action text-void hover:bg-action-hover',
-    'btn-outline': 'btn border border-current hover:bg-white/10',
+    btn: 'px-4 py-2 rounded-lg font-medium transition-all duration-base ease-solar',
+    'btn-primary': 'btn bg-action text-void hover:bg-action-hi',
+    'btn-outline': 'btn border border-current hover:bg-white/5',
   },
   content: {
     pipeline: {

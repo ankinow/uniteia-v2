@@ -53,36 +53,36 @@ export interface SolarLansoTheme {
  */
 const colors = {
   // Surface hierarchy - progressively lighter
-  void: 'oklch(8% 0.01 260)', // #0a0a0b equivalent
-  deep: 'oklch(12% 0.015 260)', // Elevated backgrounds
-  mid: 'oklch(18% 0.02 260)', // Cards, panels
-  raised: 'oklch(25% 0.025 260)', // Inputs, hover states
+  void: '#0D1117',
+  deep: '#161B22',
+  mid: '#21262D',
+  raised: '#30363D',
 
-  // Action colors
-  action: 'oklch(75% 0.15 195)', // Cyan - primary CTAs
-  'action-hover': 'oklch(80% 0.16 195)',
+  // Action colors (cyan)
+  action: 'oklch(0.85 0.18 210)',
+  'action-hi': 'oklch(0.90 0.18 210)',
 
   // Semantic colors
-  verified: 'oklch(65% 0.2 145)', // Vine green - success
-  'verified-hover': 'oklch(70% 0.22 145)',
+  verified: 'oklch(0.78 0.18 145)', // Vine green
+  'verified-hi': 'oklch(0.83 0.18 145)',
 
-  curation: 'oklch(70% 0.12 55)', // Bronze - highlights
-  'curation-hover': 'oklch(75% 0.14 55)',
+  curation: 'oklch(0.72 0.09 75)', // Bronze
+  'curation-hi': 'oklch(0.77 0.09 75)',
 
-  // Text colors
-  bone: 'oklch(92% 0.01 80)', // Primary text
-  'bone-secondary': 'oklch(70% 0.02 80)', // Secondary text
-  'bone-muted': 'oklch(50% 0.02 80)', // Muted text
+  // Text colors (bone)
+  bone: '#F0E8D8',
+  'bone-muted': '#8B949E',
 }
 
 /**
  * Motion tokens for animations
- * Using CSS custom properties for flexibility
+ * Following SolarLanso 2100 v1.2 spec
  */
 const motion = {
-  fast: '150ms',
-  base: '250ms',
-  slow: '400ms',
+  fast: '120ms',
+  base: '200ms',
+  slow: '250ms',
+  ease: 'cubic-bezier(.2,.8,.2,1)',
 }
 
 /**
@@ -117,25 +117,24 @@ export const presetSolarLanso = (): Preset<SolarLansoTheme> => {
         // Action (cyan)
         action: {
           DEFAULT: colors.action,
-          hover: colors['action-hover'],
+          hi: colors['action-hi'],
         },
 
         // Verified (green)
         verified: {
           DEFAULT: colors.verified,
-          hover: colors['verified-hover'],
+          hi: colors['verified-hi'],
         },
 
         // Curation (bronze)
         curation: {
           DEFAULT: colors.curation,
-          hover: colors['curation-hover'],
+          hi: colors['curation-hi'],
         },
 
         // Bone text hierarchy
         bone: {
           DEFAULT: colors.bone,
-          secondary: colors['bone-secondary'],
           muted: colors['bone-muted'],
         },
       },
@@ -146,6 +145,9 @@ export const presetSolarLanso = (): Preset<SolarLansoTheme> => {
           fast: motion.fast,
           base: motion.base,
           slow: motion.slow,
+        },
+        easing: {
+          DEFAULT: motion.ease,
         },
       },
 
@@ -170,13 +172,13 @@ export const presetSolarLanso = (): Preset<SolarLansoTheme> => {
 
       // Text color utilities
       ['text-bone', { color: colors.bone }],
-      ['text-bone-secondary', { color: colors['bone-secondary'] }],
       ['text-bone-muted', { color: colors['bone-muted'] }],
 
       // Motion timing utilities
       ['duration-fast', { 'transition-duration': motion.fast }],
       ['duration-base', { 'transition-duration': motion.base }],
       ['duration-slow', { 'transition-duration': motion.slow }],
+      ['ease-solar', { 'transition-timing-function': motion.ease }],
     ],
 
     // Shortcuts for common patterns
@@ -189,7 +191,7 @@ export const presetSolarLanso = (): Preset<SolarLansoTheme> => {
 
       // Action button
       'btn-action':
-        'px-4 py-2 rounded-lg bg-action text-void font-medium transition-colors duration-base hover:bg-action-hover',
+        'px-4 py-2 rounded-lg bg-action text-void font-medium transition-all duration-base ease-solar hover:bg-action-hi',
 
       // Verified state
       'text-verified': 'text-verified',
