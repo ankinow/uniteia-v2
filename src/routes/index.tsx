@@ -1,22 +1,21 @@
 import { component$ } from '@builder.io/qwik'
-import { routeLoader$ } from '@builder.io/qwik-city'
+import type { RequestHandler } from '@builder.io/qwik-city'
+import { onLanguageNegotiation } from '~/i18n/middleware'
 
-export const useServerTime = routeLoader$(() => {
-  return {
-    timestamp: new Date().toISOString(),
-  }
-})
+/**
+ * Root route redirector.
+ * Enforces the 'i18n-first' law by redirecting the root path (/)
+ * to a language-specific path (/[lang]/) based on edge negotiation.
+ */
+export const onGet: RequestHandler = (event) => {
+  // Execute negotiation if it hasn't run yet (though it should have in layout.tsx)
+  onLanguageNegotiation(event)
 
-export default component$(() => {
-  const serverTime = useServerTime()
+  // Retrieve the negotiated language from headers set by the middleware
+  const lang = event.headers.get('x-negotiated-lang') || 'en'
 
-  return (
-    <div class="min-h-screen bg-void text-white flex items-center justify-center">
-      <div class="text-center">
-        <h1 class="text-4xl font-bold mb-4 text-action">UniTeia v2</h1>
-        <p class="text-gray-400 mb-6">Build pipeline initialized successfully</p>
-        <p class="text-sm text-gray-600">Server time: {serverTime.value.timestamp}</p>
-      </div>
-    </div>
-  )
-})
+  // Perform 302 redirect to the language-specific home page
+  throw event.redirect(302, `/${lang}/`)
+}
+
+export default component$(() => null)
