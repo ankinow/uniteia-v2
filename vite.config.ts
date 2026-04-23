@@ -9,7 +9,7 @@ export default defineConfig(() => {
     plugins: [
       qwikCity(),
       qwikVite({
-        entryStrategy: { type: 'smart', splitBoot: true },
+        entryStrategy: { type: 'smart' },
       }),
       UnoCSS(),
       tsconfigPaths(),
@@ -21,7 +21,7 @@ export default defineConfig(() => {
         },
       },
       target: 'es2022',
-      minify: 'esbuild',
+      minify: 'esbuild' as const,
       cssMinify: true,
       reportCompressedSize: true,
       chunkSizeWarningLimit: 15,

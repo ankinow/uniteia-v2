@@ -11,7 +11,7 @@ export default component$(() => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>UniTeia v2</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body lang="en">
         <RouterOutlet />

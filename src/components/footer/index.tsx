@@ -39,8 +39,7 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
               key={link.href}
               href={link.href}
               class="text-bone-muted hover:text-action transition-colors duration-200"
-              target={link.external ? '_blank' : undefined}
-              rel={link.external ? 'noopener noreferrer' : undefined}
+              {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
             >
               {link.label}
             </a>

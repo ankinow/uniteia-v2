@@ -16,17 +16,22 @@ export interface SolarLansoTheme {
     raised: string // Hover states, inputs
 
     // Semantic colors
-    action: string // Primary CTAs (cyan)
-    verified: string // Success states (vine green)
-    curation: string // Highlights, edits (bronze)
+    action: string | { DEFAULT: string; hi: string } // Primary CTAs (cyan)
+    verified: string | { DEFAULT: string; hi: string } // Success states (vine green)
+    curation: string | { DEFAULT: string; hi: string } // Highlights, edits (bronze)
 
     // Text colors
-    text: {
-      primary: string
-      secondary: string
-      muted: string
-    }
+    bone: string | { DEFAULT: string; muted: string }
   }
+
+  animation?: {
+    timing: Record<string, string>
+    easing: Record<string, string>
+  }
+
+  durations?: Record<string, string>
+
+  fontSize?: Record<string, string>
 
   motion: {
     fast: string
