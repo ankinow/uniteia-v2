@@ -1,4 +1,5 @@
 import type { RequestHandler } from '@builder.io/qwik-city'
+import { parseHost } from '../utils/host-parser'
 import {
   DEFAULT_LANGUAGE,
   LANGUAGE_COOKIE_NAME,
@@ -92,17 +93,23 @@ function parseAcceptLanguage(header: string | null): SupportedLanguage | null {
 /**
  * Validate if a string is a supported language code
  */
-function isValidLanguage(lang: string): lang is SupportedLanguage {
-  return SUPPORTED_LANGUAGES.some(l => l.code === lang)
+function isValidLanguage(lang: string | null | undefined): lang is SupportedLanguage {
+  return !!lang && SUPPORTED_LANGUAGES.some(l => l.code === lang)
 }
 
 /**
- * Language negotiation middleware
- * Priority: URL param > Cookie > Accept-Language > CF-IPCountry > Default (EN)
+ * Language and Niche negotiation middleware
+ * Language Priority: URL param > Cookie > Accept-Language > CF-IPCountry > Default (EN)
+ * Niche: Extracted from Host header
  *
  * Logs the negotiation result for debugging
  */
 export const onLanguageNegotiation: RequestHandler = ({ request, cookie, url, headers }) => {
+  // --- Niche Detection ---
+  const host = request.headers.get('host')
+  const { niche } = parseHost(host)
+
+  // --- Language Negotiation ---
   let negotiatedLang: SupportedLanguage = DEFAULT_LANGUAGE
   let negotiationSource = 'default'
 
@@ -111,7 +118,6 @@ export const onLanguageNegotiation: RequestHandler = ({ request, cookie, url, he
   if (urlLang && isValidLanguage(urlLang)) {
     negotiatedLang = urlLang
     negotiationSource = 'url'
-    console.log(`[i18n] Language from URL param: ${negotiatedLang}`)
   }
   // 2. Check cookie
   else if (cookie.get(LANGUAGE_COOKIE_NAME)?.value) {
@@ -119,7 +125,6 @@ export const onLanguageNegotiation: RequestHandler = ({ request, cookie, url, he
     if (isValidLanguage(cookieLang)) {
       negotiatedLang = cookieLang
       negotiationSource = 'cookie'
-      console.log(`[i18n] Language from cookie: ${negotiatedLang}`)
     }
   }
   // 3. Check Accept-Language header
@@ -128,7 +133,6 @@ export const onLanguageNegotiation: RequestHandler = ({ request, cookie, url, he
     if (headerLang) {
       negotiatedLang = headerLang
       negotiationSource = 'accept-language'
-      console.log(`[i18n] Language from Accept-Language: ${negotiatedLang}`)
     }
   }
   // 4. Check CF-IPCountry header (Cloudflare)
@@ -139,16 +143,19 @@ export const onLanguageNegotiation: RequestHandler = ({ request, cookie, url, he
       if (countryLang) {
         negotiatedLang = countryLang
         negotiationSource = 'cf-ipcountry'
-        console.log(`[i18n] Language from CF-IPCountry (${countryCode}): ${negotiatedLang}`)
       }
     }
   }
 
-  // Log final negotiation result
-  console.log(`[i18n] Negotiated language: ${negotiatedLang} (source: ${negotiationSource})`)
+  // Mandatory Log
+  console.log(`[Middleware] Niche: ${niche}, Language: ${negotiatedLang}`)
+
+  // Debug Log
+  console.log(`[i18n] Language negotiation source: ${negotiationSource}`)
 
   // Store in headers for downstream use
   headers.set('x-negotiated-lang', negotiatedLang)
+  headers.set('x-negotiated-niche', niche)
 }
 
 /**
@@ -157,7 +164,14 @@ export const onLanguageNegotiation: RequestHandler = ({ request, cookie, url, he
  */
 export function getNegotiatedLanguage(response: Response): SupportedLanguage {
   const lang = response.headers.get('x-negotiated-lang')
-  return lang && isValidLanguage(lang) ? lang : DEFAULT_LANGUAGE
+  return lang && isValidLanguage(lang) ? (lang as SupportedLanguage) : DEFAULT_LANGUAGE
+}
+
+/**
+ * Get the negotiated niche from response headers
+ */
+export function getNegotiatedNiche(response: Response): string {
+  return response.headers.get('x-negotiated-niche') ?? 'apex'
 }
 
 /**

@@ -8,9 +8,9 @@ import { DEFAULT_LANGUAGE, LANGUAGE_COOKIE_NAME, type SupportedLanguage } from '
 import type { NichesConfig } from '~/types/niche'
 import { loadNichesConfig } from '~/utils/niche-loader'
 
-export const onRequest: RequestHandler = async ({ cookie, url, request, headers }) => {
+export const onRequest: RequestHandler = async (event) => {
   const { onLanguageNegotiation } = await import('~/i18n/middleware')
-  return onLanguageNegotiation({ cookie, url, request, headers })
+  return onLanguageNegotiation(event)
 }
 
 export const useLanguage = routeLoader$<SupportedLanguage>(({ cookie, url }) => {
