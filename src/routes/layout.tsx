@@ -65,7 +65,7 @@ export default component$(() => {
         >
           <a
             href={`/${lang}`}
-            class="brand flex items-center gap-2 text-xl font-bold text-bone-primary hover:text-action transition-colors"
+            class="brand flex items-center gap-2 text-xl font-bold text-bone hover:text-action transition-colors"
             data-testid="nav-logo"
           >
             <span class="text-action">Uni</span>
@@ -75,13 +75,13 @@ export default component$(() => {
           <div class="nav-links hidden md:flex items-center gap-6">
             <a
               href={`/${lang}`}
-              class="text-bone-secondary hover:text-bone-primary transition-colors"
+              class="text-bone-muted hover:text-bone transition-colors"
             >
               {t.nav.home}
             </a>
             <a
               href={`/${lang}/about`}
-              class="text-bone-secondary hover:text-bone-primary transition-colors"
+              class="text-bone-muted hover:text-bone transition-colors"
             >
               {t.nav.about}
             </a>
@@ -90,7 +90,7 @@ export default component$(() => {
             <div class="relative" data-topics-dropdown>
               <button
                 type="button"
-                class="text-bone-secondary hover:text-bone-primary transition-colors flex items-center gap-1"
+                class="text-bone-muted hover:text-bone transition-colors flex items-center gap-1"
                 onClick$={() => {
                   topicsOpen.value = !topicsOpen.value
                 }}
@@ -114,14 +114,14 @@ export default component$(() => {
               </button>
               {topicsOpen.value && nichesSignal.value.length > 0 && (
                 <div
-                  class="absolute top-full left-0 mt-2 w-56 bg-void/raised border border-action/20 rounded-lg shadow-lg z-50 py-1"
+                  class="absolute top-full left-0 mt-2 w-56 bg-raised border border-action/20 rounded-lg shadow-lg z-50 py-1"
                   data-testid="nav-topics-dropdown"
                 >
                   {nichesSignal.value.map(niche => (
                     <a
                       key={niche.slug}
                       href={`/${lang}/n/${niche.slug}`}
-                      class="flex items-center gap-2 px-4 py-2 text-bone-secondary hover:text-bone-primary hover:bg-action/5 transition-colors"
+                      class="flex items-center gap-2 px-4 py-2 text-bone-muted hover:text-bone hover:bg-action/5 transition-colors"
                     >
                       <div
                         class={`i-lucide-${niche.icon} text-action text-base shrink-0`}
@@ -143,13 +143,13 @@ export default component$(() => {
 
             <a
               href={`/${lang}/projects`}
-              class="text-bone-secondary hover:text-bone-primary transition-colors"
+              class="text-bone-muted hover:text-bone transition-colors"
             >
               {t.nav.projects}
             </a>
             <a
               href={`/${lang}/blog`}
-              class="text-bone-secondary hover:text-bone-primary transition-colors"
+              class="text-bone-muted hover:text-bone transition-colors"
             >
               {t.nav.blog}
             </a>
