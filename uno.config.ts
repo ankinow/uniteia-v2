@@ -19,21 +19,13 @@ export default defineConfig({
         'vertical-align': 'middle',
       },
     }),
-    presetWebFonts({
-      provider: 'google',
-      fonts: {
-        sans: 'Inter:400,500,700',
-        display: 'Geist:400,700,900',
-        mono: 'JetBrains Mono',
-      },
-    }),
     presetSolarLanso(),
   ],
   theme: {
     fontFamily: {
-      sans: 'Inter, sans-serif',
-      display: 'Geist, sans-serif',
-      mono: 'JetBrains Mono, monospace',
+      sans: '"Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif',
+      display: '"Geist Sans", Geist, ui-sans-serif, system-ui, sans-serif',
+      mono: '"JetBrains Mono", monospace',
     },
   },
   shortcuts: {

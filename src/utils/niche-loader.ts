@@ -25,10 +25,10 @@ export function validateNicheConfig(entry: unknown): NicheValidationError | null
     errors.push('slug is required and must be a non-empty string')
   } else {
     // Dynamic import of url-validation would be async; import the pattern inline for sync validation
-    const SLUG_PATTERN = /^[a-z]+(-[a-z]+){1,5}$/
+    const SLUG_PATTERN = /^[a-z]+(-[a-z]+){0,5}$/
     if (!SLUG_PATTERN.test(slug)) {
       errors.push(
-        `slug "${slug}" does not match pattern ${SLUG_PATTERN.toString()}. Must be 2-6 lowercase hyphen-separated segments.`
+        `slug "${slug}" does not match pattern ${SLUG_PATTERN.toString()}. Must be 1-6 lowercase hyphen-separated segments.`
       )
     }
   }

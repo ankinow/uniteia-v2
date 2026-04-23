@@ -13,14 +13,15 @@ export const onRequest: RequestHandler = async (event) => {
   return onLanguageNegotiation(event)
 }
 
-export const useLanguage = routeLoader$<SupportedLanguage>(({ cookie, url }) => {
-  const cookieLang = cookie.get(LANGUAGE_COOKIE_NAME)?.value
-  if (cookieLang && ['en', 'pt', 'es', 'ja', 'zh'].includes(cookieLang))
-    return cookieLang as SupportedLanguage
-  const urlLang = url.searchParams.get('lang')
-  if (urlLang && ['en', 'pt', 'es', 'ja', 'zh'].includes(urlLang))
-    return urlLang as SupportedLanguage
+export const useLanguage = routeLoader$<SupportedLanguage>(({ headers }) => {
+  const lang = headers.get('x-negotiated-lang')
+  if (lang && ['en', 'pt', 'es', 'ja', 'zh'].includes(lang))
+    return lang as SupportedLanguage
   return DEFAULT_LANGUAGE
+})
+
+export const useNiche = routeLoader$<string>(({ headers }) => {
+  return headers.get('x-negotiated-niche') ?? 'apex'
 })
 
 /**
