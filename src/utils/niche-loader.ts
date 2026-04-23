@@ -84,8 +84,8 @@ export function findNicheBySlug(niches: NichesConfig, slug: string): NicheConfig
 /**
  * Load and validate the niches configuration from config/niches.yaml.
  *
- * Uses dynamic `await import()` for all Node.js modules (D001) so this
- * code is tree-shaken from the client bundle when used inside routeLoader$.
+ * Uses Vite's import.meta.glob with raw=true to bundle the YAML content.
+ * This works in both Node.js (SSR/SSG) and Cloudflare Workers (Runtime).
  *
  * Returns NichesConfig (validated entries only). Logs warnings for entries
  * that fail validation and errors for read/parse failures. Returns an empty
@@ -93,16 +93,17 @@ export function findNicheBySlug(niches: NichesConfig, slug: string): NicheConfig
  */
 export async function loadNichesConfig(): Promise<NichesConfig> {
   try {
-    // D001: dynamic imports for all Node.js / server-only modules
-    const nodePath = await import('node:path')
-    const nodeUrl = await import('node:url')
-    const nodeFs = await import('node:fs/promises')
     const yaml = await import('js-yaml')
 
-    const __dirname = nodePath.dirname(nodeUrl.fileURLToPath(import.meta.url))
-    const configPath = nodePath.resolve(__dirname, '..', '..', 'config', 'niches.yaml')
+    // @ts-ignore - Vite glob import
+    const modules = import.meta.glob('../../config/niches.yaml', { as: 'raw', eager: true })
+    const raw = modules['../../config/niches.yaml']
 
-    const raw = await nodeFs.readFile(configPath, 'utf-8')
+    if (!raw) {
+      console.error('[niche-loader] niches.yaml not found in bundled modules')
+      return []
+    }
+
     const parsed = yaml.load(raw)
 
     if (!Array.isArray(parsed)) {

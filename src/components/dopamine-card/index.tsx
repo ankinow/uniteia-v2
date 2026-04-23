@@ -20,10 +20,10 @@ export const DopamineCard = component$<DopamineCardProps>(
         href={href}
         data-testid="dopamine-card"
         class={[
-          'group relative flex flex-col gap-3 rounded-lg border border-brand-primary/20 bg-void/raised p-4',
+          'group relative flex flex-col gap-3 rounded-lg border border-action/20 bg-void/raised p-4',
           /* Whisper animation: hover-only, -2px translateY, ≤250ms */
           'hover:-translate-y-[var(--whisper-y,2px)]',
-          'hover:border-brand-primary',
+          'hover:border-action',
           /* Respect prefers-reduced-motion — disable translate on hover */
           'motion-reduce:hover:translate-y-0',
           className,
@@ -42,11 +42,11 @@ export const DopamineCard = component$<DopamineCardProps>(
         <div class="flex items-start gap-3">
           {icon && (
             <div
-              class={`i-lucide-${icon} mt-0.5 h-5 w-5 shrink-0 text-brand-primary`}
+              class={`i-lucide-${icon} mt-0.5 h-5 w-5 shrink-0 text-action`}
               aria-hidden="true"
             />
           )}
-          <h3 class="text-base font-semibold text-bone group-hover:text-brand-primary transition-colors duration-200">
+          <h3 class="text-base font-semibold text-bone group-hover:text-action transition-colors duration-200">
             {title}
           </h3>
         </div>
@@ -59,7 +59,7 @@ export const DopamineCard = component$<DopamineCardProps>(
           {score !== undefined && (
             <QualityRing score={score} lang={lang} size={32} strokeWidth={3} />
           )}
-          <span class="ml-auto text-xs text-brand-primary/60 group-hover:text-brand-primary transition-colors duration-200">
+          <span class="ml-auto text-xs text-action/60 group-hover:text-action transition-colors duration-200">
             {t.dopamineCard.readMore} →
           </span>
         </div>

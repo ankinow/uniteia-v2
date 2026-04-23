@@ -67,9 +67,9 @@ export const LangSwitcher = component$<LangSwitcherProps>(
           type="button"
           class={[
             'lang-switcher-trigger flex items-center gap-2 px-3 py-2',
-            'bg-void border border-brand-primary/30 rounded-lg text-bone-primary',
-            'hover:border-brand-primary hover:bg-brand-primary/5 transition-all duration-200',
-            'focus:outline-none focus:ring-2 focus:ring-brand-primary/50',
+            'bg-void border border-action/30 rounded-lg text-bone-primary',
+            'hover:border-action hover:bg-action/5 transition-all duration-200',
+            'focus:outline-none focus:ring-2 focus:ring-action/50',
             isRedirecting.value && 'opacity-50 cursor-wait',
           ]}
           onClick$={toggleDropdown}
@@ -80,7 +80,7 @@ export const LangSwitcher = component$<LangSwitcherProps>(
           data-testid="lang-switcher-trigger"
         >
           <svg
-            class="w-5 h-5 text-brand-primary"
+            class="w-5 h-5 text-action"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -111,7 +111,7 @@ export const LangSwitcher = component$<LangSwitcherProps>(
         </button>
         {isOpen.value && (
           <div
-            class="lang-switcher-dropdown absolute right-0 mt-2 w-48 bg-void border border-brand-primary/20 rounded-lg shadow-xl overflow-hidden z-50"
+            class="lang-switcher-dropdown absolute right-0 mt-2 w-48 bg-void border border-action/20 rounded-lg shadow-xl overflow-hidden z-50"
             role="menu"
             aria-label={t.langSwitcher.available}
             data-testid="lang-switcher-dropdown"
@@ -123,8 +123,8 @@ export const LangSwitcher = component$<LangSwitcherProps>(
                 type="button"
                 class={[
                   'lang-option w-full px-4 py-3 flex items-center justify-between text-left',
-                  'hover:bg-brand-primary/10 focus:bg-brand-primary/10 focus:outline-none transition-colors duration-150',
-                  lang.value === langInfo.code && 'bg-brand-primary/5 text-brand-primary',
+                  'hover:bg-action/10 focus:bg-action/10 focus:outline-none transition-colors duration-150',
+                  lang.value === langInfo.code && 'bg-action/5 text-action',
                 ]}
                 onClick$={() => handleSelect(langInfo.code)}
                 role="menuitem"
@@ -137,7 +137,7 @@ export const LangSwitcher = component$<LangSwitcherProps>(
                 </div>
                 {lang.value === langInfo.code && (
                   <svg
-                    class="w-5 h-5 text-brand-primary"
+                    class="w-5 h-5 text-action"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     aria-hidden="true"

@@ -26,7 +26,7 @@ export const NicheLanding = component$<NicheLandingProps>(
         <header class="mb-10">
           <div class="flex items-center gap-4 mb-4">
             <div
-              class={`i-lucide-${niche.icon} text-brand-primary text-4xl shrink-0`}
+              class={`i-lucide-${niche.icon} text-action text-4xl shrink-0`}
               aria-hidden="true"
             />
             <h1 class="text-3xl font-bold text-bone-primary leading-tight">{niche.title[lang]}</h1>
@@ -40,7 +40,7 @@ export const NicheLanding = component$<NicheLandingProps>(
             {t.niche.articleCount.replace('{count}', '0')}
           </h2>
           <div
-            class="border border-dashed border-brand-primary/20 rounded-lg p-8 text-center text-bone-muted"
+            class="border border-dashed border-action/20 rounded-lg p-8 text-center text-bone-muted"
             data-testid="niche-articles-placeholder"
           >
             <p>{t.niche.exploreNiche.replace('{niche}', niche.title[lang])}</p>

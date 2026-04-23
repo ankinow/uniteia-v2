@@ -30,12 +30,7 @@ export default defineConfig({
   ],
   theme: {
     colors: {
-      void: '#0a0a0b',
-      brand: {
-        primary: '#f97316',
-        secondary: '#ea580c',
-        DEFAULT: '#f97316',
-      },
+      void: 'oklch(8% 0.01 260)',
     },
     fontFamily: {
       sans: 'Inter, system-ui, -apple-system, sans-serif',
@@ -44,7 +39,7 @@ export default defineConfig({
   },
   shortcuts: {
     btn: 'px-4 py-2 rounded-lg font-medium transition-colors duration-200',
-    'btn-primary': 'btn bg-brand-primary text-white hover:bg-brand-secondary',
+    'btn-primary': 'btn bg-action text-void hover:bg-action-hover',
     'btn-outline': 'btn border border-current hover:bg-white/10',
   },
   content: {

@@ -20,15 +20,15 @@ export const NotFound = component$(() => {
     <SiteShell>
       <header q:slot="header" class="site-header w-full">
         <nav
-          class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-brand-primary/10"
+          class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-action/10"
           data-testid="main-nav"
         >
           <a
             href="/"
-            class="brand flex items-center gap-2 text-xl font-bold text-bone-primary hover:text-brand-primary transition-colors"
+            class="brand flex items-center gap-2 text-xl font-bold text-bone-primary hover:text-action transition-colors"
             data-testid="nav-logo"
           >
-            <span class="text-brand-primary">Uni</span>
+            <span class="text-action">Uni</span>
             <span>Teia</span>
           </a>
           <div class="nav-links hidden md:flex items-center gap-6">
@@ -68,7 +68,7 @@ const ErrorContent = component$(() => {
     <div class="error-content text-center max-w-2xl mx-auto">
       {/* Large 404 number */}
       <div class="error-code text-8xl md:text-9xl font-bold mb-8" data-testid="error-code">
-        <span class="text-brand-primary">404</span>
+        <span class="text-action">404</span>
       </div>
 
       {/* Error title */}
@@ -90,7 +90,7 @@ const ErrorContent = component$(() => {
       {/* Navigation back to home */}
       <a
         href="/"
-        class="error-home-link inline-flex items-center gap-2 px-6 py-3 bg-brand-primary text-void font-semibold rounded-lg hover:bg-brand-primary/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 focus:ring-offset-void"
+        class="error-home-link inline-flex items-center gap-2 px-6 py-3 bg-action text-void font-semibold rounded-lg hover:bg-action/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-action focus:ring-offset-2 focus:ring-offset-void"
         data-testid="error-home-link"
       >
         <svg
@@ -112,9 +112,9 @@ const ErrorContent = component$(() => {
 
       {/* Decorative element - JRPG brutalist aesthetic */}
       <div class="mt-16 flex items-center justify-center gap-4 opacity-30">
-        <div class="w-16 h-px bg-brand-primary" />
-        <div class="w-3 h-3 border-2 border-brand-primary" />
-        <div class="w-16 h-px bg-brand-primary" />
+        <div class="w-16 h-px bg-action" />
+        <div class="w-3 h-3 border-2 border-action" />
+        <div class="w-16 h-px bg-action" />
       </div>
     </div>
   )

@@ -14,12 +14,10 @@
 
 import { globSync, readFileSync } from 'node:fs'
 import { relative, resolve } from 'node:path'
-import addFormats from 'ajv-formats'
-import Ajv2020, { type DefinedError } from 'ajv/dist/2020'
 import { findBannedSlugTerm, validateSlug } from '../src/utils/url-validation'
+import { validateContent } from '../src/utils/schema-validation'
 
 // Load schema
-const SCHEMA_PATH = resolve(import.meta.dir, '../schemas/llm-wiki-v1.schema.json')
 const ROOT_DIR = resolve(import.meta.dir, '..')
 
 interface ValidationResult {
@@ -29,18 +27,7 @@ interface ValidationResult {
   slugWarnings?: string[]
 }
 
-function loadSchema(): unknown {
-  try {
-    const schemaContent = readFileSync(SCHEMA_PATH, 'utf-8')
-    return JSON.parse(schemaContent)
-  } catch (error) {
-    console.error(`❌ Failed to load schema from ${SCHEMA_PATH}`)
-    console.error(error instanceof Error ? error.message : String(error))
-    process.exit(2)
-  }
-}
-
-function validateContentFile(filePath: string, ajv: Ajv2020): ValidationResult {
+function validateContentFile(filePath: string): ValidationResult {
   const result: ValidationResult = {
     file: relative(ROOT_DIR, filePath),
     valid: true,
@@ -61,13 +48,10 @@ function validateContentFile(filePath: string, ajv: Ajv2020): ValidationResult {
   }
 
   // Validate against schema
-  const valid = ajv.validate('https://uniteia.com/schemas/llm-wiki-v1.schema.json', content)
-  if (!valid) {
+  const validation = validateContent(content)
+  if (!validation.valid) {
     result.valid = false
-    result.errors = (ajv.errors as DefinedError[]).map(err => {
-      const path = err.instancePath || 'root'
-      return `${path}: ${err.message}`
-    })
+    result.errors = validation.errors
   }
 
   // Additional slug validation (beyond schema pattern)
@@ -116,15 +100,7 @@ function main(args: string[]): void {
   console.log(`📋 Validating ${files.length} content file(s) against llm-wiki-v1 schema...`)
   console.log('')
 
-  // Initialize AJV with Draft 2020-12 support
-  const ajv = new Ajv2020({ allErrors: true, strict: true })
-  addFormats(ajv)
-
-  // Load and compile schema
-  const schema = loadSchema()
-  ajv.addSchema(schema)
-
-  const results: ValidationResult[] = files.map(file => validateContentFile(file, ajv))
+  const results: ValidationResult[] = files.map(file => validateContentFile(file))
 
   // Report results
   let passCount = 0

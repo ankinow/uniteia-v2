@@ -18,8 +18,8 @@ export const NicheCard = component$<NicheCardProps>(({ niche, lang, class: class
       class={[
         'niche-card',
         'block',
-        'border border-brand-primary/20',
-        'hover:border-brand-primary',
+        'border border-action/20',
+        'hover:border-action',
         'bg-void/raised',
         'rounded-lg',
         'p-4',
@@ -30,7 +30,7 @@ export const NicheCard = component$<NicheCardProps>(({ niche, lang, class: class
     >
       <div class="flex items-start gap-3">
         <div
-          class={`i-lucide-${niche.icon} text-brand-primary text-2xl shrink-0`}
+          class={`i-lucide-${niche.icon} text-action text-2xl shrink-0`}
           aria-hidden="true"
         />
         <div class="min-w-0">

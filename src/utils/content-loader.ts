@@ -9,35 +9,26 @@ import { ContentLoaderError } from '~/types/content'
  * validate against AJV Draft 2020-12 schema → validate slug → return typed
  * LlmWikiContent or throw ContentLoaderError.
  *
- * ALL Node.js imports are dynamic `await import()` inside the function body
- * per D001/MEM002/MEM012 — static imports of node:*, gray-matter, ajv, or
- * ajv-formats would cause Rollup's __vite-browser-external error during the
- * Qwik client build because the code would not be tree-shaken from the
- * client bundle.
- *
- * The function computes the content root relative to its own file location
- * (src/utils/) going up 2 levels to the project root.
+ * Uses Vite's import.meta.glob to bundle all markdown files and schemas.
+ * This ensures content is available in Cloudflare Workers where node:fs is unavailable.
  */
 export async function loadContent(slug: string, lang: SupportedLanguage): Promise<LlmWikiContent> {
-  // D001: dynamic imports for all Node.js / server-only modules
-  const { readFileSync } = await import('node:fs')
-  const { resolve, dirname } = await import('node:path')
-  const { fileURLToPath } = await import('node:url')
+  // Dynamic imports for browser-safe modules (gray-matter works in worker)
   const matter = (await import('gray-matter')).default
   const Ajv2020 = (await import('ajv/dist/2020')).default
   const addFormats = (await import('ajv-formats')).default
   const { validateSlug } = await import('~/utils/url-validation')
 
-  const __dirname = dirname(fileURLToPath(import.meta.url))
-  const CONTENT_ROOT = resolve(__dirname, '..', '..', 'llm-wiki')
+  // @ts-ignore - Vite glob import for content
+  const contentModules = import.meta.glob('../../llm-wiki/**/*.md', { as: 'raw', eager: true })
+  // @ts-ignore - Vite glob import for schema
+  const schemaModules = import.meta.glob('../../schemas/*.schema.json', { as: 'raw', eager: true })
 
-  // ---- Phase: read ----
-  const filePath = resolve(CONTENT_ROOT, lang, `${slug}.md`)
-  let rawContent: string
-  try {
-    rawContent = readFileSync(filePath, 'utf-8')
-  } catch {
-    console.error(`[content-loader] Content not found: ${lang}/${slug}`)
+  const contentKey = `../../llm-wiki/${lang}/${slug}.md`
+  const rawContent = contentModules[contentKey]
+
+  if (!rawContent) {
+    console.error(`[content-loader] Content not found: ${lang}/${slug} (tried ${contentKey})`)
     throw new ContentLoaderError({
       slug,
       lang,
@@ -70,6 +61,8 @@ export async function loadContent(slug: string, lang: SupportedLanguage): Promis
     content: markdownBody.trim(),
   }
 
+  // Disable runtime AJV validation in Cloudflare Workers due to EvalError (no JIT allowed)
+  /*
   let ajv: InstanceType<typeof Ajv2020>
   try {
     ajv = new Ajv2020({ allErrors: true, strict: true })
@@ -85,10 +78,11 @@ export async function loadContent(slug: string, lang: SupportedLanguage): Promis
     })
   }
 
-  const schemaPath = resolve(CONTENT_ROOT, '..', 'schemas', 'llm-wiki-v1.schema.json')
+  const schemaKey = '../../schemas/llm-wiki-v1.schema.json'
+  const schemaContent = schemaModules[schemaKey]
   let schema: object
   try {
-    const schemaContent = readFileSync(schemaPath, 'utf-8')
+    if (!schemaContent) throw new Error(`Schema not found: ${schemaKey}`)
     schema = JSON.parse(schemaContent) as object
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err)
@@ -102,26 +96,22 @@ export async function loadContent(slug: string, lang: SupportedLanguage): Promis
   }
 
   ajv.addSchema(schema)
-  const validate = ajv.compile(schema)
-  const valid = validate(contentObject)
-
-  if (!valid) {
-    const errors = (validate.errors as { instancePath: string; message?: string }[] | null)?.map(
-      err => `${err.instancePath || '/'}: ${err.message ?? 'unknown error'}`
-    ) ?? ['Unknown validation error']
-
-    console.error(
-      `[content-loader] Schema validation failed for ${lang}/${slug}:`,
-      JSON.stringify({ slug, lang, errors }, null, 2)
-    )
-
-    throw new ContentLoaderError({
-      slug,
-      lang,
-      phase: 'schema',
-      errors,
-    })
+  */
+  // Disable runtime AJV validation in Cloudflare Workers due to EvalError (no JIT allowed)
+  /*
+  let valid = false
+  try {
+    const validate = ajv.compile(schema)
+    valid = validate(contentObject)
+    ...
+  } catch (err: unknown) {
+    if (err instanceof Error && err.name === 'EvalError') {
+      console.warn(`[content-loader] AJV compilation failed (EvalError), skipping runtime validation for ${lang}/${slug}. Build-time validation should catch this.`)
+    } else {
+      throw err
+    }
   }
+  */
 
   // ---- Phase: slug ----
   const slugValidation = validateSlug(slug)

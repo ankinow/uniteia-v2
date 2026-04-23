@@ -1,4 +1,4 @@
-import { QwikCityMockProvider } from '@builder.io/qwik-city/middleware'
+import { QwikCityMockProvider } from '@builder.io/qwik-city'
 import { renderToStream } from '@builder.io/qwik/server'
 import type { RenderToStreamOptions } from '@builder.io/qwik/server'
 import Root from './root'

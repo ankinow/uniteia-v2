@@ -16,7 +16,7 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
     <footer
       class={[
         'footer',
-        'border-t border-brand-primary/10',
+        'border-t border-action/10',
         'bg-void',
         'py-8 px-4 md:px-8',
         'text-bone-muted text-sm',
@@ -38,7 +38,7 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
             <a
               key={link.href}
               href={link.href}
-              class="text-bone-muted hover:text-brand-primary transition-colors duration-200"
+              class="text-bone-muted hover:text-action transition-colors duration-200"
               target={link.external ? '_blank' : undefined}
               rel={link.external ? 'noopener noreferrer' : undefined}
             >

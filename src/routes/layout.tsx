@@ -3,7 +3,7 @@ import { type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
 import { Footer } from '~/components/footer'
 import { LangSwitcher } from '~/components/lang-switcher'
 import { SiteShell } from '~/components/site-shell'
-import { useI18n, useProvideI18n } from '~/i18n/context'
+import { getTranslation, useI18n, useProvideI18n } from '~/i18n/context'
 import { DEFAULT_LANGUAGE, LANGUAGE_COOKIE_NAME, type SupportedLanguage } from '~/i18n/types'
 import type { NichesConfig } from '~/types/niche'
 import { loadNichesConfig } from '~/utils/niche-loader'
@@ -36,10 +36,13 @@ export default component$(() => {
   const langSignal = useLanguage()
   const nichesSignal = useNiches()
   const lang = langSignal.value
-  const { t } = useI18n()
   const topicsOpen = useSignal(false)
 
   useProvideI18n(lang)
+  
+  // Get translation directly for layout use since useI18n() 
+  // only works in children of this component.
+  const t = getTranslation(lang)
 
   // Close dropdown on outside click
   useOnWindow(
@@ -56,15 +59,15 @@ export default component$(() => {
     <SiteShell>
       <header q:slot="header" class="site-header w-full">
         <nav
-          class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-brand-primary/10"
+          class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-action/10"
           data-testid="main-nav"
         >
           <a
             href={`/${lang}`}
-            class="brand flex items-center gap-2 text-xl font-bold text-bone-primary hover:text-brand-primary transition-colors"
+            class="brand flex items-center gap-2 text-xl font-bold text-bone-primary hover:text-action transition-colors"
             data-testid="nav-logo"
           >
-            <span class="text-brand-primary">Uni</span>
+            <span class="text-action">Uni</span>
             <span>Teia</span>
           </a>
 
@@ -110,26 +113,26 @@ export default component$(() => {
               </button>
               {topicsOpen.value && nichesSignal.value.length > 0 && (
                 <div
-                  class="absolute top-full left-0 mt-2 w-56 bg-void/raised border border-brand-primary/20 rounded-lg shadow-lg z-50 py-1"
+                  class="absolute top-full left-0 mt-2 w-56 bg-void/raised border border-action/20 rounded-lg shadow-lg z-50 py-1"
                   data-testid="nav-topics-dropdown"
                 >
                   {nichesSignal.value.map(niche => (
                     <a
                       key={niche.slug}
                       href={`/${lang}/n/${niche.slug}`}
-                      class="flex items-center gap-2 px-4 py-2 text-bone-secondary hover:text-bone-primary hover:bg-brand-primary/5 transition-colors"
+                      class="flex items-center gap-2 px-4 py-2 text-bone-secondary hover:text-bone-primary hover:bg-action/5 transition-colors"
                     >
                       <div
-                        class={`i-lucide-${niche.icon} text-brand-primary text-base shrink-0`}
+                        class={`i-lucide-${niche.icon} text-action text-base shrink-0`}
                         aria-hidden="true"
                       />
                       <span class="truncate">{niche.title[lang]}</span>
                     </a>
                   ))}
-                  <div class="border-t border-brand-primary/10 my-1" />
+                  <div class="border-t border-action/10 my-1" />
                   <a
                     href={`/${lang}/n`}
-                    class="flex items-center gap-2 px-4 py-2 text-brand-primary hover:bg-brand-primary/5 transition-colors font-medium"
+                    class="flex items-center gap-2 px-4 py-2 text-action hover:bg-action/5 transition-colors font-medium"
                   >
                     {t.niche.allNiches}
                   </a>
