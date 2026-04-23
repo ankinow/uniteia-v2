@@ -12,7 +12,7 @@ export async function transformCoreToOutputs(
   coreYaml: string,
   outputDir: string
 ): Promise<PipelineResult> {
-  const data = load(coreYaml) as any
+  const data = load(coreYaml) as { content: string } & Record<string, unknown>
 
   const validation = validateContent(data)
   if (!validation.valid) {

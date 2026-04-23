@@ -115,7 +115,7 @@ export const onLanguageNegotiation: RequestHandler = ({ request, cookie, url, he
   }
   // 2. Check cookie
   else if (cookie.get(LANGUAGE_COOKIE_NAME)?.value) {
-    const cookieLang = cookie.get(LANGUAGE_COOKIE_NAME)!.value
+    const cookieLang = cookie.get(LANGUAGE_COOKIE_NAME)?.value
     if (isValidLanguage(cookieLang)) {
       negotiatedLang = cookieLang
       negotiationSource = 'cookie'
@@ -133,12 +133,14 @@ export const onLanguageNegotiation: RequestHandler = ({ request, cookie, url, he
   }
   // 4. Check CF-IPCountry header (Cloudflare)
   else if (request.headers.get('cf-ipcountry')) {
-    const countryCode = request.headers.get('cf-ipcountry')!
-    const countryLang = COUNTRY_TO_LANG[countryCode]
-    if (countryLang) {
-      negotiatedLang = countryLang
-      negotiationSource = 'cf-ipcountry'
-      console.log(`[i18n] Language from CF-IPCountry (${countryCode}): ${negotiatedLang}`)
+    const countryCode = request.headers.get('cf-ipcountry')
+    if (countryCode) {
+      const countryLang = COUNTRY_TO_LANG[countryCode]
+      if (countryLang) {
+        negotiatedLang = countryLang
+        negotiationSource = 'cf-ipcountry'
+        console.log(`[i18n] Language from CF-IPCountry (${countryCode}): ${negotiatedLang}`)
+      }
     }
   }
 

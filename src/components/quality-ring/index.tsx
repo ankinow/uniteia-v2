@@ -47,7 +47,7 @@ export const QualityRing = component$<QualityRingProps>(
         class={['inline-flex flex-col items-center', className]}
         role="img"
         aria-label={`${t.qualityRing.qualityScore}: ${clampedScore}/100 — ${t.qualityRing.editorialQuality}`}
-        style={{ '--whisper-duration': '250ms' } as any}
+        style={{ '--whisper-duration': '250ms' } as Record<string, string>}
       >
         <div class="relative" style={{ width: `${size}px`, height: `${size}px` }}>
           <svg

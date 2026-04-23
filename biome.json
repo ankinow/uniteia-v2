@@ -8,18 +8,23 @@
     "rules": {
       "recommended": true,
       "complexity": {
-        "noForEach": "off",
-        "noBannedTypes": "warn"
+        "noForEach": "error",
+        "noBannedTypes": "error"
       },
       "correctness": {
         "noUnusedVariables": "error",
         "noUnusedImports": "error"
       },
       "suspicious": {
-        "noExplicitAny": "warn"
+        "noExplicitAny": "error",
+        "noDoubleEquals": "error"
       },
       "style": {
-        "noNonNullAssertion": "off"
+        "noNonNullAssertion": "error",
+        "useImportType": "error"
+      },
+      "a11y": {
+        "recommended": true
       }
     }
   },

@@ -34,7 +34,7 @@ export const DopamineCard = component$<DopamineCardProps>(
             '--whisper-duration': '250ms',
             transitionProperty: 'transform, color, border-color',
             transitionDuration: 'var(--whisper-duration)',
-          } as any
+          } as Record<string, string>
         }
         lang={lang}
       >
