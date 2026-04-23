@@ -62,7 +62,11 @@ function normalizeRouteKey(origin: string): string | null {
     return null
   }
 
-  if (origin === 'src/routes/layout.tsx' || origin.includes('_component_') || origin.includes('_layout_')) {
+  if (
+    origin === 'src/routes/layout.tsx' ||
+    origin.includes('_component_') ||
+    origin.includes('_layout_')
+  ) {
     return null
   }
 
@@ -75,10 +79,16 @@ function normalizeRouteKey(origin: string): string | null {
 }
 
 function isRouteBundle(bundle: ManifestBundle): bundle is ManifestBundle {
-  return Array.isArray(bundle.origins) && bundle.origins.some(origin => normalizeRouteKey(origin) !== null)
+  return (
+    Array.isArray(bundle.origins) &&
+    bundle.origins.some(origin => normalizeRouteKey(origin) !== null)
+  )
 }
 
-function collectBundleClosure(entryBundle: string, bundles: Record<string, ManifestBundle>): {
+function collectBundleClosure(
+  entryBundle: string,
+  bundles: Record<string, ManifestBundle>
+): {
   bundleNames: string[]
   missingBundleNames: string[]
 } {
@@ -112,7 +122,9 @@ function collectBundleClosure(entryBundle: string, bundles: Record<string, Manif
   }
 }
 
-async function readText(filePath: string): Promise<{ ok: true; value: string } | { ok: false; error: Error }> {
+async function readText(
+  filePath: string
+): Promise<{ ok: true; value: string } | { ok: false; error: Error }> {
   try {
     return { ok: true, value: await readFile(filePath, 'utf8') }
   } catch (error) {
@@ -120,7 +132,10 @@ async function readText(filePath: string): Promise<{ ok: true; value: string } |
   }
 }
 
-function parseJson<T>(text: string, fallbackMessage: string): { ok: true; value: T } | { ok: false; error: Error } {
+function parseJson<T>(
+  text: string,
+  fallbackMessage: string
+): { ok: true; value: T } | { ok: false; error: Error } {
   try {
     return { ok: true, value: JSON.parse(text) as T }
   } catch (error) {
@@ -173,7 +188,10 @@ export async function evaluateRouteSizeGate(
     }
   }
 
-  const manifestParse = parseJson<ManifestShape>(manifestResult.value, 'Unable to parse q-manifest.json')
+  const manifestParse = parseJson<ManifestShape>(
+    manifestResult.value,
+    'Unable to parse q-manifest.json'
+  )
   if (!manifestParse.ok) {
     issues.push({
       kind: 'manifest-parse',
@@ -213,11 +231,16 @@ export async function evaluateRouteSizeGate(
     const bundleGraphResult = await readText(bundleGraphPath)
     if (!bundleGraphResult.ok) {
       issues.push({
-        kind: bundleGraphResult.error.message.includes('ENOENT') ? 'bundle-graph-missing' : 'bundle-graph-parse',
+        kind: bundleGraphResult.error.message.includes('ENOENT')
+          ? 'bundle-graph-missing'
+          : 'bundle-graph-parse',
         message: `Unable to read ${bundleGraphPath}: ${bundleGraphResult.error.message}`,
       })
     } else {
-      const bundleGraphParse = parseJson<unknown>(bundleGraphResult.value, 'Unable to parse bundle graph')
+      const bundleGraphParse = parseJson<unknown>(
+        bundleGraphResult.value,
+        'Unable to parse bundle graph'
+      )
       if (!bundleGraphParse.ok) {
         issues.push({
           kind: 'bundle-graph-parse',
@@ -235,7 +258,10 @@ export async function evaluateRouteSizeGate(
       const routeKey = routeKeyFromBundle(bundle)
       return routeKey ? { entryBundle, bundle, routeKey } : null
     })
-    .filter((value): value is { entryBundle: string; bundle: ManifestBundle; routeKey: string } => value !== null)
+    .filter(
+      (value): value is { entryBundle: string; bundle: ManifestBundle; routeKey: string } =>
+        value !== null
+    )
     .sort((left, right) => left.routeKey.localeCompare(right.routeKey))
 
   for (const route of routeBundles) {
@@ -323,19 +349,32 @@ export function formatRouteSizeGateReport(report: SizeGateReport): string {
     : `❌ Route size gate failed (${report.issues.length} issue${report.issues.length === 1 ? '' : 's'})`
 
   const routeLines = report.routes.map(route => {
-    const artifactSuffix = route.artifactPaths.length > 0 ? ` [${route.artifactPaths.join(', ')}]` : ''
+    const artifactSuffix =
+      route.artifactPaths.length > 0 ? ` [${route.artifactPaths.join(', ')}]` : ''
     return `- ${route.routeKey}: ${formatBytes(route.gzipBytes)}${artifactSuffix}`
   })
 
   const issueLines = report.issues.map(issue => {
-    const pathSuffix = issue.artifactPaths && issue.artifactPaths.length > 0 ? ` | artifacts: ${issue.artifactPaths.join(', ')}` : ''
+    const pathSuffix =
+      issue.artifactPaths && issue.artifactPaths.length > 0
+        ? ` | artifacts: ${issue.artifactPaths.join(', ')}`
+        : ''
     const routeSuffix = issue.routeKey ? ` | route: ${issue.routeKey}` : ''
-    const bytesSuffix = issue.bytes !== undefined ? ` | bytes: ${issue.bytes.toLocaleString('en-US')}` : ''
-    const thresholdSuffix = issue.thresholdBytes !== undefined ? ` | threshold: ${issue.thresholdBytes.toLocaleString('en-US')}` : ''
+    const bytesSuffix =
+      issue.bytes !== undefined ? ` | bytes: ${issue.bytes.toLocaleString('en-US')}` : ''
+    const thresholdSuffix =
+      issue.thresholdBytes !== undefined
+        ? ` | threshold: ${issue.thresholdBytes.toLocaleString('en-US')}`
+        : ''
     return `- ${issue.kind}: ${issue.message}${routeSuffix}${bytesSuffix}${thresholdSuffix}${pathSuffix}`
   })
 
-  return [header, '', `Build directory: ${report.buildDir}`, `Threshold: ${report.thresholdBytes.toLocaleString('en-US')} gzip bytes`]
+  return [
+    header,
+    '',
+    `Build directory: ${report.buildDir}`,
+    `Threshold: ${report.thresholdBytes.toLocaleString('en-US')} gzip bytes`,
+  ]
     .concat(routeLines.length > 0 ? ['', 'Routes:', ...routeLines] : [])
     .concat(issueLines.length > 0 ? ['', 'Issues:', ...issueLines] : [])
     .join('\n')

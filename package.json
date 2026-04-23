@@ -23,7 +23,7 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "slug:check": "node scripts/slug-lint.mjs",
-    "size:check": "node scripts/size-gate.mjs",
+    "size:check": "bun run scripts/size-gate.ts",
     "ship:check": "bun run lint && bun run typecheck && bun run test:unit && bun run build && bun run size:check && bun run slug:check"
   },
   "devDependencies": {
@@ -34,6 +34,7 @@
     "@types/node": "^22.14.0",
     "ajv": "^8.18.0",
     "ajv-formats": "^3.0.1",
+    "lighthouse": "^13.1.0",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
     "postcss-custom-media": "^11.0.5",

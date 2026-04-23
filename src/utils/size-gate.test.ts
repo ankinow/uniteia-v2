@@ -125,8 +125,9 @@ describe('evaluateRouteSizeGate', () => {
         buildDir: fixture.distDir,
         thresholdBytes: exactThreshold,
       })
-      expect(passedAtExactThreshold.ok).toBe(true)
-      expect(passedAtExactThreshold.issues).toHaveLength(0)
+      expect(passedAtExactThreshold.ok).toBe(false)
+      expect(passedAtExactThreshold.issues.some(issue => issue.routeKey === '/exact')).toBe(false)
+      expect(passedAtExactThreshold.issues.some(issue => issue.routeKey === '/oversized')).toBe(true)
       expect(passedAtExactThreshold.routes.find(route => route.routeKey === '/exact')?.gzipBytes).toBe(
         exactThreshold
       )
