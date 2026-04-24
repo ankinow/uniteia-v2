@@ -26,7 +26,7 @@ export const NicheLanding = component$<NicheLandingProps>(
         <header class="mb-10">
           <div class="flex items-center gap-4 mb-4">
             <div
-              class={`i-lucide-${niche.icon} text-action text-4xl shrink-0`}
+              class={`icon-[lucide--${niche.icon}] text-action text-4xl shrink-0`}
               aria-hidden="true"
             />
             <h1 class="text-3xl font-bold text-bone leading-tight">{niche.title[lang]}</h1>

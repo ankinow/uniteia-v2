@@ -118,7 +118,7 @@ export default component$(() => {
                       class="flex items-center gap-2 px-4 py-2 text-bone-muted hover:text-bone hover:bg-action/5 transition-colors"
                     >
                       <div
-                        class={`i-lucide-${niche.icon} text-action text-base shrink-0`}
+                        class={`icon-[lucide--${niche.icon}] text-action text-base shrink-0`}
                         aria-hidden="true"
                       />
                       <span class="truncate">{niche.title[lang]}</span>

@@ -148,7 +148,13 @@ export function validateMarkdownFrontmatter(markdown: string, filePath: string):
 
   let parsed: matter.GrayMatterFile<string>
   try {
-    parsed = matter(markdown)
+    parsed = matter(markdown, {
+      engines: {
+        js: () => {
+          throw new Error('JS eval disabled')
+        },
+      },
+    })
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
     return {

@@ -62,7 +62,7 @@ export const DopamineCard = component$<DopamineCardProps>(
         <div class="flex items-start gap-3">
           {icon && (
             <div
-              class={`i-lucide-${icon} mt-0.5 h-5 w-5 shrink-0 text-action`}
+              class={`icon-[lucide--${icon}] mt-0.5 h-5 w-5 shrink-0 text-action`}
               aria-hidden="true"
             />
           )}

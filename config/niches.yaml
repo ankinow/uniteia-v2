@@ -7,7 +7,7 @@
 #   description: map of SupportedLanguage → short description
 
 - slug: ai-agents
-  icon: Bot
+  icon: bot
   title:
     en: AI Agents
     pt: Agentes de IA
@@ -22,7 +22,7 @@
     zh: 能够感知、推理和行动以实现目标的自主AI系统。
 
 - slug: language-models
-  icon: MessageSquareText
+  icon: message-square-text
   title:
     en: Language Models
     pt: Modelos de Linguagem
@@ -37,7 +37,7 @@
     zh: 理解和生成人类语言的大规模模型。
 
 - slug: prompt-engineering
-  icon: PenTool
+  icon: pen-tool
   title:
     en: Prompt Engineering
     pt: Engenharia de Prompts

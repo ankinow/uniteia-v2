@@ -47,7 +47,13 @@ export async function loadContent(slug: string, lang: SupportedLanguage): Promis
   let frontmatter: Record<string, unknown>
   let markdownBody: string
   try {
-    const parsed = matter(rawContent)
+    const parsed = matter(rawContent, {
+      engines: {
+        js: () => {
+          throw new Error('JS eval disabled')
+        },
+      },
+    })
     frontmatter = parsed.data as Record<string, unknown>
     markdownBody = parsed.content
   } catch (err: unknown) {

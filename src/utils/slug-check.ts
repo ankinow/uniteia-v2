@@ -72,7 +72,13 @@ export async function evaluateSlugCheck(
 
     try {
       const raw = await readFile(filePath, 'utf-8')
-      const parsed = matter(raw)
+      const parsed = matter(raw, {
+        engines: {
+          js: () => {
+            throw new Error('JS eval disabled')
+          },
+        },
+      })
       const frontmatterSlug = parsed.data.slug
 
       if (typeof frontmatterSlug !== 'string' || frontmatterSlug.length === 0) {

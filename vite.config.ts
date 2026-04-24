@@ -1,6 +1,5 @@
 import { qwikCity } from '@builder.io/qwik-city/vite'
 import { qwikVite } from '@builder.io/qwik/optimizer'
-import UnoCSS from 'unocss/vite'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
@@ -11,7 +10,6 @@ export default defineConfig(() => {
       qwikVite({
         entryStrategy: { type: 'smart' },
       }),
-      UnoCSS(),
       tsconfigPaths(),
     ],
     build: {

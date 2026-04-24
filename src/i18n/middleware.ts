@@ -179,7 +179,7 @@ export function getNegotiatedNiche(response: Response): string {
 export function setLanguageCookie(lang: SupportedLanguage, response: Response): void {
   response.headers.append(
     'Set-Cookie',
-    `${LANGUAGE_COOKIE_NAME}=${lang};Path=/;Max-Age=31536000;SameSite=Lax`
+    `${LANGUAGE_COOKIE_NAME}=${lang};Path=/;Max-Age=31536000;SameSite=Lax;Secure;HttpOnly`
   )
 }
 
