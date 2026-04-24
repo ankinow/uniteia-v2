@@ -113,14 +113,15 @@ export const onLanguageNegotiation: RequestHandler = ({ request, cookie, url, he
   let negotiatedLang: SupportedLanguage = DEFAULT_LANGUAGE
   let negotiationSource = 'default'
 
-  const urlLang = url.searchParams.get('lang')
+  const pathSegments = url.pathname.split('/').filter(Boolean)
+  const pathLang = pathSegments[0]
   const cookieLang = cookie.get(LANGUAGE_COOKIE_NAME)?.value
   const acceptLanguage = request.headers.get('accept-language')
   const countryCode = request.headers.get('cf-ipcountry')
 
-  // 1. Check URL parameter (highest priority)
-  if (isValidLanguage(urlLang)) {
-    negotiatedLang = urlLang
+  // 1. Check explicit URL path segment (highest priority)
+  if (isValidLanguage(pathLang)) {
+    negotiatedLang = pathLang
     negotiationSource = 'url'
   }
   // 2. Check cookie

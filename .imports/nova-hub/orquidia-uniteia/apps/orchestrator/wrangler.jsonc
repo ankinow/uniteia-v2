@@ -1,0 +1,45 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "uniteia-swarm-manager",
+  "compatibility_date": "2026-02-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "uniteia-db",
+      "database_id": "8396cb37-422a-4ea4-ad16-16372cbc6224"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "KV_STATIC_HTML",
+      "id": "a0ef60b33d3641799c7b608a82a2444e"
+    }
+  ],
+  "ai": {
+    "binding": "AI"
+  },
+  "vars": {
+    "ENVIRONMENT": "production",
+    "AI_PROVIDER": "workers-ai",
+    "AI_MODEL_PRIMARY": "@cf/meta/llama-3.1-8b-instruct-fp8-fast",
+    "AI_MODEL_COMPLEX": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "AI_EMBEDDING_MODEL": "@cf/baai/bge-m3",
+    "CF_ACCESS_TEAM_NAME": "uniteia",
+    "CF_ACCESS_AUD": "be0046ed41579fdff4a3d6a019721901597a633e11d3422f85fa7af7914f8aec",
+    "MIN_PRODUCTS_PER_PAGE": "5",
+    "MAX_PRODUCTS_PER_PAGE": "12",
+    "DEFAULT_TONE": "professional",
+    "MIN_TOKENS_PER_PAGE": "2500",
+    "MAX_TOKENS_PER_PAGE": "4000",
+    "AFFILIATE_MERCADO_LIVRE": "true",
+    "AFFILIATE_AMAZON": "true",
+    "AFFILIATE_SHOPEE": "true",
+    "AFFILIATE_HOTMART": "true",
+    "AFFILIATE_MONETIZZE": "true"
+  }
+}

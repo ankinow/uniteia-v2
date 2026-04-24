@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PRODUCT_A}} vs {{PRODUCT_B}} - Comparison</title>
+  <meta name="description" content="Compare {{PRODUCT_A}} and {{PRODUCT_B}} - features, pricing, pros and cons">
+  
+  <style>
+    :root {
+      --color-bg: #0f0f0f;
+      --color-surface: #1a1a2e;
+      --color-surface-alt: #16213e;
+      --color-text-primary: #f5f5f5;
+      --color-text-secondary: #a0a0a0;
+      --color-text-muted: #6b6b6b;
+      --color-border: #2d2d2d;
+      --color-border-strong: #404040;
+      --color-accent: #e94560;
+      --color-accent-secondary: #0f3460;
+      --color-success: #10b981;
+      --color-warning: #f59e0b;
+      
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      --text-xs: 0.75rem;
+      --text-sm: 0.875rem;
+      --text-base: 1rem;
+      --text-xl: 1.25rem;
+      --text-2xl: 1.5rem;
+      --text-3xl: 1.875rem;
+      --text-4xl: 2.25rem;
+      
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      
+      --border-width: 2px;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      line-height: 1.5;
+    }
+    
+    .container { max-width: 1024px; margin: 0 auto; padding: 0 var(--space-md); }
+    
+    .ftc-disclosure {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      padding: var(--space-md);
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-alt);
+      margin-bottom: var(--space-xl);
+    }
+    
+    .hero-panel {
+      text-align: center;
+      padding: var(--space-2xl) 0;
+      border-bottom: var(--border-width) solid var(--color-border);
+      margin-bottom: var(--space-2xl);
+    }
+    
+    .hero-panel h1 {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: 700;
+      margin-bottom: var(--space-md);
+    }
+    
+    .hero-panel p {
+      font-size: var(--text-lg);
+      color: var(--color-text-secondary);
+    }
+    
+    .vs-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-accent);
+      border: var(--border-width) solid var(--color-accent);
+      padding: var(--space-xs) var(--space-md);
+      margin: 0 var(--space-md);
+    }
+    
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+    
+    .product-card {
+      border: var(--border-width) solid var(--color-border);
+      background: var(--color-surface);
+      padding: var(--space-lg);
+    }
+    
+    .product-card.winner {
+      border-color: var(--color-accent);
+      position: relative;
+    }
+    
+    .product-card.winner::before {
+      content: 'WINNER';
+      position: absolute;
+      top: -12px;
+      left: var(--space-md);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-bg);
+      background: var(--color-accent);
+      padding: 2px var(--space-sm);
+    }
+    
+    .product-card__header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+    
+    .product-card__logo {
+      width: 48px;
+      height: 48px;
+      border: var(--border-width) solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .product-card__name {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 700;
+    }
+    
+    .product-card__score {
+      font-family: var(--font-mono);
+      font-size: var(--text-3xl);
+      color: var(--color-accent);
+      margin-bottom: var(--space-md);
+    }
+    
+    .product-card__price {
+      font-size: var(--text-lg);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .btn {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      text-transform: uppercase;
+      padding: var(--space-sm) var(--space-lg);
+      border: var(--border-width) solid;
+      background: transparent;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn--primary {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+    
+    .btn--primary:hover {
+      background: var(--color-accent);
+      color: var(--color-bg);
+    }
+    
+    .btn--secondary {
+      border-color: var(--color-border-strong);
+      color: var(--color-text-secondary);
+    }
+    
+    .section {
+      margin-bottom: var(--space-2xl);
+    }
+    
+    .section__title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+    
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+      border: var(--border-width) solid var(--color-border);
+      padding: var(--space-md);
+      text-align: left;
+    }
+    
+    .comparison-table th {
+      background: var(--color-surface-alt);
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      font-size: var(--text-xs);
+    }
+    
+    .comparison-table td:first-child {
+      color: var(--color-text-muted);
+    }
+    
+    .comparison-table .winner {
+      color: var(--color-success);
+    }
+    
+    .pros-cons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+    }
+    
+    .terminal-list {
+      border-left: var(--border-width) solid var(--color-border);
+      padding-left: var(--space-md);
+    }
+    
+    .terminal-list__header {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-accent);
+      margin-bottom: var(--space-sm);
+    }
+    
+    .terminal-prompt { color: var(--color-accent); }
+    
+    .terminal-list__items {
+      list-style: none;
+    }
+    
+    .terminal-list__items li {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-xs);
+    }
+    
+    .verdict-panel {
+      border: var(--border-width) solid var(--color-accent);
+      background: var(--color-surface);
+      padding: var(--space-xl);
+      text-align: center;
+    }
+    
+    .verdict-panel__title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      margin-bottom: var(--space-md);
+    }
+    
+    .verdict-panel__winner {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      color: var(--color-accent);
+      margin-bottom: var(--space-md);
+    }
+    
+    .verdict-panel__reason {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .best-for {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+    
+    .best-for__card {
+      border: var(--border-width) solid var(--color-border);
+      padding: var(--space-md);
+    }
+    
+    .best-for__persona {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      margin-bottom: var(--space-xs);
+    }
+    
+    .best-for__recommendation {
+      font-weight: 700;
+    }
+    
+    .footer {
+      border-top: var(--border-width) solid var(--color-border);
+      padding: var(--space-xl) 0;
+      margin-top: var(--space-2xl);
+      text-align: center;
+    }
+    
+    .footer__brand {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+    }
+    
+    @media (max-width: 768px) {
+      .comparison-grid,
+      .pros-cons-grid,
+      .best-for {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <div class="ftc-disclosure">
+      <strong>Disclosure:</strong> This page contains affiliate links. We may earn a commission if you click through and make a purchase.
+    </div>
+    
+    <div class="hero-panel">
+      <h1>
+        <span>{{PRODUCT_A}}</span>
+        <span class="vs-badge">VS</span>
+        <span>{{PRODUCT_B}}</span>
+      </h1>
+      <p>{{COMPARISON_SUBTITLE}}</p>
+    </div>
+    
+    <div class="comparison-grid">
+      <div class="product-card {{PRODUCT_A_WINNER_CLASS}}">
+        <div class="product-card__header">
+          <div class="product-card__logo">
+            <img src="{{PRODUCT_A_LOGO}}" alt="{{PRODUCT_A}}" style="max-width: 100%;">
+          </div>
+          <div class="product-card__name">{{PRODUCT_A}}</div>
+        </div>
+        <div class="product-card__score">{{PRODUCT_A_SCORE}}/10</div>
+        <div class="product-card__price">{{PRODUCT_A_PRICE}}</div>
+        <a href="{{PRODUCT_A_URL}}" target="_blank" rel="noopener" class="btn btn--primary">Visit Site →</a>
+      </div>
+      
+      <div class="product-card {{PRODUCT_B_WINNER_CLASS}}">
+        <div class="product-card__header">
+          <div class="product-card__logo">
+            <img src="{{PRODUCT_B_LOGO}}" alt="{{PRODUCT_B}}" style="max-width: 100%;">
+          </div>
+          <div class="product-card__name">{{PRODUCT_B}}</div>
+        </div>
+        <div class="product-card__score">{{PRODUCT_B_SCORE}}/10</div>
+        <div class="product-card__price">{{PRODUCT_B_PRICE}}</div>
+        <a href="{{PRODUCT_B_URL}}" target="_blank" rel="noopener" class="btn btn--primary">Visit Site →</a>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2 class="section__title">Feature Comparison</h2>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>{{PRODUCT_A}}</th>
+            <th>{{PRODUCT_B}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Pricing</td>
+            <td class="{{PRODUCT_A_PRICING_WINNER}}">{{PRODUCT_A_PRICING_VALUE}}</td>
+            <td class="{{PRODUCT_B_PRICING_WINNER}}">{{PRODUCT_B_PRICING_VALUE}}</td>
+          </tr>
+          <tr>
+            <td>Free Tier</td>
+            <td class="{{PRODUCT_A_FREE_WINNER}}">{{PRODUCT_A_FREE_VALUE}}</td>
+            <td class="{{PRODUCT_B_FREE_WINNER}}">{{PRODUCT_B_FREE_VALUE}}</td>
+          </tr>
+          <tr>
+            <td>Ease of Use</td>
+            <td class="{{PRODUCT_A_EASE_WINNER}}">{{PRODUCT_A_EASE_VALUE}}</td>
+            <td class="{{PRODUCT_B_EASE_WINNER}}">{{PRODUCT_B_EASE_VALUE}}</td>
+          </tr>
+          <tr>
+            <td>Performance</td>
+            <td class="{{PRODUCT_A_PERF_WINNER}}">{{PRODUCT_A_PERF_VALUE}}</td>
+            <td class="{{PRODUCT_B_PERF_WINNER}}">{{PRODUCT_B_PERF_VALUE}}</td>
+          </tr>
+          <tr>
+            <td>Integrations</td>
+            <td class="{{PRODUCT_A_INT_WINNER}}">{{PRODUCT_A_INT_VALUE}}</td>
+            <td class="{{PRODUCT_B_INT_WINNER}}">{{PRODUCT_B_INT_VALUE}}</td>
+          </tr>
+          <tr>
+            <td>Support</td>
+            <td class="{{PRODUCT_A_SUP_WINNER}}">{{PRODUCT_A_SUP_VALUE}}</td>
+            <td class="{{PRODUCT_B_SUP_WINNER}}">{{PRODUCT_B_SUP_VALUE}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="section">
+      <h2 class="section__title">Pros & Cons</h2>
+      <div class="pros-cons-grid">
+        <div>
+          <div class="terminal-list">
+            <div class="terminal-list__header"><span class="terminal-prompt">$</span> {{PRODUCT_A}} PROS</div>
+            <ul class="terminal-list__items">
+              <li><span class="terminal-prompt">&gt;</span> {{PRODUCT_A_PRO_1}}</li>
+              <li><span class="terminal-prompt">&gt;</span> {{PRODUCT_A_PRO_2}}</li>
+              <li><span class="terminal-prompt">&gt;</span> {{PRODUCT_A_PRO_3}}</li>
+            </ul>
+          </div>
+          <div class="terminal-list" style="margin-top: var(--space-md);">
+            <div class="terminal-list__header"><span class="terminal-prompt">$</span> {{PRODUCT_A}} CONS</div>
+            <ul class="terminal-list__items">
+              <li><span class="terminal-prompt">&gt;</span> {{PRODUCT_A_CON_1}}</li>
+              <li><span class="terminal-prompt">&gt;</span> {{PRODUCT_A_CON_2}}</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div>
+          <div class="terminal-list">
+            <div class="terminal-list__header"><span class="terminal-prompt">$</span> {{PRODUCT_B}} PROS</div>
+            <ul class="terminal-list__items">
+              <li><span class="terminal-prompt">&gt;</span> {{PRODUCT_B_PRO_1}}</li>
+              <li><span class="terminal-prompt">&gt;</span> {{PRODUCT_B_PRO_2}}</li>
+              <li><span class="terminal-prompt">&gt;</span> {{PRODUCT_B_PRO_3}}</li>
+            </ul>
+          </div>
+          <div class="terminal-list" style="margin-top: var(--space-md);">
+            <div class="terminal-list__header"><span class="terminal-prompt">$</span> {{PRODUCT_B}} CONS</div>
+            <ul class="terminal-list__items">
+              <li><span class="terminal-prompt">&gt;</span> {{PRODUCT_B_CON_1}}</li>
+              <li><span class="terminal-prompt">&gt;</span> {{PRODUCT_B_CON_2}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="verdict-panel">
+      <div class="verdict-panel__title">VERDICT</div>
+      <div class="verdict-panel__winner">{{WINNER_NAME}}</div>
+      <div class="verdict-panel__reason">{{WINNER_REASON}}</div>
+      <a href="{{WINNER_URL}}" target="_blank" rel="noopener" class="btn btn--primary">Visit {{WINNER_NAME}} →</a>
+      
+      <div class="best-for">
+        <div class="best-for__card">
+          <div class="best-for__persona">Best for {{PERSONA_1}}</div>
+          <div class="best-for__recommendation">{{PRODUCT_FOR_PERSONA_1}}</div>
+        </div>
+        <div class="best-for__card">
+          <div class="best-for__persona">Best for {{PERSONA_2}}</div>
+          <div class="best-for__recommendation">{{PRODUCT_FOR_PERSONA_2}}</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p class="footer__brand">Built with <a href="https://list.affitor.com" style="color: var(--color-accent);">Affiliate Skills</a> by Affitor</p>
+    </div>
+    
+  </div>
+</body>
+</html>

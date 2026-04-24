@@ -1,0 +1,17 @@
+# Rust build artifacts
+/target/
+**/target/
+
+# Cargo lock for libraries (keep for binaries)
+# Cargo.lock
+
+# Build output
+*.rlib
+*.rmeta
+*.wasm
+
+# TypeScript build info
+tsconfig.tsbuildinfo
+
+# Backup files
+*.bak

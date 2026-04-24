@@ -1,8 +1,7 @@
-import { $, Slot, component$, useOnDocument, useSignal } from '@builder.io/qwik'
+import { $, Slot, component$, useOnDocument } from '@builder.io/qwik'
 import type { RequestHandler } from '@builder.io/qwik-city'
-import { useProvideI18n } from '~/i18n/context'
+import { useI18n } from '~/i18n/context'
 import { onLanguageNegotiation } from '~/i18n/middleware'
-import { DEFAULT_LANGUAGE, type SupportedLanguage } from '~/i18n/types'
 import type { SiteShellLogEvent } from './types'
 
 /**
@@ -13,11 +12,10 @@ export const onRequest: RequestHandler = onLanguageNegotiation
 
 /**
  * SiteShell - Root layout component
- * Provides i18n context and consistent page structure
+ * Provides consistent page structure
  */
 export const SiteShell = component$(() => {
-  const lang = useSignal<SupportedLanguage>(DEFAULT_LANGUAGE)
-  useProvideI18n(lang.value)
+  const { lang } = useI18n()
 
   useOnDocument(
     'qinit',

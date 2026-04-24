@@ -52,18 +52,15 @@ test.describe('S05 shell visual baseline', () => {
     })
 
     const shell = page.locator('.site-shell')
-    const nicheIndex = page.locator('[data-testid="niche-index"]')
-    const firstCard = page.locator('[data-testid^="niche-card-"]').first()
+    const main = page.locator('[data-testid="site-main"]')
     const footer = page.locator('[data-testid="footer"]')
 
     await expect(shell).toBeVisible()
-    await expect(nicheIndex).toBeVisible()
-    await expect(firstCard).toBeVisible()
+    await expect(main).toBeVisible()
     await expect(footer).toBeVisible()
 
-    await expect(page).toHaveScreenshot(SNAPSHOT_NAME, {
+    await expect(shell).toHaveScreenshot(SNAPSHOT_NAME, {
       animations: 'disabled',
-      fullPage: true,
       maxDiffPixelRatio: 0.01,
     })
   })

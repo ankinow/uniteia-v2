@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PRODUCT_NAME}} Review - Brutalist/JRPG</title>
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  
+  <style>
+    /* ============================================
+       GLOBAL VISUAL SYSTEM - BRUTALIST/JRPG
+       ============================================ */
+    
+    :root {
+      --color-bg: #0f0f0f;
+      --color-surface: #1a1a2e;
+      --color-surface-alt: #16213e;
+      --color-text-primary: #f5f5f5;
+      --color-text-secondary: #a0a0a0;
+      --color-text-muted: #6b6b6b;
+      --color-border: #2d2d2d;
+      --color-border-strong: #404040;
+      --color-accent: #e94560;
+      --color-accent-secondary: #0f3460;
+      --color-accent-tertiary: #533483;
+      --color-success: #10b981;
+      --color-warning: #f59e0b;
+      
+      --font-display: 'Space Grotesk', -apple-system, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      
+      --text-xs: 0.75rem;
+      --text-sm: 0.875rem;
+      --text-base: 1rem;
+      --text-lg: 1.125rem;
+      --text-xl: 1.25rem;
+      --text-2xl: 1.5rem;
+      --text-3xl: 1.875rem;
+      --text-4xl: 2.25rem;
+      
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      
+      --border-width: 2px;
+      --border-radius-sm: 4px;
+      --border-radius-md: 8px;
+      
+      --shadow-glow: 0 0 20px rgba(233, 69, 96, 0.2);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      line-height: 1.5;
+    }
+    
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+    
+    /* ============================================
+       COMPONENTS - JRPG STYLE
+       ============================================ */
+    
+    .status-card {
+      border: var(--border-width) solid var(--color-border);
+      background: var(--color-surface);
+      padding: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .status-card__header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+    
+    .status-card__rank {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      color: var(--color-accent);
+      border: var(--border-width) solid var(--color-accent);
+      padding: var(--space-xs) var(--space-sm);
+    }
+    
+    .status-card__name {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 700;
+    }
+    
+    .stat-row {
+      display: grid;
+      grid-template-columns: 100px 1fr 40px;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-sm);
+    }
+    
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .stat-bar {
+      height: 8px;
+      background: var(--color-border);
+      border: 1px solid var(--color-border-strong);
+    }
+    
+    .stat-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--color-accent), var(--color-accent-tertiary));
+    }
+    
+    .stat-value {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-primary);
+      text-align: right;
+    }
+    
+    .badges {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    
+    .badge {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      padding: 2px var(--space-sm);
+      border: var(--border-width) solid;
+    }
+    
+    .badge--fire {
+      border-color: #ef4444;
+      color: #ef4444;
+    }
+    
+    .badge--ice {
+      border-color: #3b82f6;
+      color: #3b82f6;
+    }
+    
+    .badge--electric {
+      border-color: #f59e0b;
+      color: #f59e0b;
+    }
+    
+    .stats-box {
+      border: var(--border-width) solid var(--color-border);
+      background: var(--color-surface-alt);
+      padding: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .stats-box__title {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-md);
+    }
+    
+    .stats-box__grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--space-md);
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-item__value {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      color: var(--color-accent);
+    }
+    
+    .stat-item__label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+    }
+    
+    .terminal-list {
+      border-left: var(--border-width) solid var(--color-border);
+      padding-left: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .terminal-list__header {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-accent);
+      margin-bottom: var(--space-sm);
+    }
+    
+    .terminal-prompt {
+      color: var(--color-accent);
+    }
+    
+    .terminal-list__items {
+      list-style: none;
+    }
+    
+    .terminal-list__items li {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-xs);
+    }
+    
+    /* ============================================
+       HERO PANEL
+       ============================================ */
+    
+    .hero-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      padding: var(--space-2xl) 0;
+      border-bottom: var(--border-width) solid var(--color-border);
+      margin-bottom: var(--space-2xl);
+    }
+    
+    .hero-panel__content h1 {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: 700;
+      margin-bottom: var(--space-md);
+    }
+    
+    .hero-panel__content p {
+      font-size: var(--text-lg);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .hero-panel__image {
+      border: var(--border-width) solid var(--color-border);
+      background: var(--color-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+    }
+    
+    /* ============================================
+       BUTTONS & CTAs
+       ============================================ */
+    
+    .btn {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: var(--space-sm) var(--space-lg);
+      border: var(--border-width) solid;
+      background: transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      text-decoration: none;
+    }
+    
+    .btn--primary {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+    
+    .btn--primary:hover {
+      background: var(--color-accent);
+      color: var(--color-bg);
+      box-shadow: var(--shadow-glow);
+    }
+    
+    /* ============================================
+       SECTIONS
+       ============================================ */
+    
+    .section {
+      margin-bottom: var(--space-2xl);
+    }
+    
+    .section__title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+    
+    /* ============================================
+       FTC DISCLOSURE
+       ============================================ */
+    
+    .ftc-disclosure {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      padding: var(--space-md);
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-alt);
+      margin-bottom: var(--space-xl);
+    }
+    
+    /* ============================================
+       FOOTER
+       ============================================ */
+    
+    .footer {
+      border-top: var(--border-width) solid var(--color-border);
+      padding: var(--space-xl) 0;
+      margin-top: var(--space-2xl);
+      text-align: center;
+    }
+    
+    .footer__brand {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+    }
+    
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    
+    @media (max-width: 768px) {
+      .hero-panel {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats-box__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .stat-row {
+        grid-template-columns: 80px 1fr 30px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .stats-box__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- FTC DISCLOSURE -->
+    <div class="ftc-disclosure">
+      <strong>Disclosure:</strong> This page contains affiliate links. We may earn a commission if you click through and make a purchase. This does not affect our editorial evaluations.
+    </div>
+    
+    <!-- HERO PANEL -->
+    <div class="hero-panel">
+      <div class="hero-panel__content">
+        <h1>{{PRODUCT_NAME}}</h1>
+        <p>{{PRODUCT_HEADLINE}}</p>
+        <a href="{{AFFILIATE_URL}}" target="_blank" rel="noopener" class="btn btn--primary">
+          <span>Visit Official Site</span>
+          <span>→</span>
+        </a>
+      </div>
+      <div class="hero-panel__image">
+        <img src="{{PRODUCT_SCREENSHOT}}" alt="{{PRODUCT_NAME}} screenshot" style="max-width: 100%; height: auto;">
+      </div>
+    </div>
+    
+    <!-- STATUS CARD -->
+    <div class="status-card">
+      <div class="status-card__header">
+        <span class="status-card__rank">S</span>
+        <span class="status-card__name">{{PRODUCT_NAME}}</span>
+      </div>
+      <div class="status-card__stats">
+        <div class="stat-row">
+          <span class="stat-label">VALOR</span>
+          <div class="stat-bar">
+            <div class="stat-fill" style="width: {{SCORE_VALOR}}%"></div>
+          </div>
+          <span class="stat-value">{{SCORE_VALOR}}</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">EASE</span>
+          <div class="stat-bar">
+            <div class="stat-fill" style="width: {{SCORE_EASE}}%"></div>
+          </div>
+          <span class="stat-value">{{SCORE_EASE}}</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">PERF</span>
+          <div class="stat-bar">
+            <div class="stat-fill" style="width: {{SCORE_PERF}}%"></div>
+          </div>
+          <span class="stat-value">{{SCORE_PERF}}</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">SUPPORT</span>
+          <div class="stat-bar">
+            <div class="stat-fill" style="width: {{SCORE_SUPPORT}}%"></div>
+          </div>
+          <span class="stat-value">{{SCORE_SUPPORT}}</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">INTEGRATE</span>
+          <div class="stat-bar">
+            <div class="stat-fill" style="width: {{SCORE_INTEGRATE}}%"></div>
+          </div>
+          <span class="stat-value">{{SCORE_INTEGRATE}}</span>
+        </div>
+      </div>
+      <div class="badges">
+        <span class="badge badge--fire">TOP PICK</span>
+        <span class="badge badge--ice">{{COMMISSION_TYPE}}</span>
+        <span class="badge badge--electric">{{BEST_FOR_TAG}}</span>
+      </div>
+    </div>
+    
+    <!-- BENCHMARK STATS BOX -->
+    <div class="stats-box">
+      <div class="stats-box__title">// BENCHMARK OVERVIEW</div>
+      <div class="stats-box__grid">
+        <div class="stat-item">
+          <span class="stat-item__value">{{OVERALL_SCORE}}</span>
+          <span class="stat-item__label">OVERALL</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-item__value">{{PRICE}}</span>
+          <span class="stat-item__label">PRICE</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-item__value">{{COOKIE_DAYS}}d</span>
+          <span class="stat-item__label">COOKIE</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-item__value">{{COMMISSION}}</span>
+          <span class="stat-item__label">COMM</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-item__value">{{VERDICT}}</span>
+          <span class="stat-item__label">VERDICT</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- PROS & CONS (TERMINAL STYLE) -->
+    <div class="section">
+      <h2 class="section__title">Pros & Cons</h2>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);">
+        <div class="terminal-list">
+          <div class="terminal-list__header">
+            <span class="terminal-prompt">$</span> PROS
+          </div>
+          <ul class="terminal-list__items">
+            <li><span class="terminal-prompt">&gt;</span> {{PRO_1}}</li>
+            <li><span class="terminal-prompt">&gt;</span> {{PRO_2}}</li>
+            <li><span class="terminal-prompt">&gt;</span> {{PRO_3}}</li>
+            <li><span class="terminal-prompt">&gt;</span> {{PRO_4}}</li>
+          </ul>
+        </div>
+        
+        <div class="terminal-list">
+          <div class="terminal-list__header">
+            <span class="terminal-prompt">$</span> CONS
+          </div>
+          <ul class="terminal-list__items">
+            <li><span class="terminal-prompt">&gt;</span> {{CON_1}}</li>
+            <li><span class="terminal-prompt">&gt;</span> {{CON_2}}</li>
+            <li><span class="terminal-prompt">&gt;</span> {{CON_3}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- FEATURES -->
+    <div class="section">
+      <h2 class="section__title">Key Features</h2>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md);">
+        <div class="status-card">
+          <strong>{{FEATURE_1_NAME}}</strong>
+          <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-top: var(--space-sm);">{{FEATURE_1_DESC}}</p>
+        </div>
+        <div class="status-card">
+          <strong>{{FEATURE_2_NAME}}</strong>
+          <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-top: var(--space-sm);">{{FEATURE_2_DESC}}</p>
+        </div>
+        <div class="status-card">
+          <strong>{{FEATURE_3_NAME}}</strong>
+          <p style="font-size: var(--text-sm); color: var(--color-text-secondary); margin-top: var(--space-sm);">{{FEATURE_3_DESC}}</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- PRICING -->
+    <div class="section">
+      <h2 class="section__title">Pricing</h2>
+      <div class="status-card">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); text-align: center;">
+          <div>
+            <strong>Free</strong>
+            <p style="font-size: var(--text-2xl); color: var(--color-accent);">$0</p>
+            <p style="font-size: var(--text-xs); color: var(--color-text-muted);">{{FREE_TIER_LIMITS}}</p>
+          </div>
+          <div>
+            <strong>Pro</strong>
+            <p style="font-size: var(--text-2xl); color: var(--color-accent);">${{PRO_PRICE}}</p>
+            <p style="font-size: var(--text-xs); color: var(--color-text-muted);">/month</p>
+          </div>
+          <div>
+            <strong>Enterprise</strong>
+            <p style="font-size: var(--text-2xl); color: var(--color-text-muted);">Custom</p>
+            <p style="font-size: var(--text-xs); color: var(--color-text-muted);">{{ENTERPRISE_NOTES}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- FAQ -->
+    <div class="section">
+      <h2 class="section__title">FAQ</h2>
+      <div class="terminal-list">
+        <div class="terminal-list__header">
+          <span class="terminal-prompt">$</span> QUESTIONS
+        </div>
+        <ul class="terminal-list__items">
+          <li><span class="terminal-prompt">&gt;</span> <strong>{{FAQ_Q1}}</strong></li>
+          <li style="margin-left: var(--space-md); margin-bottom: var(--space-md);"><span class="terminal-prompt">:</span> {{FAQ_A1}}</li>
+          <li><span class="terminal-prompt">&gt;</span> <strong>{{FAQ_Q2}}</strong></li>
+          <li style="margin-left: var(--space-md); margin-bottom: var(--space-md);"><span class="terminal-prompt">:</span> {{FAQ_A2}}</li>
+          <li><span class="terminal-prompt">&gt;</span> <strong>{{FAQ_Q3}}</strong></li>
+          <li style="margin-left: var(--space-md);"><span class="terminal-prompt">:</span> {{FAQ_A3}}</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- FINAL CTA -->
+    <div class="section" style="text-align: center; padding: var(--space-2xl) 0; border-top: var(--border-width) solid var(--color-border);">
+      <h2 style="font-family: var(--font-display); font-size: var(--text-3xl); margin-bottom: var(--space-md);">Ready to Try {{PRODUCT_NAME}}?</h2>
+      <p style="color: var(--color-text-secondary); margin-bottom: var(--space-lg);">{{CTA_SUBTEXT}}</p>
+      <a href="{{AFFILIATE_URL}}" target="_blank" rel="noopener" class="btn btn--primary">
+        <span>Visit Official Site</span>
+        <span>→</span>
+      </a>
+    </div>
+    
+    <!-- FOOTER -->
+    <div class="footer">
+      <p class="footer__brand">Built with <a href="https://list.affitor.com" style="color: var(--color-accent);">Affiliate Skills</a> by Affitor</p>
+    </div>
+    
+  </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+# =============================================================================
+# ORQUIDIA RUST INFERENCE MODULE - WASM Target
+# =============================================================================
+# Purpose: High-performance inference at the edge (WebAssembly)
+# Stack: Rust 2024 + wasm-bindgen
+# =============================================================================
+
+[package]
+name = "orquidia-inference"
+version = "0.2.0"
+edition = "2024"
+description = "High-performance Rust inference engine for Orquidia AI Core"
+
+# =============================================================================
+# LIBRARY CONFIGURATION
+# =============================================================================
+[lib]
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+# =============================================================================
+# CORE DEPENDENCIES
+# =============================================================================
+[dependencies]
+# WebAssembly Bindings (Required for edge execution)
+wasm-bindgen = "0.2.92"
+
+# Console logging for WASM
+console_error_panic_hook = "0.1.7"
+console_log = "1.0"
+
+# Error Handling
+thiserror = "1.0"
+anyhow = "1.0"
+
+# =============================================================================
+# OPTIMIZATION & PERFORMANCE
+# =============================================================================
+[profile.release]
+lto = true
+opt-level = 3
+codegen-units = 1
+panic = "abort"
+
+# =============================================================================
+# DEV DEPENDENCIES
+# =============================================================================
+[dev-dependencies]
+wasm-bindgen-test = "0.3"

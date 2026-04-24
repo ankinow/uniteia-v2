@@ -65,4 +65,71 @@ describe('evaluateSlugCheck', () => {
       await fixture.cleanup()
     }
   })
+
+  it('skips built-in test fixtures by default and reports no markdown files when only fixtures remain', async () => {
+    const fixture = await createSlugFixture({
+      'llm-wiki/en/test-admin.md':
+        '---\nslug: test-admin\nlang: en\ntitle: Test Admin Fixture\n---\n\nBody',
+      'llm-wiki/en/test-invalid-schema.md':
+        '---\nslug: test-invalid-schema\nlang: en\ntitle: Invalid Schema Fixture\n---\n\nBody',
+    })
+
+    try {
+      const report = await evaluateSlugCheck({
+        rootDir: join(fixture.rootDir, 'llm-wiki'),
+      })
+
+      expect(report.ok).toBe(false)
+      expect(report.checkedFiles).toBe(0)
+      expect(report.issues).toHaveLength(1)
+      expect(report.issues[0]?.kind).toBe('no-markdown-files')
+      expect(formatSlugCheckReport(report)).toContain('No markdown files found under')
+    } finally {
+      await fixture.cleanup()
+    }
+  })
+
+  it('includes built-in fixtures when requested and flags banned fixture slugs', async () => {
+    const fixture = await createSlugFixture({
+      'llm-wiki/en/test-admin.md':
+        '---\nslug: test-admin\nlang: en\ntitle: Test Admin Fixture\n---\n\nBody',
+    })
+
+    try {
+      const report = await evaluateSlugCheck({
+        rootDir: join(fixture.rootDir, 'llm-wiki'),
+        ignoreTestFixtures: false,
+      })
+
+      expect(report.ok).toBe(false)
+      expect(report.checkedFiles).toBe(1)
+      expect(report.issues.some(issue => issue.kind === 'invalid-slug')).toBe(true)
+      expect(report.issues.some(issue => issue.filePath.endsWith('test-admin.md'))).toBe(true)
+      expect(formatSlugCheckReport(report)).toContain('contains banned term "admin"')
+    } finally {
+      await fixture.cleanup()
+    }
+  })
+
+  it('reports malformed frontmatter as parse-failed', async () => {
+    const fixture = await createSlugFixture({
+      'llm-wiki/en/bad-frontmatter.md':
+        '---\nslug: bad-frontmatter\nlang: en\ntitle: bad: value\n---\n\nBody',
+    })
+
+    try {
+      const report = await evaluateSlugCheck({
+        rootDir: join(fixture.rootDir, 'llm-wiki'),
+        ignoreTestFixtures: false,
+      })
+
+      expect(report.ok).toBe(false)
+      expect(report.checkedFiles).toBe(1)
+      expect(report.issues).toHaveLength(1)
+      expect(report.issues[0]?.kind).toBe('parse-failed')
+      expect(formatSlugCheckReport(report)).toContain('Failed to parse frontmatter')
+    } finally {
+      await fixture.cleanup()
+    }
+  })
 })

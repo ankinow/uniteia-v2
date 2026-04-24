@@ -83,7 +83,7 @@ export default component$(() => {
             <div class="relative" data-topics-dropdown>
               <button
                 type="button"
-                class="text-bone-muted hover:text-bone transition-colors flex items-center gap-1"
+                class="appearance-none bg-transparent border-0 p-0 inline-flex items-center gap-1 text-bone-muted hover:text-bone transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action/50 focus-visible:ring-offset-2 focus-visible:ring-offset-void"
                 onClick$={() => {
                   topicsOpen.value = !topicsOpen.value
                 }}

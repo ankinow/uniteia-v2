@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+.turbo/
+
+# Build outputs
+dist/
+build/
+.output/
+.vinxi/
+
+# Environment
+.env
+.env.local
+.env.*.local
+.dev.vars
+
+# IDE
+.vscode/
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test
+coverage/
+
+# Wrangler
+.wrangler/
+
+# TypeScript build info
+**/tsconfig.tsbuildinfo
+
+# Dev tools (API keys, local scripts)
+tools/
+
+# Agent development (WIP)
+packages/agents/node_modules/
+

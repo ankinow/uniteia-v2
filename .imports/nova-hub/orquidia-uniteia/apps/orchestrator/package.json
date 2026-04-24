@@ -1,0 +1,46 @@
+{
+  "name": "@orquestra/orchestrator",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build && tsc --noEmit",
+    "preview": "vite preview",
+    "deploy": "bun run build && wrangler deploy --config wrangler.deploy.jsonc",
+    "deploy:staging": "bun run build && wrangler deploy --config wrangler.deploy.jsonc --env staging",
+    "cf-typegen": "wrangler types",
+    "typecheck": "tsc --noEmit",
+    "cli:content": "bun run src/cli/content-generator.ts",
+    "cli:seo": "bun run src/cli/seo-auditor.ts"
+  },
+  "dependencies": {
+    "@orquestra/ai-core": "workspace:*",
+    "@orquestra/shared": "workspace:*",
+    "@tanstack/react-router": "^1.154.7",
+    "@tanstack/react-start": "^1.154.7",
+    "@tanstack/start": "^1.120.20",
+    "hono": "^4.11.5",
+    "jose": "^6.1.3",
+    "marked": "^17.0.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "vinxi": "^0.5.11",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.21.1",
+    "@cloudflare/workers-types": "^4.20260122.0",
+    "@tailwindcss/postcss": "^4.2.2",
+    "@tailwindcss/vite": "^4.2.2",
+    "@types/node": "^25.0.10",
+    "@types/react": "^19.2.9",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "autoprefixer": "^10.4.27",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "wrangler": "^4.59.3"
+  }
+}

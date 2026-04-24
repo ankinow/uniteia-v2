@@ -3,7 +3,7 @@ import { getLanguageName, useI18n } from '~/i18n/context'
 import type { FooterProps } from './types'
 
 export const Footer = component$<FooterProps>(({ class: classList }) => {
-  const { t } = useI18n()
+  const { lang, t } = useI18n()
   const currentYear = useSignal(new Date().getFullYear())
 
   return (
@@ -48,7 +48,7 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
         </nav>
         <div class="footer-language text-bone-muted text-xs" data-testid="footer-language">
           <span class="opacity-60">Language: </span>
-          <span class="text-bone-secondary">{getLanguageName('en')}</span>
+          <span class="text-bone-secondary">{getLanguageName(lang.value)}</span>
         </div>
       </div>
     </footer>

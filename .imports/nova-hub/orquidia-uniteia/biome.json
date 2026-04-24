@@ -1,0 +1,57 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "suspicious": {
+        "noExplicitAny": "warn",
+        "noMisleadingCharacterClass": "warn"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "include": ["apps/orchestrator/src/templates/**"],
+      "linter": {
+        "rules": {
+          "security": {
+            "noDangerouslySetInnerHtml": "off"
+          }
+        }
+      }
+    }
+  ],
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100,
+    "lineEnding": "lf"
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "trailingCommas": "all",
+      "semicolons": "asNeeded"
+    }
+  },
+  "files": {
+    "ignore": [
+      "node_modules",
+      "dist",
+      ".output",
+      ".turbo",
+      ".vinxi",
+      "apps/orchestrator/.wrangler/**",
+      "*.lock",
+      "*.gen.ts",
+      "packages/ai-core/legacy_migration/**",
+      "packages/ai-core/src/rust/target/**",
+      "tmp_playwright/**"
+    ]
+  }
+}

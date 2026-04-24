@@ -1,0 +1,554 @@
+# Global Visual System — Brutalist/JRPG Clean
+
+> Sistema visual canonico para sites de curadoria global. Combina estetica brutalista limpa com elementos de UI JRPG, criando identidade editorial forte sem parecer "gamer".
+
+## Filosofia
+
+**Nao fazer "site gamer". Fazer site editorial tecnico com linguagem visual inspirada em JRPG UI.**
+
+O estilo brutalista/JRPG limpo prioriza:
+- Clarity over decoration
+- Function over fashion
+- Consistency over variety
+- Performance over animation
+
+## Cores Base
+
+```yaml
+colors:
+  base:
+    background: "#0f0f0f"      # Preto grafite profundo
+    surface: "#1a1a2e"        # Fundo de cards/paineis
+    surface_alt: "#16213e"    # Variacao de superficie
+    
+    text_primary: "#f5f5f5"   # Off-white
+    text_secondary: "#a0a0a0" # Cinza quente
+    text_muted: "#6b6b6b"     # Cinza escuro
+    
+    border: "#2d2d2d"         # Bordas discretas
+    border_strong: "#404040"  # Bordas enfatizadas
+  
+  accent:
+    primary: "#e94560"        # Vermelho queimado (CTA principal)
+    secondary: "#0f3460"      # Azul eletrico
+    tertiary: "#533483"       # Roxo escuro
+    
+    success: "#10b981"        # Verde terminal
+    warning: "#f59e0b"        # Laranja ferrugem
+    error: "#ef4444"          # Vermelho erro
+    info: "#3b82f6"           # Azul info
+  
+  derived:
+    gradient_primary: "linear-gradient(135deg, #e94560, #533483)"
+    gradient_surface: "linear-gradient(180deg, #1a1a2e 0%, #0f0f0f 100%)"
+    glow_primary: "0 0 20px rgba(233, 69, 96, 0.3)"
+```
+
+## Tipografia
+
+### Font Combos
+
+```yaml
+font_combos:
+  space_grotesk_inter:
+    display: "Space Grotesk"
+    body: "Inter"
+    mono: "JetBrains Mono"
+    weights: [400, 500, 700]
+    
+  ibm_plex:
+    display: "IBM Plex Sans"
+    body: "IBM Plex Sans"
+    mono: "IBM Plex Mono"
+    weights: [400, 500, 600]
+    
+  sora_inter:
+    display: "Sora"
+    body: "Inter"
+    mono: "JetBrains Mono"
+    weights: [400, 600, 700]
+    
+  geist:
+    display: "Geist"
+    body: "Geist"
+    mono: "Geist Mono"
+    weights: [400, 500, 700]
+```
+
+### Font Stack CSS
+
+```css
+:root {
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+}
+```
+
+## Espacamento e Grid
+
+```yaml
+spacing:
+  xs: "4px"
+  sm: "8px"
+  md: "16px"
+  lg: "24px"
+  xl: "32px"
+  2xl: "48px"
+  3xl: "64px"
+
+grid:
+  columns: 12
+  gap: "24px"
+  max_width: "1280px"
+  content_width: "960px"
+  
+breakpoints:
+  sm: "640px"
+  md: "768px"
+  lg: "1024px"
+  xl: "1280px"
+```
+
+## Elementos de UI
+
+### Bordas
+
+```yaml
+borders:
+  default: "2px solid var(--border)"
+  strong: "3px solid var(--border-strong)"
+  accent: "2px solid var(--accent-primary)"
+  
+  radius:
+    none: "0"
+    sm: "4px"
+    md: "8px"
+    lg: "12px"
+    full: "9999px"
+```
+
+### Sombras
+
+```yaml
+shadows:
+  none: "none"
+  sm: "0 1px 2px rgba(0, 0, 0, 0.5)"
+  md: "0 4px 6px rgba(0, 0, 0, 0.4)"
+  lg: "0 10px 15px rgba(0, 0, 0, 0.3)"
+  glow: "0 0 20px rgba(233, 69, 96, 0.2)"
+  inset: "inset 0 2px 4px rgba(0, 0, 0, 0.4)"
+```
+
+### Icones
+
+```yaml
+icons:
+  style: "simple"
+  stroke_width: 2
+  size:
+    sm: "16px"
+    md: "20px"
+    lg: "24px"
+    xl: "32px"
+  
+  set: "lucide"  # ou "heroicons", "phosphor"
+```
+
+## Componentes JRPG
+
+### Status Card
+
+```html
+<div class="status-card">
+  <div class="status-card__header">
+    <span class="status-card__rank">S</span>
+    <span class="status-card__name">[Product Name]</span>
+  </div>
+  <div class="status-card__stats">
+    <div class="stat-row">
+      <span class="stat-label">POWER</span>
+      <div class="stat-bar">
+        <div class="stat-fill" style="width: 82%"></div>
+      </div>
+      <span class="stat-value">8.2</span>
+    </div>
+    <!-- More stats -->
+  </div>
+  <div class="status-card__badges">
+    <span class="badge badge--fire">TOP PICK</span>
+    <span class="badge badge--ice">RECURRING</span>
+  </div>
+</div>
+```
+
+```css
+.status-card {
+  border: 2px solid var(--border);
+  background: var(--surface);
+  padding: var(--spacing-md);
+}
+
+.status-card__rank {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--accent-primary);
+  border: 2px solid var(--accent-primary);
+  padding: 4px 12px;
+}
+
+.stat-bar {
+  height: 8px;
+  background: var(--border);
+  border: 1px solid var(--border-strong);
+}
+
+.stat-fill {
+  height: 100%;
+  background: var(--gradient-primary);
+}
+```
+
+### Stats Box
+
+```html
+<div class="stats-box">
+  <div class="stats-box__title">// BENCHMARK</div>
+  <div class="stats-box__grid">
+    <div class="stat-item">
+      <span class="stat-item__value">8.2</span>
+      <span class="stat-item__label">OVERALL</span>
+    </div>
+    <!-- More stats -->
+  </div>
+</div>
+```
+
+```css
+.stats-box__title {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.stat-item__value {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+```
+
+### Terminal List
+
+```html
+<div class="terminal-list">
+  <div class="terminal-list__header">
+    <span class="terminal-prompt">$</span>
+    <span>PROS</span>
+  </div>
+  <ul class="terminal-list__items">
+    <li><span class="terminal-prompt">></span> [pro item 1]</li>
+    <li><span class="terminal-prompt">></span> [pro item 2]</li>
+  </ul>
+</div>
+```
+
+```css
+.terminal-prompt {
+  font-family: var(--font-mono);
+  color: var(--accent-primary);
+}
+
+.terminal-list__items li {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  border-left: 2px solid var(--border);
+  padding-left: var(--spacing-sm);
+  margin-left: var(--spacing-sm);
+}
+```
+
+### Badge System
+
+```yaml
+badges:
+  types:
+    fire: "#ef4444"     # Hot/trending
+    ice: "#3b82f6"      # Cool/stable
+    electric: "#f59e0b" # Fast/new
+    earth: "#10b981"    # Solid/reliable
+    shadow: "#8b5cf6"   # Enterprise
+    light: "#f5f5f5"    # Free tier
+    
+  styles:
+    default:
+      border: "2px solid"
+      padding: "2px 8px"
+      font-family: "var(--font-mono)"
+      font-size: "var(--text-xs)"
+      text-transform: "uppercase"
+```
+
+### Command List (FAQ)
+
+```html
+<div class="command-list">
+  <div class="command-item">
+    <button class="command-item__trigger">
+      <span class="command-prompt">></span>
+      <span class="command-text">[question text]</span>
+    </button>
+    <div class="command-item__response">
+      <span class="response-prompt">:</span>
+      <p>[answer text]</p>
+    </div>
+  </div>
+</div>
+```
+
+## Layout Patterns
+
+### Hero Panel
+
+```yaml
+hero_panel:
+  layout: "split"  # left | right | split | centered
+  
+  elements:
+    - type: "logo"
+      size: "lg"
+      
+    - type: "headline"
+      tag: "h1"
+      font: "display"
+      size: "4xl"
+      
+    - type: "subheadline"
+      tag: "p"
+      font: "body"
+      size: "lg"
+      
+    - type: "screenshot"
+      position: "right"
+      border: true
+      
+    - type: "cta"
+      style: "primary"
+      icon: "arrow-right"
+```
+
+### Comparison Grid
+
+```yaml
+comparison_grid:
+  columns: 3
+  header_sticky: true
+  
+  cells:
+    feature_name:
+      align: left
+      font: mono
+      
+    product_a:
+      align: center
+      highlight: conditional
+      
+    product_b:
+      align: center
+      highlight: conditional
+      
+    winner:
+      badge: true
+      icon: "crown"
+```
+
+### Category Map Panel
+
+```yaml
+category_map:
+  layout: "mosaic"
+  
+  cards:
+    - type: "featured"
+      span: 2
+      image: true
+      
+    - type: "standard"
+      span: 1
+      image: false
+      
+  filters:
+    position: "top"
+    style: "pill"
+```
+
+## Animacoes
+
+```yaml
+animations:
+  transitions:
+    fast: "150ms ease"
+    normal: "300ms ease"
+    slow: "500ms ease"
+    
+  hover:
+    scale: "1.02"
+    shadow: "var(--shadow-glow)"
+    border_color: "var(--accent-primary)"
+    
+  scroll:
+    fade_in: "opacity 0.5s ease"
+    slide_up: "transform 0.5s ease, opacity 0.5s ease"
+```
+
+**RESTRICOES:**
+- Nao usar animacoes infinitas (loading spinners ok)
+- Hover apenas, nao autoplay
+- Respeitar `prefers-reduced-motion`
+- Performance first
+
+## Responsividade
+
+```yaml
+responsive:
+  mobile_first: true
+  
+  typography:
+    mobile:
+      h1: "1.875rem"
+      h2: "1.5rem"
+      body: "1rem"
+    desktop:
+      h1: "2.25rem"
+      h2: "1.875rem"
+      body: "1rem"
+  
+  layout:
+    mobile: "single-column"
+    tablet: "two-column"
+    desktop: "multi-column"
+    
+  hide_on_mobile:
+    - "decorative-elements"
+    - "extended-nav"
+```
+
+## Accessibility
+
+```yaml
+accessibility:
+  color_contrast:
+    text_on_dark: ">= 4.5:1"
+    text_on_light: ">= 4.5:1"
+    
+  focus:
+    outline: "2px solid var(--accent-primary)"
+    outline_offset: "2px"
+    
+  semantics:
+    headings: "hierarchical"
+    landmarks: "banner, main, contentinfo"
+    aria_labels: "required for interactive"
+    
+  motion:
+    respect_prefers_reduced_motion: true
+```
+
+## Dark Mode (Default)
+
+Este sistema visual foi desenhado dark-first. Light mode e um futuro enhancement.
+
+```yaml
+dark_mode:
+  default: true
+  forced: false  # permite user toggle
+  
+  implementation:
+    method: "css-variables"
+    toggle: "system-preference"
+```
+
+## CSS Variables Complete
+
+```css
+:root {
+  /* Colors */
+  --color-bg: #0f0f0f;
+  --color-surface: #1a1a2e;
+  --color-surface-alt: #16213e;
+  --color-text-primary: #f5f5f5;
+  --color-text-secondary: #a0a0a0;
+  --color-text-muted: #6b6b6b;
+  --color-border: #2d2d2d;
+  --color-border-strong: #404040;
+  --color-accent: #e94560;
+  --color-accent-secondary: #0f3460;
+  
+  /* Typography */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  
+  /* Borders */
+  --border-width: 2px;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 20px rgba(233, 69, 96, 0.2);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+}
+```
+
+## NAO FAZER
+
+- ❌ Gradientes em tudo
+- ❌ Bordas em tudo (usar com proposito)
+- ❌ Icons por toda parte (texto e suficiente)
+- ❌ Animacoes complexas
+- ❌ Font weights > 700
+- ❌ Cores neon excessivas
+- ❌ "Gamer aesthetics" literais
+- ❌ Skeuomorphism
+- ❌ Flat design excessivo
+
+## FAZER
+
+- ✅ Hierarquia visual clara
+- ✅ Bordas com proposito (separar secoes)
+- ✅ Tipografia forte (display vs body)
+- ✅ Contraste alto para legibilidade
+- ✅ Espaco em branco generoso
+- ✅ Grid firme e consistente
+- ✅ Componentes JRPG como acento, nao tema
+- ✅ Performance primeiro
