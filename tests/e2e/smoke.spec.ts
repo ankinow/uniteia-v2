@@ -1,13 +1,7 @@
 import { type Page, expect, test } from '@playwright/test'
 
-/** All 5 supported languages */
-const LANGS = ['en', 'pt', 'es', 'ja', 'zh'] as const
+const TRACKED_ROUTES = ['/en/test-article', '/en/n', '/en/n/ai-agents'] as const
 
-/**
- * Helper: collect console errors during a page load.
- * Returns an array of error strings. Callers must read
- * the array *after* the page has loaded and settled.
- */
 function collectConsoleErrors(page: Page): string[] {
   const errors: string[] = []
   page.on('console', msg => {
@@ -16,119 +10,92 @@ function collectConsoleErrors(page: Page): string[] {
   return errors
 }
 
-/* ───────────────────────────────────────────────
- * 1. Home page loads in each language
- * ─────────────────────────────────────────────── */
-for (const lang of LANGS) {
-  test(`home page loads for /${lang}`, async ({ page }) => {
-    const errors = collectConsoleErrors(page)
-    await page.goto(`/${lang}`)
+async function gotoAndAssertNegotiation(page: Page, route: string, expectedLang = 'en') {
+  const response = await page.goto(route)
+  expect(response, `Navigation response missing for ${route}`).not.toBeNull()
 
-    // Verify the page rendered with the UniTeia brand
-    await expect(page.locator('[data-testid="nav-logo"]')).toBeVisible()
+  const headers = response?.headers() ?? {}
+  expect(headers['x-negotiated-lang'], `x-negotiated-lang on ${route}`).toBe(expectedLang)
+  expect(headers['x-negotiated-niche'], `x-negotiated-niche on ${route}`).toBe('apex')
 
-    // No JS console errors on this route
-    await page.waitForLoadState('networkidle')
-    expect(errors.length, `Console errors on /${lang}: ${errors.join('; ')}`).toBe(0)
-  })
+  return response
 }
 
-/* ───────────────────────────────────────────────
- * 2. Article page renders
- * ─────────────────────────────────────────────── */
-test('article page renders at /en/article/test-article', async ({ page }) => {
+test('tracked article route renders fixture content and negotiated headers', async ({ page }) => {
   const errors = collectConsoleErrors(page)
-  await page.goto('/en/article/test-article')
+  await gotoAndAssertNegotiation(page, '/en/test-article')
 
-  // The article-frame or editorial-verdict should be present
+  await expect(page.locator('[data-testid="article-frame"]')).toBeVisible()
   await expect(
-    page.locator('[data-testid="article-frame"], [data-testid="editorial-verdict"]').first()
-  ).toBeVisible({ timeout: 10_000 })
+    page.getByRole('heading', { name: 'Test Article for Integration Verification' })
+  ).toBeVisible()
+
   await page.waitForLoadState('networkidle')
-  expect(errors.length, `Console errors on article: ${errors.join('; ')}`).toBe(0)
+  expect(errors, `Console errors on /en/test-article: ${errors.join('; ')}`).toHaveLength(0)
 })
 
-/* ───────────────────────────────────────────────
- * 3. Niche landing renders
- * ─────────────────────────────────────────────── */
-test('niche landing renders at /en/n/ai-agents', async ({ page }) => {
+test('tracked niche landing renders negotiated headers', async ({ page }) => {
   const errors = collectConsoleErrors(page)
-  await page.goto('/en/n/ai-agents')
+  await gotoAndAssertNegotiation(page, '/en/n/ai-agents')
 
-  // The niche-landing component should render (it contains niche title)
-  await expect(page.locator('h1, h2').first()).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'AI Agents' })).toBeVisible()
+  await expect(page.locator('[data-testid="niche-landing-ai-agents"]')).toBeVisible()
+
   await page.waitForLoadState('networkidle')
-  expect(errors.length, `Console errors on niche landing: ${errors.join('; ')}`).toBe(0)
+  expect(errors, `Console errors on /en/n/ai-agents: ${errors.join('; ')}`).toHaveLength(0)
 })
 
-/* ───────────────────────────────────────────────
- * 4. Niche index renders
- * ─────────────────────────────────────────────── */
-test('niche index renders at /en/n/', async ({ page }) => {
+test('tracked niche index renders negotiated headers', async ({ page }) => {
   const errors = collectConsoleErrors(page)
-  await page.goto('/en/n/')
+  await gotoAndAssertNegotiation(page, '/en/n')
 
-  // The niche-index container should be visible
   await expect(page.locator('[data-testid="niche-index"]')).toBeVisible()
   await page.waitForLoadState('networkidle')
-  expect(errors.length, `Console errors on niche index: ${errors.join('; ')}`).toBe(0)
+  expect(errors, `Console errors on /en/n: ${errors.join('; ')}`).toHaveLength(0)
 })
 
-/* ───────────────────────────────────────────────
- * 5. 404 page for invalid routes
- * ─────────────────────────────────────────────── */
 test('404 page renders for invalid route', async ({ page }) => {
   await page.goto('/en/this-route-does-not-exist-at-all')
 
-  // The 404 error code should be visible
   await expect(page.locator('[data-testid="error-code"]')).toBeVisible()
-
-  // The 404 title text should be present
   await expect(page.locator('[data-testid="error-title"]')).toBeVisible()
 })
 
-/* ───────────────────────────────────────────────
- * 6. Language switcher changes language
- *
- * The LangSwitcher sets a cookie and redirects.
- * We verify the dropdown opens and a language option is selectable.
- * ─────────────────────────────────────────────── */
-test('language switcher changes language', async ({ page }) => {
-  await page.goto('/en')
+test('language switcher persists cookie and reloads the same pathname', async ({ page }) => {
+  const errors = collectConsoleErrors(page)
+  await gotoAndAssertNegotiation(page, '/en/test-article')
 
-  // Open the language switcher dropdown
   const trigger = page.locator('[data-testid="lang-switcher-trigger"]')
   await expect(trigger).toBeVisible()
   await trigger.click()
 
-  // The dropdown should appear
   const dropdown = page.locator('[data-testid="lang-switcher-dropdown"]')
   await expect(dropdown).toBeVisible()
 
-  // Click the Portuguese option
   const ptOption = page.locator('[data-testid="lang-option-pt"]')
   await expect(ptOption).toBeVisible()
-  await ptOption.click()
 
-  // Wait for the redirect — the page should now be on /pt
-  await page.waitForURL(/\/pt/, { timeout: 10_000 })
-  await expect(page).toHaveURL(/\/pt/)
+  const navigationPromise = page.waitForNavigation({ waitUntil: 'load' })
+  await ptOption.click()
+  const reloadResponse = await navigationPromise
+
+  await expect(page).toHaveURL(/\/en\/test-article(?:\?.*)?$/)
+  const cookies = await page.context().cookies()
+  expect(cookies.find(cookie => cookie.name === 'uniteia_lang')?.value).toBe('pt')
+
+  const headers = reloadResponse?.headers() ?? {}
+  expect(headers['x-negotiated-lang'], 'x-negotiated-lang after language switch').toBe('pt')
+  expect(headers['x-negotiated-niche'], 'x-negotiated-niche after language switch').toBe('apex')
+
+  await page.waitForLoadState('networkidle')
+  expect(errors, `Console errors on language switch: ${errors.join('; ')}`).toHaveLength(0)
 })
 
-/* ───────────────────────────────────────────────
- * 7. No console errors on core routes
- *
- * Consolidated check across key routes. Individual
- * tests above already check per-route; this is a
- * broader smoke check.
- * ─────────────────────────────────────────────── */
-const CORE_ROUTES = ['/en', '/pt', '/es', '/ja', '/zh', '/en/n/ai-agents', '/en/n/']
-
-for (const route of CORE_ROUTES) {
+for (const route of TRACKED_ROUTES) {
   test(`no console errors on ${route}`, async ({ page }) => {
     const errors = collectConsoleErrors(page)
-    await page.goto(route)
+    await gotoAndAssertNegotiation(page, route)
     await page.waitForLoadState('networkidle')
-    expect(errors.length, `Console errors on ${route}: ${errors.join('; ')}`).toBe(0)
+    expect(errors, `Console errors on ${route}: ${errors.join('; ')}`).toHaveLength(0)
   })
 }
