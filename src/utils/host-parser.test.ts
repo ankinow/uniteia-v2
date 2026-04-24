@@ -26,6 +26,14 @@ describe('Host Parser', () => {
     expect(result.isLocal).toBe(false)
   })
 
+  it('should strip ports before classifying apex and subdomain hosts', () => {
+    expect(parseHost('uniteia.com:443')).toEqual({ niche: 'apex', isLocal: false })
+    expect(parseHost('singularity.uniteia.com:443')).toEqual({
+      niche: 'singularity',
+      isLocal: false,
+    })
+  })
+
   it('should return niche for subdomain on uniteia.local', () => {
     const result = parseHost('dev.uniteia.local:3000')
     expect(result.niche).toBe('dev')

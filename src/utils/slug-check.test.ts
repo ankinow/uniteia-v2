@@ -29,7 +29,10 @@ describe('evaluateSlugCheck', () => {
     })
 
     try {
-      const report = await evaluateSlugCheck({ rootDir: join(fixture.rootDir, 'llm-wiki') })
+      const report = await evaluateSlugCheck({
+        rootDir: join(fixture.rootDir, 'llm-wiki'),
+        ignoreTestFixtures: false,
+      })
 
       expect(report.ok).toBe(true)
       expect(report.checkedFiles).toBe(1)
@@ -46,7 +49,10 @@ describe('evaluateSlugCheck', () => {
     })
 
     try {
-      const report = await evaluateSlugCheck({ rootDir: join(fixture.rootDir, 'llm-wiki') })
+      const report = await evaluateSlugCheck({
+        rootDir: join(fixture.rootDir, 'llm-wiki'),
+        ignoreTestFixtures: false,
+      })
 
       expect(report.ok).toBe(false)
       expect(report.checkedFiles).toBe(1)

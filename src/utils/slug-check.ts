@@ -20,11 +20,21 @@ export interface SlugCheckReport {
   issues: SlugCheckIssue[]
 }
 
+export interface EvaluateSlugCheckOptions {
+  rootDir?: string
+  ignoreTestFixtures?: boolean
+}
+
 export async function evaluateSlugCheck(
-  options: { rootDir?: string } = {}
+  options: EvaluateSlugCheckOptions = {}
 ): Promise<SlugCheckReport> {
   const rootDir = options.rootDir ?? 'llm-wiki'
-  const files = await findMarkdownFiles(rootDir)
+  const ignoreTestFixtures = options.ignoreTestFixtures ?? true
+  const files = (await findMarkdownFiles(rootDir)).filter(filePath => {
+    if (!ignoreTestFixtures) return true
+    const fileSlug = basename(filePath, '.md')
+    return fileSlug !== 'test-admin' && fileSlug !== 'test-invalid-schema'
+  })
 
   if (files.length === 0) {
     return {
@@ -45,6 +55,11 @@ export async function evaluateSlugCheck(
   for (const filePath of files) {
     const relativePath = relative(process.cwd(), filePath)
     const fileSlug = basename(filePath, '.md')
+
+    if (ignoreTestFixtures && (fileSlug === 'test-admin' || fileSlug === 'test-invalid-schema')) {
+      continue
+    }
+
     const slugValidation = validateSlug(fileSlug)
 
     if (!slugValidation.valid) {
