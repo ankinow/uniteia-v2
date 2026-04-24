@@ -12,7 +12,7 @@ export interface FooterProps {
  * Footer link structure
  */
 export interface FooterLink {
-  href: string
+  url: string
   label: string
   external?: boolean
 }

@@ -1,11 +1,4 @@
-import {
-  defineConfig,
-  presetAttributify,
-  presetIcons,
-  presetTypography,
-  presetWebFonts,
-  presetWind3,
-} from 'unocss'
+import { defineConfig, presetAttributify, presetIcons, presetTypography, presetWind3 } from 'unocss'
 import { presetSolarLanso } from './uno-presets/solarlanso'
 
 export default defineConfig({

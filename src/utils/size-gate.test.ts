@@ -98,16 +98,15 @@ describe('evaluateRouteSizeGate', () => {
     })
 
     try {
-      const analyzed = await evaluateRouteSizeGate({ buildDir: fixture.distDir, thresholdBytes: 1_000_000 })
+      const analyzed = await evaluateRouteSizeGate({
+        buildDir: fixture.distDir,
+        thresholdBytes: 1_000_000,
+      })
 
       expect(analyzed.ok).toBe(true)
       expect(analyzed.routes).toHaveLength(3)
       const routeKeys = analyzed.routes.map(route => route.routeKey)
-      expect(routeKeys).toEqual([
-        '/exact',
-        '/oversized',
-        '/pass',
-      ])
+      expect(routeKeys).toEqual(['/exact', '/oversized', '/pass'])
 
       const exactRoute = analyzed.routes.find(route => route.routeKey === '/exact')
       const oversizedRoute = analyzed.routes.find(route => route.routeKey === '/oversized')
@@ -127,10 +126,12 @@ describe('evaluateRouteSizeGate', () => {
       })
       expect(passedAtExactThreshold.ok).toBe(false)
       expect(passedAtExactThreshold.issues.some(issue => issue.routeKey === '/exact')).toBe(false)
-      expect(passedAtExactThreshold.issues.some(issue => issue.routeKey === '/oversized')).toBe(true)
-      expect(passedAtExactThreshold.routes.find(route => route.routeKey === '/exact')?.gzipBytes).toBe(
-        exactThreshold
+      expect(passedAtExactThreshold.issues.some(issue => issue.routeKey === '/oversized')).toBe(
+        true
       )
+      expect(
+        passedAtExactThreshold.routes.find(route => route.routeKey === '/exact')?.gzipBytes
+      ).toBe(exactThreshold)
 
       const failedJustBelow = await evaluateRouteSizeGate({
         buildDir: fixture.distDir,
@@ -140,7 +141,11 @@ describe('evaluateRouteSizeGate', () => {
       expect(failedJustBelow.issues.some(issue => issue.kind === 'route-over-budget')).toBe(true)
       expect(failedJustBelow.issues.some(issue => issue.routeKey === '/exact')).toBe(true)
       expect(failedJustBelow.issues.some(issue => issue.routeKey === '/oversized')).toBe(true)
-      expect(failedJustBelow.issues.every(issue => issue.thresholdBytes === exactThreshold - 1 || issue.thresholdBytes === undefined)).toBe(true)
+      expect(
+        failedJustBelow.issues.every(
+          issue => issue.thresholdBytes === exactThreshold - 1 || issue.thresholdBytes === undefined
+        )
+      ).toBe(true)
 
       const report = formatRouteSizeGateReport(failedJustBelow)
       expect(report).toContain('/exact')

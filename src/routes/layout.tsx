@@ -4,19 +4,18 @@ import { Footer } from '~/components/footer'
 import { LangSwitcher } from '~/components/lang-switcher'
 import { SiteShell } from '~/components/site-shell'
 import { getTranslation, useProvideI18n } from '~/i18n/context'
-import { DEFAULT_LANGUAGE, LANGUAGE_COOKIE_NAME, type SupportedLanguage } from '~/i18n/types'
+import { DEFAULT_LANGUAGE, type SupportedLanguage } from '~/i18n/types'
 import type { NichesConfig } from '~/types/niche'
 import { loadNichesConfig } from '~/utils/niche-loader'
 
-export const onRequest: RequestHandler = async (event) => {
+export const onRequest: RequestHandler = async event => {
   const { onLanguageNegotiation } = await import('~/i18n/middleware')
   return onLanguageNegotiation(event)
 }
 
 export const useLanguage = routeLoader$<SupportedLanguage>(({ headers }) => {
   const lang = headers.get('x-negotiated-lang')
-  if (lang && ['en', 'pt', 'es', 'ja', 'zh'].includes(lang))
-    return lang as SupportedLanguage
+  if (lang && ['en', 'pt', 'es', 'ja', 'zh'].includes(lang)) return lang as SupportedLanguage
   return DEFAULT_LANGUAGE
 })
 
@@ -73,16 +72,10 @@ export default component$(() => {
           </a>
 
           <div class="nav-links hidden md:flex items-center gap-6">
-            <a
-              href={`/${lang}`}
-              class="text-bone-muted hover:text-bone transition-colors"
-            >
+            <a href={`/${lang}`} class="text-bone-muted hover:text-bone transition-colors">
               {t.nav.home}
             </a>
-            <a
-              href={`/${lang}/about`}
-              class="text-bone-muted hover:text-bone transition-colors"
-            >
+            <a href={`/${lang}/about`} class="text-bone-muted hover:text-bone transition-colors">
               {t.nav.about}
             </a>
 
@@ -141,16 +134,10 @@ export default component$(() => {
               )}
             </div>
 
-            <a
-              href={`/${lang}/projects`}
-              class="text-bone-muted hover:text-bone transition-colors"
-            >
+            <a href={`/${lang}/projects`} class="text-bone-muted hover:text-bone transition-colors">
               {t.nav.projects}
             </a>
-            <a
-              href={`/${lang}/blog`}
-              class="text-bone-muted hover:text-bone transition-colors"
-            >
+            <a href={`/${lang}/blog`} class="text-bone-muted hover:text-bone transition-colors">
               {t.nav.blog}
             </a>
           </div>

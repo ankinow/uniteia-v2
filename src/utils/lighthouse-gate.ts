@@ -1,7 +1,8 @@
-import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process'
-import { createServer } from 'node:http'
-import { resolve } from 'node:path'
+import { readFile } from 'node:fs/promises'
+import { type IncomingMessage, type ServerResponse, createServer } from 'node:http'
+import { extname, resolve } from 'node:path'
 import { setTimeout as delay } from 'node:timers/promises'
+import { pathToFileURL } from 'node:url'
 import { chromium } from '@playwright/test'
 import lighthouse from 'lighthouse'
 
@@ -33,7 +34,12 @@ export interface LighthouseReportLike {
 }
 
 export interface LighthouseGateIssue {
-  kind: 'invalid-report-data' | 'category-below-threshold' | 'preview-server-failed' | 'browser-startup-failed' | 'lighthouse-audit-failed'
+  kind:
+    | 'invalid-report-data'
+    | 'category-below-threshold'
+    | 'preview-server-failed'
+    | 'browser-startup-failed'
+    | 'lighthouse-audit-failed'
   message: string
   category?: LighthouseCategoryKey
   scorePercent?: number | null
@@ -65,16 +71,17 @@ export interface RunLighthouseGateOptions {
   browserTimeoutMs?: number
 }
 
-interface BufferedOutput {
-  stdout: string[]
-  stderr: string[]
-}
-
 interface PreviewServerHandle {
-  process: ChildProcessWithoutNullStreams
   previewUrl: string
   close: () => Promise<void>
-  logs: BufferedOutput
+}
+
+interface WorkerModule {
+  fetch: (
+    request: Request,
+    env: Record<string, unknown>,
+    context: { waitUntil: (promise: Promise<unknown>) => void }
+  ) => Promise<Response>
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -93,23 +100,10 @@ function formatPercent(scorePercent: number | null): string {
   return scorePercent === null ? 'unavailable' : `${scorePercent.toFixed(1)}%`
 }
 
-function bufferLines(target: string[], chunk: string): void {
-  for (const line of chunk.split(/\r?\n/)) {
-    if (line.length === 0) {
-      continue
-    }
-
-    target.push(line)
-    if (target.length > 25) {
-      target.splice(0, target.length - 25)
-    }
-  }
-}
-
 async function findFreePort(): Promise<number> {
   return await new Promise((resolvePort, rejectPort) => {
     const server = createServer()
-    server.on('error', rejectPort)
+    server.once('error', rejectPort)
     server.listen(0, '127.0.0.1', () => {
       const address = server.address()
       if (!address || typeof address === 'string') {
@@ -137,7 +131,7 @@ async function waitForPreviewServer(previewUrl: string, timeoutMs: number): Prom
   while (Date.now() < deadline) {
     try {
       const response = await fetch(previewUrl, { redirect: 'follow' })
-      if (response.ok) {
+      if (response.status < 500) {
         return
       }
 
@@ -150,60 +144,159 @@ async function waitForPreviewServer(previewUrl: string, timeoutMs: number): Prom
   }
 
   const message = lastError instanceof Error ? lastError.message : String(lastError)
-  throw new Error(`Preview server did not become ready within ${timeoutMs.toLocaleString('en-US')} ms: ${message}`)
+  throw new Error(
+    `Preview server did not become ready within ${timeoutMs.toLocaleString('en-US')} ms: ${message}`
+  )
 }
 
-function spawnPreviewServer(buildDir: string, port: number): PreviewServerHandle {
-  const logs: BufferedOutput = { stdout: [], stderr: [] }
-  const previewArgs = [
-    'run',
-    'preview',
-    '--',
-    '--host',
-    '127.0.0.1',
-    '--port',
-    String(port),
-    '--strictPort',
-  ]
+function contentTypeForPath(filePath: string): string {
+  switch (extname(filePath).toLowerCase()) {
+    case '.js':
+      return 'text/javascript; charset=utf-8'
+    case '.css':
+      return 'text/css; charset=utf-8'
+    case '.json':
+      return 'application/json; charset=utf-8'
+    case '.svg':
+      return 'image/svg+xml'
+    case '.png':
+      return 'image/png'
+    case '.jpg':
+    case '.jpeg':
+      return 'image/jpeg'
+    case '.woff':
+      return 'font/woff'
+    case '.woff2':
+      return 'font/woff2'
+    case '.html':
+      return 'text/html; charset=utf-8'
+    default:
+      return 'application/octet-stream'
+  }
+}
 
-  const childProcess = spawn('bun', previewArgs, {
-    cwd: process.cwd(),
-    env: process.env,
-    stdio: ['ignore', 'pipe', 'pipe'],
+function isInsideDirectory(filePath: string, directory: string): boolean {
+  const resolvedFilePath = resolve(filePath)
+  const resolvedDirectory = resolve(directory)
+  return (
+    resolvedFilePath === resolvedDirectory || resolvedFilePath.startsWith(`${resolvedDirectory}/`)
+  )
+}
+
+async function serveStaticAsset(distDir: string, request: Request): Promise<Response> {
+  const url = new URL(request.url)
+  const pathname = decodeURIComponent(url.pathname)
+  const relativePath = pathname.startsWith('/') ? `.${pathname}` : pathname
+  const filePath = resolve(distDir, relativePath)
+
+  if (!isInsideDirectory(filePath, distDir)) {
+    return new Response('Not Found', { status: 404 })
+  }
+
+  try {
+    const contents = await readFile(filePath)
+    return new Response(contents, {
+      status: 200,
+      headers: {
+        'content-type': contentTypeForPath(filePath),
+      },
+    })
+  } catch {
+    return new Response('Not Found', { status: 404 })
+  }
+}
+
+async function loadPreviewWorker(): Promise<WorkerModule> {
+  const workerUrl = pathToFileURL(resolve(process.cwd(), 'server/entry.cloudflare-pages.js')).href
+  return (await import(workerUrl)) as WorkerModule
+}
+
+const SUPPORTED_LANGUAGES = new Set(['en', 'pt', 'es', 'ja', 'zh'])
+
+function rewritePreviewPathname(pathname: string): string {
+  const trimmedPathname =
+    pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname
+  if (SUPPORTED_LANGUAGES.has(trimmedPathname.slice(1)) && !trimmedPathname.endsWith('/n')) {
+    return `${trimmedPathname}/n`
+  }
+
+  return pathname
+}
+
+function createPreviewRequest(request: IncomingMessage, port: number): Request {
+  const url = new URL(request.url ?? '/', `http://localhost:${port}`)
+  url.pathname = rewritePreviewPathname(url.pathname)
+  const headers = new Headers()
+
+  for (const [key, value] of Object.entries(request.headers)) {
+    if (Array.isArray(value)) {
+      headers.set(key, value.join(', '))
+    } else if (typeof value === 'string') {
+      headers.set(key, value)
+    }
+  }
+
+  return new Request(url, {
+    method: request.method ?? 'GET',
+    headers,
+  })
+}
+
+async function writePreviewResponse(response: Response, res: ServerResponse): Promise<void> {
+  res.statusCode = response.status
+  res.statusMessage = response.statusText
+
+  response.headers.forEach((value, key) => {
+    res.setHeader(key, value)
   })
 
-  childProcess.stdout.setEncoding('utf8')
-  childProcess.stderr.setEncoding('utf8')
-  childProcess.stdout.on('data', chunk => bufferLines(logs.stdout, String(chunk)))
-  childProcess.stderr.on('data', chunk => bufferLines(logs.stderr, String(chunk)))
+  if (!response.body) {
+    res.end()
+    return
+  }
+
+  res.end(Buffer.from(await response.arrayBuffer()))
+}
+
+async function startPreviewServer(distDir: string, port: number): Promise<PreviewServerHandle> {
+  const worker = await loadPreviewWorker()
+  const server = createServer(async (request, response) => {
+    try {
+      const previewRequest = createPreviewRequest(request, port)
+      const previewResponse = await worker.fetch(
+        previewRequest,
+        {
+          ASSETS: {
+            fetch: (assetRequest: Request) => serveStaticAsset(distDir, assetRequest),
+          },
+        },
+        { waitUntil: () => undefined }
+      )
+
+      await writePreviewResponse(previewResponse, response)
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error)
+      response.statusCode = 500
+      response.setHeader('content-type', 'text/plain; charset=utf-8')
+      response.end(message)
+    }
+  })
+
+  await new Promise<void>((resolveListen, rejectListen) => {
+    const onError = (error: Error) => rejectListen(error)
+    server.once('error', onError)
+    server.listen(port, '127.0.0.1', () => {
+      server.off('error', onError)
+      resolveListen()
+    })
+  })
 
   return {
-    process: childProcess,
-    previewUrl: `http://127.0.0.1:${port}`,
-    logs,
+    previewUrl: `http://localhost:${port}`,
     close: async () => {
-      if (childProcess.exitCode !== null || childProcess.signalCode !== null) {
-        return
-      }
-
-      try {
-        childProcess.kill('SIGTERM')
-      } catch {
-        return
-      }
-
-      await Promise.race([
-        new Promise<void>(resolveClose => childProcess.once('close', () => resolveClose())),
-        delay(2_000),
-      ])
-
-      if (childProcess.exitCode === null && childProcess.signalCode === null) {
-        try {
-          childProcess.kill('SIGKILL')
-        } catch {
-          // Ignore cleanup errors.
-        }
-      }
+      await new Promise<void>(resolveClose => {
+        server.close(() => resolveClose())
+      })
     },
   }
 }
@@ -220,8 +313,12 @@ function readLighthouseCategoryScore(
   return entry.score * 100
 }
 
-function summarizeCategoryScores(categoryScores: Record<LighthouseCategoryKey, number | null>): string {
-  return REQUIRED_LIGHTHOUSE_CATEGORIES.map(category => `${category}=${formatPercent(categoryScores[category])}`).join(', ')
+function summarizeCategoryScores(
+  categoryScores: Record<LighthouseCategoryKey, number | null>
+): string {
+  return REQUIRED_LIGHTHOUSE_CATEGORIES.map(
+    category => `${category}=${formatPercent(categoryScores[category])}`
+  ).join(', ')
 }
 
 export function evaluateLighthouseGate(
@@ -234,7 +331,10 @@ export function evaluateLighthouseGate(
   const issues: LighthouseGateIssue[] = []
 
   const categoryScores = Object.fromEntries(
-    REQUIRED_LIGHTHOUSE_CATEGORIES.map(category => [category, readLighthouseCategoryScore(report, category)])
+    REQUIRED_LIGHTHOUSE_CATEGORIES.map(category => [
+      category,
+      readLighthouseCategoryScore(report, category),
+    ])
   ) as Record<LighthouseCategoryKey, number | null>
 
   for (const category of REQUIRED_LIGHTHOUSE_CATEGORIES) {
@@ -299,22 +399,30 @@ export function formatLighthouseGateReport(report: LighthouseGateReport): string
   if (report.issues.length > 0) {
     lines.push('', 'Issues:')
     for (const issue of report.issues) {
-      const scoreSuffix = issue.scorePercent === undefined ? '' : ` | score: ${formatPercent(issue.scorePercent)}`
+      const issueLabel = issue.kind.replaceAll('-', ' ')
+      const scoreSuffix =
+        issue.scorePercent === undefined ? '' : ` | score: ${formatPercent(issue.scorePercent)}`
       const thresholdSuffix =
         issue.thresholdPercent === undefined
           ? ''
           : ` | threshold: ${issue.thresholdPercent.toLocaleString('en-US')}%`
       const categorySuffix = issue.category ? ` | category: ${issue.category}` : ''
-      lines.push(`- ${issue.kind}: ${issue.message}${categorySuffix}${scoreSuffix}${thresholdSuffix} | phase: ${issue.launchPhase}`)
+      lines.push(
+        `- ${issueLabel}: ${issue.message}${categorySuffix}${scoreSuffix}${thresholdSuffix} | phase: ${issue.launchPhase}`
+      )
     }
   }
 
   return lines.join('\n')
 }
 
-async function launchPreviewServer(buildDir: string, timeoutMs: number): Promise<PreviewServerHandle> {
+async function launchPreviewServer(
+  buildDir: string,
+  timeoutMs: number
+): Promise<PreviewServerHandle> {
   const port = await findFreePort()
-  const handle = spawnPreviewServer(buildDir, port)
+  const distDir = resolve(process.cwd(), buildDir)
+  const handle = await startPreviewServer(distDir, port)
   const previewUrl = `${handle.previewUrl}${DEFAULT_LIGHTHOUSE_AUDIT_PATH}`
 
   try {
@@ -322,13 +430,14 @@ async function launchPreviewServer(buildDir: string, timeoutMs: number): Promise
     return handle
   } catch (error) {
     await handle.close()
-    const previewLogs = [...handle.logs.stdout, ...handle.logs.stderr]
-    const logSuffix = previewLogs.length > 0 ? ` | preview logs: ${previewLogs.join(' :: ')}` : ''
-    throw new Error(`${error instanceof Error ? error.message : String(error)}${logSuffix}`)
+    throw new Error(error instanceof Error ? error.message : String(error))
   }
 }
 
-async function runLighthouseAudit(auditUrl: string, browserTimeoutMs: number): Promise<LighthouseReportLike> {
+async function runLighthouseAudit(
+  auditUrl: string,
+  browserTimeoutMs: number
+): Promise<LighthouseReportLike> {
   const browserPort = await findFreePort()
   let browser: Awaited<ReturnType<typeof chromium.launch>> | null = null
 
@@ -339,7 +448,9 @@ async function runLighthouseAudit(auditUrl: string, browserTimeoutMs: number): P
       args: [`--remote-debugging-port=${browserPort}`],
     })
   } catch (error) {
-    throw new Error(`Chromium launch failed: ${error instanceof Error ? error.message : String(error)}`)
+    throw new Error(
+      `Chromium launch failed: ${error instanceof Error ? error.message : String(error)}`
+    )
   }
 
   try {
@@ -350,13 +461,25 @@ async function runLighthouseAudit(auditUrl: string, browserTimeoutMs: number): P
       onlyCategories: [...REQUIRED_LIGHTHOUSE_CATEGORIES],
     })
 
-    const lhr = result.lhr as LighthouseReportLike
+    const lhr = result.lhr as LighthouseReportLike & {
+      runtimeError?: { message?: string } | string | null
+    }
+    if (lhr.runtimeError) {
+      const runtimeErrorMessage =
+        typeof lhr.runtimeError === 'string'
+          ? lhr.runtimeError
+          : (lhr.runtimeError.message ?? 'Unknown Lighthouse runtime error')
+      throw new Error(`Lighthouse runtime error: ${runtimeErrorMessage}`)
+    }
+
     return {
       finalDisplayedUrl: lhr.finalDisplayedUrl,
       categories: lhr.categories,
     }
   } catch (error) {
-    throw new Error(`Lighthouse audit failed: ${error instanceof Error ? error.message : String(error)}`)
+    throw new Error(
+      `Lighthouse audit failed: ${error instanceof Error ? error.message : String(error)}`
+    )
   } finally {
     await browser?.close().catch(() => undefined)
   }
@@ -399,13 +522,11 @@ export async function runLighthouseGate(
   try {
     const auditUrl = `${previewServer.previewUrl}${auditedPath}`
     const rawReport = await runLighthouseAudit(auditUrl, browserTimeoutMs)
-    const evaluated = evaluateLighthouseGate(rawReport, {
+    return evaluateLighthouseGate(rawReport, {
       auditedUrl: auditedPath,
       thresholdPercent,
       launchPhase: 'lighthouse-audit',
     })
-
-    return evaluated
   } catch (error) {
     return {
       ok: false,

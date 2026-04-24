@@ -1,16 +1,10 @@
 import { component$, useSignal } from '@builder.io/qwik'
 import { getLanguageName, useI18n } from '~/i18n/context'
-import type { FooterLink, FooterProps } from './types'
+import type { FooterProps } from './types'
 
 export const Footer = component$<FooterProps>(({ class: classList }) => {
   const { t } = useI18n()
   const currentYear = useSignal(new Date().getFullYear())
-
-  const links: FooterLink[] = [
-    { href: '/privacy', label: t.footer.links.privacy },
-    { href: '/terms', label: t.footer.links.terms },
-    { href: 'https://github.com/uniteia/uniteia-v2', label: t.footer.links.source, external: true },
-  ]
 
   return (
     <footer
@@ -34,16 +28,23 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
           <p class="text-bone-secondary">{t.footer.madeWith}</p>
         </div>
         <nav class="footer-links flex gap-4" data-testid="footer-links">
-          {links.map(link => (
-            <a
-              key={link.href}
-              href={link.href}
-              class="text-bone-muted hover:text-action transition-colors duration-200"
-              {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            >
-              {link.label}
-            </a>
-          ))}
+          <a
+            href="/privacy"
+            class="text-bone-muted hover:text-action transition-colors duration-200"
+          >
+            {t.footer.links.privacy}
+          </a>
+          <a href="/terms" class="text-bone-muted hover:text-action transition-colors duration-200">
+            {t.footer.links.terms}
+          </a>
+          <a
+            href="https://github.com/uniteia/uniteia-v2"
+            class="text-bone-muted hover:text-action transition-colors duration-200"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t.footer.links.source}
+          </a>
         </nav>
         <div class="footer-language text-bone-muted text-xs" data-testid="footer-language">
           <span class="opacity-60">Language: </span>

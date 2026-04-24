@@ -7,7 +7,7 @@ import { onLanguageNegotiation } from '~/i18n/middleware'
  * Enforces the 'i18n-first' law by redirecting the root path (/)
  * to a language-specific path (/[lang]/n) based on edge negotiation.
  */
-export const onGet: RequestHandler = (event) => {
+export const onGet: RequestHandler = event => {
   // Execute negotiation if it hasn't run yet (though it should have in layout.tsx)
   onLanguageNegotiation(event)
 

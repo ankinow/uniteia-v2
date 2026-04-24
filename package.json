@@ -8,12 +8,13 @@
   "scripts": {
     "dev": "vite --mode ssr",
     "build": "qwik build",
+    "build.preview": "wrangler pages dev dist --script-path server/entry.cloudflare-pages.js --no-bundle --compatibility-date=2026-04-01 --port=8788",
     "build.client": "vite build",
     "build.ssr": "vite build --ssr src/entry.ssr.tsx",
     "build.server": "vite build -c adapters/cloudflare-pages/vite.config.ts",
     "build:watch": "qwik build --watch",
     "preview": "qwik preview",
-    "preview:cf": "wrangler pages dev ./dist --compatibility-date=2026-04-01 --port=8788",
+    "preview:cf": "wrangler pages dev dist --script-path server/entry.cloudflare-pages.js --no-bundle --compatibility-date=2026-04-01 --port=8788",
     "preview:multi": "concurrently -k \"bun run build:watch\" \"bun run preview:cf\" \"caddy run --config ./Caddyfile\"",
     "lint": "biome check .",
     "lint.fix": "biome check --write .",
@@ -24,6 +25,7 @@
     "test:e2e:ui": "playwright test --ui",
     "slug:check": "node scripts/slug-lint.mjs",
     "size:check": "bun run scripts/size-gate.ts",
+    "lighthouse:check": "bun run scripts/lighthouse-gate.ts",
     "ship:check": "bun run lint && bun run typecheck && bun run test:unit && bun run build && bun run size:check && bun run slug:check"
   },
   "devDependencies": {
@@ -35,6 +37,7 @@
     "ajv": "^8.18.0",
     "ajv-formats": "^3.0.1",
     "lighthouse": "^13.1.0",
+    "wrangler": "^4.84.1",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
     "postcss-custom-media": "^11.0.5",
