@@ -1,10 +1,15 @@
-import { readdir, readFile } from 'node:fs/promises'
+import { readFile, readdir } from 'node:fs/promises'
 import { basename, join, relative } from 'node:path'
 import matter from 'gray-matter'
 import { validateSlug } from './url-validation'
 
 export interface SlugCheckIssue {
-  kind: 'invalid-slug' | 'frontmatter-missing' | 'frontmatter-mismatch' | 'parse-failed' | 'no-markdown-files'
+  kind:
+    | 'invalid-slug'
+    | 'frontmatter-missing'
+    | 'frontmatter-mismatch'
+    | 'parse-failed'
+    | 'no-markdown-files'
   filePath: string
   message: string
 }
@@ -15,7 +20,9 @@ export interface SlugCheckReport {
   issues: SlugCheckIssue[]
 }
 
-export async function evaluateSlugCheck(options: { rootDir?: string } = {}): Promise<SlugCheckReport> {
+export async function evaluateSlugCheck(
+  options: { rootDir?: string } = {}
+): Promise<SlugCheckReport> {
   const rootDir = options.rootDir ?? 'llm-wiki'
   const files = await findMarkdownFiles(rootDir)
 
@@ -66,7 +73,7 @@ export async function evaluateSlugCheck(options: { rootDir?: string } = {}): Pro
         issues.push({
           kind: 'frontmatter-mismatch',
           filePath: relativePath,
-          message: `Frontmatter slug \"${frontmatterSlug}\" does not match file slug \"${fileSlug}\".`,
+          message: `Frontmatter slug "${frontmatterSlug}" does not match file slug "${fileSlug}".`,
         })
       }
     } catch (error) {

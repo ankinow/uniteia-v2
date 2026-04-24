@@ -461,6 +461,10 @@ async function runLighthouseAudit(
       onlyCategories: [...REQUIRED_LIGHTHOUSE_CATEGORIES],
     })
 
+    if (!result?.lhr || !isRecord(result.lhr)) {
+      throw new Error('Lighthouse did not return a valid report payload')
+    }
+
     const lhr = result.lhr as LighthouseReportLike & {
       runtimeError?: { message?: string } | string | null
     }
@@ -472,10 +476,17 @@ async function runLighthouseAudit(
       throw new Error(`Lighthouse runtime error: ${runtimeErrorMessage}`)
     }
 
-    return {
-      finalDisplayedUrl: lhr.finalDisplayedUrl,
-      categories: lhr.categories,
+    const report: LighthouseReportLike = {}
+
+    if (typeof lhr.finalDisplayedUrl === 'string') {
+      report.finalDisplayedUrl = lhr.finalDisplayedUrl
     }
+
+    if (isRecord(lhr.categories)) {
+      report.categories = lhr.categories as Record<string, LighthouseCategoryEntry | undefined>
+    }
+
+    return report
   } catch (error) {
     throw new Error(
       `Lighthouse audit failed: ${error instanceof Error ? error.message : String(error)}`

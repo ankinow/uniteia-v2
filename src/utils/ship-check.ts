@@ -85,7 +85,9 @@ export function formatShipCheckReport(report: ShipCheckReport): string {
   )
 
   if (report.ok) {
-    return ['✅ ship-check passed.', `${report.steps.length} step(s) passed.`, ...stepLines].join('\n')
+    return ['✅ ship-check passed.', `${report.steps.length} step(s) passed.`, ...stepLines].join(
+      '\n'
+    )
   }
 
   const failure = report.failure
@@ -102,5 +104,7 @@ export function formatShipCheckReport(report: ShipCheckReport): string {
 }
 
 function formatCommand(command: string[]): string {
-  return command.map(segment => (segment.includes(' ') ? JSON.stringify(segment) : segment)).join(' ')
+  return command
+    .map(segment => (segment.includes(' ') ? JSON.stringify(segment) : segment))
+    .join(' ')
 }

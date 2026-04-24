@@ -163,8 +163,18 @@ export const presetSolarLanso = (): Preset<SolarLansoTheme> => {
         slow: motion.slow,
       },
 
+      // Motion tokens
+      motion: {
+        fast: motion.fast,
+        base: motion.base,
+        slow: motion.slow,
+      },
+
       // Font sizes
       fontSize: typography,
+
+      // Typography tokens
+      typography,
     },
 
     // Rules for custom utilities

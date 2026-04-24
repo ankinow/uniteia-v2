@@ -1,16 +1,27 @@
 import { describe, expect, it } from 'vitest'
+import type { LighthouseCategoryEntry, LighthouseReportLike } from '~/utils/lighthouse-gate'
 import {
   DEFAULT_LIGHTHOUSE_SCORE_THRESHOLD,
   evaluateLighthouseGate,
   formatLighthouseGateReport,
 } from '~/utils/lighthouse-gate'
 
-function createLighthouseReport(categories: Record<string, number | null | undefined>) {
+function createCategoryEntry(score: number | null | undefined): LighthouseCategoryEntry {
+  return score === undefined ? {} : { score }
+}
+
+function createLighthouseReport(
+  categories: Record<string, number | null | undefined>
+): LighthouseReportLike {
+  const categoryEntries: Record<string, LighthouseCategoryEntry> = {}
+
+  for (const [name, score] of Object.entries(categories)) {
+    categoryEntries[name] = createCategoryEntry(score)
+  }
+
   return {
     finalDisplayedUrl: 'http://127.0.0.1:4173/en',
-    categories: Object.fromEntries(
-      Object.entries(categories).map(([name, score]) => [name, { score }])
-    ),
+    categories: categoryEntries,
   }
 }
 
@@ -61,7 +72,7 @@ describe('evaluateLighthouseGate', () => {
         finalDisplayedUrl: 'http://127.0.0.1:4173/en',
         categories: {
           performance: { score: 'bad-data' as unknown as number },
-          accessibility: undefined,
+          accessibility: {},
         },
       },
       { auditedUrl: '/en' }

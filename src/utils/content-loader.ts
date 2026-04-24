@@ -19,14 +19,12 @@ export async function loadContent(slug: string, lang: SupportedLanguage): Promis
   const _addFormats = (await import('ajv-formats')).default
   const { validateSlug } = await import('~/utils/url-validation')
 
-  // @ts-ignore - Vite glob import for content
-  const contentModules = import.meta.glob('../../llm-wiki/**/*.md', {
+  const contentModules = import.meta.glob<string>('../../llm-wiki/**/*.md', {
     query: '?raw',
     import: 'default',
     eager: true,
   })
-  // @ts-ignore - Vite glob import for schema
-  const _schemaModules = import.meta.glob('../../schemas/*.schema.json', {
+  const _schemaModules = import.meta.glob<string>('../../schemas/*.schema.json', {
     query: '?raw',
     import: 'default',
     eager: true,

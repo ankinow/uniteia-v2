@@ -2,11 +2,11 @@
 
 import { spawn } from 'node:child_process'
 import {
+  type ShipCheckRunner,
+  type ShipCheckStep,
   createDefaultShipCheckSteps,
   formatShipCheckReport,
   runShipCheck,
-  type ShipCheckRunner,
-  type ShipCheckStep,
 } from '../src/utils/ship-check'
 
 const runner: ShipCheckRunner = async (step: ShipCheckStep) => {
@@ -14,7 +14,13 @@ const runner: ShipCheckRunner = async (step: ShipCheckStep) => {
   const startedAt = Date.now()
 
   return await new Promise((resolve, reject) => {
-    const child = spawn(step.command[0]!, step.command.slice(1), {
+    const [command, ...args] = step.command
+    if (!command) {
+      reject(new Error(`ship-check step ${step.name} has no command`))
+      return
+    }
+
+    const child = spawn(command, args, {
       cwd: process.cwd(),
       env: process.env,
       stdio: 'inherit',

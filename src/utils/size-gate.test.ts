@@ -177,6 +177,40 @@ describe('evaluateRouteSizeGate', () => {
     }
   })
 
+  it('reports malformed bundle metadata as an invalid manifest', async () => {
+    const fixture = await createFixtureBuild({
+      manifestJson: JSON.stringify(
+        {
+          version: '1',
+          manifestHash: 'fixture',
+          bundleGraphAsset: 'assets/bundle-graph.json',
+          bundles: {
+            'q-route-invalid.js': {
+              imports: 'q-shared.js',
+              dynamicImports: [],
+              origins: ['src/routes/invalid/index.tsx'],
+            },
+          },
+        },
+        null,
+        2
+      ),
+      bundleGraphJson: JSON.stringify({ nodes: ['fixture'] }, null, 2),
+      bundles: {},
+    })
+
+    try {
+      const analyzed = await evaluateRouteSizeGate({ buildDir: fixture.distDir })
+
+      expect(analyzed.ok).toBe(false)
+      expect(analyzed.routes).toHaveLength(0)
+      expect(analyzed.issues.some(issue => issue.kind === 'manifest-invalid')).toBe(true)
+      expect(formatRouteSizeGateReport(analyzed)).toContain('valid bundles map')
+    } finally {
+      await fixture.cleanup()
+    }
+  })
+
   it('reports missing build artifacts clearly', async () => {
     const fixture = await createFixtureBuild({
       manifestJson: JSON.stringify(

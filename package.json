@@ -23,10 +23,10 @@
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "slug:check": "node scripts/slug-lint.mjs",
+    "slug:check": "bun run scripts/slug-lint.ts",
     "size:check": "bun run scripts/size-gate.ts",
     "lighthouse:check": "bun run scripts/lighthouse-gate.ts",
-    "ship:check": "bun run lint && bun run typecheck && bun run test:unit && bun run build && bun run size:check && bun run slug:check"
+    "ship:check": "bun run scripts/ship-check.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

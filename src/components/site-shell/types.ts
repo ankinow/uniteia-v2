@@ -1,12 +1,10 @@
-import type { Slot } from '@builder.io/qwik'
-
 /**
  * SiteShell component props
  * Wraps the entire application with consistent layout structure
  */
 export interface SiteShellProps {
   /** Main content slot */
-  children?: Slot
+  children?: unknown
 }
 
 /**
