@@ -2,6 +2,10 @@
 
 Backend de conteúdo curado para UniTeia v2.
 
+## Start here
+
+- `docs/agent-fullstack-context.md` - contexto operacional atual para agentes e mantenedores chegando frios
+
 ## Scaffold
 
 - `src/` - entrada e utilitários iniciais
