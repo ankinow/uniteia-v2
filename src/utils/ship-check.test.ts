@@ -40,6 +40,34 @@ describe('runShipCheck', () => {
     expect(output).toContain('exit 2')
   })
 
+  it('reports a timed-out step distinctly', async () => {
+    const report = await runShipCheck(
+      [{ name: 'build', command: ['bun', 'run', 'build'], timeoutMs: 1_000 }],
+      async () => ({
+        exitCode: 124,
+        durationMs: 1_000,
+        timedOut: true,
+        timeoutMs: 1_000,
+        terminationSignal: 'SIGTERM',
+      })
+    )
+
+    expect(report.ok).toBe(false)
+    expect(report.failure).toEqual({
+      stepName: 'build',
+      command: 'bun run build',
+      exitCode: 124,
+      durationMs: 1_000,
+      timedOut: true,
+      timeoutMs: 1_000,
+      terminationSignal: 'SIGTERM',
+    })
+
+    const output = formatShipCheckReport(report)
+    expect(output).toContain('timed out')
+    expect(output).toContain('SIGTERM')
+  })
+
   it('reports a full passing sequence when every step succeeds', async () => {
     const report = await runShipCheck(
       [

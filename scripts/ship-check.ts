@@ -1,38 +1,25 @@
 #!/usr/bin/env bun
 
-import { spawn } from 'node:child_process'
 import {
+  DEFAULT_SHIP_CHECK_KILL_GRACE_MS,
+  DEFAULT_SHIP_CHECK_STEP_TIMEOUT_MS,
   type ShipCheckRunner,
   type ShipCheckStep,
   createDefaultShipCheckSteps,
   formatShipCheckReport,
   runShipCheck,
+  runShipCheckStep,
 } from '../src/utils/ship-check'
 
 const runner: ShipCheckRunner = async (step: ShipCheckStep) => {
-  console.log(`▶ [ship-check] ${step.name}: ${step.command.join(' ')}`)
-  const startedAt = Date.now()
+  const timeoutMs = step.timeoutMs ?? DEFAULT_SHIP_CHECK_STEP_TIMEOUT_MS
+  console.log(
+    `▶ [ship-check] ${step.name}: ${step.command.join(' ')} (timeout ${timeoutMs.toLocaleString('en-US')}ms)`
+  )
 
-  return await new Promise((resolve, reject) => {
-    const [command, ...args] = step.command
-    if (!command) {
-      reject(new Error(`ship-check step ${step.name} has no command`))
-      return
-    }
-
-    const child = spawn(command, args, {
-      cwd: process.cwd(),
-      env: process.env,
-      stdio: 'inherit',
-    })
-
-    child.once('error', reject)
-    child.once('exit', code => {
-      resolve({
-        exitCode: code ?? 1,
-        durationMs: Date.now() - startedAt,
-      })
-    })
+  return await runShipCheckStep(step, {
+    timeoutMs,
+    killGraceMs: DEFAULT_SHIP_CHECK_KILL_GRACE_MS,
   })
 }
 
