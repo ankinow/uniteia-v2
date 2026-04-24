@@ -184,13 +184,7 @@ describe('evaluateRouteSizeGate', () => {
           version: '1',
           manifestHash: 'fixture',
           bundleGraphAsset: 'assets/bundle-graph.json',
-          bundles: {
-            'q-route-invalid.js': {
-              imports: 'q-shared.js',
-              dynamicImports: [],
-              origins: ['src/routes/invalid/index.tsx'],
-            },
-          },
+          bundles: [],
         },
         null,
         2

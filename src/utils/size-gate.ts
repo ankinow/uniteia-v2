@@ -250,7 +250,7 @@ export async function evaluateRouteSizeGate(
     }
   }
 
-  const bundles = manifest.bundles
+  const bundles = manifest.bundles as Record<string, ManifestBundle>
   const routeBundles = Object.entries(bundles)
     .map(([entryBundle, bundle]) => ({ entryBundle, bundle }))
     .filter(({ bundle }) => isRouteBundle(bundle))
@@ -364,24 +364,6 @@ export function formatRouteSizeGateReport(report: SizeGateReport): string {
       issue.bytes === null || issue.bytes === undefined
         ? ''
         : ` | bytes: ${issue.bytes.toLocaleString('en-US')}`
-    const thresholdSuffix =
-      issue.thresholdBytes !== undefined
-        ? ` | threshold: ${issue.thresholdBytes.toLocaleString('en-US')}`
-        : ''
-    return `- ${issue.kind}: ${issue.message}${routeSuffix}${bytesSuffix}${thresholdSuffix}${pathSuffix}`
-  })
-
-  return [
-    header,
-    '',
-    `Build directory: ${report.buildDir}`,
-    `Threshold: ${report.thresholdBytes.toLocaleString('en-US')} gzip bytes`,
-  ]
-    .concat(routeLines.length > 0 ? ['', 'Routes:', ...routeLines] : [])
-    .concat(issueLines.length > 0 ? ['', 'Issues:', ...issueLines] : [])
-    .join('\n')
-}
-.toLocaleString('en-US')}` : ''
     const thresholdSuffix =
       issue.thresholdBytes !== undefined
         ? ` | threshold: ${issue.thresholdBytes.toLocaleString('en-US')}`

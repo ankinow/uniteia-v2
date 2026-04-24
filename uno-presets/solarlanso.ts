@@ -106,7 +106,7 @@ const typography = {
   '5xl': '3rem', // 48px
 }
 
-export const presetSolarLanso = (): Preset<SolarLansoTheme> => {
+export const presetSolarLanso = (): Preset<object> => {
   return {
     name: 'preset-solarlanso',
 
