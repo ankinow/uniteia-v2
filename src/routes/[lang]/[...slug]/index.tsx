@@ -45,7 +45,7 @@ export const useContent = routeLoader$<LlmWikiContent | null>(async ({ params, e
   } catch (err) {
     if (err instanceof ContentLoaderError) {
       console.error(`[content-loader] ${err.phase} failed for ${err.lang}/${err.slug}:`, err.errors)
-      return null as any
+      return null as unknown as LlmWikiContent | null
     }
     throw err
   }

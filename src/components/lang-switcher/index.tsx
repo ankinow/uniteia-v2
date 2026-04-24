@@ -26,7 +26,7 @@ export const LangSwitcher = component$<LangSwitcherProps>(
       const newSearch = searchParams.toString()
 
       const pathSegments = window.location.pathname.split('/').filter(Boolean)
-      const existingLang = pathSegments[0]
+      const existingLang = pathSegments[0] ?? ''
       const remainder = ['en', 'pt', 'es', 'ja', 'zh'].includes(existingLang)
         ? pathSegments.slice(1)
         : pathSegments
