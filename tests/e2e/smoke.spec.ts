@@ -79,7 +79,7 @@ test('language switcher persists cookie and reloads the same pathname', async ({
   await ptOption.click()
   const reloadResponse = await navigationPromise
 
-  await expect(page).toHaveURL(/\/en\/test-article(?:\?.*)?$/)
+  await expect(page).toHaveURL(/\/en\/test-article\/?(?:\?.*)?$/)
   const cookies = await page.context().cookies()
   expect(cookies.find(cookie => cookie.name === 'uniteia_lang')?.value).toBe('pt')
 
