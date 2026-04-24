@@ -58,7 +58,8 @@
       "playwright-report",
       "test-results",
       "llm-wiki",
-      "server"
+      "server",
+      ".imports"
     ]
   }
 }

@@ -61,7 +61,9 @@ test('404 page renders for invalid route', async ({ page }) => {
   await expect(page.locator('[data-testid="error-title"]')).toBeVisible()
 })
 
-test('language switcher persists cookie and reloads the same pathname', async ({ page }) => {
+test('language switcher persists cookie and navigates to the selected language pathname', async ({
+  page,
+}) => {
   const errors = collectConsoleErrors(page)
   await gotoAndAssertNegotiation(page, '/en/test-article')
 
@@ -77,13 +79,13 @@ test('language switcher persists cookie and reloads the same pathname', async ({
 
   const navigationPromise = page.waitForNavigation({ waitUntil: 'load' })
   await ptOption.click()
-  const reloadResponse = await navigationPromise
+  const navigationResponse = await navigationPromise
 
-  await expect(page).toHaveURL(/\/en\/test-article\/?(?:\?.*)?$/)
+  await expect(page).toHaveURL(/\/pt\/test-article\/?(?:\?.*)?$/)
   const cookies = await page.context().cookies()
   expect(cookies.find(cookie => cookie.name === 'uniteia_lang')?.value).toBe('pt')
 
-  const headers = reloadResponse?.headers() ?? {}
+  const headers = navigationResponse?.headers() ?? {}
   expect(headers['x-negotiated-lang'], 'x-negotiated-lang after language switch').toBe('pt')
   expect(headers['x-negotiated-niche'], 'x-negotiated-niche after language switch').toBe('apex')
 

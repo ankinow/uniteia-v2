@@ -36,7 +36,7 @@ function runNegotiation({
     cookieStore.set(LANGUAGE_COOKIE_NAME, cookieLang)
   }
 
-  const url = new URL(`https://${host ?? 'uniteia.com'}/${lang === null ? '' : `?lang=${lang}`}`)
+  const url = new URL(`https://${host ?? 'uniteia.com'}/${lang === null ? '' : `${lang}/`}`)
   const request = { headers: requestHeaders } as Request
 
   onLanguageNegotiation({

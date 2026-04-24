@@ -38,6 +38,10 @@ export function createDefaultShipCheckSteps(): ShipCheckStep[] {
     { name: 'build', command: ['bun', 'run', 'build'] },
     { name: 'size:check', command: ['bun', 'run', 'size:check'] },
     { name: 'lighthouse:check', command: ['bun', 'run', 'lighthouse:check'] },
+    {
+      name: 'browser:verify',
+      command: ['bun', 'run', 'browser:verify'],
+    },
     { name: 'slug:check', command: ['bun', 'run', 'slug:check'] },
   ]
 }

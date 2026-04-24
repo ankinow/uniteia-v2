@@ -7,9 +7,9 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
   const currentYear = useSignal(new Date().getFullYear())
 
   return (
-    <footer
+    <div
       class={[
-        'footer',
+        'footer-inner',
         'border-t border-action/10',
         'bg-void',
         'py-8 px-4 md:px-8',
@@ -51,7 +51,7 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
           <span class="text-bone-secondary">{getLanguageName(lang.value)}</span>
         </div>
       </div>
-    </footer>
+    </div>
   )
 })
 

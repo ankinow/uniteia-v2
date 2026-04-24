@@ -49,15 +49,12 @@ export const QualityRing = component$<QualityRingProps>(
         aria-label={`${t.qualityRing.qualityScore}: ${clampedScore}/100 — ${t.qualityRing.editorialQuality}`}
         style={{ '--whisper-duration': '250ms' } as Record<string, string>}
       >
-        <div class="relative" style={{ width: `${size}px`, height: `${size}px` }}>
-          <svg
-            width={size}
-            height={size}
-            viewBox={`0 0 ${size} ${size}`}
-            class="-rotate-90"
-            role="img"
-            aria-label={`${t.qualityRing.qualityScore}: ${clampedScore}/100`}
-          >
+        <div
+          class="relative"
+          style={{ width: `${size}px`, height: `${size}px` }}
+          aria-hidden="true"
+        >
+          <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} class="-rotate-90">
             <title>{`${t.qualityRing.qualityScore}: ${clampedScore}/100`}</title>
             {/* Background ring */}
             <circle

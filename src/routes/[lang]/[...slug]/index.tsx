@@ -3,6 +3,7 @@ import { type DocumentHead, routeLoader$ } from '@builder.io/qwik-city'
 import { AdaptiveHeader } from '~/components/adaptive-header'
 import { ArticleFrame } from '~/components/article-frame'
 import { EditorialVerdict } from '~/components/editorial-verdict'
+import { NotFound } from '~/components/error-pages/not-found'
 import { FrontmatterSlots } from '~/components/frontmatter-slots'
 import { QualityRing } from '~/components/quality-ring'
 import { SourceLedger } from '~/components/source-ledger'
@@ -25,7 +26,7 @@ const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
  * All server-only logic (fs, gray-matter, ajv) lives in loadContent()
  * which uses dynamic imports per D001 to stay tree-shaken from client.
  */
-export const useContent = routeLoader$<LlmWikiContent>(async ({ params, error }) => {
+export const useContent = routeLoader$<LlmWikiContent | null>(async ({ params, error }) => {
   const lang = params.lang
   const slugRaw = params.slug
 
@@ -44,7 +45,7 @@ export const useContent = routeLoader$<LlmWikiContent>(async ({ params, error })
   } catch (err) {
     if (err instanceof ContentLoaderError) {
       console.error(`[content-loader] ${err.phase} failed for ${err.lang}/${err.slug}:`, err.errors)
-      throw error(404, `Article not found: ${err.lang}/${err.slug}`)
+      return null as any
     }
     throw err
   }
@@ -58,6 +59,10 @@ export const useContent = routeLoader$<LlmWikiContent>(async ({ params, error })
 export default component$(() => {
   const content = useContent()
   const { t } = useI18n()
+
+  if (!content.value) {
+    return <NotFound />
+  }
 
   return (
     <ArticleFrame>
@@ -98,6 +103,15 @@ export default component$(() => {
 
 export const head: DocumentHead = ({ resolveValue }) => {
   const content = resolveValue(useContent)
+  if (!content) {
+    return {
+      title: '404 - Article Not Found | UniTeia',
+      meta: [
+        { name: 'description', content: 'The article you are looking for does not exist.' },
+        { name: 'robots', content: 'noindex, nofollow' },
+      ],
+    }
+  }
   return {
     title: `${content.title} | UniTeia`,
     meta: [

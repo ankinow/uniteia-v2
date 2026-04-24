@@ -4,35 +4,41 @@ const FIXED_NOW = Date.parse('2026-04-24T12:00:00.000Z')
 const SNAPSHOT_NAME = 'shell-en-n.png'
 
 async function freezeClock(context: BrowserContext) {
-  await context.addInitScript(({ fixedNow }: { fixedNow: number }) => {
-    const RealDate = Date
+  await context.addInitScript(
+    ({ fixedNow }: { fixedNow: number }) => {
+      const RealDate = Date
 
-    class FrozenDate extends RealDate {
-      constructor(...args: ConstructorParameters<typeof Date>) {
-        if (args.length === 0) {
-          super(fixedNow)
-          return
+      class FrozenDate extends RealDate {
+        // biome-ignore lint/suspicious/noExplicitAny: needed for Date constructor overloads
+        constructor(...args: any[]) {
+          if (args.length === 0) {
+            super(fixedNow)
+            return
+          }
+
+          // @ts-ignore
+          super(...args)
         }
 
-        super(...args)
+        static now() {
+          return fixedNow
+        }
+
+        static parse(value: string) {
+          return RealDate.parse(value)
+        }
+
+        static UTC(...args: Parameters<typeof Date.UTC>) {
+          return RealDate.UTC(...args)
+        }
       }
 
-      static now() {
-        return fixedNow
-      }
-
-      static parse(value: string) {
-        return RealDate.parse(value)
-      }
-
-      static UTC(...args: Parameters<typeof Date.UTC>) {
-        return RealDate.UTC(...args)
-      }
-    }
-
-    const frozenGlobal = globalThis as typeof globalThis & { Date: DateConstructor }
-    frozenGlobal.Date = FrozenDate
-  }, { fixedNow: FIXED_NOW })
+      // biome-ignore lint/suspicious/noExplicitAny: needed for browser-side Date constructor injection
+      const frozenGlobal = globalThis as any
+      frozenGlobal.Date = FrozenDate
+    },
+    { fixedNow: FIXED_NOW }
+  )
 }
 
 test.use({

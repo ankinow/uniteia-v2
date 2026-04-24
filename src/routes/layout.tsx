@@ -1,4 +1,4 @@
-import { $, component$, useOnWindow, useSignal } from '@builder.io/qwik'
+import { $, Slot, component$, useOnWindow, useSignal } from '@builder.io/qwik'
 import { type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
 import { Footer } from '~/components/footer'
 import { LangSwitcher } from '~/components/lang-switcher'
@@ -57,7 +57,7 @@ export default component$(() => {
 
   return (
     <SiteShell>
-      <header q:slot="header" class="site-header w-full">
+      <div q:slot="header" class="w-full">
         <nav
           class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-action/10"
           data-testid="main-nav"
@@ -144,7 +144,8 @@ export default component$(() => {
 
           <LangSwitcher />
         </nav>
-      </header>
+      </div>
+      <Slot />
       <Footer q:slot="footer" />
     </SiteShell>
   )

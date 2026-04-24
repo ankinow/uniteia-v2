@@ -24,7 +24,14 @@ export const LangSwitcher = component$<LangSwitcherProps>(
       const searchParams = new URLSearchParams(window.location.search)
       searchParams.delete('lang')
       const newSearch = searchParams.toString()
-      const redirectUrl = `${window.location.pathname}${newSearch ? `?${newSearch}` : ''}`
+
+      const pathSegments = window.location.pathname.split('/').filter(Boolean)
+      const existingLang = pathSegments[0]
+      const remainder = ['en', 'pt', 'es', 'ja', 'zh'].includes(existingLang)
+        ? pathSegments.slice(1)
+        : pathSegments
+      const redirectPath = `/${newLang}${remainder.length > 0 ? `/${remainder.join('/')}` : ''}`
+      const redirectUrl = `${redirectPath}${newSearch ? `?${newSearch}` : ''}`
       logEvent({ type: 'redirect', to: newLang, redirectUrl })
 
       isRedirecting.value = true

@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { formatShipCheckReport, runShipCheck } from '~/utils/ship-check'
+import {
+  createDefaultShipCheckSteps,
+  formatShipCheckReport,
+  runShipCheck,
+} from '~/utils/ship-check'
 
 describe('runShipCheck', () => {
   it('stops at the first failing step and preserves the subcommand name and exit code', async () => {
@@ -50,5 +54,25 @@ describe('runShipCheck', () => {
     expect(report.steps).toHaveLength(2)
     expect(report.steps.map(step => step.name)).toEqual(['lint', 'typecheck'])
     expect(formatShipCheckReport(report)).toContain('2 step(s) passed')
+  })
+
+  it('contains the browser verification step in the default steps', () => {
+    const steps = createDefaultShipCheckSteps()
+    const browserStep = steps.find(step => step.name === 'browser:verify')
+
+    expect(browserStep).toEqual({
+      name: 'browser:verify',
+      command: ['bun', 'run', 'browser:verify'],
+    })
+    expect(steps.map(step => step.name)).toEqual([
+      'lint',
+      'typecheck',
+      'test:unit',
+      'build',
+      'size:check',
+      'lighthouse:check',
+      'browser:verify',
+      'slug:check',
+    ])
   })
 })
