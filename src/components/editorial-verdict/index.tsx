@@ -1,4 +1,5 @@
 import { component$ } from '@builder.io/qwik'
+import { HudLabel } from '~/components/hud-label'
 import { getTranslation } from '~/i18n/context'
 import type { EditorialVerdictProps, VerdictLevel } from './types'
 
@@ -35,6 +36,12 @@ const VERDICT_I18N_KEYS: Record<VerdictLevel, 'trusted' | 'caution' | 'flagged'>
   flagged: 'flagged',
 }
 
+const VERDICT_TONES: Record<VerdictLevel, 'verified' | 'curation' | 'action'> = {
+  trusted: 'verified',
+  caution: 'curation',
+  flagged: 'action',
+}
+
 /**
  * EditorialVerdict — trust badge showing the editorial verdict level.
  * Color-coded: trusted=cyan, caution=bronze, flagged=vine.
@@ -54,16 +61,18 @@ export const EditorialVerdict = component$<EditorialVerdictProps>(
         data-testid="editorial-verdict"
         data-verdict={verdict}
         data-lang={lang}
-        class={[
-          'inline-flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-medium',
-          border,
-          bg,
-          className,
-        ]}
+        class={['hud-panel', 'inline-flex items-center gap-3 px-3 py-2 text-sm font-medium', border, bg, className]}
         aria-label={`${t.editorial.verdictLabel}: ${label}`}
       >
-        <span class={`inline-block h-2 w-2 rounded-full ${dot}`} aria-hidden="true" />
-        <span class={color}>{label}</span>
+        <span class={`inline-block h-2 w-2 shrink-0 ${dot}`} aria-hidden="true" />
+        <div class="flex flex-col gap-1">
+          <HudLabel
+            label={t.editorial.verdictLabel}
+            tone={VERDICT_TONES[verdict]}
+            surface="verdict"
+          />
+          <span class={color}>{label}</span>
+        </div>
       </output>
     )
   }

@@ -5,6 +5,8 @@
 export interface SiteShellProps {
   /** Main content slot */
   children?: unknown
+  /** Whether the current host is the apex shell host */
+  isApexHost: boolean
 }
 
 /**

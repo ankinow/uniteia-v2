@@ -1,8 +1,9 @@
 import { $, Slot, component$, useOnDocument } from '@builder.io/qwik'
-import type { RequestHandler } from '@builder.io/qwik-city'
+import { type RequestHandler, useLocation } from '@builder.io/qwik-city'
 import { useI18n } from '~/i18n/context'
 import { onLanguageNegotiation } from '~/i18n/middleware'
-import type { SiteShellLogEvent } from './types'
+import { useDopamineBudgetProvider } from '~/stores/dopamine-budget'
+import type { SiteShellLogEvent, SiteShellProps } from './types'
 
 /**
  * Middleware: Language negotiation
@@ -14,8 +15,10 @@ export const onRequest: RequestHandler = onLanguageNegotiation
  * SiteShell - Root layout component
  * Provides consistent page structure
  */
-export const SiteShell = component$(() => {
+export const SiteShell = component$<SiteShellProps>(({ isApexHost }) => {
   const { lang } = useI18n()
+  const location = useLocation()
+  const budget = useDopamineBudgetProvider({ isApexHost, location })
 
   useOnDocument(
     'qinit',
@@ -26,12 +29,29 @@ export const SiteShell = component$(() => {
         lang: lang.value,
         path: window.location.pathname,
       }
-      console.log('[SiteShell]', logEvent)
+      console.log('[SiteShell]', {
+        ...logEvent,
+        budget: {
+          pathname: budget.pathname,
+          routeRemaining: budget.routeBudget.remaining,
+          sessionRemaining: budget.sessionBudget.remaining,
+          whisperState: budget.whisperState,
+          isApexHost: budget.isApexHost,
+        },
+      })
     })
   )
 
   return (
-    <div class="site-shell min-h-screen flex flex-col bg-void text-bone">
+    <div
+      class="site-shell min-h-screen flex flex-col bg-void text-bone"
+      data-dopamine-shell-apex={String(budget.isApexHost)}
+      data-dopamine-shell-path={budget.pathname}
+      data-dopamine-shell-route-remaining={budget.routeBudget.remaining}
+      data-dopamine-shell-session-remaining={budget.sessionBudget.remaining}
+      data-dopamine-shell-whisper-state={budget.whisperState}
+      data-testid="site-shell"
+    >
       <a
         href="#main-content"
         class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-action focus:text-void focus:rounded"

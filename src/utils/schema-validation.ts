@@ -123,9 +123,9 @@ export function validateContent(
 
   if (!valid) {
     errors.push(
-      ...(((ajv.errors as DefinedError[] | null | undefined) ?? []).map(error =>
+      ...((ajv.errors as DefinedError[] | null | undefined) ?? []).map(error =>
         normalizeAjvError(error, filePath)
-      ))
+      )
     )
   }
 

@@ -1,4 +1,6 @@
 import { component$ } from '@builder.io/qwik'
+import { HudLabel } from '~/components/hud-label'
+import { ScratchDivider } from '~/components/scratch-divider'
 import type { FrontmatterSlotsProps } from './types'
 
 /**
@@ -37,25 +39,26 @@ const DEFAULT_LABELS = {
  */
 export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
   const labels = props.labels ?? DEFAULT_LABELS
+  const langLabel = LANG_LABELS[props.lang] ?? props.lang.toUpperCase()
+  const hasSubjects = props.subjects.length > 0
+  const hasMetadata = Boolean(props.metadata)
 
   return (
     <div
       data-testid="frontmatter-slots"
-      class={['frontmatter-slots', 'mt-6 flex flex-col gap-4', props.class]}
+      class={['frontmatter-slots', 'hud-panel', 'mt-6 flex flex-col gap-4 p-4', props.class]}
     >
       {/* Subject tag pills */}
-      {props.subjects.length > 0 && (
+      {hasSubjects && (
         <div class="flex flex-wrap items-center gap-2" aria-label={labels.subjectsLabel}>
+          <HudLabel label={labels.subjectsLabel} tone="curation" surface="frontmatter" />
           {props.subjects.map(subject => (
             <span
               key={subject}
               class={[
                 'inline-flex items-center',
-                'rounded-full px-3 py-0.5',
-                'text-xs font-medium',
-                'bg-curation/15 text-curation',
-                'border border-curation/25',
-                'transition-colors duration-base',
+                'border border-curation/25 bg-curation/15 px-3 py-0.5',
+                'text-xs font-medium text-curation',
               ]}
             >
               {subject}
@@ -64,46 +67,58 @@ export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
         </div>
       )}
 
+      {(hasSubjects || hasMetadata) && (
+        <ScratchDivider tone="curation" surface="frontmatter" class="opacity-80" />
+      )}
+
       {/* Timestamps row */}
       {props.metadata && (
-        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-bone-muted">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-bone-muted">
           {props.metadata.created_at && (
-            <time dateTime={props.metadata.created_at} class="font-mono text-xs text-bone-muted">
-              {labels.published}: {props.metadata.created_at}
-            </time>
+            <div class="flex items-center gap-2">
+              <HudLabel label={labels.published} tone="muted" surface="frontmatter" />
+              <time dateTime={props.metadata.created_at} class="font-mono text-xs text-bone-muted">
+                {props.metadata.created_at}
+              </time>
+            </div>
           )}
           {props.metadata.updated_at && (
-            <time dateTime={props.metadata.updated_at} class="font-mono text-xs text-bone-muted">
-              {labels.updated}: {props.metadata.updated_at}
-            </time>
+            <div class="flex items-center gap-2">
+              <HudLabel label={labels.updated} tone="muted" surface="frontmatter" />
+              <time dateTime={props.metadata.updated_at} class="font-mono text-xs text-bone-muted">
+                {props.metadata.updated_at}
+              </time>
+            </div>
           )}
           {props.metadata.author && (
-            <span class="text-xs text-bone-muted">
-              {labels.byAuthor.replace('{author}', props.metadata.author)}
-            </span>
+            <div class="flex items-center gap-2 text-xs text-bone-muted">
+              <HudLabel
+                label={labels.byAuthor.replace('{author}', props.metadata.author)}
+                tone="muted"
+                surface="frontmatter"
+              />
+            </div>
           )}
           {props.metadata.version != null && (
-            <span class="font-mono text-xs text-bone-muted">
-              {labels.version.replace('{version}', String(props.metadata.version))}
-            </span>
+            <div class="flex items-center gap-2">
+              <HudLabel
+                label={labels.version.replace('{version}', String(props.metadata.version))}
+                tone="action"
+                surface="frontmatter"
+              />
+            </div>
           )}
         </div>
       )}
 
-      {/* Language indicator pill */}
-      <div class="flex items-center">
-        <span
-          class={[
-            'inline-flex items-center',
-            'rounded px-2 py-0.5',
-            'text-xs font-mono font-medium uppercase tracking-wider',
-            'bg-action/15 text-action',
-            'border border-action/25',
-          ]}
-          aria-label={`Language: ${props.lang}`}
-        >
-          {LANG_LABELS[props.lang] ?? props.lang.toUpperCase()}
-        </span>
+      {/* Language indicator */}
+      <div class="flex items-center gap-2">
+        <HudLabel
+          label={labels.readInLang.replace('{lang}', langLabel)}
+          tone="action"
+          surface="frontmatter"
+        />
+        <span class="text-xs text-bone-muted">{langLabel}</span>
       </div>
     </div>
   )

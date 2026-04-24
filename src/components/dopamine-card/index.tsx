@@ -1,6 +1,7 @@
-import { component$ } from '@builder.io/qwik'
+import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 import { QualityRing } from '~/components/quality-ring'
 import { getTranslation } from '~/i18n/context'
+import { reserveRouteWhisper, useDopamineBudget } from '~/stores/dopamine-budget'
 import type { DopamineCardProps } from './types'
 
 /**
@@ -14,17 +15,35 @@ import type { DopamineCardProps } from './types'
 export const DopamineCard = component$<DopamineCardProps>(
   ({ title, description, href, score, icon, lang, class: className }) => {
     const t = getTranslation(lang)
+    const budget = useDopamineBudget()
+    const whisperState = useSignal<'pending' | 'armed' | 'spent' | 'blocked'>('pending')
+
+    useVisibleTask$(({ track }) => {
+      track(() => budget.pathname)
+      const decision = reserveRouteWhisper(budget, `dopamine-card:${href}`)
+      whisperState.value = decision.allowed
+        ? 'armed'
+        : decision.reason === 'apex-only'
+          ? 'blocked'
+          : 'spent'
+    })
+
+    const hoverClass =
+      whisperState.value === 'armed'
+        ? 'hover:-translate-y-[var(--whisper-y,2px)] hover:border-action'
+        : ''
 
     return (
       <a
         href={href}
         data-testid="dopamine-card"
+        data-dopamine-whisper-scope="route"
+        data-dopamine-whisper-state={whisperState.value}
+        data-dopamine-route-remaining={budget.routeBudget.remaining}
+        data-dopamine-session-remaining={budget.sessionBudget.remaining}
         class={[
           'group relative flex flex-col gap-3 rounded-lg border border-action/20 bg-void/raised p-4',
-          /* Whisper animation: hover-only, -2px translateY, ≤250ms */
-          'hover:-translate-y-[var(--whisper-y,2px)]',
-          'hover:border-action',
-          /* Respect prefers-reduced-motion — disable translate on hover */
+          hoverClass,
           'motion-reduce:hover:translate-y-0',
           className,
         ]}
@@ -37,6 +56,7 @@ export const DopamineCard = component$<DopamineCardProps>(
           } as Record<string, string>
         }
         lang={lang}
+        aria-disabled={whisperState.value === 'blocked'}
       >
         {/* Header row: icon + title */}
         <div class="flex items-start gap-3">

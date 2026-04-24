@@ -17,7 +17,7 @@ import { DEFAULT_LANGUAGE } from '~/i18n/types'
 export const NotFound = component$(() => {
   useProvideI18n(DEFAULT_LANGUAGE)
   return (
-    <SiteShell>
+    <SiteShell isApexHost={true}>
       <div q:slot="header" class="w-full">
         <nav
           class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-action/10"

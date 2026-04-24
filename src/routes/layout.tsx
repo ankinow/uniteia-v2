@@ -35,6 +35,7 @@ export const useNiches = routeLoader$<NichesConfig>(async () => {
 export default component$(() => {
   const langSignal = useLanguage()
   const nichesSignal = useNiches()
+  const nicheSignal = useNiche()
   const lang = langSignal.value
   const topicsOpen = useSignal(false)
 
@@ -56,7 +57,7 @@ export default component$(() => {
   )
 
   return (
-    <SiteShell>
+    <SiteShell isApexHost={nicheSignal.value === 'apex'}>
       <div q:slot="header" class="w-full">
         <nav
           class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-action/10"

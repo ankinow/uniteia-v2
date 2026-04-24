@@ -25,6 +25,9 @@ export default defineConfig({
     btn: 'px-4 py-2 rounded-none font-medium transition-all duration-base ease-solar',
     'btn-primary': 'btn bg-action text-void hover:bg-action-hi',
     'btn-outline': 'btn border border-current hover:bg-white/5',
+    'hud-panel': 'surface-hud',
+    'hud-label': 'hud-label-base',
+    'scratch-divider': 'scratch-divider',
   },
   content: {
     pipeline: {

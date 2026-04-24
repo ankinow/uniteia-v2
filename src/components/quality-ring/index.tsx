@@ -1,5 +1,6 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 import { getTranslation } from '~/i18n/context'
+import { reserveSessionWhisper, useDopamineBudget } from '~/stores/dopamine-budget'
 import type { QualityRingProps } from './types'
 
 /** Color mapping per score range — matches SolarLanso palette */
@@ -15,7 +16,9 @@ function getScoreColor(score: number): string {
  */
 export const QualityRing = component$<QualityRingProps>(
   ({ score, lang, size = 64, strokeWidth = 4, class: className }) => {
+    const budget = useDopamineBudget()
     const animatedOffset = useSignal(0)
+    const whisperState = useSignal<'pending' | 'armed' | 'spent' | 'blocked'>('pending')
     const t = getTranslation(lang)
     const radius = (size - strokeWidth) / 2
     const circumference = 2 * Math.PI * radius
@@ -29,7 +32,20 @@ export const QualityRing = component$<QualityRingProps>(
 
     // Animate on mount — R012: single whisper, ≤250ms
     // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(() => {
+    useVisibleTask$(({ track }) => {
+      track(() => budget.sessionId)
+      const decision = reserveSessionWhisper(budget, `quality-ring:${clampedScore}`)
+      whisperState.value = decision.allowed
+        ? 'armed'
+        : decision.reason === 'apex-only'
+          ? 'blocked'
+          : 'spent'
+
+      if (!decision.allowed) {
+        animatedOffset.value = targetOffset
+        return
+      }
+
       // Start fully hidden, then animate to target
       animatedOffset.value = circumference
       requestAnimationFrame(() => {
@@ -44,6 +60,10 @@ export const QualityRing = component$<QualityRingProps>(
         data-testid="quality-ring"
         data-score={clampedScore}
         data-lang={lang}
+        data-dopamine-whisper-scope="session"
+        data-dopamine-whisper-state={whisperState.value}
+        data-dopamine-route-remaining={budget.routeBudget.remaining}
+        data-dopamine-session-remaining={budget.sessionBudget.remaining}
         class={['inline-flex flex-col items-center', className]}
         role="img"
         aria-label={`${t.qualityRing.qualityScore}: ${clampedScore}/100 — ${t.qualityRing.editorialQuality}`}
