@@ -131,18 +131,24 @@ a:hover {
     isolation: isolate;
     overflow: hidden;
     border: 1px solid color-mix(in srgb, var(--cyan) 14%, transparent);
-    background:
-      linear-gradient(180deg, color-mix(in srgb, var(--raised) 26%, transparent), transparent),
-      color-mix(in srgb, var(--void) 88%, transparent);
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--raised) 26%, transparent),
+        transparent
+      ), color-mix(in srgb, var(--void) 88%, transparent);
   }
 
   .surface-hud::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background-image:
-      linear-gradient(180deg, transparent, color-mix(in srgb, var(--cyan) 10%, transparent), transparent),
+    background-image: linear-gradient(
+        180deg,
+        transparent,
+        color-mix(in srgb, var(--cyan) 10%, transparent),
+        transparent
+      ),
       repeating-linear-gradient(
         135deg,
         color-mix(in srgb, var(--cyan) 5%, transparent) 0 8px,
@@ -164,9 +170,11 @@ a:hover {
     min-height: 1.875rem;
     padding: 0.375rem 0.75rem;
     border: 1px solid color-mix(in srgb, var(--hud-accent) 28%, transparent);
-    background:
-      linear-gradient(180deg, color-mix(in srgb, var(--hud-accent) 9%, transparent), transparent),
-      color-mix(in srgb, var(--deep) 86%, transparent);
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--hud-accent) 9%, transparent),
+        transparent
+      ), color-mix(in srgb, var(--deep) 86%, transparent);
     box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--hud-accent) 10%, transparent);
     color: var(--hud-accent);
     font-family: var(--font-mono);
@@ -178,15 +186,15 @@ a:hover {
     white-space: nowrap;
   }
 
-  .hud-label-base[data-tone='curation'] {
+  .hud-label-base[data-tone="curation"] {
     --hud-accent: var(--bronze);
   }
 
-  .hud-label-base[data-tone='verified'] {
+  .hud-label-base[data-tone="verified"] {
     --hud-accent: var(--vine);
   }
 
-  .hud-label-base[data-tone='muted'] {
+  .hud-label-base[data-tone="muted"] {
     --hud-accent: var(--bone-muted);
   }
 
@@ -206,7 +214,7 @@ a:hover {
   }
 
   .scratch-divider::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     pointer-events: none;
@@ -218,19 +226,19 @@ a:hover {
     opacity: 0.75;
   }
 
-  .scratch-divider[data-tone='curation'] {
+  .scratch-divider[data-tone="curation"] {
     --scratch-accent: var(--bronze);
   }
 
-  .scratch-divider[data-tone='verified'] {
+  .scratch-divider[data-tone="verified"] {
     --scratch-accent: var(--vine);
   }
 
-  .scratch-divider[data-tone='muted'] {
+  .scratch-divider[data-tone="muted"] {
     --scratch-accent: var(--bone-muted);
   }
 
-  .scratch-divider[data-orientation='vertical'] {
+  .scratch-divider[data-orientation="vertical"] {
     width: 1px;
     height: 100%;
     background: linear-gradient(
@@ -241,7 +249,7 @@ a:hover {
     );
   }
 
-  .scratch-divider[data-orientation='vertical']::before {
+  .scratch-divider[data-orientation="vertical"]::before {
     background-image: repeating-linear-gradient(
       135deg,
       color-mix(in srgb, var(--scratch-accent) 14%, transparent) 0 5px,

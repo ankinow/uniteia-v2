@@ -61,7 +61,13 @@ export const EditorialVerdict = component$<EditorialVerdictProps>(
         data-testid="editorial-verdict"
         data-verdict={verdict}
         data-lang={lang}
-        class={['hud-panel', 'inline-flex items-center gap-3 px-3 py-2 text-sm font-medium', border, bg, className]}
+        class={[
+          'hud-panel',
+          'inline-flex items-center gap-3 px-3 py-2 text-sm font-medium',
+          border,
+          bg,
+          className,
+        ]}
         aria-label={`${t.editorial.verdictLabel}: ${label}`}
       >
         <span class={`inline-block h-2 w-2 shrink-0 ${dot}`} aria-hidden="true" />
