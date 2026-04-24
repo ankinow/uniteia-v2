@@ -25,7 +25,7 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
           </p>
         </div>
         <div class="footer-tagline text-center" data-testid="footer-tagline">
-          <p class="text-bone-secondary">{t.footer.madeWith}</p>
+          <p class="text-bone-muted">{t.footer.madeWith}</p>
         </div>
         <nav class="footer-links flex gap-4" data-testid="footer-links">
           <a
@@ -47,8 +47,8 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
           </a>
         </nav>
         <div class="footer-language text-bone-muted text-xs" data-testid="footer-language">
-          <span class="opacity-60">Language: </span>
-          <span class="text-bone-secondary">{getLanguageName(lang.value)}</span>
+          <span>Language: </span>
+          <span class="text-bone-muted">{getLanguageName(lang.value)}</span>
         </div>
       </div>
     </div>

@@ -100,7 +100,9 @@ export const LangSwitcher = component$<LangSwitcherProps>(
               d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
             />
           </svg>
-          {!compact && <span class="text-sm font-medium">{getLanguageName(lang.value)}</span>}
+          {!compact && (
+            <span class="text-sm font-medium text-bone">{getLanguageName(lang.value)}</span>
+          )}
           <svg
             class={['w-4 h-4 transition-transform duration-200', isOpen.value && 'rotate-180']}
             fill="none"

@@ -66,7 +66,7 @@ export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
 
       {/* Timestamps row */}
       {props.metadata && (
-        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-bone-secondary">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-bone-muted">
           {props.metadata.created_at && (
             <time dateTime={props.metadata.created_at} class="font-mono text-xs text-bone-muted">
               {labels.published}: {props.metadata.created_at}

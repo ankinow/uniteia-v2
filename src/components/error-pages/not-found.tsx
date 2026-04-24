@@ -25,26 +25,23 @@ export const NotFound = component$(() => {
         >
           <a
             href="/"
-            class="brand flex items-center gap-2 text-xl font-bold text-bone-primary hover:text-action transition-colors"
+            class="brand flex items-center gap-2 text-xl font-bold text-bone hover:text-action transition-colors"
             data-testid="nav-logo"
           >
             <span class="text-action">Uni</span>
             <span>Teia</span>
           </a>
           <div class="nav-links hidden md:flex items-center gap-6">
-            <a href="/" class="text-bone-secondary hover:text-bone-primary transition-colors">
+            <a href="/" class="text-bone-muted hover:text-bone transition-colors">
               Home
             </a>
-            <a href="/about" class="text-bone-secondary hover:text-bone-primary transition-colors">
+            <a href="/about" class="text-bone-muted hover:text-bone transition-colors">
               About
             </a>
-            <a
-              href="/projects"
-              class="text-bone-secondary hover:text-bone-primary transition-colors"
-            >
+            <a href="/projects" class="text-bone-muted hover:text-bone transition-colors">
               Projects
             </a>
-            <a href="/blog" class="text-bone-secondary hover:text-bone-primary transition-colors">
+            <a href="/blog" class="text-bone-muted hover:text-bone transition-colors">
               Blog
             </a>
           </div>
@@ -73,7 +70,7 @@ const ErrorContent = component$(() => {
 
       {/* Error title */}
       <h1
-        class="error-title text-3xl md:text-4xl font-semibold mb-4 text-bone-primary"
+        class="error-title text-3xl md:text-4xl font-semibold mb-4 text-bone"
         data-testid="error-title"
       >
         {t.errorPages['404'].title}
@@ -81,7 +78,7 @@ const ErrorContent = component$(() => {
 
       {/* Error message */}
       <p
-        class="error-message text-lg md:text-xl text-bone-secondary mb-8 leading-relaxed"
+        class="error-message text-lg md:text-xl text-bone-muted mb-8 leading-relaxed"
         data-testid="error-message"
       >
         {t.errorPages['404'].message}

@@ -32,13 +32,13 @@ export const AdaptiveHeader = component$<AdaptiveHeaderProps>(props => {
           'text-2xl leading-9',
           'md:text-4xl md:leading-11',
           'lg:text-5xl lg:leading-tight',
-          'font-semibold text-bone-primary',
+          'font-semibold text-bone',
         ]}
       >
         {props.title}
       </h1>
       {props.subtitle && (
-        <p class="mt-2 text-base leading-relaxed text-bone-secondary md:text-lg md:leading-relaxed lg:text-xl lg:leading-relaxed">
+        <p class="mt-2 text-base leading-relaxed text-bone-muted md:text-lg md:leading-relaxed lg:text-xl lg:leading-relaxed">
           {props.subtitle}
         </p>
       )}
