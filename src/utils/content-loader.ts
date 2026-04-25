@@ -142,3 +142,48 @@ export async function getAvailableLanguages(
       return parts[0] as SupportedLanguage
     })
 }
+
+/**
+ * Lightweight sitemap discovery helper that returns all valid article files
+ * for a niche without parsing markdown bodies.
+ *
+ * Invalid slugs are skipped so editorial fixtures used for validation do not
+ * leak into the public sitemap.
+ */
+export interface NicheArticleEntry {
+  slug: string
+  lang: SupportedLanguage
+}
+
+export async function listNicheArticles(niche: string): Promise<NicheArticleEntry[]> {
+  const { validateSlug } = await import('~/utils/url-validation')
+  const contentModules = import.meta.glob('../../content/**/*.md')
+
+  const prefix = `../../content/${niche}/`
+
+  const articles = Object.keys(contentModules)
+    .filter((key) => key.startsWith(prefix))
+    .flatMap((key) => {
+      const relativePath = key.slice(prefix.length)
+      const segments = relativePath.split('/')
+
+      if (segments.length !== 2 || !segments[0] || !segments[1]?.endsWith('.md')) {
+        return []
+      }
+
+      const lang = segments[0] as SupportedLanguage
+      const slug = segments[1].replace(/\.md$/, '')
+      const slugValidation = validateSlug(slug)
+
+      if (!slugValidation.valid) {
+        console.warn(
+          `[content-loader] Skipping invalid sitemap slug ${niche}/${lang}/${slug}: ${slugValidation.error}`
+        )
+        return []
+      }
+
+      return [{ slug, lang }]
+    })
+
+  return articles.sort((a, b) => a.slug.localeCompare(b.slug) || a.lang.localeCompare(b.lang))
+}
