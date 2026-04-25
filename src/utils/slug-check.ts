@@ -28,7 +28,7 @@ export interface EvaluateSlugCheckOptions {
 export async function evaluateSlugCheck(
   options: EvaluateSlugCheckOptions = {}
 ): Promise<SlugCheckReport> {
-  const rootDir = options.rootDir ?? 'llm-wiki'
+  const rootDir = options.rootDir ?? 'content'
   const ignoreTestFixtures = options.ignoreTestFixtures ?? true
   const files = (await findMarkdownFiles(rootDir)).filter(filePath => {
     if (!ignoreTestFixtures) return true

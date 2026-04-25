@@ -13,14 +13,16 @@ describe('loadContent', () => {
    * Test 1: loadContent('test-article', 'en') resolves with valid LlmWikiContent
    */
   it('loads a valid English article and returns typed LlmWikiContent', async () => {
-    const result = await loadContent('test-article', 'en')
+    const result = await loadContent('test', 'test-article', 'en')
 
     expect(result).toBeDefined()
     expect(result.slug).toBe('test-article')
     expect(result.lang).toBe('en')
     expect(result.title).toBe('Test Article for Integration Verification')
     expect(result.content).toBeTypeOf('string')
-    expect(result.content.length).toBeGreaterThanOrEqual(100)
+    // HTML transformation check
+    expect(result.content).toContain('<p>')
+    expect(result.content).toContain('<strong>')
     expect(result.subjects).toBeInstanceOf(Array)
     expect(result.subjects.length).toBeGreaterThanOrEqual(1)
     expect(result.referral_links).toBeInstanceOf(Array)
@@ -32,7 +34,7 @@ describe('loadContent', () => {
    * Test 2: loadContent('test-article', 'es') resolves (proves es fixture works)
    */
   it('loads a valid Spanish article and returns typed LlmWikiContent', async () => {
-    const result = await loadContent('test-article', 'es')
+    const result = await loadContent('test', 'test-article', 'es')
 
     expect(result).toBeDefined()
     expect(result.slug).toBe('test-article')
@@ -46,10 +48,10 @@ describe('loadContent', () => {
    * Test 3: loadContent('nonexistent-article', 'en') rejects with ContentLoaderError phase='read'
    */
   it('throws ContentLoaderError with phase "read" for a missing article', async () => {
-    await expect(loadContent('nonexistent-article', 'en')).rejects.toThrow(ContentLoaderError)
+    await expect(loadContent('test', 'nonexistent-article', 'en')).rejects.toThrow(ContentLoaderError)
 
     try {
-      await loadContent('nonexistent-article', 'en')
+      await loadContent('test', 'nonexistent-article', 'en')
     } catch (err) {
       expect(err).toBeInstanceOf(ContentLoaderError)
       const cle = err as ContentLoaderError
@@ -68,12 +70,12 @@ describe('loadContent', () => {
    * preserves the content payload and leaves absent frontmatter fields undefined.
    */
   it('loads parseable markdown with missing schema fields as a worker limitation', async () => {
-    const result = await loadContent('test-invalid-schema', 'en')
+    const result = await loadContent('test', 'test-invalid-schema', 'en')
 
     expect(result.slug).toBe('test-invalid-schema')
     expect(result.lang).toBe('en')
     expect(result.title).toBe('Missing Schema Fields Fixture')
-    expect(result.content).toContain('intentionally omits required frontmatter fields')
+    expect(result.content).toContain('<p>')
     expect(result.subjects).toBeUndefined()
     expect(result.referral_links).toBeUndefined()
   })
@@ -84,10 +86,10 @@ describe('loadContent', () => {
    * The tracked fixture exists so import.meta.glob includes it in the shipped bundle.
    */
   it('throws ContentLoaderError with phase "slug" for a slug with banned terms', async () => {
-    await expect(loadContent('test-admin', 'en')).rejects.toThrow(ContentLoaderError)
+    await expect(loadContent('test', 'test-admin', 'en')).rejects.toThrow(ContentLoaderError)
 
     try {
-      await loadContent('test-admin', 'en')
+      await loadContent('test', 'test-admin', 'en')
     } catch (err) {
       expect(err).toBeInstanceOf(ContentLoaderError)
       const cle = err as ContentLoaderError
@@ -97,5 +99,15 @@ describe('loadContent', () => {
       expect(cle.errors.length).toBeGreaterThanOrEqual(1)
       expect(cle.errors[0]).toContain('banned')
     }
+  })
+
+  /**
+   * Test 6: Niche-based glob keys correctly resolve (ai-agents niche)
+   */
+  it('handles niche-based glob keys correctly (ai-agents)', async () => {
+    const result = await loadContent('ai-agents', 'llm-aggregators-compared', 'en')
+    expect(result.slug).toBe('llm-aggregators-compared')
+    expect(result.title).toBe('LLM Aggregators Compared')
+    expect(result.content).toContain('<h1>')
   })
 })

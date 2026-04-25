@@ -14,6 +14,8 @@ import type { LlmWikiContent } from '~/types/content'
 import { ContentLoaderError } from '~/types/content'
 import { loadContent } from '~/utils/content-loader'
 
+import { parseHost } from '~/utils/host-parser'
+
 /**
  * Supported language codes for quick lookup
  */
@@ -26,7 +28,7 @@ const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
  * All server-only logic (fs, gray-matter, ajv) lives in loadContent()
  * which uses dynamic imports per D001 to stay tree-shaken from client.
  */
-export const useContent = routeLoader$<LlmWikiContent | null>(async ({ params, error }) => {
+export const useContent = routeLoader$<LlmWikiContent | null>(async ({ params, error, url }) => {
   const lang = params.lang
   const slugRaw = params.slug
 
@@ -38,10 +40,11 @@ export const useContent = routeLoader$<LlmWikiContent | null>(async ({ params, e
     throw error(404, 'No slug provided')
   }
 
+  const { niche } = parseHost(url.host)
   const slug = slugRaw.replaceAll('/', '-')
 
   try {
-    return await loadContent(slug, lang as SupportedLanguage)
+    return await loadContent(niche, slug, lang as SupportedLanguage)
   } catch (err) {
     if (err instanceof ContentLoaderError) {
       console.error(`[content-loader] ${err.phase} failed for ${err.lang}/${err.slug}:`, err.errors)
@@ -90,9 +93,10 @@ export default component$(() => {
           readInLang: t.article.readInLang,
         }}
       />
-      <div class="prose prose-invert mt-8 max-w-none text-bone-primary">
-        {content.value.content}
-      </div>
+      <div
+        class="prose prose-invert mt-8 max-w-none text-bone-primary"
+        dangerouslySetInnerHTML={content.value.content}
+      />
       <SourceLedger
         referralLinks={content.value.referral_links}
         sourcesLabel={t.article.sourcesLabel}
