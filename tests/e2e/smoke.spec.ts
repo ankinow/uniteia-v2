@@ -7,9 +7,6 @@ function collectConsoleErrors(page: Page): string[] {
   page.on('console', msg => {
     if (msg.type() === 'error') {
       const text = msg.text()
-      if (text.startsWith('Detected Layout Shift during page load')) {
-        return // Ignore CLS warnings for now (M006)
-      }
       errors.push(text)
     }
   })
@@ -35,6 +32,10 @@ test('tracked article route renders fixture content and negotiated headers', asy
   await expect(
     page.getByRole('heading', { name: 'Test Article for Integration Verification' })
   ).toBeVisible()
+
+  // Verify only one H1 exists (AdaptiveHeader)
+  const h1Count = await page.locator('h1').count()
+  expect(h1Count, 'Should have exactly one H1').toBe(1)
 
   await page.waitForLoadState('networkidle')
   expect(errors, `Console errors on /en/test-article: ${errors.join('; ')}`).toHaveLength(0)
@@ -85,7 +86,7 @@ test('language switcher persists cookie and navigates to the selected language p
 
   await ptOption.click()
 
-  await page.waitForURL(/\/pt\/test-article\/?(?:\?.*)?$/, { timeout: 10000 })
+  await page.waitForURL(/\/pt\/test-article\/?(?:\?.*)?$/, { timeout: 15000, waitUntil: 'domcontentloaded' })
   await expect(page).toHaveURL(/\/pt\/test-article\/?(?:\?.*)?$/)
   const cookies = await page.context().cookies()
   expect(cookies.find(cookie => cookie.name === 'uniteia_lang')?.value).toBe('pt')

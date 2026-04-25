@@ -15,7 +15,7 @@ Master activation skill that loads all other UniTeia skills.
 2. i18n-first
 3. brutalist-editorial
 4. solarlanso-tokens
-5. qwik-unocss-discipline
+5. qwik-tailwind-discipline
 6. dopamine-budget
 7. output-enforcement
 8. anti-slop-content
@@ -30,10 +30,10 @@ Master activation skill that loads all other UniTeia skills.
 
 - Runtime: Bun 1.x
 - Framework: Qwik-City 2.x
-- CSS: UnoCSS + PostCSS
+- CSS: Tailwind + PostCSS
 - Lint: Biome
-- Icons: Lucide via preset-icons
+- Icons: Lucide via iconify-tailwind
 
 ## Anti-Goals
 
-❌ React, Tailwind, shadcn, Framer Motion, glassmorphism, light mode, analytics, proper nouns in slugs
+❌ React, UnoCSS, shadcn, Framer Motion, glassmorphism, light mode, analytics, proper nouns in slugs

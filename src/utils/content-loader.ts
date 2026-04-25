@@ -20,6 +20,7 @@ export async function loadContent(
   // Dynamic imports for browser-safe modules (gray-matter works in worker)
   const matter = (await import('gray-matter')).default
   const { marked } = await import('marked')
+  const DOMPurify = (await import('isomorphic-dompurify')).default
   const { validateSlug } = await import('~/utils/url-validation')
   const { validateContent } = await import('~/utils/schema-validation')
 
@@ -78,9 +79,6 @@ export async function loadContent(
       breaks: false,
       gfm: true,
       renderer: {
-        html({ text }) {
-          return text.replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        },
         heading({ tokens, depth }) {
           if (depth === 1) return ''
           return `<h${depth}>${this.parser.parseInline(tokens)}</h${depth}>\n`
@@ -89,7 +87,8 @@ export async function loadContent(
     })
 
     // marked.parse is async or sync based on options; we await it for safety
-    htmlContent = (await marked.parse(markdownBody.trim())) as string
+    const rawHtml = (await marked.parse(markdownBody.trim())) as string
+    htmlContent = DOMPurify.sanitize(rawHtml)
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err)
     console.error(

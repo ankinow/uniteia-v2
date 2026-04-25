@@ -102,30 +102,6 @@ export function useProvideI18n(initialLang?: SupportedLanguage): void {
 }
 
 /**
- * Client-side language switcher hook
- * Returns the current language and a function to switch languages
- */
-export function useLanguageSwitcher() {
-  const { lang } = useI18n()
-
-  // Run visible task to sync with client-side state
-  useVisibleTask$(({ track }) => {
-    track(() => lang.value)
-    // Persist to cookie when language changes (1 year expiry)
-    document.cookie = `uniteia_lang=${lang.value};path=/;max-age=31536000;SameSite=Lax`
-  })
-
-  const switchLanguage = (newLang: SupportedLanguage) => {
-    lang.value = newLang
-  }
-
-  return {
-    currentLang: lang,
-    switchLanguage,
-  }
-}
-
-/**
  * Re-export types for convenience
  */
 export type { TranslationStrings, SupportedLanguage } from './types'

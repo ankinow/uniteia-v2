@@ -88,36 +88,33 @@ The release gate was hardened so ship-check can now fail distinctly on timeout i
 
 ## Content-factory direction
 
-The next major backend layer is a deterministic content pipeline that starts from one canonical content contract and renders multiple outputs. The intended outputs are:
+The content-factory is implemented as a manual-first app in `apps/content-factory/`. It follows a deterministic pipeline (Gather → Build → Render → Export) to turn one canonical content contract into wiki, blog, short-form script, and prompt-seed outputs.
 
-- canonical content contract
-- long-form article
-- short-form script JSON
-- wiki-format markdown
-- prompt seed for regeneration
+The current state of the content-factory is:
+- **Scaffold + Schema + Golden fixture** (v0) complete.
+- **Engine (Gather, Build, Render, Export phases)** implemented and verified with Vitest.
+- **CLI** fully functional.
+- **Isolamento estrito** maintained (own Bun workspace).
 
-The planned slices remain scaffold → schema/golden → gather → build → render → gate integration → second-entity proof.
+## Next-step checklist: Real-content E2E (M004)
 
-## Next-step checklist: prepare for Core Web Vitals
+Before operationally validating M003, the factory must produce real artifacts end-to-end:
 
-Do this before changing performance code:
+- [ ] Choose real entities (e.g., qwik-framework, bun-runtime).
+- [ ] author sources.json for each.
+- [ ] run generate, validate, lint, render, and export.
+- [ ] Verify idempotence on export.
+- [ ] Export 5 languages for at least one entity.
 
-- [ ] Re-run the current Lighthouse gate and record the exact score.
-- [ ] Identify whether the regression is mostly LCP, INP, CLS, or a mix.
-- [ ] Confirm the preview-backed Lighthouse path is the one being measured.
-- [ ] Confirm the current styling stack is Tailwind and that no UnoCSS branch assumptions leaked into the plan.
-- [ ] Separate runtime issues from build-only inefficiencies.
-- [ ] Keep a before/after table for every claimed performance improvement.
+## Next-step checklist: Qwik audit remediation (M005)
 
-## Next-step checklist: likely performance work
+Remediate existing RED gates in the Qwik app:
 
-These are the current candidate fixes, but they are not closed until measured:
-
-- [ ] remove dead loader work in content loading
-- [ ] gate hot-path console logging to development only
-- [ ] replace full document reload on language switch with Qwik navigation
-- [ ] reduce preview proxy buffering in the Lighthouse gate path
-- [ ] re-measure after each grouped fix, not only at the end
+- [ ] Verify typecheck and build exit 0.
+- [ ] Implement content loader schema validation.
+- [ ] Configure marked with XSS sanitization.
+- [ ] Fix E2E failures (duplicate H1, CLS issues in lang switcher).
+- [ ] Improve lang cookie security (HttpOnly + Secure via server$).
 
 ## Release checklist for any next PR
 
@@ -128,14 +125,15 @@ These are the current candidate fixes, but they are not closed until measured:
 - [ ] ship-check green
 - [ ] Lighthouse rerun with recorded before/after numbers when performance is claimed
 - [ ] no unresolved gate suspicion left behind
+- [ ] content-factory tests green (cd apps/content-factory && bun run factory:test)
 
 ## Reader warnings
 
 - Do not assume the docs are fresher than the repo. Verify live gates.
-- Do not assume UnoCSS. The app is Tailwind.
+- UnoCSS is eliminated. The app is 100% Tailwind.
 - Do not treat historical Lighthouse claims as current until rerun.
 - Do not mark milestone closure from slice completion alone; remediation state still matters.
 
 ## Recommended next action
 
-Run a fresh Core Web Vitals baseline pass and use that measurement to choose the first runtime fix. The stack and gate context is now stable enough to do that honestly.
+Execute M005 (Qwik audit remediation) to clean up red gates before proceeding to real-content production (M004) and performance optimization (M006).

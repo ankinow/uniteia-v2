@@ -5,7 +5,7 @@ import type { NicheCardProps } from './types'
 /**
  * NicheCard - Clickable card for a single niche topic
  *
- * Renders niche icon (Lucide via UnoCSS preset-icons), localized title
+ * Renders niche icon (Lucide via Tailwind iconify), localized title
  * and description, and links to the niche landing page.
  * Follows S01 isolation pattern with types.ts + index.tsx.
  */

@@ -17,7 +17,7 @@ export const ADAPTIVE_HEADER_SCALE: AdaptiveHeaderScale = {
  * AdaptiveHeader - Viewport-aware heading component
  *
  * Renders title + optional subtitle with responsive typography
- * using UnoCSS responsive classes:
+ * using Tailwind responsive classes:
  *   - default (small):  text-2xl (28px) / leading-9 (36px)
  *   - md (medium):      text-4xl (36px) / leading-11 (44px)
  *   - lg (large):       text-5xl (48px) / leading-tight (60px)

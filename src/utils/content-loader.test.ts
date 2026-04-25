@@ -159,4 +159,13 @@ describe('loadContent', () => {
       [...articles].sort((a, b) => a.slug.localeCompare(b.slug) || a.lang.localeCompare(b.lang))
     )
   })
+
+  /**
+   * Test 9: Malicious markdown is sanitized (XSS prevention)
+   */
+  it('sanitizes malicious HTML tags in markdown', async () => {
+    const result = await loadContent('apex', 'test-xss', 'en')
+    expect(result.content).not.toContain('<script>')
+    expect(result.content).not.toContain('alert(')
+  })
 })

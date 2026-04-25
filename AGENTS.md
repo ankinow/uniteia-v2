@@ -122,11 +122,11 @@ uniteia_canonical_skills:
 stack_lock:
   runtime: Bun_1.x
   framework: Qwik-City_2.x
-  css_engine: Tailwind_3.0+
+  css_engine: Tailwind_3.4+
   css_presets: [typography, iconify]
-  postcss_pipeline: [postcss-nesting, postcss-custom-media, postcss-preset-env_stage2, autoprefixer]
+  postcss_pipeline: [postcss-nesting, postcss-custom-media, postcss-preset-env, autoprefixer]
   deploy_adapter: "@builder.io/qwik-city/adapters/cloudflare-pages"
-  icons: Lucide_via_preset-icons
+  icons: Lucide_via_iconify-tailwind
   fonts:
     sans: Inter
     display: Geist
@@ -135,10 +135,10 @@ stack_lock:
     zh: Noto_Sans_SC_conditional
   lint: Biome
   test: [Vitest, Playwright]
-  types: TypeScript_5.6_strict
+  types: TypeScript_5.8_strict
   type_strictness: [noUncheckedIndexedAccess, exactOptionalPropertyTypes]
   content: markdown_files + gray-matter + AJV_schema
-  banned: [React, Next.js, Tailwind, shadcn_ui, Framer_Motion, GSAP, ThreeJS]
+  banned: [React, Next.js, UnoCSS, shadcn_ui, Framer_Motion, GSAP, ThreeJS]
 
 # ───────────────────────────────────────────────────────────────────────────
 # URL LAW · Canonical slug rules
