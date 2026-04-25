@@ -235,22 +235,10 @@ a:hover {
     background: linear-gradient(
       90deg,
       transparent,
-      color-mix(in srgb, var(--scratch-accent) 35%, transparent),
+      color-mix(in srgb, var(--scratch-accent) 60%, transparent),
       transparent
     );
-  }
-
-  .scratch-divider::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-image: repeating-linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--scratch-accent) 14%, transparent) 0 6px,
-      transparent 6px 10px
-    );
-    opacity: 0.75;
+    filter: url(#scratch);
   }
 
   .scratch-divider[data-tone="curation"] {
@@ -271,16 +259,8 @@ a:hover {
     background: linear-gradient(
       180deg,
       transparent,
-      color-mix(in srgb, var(--scratch-accent) 35%, transparent),
+      color-mix(in srgb, var(--scratch-accent) 60%, transparent),
       transparent
-    );
-  }
-
-  .scratch-divider[data-orientation="vertical"]::before {
-    background-image: repeating-linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--scratch-accent) 14%, transparent) 0 5px,
-      transparent 5px 9px
     );
   }
 }
