@@ -12,7 +12,7 @@ This file provides canonical activation context for AI agents working on UniTeia
 ```yaml
 # ═══════════════════════════════════════════════════════════════════════════
 # UNITEIA · SKILLS ARSENAL v1 · 2026-04-19
-# Canonical activation context for Qwik + UnoCSS + PostCSS + Cloudflare Pages
+# Canonical activation context for Qwik + TailwindCSS + PostCSS + Cloudflare Pages
 # Owner: Ankinow (github) · Operator: LERMF (pt-BR, America/Sao_Paulo)
 # ═══════════════════════════════════════════════════════════════════════════
 
@@ -106,9 +106,9 @@ uniteia_canonical_skills:
       remove: [crt_scanlines, halftones_dithering, ascii_decorations]
     - id: solarlanso-tokens
       description: Palette tokens (void/cyan/vine/bronze/bone) + OKLCH opt-in
-    - id: qwik-unocss-discipline
-      description: Stack-specific rules (Qwik resumability, UnoCSS config)
-      substitutes: [react→qwik, tailwind→unocss, phosphor→lucide]
+    - id: qwik-tailwind-discipline
+      description: Stack-specific rules (Qwik resumability, Tailwind config)
+      substitutes: [react→qwik, unocss→tailwind, phosphor→lucide]
     - id: dopamine-budget
       description: Hard motion limits (1 whisper/viewport, ≤250ms)
     - id: output-enforcement
@@ -122,8 +122,8 @@ uniteia_canonical_skills:
 stack_lock:
   runtime: Bun_1.x
   framework: Qwik-City_2.x
-  css_engine: UnoCSS_0.60+
-  css_presets: [preset-wind3, preset-attributify, preset-typography, preset-icons, preset-web-fonts]
+  css_engine: Tailwind_3.0+
+  css_presets: [typography, iconify]
   postcss_pipeline: [postcss-nesting, postcss-custom-media, postcss-preset-env_stage2, autoprefixer]
   deploy_adapter: "@builder.io/qwik-city/adapters/cloudflare-pages"
   icons: Lucide_via_preset-icons
@@ -342,11 +342,11 @@ roadmap:
 ### Stack
 - **Runtime:** Bun
 - **Framework:** Qwik-City
-- **CSS:** UnoCSS + PostCSS
+- **CSS:** TailwindCSS + PostCSS
 - **Deploy:** Cloudflare Pages
 
 ### Anti-Goals
-❌ React, Tailwind, shadcn, Framer Motion, glassmorphism, light mode toggle, proper nouns in slugs
+❌ React, UnoCSS, shadcn, Framer Motion, glassmorphism, light mode toggle, proper nouns in slugs
 
 ---
 

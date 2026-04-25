@@ -1,0 +1,33 @@
+{
+  "name": "@uniteia-v2/content-factory",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Manual-first content factory for llm-wiki-uniteia. Isolated from the Qwik app.",
+  "scripts": {
+    "factory:generate": "bun _engine/cli.ts generate",
+    "factory:render": "bun _engine/cli.ts render",
+    "factory:export": "bun _engine/cli.ts export",
+    "factory:lint": "bun _engine/cli.ts lint",
+    "factory:validate": "bun _engine/cli.ts validate",
+    "factory:test": "vitest run _engine/tests",
+    "factory:test:watch": "vitest _engine/tests"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "gray-matter": "^4.0.3",
+    "handlebars": "^4.7.8",
+    "yaml": "^2.6.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/bun": "^1.1.13",
+    "@types/node": "^22.9.0",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.5"
+  },
+  "engines": {
+    "bun": ">=1.1.0"
+  }
+}

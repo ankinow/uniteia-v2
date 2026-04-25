@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022"],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "types": ["bun", "node"],
+    "outDir": "./dist",
+    "rootDir": "."
+  },
+  "include": ["_engine/**/*.ts", "_engine/**/*.json"],
+  "exclude": ["node_modules", "dist", "runs", "content", "llm-wiki-uniteia"]
+}

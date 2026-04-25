@@ -7,7 +7,7 @@ import { NotFound } from '~/components/error-pages/not-found'
 import { FrontmatterSlots } from '~/components/frontmatter-slots'
 import { QualityRing } from '~/components/quality-ring'
 import { SourceLedger } from '~/components/source-ledger'
-import { useI18n, getTranslation } from '~/i18n/context'
+import { getTranslation, useI18n } from '~/i18n/context'
 import type { SupportedLanguage } from '~/i18n/types'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
 import type { LlmWikiContent } from '~/types/content'
@@ -126,8 +126,8 @@ export const head: DocumentHead = ({ resolveValue, url, params }) => {
     canonicalUrl.pathname = canonicalUrl.pathname.replace(/\/$/, '')
   }
 
-  const alternateLinks = (content.translations || []).map((tLang) => ({
-    rel: "alternate",
+  const alternateLinks: Array<{ rel: string; hreflang: string; href: string }> = (content.translations || []).map(tLang => ({
+    rel: 'alternate',
     hreflang: tLang,
     href: new URL(`/${tLang}/${content.slug}`, url.origin).href,
   }))
@@ -136,7 +136,7 @@ export const head: DocumentHead = ({ resolveValue, url, params }) => {
   const hasEnglish = content.translations?.includes('en')
   if (hasEnglish) {
     alternateLinks.push({
-      rel: "alternate",
+      rel: 'alternate',
       hreflang: 'x-default',
       href: new URL(`/en/${content.slug}`, url.origin).href,
     })
@@ -159,9 +159,6 @@ export const head: DocumentHead = ({ resolveValue, url, params }) => {
       { name: 'twitter:title', content: content.title },
       { name: 'twitter:description', content: content.subjects.join(', ') },
     ],
-    links: [
-      { rel: "canonical", href: canonicalUrl.href },
-      ...alternateLinks,
-    ],
+    links: [{ rel: 'canonical', href: canonicalUrl.href }, ...alternateLinks],
   }
 }

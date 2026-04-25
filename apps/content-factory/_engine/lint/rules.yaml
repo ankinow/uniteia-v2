@@ -1,0 +1,57 @@
+shared:
+  banned_terms:
+    - revolucionário
+    - o melhor
+    - game changer
+    - imperdível
+    - garantido
+    - mudará tudo
+  require_evidence_for: [numbers, superlatives, dated_claims]
+  min_density: 0.6
+
+blog:
+  word_count: { min: 800, max: 1400 }
+  forbid_cta: true
+  forbid_h1: false
+  required_sections:
+    - Hook
+    - TL;DR
+    - What it is
+    - Where it fits
+    - Bottom line
+    - Sources
+
+short:
+  word_count: { min: 30, max: 210 }
+  hook_max_words: 14
+  beats: { min: 4, max: 6 }
+  beats_with_ref: { min: 2 }
+  banned_openers:
+    - "Did you know"
+    - "Você sabia"
+    - "Imagine se"
+
+wiki:
+  word_count: { min: 200, max: 1200 }
+  preserves_legacy_shape: true
+  required_sections:
+    - What it is
+    - For whom
+    - Sources
+
+prompt-seed:
+  word_count: { min: 250, max: 400 }
+  forbid_opinion: true
+
+combined:
+  word_count: { min: 900, max: 2200 }
+  required_sections:
+    - TL;DR
+    - O que é
+    - Para quem é
+    - O que oferece
+    - Editorial
+    - Sources
+    - Evidence
+  sources: { min: 2 }
+  evidence: { min: 3 }

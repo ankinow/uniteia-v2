@@ -135,8 +135,8 @@ export async function getAvailableLanguages(
   const suffix = `/${slug}.md`
 
   return Object.keys(contentModules)
-    .filter((key) => key.startsWith(prefix) && key.endsWith(suffix))
-    .map((key) => {
+    .filter(key => key.startsWith(prefix) && key.endsWith(suffix))
+    .map(key => {
       // Extract the {lang} part from ../../content/{niche}/{lang}/{slug}.md
       const parts = key.replace(prefix, '').replace(suffix, '').split('/')
       return parts[0] as SupportedLanguage
@@ -162,8 +162,8 @@ export async function listNicheArticles(niche: string): Promise<NicheArticleEntr
   const prefix = `../../content/${niche}/`
 
   const articles = Object.keys(contentModules)
-    .filter((key) => key.startsWith(prefix))
-    .flatMap((key) => {
+    .filter(key => key.startsWith(prefix))
+    .flatMap(key => {
       const relativePath = key.slice(prefix.length)
       const segments = relativePath.split('/')
 

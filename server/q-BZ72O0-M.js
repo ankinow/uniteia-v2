@@ -1,0 +1,4 @@
+import{h as n,I as i,A as s}from"./q-BxhX7a1J.js";const r={title:"Missing Schema Fields Fixture",meta:[],styles:[],links:[],scripts:[],frontmatter:{slug:"test-invalid-schema",lang:"en"}},l={slug:"test-invalid-schema",lang:"en",title:"Missing Schema Fields Fixture"};function o(t){const e={p:"p",...t.components};return s(e.p,{children:`This article intentionally omits required frontmatter fields such as subjects and referral_links.
+The body is still long enough to exercise the content loading path and prove that runtime schema
+validation is not enforced in the worker bundle. It should load without throwing and leave the
+missing fields undefined.`})}const c=(t={})=>{const e=n(i,{children:n(o,t,3,null)},3,"gGL08-Ec");return typeof MDXLayout=="function"?s(MDXLayout,{children:e}):e};export{c as default,l as frontmatter,r as head};

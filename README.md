@@ -9,6 +9,7 @@ Backend de conteúdo curado para UniTeia v2 (Content Factory).
 ## Scaffold
 
 - `src/` - entrada e utilitários iniciais
+- `apps/content-factory/` - gerador de conteúdo isolado
 - `content/` - entradas canônicas do pipeline
 - `data/` - artefatos intermediários
 - `runs/` - logs e auditoria local
@@ -23,4 +24,4 @@ Este repositório opera sob regras estritas de segurança e resiliência:
 
 ## Next step
 
-Implementar o pipeline determinístico `entidade -> core.yaml -> blog.md + short.json`.
+O pipeline determinístico `entidade -> core.yaml -> blog.md + short.json` foi implementado via `apps/content-factory`.

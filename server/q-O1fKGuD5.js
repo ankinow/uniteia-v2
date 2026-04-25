@@ -1,0 +1,14 @@
+import{h as r,I as i,A as t,F as a}from"./q-BxhX7a1J.js";const c=[{text:"統合検証用テスト記事",id:"統合検証用テスト記事",level:1},{text:"目的",id:"目的",level:2},{text:"コンテンツ要件",id:"コンテンツ要件",level:2},{text:"技術的詳細",id:"技術的詳細",level:2}],o={title:"統合検証用テスト記事",meta:[],styles:[],links:[],scripts:[],frontmatter:{slug:"test-article",lang:"ja",verdict:"trusted",quality_score:92,subjects:["テスト","統合","検証"],referral_links:[{url:"https://example.com/ja/reference",title:"サンプル参照リンク",description:"外部参照リンクのサンプル"},{url:"https://example.com/ja/docs",title:"サンプルドキュメント"}],metadata:{created_at:"2025-01-15T10:00:00Z",updated_at:"2025-01-20T14:30:00Z",author:"UniTeiaシステム",version:1}}},s={slug:"test-article",lang:"ja",title:"統合検証用テスト記事",verdict:"trusted",quality_score:92,subjects:["テスト","統合","検証"],referral_links:[{url:"https://example.com/ja/reference",title:"サンプル参照リンク",description:"外部参照リンクのサンプル"},{url:"https://example.com/ja/docs",title:"サンプルドキュメント"}],metadata:{created_at:"2025-01-15T10:00:00Z",updated_at:"2025-01-20T14:30:00Z",author:"UniTeiaシステム",version:1}};function l(n){const e={a:"a",code:"code",h1:"h1",h2:"h2",li:"li",ol:"ol",p:"p",span:"span",strong:"strong",...n.components};return t(a,{children:[t(e.h1,{id:"統合検証用テスト記事",children:[t(e.a,{"aria-hidden":"true",tabindex:"-1",href:"#統合検証用テスト記事",children:t(e.span,{class:"icon icon-link"})}),"統合検証用テスト記事"]}),`
+`,t(e.p,{children:"これはUniTeia v2のコンテンツレンダリングパイプラインを検証するために作成されたテスト記事です。routeLoader$の統合テスト、スキーマ検証、およびコンポーネントレンダリングのフィクスチャとして機能します。"}),`
+`,t(e.h2,{id:"目的",children:[t(e.a,{"aria-hidden":"true",tabindex:"-1",href:"#目的",children:t(e.span,{class:"icon icon-link"})}),"目的"]}),`
+`,t(e.p,{children:"この記事の主な目的は、コンテンツパイプライン全体を実行することです："}),`
+`,t(e.ol,{children:[`
+`,t(e.li,{children:[t(e.strong,{children:"Markdown解析"})," — gray-matterによるfrontmatter抽出"]}),`
+`,t(e.li,{children:[t(e.strong,{children:"スキーマ検証"})," — AJV Draft 2020-12準拠チェック"]}),`
+`,t(e.li,{children:[t(e.strong,{children:"スラッグ検証"})," — ",t(e.code,{children:"validateSlug()"}),"によるURL安全性の確認"]}),`
+`,t(e.li,{children:[t(e.strong,{children:"コンポーネントレンダリング"})," — ArticleFrame、AdaptiveHeader、FrontmatterSlots、SourceLedger"]}),`
+`]}),`
+`,t(e.h2,{id:"コンテンツ要件",children:[t(e.a,{"aria-hidden":"true",tabindex:"-1",href:"#コンテンツ要件",children:t(e.span,{class:"icon icon-link"})}),"コンテンツ要件"]}),`
+`,t(e.p,{children:"スキーマは100文字以上のコンテンツを要求します。この段落と周囲のテキストにより、レンダリングパイプラインの有意なテストカバレッジを提供しながら、この閾値を余裕をもって超えることを保証します。"}),`
+`,t(e.h2,{id:"技術的詳細",children:[t(e.a,{"aria-hidden":"true",tabindex:"-1",href:"#技術的詳細",children:t(e.span,{class:"icon icon-link"})}),"技術的詳細"]}),`
+`,t(e.p,{children:["routeLoader$は",t(e.code,{children:"/llm-wiki/ja/"}),"ディレクトリからこのファイルを読み取り、YAML frontmatterを解析し、結果のオブジェクトをJSONスキーマに対して検証し、型付きコンテンツをQwik-Cityルートに注入します。検証の失敗は、スラッグとエラーの詳細とともにサーバーコンソールに記録されます。"]})]})}const h=(n={})=>{const e=r(i,{children:r(l,n,3,null)},3,"smgE6DgF");return typeof MDXLayout=="function"?t(MDXLayout,{children:e}):e};export{h as default,s as frontmatter,o as head,c as headings};

@@ -25,7 +25,7 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "vite.config.ts",
-    "uno.config.ts",
+
     "playwright.config.ts",
     "tests/**/*.ts"
   ],

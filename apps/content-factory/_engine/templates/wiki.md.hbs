@@ -1,0 +1,41 @@
+# {{entity}}
+
+> {{summary_one_liner}}
+
+## What it is
+
+{{summary_short}}
+
+## For whom
+
+{{target_audience}}
+
+## What it offers
+
+{{#each what_it_offers}}
+- {{this}}
+{{/each}}
+
+## Problems solved
+
+{{#each problems_solved}}
+- {{this}}
+{{/each}}
+
+{{#if when_it_matters}}
+## When it matters
+
+{{when_it_matters}}
+{{/if}}
+
+{{#if when_less_matters}}
+## When it matters less
+
+{{when_less_matters}}
+{{/if}}
+
+## Sources
+
+{{#each sources}}
+- [{{title}}]({{url}})
+{{/each}}

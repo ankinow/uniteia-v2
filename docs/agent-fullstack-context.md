@@ -17,7 +17,7 @@ The project is optimized for edge delivery, resumability, strict release gates, 
 
 - Runtime and bundling: Bun + Vite
 - Frontend framework: Qwik + Qwik City
-- Styling engine: **UnoCSS + PostCSS**
+- Styling engine: **TailwindCSS + PostCSS**
 - Deployment target: Cloudflare Pages worker output
 - Unit tests: Vitest
 - Browser verification: Playwright
@@ -25,16 +25,13 @@ The project is optimized for edge delivery, resumability, strict release gates, 
 
 ### Styling status
 
-The active app still runs on **UnoCSS**. This is not a completed Tailwind migration.
+The active app runs on **Tailwind**. 
 
 Evidence in the repo today:
-- UnoCSS is wired into the Vite plugin chain.
-- The styling config is driven by an active UnoCSS config with presets and shortcuts.
-- The package manifest still depends on UnoCSS presets.
-- Project guidance still declares UnoCSS as the canonical styling engine.
-- No active Tailwind app integration is present in the main runtime.
-
-**Working assumption for the next phase:** Core Web Vitals work must improve the existing UnoCSS-based app. Tailwind migration is future scope unless explicitly approved as a separate decision.
+- Tailwind is wired into the Vite plugin chain.
+- The styling config is driven by an active Tailwind config with presets and shortcuts.
+- The package manifest depends on Tailwind presets.
+- Project guidance declares Tailwind as the canonical styling engine.
 
 ## Verified state in this session
 
@@ -86,8 +83,8 @@ The release gate was hardened so ship-check can now fail distinctly on timeout i
 2. **The current milestone record is blocked by remediation state, not by missing slice rows.**
 3. **Some project artifacts are stale.**
    - Any claim about Lighthouse being already fixed must be verified again before reuse.
-4. **Styling strategy remains UnoCSS-first.**
-   - Do not plan work around a completed Tailwind migration.
+4. **Styling strategy remains Tailwind-first.**
+   - Do not plan work around UnoCSS.
 
 ## Content-factory direction
 
@@ -108,7 +105,7 @@ Do this before changing performance code:
 - [ ] Re-run the current Lighthouse gate and record the exact score.
 - [ ] Identify whether the regression is mostly LCP, INP, CLS, or a mix.
 - [ ] Confirm the preview-backed Lighthouse path is the one being measured.
-- [ ] Confirm the current styling stack is still UnoCSS and that no Tailwind branch assumptions leaked into the plan.
+- [ ] Confirm the current styling stack is Tailwind and that no UnoCSS branch assumptions leaked into the plan.
 - [ ] Separate runtime issues from build-only inefficiencies.
 - [ ] Keep a before/after table for every claimed performance improvement.
 
@@ -135,7 +132,7 @@ These are the current candidate fixes, but they are not closed until measured:
 ## Reader warnings
 
 - Do not assume the docs are fresher than the repo. Verify live gates.
-- Do not assume Tailwind. The app is still UnoCSS.
+- Do not assume UnoCSS. The app is Tailwind.
 - Do not treat historical Lighthouse claims as current until rerun.
 - Do not mark milestone closure from slice completion alone; remediation state still matters.
 

@@ -31,9 +31,7 @@ export const NicheCard = component$<NicheCardProps>(({ niche, lang, class: class
       ]}
     >
       <div class="flex items-start gap-3">
-        {iconClass && (
-          <div class={iconClass} aria-hidden="true" />
-        )}
+        {iconClass && <div class={iconClass} aria-hidden="true" />}
         <div class="min-w-0">
           <h2 class="text-bone font-semibold text-base leading-tight">{niche.title[lang]}</h2>
           <p class="text-bone-muted text-sm mt-1 leading-relaxed">{niche.description[lang]}</p>

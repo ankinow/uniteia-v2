@@ -1,6 +1,6 @@
 import type { RequestHandler } from '@builder.io/qwik-city'
-import { parseHost } from '~/utils/host-parser'
 import { listNicheArticles } from '~/utils/content-loader'
+import { parseHost } from '~/utils/host-parser'
 
 export const onGet: RequestHandler = async ({ url, send, headers }) => {
   const { niche } = parseHost(url.host)
@@ -14,7 +14,7 @@ export const onGet: RequestHandler = async ({ url, send, headers }) => {
     <priority>1.0</priority>
   </url>
   ${articles
-    .map((article) => {
+    .map(article => {
       const loc = `${url.origin}/${article.lang}/${article.slug}`
       return `  <url>
     <loc>${loc}</loc>
