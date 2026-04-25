@@ -61,7 +61,8 @@
     "@fontsource/jetbrains-mono": "^5.2.8",
     "@modular-forms/qwik": "^0.24.0",
     "gray-matter": "^4.0.3",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "marked": "^18.0.2"
   },
   "engines": {
     "node": ">=20.0.0"
