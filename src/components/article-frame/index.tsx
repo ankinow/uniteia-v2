@@ -15,11 +15,13 @@ export const ArticleFrame = component$<ArticleFrameProps>(props => {
       class={[
         'article-frame',
         'mx-auto w-full max-w-prose',
-        'px-4 py-8',
-        'sm:px-6',
-        'md:px-8 md:py-10',
-        'lg:px-10 lg:py-12',
+        'px-6 py-12 md:px-12 md:py-24',
+        'font-sans antialiased',
         'surface-void',
+        /* Swiss Grid: align children to a consistent baseline if possible */
+        '[&>h1]:mb-12 [&>h2]:mb-8 [&>h2]:mt-16 [&>p]:mb-6',
+        /* Editorial: balance headings */
+        '[&>h1]:text-wrap-balance [&>h2]:text-wrap-balance',
         props.class,
       ]}
     >

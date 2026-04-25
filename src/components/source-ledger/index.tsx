@@ -13,13 +13,13 @@ export const SourceLedger = component$<SourceLedgerProps>(props => {
   return (
     <nav
       data-testid="source-ledger"
-      class={['source-ledger', 'mt-8 border-t border-mid pt-6', props.class]}
+      class={['source-ledger', 'mt-12 border-t border-mid pt-8', props.class]}
       aria-label={sourcesLabel}
     >
-      <h2 class="mb-3 text-sm font-semibold uppercase tracking-wider text-bone-muted">
+      <h2 class="mb-6 font-display text-xs font-medium uppercase tracking-[0.2em] text-bone-muted">
         {sourcesLabel}
       </h2>
-      <ul class="flex flex-col gap-3">
+      <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {props.referralLinks.map(link => (
           <li key={link.url} class="group">
             <a
@@ -27,22 +27,26 @@ export const SourceLedger = component$<SourceLedgerProps>(props => {
               rel="noopener noreferrer nofollow"
               target="_blank"
               class={[
-                'flex flex-col gap-0.5',
-                'rounded-md px-3 py-2',
-                'bg-deep/50',
-                'border border-mid/50',
-                'transition-colors duration-base',
-                'hover:border-action/40 hover:bg-deep',
+                'flex h-full flex-col justify-between gap-2',
+                'px-4 py-4',
+                'bg-deep/30',
+                'border border-mid/30',
+                'transition-all duration-base ease-solar',
+                'hover:border-action/40 hover:bg-deep/60 whisper-hover',
               ]}
             >
-              <span class="text-sm font-medium text-action group-hover:text-action-hover transition-colors duration-base">
-                {link.title}
-              </span>
-              {link.description && (
-                <span class="text-xs text-bone-muted leading-relaxed">{link.description}</span>
-              )}
-              <span class="mt-0.5 truncate font-mono text-xs text-bone-muted opacity-60">
-                {link.url}
+              <div class="flex flex-col gap-1">
+                <span class="font-display text-base font-normal leading-tight text-bone group-hover:text-action transition-colors duration-base">
+                  {link.title}
+                </span>
+                {link.description && (
+                  <span class="text-xs text-bone-muted leading-relaxed line-clamp-2">
+                    {link.description}
+                  </span>
+                )}
+              </div>
+              <span class="truncate font-mono text-[10px] uppercase tracking-wider text-bone-muted opacity-40">
+                {new URL(link.url).hostname}
               </span>
             </a>
           </li>
