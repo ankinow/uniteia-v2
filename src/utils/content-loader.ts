@@ -91,6 +91,8 @@ export async function loadContent(
   // ---- Phase: schema ----
   const contentObject = {
     ...frontmatter,
+    slug,
+    lang,
     content: htmlContent,
   }
 
@@ -109,7 +111,12 @@ export async function loadContent(
     })
   }
 
-  return contentObject as LlmWikiContent
+  const translations = await getAvailableLanguages(niche, slug)
+
+  return {
+    ...contentObject,
+    translations,
+  } as LlmWikiContent
 }
 
 /**

@@ -41,6 +41,8 @@ export interface LlmWikiContent {
   verdict?: VerdictLevel
   /** Quality score 0-100 (defaults to 85 if absent) */
   quality_score?: number
+  /** List of available languages for this article */
+  translations?: SupportedLanguage[]
 }
 
 /**

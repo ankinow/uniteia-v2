@@ -71,6 +71,10 @@ export interface TranslationStrings {
   dopamineCard: {
     readMore: string
   }
+  seo: {
+    siteName: string
+    articleTitleTemplate: string
+  }
 }
 
 export type SupportedLanguage = 'en' | 'pt' | 'es' | 'ja' | 'zh'

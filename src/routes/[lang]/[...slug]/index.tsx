@@ -7,7 +7,7 @@ import { NotFound } from '~/components/error-pages/not-found'
 import { FrontmatterSlots } from '~/components/frontmatter-slots'
 import { QualityRing } from '~/components/quality-ring'
 import { SourceLedger } from '~/components/source-ledger'
-import { useI18n } from '~/i18n/context'
+import { useI18n, getTranslation } from '~/i18n/context'
 import type { SupportedLanguage } from '~/i18n/types'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
 import type { LlmWikiContent } from '~/types/content'
@@ -106,22 +106,59 @@ export default component$(() => {
   )
 })
 
-export const head: DocumentHead = ({ resolveValue }) => {
+export const head: DocumentHead = ({ resolveValue, url, params }) => {
   const content = resolveValue(useContent)
+  const t = getTranslation(params.lang as SupportedLanguage)
+
   if (!content) {
     return {
-      title: '404 - Article Not Found | UniTeia',
+      title: `404 - ${t.errorPages['404'].title} | ${t.seo.siteName}`,
       meta: [
-        { name: 'description', content: 'The article you are looking for does not exist.' },
+        { name: 'description', content: t.errorPages['404'].message },
         { name: 'robots', content: 'noindex, nofollow' },
       ],
     }
   }
+
+  const canonicalUrl = new URL(url.href)
+  canonicalUrl.search = '' // Strip query params for canonical
+
+  const alternateLinks = (content.translations || []).map((tLang) => ({
+    rel: "alternate",
+    hreflang: tLang,
+    href: new URL(`/${tLang}/${content.slug}`, url.origin).href,
+  }))
+
+  // Add x-default hreflang pointing to English version if available
+  const hasEnglish = content.translations?.includes('en')
+  if (hasEnglish) {
+    alternateLinks.push({
+      rel: "alternate",
+      hreflang: 'x-default',
+      href: new URL(`/en/${content.slug}`, url.origin).href,
+    })
+  }
+
   return {
-    title: `${content.title} | UniTeia`,
+    title: t.seo.articleTitleTemplate.replace('{title}', content.title),
     meta: [
       { name: 'description', content: content.subjects.join(', ') },
       { name: 'robots', content: 'index, follow' },
+      // Open Graph
+      { property: 'og:title', content: content.title },
+      { property: 'og:description', content: content.subjects.join(', ') },
+      { property: 'og:url', content: canonicalUrl.href },
+      { property: 'og:type', content: 'article' },
+      { property: 'og:site_name', content: t.seo.siteName },
+      { property: 'og:locale', content: content.lang },
+      // Twitter
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: content.title },
+      { name: 'twitter:description', content: content.subjects.join(', ') },
+    ],
+    links: [
+      { rel: "canonical", href: canonicalUrl.href },
+      ...alternateLinks,
     ],
   }
 }

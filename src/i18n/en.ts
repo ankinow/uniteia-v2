@@ -69,4 +69,8 @@ export const en: TranslationStrings = {
   dopamineCard: {
     readMore: 'Read more',
   },
+  seo: {
+    siteName: 'UniTeia',
+    articleTitleTemplate: '{title} | UniTeia',
+  },
 }

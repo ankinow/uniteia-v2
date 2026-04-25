@@ -69,4 +69,8 @@ export const ja: TranslationStrings = {
   dopamineCard: {
     readMore: '続きを読む',
   },
+  seo: {
+    siteName: 'UniTeia',
+    articleTitleTemplate: '{title} | UniTeia',
+  },
 }
