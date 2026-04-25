@@ -49,7 +49,8 @@ function main(args: string[]): void {
 
     // Ignore known test fixtures that are intentionally invalid
     const relativePath = relative(ROOT_DIR, f)
-    if (relativePath.includes('test/')) return false
+    if (relativePath.includes('test-admin') || relativePath.includes('test-invalid-schema'))
+      return false
 
     return true
   })

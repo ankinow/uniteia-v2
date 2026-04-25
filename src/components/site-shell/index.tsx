@@ -30,16 +30,18 @@ export const SiteShell = component$<SiteShellProps>(({ isApexHost }) => {
         lang: lang.value,
         path: window.location.pathname,
       }
-      console.log('[SiteShell]', {
-        ...logEvent,
-        budget: {
-          pathname: budget.pathname,
-          routeRemaining: budget.routeBudget.remaining,
-          sessionRemaining: budget.sessionBudget.remaining,
-          whisperState: budget.whisperState,
-          isApexHost: budget.isApexHost,
-        },
-      })
+      if (import.meta.env.DEV) {
+        console.log('[SiteShell]', {
+          ...logEvent,
+          budget: {
+            pathname: budget.pathname,
+            routeRemaining: budget.routeBudget.remaining,
+            sessionRemaining: budget.sessionBudget.remaining,
+            whisperState: budget.whisperState,
+            isApexHost: budget.isApexHost,
+          },
+        })
+      }
     })
   )
 

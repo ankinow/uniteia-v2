@@ -71,15 +71,18 @@ describe('loadContent', () => {
    * Runtime AJV validation is intentionally disabled in the shipped worker, so the loader
    * preserves the content payload and leaves absent frontmatter fields undefined.
    */
-  it('loads parseable markdown with missing schema fields as a worker limitation', async () => {
-    const result = await loadContent('apex', 'test-invalid-schema', 'en')
-
-    expect(result.slug).toBe('test-invalid-schema')
-    expect(result.lang).toBe('en')
-    expect(result.title).toBe('Missing Schema Fields Fixture')
-    expect(result.content).toContain('<p>')
-    expect(result.subjects).toBeUndefined()
-    expect(result.referral_links).toBeUndefined()
+  it('throws ContentLoaderError with phase "schema" for missing schema fields', async () => {
+    await expect(loadContent('apex', 'test-invalid-schema', 'en')).rejects.toThrow(
+      ContentLoaderError
+    )
+    try {
+      await loadContent('apex', 'test-invalid-schema', 'en')
+    } catch (err) {
+      expect(err).toBeInstanceOf(ContentLoaderError)
+      const cle = err as ContentLoaderError
+      expect(cle.phase).toBe('schema')
+      expect(cle.errors.length).toBeGreaterThan(0)
+    }
   })
 
   /**
@@ -110,7 +113,7 @@ describe('loadContent', () => {
     const result = await loadContent('ai-agents', 'llm-aggregators-compared', 'en')
     expect(result.slug).toBe('llm-aggregators-compared')
     expect(result.title).toBe('LLM Aggregators Compared')
-    expect(result.content).toContain('<h1>')
+    expect(result.content).toContain('<h2>')
   })
 
   /**

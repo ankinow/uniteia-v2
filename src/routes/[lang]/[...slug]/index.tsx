@@ -126,7 +126,9 @@ export const head: DocumentHead = ({ resolveValue, url, params }) => {
     canonicalUrl.pathname = canonicalUrl.pathname.replace(/\/$/, '')
   }
 
-  const alternateLinks: Array<{ rel: string; hreflang: string; href: string }> = (content.translations || []).map(tLang => ({
+  const alternateLinks: Array<{ rel: string; hreflang: string; href: string }> = (
+    content.translations || []
+  ).map(tLang => ({
     rel: 'alternate',
     hreflang: tLang,
     href: new URL(`/${tLang}/${content.slug}`, url.origin).href,

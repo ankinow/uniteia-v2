@@ -1,7 +1,18 @@
 import { $, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
+import { server$ } from '@builder.io/qwik-city'
 import { getLanguageName, useI18n } from '~/i18n/context'
 import { LANGUAGE_COOKIE_NAME, SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 import type { LangSwitcherLogEvent, LangSwitcherProps } from './types'
+
+const updateLangCookie = server$(function (newLang: SupportedLanguage) {
+  this.cookie.set(LANGUAGE_COOKIE_NAME, newLang, {
+    path: '/',
+    maxAge: 31536000,
+    sameSite: 'lax',
+    secure: true,
+    httpOnly: true,
+  })
+})
 
 export const LangSwitcher = component$<LangSwitcherProps>(
   ({ class: classList, compact = false }) => {
@@ -10,16 +21,19 @@ export const LangSwitcher = component$<LangSwitcherProps>(
     const isRedirecting = useSignal(false)
 
     const logEvent = $((event: Omit<LangSwitcherLogEvent, 'timestamp'>) => {
-      console.log('[LangSwitcher]', { ...event, timestamp: new Date().toISOString() })
+      if (import.meta.env.DEV) {
+        console.log('[LangSwitcher]', { ...event, timestamp: new Date().toISOString() })
+      }
     })
 
-    const handleSelect = $((newLang: SupportedLanguage) => {
+    const handleSelect = $(async (newLang: SupportedLanguage) => {
       if (newLang === lang.value) {
         isOpen.value = false
         return
       }
-      document.cookie = `${LANGUAGE_COOKIE_NAME}=${newLang};path=/;max-age=31536000;SameSite=Lax`
-      logEvent({ type: 'select', from: lang.value, to: newLang })
+
+      isRedirecting.value = true
+      isOpen.value = false
 
       const searchParams = new URLSearchParams(window.location.search)
       searchParams.delete('lang')
@@ -34,11 +48,9 @@ export const LangSwitcher = component$<LangSwitcherProps>(
       const redirectUrl = `${redirectPath}${newSearch ? `?${newSearch}` : ''}`
       logEvent({ type: 'redirect', to: newLang, redirectUrl })
 
-      isRedirecting.value = true
-      setTimeout(() => {
+      updateLangCookie(newLang).finally(() => {
         window.location.href = redirectUrl
-      }, 100)
-      isOpen.value = false
+      })
     })
 
     const toggleDropdown = $(() => {

@@ -21,6 +21,7 @@ export async function loadContent(
   const matter = (await import('gray-matter')).default
   const { marked } = await import('marked')
   const { validateSlug } = await import('~/utils/url-validation')
+  const { validateContent } = await import('~/utils/schema-validation')
 
   const contentModules = import.meta.glob<string>('../../content/**/*.md', {
     query: '?raw',
@@ -72,6 +73,21 @@ export async function loadContent(
   // ---- Phase: transform ----
   let htmlContent: string
   try {
+    marked.use({
+      async: false,
+      breaks: false,
+      gfm: true,
+      renderer: {
+        html({ text }) {
+          return text.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        },
+        heading({ tokens, depth }) {
+          if (depth === 1) return ''
+          return `<h${depth}>${this.parser.parseInline(tokens)}</h${depth}>\n`
+        },
+      },
+    })
+
     // marked.parse is async or sync based on options; we await it for safety
     htmlContent = (await marked.parse(markdownBody.trim())) as string
   } catch (err: unknown) {
@@ -94,6 +110,21 @@ export async function loadContent(
     slug,
     lang,
     content: htmlContent,
+  }
+
+  const validation = validateContent(contentObject, contentKey, { skipSlugValidation: true })
+  if (!validation.valid) {
+    const errorMessages = validation.errors.map(e => `[${e.field}] ${e.message}`)
+    console.error(
+      `[content-loader] Schema validation failed for ${niche}/${lang}/${slug}: ${errorMessages.join('; ')}`
+    )
+    throw new ContentLoaderError({
+      niche,
+      slug,
+      lang,
+      phase: 'schema',
+      errors: errorMessages,
+    })
   }
 
   // ---- Phase: slug ----

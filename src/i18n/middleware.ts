@@ -147,10 +147,10 @@ export const onLanguageNegotiation: RequestHandler = ({ request, cookie, url, he
   }
 
   // Mandatory Log
-  console.log(`[Middleware] Niche: ${niche}, Language: ${negotiatedLang}`)
-
-  // Debug Log
-  console.log(`[i18n] Language negotiation source: ${negotiationSource}`)
+  if (import.meta.env.DEV) {
+    console.log(`[Middleware] Niche: ${niche}, Language: ${negotiatedLang}`)
+    console.log(`[i18n] Language negotiation source: ${negotiationSource}`)
+  }
 
   // Store in headers for downstream use
   headers.set('x-negotiated-lang', negotiatedLang)
