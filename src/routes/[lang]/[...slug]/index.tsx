@@ -122,6 +122,9 @@ export const head: DocumentHead = ({ resolveValue, url, params }) => {
 
   const canonicalUrl = new URL(url.href)
   canonicalUrl.search = '' // Strip query params for canonical
+  if (canonicalUrl.pathname !== '/' && canonicalUrl.pathname.endsWith('/')) {
+    canonicalUrl.pathname = canonicalUrl.pathname.replace(/\/$/, '')
+  }
 
   const alternateLinks = (content.translations || []).map((tLang) => ({
     rel: "alternate",

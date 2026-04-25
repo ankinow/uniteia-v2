@@ -2,6 +2,7 @@ import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 import { QualityRing } from '~/components/quality-ring'
 import { getTranslation } from '~/i18n/context'
 import { reserveRouteWhisper, useDopamineBudget } from '~/stores/dopamine-budget'
+import { getLucideIconClass } from '~/utils/icon-classes'
 import type { DopamineCardProps } from './types'
 
 /**
@@ -17,6 +18,7 @@ export const DopamineCard = component$<DopamineCardProps>(
     const t = getTranslation(lang)
     const budget = useDopamineBudget()
     const whisperState = useSignal<'pending' | 'armed' | 'spent' | 'blocked'>('pending')
+    const iconClass = getLucideIconClass(icon)
 
     useVisibleTask$(({ track }) => {
       track(() => budget.pathname)
@@ -60,12 +62,7 @@ export const DopamineCard = component$<DopamineCardProps>(
       >
         {/* Header row: icon + title */}
         <div class="flex items-start gap-3">
-          {icon && (
-            <div
-              class={`icon-[lucide--${icon}] mt-0.5 h-5 w-5 shrink-0 text-action`}
-              aria-hidden="true"
-            />
-          )}
+          {iconClass && <div class={iconClass} aria-hidden="true" />}
           <h3 class="text-base font-semibold text-bone group-hover:text-action transition-colors duration-200">
             {title}
           </h3>

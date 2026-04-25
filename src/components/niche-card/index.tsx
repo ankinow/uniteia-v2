@@ -1,4 +1,5 @@
 import { component$ } from '@builder.io/qwik'
+import { getLucideIconClass } from '~/utils/icon-classes'
 import type { NicheCardProps } from './types'
 
 /**
@@ -10,6 +11,7 @@ import type { NicheCardProps } from './types'
  */
 export const NicheCard = component$<NicheCardProps>(({ niche, lang, class: classList }) => {
   const href = `/${lang}/n/${niche.slug}`
+  const iconClass = getLucideIconClass(niche.icon)
 
   return (
     <a
@@ -29,10 +31,9 @@ export const NicheCard = component$<NicheCardProps>(({ niche, lang, class: class
       ]}
     >
       <div class="flex items-start gap-3">
-        <div
-          class={`icon-[lucide--${niche.icon}] text-action text-2xl shrink-0`}
-          aria-hidden="true"
-        />
+        {iconClass && (
+          <div class={iconClass} aria-hidden="true" />
+        )}
         <div class="min-w-0">
           <h2 class="text-bone font-semibold text-base leading-tight">{niche.title[lang]}</h2>
           <p class="text-bone-muted text-sm mt-1 leading-relaxed">{niche.description[lang]}</p>

@@ -1,6 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import { DopamineCard } from '~/components/dopamine-card'
 import { useI18n } from '~/i18n/context'
+import { getLucideIconClass } from '~/utils/icon-classes'
 import type { NicheLandingProps } from './types'
 
 /**
@@ -16,6 +17,7 @@ import type { NicheLandingProps } from './types'
 export const NicheLanding = component$<NicheLandingProps>(
   ({ niche, otherNiches, lang, class: classList }) => {
     const { t } = useI18n()
+    const iconClass = getLucideIconClass(niche.icon)
 
     return (
       <div
@@ -25,10 +27,7 @@ export const NicheLanding = component$<NicheLandingProps>(
         {/* Niche header */}
         <header class="mb-10">
           <div class="flex items-center gap-4 mb-4">
-            <div
-              class={`icon-[lucide--${niche.icon}] text-action text-4xl shrink-0`}
-              aria-hidden="true"
-            />
+            {iconClass && <div class={iconClass} aria-hidden="true" />}
             <h1 class="text-3xl font-bold text-bone leading-tight">{niche.title[lang]}</h1>
           </div>
           <p class="text-bone-muted text-lg leading-relaxed max-w-2xl">{niche.description[lang]}</p>

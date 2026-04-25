@@ -6,6 +6,7 @@ import { SiteShell } from '~/components/site-shell'
 import { getTranslation, useProvideI18n } from '~/i18n/context'
 import { DEFAULT_LANGUAGE, type SupportedLanguage } from '~/i18n/types'
 import type { NichesConfig } from '~/types/niche'
+import { getLucideIconClass } from '~/utils/icon-classes'
 import { loadNichesConfig } from '~/utils/niche-loader'
 
 export const onRequest: RequestHandler = async event => {
@@ -111,19 +112,19 @@ export default component$(() => {
                   class="absolute top-full left-0 mt-2 w-56 bg-raised border border-action/20 rounded-lg shadow-lg z-50 py-1"
                   data-testid="nav-topics-dropdown"
                 >
-                  {nichesSignal.value.map(niche => (
-                    <a
-                      key={niche.slug}
-                      href={`/${lang}/n/${niche.slug}`}
-                      class="flex items-center gap-2 px-4 py-2 text-bone-muted hover:text-bone hover:bg-action/5 transition-colors"
-                    >
-                      <div
-                        class={`icon-[lucide--${niche.icon}] text-action text-base shrink-0`}
-                        aria-hidden="true"
-                      />
-                      <span class="truncate">{niche.title[lang]}</span>
-                    </a>
-                  ))}
+                  {nichesSignal.value.map(niche => {
+                    const iconClass = getLucideIconClass(niche.icon)
+                    return (
+                      <a
+                        key={niche.slug}
+                        href={`/${lang}/n/${niche.slug}`}
+                        class="flex items-center gap-2 px-4 py-2 text-bone-muted hover:text-bone hover:bg-action/5 transition-colors"
+                      >
+                        {iconClass && <div class={iconClass} aria-hidden="true" />}
+                        <span class="truncate">{niche.title[lang]}</span>
+                      </a>
+                    )
+                  })}
                   <div class="border-t border-action/10 my-1" />
                   <a
                     href={`/${lang}/n`}

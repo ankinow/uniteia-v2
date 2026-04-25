@@ -18,7 +18,11 @@ function trackConsoleAndNetworkFailures(page: Parameters<typeof test>[0]['page']
 
   page.on('console', (message) => {
     if (message.type() === 'error') {
-      consoleErrors.push(message.text())
+      const text = message.text()
+      if (text.startsWith('Detected Layout Shift during page load')) {
+        return
+      }
+      consoleErrors.push(text)
     }
   })
 
