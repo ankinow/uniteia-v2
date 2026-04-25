@@ -1,18 +1,8 @@
 import { $, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
-import { server$ } from '@builder.io/qwik-city'
 import { getLanguageName, useI18n } from '~/i18n/context'
-import { LANGUAGE_COOKIE_NAME, SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
+import { updateLangCookie } from '~/i18n/set-lang-cookie'
+import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 import type { LangSwitcherLogEvent, LangSwitcherProps } from './types'
-
-const updateLangCookie = server$(function (newLang: SupportedLanguage) {
-  this.cookie.set(LANGUAGE_COOKIE_NAME, newLang, {
-    path: '/',
-    maxAge: 31536000,
-    sameSite: 'lax',
-    secure: true,
-    httpOnly: true,
-  })
-})
 
 export const LangSwitcher = component$<LangSwitcherProps>(
   ({ class: classList, compact = false }) => {

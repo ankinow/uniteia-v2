@@ -172,20 +172,3 @@ export function getNegotiatedLanguage(response: Response): SupportedLanguage {
 export function getNegotiatedNiche(response: Response): string {
   return response.headers.get('x-negotiated-niche') ?? 'apex'
 }
-
-/**
- * Cookie helper functions
- */
-export function setLanguageCookie(lang: SupportedLanguage, response: Response): void {
-  response.headers.append(
-    'Set-Cookie',
-    `${LANGUAGE_COOKIE_NAME}=${lang};Path=/;Max-Age=31536000;SameSite=Lax;Secure;HttpOnly`
-  )
-}
-
-export function getLanguageCookie(cookie: {
-  get: (name: string) => { value: string } | undefined
-}): SupportedLanguage | null {
-  const cookieValue = cookie.get(LANGUAGE_COOKIE_NAME)?.value
-  return cookieValue && isValidLanguage(cookieValue) ? cookieValue : null
-}
