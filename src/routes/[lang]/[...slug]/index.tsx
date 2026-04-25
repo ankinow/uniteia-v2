@@ -94,7 +94,7 @@ export default component$(() => {
         }}
       />
       <div
-        class="prose prose-invert mt-8 max-w-none text-bone-primary"
+        class="prose prose-invert mt-8 max-w-none text-bone-primary prose-a:text-action hover:prose-a:text-action-hi transition-colors"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: content is pre-validated markdown
         dangerouslySetInnerHTML={content.value.content}
       />
