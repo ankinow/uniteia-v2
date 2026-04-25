@@ -3,6 +3,7 @@ import { type RequestHandler, useLocation } from '@builder.io/qwik-city'
 import { useI18n } from '~/i18n/context'
 import { onLanguageNegotiation } from '~/i18n/middleware'
 import { useDopamineBudgetProvider } from '~/stores/dopamine-budget'
+import { SvgFilters } from './svg-filters'
 import type { SiteShellLogEvent, SiteShellProps } from './types'
 
 /**
@@ -52,6 +53,7 @@ export const SiteShell = component$<SiteShellProps>(({ isApexHost }) => {
       data-dopamine-shell-whisper-state={budget.whisperState}
       data-testid="site-shell"
     >
+      <SvgFilters />
       <a
         href="#main-content"
         class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-action focus:text-void focus:rounded"
