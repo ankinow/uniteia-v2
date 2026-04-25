@@ -71,7 +71,7 @@ export interface ContentValidationError {
  * - 'slug':   slug format validation failed
  */
 export class ContentLoaderError extends Error {
-  readonly niche?: string
+  readonly niche: string | undefined
   readonly slug: string
   readonly lang: string
   readonly phase: 'read' | 'parse' | 'schema' | 'slug'
@@ -84,7 +84,9 @@ export class ContentLoaderError extends Error {
     phase: 'read' | 'parse' | 'schema' | 'slug'
     errors: string[]
   }) {
-    const context = opts.niche ? `${opts.niche}/${opts.lang}/${opts.slug}` : `${opts.lang}/${opts.slug}`
+    const context = opts.niche
+      ? `${opts.niche}/${opts.lang}/${opts.slug}`
+      : `${opts.lang}/${opts.slug}`
     super(`ContentLoaderError: ${opts.phase} failed for ${context}`)
     this.name = 'ContentLoaderError'
     this.niche = opts.niche

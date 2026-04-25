@@ -32,7 +32,9 @@ export async function loadContent(
   const rawContent = contentModules[contentKey]
 
   if (!rawContent) {
-    console.error(`[content-loader] Content not found: ${niche}/${lang}/${slug} (tried ${contentKey})`)
+    console.error(
+      `[content-loader] Content not found: ${niche}/${lang}/${slug} (tried ${contentKey})`
+    )
     throw new ContentLoaderError({
       niche,
       slug,
@@ -74,7 +76,9 @@ export async function loadContent(
     htmlContent = (await marked.parse(markdownBody.trim())) as string
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err)
-    console.error(`[content-loader] Markdown transformation failed for ${niche}/${lang}/${slug}: ${message}`)
+    console.error(
+      `[content-loader] Markdown transformation failed for ${niche}/${lang}/${slug}: ${message}`
+    )
     throw new ContentLoaderError({
       niche,
       slug,

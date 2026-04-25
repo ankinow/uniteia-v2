@@ -2,7 +2,7 @@
 slug: llm-aggregators-compared
 lang: en
 title: LLM Aggregators Compared
-verdict: curated
+verdict: trusted
 quality_score: 95
 subjects:
   - llm

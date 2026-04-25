@@ -65,6 +65,7 @@ export function createDefaultShipCheckSteps(): ShipCheckStep[] {
       command: ['bun', 'run', 'browser:verify'],
     },
     { name: 'slug:check', command: ['bun', 'run', 'slug:check'] },
+    { name: 'content:check', command: ['bun', 'run', 'content:check'] },
   ]
 }
 

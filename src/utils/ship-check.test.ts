@@ -101,6 +101,7 @@ describe('runShipCheck', () => {
       'lighthouse:check',
       'browser:verify',
       'slug:check',
+      'content:check',
     ])
   })
 })

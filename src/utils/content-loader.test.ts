@@ -48,7 +48,9 @@ describe('loadContent', () => {
    * Test 3: loadContent('nonexistent-article', 'en') rejects with ContentLoaderError phase='read'
    */
   it('throws ContentLoaderError with phase "read" for a missing article', async () => {
-    await expect(loadContent('test', 'nonexistent-article', 'en')).rejects.toThrow(ContentLoaderError)
+    await expect(loadContent('test', 'nonexistent-article', 'en')).rejects.toThrow(
+      ContentLoaderError
+    )
 
     try {
       await loadContent('test', 'nonexistent-article', 'en')
