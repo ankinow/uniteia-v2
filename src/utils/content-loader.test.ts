@@ -13,7 +13,7 @@ describe('loadContent', () => {
    * Test 1: loadContent('test-article', 'en') resolves with valid LlmWikiContent
    */
   it('loads a valid English article and returns typed LlmWikiContent', async () => {
-    const result = await loadContent('test', 'test-article', 'en')
+    const result = await loadContent('apex', 'test-article', 'en')
 
     expect(result).toBeDefined()
     expect(result.slug).toBe('test-article')
@@ -34,7 +34,7 @@ describe('loadContent', () => {
    * Test 2: loadContent('test-article', 'es') resolves (proves es fixture works)
    */
   it('loads a valid Spanish article and returns typed LlmWikiContent', async () => {
-    const result = await loadContent('test', 'test-article', 'es')
+    const result = await loadContent('apex', 'test-article', 'es')
 
     expect(result).toBeDefined()
     expect(result.slug).toBe('test-article')
@@ -48,12 +48,12 @@ describe('loadContent', () => {
    * Test 3: loadContent('nonexistent-article', 'en') rejects with ContentLoaderError phase='read'
    */
   it('throws ContentLoaderError with phase "read" for a missing article', async () => {
-    await expect(loadContent('test', 'nonexistent-article', 'en')).rejects.toThrow(
+    await expect(loadContent('apex', 'nonexistent-article', 'en')).rejects.toThrow(
       ContentLoaderError
     )
 
     try {
-      await loadContent('test', 'nonexistent-article', 'en')
+      await loadContent('apex', 'nonexistent-article', 'en')
     } catch (err) {
       expect(err).toBeInstanceOf(ContentLoaderError)
       const cle = err as ContentLoaderError
@@ -72,7 +72,7 @@ describe('loadContent', () => {
    * preserves the content payload and leaves absent frontmatter fields undefined.
    */
   it('loads parseable markdown with missing schema fields as a worker limitation', async () => {
-    const result = await loadContent('test', 'test-invalid-schema', 'en')
+    const result = await loadContent('apex', 'test-invalid-schema', 'en')
 
     expect(result.slug).toBe('test-invalid-schema')
     expect(result.lang).toBe('en')
@@ -88,10 +88,10 @@ describe('loadContent', () => {
    * The tracked fixture exists so import.meta.glob includes it in the shipped bundle.
    */
   it('throws ContentLoaderError with phase "slug" for a slug with banned terms', async () => {
-    await expect(loadContent('test', 'test-admin', 'en')).rejects.toThrow(ContentLoaderError)
+    await expect(loadContent('apex', 'test-admin', 'en')).rejects.toThrow(ContentLoaderError)
 
     try {
-      await loadContent('test', 'test-admin', 'en')
+      await loadContent('apex', 'test-admin', 'en')
     } catch (err) {
       expect(err).toBeInstanceOf(ContentLoaderError)
       const cle = err as ContentLoaderError
@@ -111,5 +111,27 @@ describe('loadContent', () => {
     expect(result.slug).toBe('llm-aggregators-compared')
     expect(result.title).toBe('LLM Aggregators Compared')
     expect(result.content).toContain('<h1>')
+  })
+
+  /**
+   * Test 7: getAvailableLanguages returns all languages for a given slug
+   */
+  it('getAvailableLanguages returns all supported languages for a translated article', async () => {
+    const { getAvailableLanguages } = await import('~/utils/content-loader')
+    const langs = await getAvailableLanguages('apex', 'test-article')
+
+    expect(langs).toContain('en')
+    expect(langs).toContain('es')
+    expect(langs).toContain('ja')
+    expect(langs).toContain('pt')
+    expect(langs).toContain('zh')
+    expect(langs.length).toBe(5)
+  })
+
+  it('getAvailableLanguages returns only one language for an untranslated article', async () => {
+    const { getAvailableLanguages } = await import('~/utils/content-loader')
+    const langs = await getAvailableLanguages('ai-agents', 'llm-aggregators-compared')
+
+    expect(langs).toEqual(['en'])
   })
 })

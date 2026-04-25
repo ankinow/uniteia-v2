@@ -111,3 +111,27 @@ export async function loadContent(
 
   return contentObject as LlmWikiContent
 }
+
+/**
+ * Discover all available languages for a specific article slug within a niche.
+ *
+ * Scans the virtual filesystem (import.meta.glob) for matches following the
+ * pattern: content/{niche}/{lang}/{slug}.md
+ */
+export async function getAvailableLanguages(
+  niche: string,
+  slug: string
+): Promise<SupportedLanguage[]> {
+  const contentModules = import.meta.glob('../../content/**/*.md')
+
+  const prefix = `../../content/${niche}/`
+  const suffix = `/${slug}.md`
+
+  return Object.keys(contentModules)
+    .filter((key) => key.startsWith(prefix) && key.endsWith(suffix))
+    .map((key) => {
+      // Extract the {lang} part from ../../content/{niche}/{lang}/{slug}.md
+      const parts = key.replace(prefix, '').replace(suffix, '').split('/')
+      return parts[0] as SupportedLanguage
+    })
+}
