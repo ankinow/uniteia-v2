@@ -21,14 +21,14 @@ export default {
 
         // Verified (green)
         verified: {
-          DEFAULT: 'oklch(0.78 0.18 145)',
-          hi: 'oklch(0.83 0.18 145)',
+          DEFAULT: 'oklch(0.79 0.18 145)',
+          hi: 'oklch(0.84 0.18 145)',
         },
 
         // Curation (bronze)
         curation: {
-          DEFAULT: 'oklch(0.72 0.09 75)',
-          hi: 'oklch(0.77 0.09 75)',
+          DEFAULT: 'oklch(0.79 0.09 75)',
+          hi: 'oklch(0.84 0.09 75)',
         },
 
         // Bone text hierarchy
