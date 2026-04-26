@@ -7,6 +7,10 @@ function collectConsoleErrors(page: Page): string[] {
   page.on('console', msg => {
     if (msg.type() === 'error') {
       const text = msg.text()
+      // Filter out layout shift warnings which are performance logs, not errors
+      if (text.startsWith('Detected Layout Shift during page load')) {
+        return
+      }
       errors.push(text)
     }
   })
