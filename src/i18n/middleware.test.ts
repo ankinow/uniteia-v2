@@ -53,7 +53,7 @@ function runNegotiation({
         return value ? { value } : undefined
       },
       set: (name: string, value: string, options?: Record<string, unknown>) => {
-        cookieWrites.push({ name, value, options })
+        cookieWrites.push({ name, value, ...(options ? { options } : {}) })
       },
     },
     url,

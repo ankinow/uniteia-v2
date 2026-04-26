@@ -4,7 +4,6 @@ import {
   useContext,
   useContextProvider,
   useSignal,
-  useVisibleTask$,
 } from '@builder.io/qwik'
 import { en } from './en'
 import { es } from './es'

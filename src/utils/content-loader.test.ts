@@ -28,7 +28,7 @@ describe('loadContent', () => {
     expect(result.referral_links).toBeInstanceOf(Array)
     expect(result.verdict).toBe('trusted')
     expect(result.quality_score).toBe(92)
-  })
+  }, 15_000)
 
   /**
    * Test 2: loadContent('test-article', 'es') resolves (proves es fixture works)

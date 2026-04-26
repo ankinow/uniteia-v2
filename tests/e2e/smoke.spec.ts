@@ -86,7 +86,10 @@ test('language switcher persists cookie and navigates to the selected language p
 
   await ptOption.click()
 
-  await page.waitForURL(/\/pt\/test-article\/?(?:\?.*)?$/, { timeout: 15000, waitUntil: 'domcontentloaded' })
+  await page.waitForURL(/\/pt\/test-article\/?(?:\?.*)?$/, {
+    timeout: 15000,
+    waitUntil: 'domcontentloaded',
+  })
   await expect(page).toHaveURL(/\/pt\/test-article\/?(?:\?.*)?$/)
   const cookies = await page.context().cookies()
   expect(cookies.find(cookie => cookie.name === 'uniteia_lang')?.value).toBe('pt')

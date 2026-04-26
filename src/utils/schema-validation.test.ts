@@ -45,24 +45,39 @@ describe('validateContent', () => {
   // ── Missing required fields ──────────────────────────────────────────
 
   it('rejects content missing title', () => {
-    const { title, ...withoutTitle } = validContent() as Record<string, unknown> & { title: unknown }
+    const { title, ...withoutTitle } = validContent() as Record<string, unknown> & {
+      title: unknown
+    }
     const result = validateContent(withoutTitle)
     expect(result.valid).toBe(false)
-    expect(result.errors.some(e => e.field === 'title' && e.message.includes('Missing required'))).toBe(true)
+    expect(
+      result.errors.some(e => e.field === 'title' && e.message.includes('Missing required'))
+    ).toBe(true)
   })
 
   it('rejects content missing subjects', () => {
-    const { subjects, ...withoutSubjects } = validContent() as Record<string, unknown> & { subjects: unknown }
+    const { subjects, ...withoutSubjects } = validContent() as Record<string, unknown> & {
+      subjects: unknown
+    }
     const result = validateContent(withoutSubjects)
     expect(result.valid).toBe(false)
-    expect(result.errors.some(e => e.field === 'subjects' && e.message.includes('Missing required'))).toBe(true)
+    expect(
+      result.errors.some(e => e.field === 'subjects' && e.message.includes('Missing required'))
+    ).toBe(true)
   })
 
   it('rejects content missing referral_links', () => {
-    const { referral_links, ...withoutReferralLinks } = validContent() as Record<string, unknown> & { referral_links: unknown }
+    const { referral_links, ...withoutReferralLinks } = validContent() as Record<
+      string,
+      unknown
+    > & { referral_links: unknown }
     const result = validateContent(withoutReferralLinks)
     expect(result.valid).toBe(false)
-    expect(result.errors.some(e => e.field === 'referral_links' && e.message.includes('Missing required'))).toBe(true)
+    expect(
+      result.errors.some(
+        e => e.field === 'referral_links' && e.message.includes('Missing required')
+      )
+    ).toBe(true)
   })
 
   it('rejects content missing slug', () => {
@@ -80,7 +95,9 @@ describe('validateContent', () => {
   })
 
   it('rejects content missing content', () => {
-    const { content, ...withoutContent } = validContent() as Record<string, unknown> & { content: unknown }
+    const { content, ...withoutContent } = validContent() as Record<string, unknown> & {
+      content: unknown
+    }
     const result = validateContent(withoutContent)
     expect(result.valid).toBe(false)
     expect(result.errors.some(e => e.field === 'content')).toBe(true)
@@ -91,7 +108,11 @@ describe('validateContent', () => {
   it('rejects content with additional properties', () => {
     const result = validateContent(validContent({ unexpected_field: 'oops' }))
     expect(result.valid).toBe(false)
-    expect(result.errors.some(e => e.message.includes('Unexpected property') && e.message.includes('unexpected_field'))).toBe(true)
+    expect(
+      result.errors.some(
+        e => e.message.includes('Unexpected property') && e.message.includes('unexpected_field')
+      )
+    ).toBe(true)
   })
 
   // ── Invalid slug patterns ────────────────────────────────────────────
@@ -151,18 +172,16 @@ describe('validateContent', () => {
   // ── skipSlugValidation option ────────────────────────────────────────
 
   it('skips slug validation when skipSlugValidation is true', () => {
-    const result = validateContent(
+    const _result = validateContent(
       validContent({ slug: 'bad-slug-with-banned-admin' }),
       'test.md',
-      { skipSlugValidation: true },
+      { skipSlugValidation: true }
     )
     // Schema AJV still checks the pattern, but the extra validateSlug() call is skipped
     // With a banned-term slug that passes AJV pattern, this proves the option works
-    const resultWithSkip = validateContent(
-      validContent({ slug: 'admin-panel' }),
-      'test.md',
-      { skipSlugValidation: true },
-    )
+    const resultWithSkip = validateContent(validContent({ slug: 'admin-panel' }), 'test.md', {
+      skipSlugValidation: true,
+    })
     // Without skip, admin-panel fails; with skip, only AJV schema runs
     // admin-panel matches pattern ^[a-z]+(-[a-z]+){1,5}$ so AJV passes it
     // The banned-term check is in validateSlug which is skipped
@@ -203,10 +222,12 @@ describe('validateMarkdownFrontmatter', () => {
   })
 
   it('rejects markdown with malformed YAML', () => {
-    const md = `---\ninvalid: [yaml: syntax\n---\nSome content that is long enough.`
+    const md = '---\ninvalid: [yaml: syntax\n---\nSome content that is long enough.'
     const result = validateMarkdownFrontmatter(md, 'broken.md')
     expect(result.valid).toBe(false)
-    expect(result.errors.some(e => e.field === 'frontmatter' && e.message.includes('Failed to parse'))).toBe(true)
+    expect(
+      result.errors.some(e => e.field === 'frontmatter' && e.message.includes('Failed to parse'))
+    ).toBe(true)
   })
 
   it('rejects markdown with JS eval in frontmatter', () => {
@@ -220,7 +241,9 @@ describe('validateMarkdownFrontmatter', () => {
     const md = validMarkdown({ slug: 'different-slug' })
     const result = validateMarkdownFrontmatter(md, 'solar-system.md')
     expect(result.valid).toBe(false)
-    expect(result.errors.some(e => e.field === 'slug' && e.message.includes('does not match file slug'))).toBe(true)
+    expect(
+      result.errors.some(e => e.field === 'slug' && e.message.includes('does not match file slug'))
+    ).toBe(true)
   })
 
   it('rejects when filename is not a valid slug', () => {
@@ -234,7 +257,9 @@ describe('validateMarkdownFrontmatter', () => {
     const md = `---\nlang: en\ntitle: Test\nsubjects:\n  - test\nreferral_links:\n  - url: "https://example.com"\n    title: "Example"\n---\n${'A'.repeat(150)}`
     const result = validateMarkdownFrontmatter(md, 'solar-system.md')
     expect(result.valid).toBe(false)
-    expect(result.errors.some(e => e.field === 'slug' && e.message.includes('Missing frontmatter slug'))).toBe(true)
+    expect(
+      result.errors.some(e => e.field === 'slug' && e.message.includes('Missing frontmatter slug'))
+    ).toBe(true)
   })
 
   it('rejects when frontmatter slug is empty string', () => {
@@ -256,5 +281,22 @@ describe('validateMarkdownFrontmatter', () => {
     const result = validateMarkdownFrontmatter(md, 'solar-system.md')
     expect(result.valid).toBe(false)
     expect(result.errors.every(e => e.filePath === 'solar-system.md')).toBe(true)
+  })
+})
+
+// ── test-invalid-schema fixture ─────────────────────────────────────────
+describe('test-invalid-schema fixture', () => {
+  it('is rejected by validateMarkdownFrontmatter', async () => {
+    const fs = await import('node:fs')
+    const path = await import('node:path')
+    const fixturePath = path.resolve(
+      import.meta.dirname,
+      '../../content/apex/en/test-invalid-schema.md'
+    )
+    const markdown = fs.readFileSync(fixturePath, 'utf-8')
+    const result = validateMarkdownFrontmatter(markdown, 'test-invalid-schema.md')
+    expect(result.valid).toBe(false)
+    // The fixture is missing required fields (subjects, referral_links, content too short)
+    expect(result.errors.length).toBeGreaterThanOrEqual(1)
   })
 })

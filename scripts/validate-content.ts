@@ -47,7 +47,11 @@ function main(args: string[]): void {
   const validFiles = files.filter(f => {
     if (!f.endsWith('.md')) return false
 
-    // Ignore known test fixtures that are intentionally invalid
+    // Ignore known test fixtures that are intentionally invalid.
+    // These files are designed to exercise schema rejection paths in unit tests
+    // and the build-time gate. They are excluded from the production content:check
+    // so the gate passes for real editorial content while still allowing the
+    // fixtures to exist in the content tree for direct validation testing.
     const relativePath = relative(ROOT_DIR, f)
     if (relativePath.includes('test-admin') || relativePath.includes('test-invalid-schema'))
       return false
