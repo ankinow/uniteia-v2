@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en" data-testid="report-root">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniTeia v2 — Full Project Report</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+<body>
+  <div class="dashboard">
+
+    <!-- ═══ HEADER ═══ -->
+    <header class="header">
+      <h1>UniTeia v2</h1>
+      <div class="subtitle">Brutalist Editorial · Multi-Niche · Edge-Native · JRPG Soul</div>
+      <div class="timestamp" id="timestamp"></div>
+    </header>
+
+    <!-- ═══ EXECUTIVE SUMMARY ═══ -->
+    <section class="section">
+      <div class="hud-label">Executive Summary</div>
+      <div class="card accent-action">
+        <p style="font-size:0.9rem; line-height:1.7; max-width:900px;">
+          UniTeia v2 is a <strong>Qwik-City edge-native</strong> multi-niche editorial platform deploying to
+          <strong>Cloudflare Pages</strong>. It enforces a <strong>60KB gzip JS budget</strong> per route,
+          <strong>15.2:1 contrast ratio</strong> (AAA), <strong>Lighthouse ≥95</strong> quality gate, and a
+          <strong>JRPG-style dopamine budget</strong> that throttles UI rewards per viewport/session.
+          Content lives as <strong>markdown + frontmatter</strong> validated at build-time by AJV.
+          5 languages (en, pt, es, ja, zh), 3 editorial niches, 12 validated requirements,
+          4 completed milestones, 81 unit tests, 7 E2E specs.
+          Currently in <strong>M004: Qwik Audit Remediation</strong> — 3/4 slices complete,
+          1 unit test intermittent timeout, E2E suite pending verification.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ KEY METRICS ═══ -->
+    <section class="section">
+      <div class="hud-label">Key Metrics</div>
+      <div class="grid grid-4">
+        <div class="card accent-verified">
+          <div class="stat">
+            <div class="stat-value green">12</div>
+            <div class="stat-label">Requirements Validated</div>
+          </div>
+        </div>
+        <div class="card accent-action">
+          <div class="stat">
+            <div class="stat-value cyan">81</div>
+            <div class="stat-label">Unit Tests</div>
+          </div>
+        </div>
+        <div class="card accent-curation">
+          <div class="stat">
+            <div class="stat-value amber">7</div>
+            <div class="stat-label">E2E Spec Files</div>
+          </div>
+        </div>
+        <div class="card accent-verified">
+          <div class="stat">
+            <div class="stat-value green">7K</div>
+            <div class="stat-label">Lines of Source Code</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ ARCHITECTURE DIAGRAM ═══ -->
+    <section class="section">
+      <div class="hud-label">Architecture · Layer Diagram</div>
+      <div class="arch-diagram">
+        <!-- Cloud Edge Layer -->
+        <div style="margin-bottom:0.25rem; font-family:var(--font-mono); font-size:0.6rem; color:var(--bone-muted); text-transform:uppercase; letter-spacing:0.1em;">
+          ☁ Cloudflare Pages (Edge Runtime)
+        </div>
+        <div class="arch-layer">
+          <div class="arch-box core">Qwik-City SSR</div>
+          <div class="arch-box core">Edge Middleware</div>
+          <div class="arch-box core">Cloudflare Worker</div>
+        </div>
+        <div class="arch-arrow">▼ ▼ ▼</div>
+
+        <!-- Application Layer -->
+        <div style="margin-bottom:0.25rem; font-family:var(--font-mono); font-size:0.6rem; color:var(--bone-muted); text-transform:uppercase; letter-spacing:0.1em;">
+          ⚡ Application Layer (Resumable)
+        </div>
+        <div class="arch-layer">
+          <div class="arch-box core">SiteShell</div>
+          <div class="arch-box core">ArticleFrame</div>
+          <div class="arch-box diff">DopamineBudget Store</div>
+          <div class="arch-box diff">QualityRing</div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-box core">AdaptiveHeader</div>
+          <div class="arch-box diff">DopamineCard</div>
+          <div class="arch-box core">SourceLedger</div>
+          <div class="arch-box core">LangSwitcher</div>
+        </div>
+        <div class="arch-arrow">▼ ▼ ▼</div>
+
+        <!-- Content & i18n Layer -->
+        <div style="margin-bottom:0.25rem; font-family:var(--font-mono); font-size:0.6rem; color:var(--bone-muted); text-transform:uppercase; letter-spacing:0.1em;">
+          📝 Content & i18n Pipeline
+        </div>
+        <div class="arch-layer">
+          <div class="arch-box core">Content Loader (Vite Glob)</div>
+          <div class="arch-box core">gray-matter + marked</div>
+          <div class="arch-box qual">DOMPurify (XSS)</div>
+          <div class="arch-box qual">AJV Schema Gate</div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-box core">i18n Middleware</div>
+          <div class="arch-box core">5 Languages (en/pt/es/ja/zh)</div>
+          <div class="arch-box core">HttpOnly Cookie</div>
+          <div class="arch-box qual">Host-Parser (Niche)</div>
+        </div>
+        <div class="arch-arrow">▼ ▼ ▼</div>
+
+        <!-- Quality Gates Layer -->
+        <div style="margin-bottom:0.25rem; font-family:var(--font-mono); font-size:0.6rem; color:var(--bone-muted); text-transform:uppercase; letter-spacing:0.1em;">
+          🛡 Quality Gates (ship:check)
+        </div>
+        <div class="arch-layer">
+          <div class="arch-box qual">lint (Biome)</div>
+          <div class="arch-box qual">typecheck (tsc)</div>
+          <div class="arch-box qual">test:unit</div>
+          <div class="arch-box qual">build</div>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-box qual">size:check (60KB)</div>
+          <div class="arch-box qual">lighthouse ≥95</div>
+          <div class="arch-box qual">browser:verify</div>
+          <div class="arch-box qual">slug:check</div>
+          <div class="arch-box qual">content:check</div>
+        </div>
+
+        <!-- Legend -->
+        <div style="margin-top:1rem; display:flex; gap:1.5rem; font-family:var(--font-mono); font-size:0.6rem; text-transform:uppercase; letter-spacing:0.05em;">
+          <span style="color:var(--action);">━ Core</span>
+          <span style="color:var(--curation);">━ Differentiator</span>
+          <span style="color:var(--verified);">━ Quality Gate</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CONTENT PIPELINE ═══ -->
+    <section class="section">
+      <div class="hud-label">Content Pipeline · Read → Parse → Transform → Sanitize → Validate → Render</div>
+      <div class="card">
+        <div class="pipeline">
+          <div class="pipeline-step active">📄 .md File</div>
+          <div class="pipeline-connector">→</div>
+          <div class="pipeline-step active">Vite Glob</div>
+          <div class="pipeline-connector">→</div>
+          <div class="pipeline-step active">gray-matter</div>
+          <div class="pipeline-connector">→</div>
+          <div class="pipeline-step active">marked</div>
+          <div class="pipeline-connector">→</div>
+          <div class="pipeline-step active">DOMPurify</div>
+          <div class="pipeline-connector">→</div>
+          <div class="pipeline-step active">AJV Schema</div>
+          <div class="pipeline-connector">→</div>
+          <div class="pipeline-step active">Slug Check</div>
+          <div class="pipeline-connector">→</div>
+          <div class="pipeline-step active">LlmWikiContent</div>
+          <div class="pipeline-connector">→</div>
+          <div class="pipeline-step active">ArticleFrame</div>
+        </div>
+        <p style="font-size:0.75rem; color:var(--bone-muted); margin-top:1rem; max-width:800px;">
+          Content is read via <code>import.meta.glob</code> (build-time bundling, no node:fs at edge),
+          parsed with <code>gray-matter</code> (JS eval disabled), transformed by <code>marked</code> (GFM),
+          sanitized through <code>DOMPurify</code> (XSS prevention), validated against AJV schema,
+          slug-checked, then delivered as typed <code>LlmWikiContent</code> to the <code>ArticleFrame</code> component.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ MILESTONES ═══ -->
+    <section class="section">
+      <div class="hud-label">Milestones · Delivery History</div>
+      <div class="card accent-action">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Slices</th>
+                <th>Vision</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="decision-id">M001</span></td>
+                <td>Shell Foundation & Edge Middleware</td>
+                <td><span class="badge badge-green">✓ Complete</span></td>
+                <td>7 slices (S01–S07)</td>
+                <td>Edge-native foundation, SolarLanso design system, quality gates</td>
+              </tr>
+              <tr>
+                <td><span class="decision-id">M002</span></td>
+                <td>Atom Render</td>
+                <td><span class="badge badge-green">✓ Complete</span></td>
+                <td>3 slices (S01–S03)</td>
+                <td>Validated markdown pipeline, brutalist editorial rendering, SEO integration</td>
+              </tr>
+              <tr>
+                <td><span class="decision-id">M003</span></td>
+                <td>Content Factory Build Pack v0</td>
+                <td><span class="badge badge-green">✓ Complete</span></td>
+                <td>7 slices (S01–S07)</td>
+                <td>UnoCSS→Tailwind migration, CLI content factory, all engine phases</td>
+              </tr>
+              <tr>
+                <td><span class="decision-id">M004</span></td>
+                <td>Qwik Audit Remediation</td>
+                <td><span class="badge badge-amber">⟳ Active</span></td>
+                <td>4 slices (S01–S04)</td>
+                <td>Remediate RED gates — secure HttpOnly cookie, XSS sanitization, schema gate, suite green</td>
+              </tr>
+              <tr>
+                <td><span class="decision-id">M005</span></td>
+                <td>Future Milestone</td>
+                <td><span class="badge badge-muted">○ Planned</span></td>
+                <td>—</td>
+                <td>Not yet defined</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ M004 PROGRESS ═══ -->
+    <section class="section">
+      <div class="hud-label">M004 Current Progress · Slice Detail</div>
+      <div class="grid grid-4">
+        <div class="card accent-verified">
+          <h3>S01: HttpOnly Cookie</h3>
+          <span class="badge badge-green">✓ Complete</span>
+          <p style="font-size:0.75rem; margin-top:0.5rem; color:var(--bone-muted);">
+            Language switching sets secure HttpOnly cookie via server$ action
+          </p>
+          <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
+        </div>
+        <div class="card accent-verified">
+          <h3>S02: XSS Sanitization</h3>
+          <span class="badge badge-green">✓ Complete</span>
+          <p style="font-size:0.75rem; margin-top:0.5rem; color:var(--bone-muted);">
+            Markdown rendering strips &lt;script&gt; tags, follows strict GFM via DOMPurify
+          </p>
+          <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
+        </div>
+        <div class="card accent-verified">
+          <h3>S03: Loader Schema Gate</h3>
+          <span class="badge badge-green">✓ Complete</span>
+          <p style="font-size:0.75rem; margin-top:0.5rem; color:var(--bone-muted);">
+            loadContent() throws on invalid frontmatter, 30 unit tests, content:check 7/7
+          </p>
+          <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
+        </div>
+        <div class="card accent-curation">
+          <h3>S04: Suite Remediation</h3>
+          <span class="badge badge-amber">⟳ Pending</span>
+          <p style="font-size:0.75rem; margin-top:0.5rem; color:var(--bone-muted);">
+            Target: E2E 24/24, content:check 8/8. 1 timeout flake in unit tests.
+          </p>
+          <div class="progress-bar"><div class="progress-fill amber" style="width:25%"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ QUALITY GATES ═══ -->
+    <section class="section">
+      <div class="hud-label">Quality Gates · ship:check Pipeline</div>
+      <div class="card accent-verified">
+        <div class="gate-row">
+          <div class="gate-icon">✅</div>
+          <div class="gate-name">lint</div>
+          <div class="gate-detail">Biome — 117 files, 0 errors</div>
+          <span class="badge badge-green">PASS</span>
+        </div>
+        <div class="gate-row">
+          <div class="gate-icon">✅</div>
+          <div class="gate-name">typecheck</div>
+          <div class="gate-detail">tsc --noEmit — 0 errors</div>
+          <span class="badge badge-green">PASS</span>
+        </div>
+        <div class="gate-row">
+          <div class="gate-icon">⚠️</div>
+          <div class="gate-name">test:unit</div>
+          <div class="gate-detail">81 tests — 1 intermittent timeout (content-loader cold-start)</div>
+          <span class="badge badge-amber">FLAKE</span>
+        </div>
+        <div class="gate-row">
+          <div class="gate-icon">✅</div>
+          <div class="gate-name">build</div>
+          <div class="gate-detail">Qwik build for Cloudflare Pages</div>
+          <span class="badge badge-green">PASS</span>
+        </div>
+        <div class="gate-row">
+          <div class="gate-icon">✅</div>
+          <div class="gate-name">size:check</div>
+          <div class="gate-detail">60KB gzip per-route budget gate</div>
+          <span class="badge badge-green">PASS</span>
+        </div>
+        <div class="gate-row">
+          <div class="gate-icon">✅</div>
+          <div class="gate-name">lighthouse:check</div>
+          <div class="gate-detail">≥95 Performance, A11y, Best Practices</div>
+          <span class="badge badge-green">PASS</span>
+        </div>
+        <div class="gate-row">
+          <div class="gate-icon">⏳</div>
+          <div class="gate-name">browser:verify</div>
+          <div class="gate-detail">Playwright smoke + shell-visual specs</div>
+          <span class="badge badge-amber">PENDING</span>
+        </div>
+        <div class="gate-row">
+          <div class="gate-icon">✅</div>
+          <div class="gate-name">slug:check</div>
+          <div class="gate-detail">Markdown slug validation against tracked corpus</div>
+          <span class="badge badge-green">PASS</span>
+        </div>
+        <div class="gate-row">
+          <div class="gate-icon">✅</div>
+          <div class="gate-name">content:check</div>
+          <div class="gate-detail">7/7 valid files (2 invalid fixtures excluded)</div>
+          <span class="badge badge-green">7/7</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ REQUIREMENTS ═══ -->
+    <section class="section">
+      <div class="hud-label">Requirements · 12 Validated</div>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Class</th>
+                <th>Description</th>
+                <th>Validated In</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="decision-id">R001</span></td>
+                <td><span class="badge badge-cyan">core</span></td>
+                <td>Detect niche via Host header in middleware</td>
+                <td>M001/S05</td>
+              </tr>
+              <tr>
+                <td><span class="decision-id">R002</span></td>
+                <td><span class="badge badge-cyan">primary-loop</span></td>
+                <td>Negotiate 5 languages at edge (URL/Cookie/Headers)</td>
+                <td>M001/S05</td>
+              </tr>
+              <tr>
+                <td><span class="decision-id">R003</span></td>
+                <td><span class="badge badge-cyan">core</span></td>
+                <td>Vite-glob import of content/{niche}/{lang}/{slug}.md</td>
+                <td>M002/S01</td>
+              </tr>
+              <tr>
+                <td><span class="decision-id">R004</span></td>
+                <td><span class="badge badge-green">quality</span></td>
+                <td>Strict frontmatter schema at build/dev time</td>
+                <td>M001/S07</td>
+              </tr>
+              <tr>
+                <td><span class="decision-id">R005</span></td>
+                <td><span class="badge badge-green">quality</span></td>
+                <td>SolarLanso 2100 tokens, 15.2:1 contrast (AAA)</td>
+                <td>M002/S02</td>
+              </tr>
+              <tr>
+                <td><span class="decision-id">R006</span></td>
+                <td><span class="badge badge-green">quality</span></td>
+                <td>60KB gzip JS budget per route</td>
+                <td>M001/S04</td>
+              </tr>
+              <tr>
+                <td><span class="decision-id">R007</span></td>
+                <td><span class="badge badge-green">quality</span></td>
+                <td>Lighthouse ≥95 (Performance, A11y, Best Practices)</td>
+                <td>M001/S04</td>
+              </tr>
+              <tr>
+                <td><span class="decision-id">R008</span></td>
+                <td><span class="badge badge-amber">differentiator</span></td>
+                <td>JRPG-style whispers (1/viewport, Apex only)</td>
+                <td>M001/S07</td>
+              </tr>
+              <tr>
+                <td><span class="decision-id">R009</span></td>
+                <td><span class="badge badge-amber">differentiator</span></td>
+                <td>NERV/GITS HUD grammar (amber, raster, kanji)</td>
+                <td>M001/S07</td>
+              </tr>
+              <tr>
+                <td><span class="decision-id">R010</span></td>
+                <td><span class="badge badge-amber">differentiator</span></td>
+                <td>&lt;3KB SVG scratch textures on dividers</td>
+                <td>M002/S02</td>
+              </tr>
+              <tr>
+                <td><span class="decision-id">R011</span></td>
+                <td><span class="badge badge-green">quality</span></td>
+                <td>Self-host Geist Sans via @fontsource</td>
+                <td>M002/S02</td>
+              </tr>
+              <tr>
+                <td><span class="decision-id">R012</span></td>
+                <td><span class="badge badge-muted">operability</span></td>
+                <td>Global Qwik Store for dopamine budgets (Meso/Macro)</td>
+                <td>M001/S07</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ NICHES ═══ -->
+    <section class="section">
+      <div class="hud-label">Editorial Niches · 3 Configured</div>
+      <div class="grid grid-3">
+        <div class="niche-card">
+          <div class="icon">🤖</div>
+          <div class="name">AI Agents</div>
+          <div class="desc">Autonomous AI systems that perceive, reason, and act</div>
+          <div style="margin-top:0.5rem;">
+            <span class="badge badge-cyan">slug: ai-agents</span>
+          </div>
+          <div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--bone-muted); margin-top:0.5rem;">
+            1 article (llm-aggregators-compared.md)
+          </div>
+        </div>
+        <div class="niche-card">
+          <div class="icon">💬</div>
+          <div class="name">Language Models</div>
+          <div class="desc">Large-scale models that understand and generate language</div>
+          <div style="margin-top:0.5rem;">
+            <span class="badge badge-cyan">slug: language-models</span>
+          </div>
+          <div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--bone-muted); margin-top:0.5rem;">
+            0 articles yet
+          </div>
+        </div>
+        <div class="niche-card">
+          <div class="icon">✏️</div>
+          <div class="name">Prompt Engineering</div>
+          <div class="desc">Techniques for crafting effective AI inputs</div>
+          <div style="margin-top:0.5rem;">
+            <span class="badge badge-cyan">slug: prompt-engineering</span>
+          </div>
+          <div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--bone-muted); margin-top:0.5rem;">
+            0 articles yet
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ I18N ═══ -->
+    <section class="section">
+      <div class="hud-label">Internationalization · 5 Languages</div>
+      <div class="grid grid-5" style="grid-template-columns: repeat(5, 1fr);">
+        <div class="card" style="text-align:center;">
+          <div style="font-size:1.5rem; margin-bottom:0.25rem;">🇺🇸</div>
+          <div style="font-weight:600;">English</div>
+          <div style="font-family:var(--font-mono); font-size:0.65rem; color:var(--action);">en</div>
+          <div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--bone-muted);">Default</div>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div style="font-size:1.5rem; margin-bottom:0.25rem;">🇧🇷</div>
+          <div style="font-weight:600;">Português</div>
+          <div style="font-family:var(--font-mono); font-size:0.65rem; color:var(--action);">pt</div>
+          <div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--bone-muted);">LatAm</div>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div style="font-size:1.5rem; margin-bottom:0.25rem;">🇪🇸</div>
+          <div style="font-weight:600;">Español</div>
+          <div style="font-family:var(--font-mono); font-size:0.65rem; color:var(--action);">es</div>
+          <div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--bone-muted);">LatAm</div>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div style="font-size:1.5rem; margin-bottom:0.25rem;">🇯🇵</div>
+          <div style="font-weight:600;">日本語</div>
+          <div style="font-family:var(--font-mono); font-size:0.65rem; color:var(--action);">ja</div>
+          <div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--bone-muted);">East Asia</div>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div style="font-size:1.5rem; margin-bottom:0.25rem;">🇨🇳</div>
+          <div style="font-weight:600;">中文</div>
+          <div style="font-family:var(--font-mono); font-size:0.65rem; color:var(--action);">zh</div>
+          <div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--bone-muted);">East Asia</div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:1rem;">
+        <p style="font-size:0.75rem; color:var(--bone-muted);">
+          Negotiation priority: <code style="color:var(--action);">URL path</code> →
+          <code style="color:var(--action);">Cookie</code> →
+          <code style="color:var(--action);">Accept-Language header</code> →
+          <code style="color:var(--bone-muted);">Default (en)</code>.
+          Language switch sets <code style="color:var(--verified);">HttpOnly Secure cookie</code> via server$ action (M004/S01).
+          Each article's translations discovered via <code>getAvailableLanguages()</code> → hreflang alternates.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ TECH STACK ═══ -->
+    <section class="section">
+      <div class="hud-label">Tech Stack</div>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3 style="color:var(--action);">Framework</h3>
+          <div class="decision-item"><span class="decision-text">Qwik-City 1.19 (resumability)</span></div>
+          <div class="decision-item"><span class="decision-text">Vite 6 (SSR + glob imports)</span></div>
+          <div class="decision-item"><span class="decision-text">TypeScript 5.6 (strict)</span></div>
+          <div class="decision-item"><span class="decision-text">Cloudflare Pages (edge)</span></div>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--verified);">Quality & Test</h3>
+          <div class="decision-item"><span class="decision-text">Vitest 4 (unit)</span></div>
+          <div class="decision-item"><span class="decision-text">Playwright 1.59 (E2E)</span></div>
+          <div class="decision-item"><span class="decision-text">Biome 1.9 (lint/format)</span></div>
+          <div class="decision-item"><span class="decision-text">Lighthouse 13 (perf gate)</span></div>
+          <div class="decision-item"><span class="decision-text">AJV 8 (schema validation)</span></div>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--curation);">Design & Content</h3>
+          <div class="decision-item"><span class="decision-text">Tailwind CSS 3 (utility-first)</span></div>
+          <div class="decision-item"><span class="decision-text">Geist Sans + Inter (self-hosted)</span></div>
+          <div class="decision-item"><span class="decision-text">marked 18 (MD→HTML)</span></div>
+          <div class="decision-item"><span class="decision-text">gray-matter 4 (frontmatter)</span></div>
+          <div class="decision-item"><span class="decision-text">DOMPurify 3 (XSS sanitize)</span></div>
+          <div class="decision-item"><span class="decision-text">Bun 1.3 (runtime & PM)</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ DESIGN SYSTEM ═══ -->
+    <section class="section">
+      <div class="hud-label">Design System · SolarLanso 2100 v1.2</div>
+      <div class="grid grid-3">
+        <div class="card accent-verified">
+          <h3>Color Tokens</h3>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem;">
+            <div style="width:40px; height:40px; background:#0d1117; border:1px solid var(--raised);" title="void"></div>
+            <div style="width:40px; height:40px; background:#161b22; border:1px solid var(--raised);" title="deep"></div>
+            <div style="width:40px; height:40px; background:#21262d; border:1px solid var(--raised);" title="mid"></div>
+            <div style="width:40px; height:40px; background:#30363d; border:1px solid var(--raised);" title="raised"></div>
+            <div style="width:40px; height:40px; background:oklch(0.85 0.18 210); border:1px solid var(--raised);" title="action"></div>
+            <div style="width:40px; height:40px; background:oklch(0.79 0.18 145); border:1px solid var(--raised);" title="verified"></div>
+            <div style="width:40px; height:40px; background:oklch(0.79 0.09 75); border:1px solid var(--raised);" title="curation"></div>
+            <div style="width:40px; height:40px; background:#F0E8D8; border:1px solid var(--raised);" title="bone"></div>
+          </div>
+          <div style="font-family:var(--font-mono); font-size:0.6rem; color:var(--bone-muted); margin-top:0.5rem;">
+            void → deep → mid → raised → action → verified → curation → bone
+          </div>
+        </div>
+        <div class="card accent-action">
+          <h3>Contrast Ratio</h3>
+          <div class="stat">
+            <div class="stat-value green">15.54:1</div>
+            <div class="stat-label">Measured (AAA exceeds 15.2:1 target)</div>
+          </div>
+          <p style="font-size:0.7rem; color:var(--bone-muted); text-align:center;">
+            bone (#F0E8D8) on void (#0D1117) — verified by Playwright computed styles
+          </p>
+        </div>
+        <div class="card accent-curation">
+          <h3>Innovation Layer</h3>
+          <div class="decision-item">
+            <span class="decision-text">🎮 Dopamine Budget: 1 whisper/viewport (Apex only)</span>
+          </div>
+          <div class="decision-item">
+            <span class="decision-text">⚡ HUD Grammar: NERV/GITS amber diagnostics + kanji</span>
+          </div>
+          <div class="decision-item">
+            <span class="decision-text">✏️ Scratch Textures: &lt;3KB SVG filters on dividers</span>
+          </div>
+          <div class="decision-item">
+            <span class="decision-text">🔮 Quality Ring: Session-level editorial metric</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ COMPONENT TREE ═══ -->
+    <section class="section">
+      <div class="hud-label">Component Tree</div>
+      <div class="card">
+        <div class="file-tree">
+          <div><span class="dir">root.tsx</span> <span class="count">— App root + RouterHead</span></div>
+          <div style="padding-left:1.5rem;">
+            <div><span class="dir">SiteShell</span> <span class="count">— Layout + Dopamine provider + SVG filters + lang middleware</span></div>
+            <div style="padding-left:1.5rem;">
+              <div><span class="dir">AdaptiveHeader</span> <span class="count">— Responsive nav + HUD labels</span></div>
+              <div><span class="dir">ArticleFrame</span> <span class="count">— Prose container + brutalist surface</span></div>
+              <div><span class="dir">NicheLanding</span> <span class="count">— Niche index page (/n/[niche])</span></div>
+              <div><span class="dir">NicheCard</span> <span class="count">— Individual niche card</span></div>
+              <div><span class="dir">DopamineCard</span> <span class="count">— Whisper display (spends route budget)</span></div>
+              <div><span class="dir">QualityRing</span> <span class="count">— Editorial quality metric (spends session budget)</span></div>
+              <div><span class="dir">SourceLedger</span> <span class="count">— Source citation list</span></div>
+              <div><span class="dir">EditorialVerdict</span> <span class="count">— Trust/caution/flagged indicator</span></div>
+              <div><span class="dir">FrontmatterSlots</span> <span class="count">— Dynamic frontmatter rendering</span></div>
+              <div><span class="dir">HudLabel</span> <span class="count">— NERV-style diagnostic label</span></div>
+              <div><span class="dir">ScratchDivider</span> <span class="count">— SVG scratch texture divider</span></div>
+              <div><span class="dir">LangSwitcher</span> <span class="count">— 5-language switcher (server$ action)</span></div>
+              <div><span class="dir">Footer</span> <span class="count">— Site footer + diagnostics</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FILE STRUCTURE ═══ -->
+    <section class="section">
+      <div class="hud-label">Source File Structure</div>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Source Code (7,023 lines)</h3>
+          <div class="file-tree">
+            <div><span class="dir">src/</span></div>
+            <div style="padding-left:1rem;">
+              <div><span class="file">entry.ssr.tsx</span> <span class="count">— SSR entry (lang attribute)</span></div>
+              <div><span class="file">entry.cloudflare-pages.tsx</span> <span class="count">— Edge adapter</span></div>
+              <div><span class="file">root.tsx</span> <span class="count">— App root + RouterHead</span></div>
+              <div><span class="file">global.css</span> <span class="count">— SolarLanso 2100 tokens</span></div>
+              <div><span class="dir">components/</span> <span class="count">— 15 components</span></div>
+              <div><span class="dir">routes/</span> <span class="count">— 7 route modules</span></div>
+              <div><span class="dir">utils/</span> <span class="count">— 10 utility modules</span></div>
+              <div><span class="dir">i18n/</span> <span class="count">— 5 lang files + middleware</span></div>
+              <div><span class="dir">stores/</span> <span class="count">— Dopamine budget store</span></div>
+              <div><span class="dir">pipeline/</span> <span class="count">— Content transformer</span></div>
+              <div><span class="dir">types/</span> <span class="count">— Niche + content types</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Content & Config</h3>
+          <div class="file-tree">
+            <div><span class="dir">content/</span> <span class="count">— 9 markdown files (298 lines)</span></div>
+            <div style="padding-left:1rem;">
+              <div><span class="dir">apex/</span> <span class="count">— 7 files (5 languages + test fixtures)</span></div>
+              <div><span class="dir">ai-agents/</span> <span class="count">— 1 editorial article</span></div>
+            </div>
+            <div style="margin-top:0.5rem;"><span class="dir">config/</span></div>
+            <div style="padding-left:1rem;">
+              <div><span class="file">niches.yaml</span> <span class="count">— 3 niche definitions</span></div>
+            </div>
+            <div style="margin-top:0.5rem;"><span class="dir">scripts/</span> <span class="count">— Build-time gates</span></div>
+            <div style="padding-left:1rem;">
+              <div><span class="file">ship-check.ts</span> <span class="count">— Release orchestrator</span></div>
+              <div><span class="file">validate-content.ts</span> <span class="count">— AJV content:check</span></div>
+              <div><span class="file">slug-lint.ts</span> <span class="count">— Slug validation</span></div>
+              <div><span class="file">size-gate.ts</span> <span class="count">— 60KB route budget</span></div>
+              <div><span class="file">lighthouse-gate.ts</span> <span class="count">— Lighthouse ≥95</span></div>
+            </div>
+            <div style="margin-top:0.5rem;"><span class="dir">tests/</span></div>
+            <div style="padding-left:1rem;">
+              <div><span class="dir">e2e/</span> <span class="count">— 7 Playwright specs</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ UNIT TESTS ═══ -->
+    <section class="section">
+      <div class="hud-label">Unit Tests · 81 Total (12 Files)</div>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>File</th>
+                <th>Tests</th>
+                <th>Key Coverage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">schema-validation.test.ts</td>
+                <td><span class="badge badge-green">30</span></td>
+                <td>validateContent(), validateMarkdownFrontmatter()</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">content-loader.test.ts</td>
+                <td><span class="badge badge-amber">10</span></td>
+                <td>loadContent(), getAvailableLanguages(), listNicheArticles()</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">host-parser.test.ts</td>
+                <td><span class="badge badge-green">9</span></td>
+                <td>Niche detection from Host header</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">slug-check.test.ts</td>
+                <td><span class="badge badge-green">5</span></td>
+                <td>Slug pattern validation</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">middleware.test.ts</td>
+                <td><span class="badge badge-green">5</span></td>
+                <td>Language negotiation precedence</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">size-gate.test.ts</td>
+                <td><span class="badge badge-green">4</span></td>
+                <td>Route budget boundary</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">ship-check.test.ts</td>
+                <td><span class="badge badge-green">4</span></td>
+                <td>Release orchestrator</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">dopamine-budget.test.ts</td>
+                <td><span class="badge badge-green">4</span></td>
+                <td>Route/session budget enforcement</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">lighthouse-gate.test.ts</td>
+                <td><span class="badge badge-green">3</span></td>
+                <td>Lighthouse threshold</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">set-lang-cookie.test.ts</td>
+                <td><span class="badge badge-green">3</span></td>
+                <td>HttpOnly cookie action</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">document-language.test.ts</td>
+                <td><span class="badge badge-green">2</span></td>
+                <td>DOM lang attribute sync</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">transformer.test.ts</td>
+                <td><span class="badge badge-green">2</span></td>
+                <td>Markdown transformation</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ E2E TESTS ═══ -->
+    <section class="section">
+      <div class="hud-label">E2E Specs · 7 Files (Playwright + Chromium)</div>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Spec</th>
+                <th>Scope</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">smoke.spec.ts</td>
+                <td>Basic page load, shell render</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">s02-editorial-fidelity.spec.ts</td>
+                <td>Contrast ratio 15.54:1, Geist/Inter font activation</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">s03-seo-integration.spec.ts</td>
+                <td>Canonical links, hreflang, Open Graph, sitemap</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">s03-shell.spec.ts</td>
+                <td>Shell structure, SVG filters, scratch textures</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">s05-shell-visual.spec.ts</td>
+                <td>Visual baseline on /en/n deterministic route</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">s07-dopamine-budget.spec.ts</td>
+                <td>Whisper limit enforcement, route/session reseeding</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">s07-shell-fidelity.spec.ts</td>
+                <td>HUD grammar visibility and stability</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ KEY DECISIONS ═══ -->
+    <section class="section">
+      <div class="hud-label">Key Architecture Decisions · 26 Recorded</div>
+      <div class="card">
+        <div class="decision-item">
+          <span class="decision-id">D001</span>
+          <span class="decision-text">Qwik-City + Tailwind + Cloudflare Pages — resumability, edge-native, brutalist</span>
+        </div>
+        <div class="decision-item">
+          <span class="decision-id">D002</span>
+          <span class="decision-text">Detect niche via Host header in edge middleware — single-codebase multi-tenant</span>
+        </div>
+        <div class="decision-item">
+          <span class="decision-id">D004</span>
+          <span class="decision-text">60KB gzip per route budget (up from 20KB for resumability overhead)</span>
+        </div>
+        <div class="decision-item">
+          <span class="decision-id">D005</span>
+          <span class="decision-text">3-tier Dopamine Taxonomy + Anime-HUD HUD grammar for unique identity</span>
+        </div>
+        <div class="decision-item">
+          <span class="decision-id">D021</span>
+          <span class="decision-text">Strict build-time AJV validation gate — content errors = compilation errors</span>
+        </div>
+        <div class="decision-item">
+          <span class="decision-id">D022</span>
+          <span class="decision-text">Server-side markdown→HTML via marked — no heavy client parser</span>
+        </div>
+        <div class="decision-item">
+          <span class="decision-id">D023</span>
+          <span class="decision-text">Filesystem glob for translation discovery — single source of truth</span>
+        </div>
+        <div class="decision-item">
+          <span class="decision-id">D042</span>
+          <span class="decision-text">Shell-level DopamineBudget store — route + session budgets from one source</span>
+        </div>
+        <p style="font-size:0.7rem; color:var(--bone-muted); margin-top:1rem;">
+          + 18 more decisions in DECISIONS.md (D003, D006–D020, D024–D026)
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ ROUTES ═══ -->
+    <section class="section">
+      <div class="hud-label">Route Map</div>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Route</th>
+                <th>Component</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">/</td>
+                <td>index.tsx</td>
+                <td>Root redirect to /en</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">/[lang]/[...slug]</td>
+                <td>ArticleFrame + SourceLedger + EditorialVerdict</td>
+                <td>Article rendering (e.g. /en/test-article)</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">/[lang]/n</td>
+                <td>NicheLanding + NicheCards</td>
+                <td>Niche index page</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">/[lang]/n/[niche]</td>
+                <td>NicheLanding</td>
+                <td>Specific niche landing</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">/sitemap.xml</td>
+                <td>Sitemap generator</td>
+                <td>SEO sitemap from listNicheArticles()</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">/[...catchall]</td>
+                <td>NotFound</td>
+                <td>404 handler</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CONTENT FILES ═══ -->
+    <section class="section">
+      <div class="hud-label">Content Inventory · 9 Files</div>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>File</th>
+                <th>Niche</th>
+                <th>Lang</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">llm-aggregators-compared.md</td>
+                <td>ai-agents</td>
+                <td>en</td>
+                <td><span class="badge badge-verified">Editorial</span></td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">test-article.md</td>
+                <td>apex</td>
+                <td>en</td>
+                <td><span class="badge badge-cyan">Fixture</span></td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">test-article.md</td>
+                <td>apex</td>
+                <td>pt/es/ja/zh</td>
+                <td><span class="badge badge-cyan">i18n Fixture</span></td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">test-xss.md</td>
+                <td>apex</td>
+                <td>en</td>
+                <td><span class="badge badge-red">XSS Test Fixture</span></td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">test-admin.md</td>
+                <td>apex</td>
+                <td>en</td>
+                <td><span class="badge badge-red">Invalid Fixture (excluded)</span></td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-mono); font-size:0.7rem;">test-invalid-schema.md</td>
+                <td>apex</td>
+                <td>en</td>
+                <td><span class="badge badge-red">Invalid Fixture (excluded)</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ KNOWN ISSUES ═══ -->
+    <section class="section">
+      <div class="hud-label">Known Issues & Risks</div>
+      <div class="card accent-danger">
+        <div class="decision-item">
+          <span style="color:var(--danger); font-weight:600;">⬤ content-loader.test.ts timeout</span>
+          <div class="decision-rationale">First loadContent() call triggers import.meta.glob cold-start; 15s timeout is intermittent. Bumping to 30s resolves it. Currently passes but flaky.</div>
+        </div>
+        <div class="decision-item">
+          <span style="color:var(--curation); font-weight:600;">⬤ Chromium provisioning required</span>
+          <div class="decision-rationale">Playwright E2E tests need `bunx playwright install chromium` before running. Not auto-provisioned.</div>
+        </div>
+        <div class="decision-item">
+          <span style="color:var(--curation); font-weight:600;">⬤ E2E test count target ambiguity</span>
+          <div class="decision-rationale">Roadmap says "24/24" but actual count from 7 spec files needs verification. May need additional tests or target adjustment.</div>
+        </div>
+        <div class="decision-item">
+          <span style="color:var(--bone-muted);">⬤ content:check target 8/8</span>
+          <div class="decision-rationale">Currently 7/7 valid files. Need 1 more valid editorial content file to reach 8/8.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <div class="scratch-divider"></div>
+    <footer class="report-footer">
+      <div><span class="live-dot"></span>UNITEIA v2 · SOLARLANSO 2100 v1.2 · Brutalist Editorial · Edge-Native · JRPG Soul</div>
+      <div style="margin-top:0.5rem;">Generated by GSD auto-mode · Report served from localhost:4040</div>
+      <div style="margin-top:0.25rem;">M001 ✓ → M002 ✓ → M003 ✓ → M004 ⟳ → M005 ○</div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Timestamp
+    document.getElementById('timestamp').textContent =
+      'REPORT GENERATED · ' + new Date().toISOString().replace('T', ' · ').slice(0, 22) + ' UTC';
+
+    // Animate progress bars on load
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.progress-fill').forEach(el => {
+        const w = el.style.width;
+        el.style.width = '0';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            el.style.width = w;
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

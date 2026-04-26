@@ -1,0 +1,561 @@
+{
+  "project": {
+    "name": "UniTeia v2",
+    "version": "0.1.0",
+    "packageManager": "bun@1.3.6",
+    "description": "Qwik-City site with multilingual content",
+    "type": "module",
+    "tagline": "Brutalist Editorial · Multi-Niche · Edge-Native · JRPG Soul",
+    "generatedAt": "2026-04-26T03:30:00Z"
+  },
+  "architecture": {
+    "framework": "Qwik-City 1.19.2",
+    "buildTool": "Vite 6.2.5",
+    "language": "TypeScript 5.6.2 (strict, exactOptionalPropertyTypes, noUncheckedIndexedAccess)",
+    "runtime": "Bun 1.3.6",
+    "deployment": "Cloudflare Pages (Workers-types 4.x)",
+    "styling": "Tailwind CSS 3.x + SolarLanso 2100 v1.2 custom tokens",
+    "entrySSR": "src/entry.ssr.tsx",
+    "entryCloudflare": "src/entry.cloudflare-pages.tsx",
+    "appRoot": "src/root.tsx",
+    "globalCSS": "src/global.css",
+    "viteConfig": {
+      "plugins": ["qwikCity()", "qwikVite({ entryStrategy: { type: 'smart' } })", "tsconfigPaths()"],
+      "buildTarget": "es2022",
+      "minify": "esbuild",
+      "cssMinify": true,
+      "chunkSizeWarningLimit": 15,
+      "devPort": 3000,
+      "previewPort": 4000
+    },
+    "tsconfigHighlights": {
+      "target": "ES2022",
+      "moduleResolution": "Bundler",
+      "strict": true,
+      "noUncheckedIndexedAccess": true,
+      "exactOptionalPropertyTypes": true,
+      "verbatimModuleSyntax": true,
+      "jsxImportSource": "@builder.io/qwik",
+      "pathAlias": { "~/*": "./src/*" }
+    }
+  },
+  "dependencies": {
+    "runtime": {
+      "@builder.io/qwik": "^1.19.2",
+      "@builder.io/qwik-city": "^1.19.2",
+      "@fontsource-variable/inter": "^5.2.8",
+      "@fontsource/geist-sans": "^5.2.5",
+      "@fontsource/jetbrains-mono": "^5.2.8",
+      "@modular-forms/qwik": "^0.24.0",
+      "gray-matter": "^4.0.3",
+      "isomorphic-dompurify": "^3.10.0",
+      "js-yaml": "^4.1.0",
+      "marked": "^18.0.2"
+    },
+    "dev": {
+      "@biomejs/biome": "^1.9.4",
+      "@cloudflare/workers-types": "^4.20250409.0",
+      "@iconify-json/lucide": "^1.2.103",
+      "@iconify/tailwind": "^1.2.0",
+      "@playwright/test": "^1.59.1",
+      "@tailwindcss/typography": "^0.5.19",
+      "@types/dompurify": "^3.2.0",
+      "@types/js-yaml": "^4.0.9",
+      "@types/node": "^22.14.0",
+      "ajv": "^8.18.0",
+      "ajv-formats": "^3.0.1",
+      "autoprefixer": "^10.5.0",
+      "ignore": "^7.0.5",
+      "lighthouse": "^13.1.0",
+      "postcss": "^8.5.10",
+      "postcss-custom-media": "^11.0.5",
+      "postcss-nesting": "^12.1.5",
+      "postcss-preset-env": "^10.1.5",
+      "tailwindcss": "^3",
+      "typescript": "~5.6.2",
+      "vite": "^6.2.5",
+      "vite-tsconfig-paths": "^5.1.4",
+      "vitest": "^4.1.5",
+      "wrangler": "^4.84.1"
+    }
+  },
+  "scripts": {
+    "dev": "vite --mode ssr",
+    "build": "qwik build",
+    "build.preview": "wrangler pages dev dist --compatibility-date=2026-04-01 --port=8788",
+    "build.client": "vite build",
+    "build.ssr": "vite build --ssr src/entry.ssr.tsx",
+    "build.server": "vite build -c adapters/cloudflare-pages/vite.config.ts",
+    "build:watch": "qwik build --watch",
+    "preview": "qwik preview",
+    "preview:cf": "wrangler pages dev dist --compatibility-date=2026-04-01 --port=8788",
+    "preview:multi": "concurrently -k \"bun run build:watch\" \"bun run preview:cf\" \"caddy run --config ./Caddyfile\"",
+    "lint": "biome check .",
+    "lint.fix": "biome check --write .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "browser:verify": "playwright test tests/e2e/smoke.spec.ts tests/e2e/s05-shell-visual.spec.ts",
+    "slug:check": "bun run scripts/slug-lint.ts",
+    "content:check": "bun run scripts/validate-content.ts \"content/**/*.md\"",
+    "size:check": "bun run scripts/size-gate.ts",
+    "lighthouse:check": "bun run scripts/lighthouse-gate.ts",
+    "ship:check": "bun run scripts/ship-check.ts"
+  },
+  "sourceCode": {
+    "totalLines": 7023,
+    "contentLines": 298,
+    "gsdArtifactLines": 51853,
+    "components": [
+      {
+        "name": "SiteShell",
+        "path": "src/components/site-shell/index.tsx",
+        "purpose": "Root layout shell + SVG filters host + dopamine budget provider + lang middleware",
+        "hasTypes": true,
+        "hasSvgFilters": true
+      },
+      {
+        "name": "ArticleFrame",
+        "path": "src/components/article-frame/index.tsx",
+        "purpose": "Prose container (max-w-prose, surface-void, brutalist editorial)",
+        "hasTypes": true
+      },
+      {
+        "name": "AdaptiveHeader",
+        "path": "src/components/adaptive-header/index.tsx",
+        "purpose": "Responsive navigation header with HUD labels",
+        "hasTypes": true
+      },
+      {
+        "name": "DopamineCard",
+        "path": "src/components/dopamine-card/index.tsx",
+        "purpose": "Whisper display — spends route budget tokens",
+        "hasTypes": true
+      },
+      {
+        "name": "QualityRing",
+        "path": "src/components/quality-ring/index.tsx",
+        "purpose": "Editorial quality ring — spends session budget tokens",
+        "hasTypes": true
+      },
+      {
+        "name": "EditorialVerdict",
+        "path": "src/components/editorial-verdict/index.tsx",
+        "purpose": "Trust/caution/flagged indicator",
+        "verdictLevels": ["trusted", "caution", "flagged"],
+        "hasTypes": true
+      },
+      {
+        "name": "SourceLedger",
+        "path": "src/components/source-ledger/index.tsx",
+        "purpose": "Source citation list for articles",
+        "hasTypes": true
+      },
+      {
+        "name": "FrontmatterSlots",
+        "path": "src/components/frontmatter-slots/index.tsx",
+        "purpose": "Dynamic frontmatter field rendering",
+        "hasTypes": true
+      },
+      {
+        "name": "HudLabel",
+        "path": "src/components/hud-label/index.tsx",
+        "purpose": "NERV/GITS-style diagnostic label (monospace, uppercase, action-colored)",
+        "hasTypes": false
+      },
+      {
+        "name": "ScratchDivider",
+        "path": "src/components/scratch-divider/index.tsx",
+        "purpose": "SVG scratch texture divider using url(#scratch)",
+        "hasTypes": false
+      },
+      {
+        "name": "LangSwitcher",
+        "path": "src/components/lang-switcher/index.tsx",
+        "purpose": "5-language switcher using server$ action for HttpOnly cookie",
+        "hasTypes": true
+      },
+      {
+        "name": "NicheCard",
+        "path": "src/components/niche-card/index.tsx",
+        "purpose": "Individual niche display card with icon + title",
+        "hasTypes": true
+      },
+      {
+        "name": "NicheLanding",
+        "path": "src/components/niche-landing/index.tsx",
+        "purpose": "Niche index page component",
+        "hasTypes": true
+      },
+      {
+        "name": "RouterHead",
+        "path": "src/components/router-head/index.tsx",
+        "purpose": "SEO head renderer (canonical, hreflang, Open Graph)",
+        "hasTypes": false
+      },
+      {
+        "name": "Footer",
+        "path": "src/components/footer/index.tsx",
+        "purpose": "Site footer with diagnostic information",
+        "hasTypes": true
+      }
+    ],
+    "errorPages": [
+      { "name": "NotFound", "path": "src/components/error-pages/not-found.tsx" },
+      { "name": "ServerError", "path": "src/components/error-pages/server-error.tsx" }
+    ],
+    "utilities": [
+      { "name": "content-loader", "path": "src/utils/content-loader.ts", "exports": ["loadContent", "getAvailableLanguages", "listNicheArticles"], "hasTests": true, "testCount": 10 },
+      { "name": "host-parser", "path": "src/utils/host-parser.ts", "exports": ["parseHost"], "hasTests": true, "testCount": 9 },
+      { "name": "schema-validation", "path": "src/utils/schema-validation.ts", "exports": ["validateContent", "validateMarkdownFrontmatter"], "hasTests": true, "testCount": 30 },
+      { "name": "url-validation", "path": "src/utils/url-validation.ts", "exports": ["SLUG_PATTERN", "BANNED_SLUG_TERMS", "validateSlug", "isValidSlugPattern", "findBannedSlugTerm", "parseSlugSegments", "suggestSlugFromTitle"] },
+      { "name": "niche-loader", "path": "src/utils/niche-loader.ts", "exports": ["validateNicheConfig", "findNicheBySlug", "loadNichesConfig"] },
+      { "name": "icon-classes", "path": "src/utils/icon-classes.ts", "exports": ["getLucideIconClass"], "purpose": "Static Lucide icon lookup for Tailwind safelist" },
+      { "name": "size-gate", "path": "src/utils/size-gate.ts", "hasTests": true, "testCount": 4 },
+      { "name": "lighthouse-gate", "path": "src/utils/lighthouse-gate.ts", "hasTests": true, "testCount": 3 },
+      { "name": "ship-check", "path": "src/utils/ship-check.ts", "exports": ["createDefaultShipCheckSteps", "runShipCheck", "runShipCheckStep", "formatShipCheckReport"], "hasTests": true, "testCount": 4 },
+      { "name": "slug-check", "path": "src/utils/slug-check.ts", "hasTests": true, "testCount": 5 }
+    ],
+    "i18n": {
+      "context": "src/i18n/context.tsx",
+      "middleware": "src/i18n/middleware.ts",
+      "cookieAction": "src/i18n/set-lang-cookie.ts",
+      "documentLanguage": "src/i18n/document-language.ts",
+      "types": "src/i18n/types.ts",
+      "languages": [
+        { "code": "en", "name": "English", "nativeName": "English", "file": "src/i18n/en.ts", "isDefault": true },
+        { "code": "pt", "name": "Portuguese", "nativeName": "Português", "file": "src/i18n/pt.ts" },
+        { "code": "es", "name": "Spanish", "nativeName": "Español", "file": "src/i18n/es.ts" },
+        { "code": "ja", "name": "Japanese", "nativeName": "日本語", "file": "src/i18n/ja.ts" },
+        { "code": "zh", "name": "Chinese", "nativeName": "中文", "file": "src/i18n/zh.ts" }
+      ],
+      "negotiationPriority": ["URL path", "Cookie", "Accept-Language header", "CF-IPCountry", "Default (en)"],
+      "cookieName": "uniteia_lang",
+      "cookieAttributes": { "path": "/", "maxAge": 31536000, "sameSite": "lax", "secure": true, "httpOnly": true },
+      "countryToLang": {
+        "pt": ["BR", "PT", "AO", "MZ"],
+        "es": ["ES", "MX", "AR", "CO", "CL", "PE", "VE", "EC", "GT", "CU", "BO", "DO", "HN", "PY", "SV", "NI", "CR", "PA", "UY", "PR"],
+        "ja": ["JP"],
+        "zh": ["CN", "TW", "HK", "SG", "MO"]
+      }
+    },
+    "stores": {
+      "dopamine-budget": {
+        "path": "src/stores/dopamine-budget.ts",
+        "constants": {
+          "DOPAMINE_ROUTE_BUDGET": 2,
+          "DOPAMINE_SESSION_BUDGET": 1,
+          "DOPAMINE_SESSION_STORAGE_KEY": "uniteia:dopamine-budget:v1"
+        },
+        "whisperStates": ["ready", "spent", "blocked"],
+        "whisperScopes": ["route", "session"],
+        "exports": [
+          "createDopamineBudgetState",
+          "resetDopamineRoute",
+          "resetDopamineSession",
+          "reserveRouteWhisper",
+          "reserveSessionWhisper",
+          "useDopamineBudgetProvider",
+          "useDopamineBudget"
+        ],
+        "hasTests": true,
+        "testCount": 4
+      }
+    },
+    "routes": [
+      { "path": "/", "file": "src/routes/index.tsx", "purpose": "Root redirect to /en" },
+      { "path": "/[lang]/[...slug]", "file": "src/routes/[lang]/[...slug]/index.tsx", "components": ["ArticleFrame", "AdaptiveHeader", "SourceLedger", "EditorialVerdict", "FrontmatterSlots"], "linesOfCode": 166 },
+      { "path": "/[lang]/n", "file": "src/routes/[lang]/n/index.tsx", "components": ["NicheLanding", "NicheCard"], "linesOfCode": 63 },
+      { "path": "/[lang]/n/[niche]", "file": "src/routes/[lang]/n/[niche]/index.tsx", "components": ["NicheLanding"] },
+      { "path": "/sitemap.xml", "file": "src/routes/sitemap.xml/index.ts", "purpose": "Dynamic sitemap from listNicheArticles()" },
+      { "path": "/[...catchall]", "file": "src/routes/[...catchall]/index.tsx", "components": ["NotFound"], "linesOfCode": 19 }
+    ],
+    "types": [
+      { "name": "LlmWikiContent", "path": "src/types/content.ts", "fields": ["slug", "lang", "title", "content", "subjects", "referral_links", "metadata", "verdict", "quality_score", "translations"] },
+      { "name": "ContentLoaderError", "path": "src/types/content.ts", "phases": ["read", "parse", "schema", "slug"] },
+      { "name": "NicheConfig", "path": "src/types/niche.ts", "fields": ["slug", "icon", "title", "description"] },
+      { "name": "NichesConfig", "path": "src/types/niche.ts" },
+      { "name": "NicheValidationError", "path": "src/types/niche.ts", "fields": ["slug", "errors"] },
+      { "name": "SupportedLanguage", "path": "src/i18n/types.ts", "values": ["en", "pt", "es", "ja", "zh"] },
+      { "name": "TranslationStrings", "path": "src/i18n/types.ts", "sections": ["nav", "footer", "langSwitcher", "errorPages", "fallbackBanner", "article", "niche", "editorial", "qualityRing", "dopamineCard", "seo"] }
+    ]
+  },
+  "contentPipeline": {
+    "steps": [
+      { "order": 1, "name": "Vite Glob", "mechanism": "import.meta.glob('../../content/**/*.md', { query: '?raw', import: 'default', eager: true })", "purpose": "Bundle all markdown at build-time (no node:fs at edge)" },
+      { "order": 2, "name": "gray-matter", "config": { "engines": { "js": "() => { throw new Error('JS eval disabled') }" } }, "purpose": "Parse YAML frontmatter; JS eval explicitly disabled" },
+      { "order": 3, "name": "marked", "config": { "async": false, "breaks": false, "gfm": true, "stripH1": true }, "purpose": "Server-side MD→HTML (GFM); H1 headings stripped" },
+      { "order": 4, "name": "DOMPurify", "library": "isomorphic-dompurify@3.10.0", "purpose": "XSS prevention — strips <script>, onclick, etc." },
+      { "order": 5, "name": "AJV Schema", "schema": "schemas/llm-wiki-v1.schema.json", "draft": "2020-12", "purpose": "Validate frontmatter against strict JSON Schema" },
+      { "order": 6, "name": "Slug Validation", "pattern": "^[a-z]+(-[a-z]+){1,5}$", "purpose": "Enforce URL-safe slugs, ban reserved/problematic terms" },
+      { "order": 7, "name": "LlmWikiContent", "purpose": "Typed output object delivered to route loader" },
+      { "order": 8, "name": "ArticleFrame", "purpose": "Qwik component renders the content in brutalist container" }
+    ],
+    "errorPhases": ["read", "parse", "schema", "slug"],
+    "errorClass": "ContentLoaderError"
+  },
+  "contentSchema": {
+    "$id": "https://uniteia.com/schemas/llm-wiki-v1.schema.json",
+    "draft": "2020-12",
+    "additionalProperties": false,
+    "required": ["slug", "lang", "title", "content", "subjects", "referral_links"],
+    "properties": {
+      "slug": { "type": "string", "pattern": "^[a-z]+(-[a-z]+){1,5}$", "description": "URL slug with 2-6 hyphenated segments" },
+      "lang": { "type": "string", "enum": ["en", "pt", "es", "ja", "zh"] },
+      "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+      "content": { "type": "string", "minLength": 100 },
+      "subjects": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 50 }, "minItems": 1, "maxItems": 10 },
+      "referral_links": { "type": "array", "maxItems": 5, "items": { "required": ["url", "title"], "properties": { "url": { "type": "string", "format": "uri" }, "title": { "type": "string", "minLength": 1, "maxLength": 100 }, "description": { "type": "string", "maxLength": 200 } } } },
+      "verdict": { "type": "string", "enum": ["trusted", "caution", "flagged"], "default": "trusted" },
+      "quality_score": { "type": "integer", "minimum": 0, "maximum": 100, "default": 85 },
+      "metadata": { "type": "object", "properties": { "created_at": { "type": "string", "format": "date-time" }, "updated_at": { "type": "string", "format": "date-time" }, "author": { "type": "string", "maxLength": 100 }, "version": { "type": "integer", "minimum": 1 } } }
+    }
+  },
+  "bannedSlugTerms": {
+    "reservedRoutes": ["admin", "api", "app", "assets", "blog", "cdn", "dashboard", "login", "logout", "privacy", "public", "search", "settings", "terms", "user", "users", "wiki"],
+    "trademarked": ["galaxy-ai", "google-ai", "openai", "chatgpt", "meta-ai", "microsoft-ai"],
+    "genericDiluting": ["best", "cheap", "free", "top", "new", "latest"]
+  },
+  "contentFiles": [
+    { "path": "content/ai-agents/en/llm-aggregators-compared.md", "niche": "ai-agents", "lang": "en", "role": "editorial", "verdict": "trusted", "qualityScore": 95 },
+    { "path": "content/apex/en/test-article.md", "niche": "apex", "lang": "en", "role": "fixture", "verdict": "trusted", "qualityScore": 92 },
+    { "path": "content/apex/es/test-article.md", "niche": "apex", "lang": "es", "role": "i18n-fixture" },
+    { "path": "content/apex/ja/test-article.md", "niche": "apex", "lang": "ja", "role": "i18n-fixture" },
+    { "path": "content/apex/pt/test-article.md", "niche": "apex", "lang": "pt", "role": "i18n-fixture" },
+    { "path": "content/apex/zh/test-article.md", "niche": "apex", "lang": "zh", "role": "i18n-fixture" },
+    { "path": "content/apex/en/test-xss.md", "niche": "apex", "lang": "en", "role": "xss-test-fixture" },
+    { "path": "content/apex/en/test-admin.md", "niche": "apex", "lang": "en", "role": "invalid-fixture", "excludedFromContentCheck": true, "reason": "Banned slug term 'admin'" },
+    { "path": "content/apex/en/test-invalid-schema.md", "niche": "apex", "lang": "en", "role": "invalid-fixture", "excludedFromContentCheck": true, "reason": "Invalid frontmatter for negative testing" }
+  ],
+  "niches": [
+    {
+      "slug": "ai-agents",
+      "icon": "bot",
+      "lucideSafelistClass": "icon-[lucide--bot]",
+      "titles": { "en": "AI Agents", "pt": "Agentes de IA", "es": "Agentes de IA", "ja": "AIエージェント", "zh": "AI智能体" },
+      "descriptions": { "en": "Autonomous AI systems that perceive, reason, and act to accomplish goals.", "pt": "Sistemas de IA autônomos que percebem, raciocinam e agem para atingir objetivos.", "es": "Sistemas de IA autônomos que perciben, razonan y actúan para lograr objetivos.", "ja": "目標を達成するために知覚・推論・行動する自律的なAIシステム。", "zh": "能够感知、推理和行动以实现目标的自主AI系统。" },
+      "articleCount": 1
+    },
+    {
+      "slug": "language-models",
+      "icon": "message-square-text",
+      "lucideSafelistClass": "icon-[lucide--message-square-text]",
+      "titles": { "en": "Language Models", "pt": "Modelos de Linguagem", "es": "Modelos de Lenguaje", "ja": "言語モデル", "zh": "语言模型" },
+      "descriptions": { "en": "Large-scale models that understand and generate human language.", "pt": "Modelos de grande escala que compreendem e geram linguagem humana.", "es": "Modelos a gran escala que comprenden y generan lenguaje humano.", "ja": "人間の言語を理解し生成する大規模モデル。", "zh": "理解和生成人类语言的大规模模型。" },
+      "articleCount": 0
+    },
+    {
+      "slug": "prompt-engineering",
+      "icon": "pen-tool",
+      "lucideSafelistClass": "icon-[lucide--pen-tool]",
+      "titles": { "en": "Prompt Engineering", "pt": "Engenharia de Prompts", "es": "Ingeniería de Prompts", "ja": "プロンプトエンジニアリング", "zh": "提示工程" },
+      "descriptions": { "en": "Techniques for crafting effective inputs to steer AI model outputs.", "pt": "Técnicas para criar entradas eficazes que orientam as saídas de modelos de IA.", "es": "Técnicas para crear entradas efectivas que dirigen las salidas de modelos de IA.", "ja": "AIモデルの出力を制御するための効果的な入力手法。", "zh": "精心设计有效输入以引导AI模型输出的技术。" },
+      "articleCount": 0
+    }
+  ],
+  "designSystem": {
+    "name": "SolarLanso 2100 v1.2",
+    "aesthetic": "Brutalist Editorial",
+    "contrastRatio": { "measured": "15.54:1", "target": "15.2:1", "level": "AAA" },
+    "colors": {
+      "surfaces": { "void": "#0D1117", "deep": "#161B22", "mid": "#21262D", "raised": "#30363D" },
+      "action": { "DEFAULT": "oklch(0.85 0.18 210)", "hi": "oklch(0.90 0.18 210)" },
+      "verified": { "DEFAULT": "oklch(0.79 0.18 145)", "hi": "oklch(0.84 0.18 145)" },
+      "curation": { "DEFAULT": "oklch(0.79 0.09 75)", "hi": "oklch(0.84 0.09 75)" },
+      "bone": { "DEFAULT": "#F0E8D8", "muted": "#8B949E", "primary": "#F0E8D8" }
+    },
+    "fonts": {
+      "display": { "family": "Geist Sans", "source": "@fontsource/geist-sans@5.2.5", "selfHosted": true },
+      "body": { "family": "Inter Variable", "source": "@fontsource-variable/inter@5.2.8", "selfHosted": true },
+      "mono": { "family": "JetBrains Mono", "source": "@fontsource/jetbrains-mono@5.2.8", "selfHosted": true }
+    },
+    "svgFilters": {
+      "scratch": { "id": "scratch", "technique": "feTurbulence + feColorMatrix + feComposite", "usage": "Dividers and editorial callouts" },
+      "noise": { "id": "noise", "technique": "fractalNoise + feColorMatrix", "usage": "Subtle grain overlay on void surfaces" }
+    },
+    "hudGrammar": { "inspiration": "NERV/GITS", "elements": ["Amber diagnostic warnings", "Raster patterns", "Kanji labels", "Monospace uppercase labels"] },
+    "tailwindSafelist": ["icon-[lucide--bot]", "icon-[lucide--message-square-text]", "icon-[lucide--pen-tool]", "icon-[lucide--check-circle-2]", "icon-[lucide--zap]"]
+  },
+  "dopamineBudget": {
+    "routeBudget": 2,
+    "sessionBudget": 1,
+    "apexOnly": true,
+    "sessionStorageKey": "uniteia:dopamine-budget:v1",
+    "whisperStates": ["ready", "spent", "blocked"],
+    "consumers": {
+      "DopamineCard": { "scope": "route", "action": "Spends route budget tokens" },
+      "QualityRing": { "scope": "session", "action": "Spends session budget tokens" }
+    },
+    "resetTriggers": {
+      "route": "On pathname change (useTask$ tracking)",
+      "session": "On new browser session (sessionStorage check)"
+    }
+  },
+  "qualityGates": {
+    "orchestrator": "src/utils/ship-check.ts",
+    "defaultStepTimeoutMs": 900000,
+    "killGraceMs": 5000,
+    "failFast": true,
+    "steps": [
+      { "order": 1, "name": "lint", "command": "bun run lint", "tool": "Biome 1.9.4", "status": "PASS", "detail": "117 files, 0 errors" },
+      { "order": 2, "name": "typecheck", "command": "bun run typecheck", "tool": "tsc --noEmit", "status": "PASS", "detail": "0 errors" },
+      { "order": 3, "name": "test:unit", "command": "bun run test:unit", "tool": "Vitest 4.1.5", "status": "FLAKE", "detail": "81/81 pass but first loadContent() may timeout at 15s" },
+      { "order": 4, "name": "build", "command": "bun run build", "tool": "Qwik build", "status": "PASS", "detail": "Cloudflare Pages SSR" },
+      { "order": 5, "name": "size:check", "command": "bun run size:check", "tool": "size-gate.ts", "status": "PASS", "detail": "All routes under 60KB gzip" },
+      { "order": 6, "name": "lighthouse:check", "command": "bun run lighthouse:check", "tool": "Lighthouse 13.1", "status": "PASS", "detail": "≥95 in Performance, A11y, Best Practices" },
+      { "order": 7, "name": "browser:verify", "command": "bun run browser:verify", "tool": "Playwright 1.59", "status": "PENDING", "detail": "smoke.spec.ts + s05-shell-visual.spec.ts" },
+      { "order": 8, "name": "slug:check", "command": "bun run slug:check", "tool": "slug-lint.ts", "status": "PASS", "detail": "All tracked slugs valid" },
+      { "order": 9, "name": "content:check", "command": "bun run content:check", "tool": "validate-content.ts + AJV", "status": "PASS", "detail": "7/7 valid files (2 invalid fixtures excluded)" }
+    ],
+    "contentCheckExclusions": ["test-admin.md", "test-invalid-schema.md"]
+  },
+  "tests": {
+    "unit": {
+      "framework": "Vitest 4.1.5",
+      "totalFiles": 12,
+      "totalTests": 81,
+      "status": "1 intermittent timeout",
+      "files": [
+        { "path": "src/utils/schema-validation.test.ts", "tests": 30, "scope": "validateContent(), validateMarkdownFrontmatter()" },
+        { "path": "src/utils/content-loader.test.ts", "tests": 10, "scope": "loadContent(), getAvailableLanguages(), listNicheArticles(), XSS", "note": "First test may timeout at 15s due to import.meta.glob cold-start" },
+        { "path": "src/utils/host-parser.test.ts", "tests": 9, "scope": "parseHost() — apex, subdomain, localhost" },
+        { "path": "src/utils/slug-check.test.ts", "tests": 5, "scope": "validateSlug() — pattern, banned terms" },
+        { "path": "src/i18n/middleware.test.ts", "tests": 5, "scope": "Language negotiation precedence" },
+        { "path": "src/utils/size-gate.test.ts", "tests": 4, "scope": "Route gzip budget boundary" },
+        { "path": "src/utils/ship-check.test.ts", "tests": 4, "scope": "Release orchestrator" },
+        { "path": "src/stores/dopamine-budget.test.ts", "tests": 4, "scope": "Route/session budget enforcement" },
+        { "path": "src/utils/lighthouse-gate.test.ts", "tests": 3, "scope": "Lighthouse threshold" },
+        { "path": "src/i18n/set-lang-cookie.test.ts", "tests": 3, "scope": "HttpOnly cookie server$ action" },
+        { "path": "src/i18n/document-language.test.ts", "tests": 2, "scope": "DOM lang attribute" },
+        { "path": "src/pipeline/transformer.test.ts", "tests": 2, "scope": "Core YAML transform" }
+      ]
+    },
+    "e2e": {
+      "framework": "Playwright 1.59.1",
+      "browser": "Chromium",
+      "webServerTimeout": 60000,
+      "baseURL": "http://localhost:3000",
+      "totalSpecFiles": 7,
+      "targetCount": "24/24",
+      "specs": [
+        { "path": "tests/e2e/smoke.spec.ts", "scope": "Basic page load, shell render" },
+        { "path": "tests/e2e/s02-editorial-fidelity.spec.ts", "scope": "Contrast ratio 15.54:1, Geist/Inter font activation" },
+        { "path": "tests/e2e/s03-seo-integration.spec.ts", "scope": "Canonical links, hreflang, Open Graph, sitemap" },
+        { "path": "tests/e2e/s03-shell.spec.ts", "scope": "Shell structure, SVG filters, scratch textures" },
+        { "path": "tests/e2e/s05-shell-visual.spec.ts", "scope": "Visual baseline on /en/n deterministic route" },
+        { "path": "tests/e2e/s07-dopamine-budget.spec.ts", "scope": "Whisper limit enforcement, route/session reseeding" },
+        { "path": "tests/e2e/s07-shell-fidelity.spec.ts", "scope": "HUD grammar visibility and stability" }
+      ]
+    }
+  },
+  "milestones": [
+    {
+      "id": "M001",
+      "title": "Shell Foundation & Edge Middleware",
+      "status": "complete",
+      "completedAt": "2026-04-24T23:04:20.995Z",
+      "slices": 7,
+      "keyDeliverables": ["Edge middleware (Host→Niche + language negotiation)", "SolarLanso design system", "60KB size gate", "Lighthouse gate", "ship-check orchestrator", "Dopamine budget store", "HUD grammar", "Frontmatter schema enforcement"]
+    },
+    {
+      "id": "M002",
+      "title": "Atom Render",
+      "status": "complete",
+      "completedAt": "2026-04-25T02:24:31.936Z",
+      "slices": 3,
+      "keyDeliverables": ["Niche-aware content loader (Vite glob)", "Build-time AJV validation gate", "marked server-side transform", "Geist Sans self-hosting", "Scratch texture SVG filters", "SEO integration (RouterHead, canonical, hreflang, OG, sitemap)"],
+      "keyDecisions": ["D021: Strict build-time AJV gate", "D022: Server-side marked transform", "D023: Filesystem glob for translations", "D024: Explicit RouterHead in root.tsx", "D025: Canonical trailing-slash normalization", "D026: Static Lucide icon lookup"]
+    },
+    {
+      "id": "M003",
+      "title": "Content Factory Build Pack v0",
+      "status": "complete",
+      "completedAt": "2026-04-25T06:28:14.582Z",
+      "slices": 7,
+      "keyDeliverables": ["UnoCSS→Tailwind migration", "Content Factory CLI", "All engine phases (Gather, Build, Render, Export)"]
+    },
+    {
+      "id": "M004",
+      "title": "Qwik Audit Remediation",
+      "status": "active",
+      "slices": [
+        { "id": "S01", "title": "HttpOnly Cookie", "status": "complete", "deliverable": "Language switching sets secure HttpOnly cookie via server$ action" },
+        { "id": "S02", "title": "XSS Sanitization", "status": "complete", "deliverable": "Markdown rendering strips <script> tags, follows strict GFM via DOMPurify" },
+        { "id": "S03", "title": "Loader Schema Gate", "status": "complete", "deliverable": "loadContent() throws on invalid frontmatter, 30 unit tests, content:check 7/7" },
+        { "id": "S04", "title": "Suite Remediation", "status": "pending", "target": "E2E 24/24, content:check 8/8", "blockers": ["content-loader.test.ts intermittent timeout", "Chromium provisioning needed", "Need 1 more valid content file for 8/8"] }
+      ]
+    },
+    {
+      "id": "M005",
+      "title": "Future Milestone",
+      "status": "planned"
+    }
+  ],
+  "requirements": [
+    { "id": "R001", "class": "core-capability", "status": "validated", "description": "Detect niche via Host header in middleware", "validatedIn": "M001/S05" },
+    { "id": "R002", "class": "primary-user-loop", "status": "validated", "description": "Negotiate 5 languages at edge (URL/Cookie/Headers)", "validatedIn": "M001/S05" },
+    { "id": "R003", "class": "core-capability", "status": "validated", "description": "Vite-glob import of content/{niche}/{lang}/{slug}.md", "validatedIn": "M002/S01" },
+    { "id": "R004", "class": "quality-attribute", "status": "validated", "description": "Strict frontmatter schema at build/dev time", "validatedIn": "M001/S07" },
+    { "id": "R005", "class": "quality-attribute", "status": "validated", "description": "SolarLanso 2100 tokens, 15.2:1 contrast (AAA)", "validatedIn": "M002/S02" },
+    { "id": "R006", "class": "quality-attribute", "status": "validated", "description": "60KB gzip JS budget per route", "validatedIn": "M001/S04" },
+    { "id": "R007", "class": "quality-attribute", "status": "validated", "description": "Lighthouse ≥95 (Performance, A11y, Best Practices)", "validatedIn": "M001/S04" },
+    { "id": "R008", "class": "differentiator", "status": "validated", "description": "JRPG whispers (1/viewport, Apex only)", "validatedIn": "M001/S07" },
+    { "id": "R009", "class": "differentiator", "status": "validated", "description": "NERV/GITS HUD grammar (amber, raster, kanji)", "validatedIn": "M001/S07" },
+    { "id": "R010", "class": "differentiator", "status": "validated", "description": "<3KB SVG scratch textures on dividers", "validatedIn": "M002/S02" },
+    { "id": "R011", "class": "quality-attribute", "status": "validated", "description": "Self-host Geist Sans via @fontsource", "validatedIn": "M002/S02" },
+    { "id": "R012", "class": "operability", "status": "validated", "description": "Global Qwik Store for dopamine budgets (Meso/Macro)", "validatedIn": "M001/S07" }
+  ],
+  "decisions": [
+    { "id": "D001", "scope": "arch", "decision": "Finalized tech stack", "choice": "Qwik-City + Tailwind + Cloudflare Pages", "rationale": "Resumability, edge-native, brutalist", "revisable": false, "madeBy": "collaborative" },
+    { "id": "D002", "scope": "arch", "decision": "Multi-niche orchestration", "choice": "Detect niche via Host header in edge middleware", "rationale": "Single-codebase multi-tenant on Cloudflare", "revisable": false, "madeBy": "agent" },
+    { "id": "D003", "scope": "i18n", "decision": "Language negotiation priority", "choice": "URL > Cookie > Headers > IPCountry > Default", "rationale": "Maximize accessibility + persistence", "revisable": true, "madeBy": "agent" },
+    { "id": "D004", "scope": "quality", "decision": "JS route budget", "choice": "60KB gzip per route", "rationale": "Accommodate resumability + innovation layer", "revisable": false, "madeBy": "human" },
+    { "id": "D005", "scope": "aesthetic", "decision": "Innovation layer aesthetic", "choice": "3-tier Dopamine Taxonomy + Anime-HUD grammar", "rationale": "Unique aesthetic identity", "revisable": false, "madeBy": "human" },
+    { "id": "D006", "scope": "aesthetic", "decision": "Design tokens", "choice": "SolarLanso 2100 v1.2 with Satoshi/Geist Sans", "rationale": "Editorial brutalist look", "revisable": true, "madeBy": "agent" },
+    { "id": "D007", "scope": "quality", "decision": "Linting standards", "choice": "Biome strict (noExplicitAny, noForEach, noBannedTypes)", "rationale": "High code quality, functional style", "revisable": true, "madeBy": "agent" },
+    { "id": "D008", "scope": "architecture", "decision": "Niche slug pattern", "choice": "1-6 lowercase hyphen-separated segments", "rationale": "Support single-word niches", "revisable": true, "madeBy": "agent" },
+    { "id": "D009", "scope": "quality", "decision": "Route budgets", "choice": "Route-aware gzip from Qwik manifest", "rationale": "Avoid false results from shared chunks", "revisable": true, "madeBy": "agent" },
+    { "id": "D010", "scope": "ci", "decision": "Lighthouse gate", "choice": "Self-contained preview-backed gate", "rationale": "Reproducible locally and in CI", "revisable": true, "madeBy": "agent" },
+    { "id": "D011", "scope": "architecture", "decision": "Size gate source of truth", "choice": "q-manifest bundle closures", "rationale": "Deterministic per-route accounting", "revisable": true, "madeBy": "agent" },
+    { "id": "D012", "scope": "architecture", "decision": "Lighthouse server", "choice": "In-process preview from built worker bundle", "rationale": "Deterministic, no external dependencies", "revisable": true, "madeBy": "agent" },
+    { "id": "D013", "scope": "observability", "decision": "ship:check reporting", "choice": "TypeScript orchestrator + failing subcommand name", "rationale": "Diagnosable from logs alone", "revisable": true, "madeBy": "agent" },
+    { "id": "D014", "scope": "architecture", "decision": "S05 release proof", "choice": "Vitest + Playwright + ship:check", "rationale": "Header tests + browser shell verification", "revisable": true, "madeBy": "agent" },
+    { "id": "D015", "scope": "verification", "decision": "Negotiation state verification", "choice": "Header boundary only, no footer DOM diagnostics", "rationale": "Avoid leaking routing internals into DOM", "revisable": true, "madeBy": "collaborative" },
+    { "id": "D016", "scope": "architecture", "decision": "Content root canonical path", "choice": "content/ as canonical (migrated from llm-wiki/)", "rationale": "Explicit migration boundary", "revisable": true, "madeBy": "collaborative" },
+    { "id": "D017", "scope": "validation", "decision": "Evidence recovery", "choice": "Artifact-layer regeneration, truthful verdict", "rationale": "Durable evidence trail", "revisable": true, "madeBy": "agent" },
+    { "id": "D018", "scope": "architecture", "decision": "Schema enforcement", "choice": "Build/dev time, not runtime AJV", "rationale": "Worker AJV JIT limitations", "revisable": true, "madeBy": "agent" },
+    { "id": "D019", "scope": "architecture", "decision": "Dopamine budget store", "choice": "Shell/layout-level Qwik store", "rationale": "Cross-component consistency", "revisable": true, "madeBy": "agent" },
+    { "id": "D020", "scope": "design-system", "decision": "HUD/scratch implementation", "choice": "Shared CSS utilities + small shell components", "rationale": "Performance gate compliant", "revisable": true, "madeBy": "agent" },
+    { "id": "D021", "scope": "quality-gate", "decision": "Content validation", "choice": "Strict build-time AJV gate", "rationale": "Content errors = compilation errors", "revisable": true, "madeBy": "agent" },
+    { "id": "D022", "scope": "architecture", "decision": "Markdown transform", "choice": "Server-side via marked", "rationale": "No heavy client parser", "revisable": true, "madeBy": "agent" },
+    { "id": "D023", "scope": "architecture", "decision": "Translation discovery", "choice": "Filesystem glob (content/{niche}/{lang}/{slug}.md)", "rationale": "Single source of truth", "revisable": true, "madeBy": "agent" },
+    { "id": "D024", "scope": "architecture", "decision": "Route head rendering", "choice": "Explicit RouterHead component in root.tsx", "rationale": "SEO metadata reaching browser head", "revisable": true, "madeBy": "agent" },
+    { "id": "D025", "scope": "seo", "decision": "Canonical URL normalization", "choice": "Remove trailing slash before emitting", "rationale": "Avoid indexing duplicates", "revisable": true, "madeBy": "agent" },
+    { "id": "D026", "scope": "architecture", "decision": "Dynamic icon support", "choice": "Static lookup table (icon-classes.ts)", "rationale": "Tailwind/Iconify static discovery", "revisable": true, "madeBy": "agent" }
+  ],
+  "knownIssues": [
+    { "id": "ISSUE-001", "severity": "medium", "title": "content-loader.test.ts timeout", "detail": "First loadContent() triggers import.meta.glob cold-start; 15s timeout is intermittent", "mitigation": "Bump to 30s or add beforeAll warm-up", "affectsGate": "test:unit" },
+    { "id": "ISSUE-002", "severity": "medium", "title": "Chromium provisioning", "detail": "E2E tests require bunx playwright install chromium", "mitigation": "Pre-install in CI, document in README", "affectsGate": "test:e2e" },
+    { "id": "ISSUE-003", "severity": "low", "title": "E2E test count ambiguity", "detail": "Roadmap says 24/24 but actual count from 7 specs needs verification", "mitigation": "Count tests, adjust target or add tests" },
+    { "id": "ISSUE-004", "severity": "low", "title": "content:check 8/8 target", "detail": "Currently 7/7, need 1 more valid editorial file", "mitigation": "Add article under language-models or prompt-engineering" },
+    { "id": "ISSUE-005", "severity": "low", "title": "Playwright visual baselines", "detail": "Time-based footer content and font swaps can cause snapshot drift", "mitigation": "Frozen clock + font readiness wait (MEM035)" }
+  ],
+  "hostParser": {
+    "apexNiche": "apex",
+    "apexDomains": ["uniteia.com", "uniteia.local", "localhost"],
+    "logic": [
+      "1. Remove port from Host header",
+      "2. If host in APEX_DOMAINS → return 'apex'",
+      "3. If host has subdomain (e.g. singularity.uniteia.com) → return first part",
+      "4. Fallback to 'apex'"
+    ],
+    "examples": [
+      { "host": "uniteia.com", "result": { "niche": "apex", "isLocal": false } },
+      { "host": "singularity.uniteia.com", "result": { "niche": "singularity", "isLocal": false } },
+      { "host": "localhost:3000", "result": { "niche": "apex", "isLocal": true } },
+      { "host": "ai-agents.uniteia.local", "result": { "niche": "ai-agents", "isLocal": true } }
+    ]
+  }
+}
