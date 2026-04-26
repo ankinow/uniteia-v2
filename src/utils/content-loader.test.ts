@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { beforeAll, describe, expect, it } from 'vitest'
 import { ContentLoaderError } from '~/types/content'
 import { loadContent } from '~/utils/content-loader'
 
@@ -8,6 +8,23 @@ import { loadContent } from '~/utils/content-loader'
  * These tests exercise loadContent() directly without Qwik's routeLoader$,
  * proving the utility is reusable and testable in isolation.
  */
+
+// Warm up the import.meta.glob cold-start before any test runs.
+// The first call to loadContent() triggers Vite's lazy module resolution
+// which can take >15s on cold CI runs. Pre-warming in beforeAll ensures
+// subsequent tests run within normal timeouts.
+let warmupDone = false
+beforeAll(async () => {
+  if (!warmupDone) {
+    warmupDone = true
+    try {
+      await loadContent('apex', 'test-article', 'en')
+    } catch {
+      // Warm-up failure is non-fatal; tests will report their own errors
+    }
+  }
+}, 30_000)
+
 describe('loadContent', () => {
   /**
    * Test 1: loadContent('test-article', 'en') resolves with valid LlmWikiContent
@@ -28,7 +45,7 @@ describe('loadContent', () => {
     expect(result.referral_links).toBeInstanceOf(Array)
     expect(result.verdict).toBe('trusted')
     expect(result.quality_score).toBe(92)
-  }, 15_000)
+  }, 30_000)
 
   /**
    * Test 2: loadContent('test-article', 'es') resolves (proves es fixture works)
@@ -167,5 +184,29 @@ describe('loadContent', () => {
     const result = await loadContent('apex', 'test-xss', 'en')
     expect(result.content).not.toContain('<script>')
     expect(result.content).not.toContain('alert(')
+  })
+
+  /**
+   * Test 10: language-models niche loads a real editorial article
+   */
+  it('loads a valid language-models editorial article', async () => {
+    const result = await loadContent('language-models', 'foundation-models-overview', 'en')
+    expect(result.slug).toBe('foundation-models-overview')
+    expect(result.lang).toBe('en')
+    expect(result.title).toBe('Foundation Models Overview')
+    expect(result.verdict).toBe('trusted')
+    expect(result.quality_score).toBe(88)
+    expect(result.subjects).toContain('llm')
+    expect(result.referral_links.length).toBeGreaterThanOrEqual(1)
+    expect(result.content).toContain('<h2>')
+  })
+
+  /**
+   * Test 11: listNicheArticles discovers articles across multiple niches
+   */
+  it('listNicheArticles returns entries for language-models niche', async () => {
+    const { listNicheArticles } = await import('~/utils/content-loader')
+    const articles = await listNicheArticles('language-models')
+    expect(articles).toContainEqual({ slug: 'foundation-models-overview', lang: 'en' })
   })
 })

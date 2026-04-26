@@ -6,19 +6,19 @@
 
 # Test info
 
-- Name: smoke.spec.ts >> no console errors on /en/test-article
-- Location: tests/e2e/smoke.spec.ts:99:3
+- Name: smoke.spec.ts >> language switcher persists cookie and navigates to the selected language pathname
+- Location: tests/e2e/smoke.spec.ts:71:1
 
 # Error details
 
 ```
-Error: Console errors on /en/test-article: Detected Layout Shift during page load 0.11329256150457594
+Error: Console errors on language switch: Detected Layout Shift during page load 0.09866823289129469
 
 expect(received).toHaveLength(expected)
 
 Expected length: 0
 Received length: 1
-Received array:  ["Detected Layout Shift during page load 0.11329256150457594"]
+Received array:  ["Detected Layout Shift during page load 0.09866823289129469"]
 ```
 
 # Page snapshot
@@ -31,121 +31,119 @@ Received array:  ["Detected Layout Shift during page load 0.11329256150457594"]
     - banner [ref=e4]:
       - navigation [ref=e6]:
         - link "Uni Teia" [ref=e7] [cursor=pointer]:
-          - /url: /en
+          - /url: /pt
           - generic [ref=e8]: Uni
           - generic [ref=e9]: Teia
         - generic [ref=e10]:
-          - link "Home" [ref=e11] [cursor=pointer]:
-            - /url: /en
-          - link "About" [ref=e12] [cursor=pointer]:
-            - /url: /en/about
-          - button "Topics Toggle topics menu" [ref=e14] [cursor=pointer]:
-            - text: Topics
+          - link "Início" [ref=e11] [cursor=pointer]:
+            - /url: /pt
+          - link "Sobre" [ref=e12] [cursor=pointer]:
+            - /url: /pt/about
+          - button "Tópicos Toggle topics menu" [ref=e14] [cursor=pointer]:
+            - text: Tópicos
             - img "Toggle topics menu" [ref=e15]
-          - link "Projects" [ref=e17] [cursor=pointer]:
-            - /url: /en/projects
+          - link "Projetos" [ref=e17] [cursor=pointer]:
+            - /url: /pt/projects
           - link "Blog" [ref=e18] [cursor=pointer]:
-            - /url: /en/blog
-        - button "Language" [ref=e20] [cursor=pointer]:
+            - /url: /pt/blog
+        - button "Idioma" [ref=e20] [cursor=pointer]:
           - img [ref=e21]
-          - generic [ref=e23]: English
+          - generic [ref=e23]: Português
           - img [ref=e24]
     - main [ref=e26]:
       - article [ref=e27]:
         - generic [ref=e28]:
-          - heading "Test Article for Integration Verification" [level=1] [ref=e29]
-          - paragraph [ref=e30]: testing, integration, verification CLS 0.015
+          - heading "Artigo de Teste para Verificação de Integração" [level=1] [ref=e29]
+          - paragraph [ref=e30]: testes, integração, verificação
         - generic [ref=e31]:
-          - 'status "Verdict: Trusted" [ref=e32]':
+          - 'status "Veredito: Confiável" [ref=e32]':
             - generic [ref=e34]:
-              - generic [ref=e35]: Verdict
-              - generic [ref=e36]: Trusted
-          - 'img "Quality Score: 92/100 — Editorial Quality" [ref=e37]':
+              - generic [ref=e35]: Veredito
+              - generic [ref=e36]: Confiável
+          - 'img "Pontuação de Qualidade: 92/100 — Qualidade Editorial" [ref=e37]':
             - generic [ref=e38]:
               - img [ref=e39]
               - generic [ref=e42]: "92"
-          - text: CLS 0.015
         - generic [ref=e43]:
-          - generic "Subjects" [ref=e44]:
-            - generic [ref=e45]: Subjects
-            - generic [ref=e46]: testing
-            - generic [ref=e47]: integration
-            - generic [ref=e48]: verification
+          - generic "Assuntos" [ref=e44]:
+            - generic [ref=e45]: Assuntos
+            - generic [ref=e46]: testes
+            - generic [ref=e47]: integração
+            - generic [ref=e48]: verificação
           - generic [ref=e50]:
             - generic [ref=e51]:
-              - generic [ref=e52]: Published
+              - generic [ref=e52]: Publicado
               - time [ref=e53]: 2025-01-15T10:00:00Z
             - generic [ref=e54]:
-              - generic [ref=e55]: Updated
+              - generic [ref=e55]: Atualizado
               - time [ref=e56]: 2025-01-20T14:30:00Z
-            - generic [ref=e58]: by UniTeia System
+            - generic [ref=e58]: por Sistema UniTeia
             - generic [ref=e60]: v1
           - generic [ref=e61]:
-            - generic [ref=e62]: Read in EN
-            - generic [ref=e63]: EN
-          - text: CLS 0.015
+            - generic [ref=e62]: Ler em PT
+            - generic [ref=e63]: PT
         - generic [ref=e64]:
-          - paragraph [ref=e65]: This is a test article created to verify the content rendering pipeline of UniTeia v2. It serves as a fixture for integration testing of the routeLoader$, schema validation, and component rendering.
-          - heading "Purpose" [level=2] [ref=e66]
-          - paragraph [ref=e67]: "The primary purpose of this article is to exercise the full content pipeline:"
+          - paragraph [ref=e65]: Este é um artigo de teste criado para verificar o pipeline de renderização de conteúdo do UniTeia v2. Ele serve como um fixture para testes de integração do routeLoader$, validação de schema e renderização de componentes.
+          - heading "Propósito" [level=2] [ref=e66]
+          - paragraph [ref=e67]: "O propósito principal deste artigo é exercitar o pipeline completo de conteúdo:"
           - list [ref=e68]:
             - listitem [ref=e69]:
-              - strong [ref=e70]: Markdown parsing
-              - text: — frontmatter extraction via gray-matter
+              - strong [ref=e70]: Análise de Markdown
+              - text: — extração de frontmatter via gray-matter
             - listitem [ref=e71]:
-              - strong [ref=e72]: Schema validation
-              - text: — AJV Draft 2020-12 compliance check
+              - strong [ref=e72]: Validação de Schema
+              - text: — verificação de conformidade AJV Draft 2020-12
             - listitem [ref=e73]:
-              - strong [ref=e74]: Slug validation
-              - text: — URL safety via
+              - strong [ref=e74]: Validação de Slug
+              - text: — segurança de URL via
               - code [ref=e75]: "`validateSlug()`"
             - listitem [ref=e76]:
-              - strong [ref=e77]: Component rendering
-              - text: — ArticleFrame, AdaptiveHeader, FrontmatterSlots, and SourceLedger
-          - heading "Content Requirements" [level=2] [ref=e78]
-          - paragraph [ref=e79]: The schema requires a minimum of 100 characters of content. This paragraph and the surrounding text ensure we comfortably exceed that threshold while providing meaningful test coverage for the rendering pipeline.
-          - heading "Technical Details" [level=2] [ref=e80]
+              - strong [ref=e77]: Renderização de Componentes
+              - text: — ArticleFrame, AdaptiveHeader, FrontmatterSlots e SourceLedger
+          - heading "Requisitos de Conteúdo" [level=2] [ref=e78]
+          - paragraph [ref=e79]: O schema requer um mínimo de 100 caracteres de conteúdo. Este parágrafo e o texto circundante garantem que excedemos confortavelmente esse limite enquanto fornecemos cobertura de teste significativa para o pipeline de renderização.
+          - heading "Detalhes Técnicos" [level=2] [ref=e80]
           - paragraph [ref=e81]:
-            - text: The routeLoader$ reads this file from the
-            - code [ref=e82]: "`/llm-wiki/en/`"
-            - text: directory, parses the YAML frontmatter, validates the resulting object against the JSON schema, and injects typed content into the Qwik-City route. Any validation failure is logged to the server console with the slug and error details.
-          - text: CLS 0.015
-        - navigation "Sources" [ref=e83]:
-          - heading "Sources" [level=2] [ref=e84]
+            - text: O routeLoader$ lê este arquivo do diretório
+            - code [ref=e82]: "`/llm-wiki/pt/`"
+            - text: ", analisa o frontmatter YAML, valida o objeto resultante contra o schema JSON e injeta conteúdo tipado na rota Qwik-City. Qualquer falha de validação é registrada no console do servidor com o slug e detalhes do erro."
+        - navigation "Fontes" [ref=e83]:
+          - heading "Fontes" [level=2] [ref=e84]
           - list [ref=e85]:
             - listitem [ref=e86]:
-              - link "Example Reference A sample external reference link example.com" [ref=e87] [cursor=pointer]:
-                - /url: https://example.com/reference
+              - link "Referência de Exemplo Um link de referência externa de amostra example.com" [ref=e87] [cursor=pointer]:
+                - /url: https://example.com/pt/referencia
                 - generic [ref=e88]:
-                  - generic [ref=e89]: Example Reference
-                  - generic [ref=e90]: A sample external reference link
+                  - generic [ref=e89]: Referência de Exemplo
+                  - generic [ref=e90]: Um link de referência externa de amostra
                 - generic [ref=e91]: example.com
             - listitem [ref=e92]:
-              - link "Example Documentation example.com" [ref=e93] [cursor=pointer]:
-                - /url: https://example.com/docs
-                - generic [ref=e95]: Example Documentation
+              - link "Documentação de Exemplo example.com" [ref=e93] [cursor=pointer]:
+                - /url: https://example.com/pt/docs
+                - generic [ref=e95]: Documentação de Exemplo
                 - generic [ref=e96]: example.com
-        - text: CLS 0.099
     - contentinfo [ref=e97]:
       - generic [ref=e101]:
-        - paragraph [ref=e103]: © 2026 UniTeia. All rights reserved.
-        - paragraph [ref=e105]: Made with ♥ for decentralized AI
+        - paragraph [ref=e103]: © 2026 UniTeia. Todos os direitos reservados.
+        - paragraph [ref=e105]: Feito com ♥ para IA descentralizada
         - navigation [ref=e106]:
-          - link "Privacy Policy" [ref=e107] [cursor=pointer]:
+          - link "Política de Privacidade" [ref=e107] [cursor=pointer]:
             - /url: /privacy
-          - link "Terms of Service" [ref=e108] [cursor=pointer]:
+          - link "Termos de Serviço" [ref=e108] [cursor=pointer]:
             - /url: /terms
-          - link "Source Code" [ref=e109] [cursor=pointer]:
+          - link "Código Fonte" [ref=e109] [cursor=pointer]:
             - /url: https://github.com/uniteia/uniteia-v2
         - generic [ref=e110]:
           - generic [ref=e111]: Language
-          - generic [ref=e112]: English
+          - generic [ref=e112]: Português
   - generic [ref=e113]: "Click-to-Source: Alt"
 ```
 
 # Test source
 
 ```ts
+  1   | import { type Page, expect, test } from '@playwright/test'
+  2   | 
   3   | const TRACKED_ROUTES = ['/en/test-article', '/en/n', '/en/n/ai-agents'] as const
   4   | 
   5   | function collectConsoleErrors(page: Page): string[] {
@@ -232,23 +230,26 @@ Received array:  ["Detected Layout Shift during page load 0.11329256150457594"]
   86  | 
   87  |   await ptOption.click()
   88  | 
-  89  |   await page.waitForURL(/\/pt\/test-article\/?(?:\?.*)?$/, { timeout: 15000, waitUntil: 'domcontentloaded' })
-  90  |   await expect(page).toHaveURL(/\/pt\/test-article\/?(?:\?.*)?$/)
-  91  |   const cookies = await page.context().cookies()
-  92  |   expect(cookies.find(cookie => cookie.name === 'uniteia_lang')?.value).toBe('pt')
-  93  | 
-  94  |   await page.waitForLoadState('networkidle')
-  95  |   expect(errors, `Console errors on language switch: ${errors.join('; ')}`).toHaveLength(0)
-  96  | })
-  97  | 
-  98  | for (const route of TRACKED_ROUTES) {
-  99  |   test(`no console errors on ${route}`, async ({ page }) => {
-  100 |     const errors = collectConsoleErrors(page)
-  101 |     await gotoAndAssertNegotiation(page, route)
-  102 |     await page.waitForLoadState('networkidle')
-> 103 |     expect(errors, `Console errors on ${route}: ${errors.join('; ')}`).toHaveLength(0)
-      |                                                                        ^ Error: Console errors on /en/test-article: Detected Layout Shift during page load 0.11329256150457594
-  104 |   })
-  105 | }
-  106 | 
+  89  |   await page.waitForURL(/\/pt\/test-article\/?(?:\?.*)?$/, {
+  90  |     timeout: 15000,
+  91  |     waitUntil: 'domcontentloaded',
+  92  |   })
+  93  |   await expect(page).toHaveURL(/\/pt\/test-article\/?(?:\?.*)?$/)
+  94  |   const cookies = await page.context().cookies()
+  95  |   expect(cookies.find(cookie => cookie.name === 'uniteia_lang')?.value).toBe('pt')
+  96  | 
+  97  |   await page.waitForLoadState('networkidle')
+> 98  |   expect(errors, `Console errors on language switch: ${errors.join('; ')}`).toHaveLength(0)
+      |                                                                             ^ Error: Console errors on language switch: Detected Layout Shift during page load 0.09866823289129469
+  99  | })
+  100 | 
+  101 | for (const route of TRACKED_ROUTES) {
+  102 |   test(`no console errors on ${route}`, async ({ page }) => {
+  103 |     const errors = collectConsoleErrors(page)
+  104 |     await gotoAndAssertNegotiation(page, route)
+  105 |     await page.waitForLoadState('networkidle')
+  106 |     expect(errors, `Console errors on ${route}: ${errors.join('; ')}`).toHaveLength(0)
+  107 |   })
+  108 | }
+  109 | 
 ```

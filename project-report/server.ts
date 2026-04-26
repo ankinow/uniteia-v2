@@ -4,7 +4,7 @@
  * Serves the interactive project dashboard on localhost:4040
  */
 import { readFileSync } from 'node:fs'
-import { resolve, extname } from 'node:path'
+import { extname, resolve } from 'node:path'
 
 const PORT = 4040
 const PUBLIC_DIR = resolve(import.meta.dir, 'public')
@@ -18,7 +18,7 @@ const MIME_TYPES: Record<string, string> = {
   '.ico': 'image/x-icon',
 }
 
-const server = Bun.serve({
+const _server = Bun.serve({
   port: PORT,
   async fetch(req) {
     const url = new URL(req.url)
@@ -46,11 +46,11 @@ const server = Bun.serve({
   },
 })
 
-console.log(`\n  ╔══════════════════════════════════════════════════╗`)
-console.log(`  ║   📊 UniTeia v2 — Full Project Report          ║`)
-console.log(`  ║   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━   ║`)
+console.log('\n  ╔══════════════════════════════════════════════════╗')
+console.log('  ║   📊 UniTeia v2 — Full Project Report          ║')
+console.log('  ║   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━   ║')
 console.log(`  ║   🌐 URL: http://localhost:${PORT}              ║`)
 console.log(`  ║   📂 Serving: ${PUBLIC_DIR}`)
-console.log(`  ║   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━   ║`)
-console.log(`  ║   Press Ctrl+C to stop                         ║`)
-console.log(`  ╚══════════════════════════════════════════════════╝\n`)
+console.log('  ║   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━   ║')
+console.log('  ║   Press Ctrl+C to stop                         ║')
+console.log('  ╚══════════════════════════════════════════════════╝\n')

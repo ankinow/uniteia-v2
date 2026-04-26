@@ -12,13 +12,13 @@
 # Error details
 
 ```
-Error: Console errors on /en/test-article: Detected Layout Shift during page load 0.10311680824226803
+Error: Console errors on /en/test-article: Detected Layout Shift during page load 0.09866823289129469
 
 expect(received).toHaveLength(expected)
 
 Expected length: 0
 Received length: 1
-Received array:  ["Detected Layout Shift during page load 0.10311680824226803"]
+Received array:  ["Detected Layout Shift during page load 0.09866823289129469"]
 ```
 
 # Page snapshot
@@ -107,7 +107,7 @@ Received array:  ["Detected Layout Shift during page load 0.10311680824226803"]
             - text: The routeLoader$ reads this file from the
             - code [ref=e82]: "`/llm-wiki/en/`"
             - text: directory, parses the YAML frontmatter, validates the resulting object against the JSON schema, and injects typed content into the Qwik-City route. Any validation failure is logged to the server console with the slug and error details.
-          - text: CLS 0.103
+          - text: CLS 0.099
         - navigation "Sources" [ref=e83]:
           - heading "Sources" [level=2] [ref=e84]
           - list [ref=e85]:
@@ -123,7 +123,7 @@ Received array:  ["Detected Layout Shift during page load 0.10311680824226803"]
                 - /url: https://example.com/docs
                 - generic [ref=e95]: Example Documentation
                 - generic [ref=e96]: example.com
-        - text: CLS 0.103
+        - text: CLS 0.099
     - contentinfo [ref=e97]:
       - generic [ref=e101]:
         - paragraph [ref=e103]: © 2026 UniTeia. All rights reserved.
@@ -138,7 +138,7 @@ Received array:  ["Detected Layout Shift during page load 0.10311680824226803"]
         - generic [ref=e110]:
           - generic [ref=e111]: Language
           - generic [ref=e112]: English
-  - generic [ref=e113]: "Click-to-Source: Alt CLS 0.103"
+  - generic [ref=e113]: "Click-to-Source: Alt"
 ```
 
 # Test source
@@ -185,7 +185,7 @@ Received array:  ["Detected Layout Shift during page load 0.10311680824226803"]
   39  | 
   40  |   await page.waitForLoadState('networkidle')
 > 41  |   expect(errors, `Console errors on /en/test-article: ${errors.join('; ')}`).toHaveLength(0)
-      |                                                                              ^ Error: Console errors on /en/test-article: Detected Layout Shift during page load 0.10311680824226803
+      |                                                                              ^ Error: Console errors on /en/test-article: Detected Layout Shift during page load 0.09866823289129469
   42  | })
   43  | 
   44  | test('tracked niche landing renders negotiated headers', async ({ page }) => {
@@ -233,22 +233,25 @@ Received array:  ["Detected Layout Shift during page load 0.10311680824226803"]
   86  | 
   87  |   await ptOption.click()
   88  | 
-  89  |   await page.waitForURL(/\/pt\/test-article\/?(?:\?.*)?$/, { timeout: 15000, waitUntil: 'domcontentloaded' })
-  90  |   await expect(page).toHaveURL(/\/pt\/test-article\/?(?:\?.*)?$/)
-  91  |   const cookies = await page.context().cookies()
-  92  |   expect(cookies.find(cookie => cookie.name === 'uniteia_lang')?.value).toBe('pt')
-  93  | 
-  94  |   await page.waitForLoadState('networkidle')
-  95  |   expect(errors, `Console errors on language switch: ${errors.join('; ')}`).toHaveLength(0)
-  96  | })
-  97  | 
-  98  | for (const route of TRACKED_ROUTES) {
-  99  |   test(`no console errors on ${route}`, async ({ page }) => {
-  100 |     const errors = collectConsoleErrors(page)
-  101 |     await gotoAndAssertNegotiation(page, route)
-  102 |     await page.waitForLoadState('networkidle')
-  103 |     expect(errors, `Console errors on ${route}: ${errors.join('; ')}`).toHaveLength(0)
-  104 |   })
-  105 | }
-  106 | 
+  89  |   await page.waitForURL(/\/pt\/test-article\/?(?:\?.*)?$/, {
+  90  |     timeout: 15000,
+  91  |     waitUntil: 'domcontentloaded',
+  92  |   })
+  93  |   await expect(page).toHaveURL(/\/pt\/test-article\/?(?:\?.*)?$/)
+  94  |   const cookies = await page.context().cookies()
+  95  |   expect(cookies.find(cookie => cookie.name === 'uniteia_lang')?.value).toBe('pt')
+  96  | 
+  97  |   await page.waitForLoadState('networkidle')
+  98  |   expect(errors, `Console errors on language switch: ${errors.join('; ')}`).toHaveLength(0)
+  99  | })
+  100 | 
+  101 | for (const route of TRACKED_ROUTES) {
+  102 |   test(`no console errors on ${route}`, async ({ page }) => {
+  103 |     const errors = collectConsoleErrors(page)
+  104 |     await gotoAndAssertNegotiation(page, route)
+  105 |     await page.waitForLoadState('networkidle')
+  106 |     expect(errors, `Console errors on ${route}: ${errors.join('; ')}`).toHaveLength(0)
+  107 |   })
+  108 | }
+  109 | 
 ```
