@@ -8,6 +8,22 @@
 @import "@fontsource-variable/inter";
 @import "@fontsource/jetbrains-mono";
 
+/* Font display strategy: swap prevents FOIT, ensures text is visible during load */
+@font-face {
+  font-family: "Geist Sans";
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter Variable";
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
