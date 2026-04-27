@@ -337,10 +337,7 @@ export async function deriveNavigation(): Promise<NavigationData> {
         type,
         subjects,
       })
-    } catch {
-      // Skip files that fail to parse
-      continue
-    }
+    } catch {}
   }
 
   const result: NavigationData = { niches }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://ai-agents.uniteia.com/en/_index</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ai-agents.uniteia.com/en/_index" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ai-agents.uniteia.com/en/_index" />
+  </url>
+  <url>
+    <loc>https://ai-agents.uniteia.com/en/llm-aggregators-compared</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ai-agents.uniteia.com/en/llm-aggregators-compared" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ai-agents.uniteia.com/en/llm-aggregators-compared" />
+  </url>
+  <url>
+    <loc>https://apex.uniteia.com/en/_index</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://apex.uniteia.com/en/_index" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://apex.uniteia.com/en/_index" />
+  </url>
+  <url>
+    <loc>https://apex.uniteia.com/en/test-admin</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://apex.uniteia.com/en/test-admin" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://apex.uniteia.com/en/test-admin" />
+  </url>
+  <url>
+    <loc>https://apex.uniteia.com/en/test-article</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://apex.uniteia.com/en/test-article" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://apex.uniteia.com/ja/test-article" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://apex.uniteia.com/pt/test-article" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://apex.uniteia.com/es/test-article" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://apex.uniteia.com/zh/test-article" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://apex.uniteia.com/en/test-article" />
+  </url>
+  <url>
+    <loc>https://apex.uniteia.com/en/test-invalid-schema</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://apex.uniteia.com/en/test-invalid-schema" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://apex.uniteia.com/en/test-invalid-schema" />
+  </url>
+  <url>
+    <loc>https://apex.uniteia.com/en/test-xss</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://apex.uniteia.com/en/test-xss" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://apex.uniteia.com/en/test-xss" />
+  </url>
+  <url>
+    <loc>https://language-models.uniteia.com/en/_index</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://language-models.uniteia.com/en/_index" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://language-models.uniteia.com/en/_index" />
+  </url>
+  <url>
+    <loc>https://language-models.uniteia.com/en/foundation-models-overview</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://language-models.uniteia.com/en/foundation-models-overview" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://language-models.uniteia.com/en/foundation-models-overview" />
+  </url>
+</urlset>

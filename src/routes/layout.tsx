@@ -6,8 +6,8 @@ import { SiteShell } from '~/components/site-shell'
 import { getTranslation, useProvideI18n } from '~/i18n/context'
 import { DEFAULT_LANGUAGE, type SupportedLanguage } from '~/i18n/types'
 import type { NichesConfig } from '~/types/niche'
+import { type NavigationData, deriveNavigation } from '~/utils/content-loader'
 import { getLucideIconClass } from '~/utils/icon-classes'
-import { deriveNavigation, type NavigationData } from '~/utils/content-loader'
 import { loadNichesConfig } from '~/utils/niche-loader'
 
 export const onRequest: RequestHandler = async event => {

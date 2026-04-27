@@ -12,8 +12,8 @@ export const CJK_LANGUAGES: readonly SupportedLanguage[] = ['ja', 'zh']
  * @returns true if CJK fonts should be loaded for this language
  */
 export function shouldLoadCJKFont(lang: string | null | undefined): boolean {
-	if (!lang) return false
-	return CJK_LANGUAGES.includes(lang as SupportedLanguage)
+  if (!lang) return false
+  return CJK_LANGUAGES.includes(lang as SupportedLanguage)
 }
 
 /**
@@ -21,17 +21,15 @@ export function shouldLoadCJKFont(lang: string | null | undefined): boolean {
  * @param lang - The language code
  * @returns The font family name to use, or null if no special font needed
  */
-export function getFontFamilyForLanguage(
-	lang: string | null | undefined
-): string | null {
-	if (!lang) return null
+export function getFontFamilyForLanguage(lang: string | null | undefined): string | null {
+  if (!lang) return null
 
-	switch (lang) {
-		case 'ja':
-			return 'Noto Sans JP'
-		case 'zh':
-			return 'Noto Sans SC'
-		default:
-			return null
-	}
+  switch (lang) {
+    case 'ja':
+      return 'Noto Sans JP'
+    case 'zh':
+      return 'Noto Sans SC'
+    default:
+      return null
+  }
 }

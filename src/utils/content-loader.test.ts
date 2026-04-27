@@ -234,7 +234,7 @@ it('deriveNavigation extracts slug, title, type, subjects from frontmatter', asy
   const { deriveNavigation } = await import('~/utils/content-loader')
   const nav = await deriveNavigation()
 
-  const apexArticles = nav.niches['apex']?.articles ?? []
+  const apexArticles = nav.niches.apex?.articles ?? []
   const testArticle = apexArticles.find(a => a.slug === 'test-article' && a.lang === 'en')
 
   expect(testArticle).toBeDefined()
@@ -251,7 +251,7 @@ it('deriveNavigation marks _index.md files with type: index', async () => {
   const nav = await deriveNavigation()
 
   // Check apex niche has _index and marks it as type: index
-  const apexArticles = nav.niches['apex']?.articles ?? []
+  const apexArticles = nav.niches.apex?.articles ?? []
   const indexEntry = apexArticles.find(a => a.slug === '_index')
 
   expect(indexEntry).toBeDefined()
@@ -266,7 +266,7 @@ it('deriveNavigation aggregates available languages for each niche', async () =>
   const nav = await deriveNavigation()
 
   // Apex niche should have multiple languages from test-article translations
-  const apexLangs = nav.niches['apex']?.langs ?? []
+  const apexLangs = nav.niches.apex?.langs ?? []
   expect(apexLangs.length).toBeGreaterThanOrEqual(1)
   expect(apexLangs).toContain('en')
 })
@@ -294,7 +294,7 @@ it('deriveNavigation excludes articles with invalid slugs', async () => {
   const { deriveNavigation } = await import('~/utils/content-loader')
   const nav = await deriveNavigation()
 
-  const apexArticles = nav.niches['apex']?.articles ?? []
+  const apexArticles = nav.niches.apex?.articles ?? []
   const adminSlug = apexArticles.find(a => a.slug === 'test-admin')
 
   // test-admin has a banned term ('admin')

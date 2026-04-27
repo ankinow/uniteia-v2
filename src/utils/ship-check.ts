@@ -66,6 +66,8 @@ export function createDefaultShipCheckSteps(): ShipCheckStep[] {
     },
     { name: 'slug:check', command: ['bun', 'run', 'slug:check'] },
     { name: 'content:check', command: ['bun', 'run', 'content:check'] },
+    { name: 'invalid-locale-404', command: ['bun', 'run', 'scripts/check-invalid-locale.ts'] },
+    { name: 'sitemap:check', command: ['bun', 'run', 'scripts/check-sitemap.ts'] },
   ]
 }
 
