@@ -15,9 +15,9 @@
     },
     "slug": {
       "type": "string",
-      "pattern": "^[a-z]+(-[a-z]+){1,5}$",
-      "description": "URL slug with 2-6 hyphenated segments, lowercase letters only",
-      "examples": ["solar-system", "artificial-intelligence", "climate-change-causes"]
+      "pattern": "^(_index|[a-z]+(-[a-z]+){1,5})$",
+      "description": "URL slug with 2-6 hyphenated segments, lowercase letters only, or '_index' for landing pages",
+      "examples": ["_index", "solar-system", "artificial-intelligence", "climate-change-causes"]
     },
     "lang": {
       "type": "string",

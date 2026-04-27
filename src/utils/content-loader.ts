@@ -3,6 +3,31 @@ import type { LlmWikiContent } from '~/types/content'
 import { ContentLoaderError } from '~/types/content'
 
 /**
+ * Article metadata structure for navigation
+ * Lightweight version of LlmWikiContent with only navigation-relevant fields
+ */
+export interface ArticleMeta {
+  slug: string
+  lang: SupportedLanguage
+  title: string
+  type: 'article' | 'index'
+  subjects: string[]
+}
+
+/**
+ * Navigation data structure keyed by niche
+ * Build-time derived from content scans
+ */
+export interface NavigationData {
+  niches: {
+    [niche: string]: {
+      langs: SupportedLanguage[]
+      articles: ArticleMeta[]
+    }
+  }
+}
+
+/**
  * Load and validate wiki content from a markdown file.
  *
  * Encapsulates the full pipeline: read .md file → parse with gray-matter →
@@ -216,4 +241,118 @@ export async function listNicheArticles(niche: string): Promise<NicheArticleEntr
     })
 
   return articles.sort((a, b) => a.slug.localeCompare(b.slug) || a.lang.localeCompare(b.lang))
+}
+
+/**
+ * Memoization cache for navigation data (dev builds only).
+ * Build-time operation - persists across calls within the same build process.
+ */
+let navigationCache: NavigationData | null = null
+
+/**
+ * Derives complete navigation structure from content files.
+ *
+ * Scans content/{niche}/{lang}/{slug}.md using import.meta.glob,
+ * extracts frontmatter (slug, lang, title, type, subjects),
+ * and structures as { niches: { [niche]: { langs: [], articles: [] } } }.
+ *
+ * Identifies _index.md files as landing pages (type: 'index').
+ * Results are memoized for dev builds to avoid repeated glob scans.
+ *
+ * Build-time only - runs during Vite build, not at runtime in Workers.
+ */
+export async function deriveNavigation(): Promise<NavigationData> {
+  // Return cached result if available (dev builds)
+  if (navigationCache) {
+    return navigationCache
+  }
+
+  const matter = (await import('gray-matter')).default
+  const { validateSlug } = await import('~/utils/url-validation')
+
+  // Build-time scan of all content files
+  const contentModules = import.meta.glob<string>('../../content/**/*.md', {
+    query: '?raw',
+    import: 'default',
+    eager: true,
+  })
+
+  const niches: NavigationData['niches'] = {}
+
+  for (const [key, rawContent] of Object.entries(contentModules)) {
+    // Parse path: ../../content/{niche}/{lang}/{slug}.md
+    const match = key.match(/^\.\.\/\.\.\/content\/([^/]+)\/([^/]+)\/(.+)\.md$/)
+    if (!match) continue
+
+    const [, niche, lang, slug] = match
+
+    // Skip invalid slugs
+    const slugValidation = validateSlug(slug)
+    if (!slugValidation.valid) {
+      continue
+    }
+
+    // Parse frontmatter
+    try {
+      const parsed = matter(rawContent, {
+        engines: {
+          js: () => {
+            throw new Error('JS eval disabled')
+          },
+        },
+      })
+
+      const frontmatter = parsed.data as Record<string, unknown>
+
+      // Extract required fields
+      const title = typeof frontmatter.title === 'string' ? frontmatter.title : slug
+      const subjects = Array.isArray(frontmatter.subjects)
+        ? frontmatter.subjects.filter((s): s is string => typeof s === 'string')
+        : []
+
+      // Determine type: index for _index.md, article otherwise
+      const type: ArticleMeta['type'] = slug === '_index' ? 'index' : 'article'
+
+      // Initialize niche structure if needed
+      if (!niches[niche]) {
+        niches[niche] = {
+          langs: [],
+          articles: [],
+        }
+      }
+
+      // Add language if not already present
+      const langSupported = lang as SupportedLanguage
+      if (!niches[niche].langs.includes(langSupported)) {
+        niches[niche].langs.push(langSupported)
+      }
+
+      // Add article metadata
+      niches[niche].articles.push({
+        slug,
+        lang: langSupported,
+        title,
+        type,
+        subjects,
+      })
+    } catch {
+      // Skip files that fail to parse
+      continue
+    }
+  }
+
+  const result: NavigationData = { niches }
+
+  // Memoize for dev builds
+  navigationCache = result
+
+  return result
+}
+
+/**
+ * Clears the navigation memoization cache.
+ * Useful for test isolation or when content changes in dev mode.
+ */
+export function clearNavigationCache(): void {
+  navigationCache = null
 }

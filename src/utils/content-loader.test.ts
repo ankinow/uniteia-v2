@@ -210,3 +210,93 @@ describe('loadContent', () => {
     expect(articles).toContainEqual({ slug: 'foundation-models-overview', lang: 'en' })
   })
 })
+
+/**
+ * Test 12: deriveNavigation returns structured navigation data for all niches
+ */
+it('deriveNavigation returns structured navigation with niches, langs, and articles', async () => {
+  const { deriveNavigation } = await import('~/utils/content-loader')
+  const nav = await deriveNavigation()
+
+  expect(nav).toBeDefined()
+  expect(nav.niches).toBeDefined()
+
+  // Should have apex, ai-agents, and language-models niches
+  expect(Object.keys(nav.niches)).toContain('apex')
+  expect(Object.keys(nav.niches)).toContain('ai-agents')
+  expect(Object.keys(nav.niches)).toContain('language-models')
+})
+
+/**
+ * Test 13: deriveNavigation extracts correct metadata from content files
+ */
+it('deriveNavigation extracts slug, title, type, subjects from frontmatter', async () => {
+  const { deriveNavigation } = await import('~/utils/content-loader')
+  const nav = await deriveNavigation()
+
+  const apexArticles = nav.niches['apex']?.articles ?? []
+  const testArticle = apexArticles.find(a => a.slug === 'test-article' && a.lang === 'en')
+
+  expect(testArticle).toBeDefined()
+  expect(testArticle?.title).toBe('Test Article for Integration Verification')
+  expect(testArticle?.type).toBe('article')
+  expect(testArticle?.subjects).toContain('test')
+})
+
+/**
+ * Test 14: deriveNavigation identifies _index.md as type=index landing pages
+ */
+it('deriveNavigation marks _index.md files with type: index', async () => {
+  const { deriveNavigation } = await import('~/utils/content-loader')
+  const nav = await deriveNavigation()
+
+  // Check apex niche has _index and marks it as type: index
+  const apexArticles = nav.niches['apex']?.articles ?? []
+  const indexEntry = apexArticles.find(a => a.slug === '_index')
+
+  expect(indexEntry).toBeDefined()
+  expect(indexEntry?.type).toBe('index')
+})
+
+/**
+ * Test 15: deriveNavigation collects all languages per niche
+ */
+it('deriveNavigation aggregates available languages for each niche', async () => {
+  const { deriveNavigation } = await import('~/utils/content-loader')
+  const nav = await deriveNavigation()
+
+  // Apex niche should have multiple languages from test-article translations
+  const apexLangs = nav.niches['apex']?.langs ?? []
+  expect(apexLangs.length).toBeGreaterThanOrEqual(1)
+  expect(apexLangs).toContain('en')
+})
+
+/**
+ * Test 16: deriveNavigation caches results for dev builds (memoization)
+ */
+it('deriveNavigation memoizes results on repeated calls', async () => {
+  const { deriveNavigation, clearNavigationCache } = await import('~/utils/content-loader')
+
+  // Clear any existing cache
+  clearNavigationCache()
+
+  const first = await deriveNavigation()
+  const second = await deriveNavigation()
+
+  // Same object reference due to memoization
+  expect(second).toBe(first)
+})
+
+/**
+ * Test 17: deriveNavigation skips invalid slugs
+ */
+it('deriveNavigation excludes articles with invalid slugs', async () => {
+  const { deriveNavigation } = await import('~/utils/content-loader')
+  const nav = await deriveNavigation()
+
+  const apexArticles = nav.niches['apex']?.articles ?? []
+  const adminSlug = apexArticles.find(a => a.slug === 'test-admin')
+
+  // test-admin has a banned term ('admin')
+  expect(adminSlug).toBeUndefined()
+})

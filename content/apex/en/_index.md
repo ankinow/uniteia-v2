@@ -1,5 +1,5 @@
 ---
-slug: apex-landing
+slug: _index
 lang: en
 title: Apex — Intelligence Singularity
 type: index

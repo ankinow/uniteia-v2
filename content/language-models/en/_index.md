@@ -1,5 +1,5 @@
 ---
-slug: language-models-landing
+slug: _index
 lang: en
 title: Language Models — Foundation Models & Architecture
 type: index

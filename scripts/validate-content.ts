@@ -2,8 +2,10 @@
 
 import { globSync, readFileSync } from 'node:fs'
 import { relative, resolve } from 'node:path'
-import { validateMarkdownFrontmatter } from '../src/utils/schema-validation'
+import { clearAjvCache, validateMarkdownFrontmatter } from '../src/utils/schema-validation'
 
+// Clear AJV cache to ensure fresh schema after edits
+clearAjvCache()
 const ROOT_DIR = resolve(import.meta.dir, '..')
 
 interface ValidationResult {

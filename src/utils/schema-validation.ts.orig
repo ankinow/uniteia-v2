@@ -11,12 +11,6 @@ const SCHEMA_ID = 'https://uniteia.com/schemas/llm-wiki-v1.schema.json'
 let ajvInstance: Ajv2020 | null = null
 let schemaLoadIssue: ValidationIssue | null = null
 
-// Clear AJV cache on module load to ensure fresh schema (for development)
-export function clearAjvCache(): void {
-  ajvInstance = null
-  schemaLoadIssue = null
-}
-
 export interface ValidationIssue {
   filePath: string
   field: string
@@ -176,12 +170,8 @@ export function validateMarkdownFrontmatter(markdown: string, filePath: string):
   }
 
   const fileSlug = basename(filePath, '.md')
-  // Skip slug validation for _index.md landing page files
-  // These are internal files that map to directory roots, not content slugs
-  const isIndexFile = fileSlug === '_index'
-
   const fileSlugValidation = validateSlug(fileSlug)
-  if (!isIndexFile && !fileSlugValidation.valid) {
+  if (!fileSlugValidation.valid) {
     issues.push({
       filePath,
       field: 'fileSlug',

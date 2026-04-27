@@ -1,22 +1,15 @@
-/**
- * URL validation utilities for content slug enforcement
- * Ensures consistent URL structure across all multilingual content
- */
+/** URL validation utilities for content slug enforcement */
+
+// Base pattern for content slugs: 2-6 hyphen-separated lowercase segments
+const BASE_PATTERN = /^[a-z]+(-[a-z]+){1,5}$/
 
 /**
- * Regex pattern for valid content slugs
- * - 2-6 hyphen-separated segments
- * - Lowercase ASCII letters only
- * - Examples: "solar-system", "ai-ethics", "climate-science-basics"
+ * Primary slug pattern used across the application
+ * Includes _index as valid landing page slug
  */
-export const SLUG_PATTERN = /^[a-z]+(-[a-z]+){1,5}$/
+export const SLUG_PATTERN = /^(_index|[a-z]+(-[a-z]+){1,5})$/
 
-/**
- * Banned slug terms that are reserved or problematic
- * - Reserved routes (admin, api, etc.)
- * - Trademarked terms that require legal approval
- * - SEO-diluting generic terms
- */
+/** Banned slug terms that are reserved or problematic */
 export const BANNED_SLUG_TERMS = new Set([
   // Reserved routes
   'admin',
@@ -35,17 +28,15 @@ export const BANNED_SLUG_TERMS = new Set([
   'terms',
   'user',
   'users',
-  'wiki', // Reserved for future use
-
-  // Trademarked/legally sensitive terms
-  'galaxy-ai', // Samsung trademark
+  'wiki',
+  // Trademarked terms
+  'galaxy-ai',
   'google-ai',
   'openai',
   'chatgpt',
   'meta-ai',
   'microsoft-ai',
-
-  // Generic/diluting terms
+  // Generic diluting terms
   'best',
   'cheap',
   'free',
@@ -54,20 +45,12 @@ export const BANNED_SLUG_TERMS = new Set([
   'latest',
 ])
 
-/**
- * Validates a slug against the pattern
- * @param slug - The slug to validate
- * @returns true if valid, false otherwise
- */
+/** Validates against base pattern only (not _index) */
 export function isValidSlugPattern(slug: string): boolean {
-  return SLUG_PATTERN.test(slug)
+  return BASE_PATTERN.test(slug)
 }
 
-/**
- * Checks if a slug contains any banned terms
- * @param slug - The slug to check
- * @returns The banned term found, or null if clean
- */
+/** Checks if a slug is banned */
 export function findBannedSlugTerm(slug: string): string | null {
   const segments = slug.split('-')
   for (const segment of segments) {
@@ -78,23 +61,22 @@ export function findBannedSlugTerm(slug: string): string | null {
   return null
 }
 
-/**
- * Full slug validation with detailed error reporting
- * @param slug - The slug to validate
- * @returns Validation result with error details
- */
+/** Full slug validation with detailed error reporting */
 export function validateSlug(slug: string): { valid: boolean; error?: string } {
   if (!slug || typeof slug !== 'string') {
     return { valid: false, error: 'Slug must be a non-empty string' }
   }
-
+  // Special case: _index is valid for landing pages
+  if (slug === '_index') {
+    return { valid: true }
+  }
+  // Regular content slug validation
   if (!isValidSlugPattern(slug)) {
     return {
       valid: false,
-      error: `Slug "${slug}" does not match pattern ${SLUG_PATTERN.toString()}. Must be 2-6 lowercase hyphen-separated segments.`,
+      error: `Slug "${slug}" does not match pattern ${BASE_PATTERN.toString()}. Must be 2-6 lowercase hyphen-separated segments.`,
     }
   }
-
   const bannedTerm = findBannedSlugTerm(slug)
   if (bannedTerm) {
     return {
@@ -102,25 +84,16 @@ export function validateSlug(slug: string): { valid: boolean; error?: string } {
       error: `Slug "${slug}" contains banned term "${bannedTerm}"`,
     }
   }
-
   return { valid: true }
 }
 
-/**
- * Extracts slug segments for further processing
- * @param slug - The slug to parse
- * @returns Array of segments, or empty array if invalid
- */
+/** Extracts slug segments for further processing */
 export function parseSlugSegments(slug: string): string[] {
   if (!isValidSlugPattern(slug)) return []
   return slug.split('-')
 }
 
-/**
- * Generates a suggested slug from a title
- * @param title - The title to convert
- * @returns Suggested slug (may need manual review)
- */
+/** Generates a suggested slug from a title */
 export function suggestSlugFromTitle(title: string): string {
   return title
     .toLowerCase()

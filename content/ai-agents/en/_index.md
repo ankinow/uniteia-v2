@@ -1,5 +1,5 @@
 ---
-slug: ai-agents-landing
+slug: _index
 lang: en
 title: AI Agents — Autonomous Systems
 type: index
