@@ -58,16 +58,15 @@ export function createDefaultShipCheckSteps(): ShipCheckStep[] {
     { name: 'typecheck', command: ['bun', 'run', 'typecheck'] },
     { name: 'test:unit', command: ['bun', 'run', 'test:unit'] },
     { name: 'build', command: ['bun', 'run', 'build'] },
+    { name: 'header:single', command: ['bun', 'run', 'scripts/check-single-header.ts'] },
     { name: 'size:check', command: ['bun', 'run', 'size:check'] },
-    { name: 'lighthouse:check', command: ['bun', 'run', 'lighthouse:check'] },
-    {
-      name: 'browser:verify',
-      command: ['bun', 'run', 'browser:verify'],
-    },
     { name: 'slug:check', command: ['bun', 'run', 'slug:check'] },
     { name: 'content:check', command: ['bun', 'run', 'content:check'] },
-    { name: 'invalid-locale-404', command: ['bun', 'run', 'scripts/check-invalid-locale.ts'] },
     { name: 'sitemap:check', command: ['bun', 'run', 'scripts/check-sitemap.ts'] },
+    { name: 'lighthouse:check', command: ['bun', 'run', 'lighthouse:check'] },
+    { name: 'browser:verify', command: ['bun', 'run', 'browser:verify'] },
+    { name: 'smoke:200s', command: ['bun', 'run', 'scripts/smoke-test.ts'] },
+    { name: 'invalid-locale-404', command: ['bun', 'run', 'scripts/check-invalid-locale.ts'] },
   ]
 }
 
@@ -140,15 +139,12 @@ export async function runShipCheckStep(
       if (settled) {
         return
       }
-
       timedOut = true
       child.kill(timeoutSignal)
-
       killGraceHandle = setTimeout(() => {
         if (settled) {
           return
         }
-
         child.kill(killSignal)
       }, killGraceMs)
     }, timeoutMs)
@@ -160,7 +156,6 @@ export async function runShipCheck(
   runner: ShipCheckRunner
 ): Promise<ShipCheckReport> {
   const completed: ShipCheckStepOutcome[] = []
-
   for (const step of steps) {
     const result = await runner(step)
     const outcome: ShipCheckStepOutcome = {
@@ -172,9 +167,7 @@ export async function runShipCheck(
       ...(result.timeoutMs !== undefined ? { timeoutMs: result.timeoutMs } : {}),
       ...(result.terminationSignal ? { terminationSignal: result.terminationSignal } : {}),
     }
-
     completed.push(outcome)
-
     if (result.exitCode !== 0) {
       return {
         ok: false,
@@ -191,11 +184,7 @@ export async function runShipCheck(
       }
     }
   }
-
-  return {
-    ok: true,
-    steps: completed,
-  }
+  return { ok: true, steps: completed }
 }
 
 export function formatShipCheckReport(report: ShipCheckReport): string {
@@ -203,15 +192,12 @@ export function formatShipCheckReport(report: ShipCheckReport): string {
     const status = step.timedOut
       ? `timed out${step.timeoutMs ? ` after ${step.timeoutMs.toLocaleString('en-US')}ms` : ''}`
       : `exit ${step.exitCode}`
-
     const signalSuffix = step.terminationSignal ? `, signal ${step.terminationSignal}` : ''
     return `- ${step.name}: ${step.command} (${status}${signalSuffix}, ${step.durationMs}ms)`
   })
 
   if (report.ok) {
-    return ['✅ ship-check passed.', `${report.steps.length} step(s) passed.`, ...stepLines].join(
-      '\n'
-    )
+    return [ '✅ ship-check passed.', `${report.steps.length} step(s) passed.`, ...stepLines ].join('\n')
   }
 
   const failure = report.failure
