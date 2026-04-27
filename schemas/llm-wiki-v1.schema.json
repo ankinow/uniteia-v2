@@ -7,6 +7,12 @@
   "required": ["slug", "lang", "title", "content", "subjects", "referral_links"],
   "additionalProperties": false,
   "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["article", "index"],
+      "description": "Content type — article (default) or index (landing page)",
+      "default": "article"
+    },
     "slug": {
       "type": "string",
       "pattern": "^[a-z]+(-[a-z]+){1,5}$",
