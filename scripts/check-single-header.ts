@@ -46,9 +46,9 @@ async function checkSingleHeader(): Promise<CheckResult[]> {
       const headerCount = headerMatches.length
 
       if (headerCount === 1) {
-        results.push({ name: `header:${file.replace(`${DIST_PATH}/`, '')}`, passed: true, message: `1 <header> element` })
+        results.push({ name: `header:${file.replace(`${DIST_PATH}/`, '')}`, passed: true, message: '1 <header> element' })
       } else if (headerCount === 0) {
-        results.push({ name: `header:${file.replace(`${DIST_PATH}/`, '')}`, passed: false, message: `Missing <header> element` })
+        results.push({ name: `header:${file.replace(`${DIST_PATH}/`, '')}`, passed: false, message: 'Missing <header> element' })
         allPassed = false
       } else {
         results.push({ name: `header:${file.replace(DIST_PATH + '/', '')}`, passed: false, message: `${headerCount} <header> elements (should be 1)` })

@@ -2,7 +2,7 @@ import type { PagesFunction } from '@cloudflare/workers-types'
 import { validateLocalePath } from '../src/i18n/locale-validation'
 
 // Extend the Environment type for Cloudflare Pages
-type Env = {} // Cloudflare Pages environment - no custom bindings needed
+type Env = Record<string, never> // Cloudflare Pages environment - no custom bindings needed
 
 export const onRequest: PagesFunction<Env> = async context => {
   const { request } = context
