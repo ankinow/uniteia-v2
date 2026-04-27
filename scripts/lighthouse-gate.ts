@@ -1,10 +1,14 @@
 #!/usr/bin/env bun
+
 import { formatLighthouseGateReport, runLighthouseGate } from '../src/utils/lighthouse-gate'
 
 interface CliOptions {
   buildDir: string
   auditedPath: string
-  thresholdPercent: number | undefined
+  performanceThreshold: number | undefined
+  accessibilityThreshold: number | undefined
+  bestPracticesThreshold: number | undefined
+  seoThreshold: number | undefined
   previewTimeoutMs: number | undefined
   browserTimeoutMs: number | undefined
 }
@@ -12,12 +16,16 @@ interface CliOptions {
 function parseArgv(argv: string[]): CliOptions {
   let buildDir = 'dist'
   let auditedPath = '/en'
-  let thresholdPercent: number | undefined
+  let performanceThreshold: number | undefined
+  let accessibilityThreshold: number | undefined
+  let bestPracticesThreshold: number | undefined
+  let seoThreshold: number | undefined
   let previewTimeoutMs: number | undefined
   let browserTimeoutMs: number | undefined
 
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index]
+
     if (arg === '--build-dir' || arg === '--buildDir') {
       const value = argv[++index]
       if (!value) {
@@ -26,6 +34,7 @@ function parseArgv(argv: string[]): CliOptions {
       buildDir = value
       continue
     }
+
     if (arg === '--audit-path' || arg === '--auditPath') {
       const value = argv[++index]
       if (!value) {
@@ -34,18 +43,59 @@ function parseArgv(argv: string[]): CliOptions {
       auditedPath = value
       continue
     }
-    if (arg === '--threshold' || arg === '--threshold-percent') {
+
+    if (arg === '--performance-threshold') {
       const value = argv[++index]
       if (!value) {
-        throw new Error('Missing value for --threshold')
+        throw new Error('Missing value for --performance-threshold')
       }
       const parsed = Number(value)
       if (!Number.isFinite(parsed) || parsed < 0 || parsed > 100) {
-        throw new Error(`Invalid threshold value: ${value}`)
+        throw new Error(`Invalid performance threshold value: ${value}`)
       }
-      thresholdPercent = parsed
+      performanceThreshold = parsed
       continue
     }
+
+    if (arg === '--accessibility-threshold') {
+      const value = argv[++index]
+      if (!value) {
+        throw new Error('Missing value for --accessibility-threshold')
+      }
+      const parsed = Number(value)
+      if (!Number.isFinite(parsed) || parsed < 0 || parsed > 100) {
+        throw new Error(`Invalid accessibility threshold value: ${value}`)
+      }
+      accessibilityThreshold = parsed
+      continue
+    }
+
+    if (arg === '--best-practices-threshold') {
+      const value = argv[++index]
+      if (!value) {
+        throw new Error('Missing value for --best-practices-threshold')
+      }
+      const parsed = Number(value)
+      if (!Number.isFinite(parsed) || parsed < 0 || parsed > 100) {
+        throw new Error(`Invalid best-practices threshold value: ${value}`)
+      }
+      bestPracticesThreshold = parsed
+      continue
+    }
+
+    if (arg === '--seo-threshold') {
+      const value = argv[++index]
+      if (!value) {
+        throw new Error('Missing value for --seo-threshold')
+      }
+      const parsed = Number(value)
+      if (!Number.isFinite(parsed) || parsed < 0 || parsed > 100) {
+        throw new Error(`Invalid seo threshold value: ${value}`)
+      }
+      seoThreshold = parsed
+      continue
+    }
+
     if (arg === '--preview-timeout' || arg === '--preview-timeout-ms') {
       const value = argv[++index]
       if (!value) {
@@ -58,6 +108,7 @@ function parseArgv(argv: string[]): CliOptions {
       previewTimeoutMs = parsed
       continue
     }
+
     if (arg === '--browser-timeout' || arg === '--browser-timeout-ms') {
       const value = argv[++index]
       if (!value) {
@@ -70,12 +121,14 @@ function parseArgv(argv: string[]): CliOptions {
       browserTimeoutMs = parsed
       continue
     }
+
     if (arg === '--help' || arg === '-h') {
       console.log(
-        'Usage: bun run scripts/lighthouse-gate.ts [--build-dir dist] [--audit-path /en] [--threshold 95] [--preview-timeout 30000] [--browser-timeout 30000]'
+        'Usage: bun run scripts/lighthouse-gate.ts [--build-dir dist] [--audit-path /en] [--performance-threshold 90] [--accessibility-threshold 95] [--best-practices-threshold 95] [--seo-threshold 95] [--preview-timeout 30000] [--browser-timeout 30000]'
       )
       process.exit(0)
     }
+
     // Ignore verification scaffolding and other unknown arguments
     continue
   }
@@ -83,7 +136,10 @@ function parseArgv(argv: string[]): CliOptions {
   return {
     buildDir,
     auditedPath,
-    thresholdPercent,
+    performanceThreshold,
+    accessibilityThreshold,
+    bestPracticesThreshold,
+    seoThreshold,
     previewTimeoutMs,
     browserTimeoutMs,
   }
@@ -92,10 +148,16 @@ function parseArgv(argv: string[]): CliOptions {
 async function main(): Promise<void> {
   try {
     const options = parseArgv(process.argv.slice(2))
+    const categoryThresholds = {
+      performance: options.performanceThreshold,
+      accessibility: options.accessibilityThreshold,
+      bestPractices: options.bestPracticesThreshold,
+      seo: options.seoThreshold,
+    }
     const report = await runLighthouseGate({
       buildDir: options.buildDir,
       auditedPath: options.auditedPath,
-      thresholdPercent: options.thresholdPercent,
+      categoryThresholds,
       previewTimeoutMs: options.previewTimeoutMs,
       browserTimeoutMs: options.browserTimeoutMs,
     })

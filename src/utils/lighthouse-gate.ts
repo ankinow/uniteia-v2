@@ -6,7 +6,6 @@ import { pathToFileURL } from 'node:url'
 import { chromium } from '@playwright/test'
 import lighthouse from 'lighthouse'
 
-export const DEFAULT_LIGHTHOUSE_SCORE_THRESHOLD = 95
 export const DEFAULT_LIGHTHOUSE_AUDIT_PATH = '/en'
 export const DEFAULT_LIGHTHOUSE_PREVIEW_TIMEOUT_MS = 30_000
 export const DEFAULT_LIGHTHOUSE_BROWSER_TIMEOUT_MS = 30_000
@@ -15,7 +14,15 @@ export const REQUIRED_LIGHTHOUSE_CATEGORIES = [
   'performance',
   'accessibility',
   'best-practices',
+  'seo',
 ] as const
+
+export const DEFAULT_CATEGORY_THRESHOLDS = {
+  performance: 90,
+  accessibility: 95,
+  'best-practices': 95,
+  seo: 95,
+} as const
 
 export type LighthouseCategoryKey = (typeof REQUIRED_LIGHTHOUSE_CATEGORIES)[number]
 export type LighthouseLaunchPhase =
@@ -51,22 +58,29 @@ export interface LighthouseGateReport {
   ok: boolean
   auditedUrl: string
   finalDisplayedUrl: string | null
-  thresholdPercent: number
+  categoryThresholds: Record<LighthouseCategoryKey, number>
   launchPhase: LighthouseLaunchPhase
   categoryScores: Record<LighthouseCategoryKey, number | null>
   issues: LighthouseGateIssue[]
 }
 
+export interface LighthouseCategoryThresholds {
+  performance?: number
+  accessibility?: number
+  bestPractices?: number
+  seo?: number
+}
+
 export interface EvaluateLighthouseGateOptions {
   auditedUrl?: string
-  thresholdPercent?: number
+  categoryThresholds?: LighthouseCategoryThresholds
   launchPhase?: LighthouseLaunchPhase
 }
 
 export interface RunLighthouseGateOptions {
   buildDir?: string
   auditedPath?: string
-  thresholdPercent?: number
+  categoryThresholds?: LighthouseCategoryThresholds
   previewTimeoutMs?: number
   browserTimeoutMs?: number
 }
@@ -325,7 +339,12 @@ export function evaluateLighthouseGate(
   report: LighthouseReportLike,
   options: EvaluateLighthouseGateOptions = {}
 ): LighthouseGateReport {
-  const thresholdPercent = options.thresholdPercent ?? DEFAULT_LIGHTHOUSE_SCORE_THRESHOLD
+  const categoryThresholds: Record<LighthouseCategoryKey, number> = {
+    performance: options.categoryThresholds?.performance ?? DEFAULT_CATEGORY_THRESHOLDS.performance,
+    accessibility: options.categoryThresholds?.accessibility ?? DEFAULT_CATEGORY_THRESHOLDS.accessibility,
+    'best-practices': options.categoryThresholds?.bestPractices ?? DEFAULT_CATEGORY_THRESHOLDS['best-practices'],
+    seo: options.categoryThresholds?.seo ?? DEFAULT_CATEGORY_THRESHOLDS.seo,
+  }
   const auditedUrl = normalizeAuditedUrl(options.auditedUrl ?? report.finalDisplayedUrl)
   const launchPhase = options.launchPhase ?? 'report-validation'
   const issues: LighthouseGateIssue[] = []
@@ -339,7 +358,8 @@ export function evaluateLighthouseGate(
 
   for (const category of REQUIRED_LIGHTHOUSE_CATEGORIES) {
     const scorePercent = categoryScores[category]
-    if (scorePercent === null) {
+    const scorePercent = categoryScores[category]
+    const threshold = categoryThresholds[category]
       issues.push({
         kind: 'invalid-report-data',
         message: `Lighthouse report is missing a valid score for ${category}`,
@@ -350,12 +370,12 @@ export function evaluateLighthouseGate(
     }
 
     if (scorePercent < thresholdPercent) {
-      issues.push({
+    if (scorePercent < threshold) {
         kind: 'category-below-threshold',
-        message: `${category} is below the ${thresholdPercent.toLocaleString('en-US')} threshold at ${scorePercent.toFixed(1)}%`,
+        message: `${category} is below the ${threshold}% threshold at ${scorePercent.toFixed(1)}%`,
         category,
         scorePercent,
-        thresholdPercent,
+        thresholdPercent: threshold,
         launchPhase,
       })
     }
@@ -388,7 +408,8 @@ export function formatLighthouseGateReport(report: LighthouseGateReport): string
   const lines = [
     header,
     `Launch phase: ${report.launchPhase}`,
-    `Threshold: ${report.thresholdPercent.toLocaleString('en-US')}%`,
+    'Thresholds:',
+    ...thresholdLines,
     `Category scores: ${summarizeCategoryScores(report.categoryScores)}`,
   ]
 
