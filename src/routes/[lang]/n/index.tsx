@@ -35,9 +35,9 @@ export default component$(() => {
 
   return (
     <div class="max-w-4xl mx-auto px-4 py-8" data-testid="niche-index">
-      <header class="mb-8">
+      <div class="mb-8">
         <h1 class="text-3xl font-bold text-bone">{t.niche.allNiches}</h1>
-      </header>
+      </div>
 
       {nichesSignal.value.length > 0 ? (
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
