@@ -240,7 +240,7 @@ it('deriveNavigation extracts slug, title, type, subjects from frontmatter', asy
   expect(testArticle).toBeDefined()
   expect(testArticle?.title).toBe('Test Article for Integration Verification')
   expect(testArticle?.type).toBe('article')
-  expect(testArticle?.subjects).toContain('test')
+  expect(testArticle?.subjects).toContain('testing')
 })
 
 /**

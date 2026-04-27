@@ -7,6 +7,7 @@ import { getTranslation, useProvideI18n } from '~/i18n/context'
 import { DEFAULT_LANGUAGE, type SupportedLanguage } from '~/i18n/types'
 import type { NichesConfig } from '~/types/niche'
 import { getLucideIconClass } from '~/utils/icon-classes'
+import { deriveNavigation, type NavigationData } from '~/utils/content-loader'
 import { loadNichesConfig } from '~/utils/niche-loader'
 
 export const onRequest: RequestHandler = async event => {
@@ -31,6 +32,15 @@ export const useNiche = routeLoader$<string>(({ headers }) => {
  */
 export const useNiches = routeLoader$<NichesConfig>(async () => {
   return await loadNichesConfig()
+})
+
+/**
+ * Derive navigation structure from content files.
+ * Build-time only - runs during Vite build using import.meta.glob.
+ * Results are memoized for dev build performance.
+ */
+export const useNavigation = routeLoader$<NavigationData>(async () => {
+  return await deriveNavigation()
 })
 
 export default component$(() => {

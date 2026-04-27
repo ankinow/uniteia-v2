@@ -285,6 +285,8 @@ export async function deriveNavigation(): Promise<NavigationData> {
     if (!match) continue
 
     const [, niche, lang, slug] = match
+    // Validate capture groups exist before using as index
+    if (!niche || !lang || !slug) continue
 
     // Skip invalid slugs
     const slugValidation = validateSlug(slug)
