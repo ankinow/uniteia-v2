@@ -27,7 +27,7 @@
     "slug:check": "bun run scripts/slug-lint.ts",
     "content:check": "bun run scripts/validate-content.ts \"content/**/*.md\"",
     "size:check": "bun run scripts/size-gate.ts",
-    "lighthouse:check": "bun run scripts/lighthouse-gate.ts",
+    "lighthouse:check": "bun run scripts/lighthouse-gate.ts --audit-path /en/n/",
     "ship:check": "bun run scripts/ship-check.ts",
     "header:check": "bun run scripts/check-single-header.ts",
     "smoke:check": "bun run scripts/smoke-test.ts"
@@ -45,6 +45,7 @@
     "ajv": "^8.18.0",
     "ajv-formats": "^3.0.1",
     "autoprefixer": "^10.5.0",
+    "glob": "^13.0.6",
     "ignore": "^7.0.5",
     "lighthouse": "^13.1.0",
     "postcss": "^8.5.10",

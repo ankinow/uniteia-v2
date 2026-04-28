@@ -25,13 +25,13 @@ export const NicheLanding = component$<NicheLandingProps>(
         class={['max-w-4xl mx-auto px-4 py-8', classList]}
       >
         {/* Niche header */}
-        <header class="mb-10">
+        <section class="mb-10">
           <div class="flex items-center gap-4 mb-4">
             {iconClass && <div class={iconClass} aria-hidden="true" />}
             <h1 class="text-3xl font-bold text-bone leading-tight">{niche.title[lang]}</h1>
           </div>
           <p class="text-bone-muted text-lg leading-relaxed max-w-2xl">{niche.description[lang]}</p>
-        </header>
+        </section>
 
         {/* Placeholder article list area */}
         <section class="mb-12" aria-label={t.niche.topicsLabel}>

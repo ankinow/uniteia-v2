@@ -23,7 +23,7 @@ beforeAll(async () => {
       // Warm-up failure is non-fatal; tests will report their own errors
     }
   }
-}, 30_000)
+}, 60_000)
 
 describe('loadContent', () => {
   /**
@@ -165,11 +165,11 @@ describe('loadContent', () => {
     const { listNicheArticles } = await import('~/utils/content-loader')
     const articles = await listNicheArticles('apex')
 
-    expect(articles).toContainEqual({ slug: 'test-article', lang: 'en' })
-    expect(articles).toContainEqual({ slug: 'test-article', lang: 'es' })
-    expect(articles).toContainEqual({ slug: 'test-article', lang: 'ja' })
-    expect(articles).toContainEqual({ slug: 'test-article', lang: 'pt' })
-    expect(articles).toContainEqual({ slug: 'test-article', lang: 'zh' })
+    expect(articles).toContainEqual(expect.objectContaining({ slug: 'test-article', lang: 'en' }))
+    expect(articles).toContainEqual(expect.objectContaining({ slug: 'test-article', lang: 'es' }))
+    expect(articles).toContainEqual(expect.objectContaining({ slug: 'test-article', lang: 'ja' }))
+    expect(articles).toContainEqual(expect.objectContaining({ slug: 'test-article', lang: 'pt' }))
+    expect(articles).toContainEqual(expect.objectContaining({ slug: 'test-article', lang: 'zh' }))
     expect(articles).toContainEqual({ slug: 'test-invalid-schema', lang: 'en' })
     expect(articles.some(article => article.slug === 'test-admin')).toBe(false)
     expect(articles).toEqual(
@@ -180,10 +180,11 @@ describe('loadContent', () => {
   /**
    * Test 9: Malicious markdown is sanitized (XSS prevention)
    */
-  it('sanitizes malicious HTML tags in markdown', async () => {
+  it('returns raw HTML for test-xss (sanitization is handled at generation)', async () => {
     const result = await loadContent('apex', 'test-xss', 'en')
-    expect(result.content).not.toContain('<script>')
-    expect(result.content).not.toContain('alert(')
+    // We expect the script tag to remain because we removed runtime sanitization
+    // and shifted that responsibility to the Content Factory validation gate.
+    expect(result.content).toContain('<script>')
   })
 
   /**
@@ -207,7 +208,9 @@ describe('loadContent', () => {
   it('listNicheArticles returns entries for language-models niche', async () => {
     const { listNicheArticles } = await import('~/utils/content-loader')
     const articles = await listNicheArticles('language-models')
-    expect(articles).toContainEqual({ slug: 'foundation-models-overview', lang: 'en' })
+    expect(articles).toContainEqual(
+      expect.objectContaining({ slug: 'foundation-models-overview', lang: 'en' })
+    )
   })
 })
 

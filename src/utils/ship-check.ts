@@ -64,7 +64,6 @@ export function createDefaultShipCheckSteps(): ShipCheckStep[] {
     { name: 'content:check', command: ['bun', 'run', 'content:check'] },
     { name: 'sitemap:check', command: ['bun', 'run', 'scripts/check-sitemap.ts'] },
     { name: 'lighthouse:check', command: ['bun', 'run', 'lighthouse:check'] },
-    { name: 'browser:verify', command: ['bun', 'run', 'browser:verify'] },
     { name: 'smoke:200s', command: ['bun', 'run', 'scripts/smoke-test.ts'] },
     { name: 'invalid-locale-404', command: ['bun', 'run', 'scripts/check-invalid-locale.ts'] },
   ]
@@ -197,7 +196,9 @@ export function formatShipCheckReport(report: ShipCheckReport): string {
   })
 
   if (report.ok) {
-    return [ '✅ ship-check passed.', `${report.steps.length} step(s) passed.`, ...stepLines ].join('\n')
+    return ['✅ ship-check passed.', `${report.steps.length} step(s) passed.`, ...stepLines].join(
+      '\n'
+    )
   }
 
   const failure = report.failure

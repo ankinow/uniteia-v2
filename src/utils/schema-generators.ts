@@ -8,7 +8,7 @@ export function generateArticleSchema(props: {
   description?: string
   author?: string
   datePublished: string
-  dateModified?: string
+  dateModified?: string | undefined
   image?: string
   url: string
   niche: string

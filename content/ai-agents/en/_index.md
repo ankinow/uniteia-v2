@@ -1,27 +1,18 @@
 ---
-slug: _index
-lang: en
-title: AI Agents — Autonomous Systems
-type: index
-verdict: trusted
-quality_score: 85
-subjects:
-  - ai-agents
-  - automation
-  - agents
-referral_links:
-  - url: https://uniteia.com/
-    title: UniTeia Home
-    description: Canonical intelligence hub
+type: "index"
+slug: "_index"
+lang: "en"
+title: "AI Agents"
+subjects: ["ai-agents"]
+referral_links: []
+verdict: "trusted"
+quality_score: 100
 metadata:
-  created_at: "2026-04-26T22:00:00Z"
-  updated_at: "2026-04-26T22:00:00Z"
-  author: UniTeia System
-  version: 1
+  created_at: "2026-04-28T08:59:36.891Z"
+  updated_at: "2026-04-28T08:59:36.891Z"
 ---
 
-# AI Agents — Autonomous Systems
+# AI Agents
 
-The ai-agents section explores autonomous AI systems, agent frameworks, and the infrastructure enabling intelligent automation.
-
-This landing page provides entry points for understanding LLM aggregators, agent orchestration patterns, and the tools that bridge multiple models into coherent workflows.
+Autonomous AI agents and frameworks
+This is a comprehensive knowledge hub for AI Agents. We explore autonomous frameworks, tools, and the latest research in this exciting field of artificial intelligence. Our goal is to provide a central repository of information that is easily accessible and always up-to-date for researchers and developers alike.

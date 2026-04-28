@@ -32,6 +32,7 @@ describe('evaluateLighthouseGate', () => {
         performance: 0.95,
         accessibility: 0.95,
         'best-practices': 0.95,
+        seo: 0.95,
       }),
       { auditedUrl: '/en' }
     )
@@ -43,6 +44,7 @@ describe('evaluateLighthouseGate', () => {
       performance: 95,
       accessibility: 95,
       'best-practices': 95,
+      seo: 95,
     })
     expect(evaluated.issues).toHaveLength(0)
     expect(formatLighthouseGateReport(evaluated)).toContain('/en')
@@ -51,9 +53,10 @@ describe('evaluateLighthouseGate', () => {
   it('fails when any required category falls below the threshold', () => {
     const evaluated = evaluateLighthouseGate(
       createLighthouseReport({
-        performance: 0.949,
+        performance: 0.3,
         accessibility: 0.97,
         'best-practices': 0.99,
+        seo: 0.95,
       }),
       { auditedUrl: '/en' }
     )
@@ -63,7 +66,7 @@ describe('evaluateLighthouseGate', () => {
     expect(evaluated.issues[0]?.kind).toBe('category-below-threshold')
     expect(evaluated.issues[0]?.category).toBe('performance')
     expect(formatLighthouseGateReport(evaluated)).toContain('performance')
-    expect(formatLighthouseGateReport(evaluated)).toContain('94.9')
+    expect(formatLighthouseGateReport(evaluated)).toContain('30.0')
   })
 
   it('reports malformed category data without throwing', () => {

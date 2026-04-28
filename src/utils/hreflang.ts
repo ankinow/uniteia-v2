@@ -14,25 +14,31 @@ export interface HreflangLink {
  * @param niche - The niche subdomain (e.g., 'singularity', 'apex')
  * @param slug - The article slug
  * @param availableLangs - Array of language codes that have translations
+ * @param origin - Optional origin (e.g., 'https://uniteia.com' or 'http://localhost:3000')
  * @returns Array of hreflang link objects
  */
 export function generateHreflangLinks(
   niche: string,
   slug: string,
-  availableLangs: SupportedLanguage[]
+  availableLangs: SupportedLanguage[],
+  origin?: string
 ): HreflangLink[] {
+  const baseOrigin = origin || `https://${niche}.uniteia.com`
+
   const links: HreflangLink[] = availableLangs.map(lang => ({
     hreflang: lang,
-    href: `https://${niche}.uniteia.com/${lang}/${slug}`,
+    href: `${baseOrigin}/${lang}/${slug}`,
   }))
 
   // Add x-default pointing to English
   if (availableLangs.length > 0) {
-    const defaultLang = availableLangs.includes('en') ? 'en' : availableLangs[0]!
-    links.push({
-      hreflang: 'x-default',
-      href: `https://${niche}.uniteia.com/${defaultLang}/${slug}`,
-    })
+    const defaultLang = availableLangs.includes('en') ? 'en' : availableLangs[0]
+    if (defaultLang) {
+      links.push({
+        hreflang: 'x-default',
+        href: `${baseOrigin}/${defaultLang}/${slug}`,
+      })
+    }
   }
 
   return links

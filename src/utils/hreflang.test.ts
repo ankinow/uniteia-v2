@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import type { SupportedLanguage } from '~/i18n/types'
 import { buildAlternateLinksHTML, generateHreflangLinks, getAvailableLanguages } from './hreflang'
 
 describe('hreflang', () => {
@@ -49,7 +50,7 @@ describe('hreflang', () => {
     })
 
     it('generates correct URLs for all 5 languages', () => {
-      const allLangs = ['en', 'pt', 'es', 'ja', 'zh'] as const
+      const allLangs = ['en', 'pt', 'es', 'ja', 'zh'] as SupportedLanguage[]
       const links = generateHreflangLinks('hardware', 'article', allLangs)
 
       expect(links.filter(l => l.hreflang !== 'x-default')).toHaveLength(5)

@@ -1,25 +1,18 @@
 ---
-slug: _index
-lang: en
-title: Apex — Intelligence Singularity
-type: index
-verdict: trusted
-quality_score: 90
-subjects:
-  - singularity
-  - intelligence
-  - future
-referral_links:
-  - url: https://uniteia.com/
-    title: UniTeia Home
-    description: Canonical intelligence singularity hub
+type: "index"
+slug: "_index"
+lang: "en"
+title: "UniTeia Apex"
+subjects: ["apex"]
+referral_links: []
+verdict: "trusted"
+quality_score: 100
 metadata:
-  created_at: "2026-04-26T22:00:00Z"
-  updated_at: "2026-04-26T22:00:00Z"
-  author: UniTeia System
-  version: 1
+  created_at: "2026-04-28T08:59:36.892Z"
+  updated_at: "2026-04-28T08:59:36.892Z"
 ---
 
-# Apex — Intelligence Singularity
+# UniTeia Apex
 
-The apex section covers the frontier of artificial intelligence and emerging technological capabilities. This landing page serves as the entry point for exploring intelligence singularity topics, foundational models, and the infrastructure that shapes tomorrow's computational landscape.
+Universal AI Knowledge Network
+This is a comprehensive knowledge hub for UniTeia Apex. We explore autonomous frameworks, tools, and the latest research in this exciting field of artificial intelligence. Our goal is to provide a central repository of information that is easily accessible and always up-to-date for researchers and developers alike.

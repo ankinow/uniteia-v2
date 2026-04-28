@@ -3,9 +3,9 @@ import type { AdaptiveHeaderProps, AdaptiveHeaderScale } from './types'
 
 /**
  * Typography breakpoint scale
- * - small (default):  28px / 36px
- * - medium (md:):     36px / 44px
- * - large (lg:):      48px / 60px
+ * - small (default): 28px / 36px
+ * - medium (md:): 36px / 44px
+ * - large (lg:): 48px / 60px
  */
 export const ADAPTIVE_HEADER_SCALE: AdaptiveHeaderScale = {
   small: { fontSize: '1.75rem', lineHeight: '2.25rem' }, // 28px / 36px
@@ -18,15 +18,15 @@ export const ADAPTIVE_HEADER_SCALE: AdaptiveHeaderScale = {
  *
  * Renders title + optional subtitle with responsive typography
  * using Tailwind responsive classes:
- *   - default (small):  text-2xl (28px) / leading-9 (36px)
- *   - md (medium):      text-4xl (36px) / leading-11 (44px)
- *   - lg (large):       text-5xl (48px) / leading-tight (60px)
+ * - default (small): text-2xl (28px) / leading-9 (36px)
+ * - md (medium): text-4xl (36px) / leading-11 (44px)
+ * - lg (large): text-5xl (48px) / leading-tight (60px)
  *
  * Follows S01 isolation pattern with types.ts + index.tsx.
  */
 export const AdaptiveHeader = component$<AdaptiveHeaderProps>(props => {
   return (
-    <header data-testid="adaptive-header" class={['adaptive-header', props.class]}>
+    <section data-testid="adaptive-header" class={['adaptive-header', props.class]}>
       <h1
         class={[
           'text-2xl leading-9',
@@ -42,7 +42,7 @@ export const AdaptiveHeader = component$<AdaptiveHeaderProps>(props => {
           {props.subtitle}
         </p>
       )}
-    </header>
+    </section>
   )
 })
 

@@ -1,54 +1,39 @@
 # llm-wiki-uniteia-factory
 
-Manual-first content factory for `llm-wiki-uniteia/<lang>/<slug>.md`.
-Lives at `apps/content-factory/` inside the `uniteia-v2` monorepo, **isolated** from the Qwik app.
+Manual-first content factory for UniTeia.
+Produces `llm-wiki-uniteia/<lang>/<slug>.md` with high SEO/AEO fidelity.
 
-## Quickstart
+## CLI Commands
 
-    cd apps/content-factory
-    bun install
-    bun _engine/cli.ts --help
+### 1. Diagnostic
+    bun _engine/cli.ts doctor
 
-## Three recipes
+### 2. Initialization
+    bun _engine/cli.ts init "my-slug" --entity "My Display Name" --lang en
 
-### 1. From a URL
+### 3. Generation (Full Pipeline)
+    bun _engine/cli.ts generate "LLM Agents" --lang en --type concept --provider stub
 
-    bun _engine/cli.ts generate "OpenRouter" \
-      --lang en --type platform \
-      --from url --seed-urls https://openrouter.ai,https://openrouter.ai/docs
-    bun _engine/cli.ts lint llm-aggregators-compared --channel all
-    bun _engine/cli.ts export llm-aggregators-compared --lang en
+### 4. Build (LLM only)
+    bun _engine/cli.ts build "llm-agents-primer" --entity "LLM Agents" --lang en --type concept --provider nvidia --model "deepseek-r1"
 
-### 2. From a prompt (vibe coding)
+### 5. Check (Release Gate)
+    bun _engine/cli.ts check "llm-agents-primer" --lang en
 
-    bun _engine/cli.ts generate "LLM Agents" --lang en --from prompt
+### 6. Batch Operations
+    bun _engine/cli.ts batch content.plan.yaml --dry-run
 
-*(Wire your `llmFn` first — the v0 stub fails loudly; OpenRouter / Anthropic / Ollama all work.)*
+### 7. Packaging
+    bun _engine/cli.ts package --lang all --out deploy-ready
 
-### 3. From notes
+## Features
+- **uniteia-invite-link-core/1**: Advanced schema for invite links and visual content.
+- **i18n Headings**: Automatic translation for 5 languages (en, pt, es, ja, zh).
+- **SEO Max**: Automatic Hreflang cluster and JSON-LD (Article/Product/Review).
+- **Hardened Linter**: Strict evidence requirements for numbers/dates/superlatives.
+- **Provider Support**: Stub (offline) and NVIDIA NIM (OpenAI-compatible).
 
-    # place your notes in content/<slug>/extracts.json by hand, then:
-    bun _engine/cli.ts generate "MyTopic" --lang pt --from notes
-
-## Pipeline
-
-    gather (fetcherFn DI)  → sources.json + extracts.json
-    build  (llmFn DI)      → core.yaml + evidence binding check
-    render (pure)          → blog.md + short.json + wiki.md + prompt-seed.md
-    export (pure)          → llm-wiki-uniteia/<lang>/<slug>.md
-
-## Isolation contract (critical)
-
-- **Zero import** between `apps/content-factory/**` and `src/**` (Qwik app)
-- **Not run** by the root CI of `uniteia-v2`
-- The output `apps/content-factory/llm-wiki-uniteia/` is exclusive to this app
-- See `DECISIONS.md` for the full ruleset and future debates
-
-## Lint and validate
-
-    bun _engine/cli.ts validate llm-agents-primer
-    bun _engine/cli.ts lint llm-agents-primer --channel all
-
-## Tests
-
-    bun run factory:test
+## Setup
+1. `cp .env.example .env`
+2. Configure `NVIDIA_API_KEY`
+3. `bun install`

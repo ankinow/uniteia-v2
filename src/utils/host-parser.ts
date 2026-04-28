@@ -34,8 +34,8 @@ export function parseHost(host: string | null): HostParseResult {
   const hostname = host.split(':')[0] || ''
   const isLocal = hostname === 'localhost' || hostname.endsWith('.local')
 
-  // 2. Check for apex domains
-  if (APEX_DOMAINS.includes(hostname)) {
+  // 2. Check for apex domains or common deployment subdomains
+  if (APEX_DOMAINS.includes(hostname) || hostname.endsWith('.pages.dev')) {
     return { niche: APEX_NICHE, isLocal }
   }
 

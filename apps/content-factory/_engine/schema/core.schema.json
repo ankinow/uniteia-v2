@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://uniteia-v2/content-factory/core.schema.json",
-  "title": "core/1",
+  "title": "uniteia-invite-link-core/1",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -10,51 +10,216 @@
     "entity",
     "type",
     "lang",
-    "summary_one_liner",
-    "summary_short",
-    "value_proposition",
-    "what_it_offers",
-    "problems_solved",
-    "target_audience",
+    "locale_targets",
+    "official_url",
+    "invite_link",
+    "disclosure",
+    "seo",
+    "visual_blocks",
+    "summaries",
+    "verdict",
     "sources",
     "evidence"
   ],
   "properties": {
-    "spec": { "const": "core/1" },
-    "id": { "type": "string", "pattern": "^[a-z0-9-]{3,80}$" },
+    "spec": { "const": "uniteia-invite-link-core/1" },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 80
+    },
     "entity": { "type": "string", "minLength": 2, "maxLength": 120 },
-    "type": { "type": "string", "minLength": 2, "maxLength": 60 },
+    "type": {
+      "type": "string",
+      "enum": [
+        "product",
+        "software",
+        "platform",
+        "tool",
+        "course",
+        "service",
+        "model",
+        "framework",
+        "marketplace_offer",
+        "comparison",
+        "buying_guide"
+      ]
+    },
     "lang": { "type": "string", "enum": ["en", "pt", "es", "ja", "zh"] },
-    "summary_one_liner": { "type": "string", "minLength": 20, "maxLength": 140 },
-    "summary_short": { "type": "string", "minLength": 80, "maxLength": 400 },
-    "value_proposition": { "type": "string", "minLength": 40, "maxLength": 280 },
-    "what_it_offers": {
+    "locale_targets": {
       "type": "array",
-      "minItems": 5,
-      "items": { "type": "string", "minLength": 4, "maxLength": 200 }
+      "minItems": 1,
+      "items": { "type": "string" }
     },
-    "problems_solved": {
-      "type": "array",
-      "minItems": 3,
-      "items": { "type": "string", "minLength": 4, "maxLength": 200 }
-    },
-    "target_audience": { "type": "string", "minLength": 10, "maxLength": 400 },
-    "when_it_matters": { "type": "string", "minLength": 10, "maxLength": 400 },
-    "when_less_matters": { "type": "string", "minLength": 10, "maxLength": 400 },
-    "pricing": { "type": "string" },
-    "alternatives": { "type": "array", "items": { "type": "string" } },
-    "comparables": { "type": "array", "items": { "type": "string" } },
-    "integrations": { "type": "array", "items": { "type": "string" } },
-    "angles": { "type": "array", "items": { "type": "string" } },
-    "takeaways": { "type": "array", "items": { "type": "string" } },
-    "questions_it_answers": { "type": "array", "items": { "type": "string" } },
-    "affiliate": {
+    "official_url": { "type": "string", "format": "uri" },
+    "invite_link": {
       "type": "object",
       "additionalProperties": false,
+      "required": ["enabled", "url", "merchant_type", "rel", "label_i18n"],
       "properties": {
-        "url": { "type": "string", "format": "uri" },
-        "program": { "type": "string" },
-        "disclosure": { "type": "string" }
+        "enabled": { "type": "boolean" },
+        "url": { "type": ["string", "null"], "format": "uri" },
+        "program": { "type": ["string", "null"] },
+        "merchant_type": {
+          "type": "string",
+          "enum": ["official", "authorized_partner", "marketplace", "reseller", "unknown"]
+        },
+        "tracking_id": { "type": ["string", "null"] },
+        "rel": { "const": "sponsored nofollow" },
+        "label_i18n": {
+          "type": "object",
+          "properties": {
+            "en": { "type": "string" },
+            "pt": { "type": "string" },
+            "es": { "type": "string" },
+            "ja": { "type": "string" },
+            "zh": { "type": "string" }
+          }
+        },
+        "link_status": {
+          "type": "string",
+          "enum": ["verified", "candidate", "blocked", "needs_review"]
+        },
+        "last_checked_at": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "disclosure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["position", "text_i18n"],
+      "properties": {
+        "position": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["top", "near_cta", "footer"] }
+        },
+        "text_i18n": {
+          "type": "object",
+          "properties": {
+            "en": { "type": "string" },
+            "pt": { "type": "string" },
+            "es": { "type": "string" },
+            "ja": { "type": "string" },
+            "zh": { "type": "string" }
+          }
+        }
+      }
+    },
+    "summaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary_one_liner", "summary_short", "decision_summary"],
+      "properties": {
+        "summary_one_liner": { "type": "string", "minLength": 20, "maxLength": 140 },
+        "summary_short": { "type": "string", "minLength": 80, "maxLength": 400 },
+        "decision_summary": { "type": "string", "minLength": 80, "maxLength": 600 }
+      }
+    },
+    "verdict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "score",
+        "label",
+        "who_should_buy",
+        "who_should_skip",
+        "main_tradeoff",
+        "pros",
+        "cons",
+        "checklist"
+      ],
+      "properties": {
+        "score": { "type": "number", "minimum": 0, "maximum": 10 },
+        "label": {
+          "type": "string",
+          "enum": ["recommended", "recommended_with_caveats", "not_recommended", "research_only"]
+        },
+        "who_should_buy": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 8,
+          "items": { "type": "string" }
+        },
+        "who_should_skip": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": { "type": "string" }
+        },
+        "main_tradeoff": { "type": "string" },
+        "pros": { "type": "array", "items": { "type": "string" } },
+        "cons": { "type": "array", "items": { "type": "string" } },
+        "checklist": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "seo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title_tag",
+        "meta_description",
+        "canonical_url",
+        "hreflang_cluster",
+        "jsonld",
+        "ai_retrieval",
+        "freshness_policy"
+      ],
+      "properties": {
+        "title_tag": {
+          "type": "object",
+          "required": ["max_chars", "localized"],
+          "properties": { "max_chars": { "type": "number" }, "localized": { "type": "boolean" } }
+        },
+        "meta_description": {
+          "type": "object",
+          "required": ["max_chars", "localized"],
+          "properties": { "max_chars": { "type": "number" }, "localized": { "type": "boolean" } }
+        },
+        "canonical_url": { "type": "string", "format": "uri" },
+        "hreflang_cluster": {
+          "type": "object",
+          "properties": {
+            "self_reference": { "type": "boolean" },
+            "x_default": { "type": "boolean" },
+            "bidirectional": { "type": "boolean" }
+          }
+        },
+        "jsonld": {
+          "type": "object",
+          "properties": {
+            "types": { "type": "array", "items": { "type": "string" } },
+            "visible_match": { "type": "boolean" }
+          }
+        },
+        "ai_retrieval": {
+          "type": "object",
+          "properties": {
+            "llms_txt_ready": { "type": "boolean" },
+            "answer_blocks": { "type": "boolean" },
+            "entity_disambiguation": { "type": "boolean" },
+            "concise_claims": { "type": "boolean" },
+            "source_ledger": { "type": "boolean" }
+          }
+        },
+        "freshness_policy": {
+          "type": "object",
+          "required": ["last_reviewed_at", "review_interval_days"],
+          "properties": {
+            "last_reviewed_at": { "type": "string", "format": "date-time" },
+            "review_interval_days": { "type": "number" },
+            "price_availability_check_required": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "visual_blocks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "min_tables", "min_checklists", "min_cta_blocks"],
+      "properties": {
+        "required": { "type": "array", "items": { "type": "string" } },
+        "min_tables": { "type": "number" },
+        "min_checklists": { "type": "number" },
+        "min_cta_blocks": { "type": "number" }
       }
     },
     "sources": {
@@ -66,7 +231,18 @@
         "required": ["url", "kind", "accessed_at"],
         "properties": {
           "url": { "type": "string", "format": "uri" },
-          "kind": { "type": "string", "enum": ["primary", "secondary"] },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "official",
+              "primary",
+              "secondary",
+              "marketplace",
+              "documentation",
+              "review",
+              "pricing"
+            ]
+          },
           "title": { "type": "string" },
           "accessed_at": { "type": "string", "format": "date-time" },
           "excerpt_id": { "type": "string", "pattern": "^ex_[0-9]{3,}$" }
@@ -75,15 +251,16 @@
     },
     "evidence": {
       "type": "array",
-      "minItems": 1,
+      "minItems": 3,
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "text", "url"],
+        "required": ["id", "text", "url", "supports"],
         "properties": {
           "id": { "type": "string", "pattern": "^ex_[0-9]{3,}$" },
-          "text": { "type": "string", "minLength": 10, "maxLength": 600 },
-          "url": { "type": "string", "format": "uri" }
+          "text": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "supports": { "type": "array", "items": { "type": "string" } }
         }
       }
     }

@@ -1,25 +1,18 @@
 ---
-slug: _index
-lang: en
-title: Language Models — Foundation Models & Architecture
-type: index
-verdict: trusted
-quality_score: 85
-subjects:
-  - llm
-  - foundation-models
-  - transformers
-referral_links:
-  - url: https://uniteia.com/
-    title: UniTeia Home
-    description: Canonical intelligence hub
+type: "index"
+slug: "_index"
+lang: "en"
+title: "Language Models"
+subjects: ["language-models"]
+referral_links: []
+verdict: "trusted"
+quality_score: 100
 metadata:
-  created_at: "2026-04-26T22:00:00Z"
-  updated_at: "2026-04-26T22:00:00Z"
-  author: UniTeia System
-  version: 1
+  created_at: "2026-04-28T08:59:36.892Z"
+  updated_at: "2026-04-28T08:59:36.892Z"
 ---
 
-# Language Models — Foundation Models & Architecture
+# Language Models
 
-The language-models section covers foundation models, transformer architectures, and the infrastructure powering modern AI systems. This landing page connects you to guides on model architectures, training paradigms, and the practical considerations developers face when selecting and deploying LLMs.
+LLMs, Transformers and NLP
+This is a comprehensive knowledge hub for Language Models. We explore autonomous frameworks, tools, and the latest research in this exciting field of artificial intelligence. Our goal is to provide a central repository of information that is easily accessible and always up-to-date for researchers and developers alike.

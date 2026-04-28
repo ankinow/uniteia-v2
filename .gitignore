@@ -36,3 +36,23 @@ tmp/
 
 # ── GSD baseline (auto-generated) ──
 .mcp.json
+
+# Qwik
+server/
+public/build/
+
+# Playwright
+playwright-report/
+test-results/
+
+# OpenCode / LeanKG
+.leankg/
+.opencode/
+
+# Session logs
+session-*.md
+
+# Content Factory generated
+apps/content-factory/content/
+apps/content-factory/llm-wiki-uniteia/
+

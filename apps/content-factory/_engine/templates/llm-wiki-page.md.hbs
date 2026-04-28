@@ -1,15 +1,23 @@
 ---
-title: {{entity}}
-description: {{summary_one_liner}}
+title: {{yamlSafe entity}}
+description: {{yamlSafe summaries.summary_one_liner}}
 lang: {{lang}}
 slug: {{slug}}
+canonical: {{seo_meta.canonical}}
+invite_link_disclosure: true
+alternates:
+{{#each seo_meta.alternates}}
+  - hreflang: {{hreflang}}
+    href: {{href}}
+{{/each}}
+json_ld: {{{json json_ld}}}
 type: {{type}}
 created: {{created}}
 updated: {{updated}}
 source_core_path: content/{{slug}}/core.yaml
 sources:
 {{#each sources}}
-  - title: {{title}}
+  - title: {{yamlSafe title}}
     url: {{url}}
     kind: {{kind}}
     accessed_at: {{accessed_at}}
@@ -20,56 +28,75 @@ quality:
   evidence_count: {{evidence_count}}
 ---
 
+> **Invite-link note:** {{disclosure_text}}
+
 # {{entity}}
 
-## TL;DR
+<HeroVerdictCard
+  score="{{verdict.score}}"
+  label="{{verdict.label}}"
+  updated="{{updated}}"
+/>
 
-{{summary_one_liner}}
+> **TL;DR:** {{summaries.summary_one_liner}}
 
-## O que é
-
-{{summary_short}}
-
-## Para quem é
-
-{{target_audience}}
-
-{{#if when_it_matters}}
-## Quando faz sentido
-
-{{when_it_matters}}
+{{#if invite_link.enabled}}
+[{{#if (eq invite_link.merchant_type "official")}}{{cta.official}}{{else}}{{cta.partner}}{{/if}}]({{invite_link.url}}){rel="sponsored nofollow" target="_blank"}
+{{else}}
+[{{cta.official}}]({{official_url}}){rel="nofollow" target="_blank"}
 {{/if}}
 
-{{#if when_less_matters}}
-## Quando faz menos sentido
+## {{h.what_it_is}}
 
-{{when_less_matters}}
-{{/if}}
+{{summaries.summary_short}}
 
-## O que oferece
-
-{{#each what_it_offers}}
+## {{h.who_should_buy}}
+{{#each verdict.who_should_buy}}
 - {{this}}
 {{/each}}
 
-## Problemas que resolve
-
-{{#each problems_solved}}
+## {{h.who_should_skip}}
+{{#each verdict.who_should_skip}}
 - {{this}}
 {{/each}}
 
-## Editorial
+## {{h.pros_cons}}
+
+| ✅ Pros | ❌ Cons |
+| --- | --- |
+{{#each (zip verdict.pros verdict.cons)}}
+| {{lookup this 0}} | {{lookup this 1}} |
+{{/each}}
+
+## {{h.checklist_before_buying}}
+{{#each verdict.checklist}}
+- [ ] {{this}}
+{{/each}}
+
+{{#if alternatives}}
+## {{h.alternates}}
+| Option | Highlights |
+| --- | --- |
+{{#each alternatives}}
+| {{this}} | - |
+{{/each}}
+{{/if}}
+
+## {{h.editorial}}
 
 {{blog_body}}
 
-## Sources
+## {{h.sources}}
 
 {{#each sources}}
 - [{{title}}]({{url}}) — *{{kind}}* (accessed {{accessed_at}})
 {{/each}}
 
-## Evidence
+## {{h.evidence}}
 
 {{#each evidence}}
 - **{{id}}**: "{{text}}" — {{url}}
 {{/each}}
+
+---
+{{disclosure_text}}

@@ -1,41 +1,34 @@
 # {{entity}}
 
-> {{summary_one_liner}}
+> {{summaries.summary_one_liner}}
 
-## What it is
+## {{h.what_it_is}}
 
-{{summary_short}}
+{{summaries.summary_short}}
 
-## For whom
+## {{h.for_whom}}
 
 {{target_audience}}
 
-## What it offers
-
-{{#each what_it_offers}}
+## {{h.who_should_buy}}
+{{#each verdict.who_should_buy}}
 - {{this}}
 {{/each}}
 
-## Problems solved
-
-{{#each problems_solved}}
-- {{this}}
+## {{h.pros_cons}}
+{{#each verdict.pros}}
+- Pro: {{this}}
+{{/each}}
+{{#each verdict.cons}}
+- Con: {{this}}
 {{/each}}
 
-{{#if when_it_matters}}
-## When it matters
+## {{h.checklist_before_buying}}
+{{#each verdict.checklist}}
+- [ ] {{this}}
+{{/each}}
 
-{{when_it_matters}}
-{{/if}}
-
-{{#if when_less_matters}}
-## When it matters less
-
-{{when_less_matters}}
-{{/if}}
-
-## Sources
-
+## {{h.sources}}
 {{#each sources}}
 - [{{title}}]({{url}})
 {{/each}}

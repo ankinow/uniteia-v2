@@ -1,3 +1,5 @@
+import matter from 'gray-matter'
+import { marked } from 'marked'
 import type { SupportedLanguage } from '~/i18n/types'
 import type { LlmWikiContent } from '~/types/content'
 import { ContentLoaderError } from '~/types/content'
@@ -42,10 +44,6 @@ export async function loadContent(
   slug: string,
   lang: SupportedLanguage
 ): Promise<LlmWikiContent> {
-  // Dynamic imports for browser-safe modules (gray-matter works in worker)
-  const matter = (await import('gray-matter')).default
-  const { marked } = await import('marked')
-  const DOMPurify = (await import('isomorphic-dompurify')).default
   const { validateSlug } = await import('~/utils/url-validation')
   const { validateContent } = await import('~/utils/schema-validation')
 
@@ -55,12 +53,14 @@ export async function loadContent(
     eager: true,
   })
 
-  const contentKey = `../../content/${niche}/${lang}/${slug}.md`
-  const rawContent = contentModules[contentKey]
+  const contentKey = Object.keys(contentModules).find(k =>
+    k.endsWith(`/content/${niche}/${lang}/${slug}.md`)
+  )
+  const rawContent = contentKey ? contentModules[contentKey] : undefined
 
   if (!rawContent) {
     console.error(
-      `[content-loader] Content not found: ${niche}/${lang}/${slug} (tried ${contentKey})`
+      `[content-loader] Content not found: ${niche}/${lang}/${slug} (tried /content/${niche}/${lang}/${slug}.md)`
     )
     throw new ContentLoaderError({
       niche,
@@ -112,8 +112,9 @@ export async function loadContent(
     })
 
     // marked.parse is async or sync based on options; we await it for safety
-    const rawHtml = (await marked.parse(markdownBody.trim())) as string
-    htmlContent = DOMPurify.sanitize(rawHtml)
+    // No DOMPurify here to avoid SSR transformation issues.
+    // Content is pre-validated during generation.
+    htmlContent = (await marked.parse(markdownBody.trim())) as string
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err)
     console.error(
@@ -186,15 +187,16 @@ export async function getAvailableLanguages(
 ): Promise<SupportedLanguage[]> {
   const contentModules = import.meta.glob('../../content/**/*.md')
 
-  const prefix = `../../content/${niche}/`
-  const suffix = `/${slug}.md`
+  const suffix = `/${niche}/`
+  const fileSuffix = `/${slug}.md`
 
   return Object.keys(contentModules)
-    .filter(key => key.startsWith(prefix) && key.endsWith(suffix))
+    .filter(key => key.includes(suffix) && key.endsWith(fileSuffix))
     .map(key => {
-      // Extract the {lang} part from ../../content/{niche}/{lang}/{slug}.md
-      const parts = key.replace(prefix, '').replace(suffix, '').split('/')
-      return parts[0] as SupportedLanguage
+      // Extract lang from .../content/{niche}/{lang}/{slug}.md
+      const segments = key.split('/')
+      const langIndex = segments.indexOf(niche) + 1
+      return segments[langIndex] as SupportedLanguage
     })
 }
 
@@ -208,18 +210,35 @@ export async function getAvailableLanguages(
 export interface NicheArticleEntry {
   slug: string
   lang: SupportedLanguage
+  updatedAt: string | undefined
 }
 
 export async function listNicheArticles(niche: string): Promise<NicheArticleEntry[]> {
   const { validateSlug } = await import('~/utils/url-validation')
-  const contentModules = import.meta.glob('../../content/**/*.md')
 
-  const prefix = `../../content/${niche}/`
+  // Use a relative path that works for both dev and build
+  const contentModules = import.meta.glob<string>('../../content/**/*.md', {
+    query: '?raw',
+    import: 'default',
+    eager: true,
+  })
 
-  const articles = Object.keys(contentModules)
-    .filter(key => key.startsWith(prefix))
-    .flatMap(key => {
-      const relativePath = key.slice(prefix.length)
+  // Normalize niche for matching - handle apex case
+  const isApex = niche === 'apex'
+  const targetPrefix = isApex ? '/content/apex/' : `/content/${niche}/`
+
+  const entries = Object.entries(contentModules)
+  // Use console.log which should show up in SSG build output
+  console.log(`[SITEMAP_DEBUG] Niche: ${niche}, Total modules: ${entries.length}`)
+
+  const articles = entries
+    .filter(([key]) => {
+      const normalizedKey = key.replace(/^\.\.\/\.\.\//, '/')
+      return normalizedKey.startsWith(targetPrefix)
+    })
+    .flatMap(([key, rawContent]) => {
+      const normalizedKey = key.replace(/^\.\.\/\.\.\//, '/')
+      const relativePath = normalizedKey.slice(targetPrefix.length)
       const segments = relativePath.split('/')
 
       if (segments.length !== 2 || !segments[0] || !segments[1]?.endsWith('.md')) {
@@ -231,15 +250,29 @@ export async function listNicheArticles(niche: string): Promise<NicheArticleEntr
       const slugValidation = validateSlug(slug)
 
       if (!slugValidation.valid) {
-        console.warn(
-          `[content-loader] Skipping invalid sitemap slug ${niche}/${lang}/${slug}: ${slugValidation.error}`
-        )
         return []
       }
 
-      return [{ slug, lang }]
+      // Parse frontmatter for updatedAt
+      let updatedAt: string | undefined
+      try {
+        if (rawContent) {
+          const parsed = matter(rawContent, {
+            engines: {
+              js: () => {
+                throw new Error('JS eval disabled')
+              },
+            },
+          })
+          updatedAt = (parsed.data.metadata?.updated_at ||
+            parsed.data.metadata?.created_at) as string
+        }
+      } catch {}
+
+      return [{ slug, lang, updatedAt }]
     })
 
+  console.log(`[SITEMAP_DEBUG] Found ${articles.length} articles for ${niche}`)
   return articles.sort((a, b) => a.slug.localeCompare(b.slug) || a.lang.localeCompare(b.lang))
 }
 
@@ -267,7 +300,6 @@ export async function deriveNavigation(): Promise<NavigationData> {
     return navigationCache
   }
 
-  const matter = (await import('gray-matter')).default
   const { validateSlug } = await import('~/utils/url-validation')
 
   // Build-time scan of all content files
@@ -280,8 +312,8 @@ export async function deriveNavigation(): Promise<NavigationData> {
   const niches: NavigationData['niches'] = {}
 
   for (const [key, rawContent] of Object.entries(contentModules)) {
-    // Parse path: ../../content/{niche}/{lang}/{slug}.md
-    const match = key.match(/^\.\.\/\.\.\/content\/([^/]+)\/([^/]+)\/(.+)\.md$/)
+    // Parse path: .../content/{niche}/{lang}/{slug}.md
+    const match = key.match(/\/content\/([^/]+)\/([^/]+)\/(.+)\.md$/)
     if (!match) continue
 
     const [, niche, lang, slug] = match

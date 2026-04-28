@@ -49,6 +49,13 @@ describe('export', () => {
       expect(out).toMatch(/## Sources/)
       expect(out).toMatch(/## Evidence/)
       expect(out).toMatch(/ex_001/)
+      expect(out).toMatch(/canonical: https:\/\/uniteia.com\/en\/llm-agents-primer/)
+      expect(out).toMatch(/hreflang: x-default/)
+      expect(out).toMatch(/json_ld: \{.*"@context":\s*"https:\/\/schema.org"/)
+      expect(out).toMatch(/> \*\*Invite-link note:\*\*/)
+      expect(out).toMatch(
+        /\[Official site\]\(https:\/\/www\.anthropic\.com\/research\/building-effective-agents\)\{rel="nofollow" target="_blank"\}/
+      )
     }
   })
 

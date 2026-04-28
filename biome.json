@@ -59,7 +59,8 @@
       "test-results",
       "llm-wiki",
       "server",
-      ".imports"
+      ".imports",
+      "apps"
     ]
   }
 }

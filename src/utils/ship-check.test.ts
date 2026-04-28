@@ -84,24 +84,27 @@ describe('runShipCheck', () => {
     expect(formatShipCheckReport(report)).toContain('2 step(s) passed')
   })
 
-  it('contains the browser verification step in the default steps', () => {
+  it('contains the lighthouse check step in the default steps', () => {
     const steps = createDefaultShipCheckSteps()
-    const browserStep = steps.find(step => step.name === 'browser:verify')
+    const lighthouseStep = steps.find(step => step.name === 'lighthouse:check')
 
-    expect(browserStep).toEqual({
-      name: 'browser:verify',
-      command: ['bun', 'run', 'browser:verify'],
+    expect(lighthouseStep).toEqual({
+      name: 'lighthouse:check',
+      command: ['bun', 'run', 'lighthouse:check'],
     })
     expect(steps.map(step => step.name)).toEqual([
       'lint',
       'typecheck',
       'test:unit',
       'build',
+      'header:single',
       'size:check',
-      'lighthouse:check',
-      'browser:verify',
       'slug:check',
       'content:check',
+      'sitemap:check',
+      'lighthouse:check',
+      'smoke:200s',
+      'invalid-locale-404',
     ])
   })
 })

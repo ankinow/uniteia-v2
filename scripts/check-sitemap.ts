@@ -7,7 +7,7 @@
 import { existsSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 
-const SITEMAP_PATH = 'public/sitemap.xml'
+const SITEMAP_PATH = 'dist/sitemap.xml'
 
 interface CheckResult {
   name: string
@@ -82,7 +82,7 @@ async function validateSitemap(): Promise<CheckResult[]> {
   }
 
   // Count URLs
-  const urlMatches = content.match(/<url>/g)
+  const urlMatches = content.match(/<url[\s>]/g)
   const urlCount = urlMatches ? urlMatches.length : 0
 
   if (urlCount >= 3) {

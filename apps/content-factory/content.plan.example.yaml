@@ -1,0 +1,13 @@
+spec: content-plan/1
+defaults:
+  lang: pt
+  type: platform
+  provider: stub
+items:
+  - id: openai-chatgpt
+    entity: OpenAI ChatGPT
+    from: prompt
+  - id: anthropic-claude
+    entity: Anthropic Claude
+    from: url
+    seed_urls: ["https://www.anthropic.com/claude"]

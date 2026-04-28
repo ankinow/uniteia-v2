@@ -2,15 +2,15 @@
 /**
  * Smoke Test - Verifies key routes return 200 OK
  */
-const DEV_SERVER_URL = 'http://localhost:5173'
+const DEV_SERVER_URL = 'http://localhost:8788'
 const TIMEOUT_MS = 30000
 
 const KEY_ROUTES = [
   { url: '/', name: 'root' },
-  { url: '/en', name: 'en-landing' },
-  { url: '/en/n', name: 'en-niche' },
-  { url: '/pt', name: 'pt-landing' },
-  { url: '/es', name: 'es-landing' },
+  { url: '/en/n', name: 'en-niche-index' },
+  { url: '/pt/n', name: 'pt-niche-index' },
+  { url: '/es/n', name: 'es-niche-index' },
+  { url: '/en/test-article', name: 'en-article' },
 ]
 
 interface CheckResult {
@@ -26,33 +26,52 @@ async function fetchWithTimeout(url: string, timeoutMs: number): Promise<Respons
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
   try {
-    const response = await fetch(url, { signal: controller.signal })
+    const response = await fetch(url, { signal: controller.signal, redirect: 'follow' })
     clearTimeout(timeoutId)
     return response
-  } catch (error) {
+  } catch (_error) {
     clearTimeout(timeoutId)
     throw error
   }
 }
 
-async function checkRoute(route: { url: string; name: string }): Promise<CheckResult> {
-  const start = Date.now()
-  const fullUrl = `${DEV_SERVER_URL}${route.url}`
-  try {
-    const response = await fetchWithTimeout(fullUrl, TIMEOUT_MS)
-    return { name: route.name, url: fullUrl, expectedStatus: 200, actualStatus: response.status, passed: response.status === 200, durationMs: Date.now() - start }
-  } catch (error) {
-    return { name: route.name, url: fullUrl, expectedStatus: 200, actualStatus: 0, passed: false, durationMs: Date.now() - start }
-  }
-}
-
 async function main(): Promise<void> {
-  console.log('▶ [ship-check] smoke:200s: Testing key routes\n')
+  const customBaseUrl = process.argv[2]
+  const baseUrl = customBaseUrl || DEV_SERVER_URL
+
+  console.log(`▶ [ship-check] smoke:200s: Testing key routes at ${baseUrl}\n`)
   const checks: CheckResult[] = []
   for (const route of KEY_ROUTES) {
-    const result = await checkRoute(route)
-    checks.push(result)
-    console.log(`${result.passed ? '✅' : '❌'} ${result.name}: ${result.url} → ${result.actualStatus} (${result.durationMs}ms)`)
+    const fullUrl = `${baseUrl}${route.url}`
+    const start = Date.now()
+    try {
+      const response = await fetchWithTimeout(fullUrl, TIMEOUT_MS)
+      const result = {
+        name: route.name,
+        url: fullUrl,
+        expectedStatus: 200,
+        actualStatus: response.status,
+        passed: response.status === 200,
+        durationMs: Date.now() - start,
+      }
+      checks.push(result)
+      console.log(
+        `${result.passed ? '✅' : '❌'} ${result.name}: ${result.url} → ${result.actualStatus} (${result.durationMs}ms)`
+      )
+    } catch (_error) {
+      const result = {
+        name: route.name,
+        url: fullUrl,
+        expectedStatus: 200,
+        actualStatus: 0,
+        passed: false,
+        durationMs: Date.now() - start,
+      }
+      checks.push(result)
+      console.log(
+        `${result.passed ? '✅' : '❌'} ${result.name}: ${result.url} → FAIL (${result.durationMs}ms)`
+      )
+    }
   }
   console.log('')
   const allPassed = checks.every(c => c.passed)

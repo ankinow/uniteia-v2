@@ -18,36 +18,35 @@ export const ServerError = component$(() => {
   useProvideI18n(DEFAULT_LANGUAGE)
   return (
     <SiteShell isApexHost={true}>
-      <header q:slot="header" class="site-header w-full">
-        <nav
-          class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-action/10"
-          data-testid="main-nav"
+      <nav
+        q:slot="header"
+        class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-action/10"
+        data-testid="main-nav"
+      >
+        <a
+          href="/"
+          class="brand flex items-center gap-2 text-xl font-bold text-bone hover:text-action transition-colors"
+          data-testid="nav-logo"
         >
-          <a
-            href="/"
-            class="brand flex items-center gap-2 text-xl font-bold text-bone hover:text-action transition-colors"
-            data-testid="nav-logo"
-          >
-            <span class="text-action">Uni</span>
-            <span>Teia</span>
+          <span class="text-action">Uni</span>
+          <span>Teia</span>
+        </a>
+        <div class="nav-links hidden md:flex items-center gap-6">
+          <a href="/" class="text-bone-muted hover:text-bone transition-colors">
+            Home
           </a>
-          <div class="nav-links hidden md:flex items-center gap-6">
-            <a href="/" class="text-bone-muted hover:text-bone transition-colors">
-              Home
-            </a>
-            <a href="/about" class="text-bone-muted hover:text-bone transition-colors">
-              About
-            </a>
-            <a href="/projects" class="text-bone-muted hover:text-bone transition-colors">
-              Projects
-            </a>
-            <a href="/blog" class="text-bone-muted hover:text-bone transition-colors">
-              Blog
-            </a>
-          </div>
-          <LangSwitcher />
-        </nav>
-      </header>
+          <a href="/about" class="text-bone-muted hover:text-bone transition-colors">
+            About
+          </a>
+          <a href="/projects" class="text-bone-muted hover:text-bone transition-colors">
+            Projects
+          </a>
+          <a href="/blog" class="text-bone-muted hover:text-bone transition-colors">
+            Blog
+          </a>
+        </div>
+        <LangSwitcher />
+      </nav>
       <main class="flex-1 flex items-center justify-center px-4 py-16">
         <ErrorContent />
       </main>

@@ -1,9 +1,11 @@
 import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
+import { JSONLD } from '~/components/json-ld'
 import { NicheLanding } from '~/components/niche-landing'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
 import type { SupportedLanguage } from '~/i18n/types'
 import { findNicheBySlug, loadNichesConfig } from '~/utils/niche-loader'
+import { generateWebSiteSchema } from '~/utils/schema-generators'
 import type { NicheRouteData } from './types'
 
 /** Quick lookup set for valid language codes */
@@ -52,18 +54,43 @@ export default component$(() => {
   const location = useLocation()
   const lang = (location.params.lang as SupportedLanguage) || 'en'
 
-  return <NicheLanding niche={data.value.niche} otherNiches={data.value.otherNiches} lang={lang} />
+  const websiteSchema = generateWebSiteSchema({
+    name: `${data.value.niche.title[lang]} | UniTeia`,
+    url: location.url.href,
+    description: data.value.niche.description[lang],
+    lang,
+  })
+
+  return (
+    <>
+      <JSONLD data={websiteSchema} />
+      <NicheLanding niche={data.value.niche} otherNiches={data.value.otherNiches} lang={lang} />
+    </>
+  )
 })
 
 /**
  * Document head — sets page title and meta description from niche data
  */
-export const head: DocumentHead = ({ resolveValue, params }) => {
+export const head: DocumentHead = ({ resolveValue, params, url }) => {
   const data = resolveValue(useNicheData)
   const lang = (params.lang as SupportedLanguage) || 'en'
 
   const title = `${data.niche.title[lang]} | UniTeia`
   const description = data.niche.description[lang]
+
+  const alternateLinks: Array<{ rel: string; hreflang: string; href: string }> =
+    SUPPORTED_LANGUAGES.map(l => ({
+      rel: 'alternate',
+      hreflang: l.code,
+      href: new URL(`/${l.code}/n/${data.niche.slug}`, url.origin).href,
+    }))
+
+  alternateLinks.push({
+    rel: 'alternate',
+    hreflang: 'x-default',
+    href: new URL(`/en/n/${data.niche.slug}`, url.origin).href,
+  })
 
   return {
     title,
@@ -71,5 +98,6 @@ export const head: DocumentHead = ({ resolveValue, params }) => {
       { name: 'description', content: description },
       { name: 'robots', content: 'index, follow' },
     ],
+    links: [{ rel: 'canonical', href: url.href }, ...alternateLinks],
   }
 }

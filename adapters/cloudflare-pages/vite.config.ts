@@ -13,6 +13,12 @@ export default extendConfig(baseConfig, () => {
     ssr: {
       noExternal: true,
     },
-    plugins: [cloudflarePagesAdapter()],
+    plugins: [
+      cloudflarePagesAdapter({
+        ssg: {
+          include: ['/sitemap.xml'],
+        },
+      }),
+    ],
   }
 })

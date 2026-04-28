@@ -1,11 +1,9 @@
-import { readFileSync } from 'node:fs'
-import { basename, resolve } from 'node:path'
 import addFormats from 'ajv-formats'
 import Ajv2020, { type DefinedError } from 'ajv/dist/2020'
 import matter from 'gray-matter'
+import schema from '../../schemas/llm-wiki-v1.schema.json' with { type: 'json' }
 import { validateSlug } from './url-validation'
 
-const SCHEMA_PATH = resolve(import.meta.dirname, '../../schemas/llm-wiki-v1.schema.json')
 const SCHEMA_ID = 'https://uniteia.com/schemas/llm-wiki-v1.schema.json'
 
 let ajvInstance: Ajv2020 | null = null
@@ -40,14 +38,12 @@ function getAjv(): Ajv2020 | null {
   try {
     ajvInstance = new Ajv2020({ allErrors: true, strict: true })
     addFormats(ajvInstance)
-    const schemaContent = readFileSync(SCHEMA_PATH, 'utf-8')
-    const schema = JSON.parse(schemaContent)
     ajvInstance.addSchema(schema)
     return ajvInstance
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
     schemaLoadIssue = {
-      filePath: SCHEMA_PATH,
+      filePath: 'schema',
       field: 'schema',
       message: `Schema load failed: ${message}`,
     }
@@ -175,7 +171,7 @@ export function validateMarkdownFrontmatter(markdown: string, filePath: string):
     }
   }
 
-  const fileSlug = basename(filePath, '.md')
+  const fileSlug = filePath.split('/').pop()?.replace(/\.md$/, '') || ''
   // Skip slug validation for _index.md landing page files
   // These are internal files that map to directory roots, not content slugs
   const isIndexFile = fileSlug === '_index'

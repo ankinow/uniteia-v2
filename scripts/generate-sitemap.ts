@@ -141,7 +141,8 @@ async function generateSitemap(): Promise<void> {
 
   // Generate URLs for each article
   for (const [key, translations] of grouped) {
-    const primary = translations[0]!
+    if (translations.length === 0) continue
+    const primary = translations[0]
     const [niche, slug] = key.split('/')
 
     // Use the last updated date from any translation
@@ -167,7 +168,7 @@ async function generateSitemap(): Promise<void> {
 
     // Add x-default
     const enTranslation = translations.find(t => t.lang === 'en')
-    const defaultLang = enTranslation || translations[0]!
+    const defaultLang = enTranslation || translations[0]
     fixedAlternates.push({
       lang: 'x-default',
       href: `https://${niche}.uniteia.com/${defaultLang.lang}/${defaultLang.slug}`,

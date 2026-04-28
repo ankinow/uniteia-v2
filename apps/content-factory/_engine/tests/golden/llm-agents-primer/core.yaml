@@ -1,67 +1,110 @@
-spec: core/1
+spec: uniteia-invite-link-core/1
 id: llm-agents-primer
 entity: LLM Agents
-type: concept-primer
+type: framework
 lang: en
-summary_one_liner: An LLM agent is a model that plans, calls tools, and observes results in a loop.
-summary_short: |
-  An LLM agent wraps a language model with a control loop that can decide
-  to call tools, read their output, and adjust its next step. It is not a
-  single prompt: it is a planner-executor that turns a goal into a sequence
-  of tool calls until a stop condition is met.
-value_proposition: |
-  Agents trade single-shot answers for tool-backed reasoning. They shine when
-  a task needs lookups, computation, or stateful follow-up across steps.
-what_it_offers:
-  - Tool calling and result inspection in a loop
-  - Goal decomposition into intermediate sub-tasks
-  - Memory of prior steps within the run
-  - Stop conditions and budget control (tokens, steps, time)
-  - Observability of each tool call for audit and replay
-problems_solved:
-  - Single-prompt LLM cannot read external state on demand
-  - Hand-written multi-step pipelines do not adapt mid-run
-  - Pure RAG cannot perform actions, only retrieval
-target_audience: |
-  Engineers and product teams building LLM features that need tool use,
-  multi-step reasoning, or live data access (search, code, APIs, files).
-when_it_matters: |
-  When the user goal cannot be answered from a single prompt and requires
-  at least one external action or stateful follow-up.
-when_less_matters: |
-  When a task is a one-shot transformation (translate, classify, summarize)
-  with no external state and predictable output shape.
+locale_targets: ["en-US", "en-GB"]
+official_url: "https://www.anthropic.com/research/building-effective-agents"
+invite_link:
+  enabled: false
+  url: null
+  program: null
+  merchant_type: unknown
+  tracking_id: null
+  rel: "sponsored nofollow"
+  label_i18n:
+    en: "Official site — click here"
+    pt: "Site oficial — clique aqui"
+    es: "Sitio oficial — haz clic aquí"
+    ja: "公式サイトはこちら"
+    zh: "官方网站 — 点击这里"
+  link_status: "verified"
+  last_checked_at: "2025-01-01T00:00:00Z"
+disclosure:
+  position: ["top", "near_cta"]
+  text_i18n:
+    en: "Some links may be invite links. If you buy through them, UniTeia may earn a commission at no extra cost to you."
+    pt: "Alguns links podem ser links de convite. Ao comprar por eles, você apoia o UniTeia sem custo extra."
+    es: "Algunos enlaces pueden ser de link de convite. Si compras a través de ellos, UniTeia puede recibir una comisión sin costo adicional para ti."
+    ja: "一部のリンクは招待リンクです。リンク経由で購入すると、追加費用なしでUniTeiaを支援できます。"
+    zh: "部分链接可能是邀请链接。通过这些链接购买时，UniTeia 可能获得佣金，且不会增加你的费用。"
+seo:
+  title_tag:
+    max_chars: 60
+    localized: true
+  meta_description:
+    max_chars: 155
+    localized: true
+  canonical_url: "https://uniteia.com/en/llm-agents-primer"
+  hreflang_cluster:
+    self_reference: true
+    x_default: true
+    bidirectional: true
+  jsonld:
+    types: ["Article"]
+    visible_match: true
+  ai_retrieval:
+    llms_txt_ready: true
+    answer_blocks: true
+    entity_disambiguation: true
+    concise_claims: true
+    source_ledger: true
+  freshness_policy:
+    last_reviewed_at: "2025-01-01T00:00:00Z"
+    review_interval_days: 90
+    price_availability_check_required: false
+visual_blocks:
+  required: ["hero_verdict_card", "tldr_callout"]
+  min_tables: 1
+  min_checklists: 1
+  min_cta_blocks: 2
+summaries:
+  summary_one_liner: "An LLM agent wraps a language model with a control loop that can decide to call tools, read their output, and adjust its next step."
+  summary_short: "An LLM agent is a model that plans, calls tools, and observes results in a loop. It is not a single prompt: it is a planner-executor that turns a goal into a sequence of tool calls until a stop condition is met."
+  decision_summary: "Agents trade single-shot answers for tool-backed reasoning. They shine when a task needs lookups, computation, or stateful follow-up across steps."
+verdict:
+  score: 9.5
+  label: recommended
+  who_should_buy:
+    - "Engineers building LLM features"
+    - "Product teams needing tool use"
+    - "Researchers exploring AI orchestration"
+  who_should_skip:
+    - "Simple transformation tasks"
+    - "Latency-sensitive APIs"
+  main_tradeoff: "Higher latency and cost for significantly better capabilities"
+  pros:
+    - "High adaptability to complex goals"
+    - "Rich ecosystem of existing tools"
+    - "Strong reasoning capabilities"
+  cons:
+    - "Non-deterministic behavior risks"
+    - "High token consumption"
+  checklist:
+    - "Define clear stop conditions"
+    - "Set a strict token budget"
+    - "Audit tool definitions for security"
 sources:
-  - url: https://www.anthropic.com/research/building-effective-agents
+  - url: "https://www.anthropic.com/research/building-effective-agents"
     kind: primary
-    title: Building effective agents (Anthropic)
-    accessed_at: 2025-01-01T00:00:00Z
+    title: "Building effective agents (Anthropic)"
+    accessed_at: "2025-01-01T00:00:00Z"
     excerpt_id: ex_001
-  - url: https://platform.openai.com/docs/guides/function-calling
+  - url: "https://platform.openai.com/docs/guides/function-calling"
     kind: primary
-    title: Function calling (OpenAI)
-    accessed_at: 2025-01-01T00:00:00Z
+    title: "Function calling (OpenAI)"
+    accessed_at: "2025-01-01T00:00:00Z"
     excerpt_id: ex_002
-  - url: https://lilianweng.github.io/posts/2023-06-23-agent/
-    kind: secondary
-    title: LLM Powered Autonomous Agents (Lilian Weng)
-    accessed_at: 2025-01-01T00:00:00Z
-    excerpt_id: ex_003
 evidence:
   - id: ex_001
-    text: Anthropic distinguishes workflows (predetermined paths) from agents (LLM-driven control flow with dynamic tool use).
-    url: https://www.anthropic.com/research/building-effective-agents
+    text: "Anthropic distinguishes workflows (predetermined paths) from agents (LLM-driven control flow with dynamic tool use)."
+    url: "https://www.anthropic.com/research/building-effective-agents"
+    supports: ["concept"]
   - id: ex_002
-    text: OpenAI documents function-calling APIs as the canonical way to expose actions to the model.
-    url: https://platform.openai.com/docs/guides/function-calling
+    text: "OpenAI documents function-calling APIs as the canonical way to expose actions to the model."
+    url: "https://platform.openai.com/docs/guides/function-calling"
+    supports: ["tooling"]
   - id: ex_003
-    text: Weng frames an agent loop as planning + memory + tool use, with the model deciding the next action each step.
-    url: https://lilianweng.github.io/posts/2023-06-23-agent/
-takeaways:
-  - Agents are loops, not prompts.
-  - Tool calling is what separates a prompt from an agent.
-  - Budget and stop conditions are not optional.
-questions_it_answers:
-  - What is an LLM agent?
-  - When is an agent better than a workflow?
-  - What does an agent loop actually do?
+    text: "Weng frames an agent loop as planning + memory + tool use, with the model deciding the next action each step."
+    url: "https://lilianweng.github.io/posts/2023-06-23-agent/"
+    supports: ["architecture"]

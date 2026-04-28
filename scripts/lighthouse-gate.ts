@@ -130,7 +130,6 @@ function parseArgv(argv: string[]): CliOptions {
     }
 
     // Ignore verification scaffolding and other unknown arguments
-    continue
   }
 
   return {

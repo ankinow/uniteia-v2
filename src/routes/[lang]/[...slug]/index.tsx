@@ -1,10 +1,11 @@
 import { component$ } from '@builder.io/qwik'
-import { type DocumentHead, routeLoader$ } from '@builder.io/qwik-city'
+import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
 import { AdaptiveHeader } from '~/components/adaptive-header'
 import { ArticleFrame } from '~/components/article-frame'
 import { EditorialVerdict } from '~/components/editorial-verdict'
 import { NotFound } from '~/components/error-pages/not-found'
 import { FrontmatterSlots } from '~/components/frontmatter-slots'
+import { JSONLD } from '~/components/json-ld'
 import { QualityRing } from '~/components/quality-ring'
 import { SourceLedger } from '~/components/source-ledger'
 import { getTranslation, useI18n } from '~/i18n/context'
@@ -13,8 +14,8 @@ import { SUPPORTED_LANGUAGES } from '~/i18n/types'
 import type { LlmWikiContent } from '~/types/content'
 import { ContentLoaderError } from '~/types/content'
 import { loadContent } from '~/utils/content-loader'
-
 import { parseHost } from '~/utils/host-parser'
+import { generateArticleSchema } from '~/utils/schema-generators'
 
 /**
  * Supported language codes for quick lookup
@@ -62,13 +63,27 @@ export const useContent = routeLoader$<LlmWikiContent | null>(async ({ params, e
 export default component$(() => {
   const content = useContent()
   const { t } = useI18n()
+  const location = useLocation()
+  const { niche } = parseHost(location.url.host)
 
   if (!content.value) {
     return <NotFound />
   }
 
+  const articleSchema = generateArticleSchema({
+    headline: content.value.title,
+    description: content.value.subjects.join(', '),
+    author: content.value.metadata?.author || 'UniTeia System',
+    datePublished: content.value.metadata?.created_at || new Date().toISOString(),
+    dateModified: content.value.metadata?.updated_at || undefined,
+    url: content.value.slug,
+    niche,
+    lang: content.value.lang,
+  })
+
   return (
     <ArticleFrame>
+      <JSONLD data={articleSchema} />
       <AdaptiveHeader title={content.value.title} subtitle={content.value.subjects.join(', ')} />
       {/* Editorial verdict — derived from content metadata if available */}
       <div class="mt-3 flex items-center gap-4">
