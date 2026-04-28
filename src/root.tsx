@@ -18,9 +18,21 @@ export default component$(() => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>UniTeia v2</title>
 
-        {/* CWV: Preconnect to font CDN to reduce LCP */}
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* CWV: Preload critical fonts to reduce LCP and layout shift */}
+        <link
+          rel="preload"
+          href="/fonts/geist.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/inter.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
 
         <RouterHead />
       </head>

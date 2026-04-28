@@ -36,6 +36,29 @@ function getAjv(): Ajv2020 | null {
   }
 
   try {
+    // Check if eval is allowed in this environment
+    // Cloudflare Workers and some CSPs block new Function()
+    const isEvalAllowed = (() => {
+      try {
+        new Function('')
+        return true
+      } catch {
+        return false
+      }
+    })()
+
+    if (!isEvalAllowed) {
+      console.warn(
+        '[schema-validation] AJV skipped: Code generation (eval) disallowed in this environment.'
+      )
+      schemaLoadIssue = {
+        filePath: 'schema',
+        field: 'schema',
+        message: 'Validation skipped: JIT compilation disallowed (eval)',
+      }
+      return null
+    }
+
     ajvInstance = new Ajv2020({ allErrors: true, strict: true })
     addFormats(ajvInstance)
     ajvInstance.addSchema(schema)

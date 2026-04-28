@@ -4,23 +4,24 @@
  * Aesthetic: Brutalist bones. Editorial flesh. One JRPG whisper. Kuwaii breath.
  */
 
-@import "@fontsource/geist-sans";
-@import "@fontsource-variable/inter";
-@import "@fontsource/jetbrains-mono";
-
 /* Font display strategy: swap prevents FOIT, ensures text is visible during load */
 @font-face {
   font-family: "Geist Sans";
+  src: url("/fonts/geist.woff2") format("woff2");
+  font-weight: 100 900;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Inter Variable";
+  src: url("/fonts/inter.woff2") format("woff2");
+  font-weight: 100 900;
   font-display: swap;
 }
 
 @font-face {
   font-family: "JetBrains Mono";
+  src: url("@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2") format("woff2");
   font-display: swap;
 }
 
