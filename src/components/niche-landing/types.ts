@@ -1,6 +1,7 @@
 import type { ClassList } from '@builder.io/qwik'
 import type { SupportedLanguage } from '~/i18n/types'
 import type { NicheConfig } from '~/types/niche'
+import type { NicheArticleEntry } from '~/utils/content-loader'
 
 /**
  * NicheLanding component props
@@ -11,6 +12,8 @@ export interface NicheLandingProps {
   niche: NicheConfig
   /** Other niches to show in the related-content grid */
   otherNiches: NicheConfig[]
+  /** Articles for this niche */
+  articles: NicheArticleEntry[]
   /** Current language for localized display */
   lang: SupportedLanguage
   /** Optional CSS class for additional styling */

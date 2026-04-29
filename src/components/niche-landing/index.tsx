@@ -16,9 +16,12 @@ import type { NicheLandingProps } from './types'
  * Follows S01 isolation pattern with types.ts + index.tsx.
  */
 export const NicheLanding = component$<NicheLandingProps>(
-  ({ niche, otherNiches, lang, class: classList }) => {
+  ({ niche, otherNiches, articles, lang, class: classList }) => {
     const { t } = useI18n()
     const iconClass = getLucideIconClass(niche.icon)
+
+    // Filter articles for current lang
+    const localizedArticles = articles.filter(a => a.lang === lang)
 
     return (
       <div
@@ -34,17 +37,32 @@ export const NicheLanding = component$<NicheLandingProps>(
           <p class="text-bone-muted text-lg leading-relaxed max-w-2xl">{niche.description[lang]}</p>
         </section>
 
-        {/* Placeholder article list area */}
+        {/* Article list area */}
         <section class="mb-12" aria-label={t.niche.topicsLabel}>
           <h2 class="text-xl font-semibold text-bone mb-4">
-            {t.niche.articleCount.replace('{count}', '0')}
+            {t.niche.articleCount.replace('{count}', localizedArticles.length.toString())}
           </h2>
-          <div
-            class="border border-dashed border-action/20 rounded-lg p-8 text-center text-bone-muted"
-            data-testid="niche-articles-placeholder"
-          >
-            <p>{t.niche.exploreNiche.replace('{niche}', niche.title[lang])}</p>
-          </div>
+          {localizedArticles.length > 0 ? (
+            <div class="grid grid-cols-1 gap-4">
+              {localizedArticles.map(article => (
+                <DopamineCard
+                  key={article.slug}
+                  title={article.title}
+                  description={article.summary ?? ''}
+                  href={`/${lang}/n/${niche.slugs[lang]}/${article.slug}`}
+                  lang={lang}
+                  data-testid="article-card"
+                />
+              ))}
+            </div>
+          ) : (
+            <div
+              class="border border-dashed border-action/20 rounded-lg p-8 text-center text-bone-muted"
+              data-testid="niche-articles-placeholder"
+            >
+              <p>{t.niche.exploreNiche.replace('{niche}', niche.title[lang])}</p>
+            </div>
+          )}
         </section>
 
         {/* Related niches grid — using DopamineCard for richer engagement */}

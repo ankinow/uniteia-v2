@@ -1,207 +1,124 @@
-#!/usr/bin/env bun
-/**
- * Sitemap Generator
- * Generates sitemap.xml with hreflang alternates at build time
- */
-
-import { readFile, readdir } from 'node:fs/promises'
-import { writeFile } from 'node:fs/promises'
+import { readFile, readdir, writeFile } from 'node:fs/promises'
 import { basename, join } from 'node:path'
 import matter from 'gray-matter'
+import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '../src/i18n/types'
+import { buildRobotsTxt } from '../src/utils/sitemap-builder'
 
-const DOMAIN = 'https://uniteia.com'
-const CONTENT_DIR = 'content'
-const OUTPUT_PATH = 'public/sitemap.xml'
-
-interface SitemapUrl {
-  loc: string
-  lastmod?: string
-  alternates?: { lang: string; href: string }[]
-}
-
-interface ContentFile {
-  path: string
+interface Article {
   niche: string
-  lang: string
   slug: string
-  frontmatter: {
-    title?: string
-    updated?: string
-    published?: string
-  }
+  lang: SupportedLanguage
+  updatedAt: string | undefined
 }
 
-async function findContentFiles(dir: string): Promise<ContentFile[]> {
-  const files: ContentFile[] = []
+/**
+ * Static Sitemap & Robots Generator
+ * Runs post-build to ensure dist/ has correct SEO files.
+ * Re-implements filesystem scanning to avoid Vite-only import.meta.glob.
+ */
+async function generate() {
+  const origin = process.env.DOMAIN || 'https://uniteia.com'
+  const distDir = join(process.cwd(), 'dist')
+  const contentDir = join(process.cwd(), 'content')
+
+  console.log(`📍 Generating SEO files for ${origin}...`)
 
   try {
-    const entries = await readdir(dir, { withFileTypes: true, recursive: true })
+    // 1. Find all content files manually
+    const articles: Article[] = []
+    const niches = await readdir(contentDir, { withFileTypes: true })
 
-    for (const entry of entries) {
-      if (entry.isFile() && entry.name.endsWith('.md')) {
-        const fullPath = join(entry.parentPath || dir, entry.name)
-        const relativePath = fullPath.replace(`${process.cwd()}/`, '')
+    for (const nicheEntry of niches) {
+      if (!nicheEntry.isDirectory()) continue
+      const niche = nicheEntry.name
+      const nichePath = join(contentDir, niche)
+      const langs = await readdir(nichePath, { withFileTypes: true })
 
-        // Parse path: content/{niche}/{lang}/{slug}.md
-        const pathParts = relativePath.split('/')
-        if (pathParts.length >= 4) {
-          const niche = pathParts[1]
-          const lang = pathParts[2]
-          const slug = basename(entry.name, '.md')
+      for (const langEntry of langs) {
+        if (!langEntry.isDirectory()) continue
+        const lang = langEntry.name as SupportedLanguage
+        const langPath = join(nichePath, lang)
 
-          try {
-            const content = await readFile(fullPath, 'utf-8')
-            const parsed = matter(content)
+        let files: string[] = []
+        try {
+          files = await readdir(langPath)
+        } catch {
+          continue
+        }
 
-            files.push({
-              path: relativePath,
-              niche,
-              lang,
-              slug,
-              frontmatter: {
-                title: parsed.data.title,
-                updated: parsed.data.updated,
-                published: parsed.data.published,
-              },
-            })
-          } catch {
-            // Skip files with invalid frontmatter
-          }
+        for (const file of files) {
+          if (!file.endsWith('.md')) continue
+          const fullPath = join(langPath, file)
+          const slug = basename(file, '.md')
+
+          const content = await readFile(fullPath, 'utf-8')
+          const parsed = matter(content)
+          const updatedAt = (parsed.data.metadata?.updated_at ||
+            parsed.data.metadata?.created_at) as string | undefined
+
+          articles.push({ niche, slug, lang, updatedAt })
         }
       }
     }
-  } catch (error) {
-    console.warn(`Warning: Could not read content directory: ${error}`)
-  }
 
-  return files
-}
+    // 2. Build XML
+    const articlesBySlug = articles.reduce(
+      (acc, article) => {
+        const key = `${article.niche}/${article.slug}`
+        if (!acc[key]) acc[key] = []
+        acc[key]?.push(article)
+        return acc
+      },
+      {} as Record<string, Article[]>
+    )
 
-function groupBySlug(files: ContentFile[]): Map<string, ContentFile[]> {
-  const groups = new Map<string, ContentFile[]>()
+    const entries: string[] = []
+    entries.push(
+      `  <url>\n    <loc>${origin}/</loc>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>`
+    )
 
-  for (const file of files) {
-    const key = `${file.niche}/${file.slug}`
-    const existing = groups.get(key) || []
-    existing.push(file)
-    groups.set(key, existing)
-  }
-
-  return groups
-}
-
-function formatDate(dateStr: string | undefined): string | undefined {
-  if (!dateStr) return undefined
-  try {
-    const date = new Date(dateStr)
-    return date.toISOString().split('T')[0]
-  } catch {
-    return undefined
-  }
-}
-
-function escapeXML(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;')
-}
-
-function buildSitemap(urls: SitemapUrl[]): string {
-  const urlEntries = urls.map(url => {
-    const lastmod = url.lastmod ? `    <lastmod>${url.lastmod}</lastmod>\n` : ''
-
-    const alternates = url.alternates
-      ? `${url.alternates
-          .map(
-            alt =>
-              `    <xhtml:link rel="alternate" hreflang="${alt.lang}" href="${escapeXML(alt.href)}" />`
-          )
-          .join('\n')}\n`
-      : ''
-
-    return `  <url>\n    <loc>${escapeXML(url.loc)}</loc>\n${lastmod}${alternates}  </url>`
-  })
-
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urlEntries.join('\n')}\n</urlset>`
-}
-
-async function generateSitemap(): Promise<void> {
-  console.log('📍 Generating sitemap...\n')
-
-  const files = await findContentFiles(CONTENT_DIR)
-  console.log(`Found ${files.length} content files`)
-
-  const grouped = groupBySlug(files)
-  console.log(`Grouped into ${grouped.size} unique articles\n`)
-
-  const urls: SitemapUrl[] = []
-
-  // Generate URLs for each article
-  for (const [key, translations] of grouped) {
-    if (translations.length === 0) continue
-    const primary = translations[0]
-    const [niche, slug] = key.split('/')
-
-    // Use the last updated date from any translation
-    const lastUpdated = translations
-      .map(t => t.frontmatter.updated || t.frontmatter.published)
-      .filter(Boolean)
-      .sort()
-      .pop()
-
-    const _alternates = translations.map(t => ({
-      lang: t.lang,
-      href: `${DOMAIN}/${niche}.${DOMAIN.replace('https://', '')}/${t.lang}/${t.slug}`.replace(
-        DOMAIN,
-        DOMAIN
-      ),
-    }))
-
-    // Actually fix the URL format
-    const fixedAlternates = translations.map(t => ({
-      lang: t.lang,
-      href: `https://${niche}.uniteia.com/${t.lang}/${t.slug}`,
-    }))
-
-    // Add x-default
-    const enTranslation = translations.find(t => t.lang === 'en')
-    const defaultLang = enTranslation || translations[0]
-    fixedAlternates.push({
-      lang: 'x-default',
-      href: `https://${niche}.uniteia.com/${defaultLang.lang}/${defaultLang.slug}`,
-    })
-
-    urls.push({
-      loc: `https://${niche}.uniteia.com/${primary.lang}/${slug}`,
-      lastmod: formatDate(lastUpdated),
-      alternates: fixedAlternates,
-    })
-  }
-
-  // Sort URLs by location
-  urls.sort((a, b) => a.loc.localeCompare(b.loc))
-
-  const sitemap = buildSitemap(urls)
-
-  await writeFile(OUTPUT_PATH, sitemap)
-
-  console.log(`✅ Generated sitemap with ${urls.length} URLs`)
-  console.log(`📝 Written to ${OUTPUT_PATH}\n`)
-
-  // Summary
-  console.log('Sitemap entries:')
-  for (const url of urls.slice(0, 5)) {
-    console.log(`  - ${url.loc}`)
-    if (url.alternates) {
-      console.log(`    alternates: ${url.alternates.length} versions`)
+    for (const l of SUPPORTED_LANGUAGES) {
+      entries.push(
+        `  <url>\n    <loc>${origin}/${l.code}/n</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.8</priority>\n  </url>`
+      )
     }
-  }
-  if (urls.length > 5) {
-    console.log(`  ... and ${urls.length - 5} more`)
+
+    for (const article of articles) {
+      const loc = `${origin}/${article.lang}/${article.slug}`
+      const lastmod = article.updatedAt
+        ? `    <lastmod>${new Date(article.updatedAt).toISOString().split('T')[0]}</lastmod>\n`
+        : ''
+
+      const alts = articlesBySlug[`${article.niche}/${article.slug}`] || []
+      const hreflangLines = alts.map(
+        a =>
+          `    <xhtml:link rel="alternate" hreflang="${a.lang}" href="${origin}/${a.lang}/${a.slug}" />`
+      )
+
+      const hasEn = alts.some(a => a.lang === 'en')
+      if (hasEn) {
+        hreflangLines.push(
+          `    <xhtml:link rel="alternate" hreflang="x-default" href="${origin}/en/${article.slug}" />`
+        )
+      }
+
+      entries.push(
+        `  <url>\n    <loc>${loc}</loc>\n${lastmod}    <changefreq>weekly</changefreq>\n    <priority>${article.slug === '_index' ? '0.9' : '0.7'}</priority>\n${hreflangLines.join('\n')}\n  </url>`
+      )
+    }
+
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entries.join('\n')}\n</urlset>`
+
+    await writeFile(join(distDir, 'sitemap.xml'), sitemap)
+    console.log('✅ dist/sitemap.xml generated')
+
+    const robots = buildRobotsTxt(origin)
+    await writeFile(join(distDir, 'robots.txt'), robots)
+    console.log('✅ dist/robots.txt generated')
+  } catch (err) {
+    console.error('❌ Failed to generate SEO files:', err)
+    process.exit(1)
   }
 }
 
-await generateSitemap()
+generate()

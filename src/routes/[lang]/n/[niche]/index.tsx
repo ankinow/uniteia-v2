@@ -9,6 +9,7 @@ import { JSONLD } from '~/components/json-ld'
 import { NicheLanding } from '~/components/niche-landing'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
 import type { SupportedLanguage } from '~/i18n/types'
+import { type NicheArticleEntry, listNicheArticles } from '~/utils/content-loader'
 import { findNicheBySlug, getNicheSlug, loadNichesConfig } from '~/utils/niche-loader'
 import { generateWebSiteSchema } from '~/utils/schema-generators'
 import type { NicheRouteData } from './types'
@@ -70,6 +71,17 @@ export const useNicheData = routeLoader$<NicheRouteData>(async ({ params, error 
   return { niche, otherNiches }
 })
 
+export const useNicheArticles = routeLoader$<NicheArticleEntry[]>(async ({ params }) => {
+  const lang = params.lang ?? ''
+  const nicheSlug = params.niche ?? ''
+
+  const niches = await loadNichesConfig()
+  const niche = findNicheBySlug(niches, nicheSlug, lang as SupportedLanguage)
+  if (!niche) return []
+
+  return await listNicheArticles(niche.slug)
+})
+
 /**
  * Niche landing page component
  * Renders the NicheLanding component with data from the route loader.
@@ -77,6 +89,7 @@ export const useNicheData = routeLoader$<NicheRouteData>(async ({ params, error 
  */
 export default component$(() => {
   const data = useNicheData()
+  const articles = useNicheArticles()
   const location = useLocation()
   const lang = (location.params.lang as SupportedLanguage) || 'en'
 
@@ -90,7 +103,12 @@ export default component$(() => {
   return (
     <>
       <JSONLD data={websiteSchema} />
-      <NicheLanding niche={data.value.niche} otherNiches={data.value.otherNiches} lang={lang} />
+      <NicheLanding
+        niche={data.value.niche}
+        otherNiches={data.value.otherNiches}
+        articles={articles.value}
+        lang={lang}
+      />
     </>
   )
 })

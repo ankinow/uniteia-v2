@@ -211,6 +211,8 @@ export interface NicheArticleEntry {
   slug: string
   lang: SupportedLanguage
   updatedAt: string | undefined
+  title: string
+  summary: string | undefined
 }
 
 export async function listNicheArticles(niche: string): Promise<NicheArticleEntry[]> {
@@ -255,6 +257,8 @@ export async function listNicheArticles(niche: string): Promise<NicheArticleEntr
 
       // Parse frontmatter for updatedAt
       let updatedAt: string | undefined
+      let title = slug
+      let summary: string | undefined
       try {
         if (rawContent) {
           const parsed = matter(rawContent, {
@@ -266,10 +270,12 @@ export async function listNicheArticles(niche: string): Promise<NicheArticleEntr
           })
           updatedAt = (parsed.data.metadata?.updated_at ||
             parsed.data.metadata?.created_at) as string
+          title = parsed.data.title || title
+          summary = parsed.data.summary || parsed.data.description
         }
       } catch {}
 
-      return [{ slug, lang, updatedAt }]
+      return [{ slug, lang, updatedAt, title, summary }]
     })
 
   console.log(`[SITEMAP_DEBUG] Found ${articles.length} articles for ${niche}`)

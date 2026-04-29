@@ -1,6 +1,7 @@
 import type { PagesFunction } from '@cloudflare/workers-types'
 import { validateLocalePath } from '../src/i18n/locale-validation'
 import { buildNicheLocaleRedirectPath } from '../src/utils/niche-locale-redirect'
+import { buildRobotsTxt, buildSitemapXml } from '../src/utils/sitemap-builder'
 
 // Extend the Environment type for Cloudflare Pages
 type Env = Record<string, never> // Cloudflare Pages environment - no custom bindings needed
@@ -13,6 +14,28 @@ export const onRequest: PagesFunction<Env> = async context => {
   const { request } = context
   const url = new URL(request.url)
   const pathname = url.pathname
+
+  if (pathname === '/sitemap.xml') {
+    const sitemap = await buildSitemapXml(url.origin, url.host)
+    return new Response(sitemap, {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/xml; charset=utf-8',
+        'Cache-Control': 'public, max-age=3600, s-maxage=86400',
+      },
+    })
+  }
+
+  if (pathname === '/robots.txt') {
+    const robots = buildRobotsTxt(url.origin)
+    return new Response(robots, {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'public, max-age=3600, s-maxage=86400',
+      },
+    })
+  }
 
   // Explicitly handle trailing slash for /n/ and /n/tail to avoid multi-hop
   // Cloudflare Pages normally 301s /n/ to /n. We intercept here to do it in 1 hop.
@@ -73,7 +96,7 @@ export const onRequest: PagesFunction<Env> = async context => {
   )
   headers.set(
     'Content-Security-Policy',
-    "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+    "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
   )
 
   return new Response(response.body, {
