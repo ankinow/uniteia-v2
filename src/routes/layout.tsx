@@ -90,7 +90,7 @@ export default component$(() => {
           data-testid="main-nav"
         >
           <a
-            href={`/${lang}`}
+            href="/"
             class="brand flex items-center gap-2 text-xl font-bold text-bone hover:text-action transition-colors"
             data-testid="nav-logo"
           >
@@ -99,18 +99,11 @@ export default component$(() => {
           </a>
 
           <div class="nav-links hidden md:flex items-center gap-6">
-            <a href={`/${lang}`} class="text-bone-muted hover:text-bone transition-colors">
+            <a href="/" class="text-bone-muted hover:text-bone transition-colors">
               {t.nav.home}
             </a>
-            <a href={`/${lang}/about`} class="text-bone-muted hover:text-bone transition-colors">
-              {t.nav.about}
-            </a>
-
-            <a href={`/${lang}/projects`} class="text-bone-muted hover:text-bone transition-colors">
-              {t.nav.projects}
-            </a>
-            <a href={`/${lang}/blog`} class="text-bone-muted hover:text-bone transition-colors">
-              {t.nav.blog}
+            <a href={`/${lang}/n`} class="text-bone-muted hover:text-bone transition-colors">
+              {t.nav.topics}
             </a>
           </div>
 
