@@ -53,22 +53,34 @@ export const onRequest: PagesFunction<Env> = async context => {
   // Cloudflare Pages normally 301s /n/ to /n. We intercept here to do it in 1 hop.
   if (isMissingLocaleNichePath(pathname)) {
     const cookieLang = parseCookie(request.headers.get('Cookie'), 'uniteia_lang')
-    const location = buildNicheLocaleRedirectPath(
-      pathname,
-      url.search,
-      request.headers.get('Accept-Language'),
-      request.headers.get('CF-IPCountry'),
-      cookieLang
-    )
+    const countryCode = request.headers.get('CF-IPCountry')
+    const acceptLanguage = request.headers.get('Accept-Language')
 
-    return new Response(null, {
-      status: 302,
+    const diagnostic = {
+      event: 'edge_function_intercept',
+      path: pathname,
       headers: {
-        Location: location,
-        Vary: 'Accept-Language, CF-IPCountry, Cookie',
-        'x-debug-cookie-in': request.headers.get('Cookie') || 'none',
-        'x-debug-cookie-parsed': cookieLang || 'none',
-        'x-debug-ipcountry': request.headers.get('CF-IPCountry') || 'none',
+        cookie: request.headers.get('Cookie') || 'none',
+        cf_ipcountry: countryCode || 'none',
+        accept_language: acceptLanguage || 'none',
+      },
+      parsed: {
+        cookieLang: cookieLang || 'none',
+      },
+      decision: buildNicheLocaleRedirectPath(
+        pathname,
+        url.search,
+        acceptLanguage,
+        countryCode,
+        cookieLang
+      ),
+    }
+
+    return new Response(JSON.stringify(diagnostic, null, 2), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-uniteia-debug': 'true',
       },
     })
   }
