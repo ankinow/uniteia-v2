@@ -14,6 +14,18 @@ export const onRequest: RequestHandler = async event => {
   const { onLanguageNegotiation } = await import('~/i18n/middleware')
   await onLanguageNegotiation(event)
 
+  // Agent-first observability: log key signals for any request reaching Qwik.
+  // This helps diagnose issues where middleware might be bypassed.
+  console.log(
+    JSON.stringify({
+      event: 'qwik_request_received',
+      url: event.request.url,
+      cookie: event.request.headers.get('Cookie') || 'none',
+      cf_ipcountry: event.request.headers.get('CF-IPCountry') || 'none',
+      accept_language: event.request.headers.get('Accept-Language') || 'none',
+    })
+  )
+
   // Set security headers
   event.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload')
   event.headers.set('X-Frame-Options', 'DENY')
