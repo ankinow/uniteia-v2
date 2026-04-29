@@ -1,7 +1,6 @@
 import type { PagesFunction } from '@cloudflare/workers-types'
 import { validateLocalePath } from '../src/i18n/locale-validation'
 import { buildNicheLocaleRedirectPath } from '../src/utils/niche-locale-redirect'
-import { buildRobotsTxt, buildSitemapXml } from '../src/utils/sitemap-builder'
 
 function parseCookie(cookieHeader: string | null, key: string): string | null {
   if (!cookieHeader) return null
@@ -26,28 +25,6 @@ export const onRequest: PagesFunction<Env> = async context => {
   const { request } = context
   const url = new URL(request.url)
   const pathname = url.pathname
-
-  if (pathname === '/sitemap.xml') {
-    const sitemap = await buildSitemapXml(url.origin, url.host)
-    return new Response(sitemap, {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/xml; charset=utf-8',
-        'Cache-Control': 'public, max-age=3600, s-maxage=86400',
-      },
-    })
-  }
-
-  if (pathname === '/robots.txt') {
-    const robots = buildRobotsTxt(url.origin)
-    return new Response(robots, {
-      status: 200,
-      headers: {
-        'Content-Type': 'text/plain; charset=utf-8',
-        'Cache-Control': 'public, max-age=3600, s-maxage=86400',
-      },
-    })
-  }
 
   // Explicitly handle trailing slash for /n/ and /n/tail to avoid multi-hop
   // Cloudflare Pages normally 301s /n/ to /n. We intercept here to do it in 1 hop.

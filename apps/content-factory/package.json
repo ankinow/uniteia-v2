@@ -11,7 +11,8 @@
     "factory:lint": "bun _engine/cli.ts lint",
     "factory:validate": "bun _engine/cli.ts validate",
     "factory:test": "vitest run _engine/tests",
-    "factory:test:watch": "vitest _engine/tests"
+    "factory:test:watch": "vitest _engine/tests",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "ajv": "^8.17.1",

@@ -262,7 +262,7 @@ async function cmdCheck(slug: string, flags: Record<string, string | boolean>) {
 
   // 1. validate
   const v = await validateCoreFile(path.join(workdir, 'core.yaml'))
-  steps.push({ step: 'validate', ok: v.ok, detail: v.ok ? undefined : JSON.stringify(v.errors) })
+  steps.push({ step: 'validate', ok: v.ok, ...(v.ok ? {} : { detail: JSON.stringify(v.errors) }) })
   if (!v.ok) {
     console.log(JSON.stringify({ status: 'fail', steps }, null, 2))
     process.exit(1)
@@ -278,7 +278,7 @@ async function cmdCheck(slug: string, flags: Record<string, string | boolean>) {
   steps.push({
     step: 'render',
     ok: rr.status === 'ok',
-    detail: rr.status === 'fail' ? JSON.stringify(rr.failed_rules) : undefined,
+    ...(rr.status === 'fail' ? { detail: JSON.stringify(rr.failed_rules) } : {}),
   })
   if (rr.status === 'fail') {
     console.log(JSON.stringify({ status: 'fail', steps }, null, 2))
@@ -290,7 +290,7 @@ async function cmdCheck(slug: string, flags: Record<string, string | boolean>) {
   steps.push({
     step: 'export',
     ok: _e1.status === 'ok',
-    detail: _e1.status === 'fail' ? JSON.stringify(_e1.failed_rules) : undefined,
+    ...( _e1.status === 'fail' ? { detail: JSON.stringify(_e1.failed_rules) } : {}),
   })
   if (_e1.status === 'fail') {
     console.log(JSON.stringify({ status: 'fail', steps }, null, 2))
@@ -303,7 +303,7 @@ async function cmdCheck(slug: string, flags: Record<string, string | boolean>) {
   steps.push({
     step: 'lint',
     ok: l.status === 'ok',
-    detail: l.status === 'fail' ? JSON.stringify(l.failures) : undefined,
+    ...(l.status === 'fail' ? { detail: JSON.stringify(l.failures) } : {}),
   })
 
   // 5. idempotence: export again, compare
@@ -314,7 +314,7 @@ async function cmdCheck(slug: string, flags: Record<string, string | boolean>) {
   steps.push({
     step: 'idempotence',
     ok: idempotent,
-    detail: idempotent ? undefined : `hash1=${hash1} hash2=${hash2}`,
+    ...(!idempotent ? { detail: `hash1=${hash1} hash2=${hash2}` } : {}),
   })
 
   const allOk = steps.every(s => s.ok)

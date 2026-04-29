@@ -12,13 +12,13 @@ function escapeXML(str: string): string {
     .replace(/'/g, '&apos;')
 }
 
-function formatDate(dateStr: string | undefined): string | undefined {
+export function formatSitemapDate(dateStr: string | undefined): string | undefined {
   if (!dateStr) return undefined
-  try {
-    return new Date(dateStr).toISOString().split('T')[0]
-  } catch {
-    return undefined
-  }
+
+  const timestamp = Date.parse(dateStr)
+  if (!Number.isFinite(timestamp)) return undefined
+
+  return new Date(timestamp).toISOString().split('T')[0]
 }
 
 export async function buildSitemapXml(origin: string, host: string): Promise<string> {
@@ -52,9 +52,8 @@ export async function buildSitemapXml(origin: string, host: string): Promise<str
     const alternates = articlesBySlug[article.slug] || []
     const langCodes = alternates.map(a => a.lang)
     const hreflangLinks = generateHreflangLinks(niche, article.slug, langCodes, origin)
-    const lastmod = article.updatedAt
-      ? `    <lastmod>${formatDate(article.updatedAt)}</lastmod>\n`
-      : ''
+    const lastmodDate = formatSitemapDate(article.updatedAt)
+    const lastmod = lastmodDate ? `    <lastmod>${lastmodDate}</lastmod>\n` : ''
 
     entries.push(
       `  <url>\n    <loc>${escapeXML(loc)}</loc>\n${lastmod}    <changefreq>weekly</changefreq>\n    <priority>${article.slug === '_index' ? '0.9' : '0.7'}</priority>\n${hreflangLinks

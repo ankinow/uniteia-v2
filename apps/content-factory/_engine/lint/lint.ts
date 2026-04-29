@@ -179,7 +179,9 @@ function runTextRules(
     const reqs = rules.require_evidence_for as string[]
     let inTag = false
     for (let i = 0; i < scanLines.length; i++) {
-      const line = scanLines[i].trim()
+      const lineRaw = scanLines[i]
+      if (lineRaw === undefined) continue
+      const line = lineRaw.trim()
       if (line.startsWith('<') && !line.includes('>')) {
         inTag = true
         continue
@@ -201,8 +203,8 @@ function runTextRules(
 
       for (const t of types) {
         if (reqs.includes(t.key) && t.re.test(line)) {
-          const prev = (scanLines[i - 1] || '').trim()
-          const next = (scanLines[i + 1] || '').trim()
+          const prev = (scanLines[i - 1] ?? '').trim()
+          const next = (scanLines[i + 1] ?? '').trim()
           const hasRef = EV_REF_RE.test(line) || EV_REF_RE.test(prev) || EV_REF_RE.test(next)
           if (!hasRef) {
             out.push({

@@ -54,9 +54,21 @@ export default component$(() => {
 
 import { getTranslation } from '~/i18n/context'
 
-export const head: DocumentHead = ({ params }) => {
+export const head: DocumentHead = ({ params, url }) => {
   const lang = (params.lang as SupportedLanguage) || 'en'
   const t = getTranslation(lang)
+
+  const alternateLinks = SUPPORTED_LANGUAGES.map(l => ({
+    rel: 'alternate',
+    hreflang: l.code,
+    href: new URL(`/${l.code}/n`, url.origin).href,
+  }))
+
+  alternateLinks.push({
+    rel: 'alternate',
+    hreflang: 'x-default',
+    href: new URL('/en/n', url.origin).href,
+  })
 
   return {
     title: t.seo.topicsTitle,
@@ -64,5 +76,6 @@ export const head: DocumentHead = ({ params }) => {
       { name: 'description', content: t.seo.topicsDescription },
       { name: 'robots', content: 'index, follow' },
     ],
+    links: [{ rel: 'canonical', href: new URL(`/${lang}/n`, url.origin).href }, ...alternateLinks],
   }
 }

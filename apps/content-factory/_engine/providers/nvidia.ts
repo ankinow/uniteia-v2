@@ -83,13 +83,15 @@ export function createNvidiaProvider(config: NvidiaProviderConfig): LLMProvider 
         text,
         model: json.model ?? model,
         provider: 'nvidia',
-        usage: json.usage
+        ...(json.usage
           ? {
-              promptTokens: json.usage.prompt_tokens,
-              completionTokens: json.usage.completion_tokens,
-              totalTokens: json.usage.total_tokens,
+              usage: {
+                ...(json.usage.prompt_tokens !== undefined ? { promptTokens: json.usage.prompt_tokens } : {}),
+                ...(json.usage.completion_tokens !== undefined ? { completionTokens: json.usage.completion_tokens } : {}),
+                ...(json.usage.total_tokens !== undefined ? { totalTokens: json.usage.total_tokens } : {}),
+              },
             }
-          : undefined,
+          : {}),
       }
     },
   }

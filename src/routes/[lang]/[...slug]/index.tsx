@@ -48,7 +48,12 @@ export const useContent = routeLoader$<LlmWikiContent | null>(async ({ params, e
     return await loadContent(niche, slug, lang as SupportedLanguage)
   } catch (err) {
     if (err instanceof ContentLoaderError) {
-      console.error(`[content-loader] ${err.phase} failed for ${err.lang}/${err.slug}:`, err.errors)
+      if (err.phase !== 'read') {
+        console.error(
+          `[content-loader] ${err.phase} failed for ${err.lang}/${err.slug}:`,
+          err.errors
+        )
+      }
       return null as unknown as LlmWikiContent | null
     }
     throw err
@@ -150,12 +155,13 @@ export const head: DocumentHead = ({ resolveValue, url, params }) => {
   }))
 
   // Add x-default hreflang pointing to English version if available
-  const hasEnglish = content.translations?.includes('en')
-  if (hasEnglish) {
+  // If not, point to the first available translation
+  const fallbackLang = content.translations?.includes('en') ? 'en' : content.translations?.[0]
+  if (fallbackLang) {
     alternateLinks.push({
       rel: 'alternate',
       hreflang: 'x-default',
-      href: new URL(`/en/${content.slug}`, url.origin).href,
+      href: new URL(`/${fallbackLang}/${content.slug}`, url.origin).href,
     })
   }
 

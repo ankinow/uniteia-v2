@@ -121,11 +121,21 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
   const lang = (params.lang as SupportedLanguage) || 'en'
 
   const localizedSlug = getNicheSlug(data.niche, lang as SupportedLanguage)
-  const englishSlug = getNicheSlug(data.niche, 'en')
-  const portugueseSlug = getNicheSlug(data.niche, 'pt')
   const canonicalUrl = new URL(`/${lang}/n/${localizedSlug}`, url.origin)
   const pageTitle = `${data.niche.title[lang]} — UniTeia`
   const description = data.niche.description[lang]
+
+  const alternateLinks = SUPPORTED_LANGUAGES.map(l => ({
+    rel: 'alternate',
+    hreflang: l.code,
+    href: new URL(`/${l.code}/n/${getNicheSlug(data.niche, l.code)}`, url.origin).href,
+  }))
+
+  alternateLinks.push({
+    rel: 'alternate',
+    hreflang: 'x-default',
+    href: new URL(`/en/n/${getNicheSlug(data.niche, 'en')}`, url.origin).href,
+  })
 
   return {
     title: pageTitle,
@@ -141,23 +151,6 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
       { name: 'twitter:title', content: pageTitle },
       { name: 'twitter:description', content: description },
     ],
-    links: [
-      { rel: 'canonical', href: canonicalUrl.href },
-      {
-        rel: 'alternate',
-        hreflang: 'pt',
-        href: new URL(`/pt/n/${portugueseSlug}`, url.origin).href,
-      },
-      {
-        rel: 'alternate',
-        hreflang: 'en',
-        href: new URL(`/en/n/${englishSlug}`, url.origin).href,
-      },
-      {
-        rel: 'alternate',
-        hreflang: 'x-default',
-        href: new URL(`/en/n/${englishSlug}`, url.origin).href,
-      },
-    ],
+    links: [{ rel: 'canonical', href: canonicalUrl.href }, ...alternateLinks],
   }
 }

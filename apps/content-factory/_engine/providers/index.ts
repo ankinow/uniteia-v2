@@ -18,12 +18,14 @@ export function resolveProvider(config: ProviderConfig): LLMProvider {
     case 'stub':
       return createStubProvider()
 
-    case 'nvidia':
+    case 'nvidia': {
+      const model = config.model ?? process.env.NVIDIA_MODEL
       return createNvidiaProvider({
         apiKey: process.env.NVIDIA_API_KEY ?? '',
-        baseUrl: process.env.NVIDIA_BASE_URL,
-        model: config.model ?? process.env.NVIDIA_MODEL,
+        ...(process.env.NVIDIA_BASE_URL ? { baseUrl: process.env.NVIDIA_BASE_URL } : {}),
+        ...(model ? { model } : {}),
       })
+    }
 
     default:
       throw new Error(`Unknown provider: ${config.provider}. Available: stub, nvidia`)
@@ -39,7 +41,7 @@ export function providerToLLMFn(
   return async (prompt: string, opts?: { temperature?: number }) => {
     const result = await provider.generate({
       messages: [{ role: 'user', content: prompt }],
-      temperature: opts?.temperature,
+      ...(opts?.temperature !== undefined ? { temperature: opts.temperature } : {}),
     })
     return result.text
   }

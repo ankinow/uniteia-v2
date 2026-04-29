@@ -2,7 +2,8 @@ import { readFile, readdir, writeFile } from 'node:fs/promises'
 import { basename, join } from 'node:path'
 import matter from 'gray-matter'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '../src/i18n/types'
-import { buildRobotsTxt } from '../src/utils/sitemap-builder'
+import { buildRobotsTxt, formatSitemapDate } from '../src/utils/sitemap-builder'
+import { validateSlug } from '../src/utils/url-validation'
 
 interface Article {
   niche: string
@@ -48,9 +49,13 @@ async function generate() {
 
         for (const file of files) {
           if (!file.endsWith('.md')) continue
-          const fullPath = join(langPath, file)
           const slug = basename(file, '.md')
+          const slugValidation = validateSlug(slug)
+          if (!slugValidation.valid) {
+            continue
+          }
 
+          const fullPath = join(langPath, file)
           const content = await readFile(fullPath, 'utf-8')
           const parsed = matter(content)
           const updatedAt = (parsed.data.metadata?.updated_at ||
@@ -85,9 +90,8 @@ async function generate() {
 
     for (const article of articles) {
       const loc = `${origin}/${article.lang}/${article.slug}`
-      const lastmod = article.updatedAt
-        ? `    <lastmod>${new Date(article.updatedAt).toISOString().split('T')[0]}</lastmod>\n`
-        : ''
+      const lastmodDate = formatSitemapDate(article.updatedAt)
+      const lastmod = lastmodDate ? `    <lastmod>${lastmodDate}</lastmod>\n` : ''
 
       const alts = articlesBySlug[`${article.niche}/${article.slug}`] || []
       const hreflangLines = alts.map(

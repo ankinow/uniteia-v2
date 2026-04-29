@@ -139,7 +139,7 @@ test.describe('S03 SEO integration', () => {
     }
 
     const headers = response.headers()
-    expect(headers['content-type']).toContain('text/xml')
+    expect(headers['content-type']).toContain('application/xml')
     expect(headers['cache-control']).toContain('s-maxage=3600')
 
     const body = await response.text()

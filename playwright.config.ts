@@ -3,7 +3,7 @@ import { defineConfig, devices } from '@playwright/test'
 /**
  * Playwright configuration for UniTeia v2 E2E tests.
  *
- * Runs against the Qwik dev server on port 3000 (see vite.config.ts).
+ * Runs against the Cloudflare Pages preview runtime on port 8788.
  * Uses a single Chromium browser for speed; add Firefox/WebKit as needed.
  */
 export default defineConfig({
@@ -14,7 +14,7 @@ export default defineConfig({
   ...(process.env.CI ? { workers: 1 } : {}),
   reporter: 'html',
   use: {
-    baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3000',
+    baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:8788',
     trace: 'on-first-retry',
   },
   projects: [
@@ -24,9 +24,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'bun run dev',
-    url: 'http://localhost:3000',
+    command: 'DOMAIN=http://localhost:8788 bun run build && bun run preview:cf',
+    url: 'http://localhost:8788',
     reuseExistingServer: true,
-    timeout: 60_000,
+    timeout: 120_000,
   },
 })

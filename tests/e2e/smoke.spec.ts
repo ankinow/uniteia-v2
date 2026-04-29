@@ -49,7 +49,7 @@ test('tracked niche landing renders negotiated headers', async ({ page }) => {
   const errors = collectConsoleErrors(page)
   await gotoAndAssertNegotiation(page, '/en/n/ai-agents')
 
-  await expect(page.getByRole('heading', { name: 'AI Agents' })).toBeVisible()
+  await expect(page.locator('h1').filter({ hasText: 'AI Agents' })).toBeVisible()
   await expect(page.locator('[data-testid="niche-landing-ai-agents"]')).toBeVisible()
 
   await page.waitForLoadState('networkidle')

@@ -59,9 +59,6 @@ export async function loadContent(
   const rawContent = contentKey ? contentModules[contentKey] : undefined
 
   if (!rawContent) {
-    console.error(
-      `[content-loader] Content not found: ${niche}/${lang}/${slug} (tried /content/${niche}/${lang}/${slug}.md)`
-    )
     throw new ContentLoaderError({
       niche,
       slug,
@@ -215,7 +212,18 @@ export interface NicheArticleEntry {
   summary: string | undefined
 }
 
+const nicheArticlesCache = new Map<string, NicheArticleEntry[]>()
+
+export function clearNicheArticlesCache(): void {
+  nicheArticlesCache.clear()
+}
+
 export async function listNicheArticles(niche: string): Promise<NicheArticleEntry[]> {
+  const cachedArticles = nicheArticlesCache.get(niche)
+  if (cachedArticles) {
+    return cachedArticles
+  }
+
   const { validateSlug } = await import('~/utils/url-validation')
 
   // Use a relative path that works for both dev and build
@@ -229,11 +237,7 @@ export async function listNicheArticles(niche: string): Promise<NicheArticleEntr
   const isApex = niche === 'apex'
   const targetPrefix = isApex ? '/content/apex/' : `/content/${niche}/`
 
-  const entries = Object.entries(contentModules)
-  // Use console.log which should show up in SSG build output
-  console.log(`[SITEMAP_DEBUG] Niche: ${niche}, Total modules: ${entries.length}`)
-
-  const articles = entries
+  const articles = Object.entries(contentModules)
     .filter(([key]) => {
       const normalizedKey = key.replace(/^\.\.\/\.\.\//, '/')
       return normalizedKey.startsWith(targetPrefix)
@@ -277,9 +281,10 @@ export async function listNicheArticles(niche: string): Promise<NicheArticleEntr
 
       return [{ slug, lang, updatedAt, title, summary }]
     })
+    .sort((a, b) => a.slug.localeCompare(b.slug) || a.lang.localeCompare(b.lang))
 
-  console.log(`[SITEMAP_DEBUG] Found ${articles.length} articles for ${niche}`)
-  return articles.sort((a, b) => a.slug.localeCompare(b.slug) || a.lang.localeCompare(b.lang))
+  nicheArticlesCache.set(niche, articles)
+  return articles
 }
 
 /**
