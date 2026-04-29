@@ -72,5 +72,7 @@ export const zh: TranslationStrings = {
   seo: {
     siteName: 'UniTeia',
     articleTitleTemplate: '{title} | UniTeia',
+    topicsTitle: 'AI 主题',
+    topicsDescription: '探索我们精选的人工智能主题和领域列表。',
   },
 }

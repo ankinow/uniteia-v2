@@ -43,14 +43,15 @@ export const onRequest: PagesFunction<Env> = async context => {
     const location = buildNicheLocaleRedirectPath(
       pathname,
       url.search,
-      request.headers.get('Accept-Language')
+      request.headers.get('Accept-Language'),
+      request.headers.get('CF-IPCountry')
     )
 
     return new Response(null, {
       status: 302,
       headers: {
         Location: location,
-        Vary: 'Accept-Language',
+        Vary: 'Accept-Language, CF-IPCountry',
       },
     })
   }

@@ -72,5 +72,7 @@ export const ja: TranslationStrings = {
   seo: {
     siteName: 'UniTeia',
     articleTitleTemplate: '{title} | UniTeia',
+    topicsTitle: 'AIトピック',
+    topicsDescription: '厳選された人工知能のトピックとニッチのリストをご覧ください。',
   },
 }

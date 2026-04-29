@@ -1,6 +1,15 @@
 import type { SupportedLanguage } from './types'
 
-export const SUPPORTED_LOCALES: SupportedLanguage[] = ['en', 'pt', 'es', 'ja', 'zh']
+export const SUPPORTED_LOCALES: SupportedLanguage[] = [
+  'en',
+  'pt',
+  'es',
+  'fr',
+  'de',
+  'it',
+  'ja',
+  'zh',
+]
 
 /**
  * Extract the first path segment from a URL pathname

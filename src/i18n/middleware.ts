@@ -1,52 +1,12 @@
 import type { RequestHandler } from '@builder.io/qwik-city'
 import { parseHost } from '../utils/host-parser'
+import { countryToLang } from './geo-map'
 import {
   DEFAULT_LANGUAGE,
   LANGUAGE_COOKIE_NAME,
   SUPPORTED_LANGUAGES,
   type SupportedLanguage,
 } from './types'
-
-/**
- * Country to language mapping for CF-IPCountry fallback
- * Maps country codes to preferred languages
- */
-const COUNTRY_TO_LANG: Record<string, SupportedLanguage> = {
-  // Portuguese
-  BR: 'pt',
-  PT: 'pt',
-  AO: 'pt',
-  MZ: 'pt',
-  // Spanish
-  ES: 'es',
-  MX: 'es',
-  AR: 'es',
-  CO: 'es',
-  CL: 'es',
-  PE: 'es',
-  VE: 'es',
-  EC: 'es',
-  GT: 'es',
-  CU: 'es',
-  BO: 'es',
-  DO: 'es',
-  HN: 'es',
-  PY: 'es',
-  SV: 'es',
-  NI: 'es',
-  CR: 'es',
-  PA: 'es',
-  UY: 'es',
-  PR: 'es',
-  // Japanese
-  JP: 'ja',
-  // Chinese
-  CN: 'zh',
-  TW: 'zh',
-  HK: 'zh',
-  SG: 'zh',
-  MO: 'zh',
-}
 
 /**
  * Parse Accept-Language header and extract preferred language
@@ -69,17 +29,29 @@ export function parseAcceptLanguage(header: string | null): SupportedLanguage | 
 
   // Try to match supported languages
   for (const { code } of languages) {
-    // Exact match: 'en', 'pt', 'es', 'ja', 'zh'
-    if (code === 'en' || code === 'pt' || code === 'es' || code === 'ja' || code === 'zh') {
+    // Exact match: 'en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'
+    if (
+      code === 'en' ||
+      code === 'pt' ||
+      code === 'es' ||
+      code === 'fr' ||
+      code === 'de' ||
+      code === 'it' ||
+      code === 'ja' ||
+      code === 'zh'
+    ) {
       return code as SupportedLanguage
     }
 
-    // Locale match: 'en-US', 'pt-BR', 'es-ES', 'ja-JP', 'zh-CN'
+    // Locale match
     const baseLang = code.split('-')[0]
     if (
       baseLang === 'en' ||
       baseLang === 'pt' ||
       baseLang === 'es' ||
+      baseLang === 'fr' ||
+      baseLang === 'de' ||
+      baseLang === 'it' ||
       baseLang === 'ja' ||
       baseLang === 'zh'
     ) {
@@ -129,20 +101,17 @@ export const onLanguageNegotiation: RequestHandler = ({ request, cookie, url, he
     negotiatedLang = cookieLang
     negotiationSource = 'cookie'
   }
-  // 3. Check Accept-Language header
+  // 3. Check CF-IPCountry header (Cloudflare)
+  else if (countryCode) {
+    negotiatedLang = countryToLang(countryCode)
+    negotiationSource = 'cf-ipcountry'
+  }
+  // 4. Check Accept-Language header
   else {
     const headerLang = parseAcceptLanguage(acceptLanguage)
     if (headerLang) {
       negotiatedLang = headerLang
       negotiationSource = 'accept-language'
-    }
-    // 4. Check CF-IPCountry header (Cloudflare)
-    else if (countryCode) {
-      const countryLang = COUNTRY_TO_LANG[countryCode]
-      if (countryLang) {
-        negotiatedLang = countryLang
-        negotiationSource = 'cf-ipcountry'
-      }
     }
   }
 

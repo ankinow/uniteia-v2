@@ -5,8 +5,11 @@ import {
   useContextProvider,
   useSignal,
 } from '@builder.io/qwik'
+import { de } from './de'
 import { en } from './en'
 import { es } from './es'
+import { fr } from './fr'
+import { it } from './it'
 import { ja } from './ja'
 import { pt } from './pt'
 import type { SupportedLanguage, TranslationStrings } from './types'
@@ -20,6 +23,9 @@ const translations: Record<SupportedLanguage, TranslationStrings> = {
   en,
   pt,
   es,
+  fr,
+  de,
+  it,
   ja,
   zh,
 }
@@ -61,6 +67,9 @@ export function getLanguageName(lang: SupportedLanguage): string {
     en: 'English',
     pt: 'Português',
     es: 'Español',
+    fr: 'Français',
+    de: 'Deutsch',
+    it: 'Italiano',
     ja: '日本語',
     zh: '中文',
   }

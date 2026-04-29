@@ -1,18 +1,28 @@
+import { countryToLang } from '../i18n/geo-map'
 import { parseAcceptLanguage } from '../i18n/middleware'
+import type { SupportedLanguage } from '../i18n/types'
 
-export type NicheFallbackLocale = 'pt' | 'en'
+export function chooseNicheFallbackLocale(
+  acceptLanguage: string | null,
+  countryCode: string | null = null
+): SupportedLanguage {
+  // 1. Try CF-IPCountry first (edge signal)
+  if (countryCode) {
+    return countryToLang(countryCode)
+  }
 
-export function chooseNicheFallbackLocale(acceptLanguage: string | null): NicheFallbackLocale {
+  // 2. Try Accept-Language fallback
   const preferredLang = parseAcceptLanguage(acceptLanguage)
-  return preferredLang === 'en' || preferredLang === 'pt' ? preferredLang : 'pt'
+  return preferredLang || 'pt' // default to pt for niche fallback if nothing detected
 }
 
 export function buildNicheLocaleRedirectPath(
   pathname: string,
   search: string,
-  acceptLanguage: string | null
+  acceptLanguage: string | null,
+  countryCode: string | null = null
 ): string {
-  const lang = chooseNicheFallbackLocale(acceptLanguage)
+  const lang = chooseNicheFallbackLocale(acceptLanguage, countryCode)
 
   // Normalize pathname to remove trailing slash for comparison
   const normalizedPath =

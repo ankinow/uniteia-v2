@@ -77,7 +77,7 @@ export interface TranslationStrings {
   }
 }
 
-export type SupportedLanguage = 'en' | 'pt' | 'es' | 'ja' | 'zh'
+export type SupportedLanguage = 'en' | 'pt' | 'es' | 'fr' | 'de' | 'it' | 'ja' | 'zh'
 
 export interface LanguageInfo {
   code: SupportedLanguage
@@ -89,6 +89,9 @@ export const SUPPORTED_LANGUAGES: LanguageInfo[] = [
   { code: 'en', name: 'English', nativeName: 'English' },
   { code: 'pt', name: 'Portuguese', nativeName: 'Português' },
   { code: 'es', name: 'Spanish', nativeName: 'Español' },
+  { code: 'fr', name: 'French', nativeName: 'Français' },
+  { code: 'de', name: 'German', nativeName: 'Deutsch' },
+  { code: 'it', name: 'Italian', nativeName: 'Italiano' },
   { code: 'ja', name: 'Japanese', nativeName: '日本語' },
   { code: 'zh', name: 'Chinese', nativeName: '中文' },
 ]
