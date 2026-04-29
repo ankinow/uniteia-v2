@@ -2,6 +2,7 @@ name = "uniteia-v2"
 pages_build_output_dir = "dist"
 compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
+account_id = "52024f99754ec4d76806e59dbd295098"
 
 [pages_build_config]
 build_command = "bun run build"

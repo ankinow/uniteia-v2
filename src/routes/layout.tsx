@@ -12,7 +12,21 @@ import { loadNichesConfig } from '~/utils/niche-loader'
 
 export const onRequest: RequestHandler = async event => {
   const { onLanguageNegotiation } = await import('~/i18n/middleware')
-  return onLanguageNegotiation(event)
+  await onLanguageNegotiation(event)
+
+  // Set security headers
+  event.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload')
+  event.headers.set('X-Frame-Options', 'DENY')
+  event.headers.set('X-Content-Type-Options', 'nosniff')
+  event.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
+  event.headers.set(
+    'Permissions-Policy',
+    'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()'
+  )
+  event.headers.set(
+    'Content-Security-Policy',
+    "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+  )
 }
 
 export const useLanguage = routeLoader$<SupportedLanguage>(({ headers }) => {

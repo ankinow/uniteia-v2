@@ -36,7 +36,28 @@ export const onRequest: PagesFunction<Env> = async context => {
 
   // Let the request continue to Qwik City
   // Note: Cloudflare Pages will handle this via the adapter
-  return context.next(modifiedRequest)
+  const response = await context.next(modifiedRequest)
+
+  // Add security headers to the final response
+  const headers = new Headers(response.headers)
+  headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload')
+  headers.set('X-Frame-Options', 'DENY')
+  headers.set('X-Content-Type-Options', 'nosniff')
+  headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
+  headers.set(
+    'Permissions-Policy',
+    'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()'
+  )
+  headers.set(
+    'Content-Security-Policy',
+    "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+  )
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  })
 }
 
 export default onRequest
