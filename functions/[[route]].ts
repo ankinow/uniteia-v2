@@ -3,6 +3,18 @@ import { validateLocalePath } from '../src/i18n/locale-validation'
 import { buildNicheLocaleRedirectPath } from '../src/utils/niche-locale-redirect'
 import { buildRobotsTxt, buildSitemapXml } from '../src/utils/sitemap-builder'
 
+function parseCookie(cookieHeader: string | null, key: string): string | null {
+  if (!cookieHeader) return null
+  const cookies = cookieHeader.split(';')
+  for (const cookie of cookies) {
+    const [name, value] = cookie.trim().split('=')
+    if (name === key) {
+      return value
+    }
+  }
+  return null
+}
+
 // Extend the Environment type for Cloudflare Pages
 type Env = Record<string, never> // Cloudflare Pages environment - no custom bindings needed
 
@@ -40,18 +52,23 @@ export const onRequest: PagesFunction<Env> = async context => {
   // Explicitly handle trailing slash for /n/ and /n/tail to avoid multi-hop
   // Cloudflare Pages normally 301s /n/ to /n. We intercept here to do it in 1 hop.
   if (isMissingLocaleNichePath(pathname)) {
+    const cookieLang = parseCookie(request.headers.get('Cookie'), 'uniteia_lang')
     const location = buildNicheLocaleRedirectPath(
       pathname,
       url.search,
       request.headers.get('Accept-Language'),
-      request.headers.get('CF-IPCountry')
+      request.headers.get('CF-IPCountry'),
+      cookieLang
     )
 
     return new Response(null, {
       status: 302,
       headers: {
         Location: location,
-        Vary: 'Accept-Language, CF-IPCountry',
+        Vary: 'Accept-Language, CF-IPCountry, Cookie',
+        'x-debug-cookie-in': request.headers.get('Cookie') || 'none',
+        'x-debug-cookie-parsed': cookieLang || 'none',
+        'x-debug-ipcountry': request.headers.get('CF-IPCountry') || 'none',
       },
     })
   }

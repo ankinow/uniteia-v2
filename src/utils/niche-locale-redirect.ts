@@ -4,14 +4,20 @@ import type { SupportedLanguage } from '../i18n/types'
 
 export function chooseNicheFallbackLocale(
   acceptLanguage: string | null,
-  countryCode: string | null = null
+  countryCode: string | null = null,
+  cookieLang: string | null = null
 ): SupportedLanguage {
-  // 1. Try CF-IPCountry first (edge signal)
+  // 1. Check for language cookie first
+  if (cookieLang && SUPPORTED_LOCALES.includes(cookieLang as SupportedLanguage)) {
+    return cookieLang as SupportedLanguage
+  }
+
+  // 2. Try CF-IPCountry (edge signal)
   if (countryCode) {
     return countryToLang(countryCode)
   }
 
-  // 2. Try Accept-Language fallback
+  // 3. Try Accept-Language fallback
   const preferredLang = parseAcceptLanguage(acceptLanguage)
   return preferredLang || 'pt' // default to pt for niche fallback if nothing detected
 }
@@ -20,9 +26,10 @@ export function buildNicheLocaleRedirectPath(
   pathname: string,
   search: string,
   acceptLanguage: string | null,
-  countryCode: string | null = null
+  countryCode: string | null = null,
+  cookieLang: string | null = null
 ): string {
-  const lang = chooseNicheFallbackLocale(acceptLanguage, countryCode)
+  const lang = chooseNicheFallbackLocale(acceptLanguage, countryCode, cookieLang)
 
   // Normalize pathname to remove trailing slash for comparison
   const normalizedPath =
