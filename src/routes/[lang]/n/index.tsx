@@ -52,11 +52,16 @@ export default component$(() => {
   )
 })
 
-export const head: DocumentHead = () => {
+import { getTranslation } from '~/i18n/context'
+
+export const head: DocumentHead = ({ params }) => {
+  const lang = (params.lang as SupportedLanguage) || 'en'
+  const t = getTranslation(lang)
+
   return {
-    title: 'Topics | UniTeia',
+    title: t.seo.topicsTitle,
     meta: [
-      { name: 'description', content: 'Browse all AI niche topics on UniTeia.' },
+      { name: 'description', content: t.seo.topicsDescription },
       { name: 'robots', content: 'index, follow' },
     ],
   }

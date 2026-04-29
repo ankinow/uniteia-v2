@@ -14,6 +14,8 @@ export const onRequest: PagesFunction<Env> = async context => {
   const url = new URL(request.url)
   const pathname = url.pathname
 
+  // Explicitly handle trailing slash for /n/ and /n/tail to avoid multi-hop
+  // Cloudflare Pages normally 301s /n/ to /n. We intercept here to do it in 1 hop.
   if (isMissingLocaleNichePath(pathname)) {
     const location = buildNicheLocaleRedirectPath(
       pathname,

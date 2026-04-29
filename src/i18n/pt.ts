@@ -72,5 +72,7 @@ export const pt: TranslationStrings = {
   seo: {
     siteName: 'UniTeia',
     articleTitleTemplate: '{title} | UniTeia',
+    topicsTitle: 'Tópicos de IA',
+    topicsDescription: 'Explore nossa curadoria de tópicos e nichos de Inteligência Artificial.',
   },
 }

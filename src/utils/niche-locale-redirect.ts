@@ -13,6 +13,14 @@ export function buildNicheLocaleRedirectPath(
   acceptLanguage: string | null
 ): string {
   const lang = chooseNicheFallbackLocale(acceptLanguage)
-  const tail = pathname === '/n' || pathname === '/n/' ? '' : pathname.slice('/n'.length)
+
+  // Normalize pathname to remove trailing slash for comparison
+  const normalizedPath =
+    pathname.endsWith('/') && pathname.length > 1 ? pathname.slice(0, -1) : pathname
+
+  const tail = normalizedPath === '/n' ? '' : normalizedPath.slice('/n'.length)
+
+  // Ensure /n or /n/ goes to /pt/n (no trailing slash)
+  // Ensure /n/tail goes to /pt/n/tail
   return `/${lang}/n${tail}${search}`
 }
