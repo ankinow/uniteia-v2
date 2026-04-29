@@ -1,13 +1,34 @@
 import type { PagesFunction } from '@cloudflare/workers-types'
 import { validateLocalePath } from '../src/i18n/locale-validation'
+import { buildNicheLocaleRedirectPath } from '../src/utils/niche-locale-redirect'
 
 // Extend the Environment type for Cloudflare Pages
 type Env = Record<string, never> // Cloudflare Pages environment - no custom bindings needed
+
+function isMissingLocaleNichePath(pathname: string): boolean {
+  return pathname === '/n' || pathname === '/n/' || pathname.startsWith('/n/')
+}
 
 export const onRequest: PagesFunction<Env> = async context => {
   const { request } = context
   const url = new URL(request.url)
   const pathname = url.pathname
+
+  if (isMissingLocaleNichePath(pathname)) {
+    const location = buildNicheLocaleRedirectPath(
+      pathname,
+      url.search,
+      request.headers.get('Accept-Language')
+    )
+
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: location,
+        Vary: 'Accept-Language',
+      },
+    })
+  }
 
   // Validate the locale from the first path segment
   const { locale, isValid, originalSegment } = validateLocalePath(pathname)

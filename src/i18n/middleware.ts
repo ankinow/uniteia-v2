@@ -52,7 +52,7 @@ const COUNTRY_TO_LANG: Record<string, SupportedLanguage> = {
  * Parse Accept-Language header and extract preferred language
  * Returns the first matching supported language or null
  */
-function parseAcceptLanguage(header: string | null): SupportedLanguage | null {
+export function parseAcceptLanguage(header: string | null): SupportedLanguage | null {
   if (!header) return null
 
   // Parse Accept-Language: en-US,en;q=0.9,pt-BR;q=0.8,pt;q=0.7
