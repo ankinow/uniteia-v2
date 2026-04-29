@@ -1,15 +1,41 @@
 import { component$ } from '@builder.io/qwik'
-import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
+import {
+  type DocumentHead,
+  type RequestHandler,
+  routeLoader$,
+  useLocation,
+} from '@builder.io/qwik-city'
 import { JSONLD } from '~/components/json-ld'
 import { NicheLanding } from '~/components/niche-landing'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
 import type { SupportedLanguage } from '~/i18n/types'
-import { findNicheBySlug, loadNichesConfig } from '~/utils/niche-loader'
+import { findNicheBySlug, getNicheSlug, loadNichesConfig } from '~/utils/niche-loader'
 import { generateWebSiteSchema } from '~/utils/schema-generators'
 import type { NicheRouteData } from './types'
 
 /** Quick lookup set for valid language codes */
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
+
+export const onRequest: RequestHandler = async event => {
+  const lang = event.params.lang ?? ''
+  const nicheSlug = event.params.niche ?? ''
+
+  if (!lang || !VALID_LANG_CODES.has(lang)) {
+    throw event.error(404, `Language "${lang ?? 'unknown'}" not supported`)
+  }
+
+  const niches = await loadNichesConfig()
+  const niche = findNicheBySlug(niches, nicheSlug, lang as SupportedLanguage)
+
+  if (!niche) {
+    throw event.error(404, `Niche not found: ${nicheSlug}`)
+  }
+
+  const localeSlug = getNicheSlug(niche, lang as SupportedLanguage)
+  if (localeSlug !== nicheSlug) {
+    throw event.redirect(301, `/${lang}/n/${localeSlug}${event.url.search}`)
+  }
+}
 
 /**
  * routeLoader$ that loads the niches config, finds the niche matching
@@ -32,7 +58,7 @@ export const useNicheData = routeLoader$<NicheRouteData>(async ({ params, error 
   const niches = await loadNichesConfig()
 
   // Find the matching niche
-  const niche = findNicheBySlug(niches, nicheSlug)
+  const niche = findNicheBySlug(niches, nicheSlug, lang as SupportedLanguage)
   if (!niche) {
     console.warn(`[niche-loader] Niche not found for slug: "${nicheSlug}"`)
     throw error(404, `Niche not found: ${nicheSlug}`)
@@ -76,28 +102,44 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
   const data = resolveValue(useNicheData)
   const lang = (params.lang as SupportedLanguage) || 'en'
 
-  const title = `${data.niche.title[lang]} | UniTeia`
+  const localizedSlug = getNicheSlug(data.niche, lang as SupportedLanguage)
+  const englishSlug = getNicheSlug(data.niche, 'en')
+  const portugueseSlug = getNicheSlug(data.niche, 'pt')
+  const canonicalUrl = new URL(`/${lang}/n/${localizedSlug}`, url.origin)
+  const pageTitle = `${data.niche.title[lang]} — UniTeia`
   const description = data.niche.description[lang]
 
-  const alternateLinks: Array<{ rel: string; hreflang: string; href: string }> =
-    SUPPORTED_LANGUAGES.map(l => ({
-      rel: 'alternate',
-      hreflang: l.code,
-      href: new URL(`/${l.code}/n/${data.niche.slug}`, url.origin).href,
-    }))
-
-  alternateLinks.push({
-    rel: 'alternate',
-    hreflang: 'x-default',
-    href: new URL(`/en/n/${data.niche.slug}`, url.origin).href,
-  })
-
   return {
-    title,
+    title: pageTitle,
     meta: [
       { name: 'description', content: description },
       { name: 'robots', content: 'index, follow' },
+      { property: 'og:title', content: pageTitle },
+      { property: 'og:description', content: description },
+      { property: 'og:url', content: canonicalUrl.href },
+      { property: 'og:type', content: 'article' },
+      { property: 'og:locale', content: lang },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: pageTitle },
+      { name: 'twitter:description', content: description },
     ],
-    links: [{ rel: 'canonical', href: url.href }, ...alternateLinks],
+    links: [
+      { rel: 'canonical', href: canonicalUrl.href },
+      {
+        rel: 'alternate',
+        hreflang: 'pt',
+        href: new URL(`/pt/n/${portugueseSlug}`, url.origin).href,
+      },
+      {
+        rel: 'alternate',
+        hreflang: 'en',
+        href: new URL(`/en/n/${englishSlug}`, url.origin).href,
+      },
+      {
+        rel: 'alternate',
+        hreflang: 'x-default',
+        href: new URL(`/en/n/${englishSlug}`, url.origin).href,
+      },
+    ],
   }
 }

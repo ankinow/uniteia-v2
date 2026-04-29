@@ -1,5 +1,6 @@
 import { component$ } from '@builder.io/qwik'
 import { getLucideIconClass } from '~/utils/icon-classes'
+import { getNicheSlug } from '~/utils/niche-loader'
 import type { NicheCardProps } from './types'
 
 /**
@@ -10,7 +11,7 @@ import type { NicheCardProps } from './types'
  * Follows S01 isolation pattern with types.ts + index.tsx.
  */
 export const NicheCard = component$<NicheCardProps>(({ niche, lang, class: classList }) => {
-  const href = `/${lang}/n/${niche.slug}`
+  const href = `/${lang}/n/${getNicheSlug(niche, lang)}`
   const iconClass = getLucideIconClass(niche.icon)
 
   return (

@@ -8,7 +8,7 @@ import { getTranslation, useProvideI18n } from '~/i18n/context'
 import { DEFAULT_LANGUAGE, type SupportedLanguage } from '~/i18n/types'
 import type { NichesConfig } from '~/types/niche'
 import { type NavigationData, deriveNavigation } from '~/utils/content-loader'
-import { loadNichesConfig } from '~/utils/niche-loader'
+import { getNicheSlug, loadNichesConfig } from '~/utils/niche-loader'
 
 export const onRequest: RequestHandler = async event => {
   const { onLanguageNegotiation } = await import('~/i18n/middleware')
@@ -59,7 +59,7 @@ export const useNavigation = routeLoader$<NavigationData>(async () => {
 
 export default component$(() => {
   const langSignal = useLanguage()
-  const _nichesSignal = useNiches()
+  const nichesSignal = useNiches()
   const nicheSignal = useNiche()
   const navSignal = useNavigation()
   const lang = langSignal.value
@@ -70,6 +70,10 @@ export default component$(() => {
   // Get translation directly for layout use since useI18n()
   // only works in children of this component.
   const t = getTranslation(lang)
+
+  const nicheSlugMap = Object.fromEntries(
+    nichesSignal.value.map(niche => [niche.slug, getNicheSlug(niche, lang)])
+  )
 
   // Close dropdown on outside click
   useOnWindow(
@@ -112,7 +116,12 @@ export default component$(() => {
 
         {/* Dynamic Niche Navigation (Auto-derived) */}
         <div class="px-4 md:px-8 py-2 border-b border-action/5 bg-void/50 backdrop-blur-sm sticky top-0 z-40">
-          <NavTree navData={navSignal.value} currentLang={lang} currentNiche={nicheSignal.value} />
+          <NavTree
+            navData={navSignal.value}
+            currentLang={lang}
+            currentNiche={nicheSignal.value}
+            nicheSlugMap={nicheSlugMap}
+          />
         </div>
       </div>
       <Slot />

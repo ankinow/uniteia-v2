@@ -1,8 +1,11 @@
 import type { SupportedLanguage } from '../i18n/types'
-import type { NicheConfig, NicheValidationError, NichesConfig } from '../types/niche'
+import type { NicheConfig, NicheSlugs, NicheValidationError, NichesConfig } from '../types/niche'
+import { validateSlug } from './url-validation'
 
 /** All supported languages — used to validate that title/description maps are complete */
 const SUPPORTED_LANGS: SupportedLanguage[] = ['en', 'pt', 'es', 'ja', 'zh']
+
+const ROUTED_SLUG_LANGS: Array<keyof NicheSlugs> = ['pt', 'en']
 
 /**
  * Validate a single niche config entry.
@@ -24,12 +27,28 @@ export function validateNicheConfig(entry: unknown): NicheValidationError | null
   if (typeof slug !== 'string' || slug.length === 0) {
     errors.push('slug is required and must be a non-empty string')
   } else {
-    // Dynamic import of url-validation would be async; import the pattern inline for sync validation
-    const SLUG_PATTERN = /^[a-z]+(-[a-z]+){0,5}$/
-    if (!SLUG_PATTERN.test(slug)) {
-      errors.push(
-        `slug "${slug}" does not match pattern ${SLUG_PATTERN.toString()}. Must be 1-6 lowercase hyphen-separated segments.`
-      )
+    const slugValidation = validateSlug(slug)
+    if (!slugValidation.valid) {
+      errors.push(slugValidation.error ?? `slug "${slug}" is invalid`)
+    }
+  }
+
+  // localized slug aliases validation
+  if (!obj.slugs || typeof obj.slugs !== 'object' || Array.isArray(obj.slugs)) {
+    errors.push('slugs is required and must be an object keyed by locale')
+  } else {
+    const slugs = obj.slugs as Record<string, unknown>
+    for (const lang of ROUTED_SLUG_LANGS) {
+      const localizedSlug = slugs[lang]
+      if (typeof localizedSlug !== 'string' || localizedSlug.length === 0) {
+        errors.push(`slugs.${lang} is required and must be a non-empty string`)
+        continue
+      }
+
+      const localizedValidation = validateSlug(localizedSlug)
+      if (!localizedValidation.valid) {
+        errors.push(localizedValidation.error ?? `slugs.${lang} is invalid`)
+      }
     }
   }
 
@@ -74,11 +93,35 @@ export function validateNicheConfig(entry: unknown): NicheValidationError | null
 }
 
 /**
- * Find a niche by its slug within a loaded config.
- * Returns the NicheConfig if found, or undefined.
+ * Resolve the active slug for a niche in a specific locale.
+ * Falls back to the canonical slug for locales without an explicit alias.
  */
-export function findNicheBySlug(niches: NichesConfig, slug: string): NicheConfig | undefined {
-  return niches.find(n => n.slug === slug)
+export function getNicheSlug(niche: NicheConfig, lang: SupportedLanguage): string {
+  if (lang === 'en' || lang === 'pt') {
+    return niche.slugs[lang]
+  }
+
+  return niche.slug
+}
+
+/**
+ * Find a niche by its slug within a loaded config.
+ * Canonical slug is checked first, then locale alias, then any alias.
+ */
+export function findNicheBySlug(
+  niches: NichesConfig,
+  slug: string,
+  lang?: SupportedLanguage
+): NicheConfig | undefined {
+  const canonicalMatch = niches.find(n => n.slug === slug)
+  if (canonicalMatch) return canonicalMatch
+
+  if (lang === 'en' || lang === 'pt') {
+    const localizedMatch = niches.find(n => n.slugs[lang] === slug)
+    if (localizedMatch) return localizedMatch
+  }
+
+  return niches.find(n => n.slugs.pt === slug || n.slugs.en === slug)
 }
 
 /**

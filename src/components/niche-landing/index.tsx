@@ -2,6 +2,7 @@ import { component$ } from '@builder.io/qwik'
 import { DopamineCard } from '~/components/dopamine-card'
 import { useI18n } from '~/i18n/context'
 import { getLucideIconClass } from '~/utils/icon-classes'
+import { getNicheSlug } from '~/utils/niche-loader'
 import type { NicheLandingProps } from './types'
 
 /**
@@ -56,7 +57,7 @@ export const NicheLanding = component$<NicheLandingProps>(
                   key={related.slug}
                   title={related.title[lang]}
                   description={related.description[lang]}
-                  href={`/${lang}/n/${related.slug}`}
+                  href={`/${lang}/n/${getNicheSlug(related, lang)}`}
                   icon={related.icon}
                   lang={lang}
                 />

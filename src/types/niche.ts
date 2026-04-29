@@ -11,11 +11,21 @@ export type NicheTitle = Record<SupportedLanguage, string>
 export type NicheDescription = Record<SupportedLanguage, string>
 
 /**
+ * Localized niche slugs for the primary routed locales.
+ */
+export interface NicheSlugs {
+  pt: string
+  en: string
+}
+
+/**
  * A single niche entry as defined in config/niches.yaml
  */
 export interface NicheConfig {
-  /** URL slug — must match SLUG_PATTERN in url-validation.ts */
+  /** Canonical URL slug — kept for back-compat */
   slug: string
+  /** Locale-specific routed slugs */
+  slugs: NicheSlugs
   /** Lucide icon name (e.g. "Bot", "PenTool") */
   icon: string
   /** Localized title in all supported languages */
