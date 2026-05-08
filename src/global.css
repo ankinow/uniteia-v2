@@ -287,4 +287,53 @@ a:hover {
       transparent
     );
   }
+
+  .depth-surface {
+    --depth-accent: var(--cyan);
+    --depth-shadow: 0 14px 32px rgb(0 0 0 / 0.24);
+    --depth-lift: 0px;
+    position: relative;
+    transform: translateY(var(--depth-lift));
+    transition: transform var(--t-base) var(--ease-solar), box-shadow var(--t-base)
+      var(--ease-solar), border-color var(--t-base) var(--ease-solar);
+  }
+
+  .depth-surface[data-depth="front"] {
+    --depth-accent: var(--cyan);
+    --depth-shadow: 0 18px 42px rgb(0 0 0 / 0.34);
+    --depth-lift: -1px;
+    border-color: color-mix(in srgb, var(--cyan) 24%, transparent);
+    box-shadow: var(--depth-shadow);
+  }
+
+  .depth-surface[data-depth="mid"] {
+    --depth-accent: var(--vine);
+    --depth-shadow: 0 12px 28px rgb(0 0 0 / 0.24);
+    border-color: color-mix(in srgb, var(--vine) 20%, transparent);
+    box-shadow: var(--depth-shadow);
+  }
+
+  .depth-surface[data-depth="back"] {
+    --depth-accent: var(--bronze);
+    --depth-shadow: 0 8px 20px rgb(0 0 0 / 0.18);
+    border-color: color-mix(in srgb, var(--bronze) 18%, transparent);
+    box-shadow: var(--depth-shadow);
+    opacity: 0.98;
+  }
+
+  .depth-section,
+  .depth-card {
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--depth-accent) 10%, transparent),
+        transparent
+      ), color-mix(in srgb, var(--void) 88%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .depth-surface {
+      transform: none;
+      transition: none;
+    }
+  }
 }

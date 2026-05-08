@@ -11,9 +11,9 @@ export const Sidebar = component$(() => {
 
       {/* Logo JRPG Style */}
       <div class="p-4 border-b border-cyan/10 text-center">
-        <h1 class="text-2xl font-pixel text-cyan tracking-wider">
+        <div class="text-2xl font-pixel text-cyan tracking-wider">
           <span class="text-cyan">UNI</span>TEIA
-        </h1>
+        </div>
       </div>
 
       {/* Navigation */}

@@ -31,7 +31,7 @@ async function checkSingleHeader(): Promise<CheckResult[]> {
 
   // Find all HTML files in dist
   const htmlFiles = await glob(`${DIST_PATH}/**/*.html`, {
-    ignore: ['**/node_modules/**', '**/404.html'],
+    ignore: ['**/node_modules/**', '**/404.html', '**/frames-reference/**'],
   })
   if (htmlFiles.length === 0) {
     results.push({

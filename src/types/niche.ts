@@ -16,6 +16,12 @@ export type NicheDescription = Record<SupportedLanguage, string>
 export interface NicheSlugs {
   pt: string
   en: string
+  es: string
+  fr: string
+  de: string
+  it: string
+  ja: string
+  zh: string
 }
 
 /**

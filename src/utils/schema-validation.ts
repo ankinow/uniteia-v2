@@ -204,10 +204,12 @@ function validateMetadata(metadata: unknown, filePath: string, issues: Validatio
     }
   }
 
-  if (metadata.version !== undefined) {
-    if (!Number.isInteger(metadata.version)) {
+  if (metadata.version != null) {
+    const version = metadata.version
+
+    if (typeof version !== 'number' || !Number.isInteger(version)) {
       addIssue(issues, filePath, 'metadata.version', 'Must be an integer')
-    } else if (metadata.version < 1) {
+    } else if (version < 1) {
       addIssue(issues, filePath, 'metadata.version', 'Must be >= 1')
     }
   }
@@ -300,15 +302,17 @@ export function validateContent(
     }
   }
 
-  if (data.quality_score !== undefined) {
-    if (!Number.isInteger(data.quality_score)) {
+  if (data.quality_score != null) {
+    const qualityScore = data.quality_score
+
+    if (typeof qualityScore !== 'number' || !Number.isInteger(qualityScore)) {
       addIssue(issues, filePath, 'quality_score', 'Must be an integer')
     } else {
-      if (data.quality_score < 0) {
+      if (qualityScore < 0) {
         addIssue(issues, filePath, 'quality_score', 'Must be >= 0')
       }
 
-      if (data.quality_score > 100) {
+      if (qualityScore > 100) {
         addIssue(issues, filePath, 'quality_score', 'Must be <= 100')
       }
     }

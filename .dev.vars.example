@@ -1,0 +1,9 @@
+# Cloudflare API Token (get from: https://dash.cloudflare.com/profile/api-tokens)
+# CLOUDFLARE_API_TOKEN=your_api_token_here
+
+# Para autenticação via OAuth (wrangler login), execute no terminal local:
+# cd /home/lermf/uniteia-v2
+# bunx wrangler login
+# 
+# Ou configure manualmente o token acima e rode:
+# bunx wrangler pages deploy dist --project-name=uniteia-v2

@@ -6,6 +6,12 @@ import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 import type { NichesConfig } from '~/types/niche'
 import { loadNichesConfig } from '~/utils/niche-loader'
 
+type AlternateLink = {
+  rel: 'alternate'
+  hreflang: SupportedLanguage | 'x-default'
+  href: string
+}
+
 /** Quick lookup set for valid language codes */
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
 
@@ -58,7 +64,7 @@ export const head: DocumentHead = ({ params, url }) => {
   const lang = (params.lang as SupportedLanguage) || 'en'
   const t = getTranslation(lang)
 
-  const alternateLinks = SUPPORTED_LANGUAGES.map(l => ({
+  const alternateLinks: AlternateLink[] = SUPPORTED_LANGUAGES.map(l => ({
     rel: 'alternate',
     hreflang: l.code,
     href: new URL(`/${l.code}/n`, url.origin).href,

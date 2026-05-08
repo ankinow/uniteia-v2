@@ -1,6 +1,8 @@
 import { countryToLang } from '../i18n/geo-map'
 import { parseAcceptLanguage } from '../i18n/middleware'
-import type { SupportedLanguage } from '../i18n/types'
+import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '../i18n/types'
+
+const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
 
 export function chooseNicheFallbackLocale(
   acceptLanguage: string | null,
@@ -8,7 +10,7 @@ export function chooseNicheFallbackLocale(
   cookieLang: string | null = null
 ): SupportedLanguage {
   // 1. Check for language cookie first
-  if (cookieLang && SUPPORTED_LOCALES.includes(cookieLang as SupportedLanguage)) {
+  if (cookieLang && VALID_LANG_CODES.has(cookieLang)) {
     return cookieLang as SupportedLanguage
   }
 

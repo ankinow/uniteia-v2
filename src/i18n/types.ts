@@ -74,6 +74,8 @@ export interface TranslationStrings {
   seo: {
     siteName: string
     articleTitleTemplate: string
+    topicsTitle: string
+    topicsDescription: string
   }
 }
 

@@ -92,7 +92,6 @@ function slugify(input) {
   return input
     .toLowerCase()
     .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
     .slice(0, 64)
@@ -114,9 +113,10 @@ function parseFeaturedBlock(block, ctx) {
   // Each featured prompt starts at "### No. N: Title".
   const headerRe = /^### No\. \d+: (.+?)\s*$/gm
   const headers = []
-  let m
-  while ((m = headerRe.exec(block)) !== null) {
+  let m = headerRe.exec(block)
+  while (m !== null) {
     headers.push({ index: m.index, end: m.index + m[0].length, title: m[1] })
+    m = headerRe.exec(block)
   }
   for (let i = 0; i < headers.length; i += 1) {
     const h = headers[i]
@@ -136,10 +136,11 @@ function parseAllPromptsBlock(block, ctx) {
   // strips the "No. N:" prefix where present.
   const headerRe = /^### (.+?)\s*$/gm
   const headers = []
-  let m
-  while ((m = headerRe.exec(block)) !== null) {
+  let m = headerRe.exec(block)
+  while (m !== null) {
     const title = m[1].replace(/^No\.\s*\d+:\s*/, '').trim()
     headers.push({ index: m.index, end: m.index + m[0].length, title })
+    m = headerRe.exec(block)
   }
   for (let i = 0; i < headers.length && out.length < ctx.sampleAllPrompts; i += 1) {
     const h = headers[i]
@@ -151,7 +152,7 @@ function parseAllPromptsBlock(block, ctx) {
   return out
 }
 
-function parseEntryBody(body, title, ctx, featured) {
+function parseEntryBody(body, title, ctx, _featured) {
   const promptMatch = /#### 📝 Prompt\s*\n+```[a-zA-Z0-9_-]*\n([\s\S]*?)```/m.exec(body)
   if (!promptMatch) return null
   const prompt = promptMatch[1].trim()

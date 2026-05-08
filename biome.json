@@ -60,7 +60,8 @@
       "llm-wiki",
       "server",
       ".imports",
-      "apps"
+      "apps",
+      "open-design"
     ]
   }
 }

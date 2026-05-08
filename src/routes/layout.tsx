@@ -1,5 +1,6 @@
 import { $, Slot, component$, useOnWindow, useSignal } from '@builder.io/qwik'
 import { type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
+import { Footer } from '~/components/footer'
 import { LangSwitcher } from '~/components/lang-switcher'
 import { NavTree } from '~/components/nav-tree'
 import { Sidebar } from '~/components/sidebar'
@@ -135,12 +136,12 @@ export default component$(() => {
 
         {/* Main Content */}
         <div class="flex-1 flex flex-col min-w-0">
-          <main id="main-content" class="site-main flex-1" data-testid="site-main">
+          <div class="site-main flex-1">
             <Slot />
-          </main>
+          </div>
 
           <footer class="site-footer" data-testid="site-footer">
-            <Slot name="footer" />
+            <Footer />
           </footer>
         </div>
       </div>

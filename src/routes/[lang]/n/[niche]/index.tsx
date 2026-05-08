@@ -14,6 +14,12 @@ import { findNicheBySlug, getNicheSlug, loadNichesConfig } from '~/utils/niche-l
 import { generateWebSiteSchema } from '~/utils/schema-generators'
 import type { NicheRouteData } from './types'
 
+type AlternateLink = {
+  rel: 'alternate'
+  hreflang: SupportedLanguage | 'x-default'
+  href: string
+}
+
 /** Quick lookup set for valid language codes */
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
 
@@ -125,7 +131,7 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
   const pageTitle = `${data.niche.title[lang]} — UniTeia`
   const description = data.niche.description[lang]
 
-  const alternateLinks = SUPPORTED_LANGUAGES.map(l => ({
+  const alternateLinks: AlternateLink[] = SUPPORTED_LANGUAGES.map(l => ({
     rel: 'alternate',
     hreflang: l.code,
     href: new URL(`/${l.code}/n/${getNicheSlug(data.niche, l.code)}`, url.origin).href,
