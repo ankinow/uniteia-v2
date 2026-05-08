@@ -1,26 +1,26 @@
-export type ProxyMessageRole = 'system' | 'user' | 'assistant' | 'tool';
+export type ProxyMessageRole = 'system' | 'user' | 'assistant' | 'tool'
 
 export interface ProxyMessage {
-  role: ProxyMessageRole;
-  content: string;
+  role: ProxyMessageRole
+  content: string
 }
 
 export interface ProxyStreamRequest {
-  baseUrl: string;
-  apiKey: string;
-  model: string;
-  systemPrompt?: string;
-  messages: ProxyMessage[];
+  baseUrl: string
+  apiKey: string
+  model: string
+  systemPrompt?: string
+  messages: ProxyMessage[]
 }
 
 export interface ProxyStreamStartPayload {
-  model?: string;
+  model?: string
 }
 
 export interface ProxyStreamDeltaPayload {
-  delta: string;
+  delta: string
 }
 
 export interface ProxyStreamEndPayload {
-  code?: number;
+  code?: number
 }

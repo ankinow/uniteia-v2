@@ -35,154 +35,152 @@
 // To actually apply: copy the upstream files in by hand, re-add the OD
 // frontmatter shim and the "Open Design integration" section.
 
-import { execFile as execFileCb } from 'node:child_process';
-import { mkdtemp, readdir, readFile, rm, stat } from 'node:fs/promises';
-import os from 'node:os';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { promisify } from 'node:util';
+import { execFile as execFileCb } from 'node:child_process'
+import { mkdtemp, readFile, readdir, rm, stat } from 'node:fs/promises'
+import os from 'node:os'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { promisify } from 'node:util'
 
-const execFile = promisify(execFileCb);
+const execFile = promisify(execFileCb)
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const REPO_ROOT = path.resolve(__dirname, '..');
-const VENDORED = path.join(REPO_ROOT, 'skills', 'hyperframes');
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const REPO_ROOT = path.resolve(__dirname, '..')
+const VENDORED = path.join(REPO_ROOT, 'skills', 'hyperframes')
 
 async function main() {
-  const tmpRoot = await mkdtemp(path.join(os.tmpdir(), 'od-hf-sync-'));
+  const tmpRoot = await mkdtemp(path.join(os.tmpdir(), 'od-hf-sync-'))
   try {
-    console.log(`[sync] installing upstream into ${tmpRoot}`);
+    console.log(`[sync] installing upstream into ${tmpRoot}`)
     // `-y` auto-accepts the install confirmation prompt; we install just
     // the `hyperframes` sub-skill (the main one we vendor) to keep the
     // probe focused.
     await execFile(
       'npx',
       ['-y', 'skills', 'add', 'heygen-com/hyperframes', '-s', 'hyperframes', '-y'],
-      { cwd: tmpRoot, timeout: 90_000, maxBuffer: 16 * 1024 * 1024 },
-    );
+      { cwd: tmpRoot, timeout: 90_000, maxBuffer: 16 * 1024 * 1024 }
+    )
 
-    const upstream = path.join(tmpRoot, '.agents', 'skills', 'hyperframes');
+    const upstream = path.join(tmpRoot, '.agents', 'skills', 'hyperframes')
     if (!(await exists(upstream))) {
       console.error(
         `[sync] upstream not found at expected path: ${upstream}\n` +
-          '       The skills CLI may have changed where it installs to.',
-      );
-      process.exit(2);
+          '       The skills CLI may have changed where it installs to.'
+      )
+      process.exit(2)
     }
 
-    const upstreamFiles = await collect(upstream);
-    const vendoredFiles = await collect(VENDORED);
+    const upstreamFiles = await collect(upstream)
+    const vendoredFiles = await collect(VENDORED)
 
-    const upstreamMap = new Map(upstreamFiles.map((f) => [f.rel, f]));
-    const vendoredMap = new Map(vendoredFiles.map((f) => [f.rel, f]));
+    const upstreamMap = new Map(upstreamFiles.map(f => [f.rel, f]))
+    const vendoredMap = new Map(vendoredFiles.map(f => [f.rel, f]))
 
-    const added = [];
-    const modified = [];
-    const removed = [];
+    const added = []
+    const modified = []
+    const removed = []
 
     for (const [rel, up] of upstreamMap) {
-      const ven = vendoredMap.get(rel);
+      const ven = vendoredMap.get(rel)
       if (!ven) {
-        added.push(rel);
-        continue;
+        added.push(rel)
+        continue
       }
       // SKILL.md gets local edits (frontmatter shim + OD integration
       // section), so a byte-for-byte compare always reports drift.
       // Compare only the body AFTER our injected section by matching
       // upstream's first H2 heading. Imperfect but useful as a hint.
       if (rel === 'SKILL.md') {
-        const upstreamMarker = '\n## Approach\n';
+        const upstreamMarker = '\n## Approach\n'
         const upBody = up.text.includes(upstreamMarker)
           ? up.text.slice(up.text.indexOf(upstreamMarker))
-          : up.text;
+          : up.text
         const venBody = ven.text.includes(upstreamMarker)
           ? ven.text.slice(ven.text.indexOf(upstreamMarker))
-          : ven.text;
-        if (upBody !== venBody) modified.push(`${rel} (body after ## Approach)`);
-        continue;
+          : ven.text
+        if (upBody !== venBody) modified.push(`${rel} (body after ## Approach)`)
+        continue
       }
-      if (up.text !== ven.text) modified.push(rel);
+      if (up.text !== ven.text) modified.push(rel)
     }
     for (const rel of vendoredMap.keys()) {
-      if (!upstreamMap.has(rel)) removed.push(rel);
+      if (!upstreamMap.has(rel)) removed.push(rel)
     }
 
     if (added.length === 0 && modified.length === 0 && removed.length === 0) {
-      console.log('[sync] vendored copy matches upstream — nothing to do.');
-      process.exit(0);
+      console.log('[sync] vendored copy matches upstream — nothing to do.')
+      process.exit(0)
     }
 
-    console.log('\n[sync] DRIFT DETECTED — review and update by hand.\n');
+    console.log('\n[sync] DRIFT DETECTED — review and update by hand.\n')
     if (added.length) {
-      console.log(`  Added (in upstream, missing locally):`);
-      for (const r of added) console.log(`    + ${r}`);
+      console.log(`  Added (in upstream, missing locally):`)
+      for (const r of added) console.log(`    + ${r}`)
     }
     if (modified.length) {
-      console.log(`  Modified upstream:`);
-      for (const r of modified) console.log(`    ~ ${r}`);
+      console.log(`  Modified upstream:`)
+      for (const r of modified) console.log(`    ~ ${r}`)
     }
     if (removed.length) {
-      console.log(`  Removed upstream (still vendored locally):`);
-      for (const r of removed) console.log(`    - ${r}`);
+      console.log(`  Removed upstream (still vendored locally):`)
+      for (const r of removed) console.log(`    - ${r}`)
     }
     console.log(
       '\n  Upstream copy lives at:\n' +
         `    ${upstream}\n` +
         '  (script does not auto-apply — re-run with diff tools, then\n' +
         '   commit the merge by hand. Re-add OD frontmatter shim if it\n' +
-        '   gets dropped during the merge.)',
-    );
-    process.exit(1);
+        '   gets dropped during the merge.)'
+    )
+    process.exit(1)
   } finally {
     // Best-effort cleanup. Leaves the upstream dir behind if the user
     // wants to inspect it in the failure path.
     if (process.env.OD_KEEP_HF_SYNC_TMP) {
-      console.log(`[sync] OD_KEEP_HF_SYNC_TMP set — leaving ${tmpRoot}`);
+      console.log(`[sync] OD_KEEP_HF_SYNC_TMP set — leaving ${tmpRoot}`)
     } else {
-      await rm(tmpRoot, { recursive: true, force: true });
+      await rm(tmpRoot, { recursive: true, force: true })
     }
   }
 }
 
 async function exists(p) {
   try {
-    await stat(p);
-    return true;
+    await stat(p)
+    return true
   } catch {
-    return false;
+    return false
   }
 }
 
 async function collect(root) {
-  const out = [];
-  await walk(root, '', out);
-  return out;
+  const out = []
+  await walk(root, '', out)
+  return out
 }
 
 async function walk(root, rel, out) {
-  let entries;
+  let entries
   try {
-    entries = await readdir(path.join(root, rel), { withFileTypes: true });
+    entries = await readdir(path.join(root, rel), { withFileTypes: true })
   } catch {
-    return;
+    return
   }
   for (const e of entries) {
-    const childRel = rel ? `${rel}/${e.name}` : e.name;
+    const childRel = rel ? `${rel}/${e.name}` : e.name
     if (e.isDirectory()) {
-      await walk(root, childRel, out);
-      continue;
+      await walk(root, childRel, out)
+      continue
     }
-    if (!e.isFile()) continue;
-    const text = await readFile(path.join(root, childRel), 'utf8').catch(
-      () => null,
-    );
-    if (text == null) continue;
-    out.push({ rel: childRel, text });
+    if (!e.isFile()) continue
+    const text = await readFile(path.join(root, childRel), 'utf8').catch(() => null)
+    if (text == null) continue
+    out.push({ rel: childRel, text })
   }
 }
 
-main().catch((err) => {
-  console.error('[sync] failed:', err && err.message ? err.message : err);
-  process.exit(2);
-});
+main().catch(err => {
+  console.error('[sync] failed:', err && err.message ? err.message : err)
+  process.exit(2)
+})

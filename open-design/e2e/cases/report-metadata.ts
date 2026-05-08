@@ -1,6 +1,6 @@
 export interface ReportCaseMetadata {
-  module: string;
-  assertions: string[];
+  module: string
+  assertions: string[]
 }
 
 const caseMetadata: Record<string, ReportCaseMetadata> = {
@@ -129,6 +129,6 @@ const caseMetadata: Record<string, ReportCaseMetadata> = {
       '刷新前选中的 active tab 仍然保持选中',
     ],
   },
-} satisfies Record<string, ReportCaseMetadata>;
+} satisfies Record<string, ReportCaseMetadata>
 
-export default caseMetadata;
+export default caseMetadata

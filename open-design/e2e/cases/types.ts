@@ -1,17 +1,17 @@
-export type CaseKind = 'prototype' | 'deck' | 'template' | 'workspace';
+export type CaseKind = 'prototype' | 'deck' | 'template' | 'workspace'
 
 export interface MockArtifactCase {
-  identifier: string;
-  title: string;
-  html: string;
-  fileName: string;
-  heading: string;
+  identifier: string
+  title: string
+  html: string
+  fileName: string
+  heading: string
 }
 
 export interface UICase {
-  id: string;
-  title: string;
-  kind: CaseKind;
+  id: string
+  title: string
+  kind: CaseKind
   flow?:
     | 'standard'
     | 'design-system-selection'
@@ -30,15 +30,15 @@ export interface UICase {
     | 'deck-pagination-next-prev-correctness'
     | 'deck-pagination-per-file-isolated'
     | 'uploaded-image-renders-in-preview'
-    | 'python-source-preview';
-  automated: boolean;
-  description: string;
+    | 'python-source-preview'
+  automated: boolean
+  description: string
   create: {
-    projectName: string;
-    tab?: 'prototype' | 'deck' | 'template' | 'other';
-  };
-  prompt: string;
-  secondaryPrompt?: string;
-  mockArtifact?: MockArtifactCase;
-  notes?: string[];
+    projectName: string
+    tab?: 'prototype' | 'deck' | 'template' | 'other'
+  }
+  prompt: string
+  secondaryPrompt?: string
+  mockArtifact?: MockArtifactCase
+  notes?: string[]
 }

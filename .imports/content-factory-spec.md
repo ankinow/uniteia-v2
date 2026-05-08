@@ -1,3 +1,0 @@
-🎯 Objetivo desta página: destilar o plano aprovado em [UniTeia Content Factory Backend](https://www.notion.so/UniTeia-Content-Factory-Backend-4ab19bd8496b4ca1b6d7f8cf8a6fdb57?pvs=21) num spec pronto pra execução por GSD/Opencode no repo uniteia-v2. Inclui arquivos de scaffold copiáveis, reconciliação com a disciplina anti-over-engineering já canonizada em [UniTeia — Backend de Conteúdo (Pipeline)](https://www.notion.so/UniTeia-Backend-de-Conte-do-Pipeline-6bc120c99b5842e7b5099561c52bf342?pvs=21), e mapeamento explícito entre os 8 passos do plano e os slices S01-S09 do blueprint original.
-
-... (rest of the spec text provided in the user prompt) ...

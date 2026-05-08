@@ -305,7 +305,7 @@ export const DECK_SKELETON_HTML = `<!doctype html>
     })();
   </script>
 </body>
-</html>`;
+</html>`
 
 export const DECK_FRAMEWORK_DIRECTIVE = `# Slide deck — fixed framework (this is non-negotiable for deck mode)
 
@@ -371,4 +371,4 @@ ${DECK_SKELETON_HTML}
 \`\`\`
 
 When the brief is "make me a deck", your output is this skeleton with theme tokens tuned, per-deck classes added, and \`<section class="slide">\` blocks filled in — nothing more, nothing less. Skill-specific guidance (typography, theme presets, layout vocabulary) layers *on top of* this framework, not in place of it.
-`;
+`

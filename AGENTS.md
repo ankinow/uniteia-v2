@@ -350,6 +350,55 @@ roadmap:
 
 ---
 
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues in `ankinow/uniteia-v2`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Multi-context: `CONTEXT-MAP.md` at root points to per-context `CONTEXT.md` files (8 content niches + infrastructure). See `docs/agents/domain.md`.
+
+### JRPG Sidebar (Slice 2)
+
+- **Component:** `src/components/sidebar/`
+- **Style:** Final Fantasy VI inspired, scanlines overlay, pixel font (Press Start 2P)
+- **Navigation:** Collapsible niches menu, SUPPORT donation button
+- **Files:** `index.tsx`, `sidebar-nav.tsx`, `styles.css`
+- **Pixel font:** Press Start 2P loaded in `global.css`, configured in `tailwind.config.js` as `font-pixel`
+
+### SUPPORT Donation Button (Slice 3)
+
+- **Component:** `src/components/donation/index.tsx`
+- **URL:** https://buymeacoffee.com/lermf
+- **Style:** Yellow gradient, pixel font, ☕ icon
+- **Integration:** Rendered inside sidebar via `<DonationButton />`
+
+### Open-Design Integration (Slice 1)
+
+- **Repo:** Cloned at `.imports/open-design/` (dev dependency, excluded from build)
+- **Design Systems:** 72 systems in `docs/design-reference/`
+- **Device Frames:** `public/frames-reference/` (iPhone, iPad, MacBook, Android)
+- **Scripts:** Copied to `scripts/` for content validation
+
+### Two-Column Layout (Slice 4)
+
+- **Modified:** `src/routes/layout.tsx`
+- **Structure:** `<aside>` (sidebar left) + `<main>` (content right)
+- **Responsive:** Sidebar hidden on mobile (`hidden md:block`)
+- **Header:** Preserved on mobile as requested
+
+### Milestone Brief
+
+See `M001-JRPG-SIDEBAR-CONTEXT.md` for full specification, slices, and acceptance criteria.
+
+---
+
 ## Git Cadence
 
 - Commit small, verified changes per task

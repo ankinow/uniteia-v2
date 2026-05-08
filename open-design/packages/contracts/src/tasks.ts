@@ -5,16 +5,16 @@ export const TASK_STATES = [
   'succeeded',
   'failed',
   'cancelled',
-] as const;
+] as const
 
-export type TaskState = (typeof TASK_STATES)[number];
+export type TaskState = (typeof TASK_STATES)[number]
 
 export interface TaskStatus {
-  id: string;
-  state: TaskState;
-  label?: string;
-  detail?: string;
-  startedAt?: number;
-  updatedAt?: number;
-  endedAt?: number;
+  id: string
+  state: TaskState
+  label?: string
+  detail?: string
+  startedAt?: number
+  updatedAt?: number
+  endedAt?: number
 }

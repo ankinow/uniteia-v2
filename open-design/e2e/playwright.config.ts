@@ -1,8 +1,8 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test'
 
-const daemonPort = Number(process.env.OD_PORT) || 17_456;
-const webPort = Number(process.env.OD_WEB_PORT) || 17_573;
-const baseURL = `http://127.0.0.1:${webPort}`;
+const daemonPort = Number(process.env.OD_PORT) || 17_456
+const webPort = Number(process.env.OD_WEB_PORT) || 17_573
+const baseURL = `http://127.0.0.1:${webPort}`
 
 export default defineConfig({
   testDir: './specs',
@@ -47,4 +47,4 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-});
+})

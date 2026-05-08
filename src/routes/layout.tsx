@@ -1,8 +1,8 @@
 import { $, Slot, component$, useOnWindow, useSignal } from '@builder.io/qwik'
 import { type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
-import { Footer } from '~/components/footer'
 import { LangSwitcher } from '~/components/lang-switcher'
 import { NavTree } from '~/components/nav-tree'
+import { Sidebar } from '~/components/sidebar'
 import { SiteShell } from '~/components/site-shell'
 import { getTranslation, useProvideI18n } from '~/i18n/context'
 import { DEFAULT_LANGUAGE, type SupportedLanguage } from '~/i18n/types'
@@ -88,6 +88,7 @@ export default component$(() => {
 
   return (
     <SiteShell isApexHost={nicheSignal.value === 'apex'}>
+      {/* Header - mantido no mobile conforme solicitado */}
       <div q:slot="header" class="w-full">
         <nav
           class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-action/10"
@@ -124,8 +125,25 @@ export default component$(() => {
           />
         </div>
       </div>
-      <Slot />
-      <Footer q:slot="footer" />
+
+      {/* Layout de duas colunas */}
+      <div class="flex min-h-screen">
+        {/* Sidebar - JRPG Style (apenas desktop) */}
+        <aside class="hidden md:block w-64 flex-shrink-0">
+          <Sidebar />
+        </aside>
+
+        {/* Main Content */}
+        <div class="flex-1 flex flex-col min-w-0">
+          <main id="main-content" class="site-main flex-1" data-testid="site-main">
+            <Slot />
+          </main>
+
+          <footer class="site-footer" data-testid="site-footer">
+            <Slot name="footer" />
+          </footer>
+        </div>
+      </div>
     </SiteShell>
   )
 })

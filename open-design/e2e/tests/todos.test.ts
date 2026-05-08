@@ -1,10 +1,10 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest'
 import {
   latestTodosFromEvents,
   parseTodoWriteInput,
   unfinishedTodosFromEvents,
-} from '../../apps/web/src/runtime/todos';
-import type { AgentEvent } from '../../apps/web/src/types';
+} from '../../apps/web/src/runtime/todos'
+import type { AgentEvent } from '../../apps/web/src/types'
 
 const firstTodoInput = {
   todos: [
@@ -15,7 +15,7 @@ const firstTodoInput = {
     { content: 'Unknown status defaults pending', status: 'blocked' },
     null,
   ],
-};
+}
 
 describe('todo event helpers', () => {
   it('normalizes TodoWrite input and ignores malformed items', () => {
@@ -32,8 +32,8 @@ describe('todo event helpers', () => {
         status: 'pending',
         activeForm: undefined,
       },
-    ]);
-  });
+    ])
+  })
 
   it('uses the latest TodoWrite event as the current todo truth', () => {
     const events: AgentEvent[] = [
@@ -46,28 +46,30 @@ describe('todo event helpers', () => {
         name: 'TodoWrite',
         input: { todos: [{ content: 'Final polish', status: 'pending' }] },
       },
-    ];
+    ]
 
     expect(latestTodosFromEvents(events)).toEqual([
       { content: 'Final polish', status: 'pending', activeForm: undefined },
-    ]);
-  });
+    ])
+  })
 
   it('treats an empty latest TodoWrite event as authoritative', () => {
     const events: AgentEvent[] = [
       { kind: 'tool_use', id: 'todo-1', name: 'TodoWrite', input: firstTodoInput },
       { kind: 'text', text: 'All done.' },
       { kind: 'tool_use', id: 'todo-empty', name: 'TodoWrite', input: { todos: [] } },
-    ];
+    ]
 
-    expect(latestTodosFromEvents(events)).toEqual([]);
-    expect(unfinishedTodosFromEvents(events)).toEqual([]);
-  });
+    expect(latestTodosFromEvents(events)).toEqual([])
+    expect(unfinishedTodosFromEvents(events)).toEqual([])
+  })
 
   it('returns only pending and in-progress todos as unfinished', () => {
-    expect(unfinishedTodosFromEvents([
-      { kind: 'tool_use', id: 'todo-1', name: 'TodoWrite', input: firstTodoInput },
-    ])).toEqual([
+    expect(
+      unfinishedTodosFromEvents([
+        { kind: 'tool_use', id: 'todo-1', name: 'TodoWrite', input: firstTodoInput },
+      ])
+    ).toEqual([
       {
         content: 'Build components',
         status: 'in_progress',
@@ -79,6 +81,6 @@ describe('todo event helpers', () => {
         status: 'pending',
         activeForm: undefined,
       },
-    ]);
-  });
-});
+    ])
+  })
+})

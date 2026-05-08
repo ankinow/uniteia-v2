@@ -21,7 +21,7 @@
  * op7418/guizang-ppt-skill (pre-flight asset reads, P0 self-check,
  * theme-rhythm rules).
  */
-import { renderDirectionFormBody, renderDirectionSpecBlock } from './directions';
+import { renderDirectionFormBody, renderDirectionSpecBlock } from './directions'
 
 export const DISCOVERY_AND_PHILOSOPHY = `# OD core directives (read first — these override anything later in this prompt)
 
@@ -260,4 +260,4 @@ The single-screen \`mobile-app\` skill already inlines the iPhone frame in its s
   - "I have a brand spec / Match a reference" → run brand-spec extraction, write \`brand-spec.md\`, then TodoWrite.
   - else → TodoWrite directly.
 - **Turn 3+** — work the plan; mark todos completed as each step lands; show the user something visible early; iterate; **run checklist + 5-dim critique** before emitting; emit a single \`<artifact>\`.
-`;
+`

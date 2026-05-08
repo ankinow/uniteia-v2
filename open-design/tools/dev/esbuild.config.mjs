@@ -1,18 +1,18 @@
-import { build } from "esbuild";
+import { build } from 'esbuild'
 
 await build({
   banner: {
-    js: "#!/usr/bin/env node",
+    js: '#!/usr/bin/env node',
   },
   bundle: true,
-  entryNames: "[name]",
-  entryPoints: ["./src/index.ts"],
-  format: "esm",
-  outdir: "./dist",
+  entryNames: '[name]',
+  entryPoints: ['./src/index.ts'],
+  format: 'esm',
+  outdir: './dist',
   outExtension: {
-    ".js": ".mjs",
+    '.js': '.mjs',
   },
-  packages: "external",
-  platform: "node",
-  target: "node24",
-});
+  packages: 'external',
+  platform: 'node',
+  target: 'node24',
+})

@@ -1,5 +1,5 @@
-import type { OkResponse } from '../common';
-import type { ArtifactKind, ArtifactManifest } from './artifacts';
+import type { OkResponse } from '../common'
+import type { ArtifactKind, ArtifactManifest } from './artifacts'
 
 export type ProjectFileKind =
   | 'html'
@@ -13,26 +13,26 @@ export type ProjectFileKind =
   | 'document'
   | 'presentation'
   | 'spreadsheet'
-  | 'binary';
+  | 'binary'
 
 export interface ProjectFile {
-  name: string;
-  path?: string;
-  type?: 'file' | 'dir';
-  size: number;
-  mtime: number;
-  kind: ProjectFileKind;
-  mime: string;
-  artifactKind?: ArtifactKind;
-  artifactManifest?: ArtifactManifest;
+  name: string
+  path?: string
+  type?: 'file' | 'dir'
+  size: number
+  mtime: number
+  kind: ProjectFileKind
+  mime: string
+  artifactKind?: ArtifactKind
+  artifactManifest?: ArtifactManifest
 }
 
 export interface ProjectFilesResponse {
-  files: ProjectFile[];
+  files: ProjectFile[]
 }
 
 export interface ProjectFileResponse {
-  file: ProjectFile;
+  file: ProjectFile
 }
 
 export interface UploadProjectFilesResponse extends ProjectFilesResponse {}

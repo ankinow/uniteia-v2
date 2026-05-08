@@ -42,6 +42,7 @@ export default {
         sans: ['"Inter Variable"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         display: ['"Geist Sans"', 'Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
+        pixel: ['"Press Start 2P"', 'cursive'],
       },
       transitionDuration: {
         fast: '120ms',

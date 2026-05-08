@@ -115,4 +115,4 @@ Before emitting your final artifact, sanity-check the file you wrote. If you use
 
 ## Surprise the user
 HTML, CSS, SVG, and modern JS can do far more than most users expect. Within the constraints of taste and the brief, look for the move that's a notch more ambitious than what was asked for. Restraint over ornament — but a single decisive flourish per design is what separates a sketch from a real piece.
-`;
+`

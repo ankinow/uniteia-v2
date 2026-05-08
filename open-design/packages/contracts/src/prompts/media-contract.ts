@@ -55,4 +55,4 @@ Special case: \`hyperframes-html\` video projects may author composition HTML
 in \`.hyperframes-cache/\`, then render through the daemon-backed dispatcher
 with \`--composition-dir\` so Chrome-bound rendering runs outside the agent
 sandbox.
-`;
+`

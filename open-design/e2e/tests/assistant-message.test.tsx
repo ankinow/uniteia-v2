@@ -1,7 +1,7 @@
-import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
-import { AssistantMessage } from '../../apps/web/src/components/AssistantMessage';
-import type { AgentEvent, ChatMessage } from '../../apps/web/src/types';
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import { AssistantMessage } from '../../apps/web/src/components/AssistantMessage'
+import type { AgentEvent, ChatMessage } from '../../apps/web/src/types'
 
 function messageWithEvents(events: AgentEvent[]): ChatMessage {
   return {
@@ -11,11 +11,11 @@ function messageWithEvents(events: AgentEvent[]): ChatMessage {
     events,
     startedAt: 1_000,
     endedAt: 3_000,
-  };
+  }
 }
 
 describe('AssistantMessage unfinished todo state', () => {
-  afterEach(() => cleanup());
+  afterEach(() => cleanup())
 
   it('keeps Done for a completed latest TodoWrite fixture', () => {
     render(
@@ -31,16 +31,16 @@ describe('AssistantMessage unfinished todo state', () => {
         streaming={false}
         projectId="project-1"
         isLast
-      />,
-    );
+      />
+    )
 
-    expect(screen.getByText('Done')).toBeTruthy();
-    expect(screen.queryByText('Stopped with unfinished work')).toBeNull();
-    expect(screen.queryByRole('button', { name: 'Continue remaining tasks' })).toBeNull();
-  });
+    expect(screen.getByText('Done')).toBeTruthy()
+    expect(screen.queryByText('Stopped with unfinished work')).toBeNull()
+    expect(screen.queryByRole('button', { name: 'Continue remaining tasks' })).toBeNull()
+  })
 
   it('shows unfinished state and passes unfinished todos to the continue callback', () => {
-    const onContinue = vi.fn();
+    const onContinue = vi.fn()
     render(
       <AssistantMessage
         message={messageWithEvents([
@@ -65,17 +65,17 @@ describe('AssistantMessage unfinished todo state', () => {
         projectId="project-1"
         isLast
         onContinueRemainingTasks={onContinue}
-      />,
-    );
+      />
+    )
 
-    expect(screen.getByText('Stopped with unfinished work')).toBeTruthy();
-    expect(screen.getByText('2 task(s) remain')).toBeTruthy();
-    const remainingList = screen.getByText('2 task(s) remain').closest('.unfinished-todos');
-    expect(remainingList).not.toBeNull();
-    expect(within(remainingList as HTMLElement).getByText('Building components')).toBeTruthy();
-    expect(within(remainingList as HTMLElement).getByText('Run QA')).toBeTruthy();
+    expect(screen.getByText('Stopped with unfinished work')).toBeTruthy()
+    expect(screen.getByText('2 task(s) remain')).toBeTruthy()
+    const remainingList = screen.getByText('2 task(s) remain').closest('.unfinished-todos')
+    expect(remainingList).not.toBeNull()
+    expect(within(remainingList as HTMLElement).getByText('Building components')).toBeTruthy()
+    expect(within(remainingList as HTMLElement).getByText('Run QA')).toBeTruthy()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Continue remaining tasks' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Continue remaining tasks' }))
 
     expect(onContinue).toHaveBeenCalledWith([
       {
@@ -84,8 +84,8 @@ describe('AssistantMessage unfinished todo state', () => {
         activeForm: 'Building components',
       },
       { content: 'Run QA', status: 'pending', activeForm: undefined },
-    ]);
-  });
+    ])
+  })
 
   it('hides the continue button on older assistant turns', () => {
     render(
@@ -102,11 +102,11 @@ describe('AssistantMessage unfinished todo state', () => {
         projectId="project-1"
         isLast={false}
         onContinueRemainingTasks={vi.fn()}
-      />,
-    );
+      />
+    )
 
-    expect(screen.getByText('Stopped with unfinished work')).toBeTruthy();
-    expect(screen.getByText('1 task(s) remain')).toBeTruthy();
-    expect(screen.queryByRole('button', { name: 'Continue remaining tasks' })).toBeNull();
-  });
-});
+    expect(screen.getByText('Stopped with unfinished work')).toBeTruthy()
+    expect(screen.getByText('1 task(s) remain')).toBeTruthy()
+    expect(screen.queryByRole('button', { name: 'Continue remaining tasks' })).toBeNull()
+  })
+})

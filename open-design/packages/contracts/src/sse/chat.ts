@@ -1,28 +1,28 @@
-import type { SseErrorPayload } from '../errors';
-import type { SseTransportEvent } from './common';
+import type { SseErrorPayload } from '../errors'
+import type { SseTransportEvent } from './common'
 
-export const CHAT_SSE_PROTOCOL_VERSION = 1;
+export const CHAT_SSE_PROTOCOL_VERSION = 1
 
 export interface ChatSseStartPayload {
-  runId?: string;
-  agentId?: string;
-  bin: string;
-  protocolVersion?: typeof CHAT_SSE_PROTOCOL_VERSION;
+  runId?: string
+  agentId?: string
+  bin: string
+  protocolVersion?: typeof CHAT_SSE_PROTOCOL_VERSION
   /** Legacy daemon-internal absolute cwd. Kept for compatibility during W2 adoption. */
-  cwd?: string | null;
-  projectId?: string | null;
-  model?: string | null;
-  reasoning?: string | null;
+  cwd?: string | null
+  projectId?: string | null
+  model?: string | null
+  reasoning?: string | null
 }
 
 export interface ChatSseChunkPayload {
-  chunk: string;
+  chunk: string
 }
 
 export interface ChatSseEndPayload {
-  code: number | null;
-  signal?: string | null;
-  status?: 'succeeded' | 'failed' | 'canceled';
+  code: number | null
+  signal?: string | null
+  status?: 'succeeded' | 'failed' | 'canceled'
 }
 
 export type DaemonAgentPayload =
@@ -32,8 +32,13 @@ export type DaemonAgentPayload =
   | { type: 'thinking_start' }
   | { type: 'tool_use'; id: string; name: string; input: unknown }
   | { type: 'tool_result'; toolUseId: string; content: string; isError?: boolean }
-  | { type: 'usage'; usage?: { input_tokens?: number; output_tokens?: number }; costUsd?: number; durationMs?: number }
-  | { type: 'raw'; line: string };
+  | {
+      type: 'usage'
+      usage?: { input_tokens?: number; output_tokens?: number }
+      costUsd?: number
+      durationMs?: number
+    }
+  | { type: 'raw'; line: string }
 
 export type ChatSseEvent =
   | SseTransportEvent<'start', ChatSseStartPayload>
@@ -41,4 +46,4 @@ export type ChatSseEvent =
   | SseTransportEvent<'stdout', ChatSseChunkPayload>
   | SseTransportEvent<'stderr', ChatSseChunkPayload>
   | SseTransportEvent<'error', SseErrorPayload>
-  | SseTransportEvent<'end', ChatSseEndPayload>;
+  | SseTransportEvent<'end', ChatSseEndPayload>
