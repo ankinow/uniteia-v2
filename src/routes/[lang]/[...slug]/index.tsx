@@ -214,7 +214,9 @@ export const head: DocumentHead = ({ resolveValue, url, params }) => {
       { property: 'og:type', content: 'article' },
       { property: 'og:site_name', content: t.seo.siteName },
       { property: 'og:locale', content: content.lang },
+      { property: 'og:image', content: 'https://uniteia.com/og-image.png' },
       // Twitter
+      { name: 'twitter:image', content: 'https://uniteia.com/og-image.png' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: content.title },
       { name: 'twitter:description', content: excerpt || content.subjects.join(', ') },
