@@ -1,0 +1,17 @@
+{
+  "$meta": {
+    "source": "https://dog.ceo/api/breeds/image/random",
+    "captured_at": "2026-05-11T00:00:00Z",
+    "purpose": "local fallback for offline/timeout scenarios",
+    "draft_only": true,
+    "trust_level": "low_demo",
+    "search_index": false,
+    "artifact_type": "demo_api_snapshot",
+    "license": "MIT - Dog CEO API is free and open source"
+  },
+  "data": {
+    "message": "https://images.dog.ceo/breeds/retriever-golden/n02099601_1722.jpg",
+    "status": "success"
+  },
+  "alt_text": "A Retriever Golden dog"
+}

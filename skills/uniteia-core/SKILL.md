@@ -19,6 +19,8 @@ Master activation skill that loads all other UniTeia skills.
 6. dopamine-budget
 7. output-enforcement
 8. anti-slop-content
+9. web-platform-design-review
+10. demo-api-fixture-ingestion
 
 ## Layer Priority
 
