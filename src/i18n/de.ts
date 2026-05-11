@@ -60,11 +60,11 @@ export const de: TranslationStrings = {
     trusted: 'Trusted',
     caution: 'Caution',
     flagged: 'Flagged',
-    qualityScore: 'Quality Score',
-    editorialQuality: 'Editorial Quality',
+    qualityScore: 'Qualitätsbewertung',
+    editorialQuality: 'Redaktionelle Qualität',
   },
   qualityRing: {
-    qualityScore: 'Quality Score',
+    qualityScore: 'Qualitätsbewertung',
     editorialQuality: 'Editorial Quality',
   },
   dopamineCard: {

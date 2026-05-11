@@ -1,9 +1,118 @@
+<!-- context-id: CTX-V2-ROOT-01 -->
+<!-- context-hash: SELF -->
+<!-- context-symbols: Σ φ λ Δ ♻️ Ω ⊕ ⊗ ⋈ ⛓️ Ψ -->
+
 # UniTeia v2 — Agent Context
 
 This file provides canonical activation context for AI agents working on UniTeia.
 
 **Owner:** Ankinow (github) · **Operator:** LERMF (pt-BR, America/Sao_Paulo)
 **Motto:** "Brutalist bones. Editorial flesh. One JRPG whisper. Kuwaii breath."
+
+---
+
+## 0. Critical Boot Rule
+
+Read order:
+1. AGENTS.md (this file)
+2. CONTEXT-MAP.md
+3. docs/context/README.md
+4. task-specific docs/context/*.md
+5. package.json scripts
+6. git state
+7. relevant source files only
+
+Never continue from memory after restart. Always reconstruct state first.
+
+## Repo Role
+
+$REPO_ROLE = consumer / importer / static multilingual site
+
+This repo validates and imports Content Packages from uniteia-mega-factory (bridge contract), renders Qwik static pages, enforces SEO/hreflang, and serves the public site. NOT the content factory.
+
+## CE2.0 Protocol
+
+WRITE → SELECT → COMPRESS → ISOLATE
+
+**WRITE** — persist durable decisions, docs, tests, manifests
+**SELECT** — read only task-relevant files
+**COMPRESS** — summarize stale context into checkpoints
+**ISOLATE** — separate contexts: import, i18n, SEO, visuals, layout, tests
+
+## Symbols
+
+| Symbol | Meaning |
+|---|---|
+| Σ | inventory / decompose / context load |
+| φ | plan / task graph / acceptance criteria |
+| λ | implementation / concrete patch |
+| Δ | diff / risk / critique / contradiction |
+| ♻️ | verification / retry / reflection |
+| Ω | final synthesis / report / evidence |
+| ⊕ | combine / merge contexts |
+| ⊗ | conflict / contradiction / incompatible rule |
+| ⋈ | bridge / interop / cross-repo contract |
+| ⛓️ | dependency / upstream-downstream relation |
+| Ψ | multi-hypothesis / branch exploration |
+| [!] | blocker / high risk |
+| [✓] | proven by command/output |
+| [✗] | failed |
+
+## $Vars
+
+| Variable | Description |
+|---|---|
+| $REPO_ROLE | consumer/importer/static multilingual site |
+| $CURRENT_BRANCH | feat/content-package-import-contract |
+| $CURRENT_HEAD | 25e8ea25e53a4baeb98570ff6f984d1d9637df83 |
+| $DO_NOT_TOUCH | .gsd/ .bg-shell/ .gsd-id bridge source/fixtures |
+| $BRIDGE_CONTRACT | validatePackage → importPackage → render |
+| $LANGUAGE_MODEL | en pt es fr de it ja zh |
+| $SEO_MODEL | package-first; canonical → projections |
+| $VERIFY_COMMANDS | bun run test; bun run typecheck; bun run build |
+
+## Tool-First Rule
+
+- Never claim without reading
+- Never mark done without command output
+- Never trust tool output blindly
+- Quote failures exactly
+
+## Write Boundary
+
+Human approval required before:
+- delete / clean / force push
+- deploy / publish
+- broad staging (git add . or git add -A)
+- moving / removing runtime state
+- irreversible migration
+
+## Session Recovery
+
+If session interrupted / context lost / agent replaced:
+1. Read AGENTS.md (this file)
+2. Read CONTEXT-MAP.md
+3. Read docs/context/README.md
+4. Read docs/context/SESSION-RECOVERY.md
+5. Run git status and git log -5
+6. Verify no staged artifacts from prior session
+
+## Verification Matrix
+
+| Task Type | Commands |
+|---|---|
+| context docs | git diff --check; secret scan; git status --short |
+| source change | bun run test; bun run typecheck; bun run build |
+| bridge/import | vitest content-package + content-import |
+| roundtrip | factory export → v2 validate → import → render |
+
+## Bridge / Import Context
+
+This repo receives Content Packages from uniteia-mega-factory via static filesystem contract. See:
+- docs/context/CONTENT-PACKAGE-IMPORT.md — import contract
+- docs/context/MULTILINGUAL-ROUTING-SEO.md — 8-language routing
+- docs/context/SEO-RENDERING-CONTRACT.md — SEO rendering
+- docs/context/VISUAL-TEXTLESS-ASSETS.md — visual consumption
 
 ---
 
@@ -96,7 +205,7 @@ uniteia_canonical_skills:
         regex: "^[a-z]+(-[a-z]+){1,5}$"
         banned: [brand_names, model_names, versions, dates, promotional_adjectives]
     - id: i18n-first
-      description: 5 langs from F01 (en/pt/es/ja/zh), middleware negotiation
+      description: 8 langs (en/pt/es/fr/de/it/ja/zh), middleware negotiation
       enforces:
         precedence: [url_explicit, cookie, accept_language, cf_ipcountry, fallback_en]
         slug_immutable_across_langs: true
@@ -169,13 +278,16 @@ url_law:
 # I18N LAW · Language negotiation + hreflang
 # ───────────────────────────────────────────────────────────────────────────
 i18n_law:
-  languages_active_f01: [en, pt, es, ja, zh]
+  languages_active_f01: [en, pt, es, fr, de, it, ja, zh]
   language_defaults:
     en: global_default
     pt: pt-BR_primary
     es: neutral
     ja: ja-JP
     zh: zh-Hans_simplified
+    fr: fr-FR_standard
+    de: de-DE_standard
+    it: it-IT_standard
   precedence: [url_explicit, cookie, accept_language_header, cf_ipcountry_hint, fallback_en]
   middleware_location: functions/[[route]].ts
   slug_immutable_across_langs: true
@@ -264,7 +376,7 @@ anti_goals:
   motion: [parallax, scroll_hijack, scroll_reveal_cascades, perpetual_infinite_animations]
   ui: [light_mode_toggle, emoji_in_chrome, cookie_banners_blocking_content, toasts_over_3s]
   fonts: [Inter_for_display, Cinzel, Cormorant_Garamond, Jost]
-  stack: [React, Tailwind, shadcn_ui, Framer_Motion, GSAP, ThreeJS]
+  stack: [React, shadcn_ui, Framer_Motion, GSAP, ThreeJS]
   content: [proper_nouns_in_slug, dates_in_slug, John_Doe, Acme, 99.99%, Elevate]
   design: [3_column_equal_feature_cards, centered_hero_when_variance_gt_4, generic_circular_spinners]
 
@@ -279,7 +391,7 @@ roadmap:
       - src/styles/global.css + uno.config.ts + postcss.config.mjs
       - SiteShell + Footer + 404 + 500
       - functions/[[route]].ts language middleware
-      - LangSwitcher with 5 langs
+      - LangSwitcher with 8 langs
     exit_gate: bun_build_bundle_under_15kb_empty_route
   F02_atom_render:
     week: 2
@@ -402,7 +514,7 @@ See `M001-JRPG-SIDEBAR-CONTEXT.md` for full specification, slices, and acceptanc
 ## Git Cadence
 
 - Commit small, verified changes per task
-- Push to `origin/main` after checks pass
+- Do NOT push unless explicitly approved
 - Keep history linear and descriptive
 
 ## Commands

@@ -200,8 +200,8 @@ export function generateDogAltText(imageUrl: string): string {
     const parts = url.pathname.split('/')
     const breedIndex = parts.indexOf('breeds')
 
-    if (breedIndex !== -1 && parts[breedIndex + 1]) {
-      const breed = parts[breedIndex + 1]
+    if (breedIndex !== -1 && breedIndex + 1 < parts.length) {
+      const breed = parts[breedIndex + 1]!
         .replace(/-/g, ' ')
         .replace(/\b\w/g, (c) => c.toUpperCase())
       return `A ${breed} dog`

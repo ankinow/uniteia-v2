@@ -1,9 +1,10 @@
 import type { SupportedLanguage } from '../i18n/types'
+import { SUPPORTED_LANGUAGES } from '../i18n/types'
 import type { NicheConfig, NicheSlugs, NicheValidationError, NichesConfig } from '../types/niche'
 import { validateSlug } from './url-validation'
 
-/** All supported languages — used to validate that title/description maps are complete */
-const SUPPORTED_LANGS: SupportedLanguage[] = ['en', 'pt', 'es', 'ja', 'zh']
+/** All supported languages — derived from canonical i18n config */
+const SUPPORTED_LANGS: SupportedLanguage[] = SUPPORTED_LANGUAGES.map(l => l.code)
 
 const ROUTED_SLUG_LANGS: Array<keyof NicheSlugs> = ['pt', 'en']
 

@@ -20,7 +20,7 @@ export function clearAjvCache(): void {
   // No-op: runtime validation is manual to stay worker-safe.
 }
 
-const VALID_LANGS = new Set(['en', 'pt', 'es', 'ja', 'zh'])
+const VALID_LANGS = new Set(['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'])
 const VALID_VERDICTS = new Set(['trusted', 'caution', 'flagged'])
 const VALID_TOP_LEVEL_KEYS = new Set([
   'type',

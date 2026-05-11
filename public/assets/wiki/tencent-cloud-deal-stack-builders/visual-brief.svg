@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#f8f9fa" rx="12"/>
+  <!-- Title -->
+  <text x="400" y="50" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" font-weight="700" fill="#1a1a2e">Choose Your Cloud Stack</text>
+  <!-- Start node -->
+  <rect x="300" y="80" width="200" height="50" rx="25" fill="#1a1a2e"/>
+  <text x="400" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#fff" font-weight="600">Builder?</text>
+  <!-- Arrow down -->
+  <line x1="400" y1="130" x2="400" y2="170" stroke="#1a1a2e" stroke-width="2"/>
+  <polygon points="400,175 394,165 406,165" fill="#1a1a2e"/>
+  <!-- Free tier? -->
+  <rect x="275" y="180" width="250" height="45" rx="10" fill="#e8f5e9"/>
+  <text x="400" y="208" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#2e7d32" font-weight="600">Free tier enough?</text>
+  <!-- Yes branch (left) -->
+  <line x1="275" y1="202" x2="150" y2="270" stroke="#2e7d32" stroke-width="2"/>
+  <polygon points="150,275 156,263 144,263" fill="#2e7d32"/>
+  <rect x="60" y="280" width="180" height="40" rx="8" fill="#c8e6c9"/>
+  <text x="150" y="305" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1b5e20">EdgeOne Free Tier</text>
+  <text x="150" y="340" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#666">1M req/mo, basic WAF</text>
+  <!-- No branch (right) -->
+  <line x1="525" y1="202" x2="650" y2="270" stroke="#e65100" stroke-width="2"/>
+  <polygon points="650,275 656,263 644,263" fill="#e65100"/>
+  <rect x="560" y="280" width="180" height="40" rx="8" fill="#fff3e0"/>
+  <text x="650" y="305" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#e65100">VM Needed?</text>
+  <!-- Light vs Full VM -->
+  <line x1="560" y1="300" x2="400" y2="370" stroke="#1565c0" stroke-width="2"/>
+  <polygon points="400,375 406,363 394,363" fill="#1565c0"/>
+  <line x1="740" y1="300" x2="740" y2="370" stroke="#1565c0" stroke-width="2"/>
+  <polygon points="740,375 746,363 734,363" fill="#1565c0"/>
+  <!-- Lighthouse -->
+  <rect x="300" y="380" width="200" height="55" rx="10" fill="#e3f2fd"/>
+  <text x="400" y="405" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#1565c0">Lighthouse</text>
+  <text x="400" y="425" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#1565c0">Simple VPS - Sites, APIs, Bots</text>
+  <!-- CVM -->
+  <rect x="640" y="380" width="200" height="55" rx="10" fill="#e8eaf6"/>
+  <text x="740" y="405" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#283593">CVM</text>
+  <text x="740" y="425" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#283593">Full VM - Big Apps, K8s, DBs</text>
+  <!-- Combiner -->
+  <line x1="400" y1="435" x2="400" y2="470" stroke="#1565c0" stroke-width="2"/>
+  <line x1="740" y1="435" x2="740" y2="470" stroke="#283593" stroke-width="2"/>
+  <line x1="400" y1="470" x2="740" y2="470" stroke="#333" stroke-width="2"/>
+  <line x1="570" y1="470" x2="570" y2="500" stroke="#333" stroke-width="2"/>
+  <polygon points="570,505 576,493 564,493" fill="#333"/>
+  <!-- EdgeOne merge -->
+  <rect x="460" y="510" width="220" height="45" rx="10" fill="#f3e5f5"/>
+  <text x="570" y="533" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#6a1b9a">+ EdgeOne</text>
+  <text x="570" y="550" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#6a1b9a">CDN + WAF + DDoS</text>
+  <!-- Footer -->
+  <text x="400" y="590" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#999">Textless diagram - labels in caption only</text>
+</svg>

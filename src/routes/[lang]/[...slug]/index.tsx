@@ -8,6 +8,7 @@ import { FrontmatterSlots } from '~/components/frontmatter-slots'
 import { JSONLD } from '~/components/json-ld'
 import { QualityRing } from '~/components/quality-ring'
 import { SourceLedger } from '~/components/source-ledger'
+import { REGISTRY_PATHS } from '~/content-registry.generated'
 import { getTranslation, useI18n } from '~/i18n/context'
 import type { SupportedLanguage } from '~/i18n/types'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
@@ -21,6 +22,19 @@ import { generateArticleSchema } from '~/utils/schema-generators'
  * Supported language codes for quick lookup
  */
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
+
+export const onStaticGenerate = () => {
+  const params: Array<Record<string, string>> = []
+  for (const key of REGISTRY_PATHS) {
+    const match = key.match(/\/content\/([^/]+)\/([^/]+)\/(.+)\.md$/)
+    if (!match) continue
+    const lang = match[2]
+    const slugFile = match[3]
+    if (!lang || !slugFile || slugFile === '_index') continue
+    params.push({ lang, slug: slugFile })
+  }
+  return { params }
+}
 
 /**
  * Thin routeLoader$ wrapper that validates lang, calls loadContent(),
@@ -126,6 +140,21 @@ export default component$(() => {
   )
 })
 
+function extractExcerpt(html: string, maxLength = 155): string {
+  const text = html
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim()
+  if (text.length <= maxLength) return text
+  if (text[maxLength] === ' ') return `${text.slice(0, maxLength)}…`
+  return `${text.slice(0, maxLength).replace(/\s+\S*$/, '')}…`
+}
+
 export const head: DocumentHead = ({ resolveValue, url, params }) => {
   const content = resolveValue(useContent)
   const t = getTranslation(params.lang as SupportedLanguage)
@@ -165,22 +194,32 @@ export const head: DocumentHead = ({ resolveValue, url, params }) => {
     })
   }
 
+  const excerpt = extractExcerpt(content.content)
+
   return {
     title: t.seo.articleTitleTemplate.replace('{title}', content.title),
     meta: [
-      { name: 'description', content: content.subjects.join(', ') },
-      { name: 'robots', content: 'index, follow' },
+      { name: 'description', content: excerpt || content.subjects.join(', ') },
+      {
+        name: 'robots',
+        content:
+          content.verdict === 'caution' || (content.quality_score ?? 85) < 50
+            ? 'noindex, nofollow'
+            : 'index, follow',
+      },
       // Open Graph
       { property: 'og:title', content: content.title },
-      { property: 'og:description', content: content.subjects.join(', ') },
+      { property: 'og:description', content: excerpt || content.subjects.join(', ') },
       { property: 'og:url', content: canonicalUrl.href },
       { property: 'og:type', content: 'article' },
       { property: 'og:site_name', content: t.seo.siteName },
       { property: 'og:locale', content: content.lang },
+      { property: 'og:image', content: 'https://uniteia.com/og-image.png' },
       // Twitter
+      { name: 'twitter:image', content: 'https://uniteia.com/og-image.png' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: content.title },
-      { name: 'twitter:description', content: content.subjects.join(', ') },
+      { name: 'twitter:description', content: excerpt || content.subjects.join(', ') },
     ],
     links: [{ rel: 'canonical', href: canonicalUrl.href }, ...alternateLinks],
   }

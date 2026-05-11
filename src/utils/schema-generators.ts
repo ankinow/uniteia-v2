@@ -14,7 +14,8 @@ export function generateArticleSchema(props: {
   niche: string
   lang: string
 }): ArticleSchema {
-  const siteUrl = `https://${props.niche}.uniteia.com`
+  const siteUrl =
+    props.niche === 'apex' ? 'https://uniteia.com' : `https://${props.niche}.uniteia.com`
   const articleUrl = `${siteUrl}/${props.lang}/${props.url}`
 
   return {

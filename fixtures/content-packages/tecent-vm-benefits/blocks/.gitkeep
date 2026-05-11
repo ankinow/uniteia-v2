@@ -1,0 +1,12 @@
+{
+  "manifest.json",
+  "content.pt-BR.mdx",
+  "content.en.mdx",
+  "content.es.mdx",
+  "design.md",
+  "sources.json",
+  "quality.json",
+  "tags.json",
+  "blocks/benefit-grid.json",
+  "blocks/decision-map.json"
+}

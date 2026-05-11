@@ -1,0 +1,9 @@
+{
+  "topic": ["cloud-computing", "virtual-machines"],
+  "intent": ["teach-opportunity", "cost-saving"],
+  "audience": ["devops-engineers"],
+  "vendor": ["tencent-cloud"],
+  "format": ["comparison"],
+  "risk": ["low-risk"],
+  "pipeline": ["fixture"]
+}

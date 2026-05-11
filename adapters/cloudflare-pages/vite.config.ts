@@ -13,6 +13,15 @@ export default extendConfig(baseConfig, () => {
     ssr: {
       noExternal: true,
     },
-    plugins: [cloudflarePagesAdapter()],
+    plugins: [
+      cloudflarePagesAdapter({
+        ssg: {
+          origin: 'https://uniteia.com',
+          include: ['/*'],
+          exclude: ['/ops-lab/*'],
+          emit404Pages: true,
+        },
+      }),
+    ],
   }
 })

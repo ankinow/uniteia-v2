@@ -58,6 +58,13 @@ async function generate() {
           const fullPath = join(langPath, file)
           const content = await readFile(fullPath, 'utf-8')
           const parsed = matter(content)
+
+          const verdict = parsed.data.verdict as string | undefined
+          const qualityScore = parsed.data.quality_score as number | undefined
+          if (verdict === 'caution' || verdict === 'draft' || (qualityScore ?? 50) < 50) {
+            continue
+          }
+
           const updatedAt = (parsed.data.metadata?.updated_at ||
             parsed.data.metadata?.created_at) as string | undefined
 

@@ -6,8 +6,9 @@
   "description": "UniTeia v2 - Qwik-City site with multilingual content",
   "type": "module",
   "scripts": {
+    "generate:content-registry": "bun run scripts/generate-content-registry.ts && bun run lint.fix",
     "dev": "vite --mode ssr",
-    "build": "qwik build",
+    "build": "bun run generate:content-registry && qwik build",
     "build.preview": "wrangler pages dev dist --compatibility-date=2026-04-01 --compatibility-flags nodejs_compat --port=8788",
     "build.client": "vite build",
     "build.ssr": "vite build --ssr src/entry.ssr.tsx",
@@ -31,7 +32,9 @@
     "ship:check": "bun run scripts/ship-check.ts",
     "header:check": "bun run scripts/check-single-header.ts",
     "smoke:check": "bun run scripts/smoke-test.ts",
-    "postbuild": "bun scripts/generate-sitemap.ts"
+    "prepare:cloudflare-pages": "bun run scripts/prepare-cloudflare-pages-output.ts",
+    "postbuild": "bun scripts/generate-sitemap.ts && bun run prepare:cloudflare-pages",
+    "import:package": "bun run scripts/import-content-package.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

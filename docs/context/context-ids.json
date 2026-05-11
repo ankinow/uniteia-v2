@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "uniteia-context-ids/v1",
+  "repo": "uniteia-v2",
+  "ids": [
+    {"id": "CTX-V2-ROOT-01", "path": "AGENTS.md", "symbol": "Σ", "status": "active"},
+    {"id": "CTX-V2-ROOT-02", "path": "CONTEXT-MAP.md", "symbol": "Σ", "status": "active"},
+    {"id": "CTX-V2-ROOT-03", "path": "docs/context/README.md", "symbol": "Σ", "status": "active"},
+    {"id": "CTX-V2-ROOT-04", "path": "docs/context/PROJECT-CONTEXT.md", "symbol": "Ω", "status": "active"},
+    {"id": "CTX-V2-IMPORT-01", "path": "docs/context/CONTENT-PACKAGE-IMPORT.md", "symbol": "⋈", "status": "active"},
+    {"id": "CTX-V2-I18N-01", "path": "docs/context/MULTILINGUAL-ROUTING-SEO.md", "symbol": "⊕", "status": "active"},
+    {"id": "CTX-V2-SEO-01", "path": "docs/context/SEO-RENDERING-CONTRACT.md", "symbol": "⛓️", "status": "active"},
+    {"id": "CTX-V2-VISUAL-01", "path": "docs/context/VISUAL-TEXTLESS-ASSETS.md", "symbol": "Ψ", "status": "active"},
+    {"id": "CTX-V2-BOOT-01", "path": "docs/context/AGENT-BOOT-SEQUENCE.md", "symbol": "φ", "status": "active"},
+    {"id": "CTX-V2-RECOVERY-01", "path": "docs/context/SESSION-RECOVERY.md", "symbol": "♻️", "status": "active"},
+    {"id": "CTX-V2-SYMBOLS-01", "path": "docs/context/CONTEXT-SYMBOLS.md", "symbol": "Σ", "status": "active"},
+    {"id": "CTX-V2-SYMBOLS-02", "path": "docs/context/context-symbols.json", "symbol": "Σ", "status": "active"},
+    {"id": "CTX-V2-GUARD-01", "path": "docs/context/context-ids.json", "symbol": "⛓️", "status": "active"},
+    {"id": "CTX-V2-GUARD-02", "path": "docs/context/context-manifest.json", "symbol": "Ω", "status": "active"},
+    {"id": "CTX-V2-GUARD-03", "path": "docs/context/context-ledger.jsonl", "symbol": "Δ", "status": "active"},
+    {"id": "CTX-V2-GUARD-04", "path": "docs/context/context-index.md", "symbol": "Ω", "status": "active"}
+  ]
+}

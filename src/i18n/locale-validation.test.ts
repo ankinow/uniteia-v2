@@ -8,11 +8,14 @@ import {
 
 describe('locale-validation', () => {
   describe('SUPPORTED_LOCALES', () => {
-    it('contains all five supported languages', () => {
-      expect(SUPPORTED_LOCALES).toHaveLength(5)
+    it('contains all eight supported languages', () => {
+      expect(SUPPORTED_LOCALES).toHaveLength(8)
       expect(SUPPORTED_LOCALES).toContain('en')
       expect(SUPPORTED_LOCALES).toContain('pt')
       expect(SUPPORTED_LOCALES).toContain('es')
+      expect(SUPPORTED_LOCALES).toContain('fr')
+      expect(SUPPORTED_LOCALES).toContain('de')
+      expect(SUPPORTED_LOCALES).toContain('it')
       expect(SUPPORTED_LOCALES).toContain('ja')
       expect(SUPPORTED_LOCALES).toContain('zh')
     })
@@ -55,8 +58,6 @@ describe('locale-validation', () => {
     })
 
     it('returns false for invalid locales', () => {
-      expect(isValidLocale('de')).toBe(false)
-      expect(isValidLocale('fr')).toBe(false)
       expect(isValidLocale('xx')).toBe(false)
       expect(isValidLocale('invalid')).toBe(false)
     })
@@ -115,10 +116,10 @@ describe('locale-validation', () => {
     })
 
     it('returns valid=false for invalid locale in nested path', () => {
-      const result = validateLocalePath('/de/article')
+      const result = validateLocalePath('/xx/article')
       expect(result.isValid).toBe(false)
       expect(result.locale).toBeNull()
-      expect(result.originalSegment).toBe('de')
+      expect(result.originalSegment).toBe('xx')
     })
 
     it('returns valid=false with original segment preserved', () => {

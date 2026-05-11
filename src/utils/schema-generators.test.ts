@@ -61,6 +61,18 @@ describe('JSON-LD Schema Generators', () => {
       expect(schema.url).toBe('https://dev.uniteia.com/ja/my-article')
     })
 
+    it('uses root domain for apex niche', () => {
+      const schema = generateArticleSchema({
+        headline: 'Test',
+        datePublished: '2026-04-27',
+        url: 'my-article',
+        niche: 'apex',
+        lang: 'pt',
+      })
+
+      expect(schema.url).toBe('https://uniteia.com/pt/my-article')
+    })
+
     it('includes publisher Organization', () => {
       const schema = generateArticleSchema({
         headline: 'Test',

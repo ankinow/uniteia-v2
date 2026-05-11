@@ -1,0 +1,21 @@
+{
+  "id": "decision-map",
+  "kind": "decision-map",
+  "title": "When to Choose Tencent CVM",
+  "body": {
+    "decisions": [
+      {
+        "condition": "Asian market primary",
+        "recommendation": "Tencent CVM - best latency in Asia"
+      },
+      {
+        "condition": "GPU-intensive workloads",
+        "recommendation": "Tencent CVM with NVIDIA GPUs"
+      },
+      {
+        "condition": "Budget-constrained projects",
+        "recommendation": "Competitive pricing with reserved instances"
+      }
+    ]
+  }
+}
