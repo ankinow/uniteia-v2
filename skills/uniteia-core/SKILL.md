@@ -19,6 +19,8 @@ Master activation skill that loads all other UniTeia skills.
 6. dopamine-budget
 7. output-enforcement
 8. anti-slop-content
+9. web-platform-design-review
+10. demo-api-fixture-ingestion
 
 ## Layer Priority
 
@@ -29,8 +31,8 @@ Master activation skill that loads all other UniTeia skills.
 ## Stack Lock
 
 - Runtime: Bun 1.x
-- Framework: Qwik-City 2.x
-- CSS: Tailwind + PostCSS
+- Framework: Qwik-City 1.19.x (NOT 2.x)
+- CSS: Tailwind 3.x + PostCSS
 - Lint: Biome
 - Icons: Lucide via iconify-tailwind
 
