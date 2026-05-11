@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "uniteia-context-manifest/v1",
+  "repo": "uniteia-v2",
+  "repoRole": "consumer",
+  "generatedAt": "2026-05-11T00:00:00Z",
+  "operator": "Luiz/LERMF",
+  "mode": "incremental-reinforcement",
+  "hashAlgorithm": "sha256",
+  "hashPolicy": "sha256 over canonicalized file content where frontmatter.hash is replaced with SELF",
+  "sourceOfTruth": [
+    "AGENTS.md",
+    "CONTEXT-MAP.md",
+    "docs/context/README.md"
+  ],
+  "artifacts": [
+    {
+      "id": "CTX-V2-ROOT-01",
+      "path": "AGENTS.md",
+      "symbol": "\u03a3",
+      "sha256": "9ebba085a3978514acee7f94b6dc7c55bffa92c7f73c3d8d4cfb6aea890b8ef2",
+      "status": "active"
+    },
+    {
+      "id": "CTX-V2-ROOT-02",
+      "path": "CONTEXT-MAP.md",
+      "symbol": "\u03a3",
+      "sha256": "9ef211d064ca341c616e89ec370446384a6c7639156feb4d04a6686ab3dcd0a8",
+      "status": "active"
+    },
+    {
+      "id": "CTX-V2-ROOT-03",
+      "path": "docs/context/README.md",
+      "symbol": "\u03a3",
+      "sha256": "c03b44d48e740efc22882af76ff395ee98c093468c9c1aafcd4ed533caed7fd3",
+      "status": "active"
+    },
+    {
+      "id": "CTX-V2-ROOT-04",
+      "path": "docs/context/PROJECT-CONTEXT.md",
+      "symbol": "\u03a9",
+      "sha256": "f5988578db2f1e508af4d596d0498f5c9550cd6d88c537552d94d713b7e734c4",
+      "status": "active"
+    },
+    {
+      "id": "CTX-V2-IMPORT-01",
+      "path": "docs/context/CONTENT-PACKAGE-IMPORT.md",
+      "symbol": "\u22c8",
+      "sha256": "8b5f85e680cab7034de40ddbf154afc63aec4874e3420173a6c73ae34a6aa8f6",
+      "status": "active"
+    },
+    {
+      "id": "CTX-V2-I18N-01",
+      "path": "docs/context/MULTILINGUAL-ROUTING-SEO.md",
+      "symbol": "\u2295",
+      "sha256": "06bc097a1d1b82a1963e229c1893c998112accaba83e79243a89a6547a17d4ff",
+      "status": "active"
+    },
+    {
+      "id": "CTX-V2-SEO-01",
+      "path": "docs/context/SEO-RENDERING-CONTRACT.md",
+      "symbol": "\u26d3\ufe0f",
+      "sha256": "bc19ff5109616c254484722d93f62a94425aa648166926eb58ec4a429a07dd0f",
+      "status": "active"
+    },
+    {
+      "id": "CTX-V2-VISUAL-01",
+      "path": "docs/context/VISUAL-TEXTLESS-ASSETS.md",
+      "symbol": "\u03a8",
+      "sha256": "edc1e5dfce966940417d541d4560b7959c85bc33555a6e346f7d0a23c66383af",
+      "status": "active"
+    },
+    {
+      "id": "CTX-V2-BOOT-01",
+      "path": "docs/context/AGENT-BOOT-SEQUENCE.md",
+      "symbol": "\u03c6",
+      "sha256": "e59723c0433474aa7fa576214a9acc8e2f289a183bf33bce8d020150bb2f4355",
+      "status": "active"
+    },
+    {
+      "id": "CTX-V2-RECOVERY-01",
+      "path": "docs/context/SESSION-RECOVERY.md",
+      "symbol": "\u267b\ufe0f",
+      "sha256": "e491967edeb0f50c30e681d329be3d9566cbab3f12925ab90810babb5fdab0df",
+      "status": "active"
+    },
+    {
+      "id": "CTX-V2-SYMBOLS-01",
+      "path": "docs/context/CONTEXT-SYMBOLS.md",
+      "symbol": "\u03a3",
+      "sha256": "ba7d5caabe5ba8322dd033f3ebca9fb7fa2f53c2a2cb9f1cfb1aa806a2047a21",
+      "status": "active"
+    },
+    {
+      "id": "CTX-V2-SYMBOLS-02",
+      "path": "docs/context/context-symbols.json",
+      "symbol": "\u03a3",
+      "sha256": "033d5e0f9de1326eefd29bb47eee1a6a59328f61d32d177f3405251474aebcac",
+      "status": "active"
+    },
+    {
+      "id": "CTX-V2-GUARD-01",
+      "path": "docs/context/context-ids.json",
+      "symbol": "\u26d3\ufe0f",
+      "sha256": "320f4f94833c7307fdf22666dfebba52698899cc30344832066216312704fbd8",
+      "status": "active"
+    },
+    {
+      "id": "CTX-V2-GUARD-02",
+      "path": "docs/context/context-manifest.json",
+      "symbol": "\u03a9",
+      "sha256": "SELF",
+      "status": "active"
+    },
+    {
+      "id": "CTX-V2-GUARD-03",
+      "path": "docs/context/context-ledger.jsonl",
+      "symbol": "\u0394",
+      "sha256": "2e1f20affa1e8bfcc0fe1ce269433da8bd93e3f8f2e5c6f68ba67bfe8d522d2d",
+      "status": "active"
+    },
+    {
+      "id": "CTX-V2-GUARD-04",
+      "path": "docs/context/context-index.md",
+      "symbol": "\u03a9",
+      "sha256": "1c7b8b19c1a4a21d858711b61643157ec6cd067be3143b015280567b27411a4e",
+      "status": "active"
+    }
+  ],
+  "doNotTouch": [
+    ".gsd/",
+    ".bg-shell/",
+    ".gsd-id",
+    "src/content-contracts/",
+    "src/content-import/",
+    "fixtures/"
+  ],
+  "verification": {
+    "gitDiffCheck": "pass",
+    "secretScan": "pass",
+    "statusShort": "clean (38 untracked — expected)"
+  }
+}

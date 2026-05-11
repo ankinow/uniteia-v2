@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "uniteia-context-symbols/v1",
+  "repo": "uniteia-v2",
+  "symbols": {
+    "Σ": "inventory/decompose/context-load",
+    "φ": "plan/task-graph",
+    "λ": "implementation/patch",
+    "Δ": "diff/risk/critique",
+    "♻️": "verify/retry/reflection",
+    "Ω": "final-evidence/report",
+    "⊕": "combine/merge",
+    "⊗": "conflict/contradiction",
+    "⋈": "bridge/interop",
+    "⛓️": "dependency",
+    "Ψ": "multi-hypothesis",
+    "[?]": "unknown-verify",
+    "[!]": "blocker",
+    "[✓]": "proven",
+    "[✗]": "failed",
+    "[~]": "partial"
+  }
+}
