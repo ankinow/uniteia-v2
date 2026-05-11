@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Tencent Cloud Virtual Machine Overview",
+    "url": "https://cloud.tencent.com/product/cvm",
+    "accessedAt": "2026-05-01",
+    "reliability": "official"
+  },
+  {
+    "title": "Tencent Cloud Global Infrastructure",
+    "url": "https://cloud.tencent.com/document/product/213",
+    "accessedAt": "2026-05-01",
+    "reliability": "official"
+  },
+  {
+    "title": "CVM Pricing Overview",
+    "url": "https://buy.cloud.tencent.com/price/cvm",
+    "accessedAt": "2026-05-01",
+    "reliability": "official"
+  }
+]

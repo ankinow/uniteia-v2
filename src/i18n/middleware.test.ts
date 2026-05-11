@@ -82,14 +82,14 @@ describe('onLanguageNegotiation', () => {
     expect(logSpy).toHaveBeenCalled()
   })
 
-  it('falls through from an unsupported cookie to accept-language before the country fallback', () => {
+  it('resolves cookie language when fr is now in supported set', () => {
     const { headers } = runNegotiation({
       host: 'uniteia.com',
       cookieLang: 'fr',
       acceptLanguage: 'es-ES, en;q=0.9',
       cfIpCountry: 'JP',
     })
-    expect(headers.get('x-negotiated-lang')).toBe('es')
+    expect(headers.get('x-negotiated-lang')).toBe('fr')
     expect(headers.get('x-negotiated-niche')).toBe('apex')
   })
 
@@ -103,7 +103,7 @@ describe('onLanguageNegotiation', () => {
     expect(headers.get('x-negotiated-niche')).toBe('dev')
   })
 
-  it('uses the default language when every source is invalid or missing', () => {
+  it('uses explicit URL language when fr is now supported', () => {
     const { headers } = runNegotiation({
       host: null,
       lang: 'fr',
@@ -111,7 +111,7 @@ describe('onLanguageNegotiation', () => {
       acceptLanguage: 'zz-ZZ,qq;q=0.1',
       cfIpCountry: null,
     })
-    expect(headers.get('x-negotiated-lang')).toBe('en')
+    expect(headers.get('x-negotiated-lang')).toBe('fr')
     expect(headers.get('x-negotiated-niche')).toBe('apex')
   })
 

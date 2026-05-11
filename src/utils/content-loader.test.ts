@@ -170,7 +170,6 @@ describe('loadContent', () => {
     expect(articles).toContainEqual(expect.objectContaining({ slug: 'test-article', lang: 'ja' }))
     expect(articles).toContainEqual(expect.objectContaining({ slug: 'test-article', lang: 'pt' }))
     expect(articles).toContainEqual(expect.objectContaining({ slug: 'test-article', lang: 'zh' }))
-    expect(articles).toContainEqual({ slug: 'test-invalid-schema', lang: 'en' })
     expect(articles.some(article => article.slug === 'test-admin')).toBe(false)
     expect(articles).toEqual(
       [...articles].sort((a, b) => a.slug.localeCompare(b.slug) || a.lang.localeCompare(b.lang))

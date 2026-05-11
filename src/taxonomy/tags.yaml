@@ -1,0 +1,37 @@
+# UniTeia Content Package Tag Taxonomy
+
+## Categories
+
+### topic
+The domain or subject area of the content.
+Examples: cloud-computing, virtual-machines, ai-agents, llm-comparison, prompt-engineering
+
+### intent
+The purpose or goal of the content.
+Examples: teach-opportunity, cost-saving, cloud-benefits, tutorial, reference, comparison
+
+Forbidden: referral-marketing, affiliate-conversion, fake-urgency
+
+### audience
+The target audience for the content.
+Examples: devops-engineers, developers, architects, beginners, researchers
+
+### vendor
+The primary vendor or platform referenced.
+Examples: tencent-cloud, aws, azure, google-cloud, nvidia
+
+### format
+The content format or presentation style.
+Examples: comparison, guide, reference, overview, tutorial
+
+### risk
+Risk assessment of claims or information.
+Examples: low-risk, medium-risk, high-risk, unverified-claim
+
+Forbidden: unverified-pricing-claim
+
+### pipeline
+The editorial pipeline stage.
+Examples: curated, auto-generated, human-review, fixture
+
+Unknown pipeline tags are a hard fail. Other unknown categories produce warnings.

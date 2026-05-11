@@ -1,0 +1,29 @@
+{
+  "id": "benefit-grid",
+  "kind": "benefit-grid",
+  "title": "Key Benefits",
+  "body": {
+    "benefits": [
+      {
+        "icon": "uptime",
+        "title": "High Availability",
+        "description": "99.975% SLA guarantee"
+      },
+      {
+        "icon": "scale",
+        "title": "Elastic Scalability",
+        "description": "Scale resources in minutes"
+      },
+      {
+        "icon": "shield",
+        "title": "Integrated Security",
+        "description": "DDoS protection and built-in firewall"
+      },
+      {
+        "icon": "globe",
+        "title": "Global Coverage",
+        "description": "70+ availability zones across 26 regions"
+      }
+    ]
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "uniteia-content-package/v1",
+  "contentId": "cnt_tecent_vm_benefits_2026_05",
+  "sourceProject": "uniteia-mega-factory",
+  "targetProject": "uniteia-v2",
+  "status": "draft",
+  "contentType": "opportunity_map",
+  "canonicalSlug": "tecent-vm-benefits",
+  "title": {
+    "pt-BR": "Benefícios de Máquinas Virtuais Tencent",
+    "en": "Tencent VM Benefits Overview",
+    "es": "Beneficios de Máquinas Virtuales Tencent"
+  },
+  "description": {
+    "pt-BR": "Uma visão geral dos benefícios e capacidades das Máquinas Virtuais Tencent.",
+    "en": "An overview of Tencent Virtual Machine benefits and capabilities.",
+    "es": "Una visión general de los beneficios y capacidades de las Máquinas Virtuales Tencent."
+  },
+  "locales": ["pt-BR", "en", "es"],
+  "layout": {
+    "layoutId": "opportunity-map-v1",
+    "designProfile": "default",
+    "density": "comfortable",
+    "audience": "technical"
+  },
+  "tags": {
+    "topic": ["cloud-computing", "virtual-machines"],
+    "intent": ["teach-opportunity", "cost-saving"],
+    "audience": ["devops-engineers"],
+    "vendor": ["tencent-cloud"],
+    "format": ["comparison"],
+    "risk": ["low-risk"],
+    "pipeline": ["fixture"]
+  },
+  "quality": {
+    "publishable": false,
+    "sourceCount": 3,
+    "trustLevel": "medium",
+    "blockers": [],
+    "warnings": ["draft content awaiting review"]
+  },
+  "sources": [
+    { "title": "Tencent Cloud Virtual Machine Overview", "url": "https://cloud.tencent.com/product/cvm" },
+    { "title": "Tencent Cloud Global Infrastructure", "url": "https://cloud.tencent.com/document/product/213" },
+    { "title": "CVM Pricing Overview", "url": "https://buy.cloud.tencent.com/price/cvm" }
+  ],
+  "hashes": {
+    "contentHash": "abc123def456",
+    "manifestHash": "789abc012def"
+  },
+  "provenance": {
+    "exportedAt": "2026-05-11T00:00:00.000Z",
+    "exportTool": "uniteia-v2-content-package-export"
+  }
+}
