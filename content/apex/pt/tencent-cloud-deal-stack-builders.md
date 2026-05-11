@@ -36,6 +36,8 @@ metadata:
 
 A Tencent Cloud oferece um conjunto de produtos e promoções ideais para builders independentes. Com Lighthouse, CVM e EdgeOne, é possível subir sites, APIs, bots, dashboards e pequenos apps gastando muito pouco — e em alguns casos, nada.
 
+![Brief Visual — Tencent Cloud Deal Stack](/assets/wiki/tencent-cloud-deal-stack-builders/visual-brief.svg)
+
 ## Produtos Gratuitos
 
 A Tencent Cloud disponibiliza um free-tier com produtos selecionados. Alguns recursos gratuitos incluem:
