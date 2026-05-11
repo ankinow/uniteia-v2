@@ -8,6 +8,7 @@ import { FrontmatterSlots } from '~/components/frontmatter-slots'
 import { JSONLD } from '~/components/json-ld'
 import { QualityRing } from '~/components/quality-ring'
 import { SourceLedger } from '~/components/source-ledger'
+import { REGISTRY_PATHS } from '~/content-registry.generated'
 import { getTranslation, useI18n } from '~/i18n/context'
 import type { SupportedLanguage } from '~/i18n/types'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
@@ -21,6 +22,19 @@ import { generateArticleSchema } from '~/utils/schema-generators'
  * Supported language codes for quick lookup
  */
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
+
+export const onStaticGenerate = () => {
+  const params: Array<Record<string, string>> = []
+  for (const key of REGISTRY_PATHS) {
+    const match = key.match(/\/content\/([^/]+)\/([^/]+)\/(.+)\.md$/)
+    if (!match) continue
+    const lang = match[2]
+    const slugFile = match[3]
+    if (!lang || !slugFile || slugFile === '_index') continue
+    params.push({ lang, slug: slugFile })
+  }
+  return { params }
+}
 
 /**
  * Thin routeLoader$ wrapper that validates lang, calls loadContent(),
