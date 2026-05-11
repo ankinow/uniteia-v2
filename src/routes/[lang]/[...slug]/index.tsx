@@ -183,7 +183,13 @@ export const head: DocumentHead = ({ resolveValue, url, params }) => {
     title: t.seo.articleTitleTemplate.replace('{title}', content.title),
     meta: [
       { name: 'description', content: content.subjects.join(', ') },
-      { name: 'robots', content: 'index, follow' },
+      {
+        name: 'robots',
+        content:
+          content.verdict === 'caution' || (content.quality_score ?? 85) < 50
+            ? 'noindex, nofollow'
+            : 'index, follow',
+      },
       // Open Graph
       { property: 'og:title', content: content.title },
       { property: 'og:description', content: content.subjects.join(', ') },
