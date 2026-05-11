@@ -1,5 +1,6 @@
 import matter from 'gray-matter'
 import { marked } from 'marked'
+import { REGISTRY_PATHS, contentRegistry } from '~/content-registry.generated'
 import type { SupportedLanguage } from '~/i18n/types'
 import type { LlmWikiContent } from '~/types/content'
 import { ContentLoaderError } from '~/types/content'
@@ -47,16 +48,8 @@ export async function loadContent(
   const { validateSlug } = await import('~/utils/url-validation')
   const { validateContent } = await import('~/utils/schema-validation')
 
-  const contentModules = import.meta.glob<string>('../../content/**/*.md', {
-    query: '?raw',
-    import: 'default',
-    eager: true,
-  })
-
-  const contentKey = Object.keys(contentModules).find(k =>
-    k.endsWith(`/content/${niche}/${lang}/${slug}.md`)
-  )
-  const rawContent = contentKey ? contentModules[contentKey] : undefined
+  const contentKey = REGISTRY_PATHS.find(k => k.endsWith(`/content/${niche}/${lang}/${slug}.md`))
+  const rawContent = contentKey ? contentRegistry[contentKey] : undefined
 
   if (!rawContent) {
     throw new ContentLoaderError({
@@ -182,19 +175,15 @@ export async function getAvailableLanguages(
   niche: string,
   slug: string
 ): Promise<SupportedLanguage[]> {
-  const contentModules = import.meta.glob('../../content/**/*.md')
-
   const suffix = `/${niche}/`
   const fileSuffix = `/${slug}.md`
 
-  return Object.keys(contentModules)
-    .filter(key => key.includes(suffix) && key.endsWith(fileSuffix))
-    .map(key => {
-      // Extract lang from .../content/{niche}/{lang}/{slug}.md
-      const segments = key.split('/')
-      const langIndex = segments.indexOf(niche) + 1
-      return segments[langIndex] as SupportedLanguage
-    })
+  return REGISTRY_PATHS.filter(key => key.includes(suffix) && key.endsWith(fileSuffix)).map(key => {
+    // Extract lang from .../content/{niche}/{lang}/{slug}.md
+    const segments = key.split('/')
+    const langIndex = segments.indexOf(niche) + 1
+    return segments[langIndex] as SupportedLanguage
+  })
 }
 
 /**
@@ -226,23 +215,15 @@ export async function listNicheArticles(niche: string): Promise<NicheArticleEntr
 
   const { validateSlug } = await import('~/utils/url-validation')
 
-  // Use a relative path that works for both dev and build
-  const contentModules = import.meta.glob<string>('../../content/**/*.md', {
-    query: '?raw',
-    import: 'default',
-    eager: true,
-  })
-
-  // Normalize niche for matching - handle apex case
   const isApex = niche === 'apex'
   const targetPrefix = isApex ? '/content/apex/' : `/content/${niche}/`
 
-  const articles = Object.entries(contentModules)
-    .filter(([key]) => {
-      const normalizedKey = key.replace(/^\.\.\/\.\.\//, '/')
-      return normalizedKey.startsWith(targetPrefix)
-    })
-    .flatMap(([key, rawContent]) => {
+  const articles = REGISTRY_PATHS.filter(key => {
+    const normalizedKey = key.replace(/^\.\.\/\.\.\//, '/')
+    return normalizedKey.startsWith(targetPrefix)
+  })
+    .flatMap(key => {
+      const rawContent = contentRegistry[key]
       const normalizedKey = key.replace(/^\.\.\/\.\.\//, '/')
       const relativePath = normalizedKey.slice(targetPrefix.length)
       const segments = relativePath.split('/')
@@ -313,16 +294,11 @@ export async function deriveNavigation(): Promise<NavigationData> {
 
   const { validateSlug } = await import('~/utils/url-validation')
 
-  // Build-time scan of all content files
-  const contentModules = import.meta.glob<string>('../../content/**/*.md', {
-    query: '?raw',
-    import: 'default',
-    eager: true,
-  })
-
   const niches: NavigationData['niches'] = {}
 
-  for (const [key, rawContent] of Object.entries(contentModules)) {
+  for (const key of REGISTRY_PATHS) {
+    const rawContent = contentRegistry[key]
+    if (!rawContent) continue
     // Parse path: .../content/{niche}/{lang}/{slug}.md
     const match = key.match(/\/content\/([^/]+)\/([^/]+)\/(.+)\.md$/)
     if (!match) continue
