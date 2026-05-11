@@ -140,6 +140,21 @@ export default component$(() => {
   )
 })
 
+function extractExcerpt(html: string, maxLength = 155): string {
+  const text = html
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim()
+  if (text.length <= maxLength) return text
+  if (text[maxLength] === ' ') return `${text.slice(0, maxLength)}…`
+  return `${text.slice(0, maxLength).replace(/\s+\S*$/, '')}…`
+}
+
 export const head: DocumentHead = ({ resolveValue, url, params }) => {
   const content = resolveValue(useContent)
   const t = getTranslation(params.lang as SupportedLanguage)
@@ -179,10 +194,12 @@ export const head: DocumentHead = ({ resolveValue, url, params }) => {
     })
   }
 
+  const excerpt = extractExcerpt(content.content)
+
   return {
     title: t.seo.articleTitleTemplate.replace('{title}', content.title),
     meta: [
-      { name: 'description', content: content.subjects.join(', ') },
+      { name: 'description', content: excerpt || content.subjects.join(', ') },
       {
         name: 'robots',
         content:
@@ -192,7 +209,7 @@ export const head: DocumentHead = ({ resolveValue, url, params }) => {
       },
       // Open Graph
       { property: 'og:title', content: content.title },
-      { property: 'og:description', content: content.subjects.join(', ') },
+      { property: 'og:description', content: excerpt || content.subjects.join(', ') },
       { property: 'og:url', content: canonicalUrl.href },
       { property: 'og:type', content: 'article' },
       { property: 'og:site_name', content: t.seo.siteName },
@@ -200,7 +217,7 @@ export const head: DocumentHead = ({ resolveValue, url, params }) => {
       // Twitter
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: content.title },
-      { name: 'twitter:description', content: content.subjects.join(', ') },
+      { name: 'twitter:description', content: excerpt || content.subjects.join(', ') },
     ],
     links: [{ rel: 'canonical', href: canonicalUrl.href }, ...alternateLinks],
   }
