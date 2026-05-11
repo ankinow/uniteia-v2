@@ -31,8 +31,8 @@ Master activation skill that loads all other UniTeia skills.
 ## Stack Lock
 
 - Runtime: Bun 1.x
-- Framework: Qwik-City 2.x
-- CSS: Tailwind + PostCSS
+- Framework: Qwik-City 1.19.x (NOT 2.x)
+- CSS: Tailwind 3.x + PostCSS
 - Lint: Biome
 - Icons: Lucide via iconify-tailwind
 
