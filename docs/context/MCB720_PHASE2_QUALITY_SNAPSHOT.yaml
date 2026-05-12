@@ -1,0 +1,89 @@
+# MCB720 PHASE 2 QUALITY SNAPSHOT
+
+meta:
+  updated_at: 2026-05-12T13:50+08:00
+  phase: P2-quality-completion
+  lead: Autonomous Quality OS
+
+repos:
+  uniteia_v2:
+    path: /root/projects/uniteia-multirepo/uniteia-v2
+    branch: fix/p0-prod-navigation-links
+    head: 63a6fd48d76032a5d4c7124b2fcdc82839f2d7ff
+    origin_main: 1f59112684ef9051134a3fb8a9ad0c1dce64ab92
+    dirty: true
+    active_pr: 3
+
+  uniteia_mega_factory:
+    path: /root/projects/uniteia-multirepo/uniteia-mega-factory
+    branch: main
+    head: 48cf84c288baabefd5a03e7ba1d54d443f9c174b
+    dirty: false
+
+gates:
+  lint:
+    status: PASS
+    exit: 0
+    detail: "179 files, 0 errors"
+  typecheck:
+    status: PASS
+    exit: 0
+    detail: "tsc --noEmit"
+  test_unit:
+    status: PASS
+    exit: 0
+    detail: "224 pass, 0 fail (vitest)"
+  build:
+    status: PASS
+    exit: 0
+    detail: "19 SSG pages, sitemap, CF Pages prep"
+  content_check:
+    status: PASS
+    exit: 0
+    detail: "34 pass, 0 fail"
+  slug_check:
+    status: PASS
+    exit: 0
+    detail: "34 files validated"
+  size_check:
+    status: FAIL
+    exit: 1
+    detail: "80,033 gzip bytes > 61,440 threshold (baseline pre-existing — main: 79,696)"
+  ship_check:
+    status: FAIL
+    exit: 1
+    detail: "Stopped at size:check (baseline — needs threshold waiver)"
+
+p0_fixes:
+  link_rotas:
+    status: COMPLETED
+    detail: "Language root redirect, sidebar links, GitHub URL, Tencent URL, content registry sync'd"
+    smoke_test: ALL_PASSED
+  lint_src:
+    status: COMPLETED
+    detail: "25 errors in src/ → 0 (6 lint + 19 format)"
+  lint_full_repo:
+    status: COMPLETED
+    detail: "8 residual format errors auto-fixed by build pipeline lint.fix"
+
+decisions:
+  - id: DECISION-SIZE-001
+    title: "Size threshold waiver"
+    status: PENDING_APPROVAL
+    detail: "Raise threshold from 61KB to 85KB — baseline pre-existing (origin/main also fails at 79,696)"
+
+blockers:
+  p0: []
+  p1:
+    - "Size threshold: 61KB too low for baseline content pipeline (~80KB)"
+    - "Vercel author mismatch: commit 13b5390 authored as root@localhost"
+  p2:
+    - "Factory typecheck: tsc not in PATH for workspace packages (use bunx tsc)"
+    - "14 pre-existing test failures in bun test (native runner — not CI runner)"
+    - "Vercel preview comment SUCCESS but required check FAILURE"
+
+next_steps:
+  - "Approve DECISION-SIZE-001 (waive threshold)"
+  - "Run ship:check with --threshold 87040"
+  - "Update PR #3 body with gate results"
+  - "Resolve Vercel author (force-push or Vercel config)"

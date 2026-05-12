@@ -9,7 +9,7 @@
 - **Lint:** `bun run lint` = `biome check .`
 - **Build:** `bun run build` (content-registry → qwik build → sitemap → CF Pages prep)
 - **Ship check:** `bun run ship:check` (scripts/ship-check.ts) — runs lint → typecheck → test:unit → build → size → header → slug → content → sitemap → lighthouse → smoke → invalid-locale
-- **Size threshold:** Currently 61,440 gzip bytes. **Baseline is ~80KB** — pre-existing.
+- **Size threshold:** 87,040 gzip bytes (85 KB, DECISION-SIZE-001)
 - **Gate to verify before PR:** `bun run ship:check`
 
 ### uniteia-mega-factory (content generation)
@@ -18,18 +18,22 @@
 - **Typecheck:** `tsc` not in PATH per-workspace. Engine uses `bunx tsc`.
 - **Test:** `bun test` (234 pass, 0 fail)
 
-## Working Tree Rules
-- Current branch: `fix/p0-prod-navigation-links` — HEAD `63a6fd4`
-- Uncommitted changes are biome format/lint fixes only (15 src/ files)
-- docs/ and fixtures/ changes are pre-existing dirty state from earlier sessions
-- Do NOT push without authorization
-- Do NOT merge or convert PR draft to ready
+## Post-Merge State (main @ 102c0bb)
+- PR #3 (`fix: resolve P0 language roots and broken production links`) merged to main
+- Merge commit: `102c0bb3f1ec7765321b6b29ca8e6520ddb871de`
+- Author: Luiz Eloi <luixglad@gmail.com>
+- Main branches: `main` (default), `feat/content-package-import-contract`, `feat/design-review-dog-api-fixture`, `v0/ankinow-852e44d3`
+- Feature branch `fix/p0-prod-navigation-links` is aheah of main by 3 commits — can be deleted after verification
+- Vercel author mismatch (`root@localhost` in 13b5390) — non-blocking external status
 
-## PR #3 — P0 Link/Route Fixes
-- **URL:** https://github.com/ankinow/uniteia-v2/pull/3
-- **Status:** DRAFT, mergeable
-- **Blocked by:** size:check (baseline, needs waiver) + Vercel author mismatch
-- **No regressions vs origin/main:** proven by baseline worktree comparison
+## Key Quality Artifacts (docs/context/)
+| File | Purpose |
+|---|---|
+| `post-merge-state.md` | Canonical post-merge state snapshot |
+| `quality-completion-report.md` | Full quality closeout report |
+| `SIZE_BASELINE_DIFF_REPORT.md` | Bundle size baseline comparison report |
+| `MCB720_PHASE2_QUALITY_SNAPSHOT.yaml` | Quality snapshot YAML |
+| `context-runtime/*.md` | 6 modular agent policy files |
 
 ## Key Commands
 ```bash
