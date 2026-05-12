@@ -1,0 +1,146 @@
+# UniTeia Design DNA
+# Machine-readable design specification
+
+version: "1.0.0"
+updated: "2026-05-12"
+
+aesthetics:
+  layers:
+    - name: foundation
+      source: solarlanso-tokens
+      role: "Dark mode base, cyan/orange highlights"
+    - name: texture
+      source: neumorphism-ultra-2026
+      role: "Layered depth, subtle shadows"
+    - name: charm
+      source: jrpg-pixel-nostalgia
+      role: "Sidebar soul, quest progress, pixel fonts"
+
+colors:
+  solarlanso:
+    void:
+      value: "oklch(0.13 0.02 260)"
+      role: background
+    ink:
+      value: "oklch(0.17 0.02 260)"
+      role: card-surface
+    graphite:
+      value: "oklch(0.25 0.03 260)"
+      role: border
+    silver:
+      value: "oklch(0.70 0.02 260)"
+      role: body-text
+    bone:
+      value: "oklch(0.92 0.02 80)"
+      role: heading
+    cyan:
+      value: "oklch(0.75 0.15 195)"
+      role: primary-accent
+    orange:
+      value: "oklch(0.72 0.18 50)"
+      role: cta
+    vine:
+      value: "oklch(0.65 0.14 145)"
+      role: success
+    bronze:
+      value: "oklch(0.55 0.12 60)"
+      role: secondary-accent
+
+  teaching_aliases:
+    ut-bg: "var(--void)"
+    ut-cyan: "var(--cyan)"
+    ut-paper: "#e8ddc8"
+    ut-success: "var(--vine)"
+    ut-warning: "var(--bronze)"
+    ut-handdraw-stroke: "var(--cyan)"
+
+typography:
+  fonts:
+    body:
+      family: Inter
+      fallback: system-ui
+    heading:
+      family: Inter
+      weight: 700
+      fallback: system-ui
+    sidebar:
+      family: Silkscreen
+      fallback: monospace
+    code:
+      family: JetBrains Mono
+      fallback: monospace
+
+  scale:
+    xs: "0.75rem"
+    sm: "0.875rem"
+    base: "1rem"
+    lg: "1.125rem"
+    xl: "1.25rem"
+    2xl: "1.5rem"
+    3xl: "1.875rem"
+
+spacing:
+  unit: "4px"
+  scale:
+    1: "4px"
+    2: "8px"
+    4: "16px"
+    6: "24px"
+    8: "32px"
+
+depth:
+  surface:
+    background: "var(--ink)"
+    shadow: "inset 1px 1px 2px oklch(1 0 0 / 0.03), inset -1px -1px 2px oklch(0 0 0 / 0.2)"
+  raised:
+    background: "var(--graphite)"
+    shadow: "2px 2px 4px oklch(0 0 0 / 0.3), -1px -1px 2px oklch(1 0 0 / 0.02)"
+  pressed:
+    shadow: "inset 2px 2px 4px oklch(0 0 0 / 0.3), inset -1px -1px 2px oklch(1 0 0 / 0.02)"
+
+motion:
+  timing:
+    solar: "cubic-bezier(0.4, 0, 0.2, 1)"
+    snap: "cubic-bezier(0.2, 0, 0, 1)"
+    bounce: "cubic-bezier(0.34, 1.56, 0.64, 1)"
+  duration:
+    micro: "75ms"
+    hover: "150ms"
+    transition: "300ms"
+    page: "500ms"
+  reduced_motion_required: true
+
+components:
+  existing:
+    - depth-card
+    - dopamine-card
+    - editorial-verdict
+    - niche-card
+    - article-frame
+    - sidebar
+  teaching:
+    - lesson-hero
+    - lesson-block
+    - analogy-box
+    - summary-board
+    - next-lesson-card
+  visual:
+    - handdraw-arrow
+    - handdraw-circle
+  jrpg:
+    - quest-progress
+
+anti_patterns:
+  banned_classes:
+    - "rounded-*"
+    - "h-screen"
+  banned_content:
+    - lorem_ipsum
+    - placeholder_images
+    - hardcoded_text_in_components
+
+accessibility:
+  contrast_ratio: "4.5:1"
+  focus_style: "ring-2 ring-cyan"
+  motion_preference: "prefers-reduced-motion honored"
+  keyboard_nav: required
