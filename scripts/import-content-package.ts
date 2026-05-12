@@ -57,7 +57,7 @@ function buildFrontmatter(
     '    title: CVM Overview',
     '  - url: https://www.tencentcloud.com/products/teo',
     '    title: EdgeOne Overview',
-    '  - url: https://www.tencentcloud.com/free',
+    '  - url: https://www.tencentcloud.com/act/pro/promo',
     '    title: Tencent Cloud Free Tier',
     'metadata:',
     `  created_at: "${new Date().toISOString()}"`,
