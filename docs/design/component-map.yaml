@@ -1,0 +1,261 @@
+# UniTeia Component Map
+# Component inventory with props, variants, and usage
+
+version: "1.0.0"
+updated: "2026-05-12"
+
+components:
+  # ============================================
+  # EXISTING COMPONENTS
+  # ============================================
+
+  depth-card:
+    path: src/components/depth-card/index.tsx
+    status: stable
+    description: "Neumorphic card with configurable depth variant"
+    props:
+      variant:
+        type: "'surface' | 'raised' | 'pressed'"
+        default: "'surface'"
+      class:
+        type: string
+        optional: true
+    slots:
+      default: "Card content"
+    usage: |
+      <DepthCard variant="raised" class="p-4">
+        <h3>Title</h3>
+      </DepthCard>
+
+  dopamine-card:
+    path: src/components/dopamine-card/index.tsx
+    status: stable
+    description: "Reward moment card with icon, title, description"
+    props:
+      icon:
+        type: string
+        required: true
+      title:
+        type: string
+        required: true
+      description:
+        type: string
+        required: true
+    usage: |
+      <DopamineCard
+        icon="sparkles"
+        title="Achievement"
+        description="You learned something!"
+      />
+
+  editorial-verdict:
+    path: src/components/editorial-verdict/index.tsx
+    status: stable
+    description: "Editorial opinion block with verdict badge"
+    props:
+      verdict:
+        type: "'recommended' | 'neutral' | 'not-recommended'"
+        required: true
+      summary:
+        type: string
+        required: true
+    usage: |
+      <EditorialVerdict
+        verdict="recommended"
+        summary="This tool delivers."
+      />
+
+  niche-card:
+    path: src/components/niche-card/index.tsx
+    status: stable
+    description: "Topic/niche navigation card"
+    props:
+      niche:
+        type: "{ slug: string; emoji: string }"
+        required: true
+      label:
+        type: string
+        required: true
+    usage: |
+      <NicheCard
+        niche={{ slug: 'ai-agents', emoji: 'robot' }}
+        label="AI Agents"
+      />
+
+  article-frame:
+    path: src/components/article-frame/index.tsx
+    status: stable
+    description: "Article content wrapper with prose styling"
+    props:
+      class:
+        type: string
+        optional: true
+    slots:
+      default: "Article content"
+
+  sidebar:
+    path: src/components/sidebar/index.tsx
+    status: stable
+    description: "JRPG-styled navigation sidebar with pixel font and scanlines"
+    props:
+      lang:
+        type: string
+        required: true
+    notes:
+      - "Uses Silkscreen pixel font"
+      - "Has scanlines overlay"
+      - "Contains BuyMeACoffee button"
+
+  # ============================================
+  # TEACHING COMPONENTS (NEW)
+  # ============================================
+
+  lesson-hero:
+    path: src/components/lesson/lesson-hero.tsx
+    status: new
+    description: "Lesson introduction with title and promise"
+    props:
+      title:
+        type: string
+        required: true
+      promise:
+        type: string
+        required: true
+      lang:
+        type: string
+        required: true
+    usage: |
+      <LessonHero
+        title="What is a Neural Network?"
+        promise="In 5 minutes, you will understand how machines learn."
+        lang="en"
+      />
+
+  lesson-block:
+    path: src/components/lesson/lesson-block.tsx
+    status: new
+    description: "Content block with optional action and tone"
+    props:
+      title:
+        type: string
+        required: true
+      body:
+        type: string
+        required: true
+      action:
+        type: "{ label: string; href: string }"
+        optional: true
+      tone:
+        type: "'default' | 'highlight' | 'warning'"
+        default: "'default'"
+    usage: |
+      <LessonBlock
+        title="Key Concept"
+        body="Neural networks are inspired by biological neurons..."
+        action={{ label: "Try it", href: "/playground" }}
+        tone="highlight"
+      />
+
+  analogy-box:
+    path: src/components/lesson/analogy-box.tsx
+    status: new
+    description: "Paper-styled analogy explanation box"
+    props:
+      analogy:
+        type: string
+        required: true
+    usage: |
+      <AnalogyBox
+        analogy="A neural network is like a team of specialists voting."
+      />
+
+  summary-board:
+    path: src/components/lesson/summary-board.tsx
+    status: new
+    description: "Checklist-style summary of key points"
+    props:
+      items:
+        type: "string[]"
+        required: true
+    usage: |
+      <SummaryBoard
+        items={[
+          "Neural networks have layers",
+          "Each layer transforms data",
+          "Training adjusts weights"
+        ]}
+      />
+
+  next-lesson-card:
+    path: src/components/lesson/next-lesson-card.tsx
+    status: new
+    description: "Navigation card to next lesson"
+    props:
+      href:
+        type: string
+        required: true
+      title:
+        type: string
+        required: true
+      label:
+        type: string
+        required: true
+    usage: |
+      <NextLessonCard
+        href="/en/n/ai-agents/lesson-2"
+        title="Training Your First Model"
+        label="Next up"
+      />
+
+  # ============================================
+  # VISUAL COMPONENTS (NEW)
+  # ============================================
+
+  handdraw-arrow:
+    path: src/components/visual/handdraw-arrow.tsx
+    status: new
+    description: "Hand-drawn SVG arrow with animation"
+    props:
+      direction:
+        type: "'left' | 'right' | 'up' | 'down'"
+        default: "'right'"
+      class:
+        type: string
+        optional: true
+    notes:
+      - "Uses stroke-dasharray animation"
+      - "Has reduced-motion guard"
+
+  handdraw-circle:
+    path: src/components/visual/handdraw-circle.tsx
+    status: new
+    description: "Hand-drawn SVG circle with animation"
+    props:
+      class:
+        type: string
+        optional: true
+    notes:
+      - "Uses stroke-dasharray animation"
+      - "Has reduced-motion guard"
+
+  # ============================================
+  # JRPG COMPONENTS (NEW)
+  # ============================================
+
+  quest-progress:
+    path: src/components/jrpg/quest-progress.tsx
+    status: new
+    description: "JRPG-styled progress tracker"
+    props:
+      steps:
+        type: "string[]"
+        required: true
+      current:
+        type: number
+        required: true
+        description: "Zero-based index of current step"
+    usage: |
+      <QuestProgress
+        steps={["Intro", "Core Concepts", "Practice", "Quiz"]}
+        current={1}
+      />
