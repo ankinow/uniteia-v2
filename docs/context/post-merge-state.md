@@ -42,11 +42,18 @@ slug:check:  ✅ PASS (34 files)
 content:chk: ✅ PASS (34 files)
 ```
 
+## Branch Cleanup
+
+- `fix/p0-prod-navigation-links` was deleted after PR #3 squash merge confirmation.
+- Squash merge commit: `102c0bb`
+- Post-merge context commit: `5b687a8`
+- No additional merge performed.
+- Vercel author mismatch remains external/non-blocking.
+
 ## Remaining Branches
 
 | Branch | Status | Commits Ahead |
 |---|---|---|
-| `fix/p0-prod-navigation-links` | Feature branch, 3 commits ahead of main | 3 (13b5390, 63a6fd4, 3a0e6a9) |
 | `feat/content-package-import-contract` | Not merged | — |
 | `feat/design-review-dog-api-fixture` | Not merged | — |
 | `v0/ankinow-852e44d3` | Stale | — |
