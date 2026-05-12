@@ -15,12 +15,10 @@ export interface ImportedPackage {
   }
 }
 
-export function importPackage(
-  packageDir: string,
-  manifest: Manifest
-): ImportedPackage {
+export function importPackage(packageDir: string, manifest: Manifest): ImportedPackage {
   const manifestQ = manifest.quality
-  const canPublish = manifestQ.publishable && manifestQ.blockers.length === 0 && manifestQ.trustLevel !== 'low'
+  const canPublish =
+    manifestQ.publishable && manifestQ.blockers.length === 0 && manifestQ.trustLevel !== 'low'
   const shouldNoindex = manifest.status === 'draft' || !canPublish
 
   const report = {

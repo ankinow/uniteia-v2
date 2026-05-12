@@ -18,7 +18,7 @@ referral_links:
     title: CVM Overview
   - url: https://www.tencentcloud.com/products/teo
     title: EdgeOne Overview
-  - url: https://www.tencentcloud.com/free
+  - url: https://www.tencentcloud.com/act/pro/promo
     title: Tencent Cloud Free Tier
 metadata:
   created_at: "2026-05-11T11:31:49.260Z"

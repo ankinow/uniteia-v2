@@ -1,13 +1,13 @@
-import { describe, it, expect } from 'vitest'
-import { validateManifest } from './manifest.schema'
-import { validateTags } from './tags.schema'
-import { validateQuality } from './quality.schema'
-import { validateDesign } from './design.schema'
-import { validateBlocks } from './blocks.schema'
-import { hasLayout, listLayoutIds, getAllowedBlockKinds, getForbiddenBlocks } from '../layouts/registry'
-import { validatePackage } from '../content-import/validate-package'
+import { describe, expect, it } from 'vitest'
 import { importPackage } from '../content-import/import-package'
 import { mapLayout } from '../content-import/map-layout'
+import { validatePackage } from '../content-import/validate-package'
+import { getForbiddenBlocks, hasLayout, listLayoutIds } from '../layouts/registry'
+import { validateBlocks } from './blocks.schema'
+import { validateDesign } from './design.schema'
+import { validateManifest } from './manifest.schema'
+import { validateQuality } from './quality.schema'
+import { validateTags } from './tags.schema'
 
 describe('manifest.schema', () => {
   it('accepts valid manifest', () => {
@@ -17,8 +17,19 @@ describe('manifest.schema', () => {
       status: 'draft',
       contentType: 'opportunity_map',
       locales: ['pt-BR'],
-      layout: { layoutId: 'opportunity-map-v1', designProfile: 'default', density: 'comfortable', audience: 'technical' },
-      quality: { publishable: false, sourceCount: 1, trustLevel: 'medium' as const, blockers: [], warnings: [] },
+      layout: {
+        layoutId: 'opportunity-map-v1',
+        designProfile: 'default',
+        density: 'comfortable',
+        audience: 'technical',
+      },
+      quality: {
+        publishable: false,
+        sourceCount: 1,
+        trustLevel: 'medium' as const,
+        blockers: [],
+        warnings: [],
+      },
       hashes: { contentHash: 'abc', manifestHash: 'def' },
       provenance: { exportedAt: '2026-01-01', exportTool: 'test' },
     })
@@ -35,16 +46,26 @@ describe('manifest.schema', () => {
       locales: ['pt-BR'],
     })
     expect(result.valid).toBe(false)
-    expect(result.errors.some((e) => e.includes('schemaVersion'))).toBe(true)
+    expect(result.errors.some(e => e.includes('schemaVersion'))).toBe(true)
   })
 
   it('rejects missing layout', () => {
-    const result = validateManifest({ schemaVersion: 'uniteia-content-package/v1', contentId: 'test', quality: { publishable: false }, locales: ['pt-BR'] })
+    const result = validateManifest({
+      schemaVersion: 'uniteia-content-package/v1',
+      contentId: 'test',
+      quality: { publishable: false },
+      locales: ['pt-BR'],
+    })
     expect(result.valid).toBe(false)
   })
 
   it('rejects missing quality', () => {
-    const result = validateManifest({ schemaVersion: 'uniteia-content-package/v1', contentId: 'test', layout: { layoutId: 'test' }, locales: ['pt-BR'] })
+    const result = validateManifest({
+      schemaVersion: 'uniteia-content-package/v1',
+      contentId: 'test',
+      layout: { layoutId: 'test' },
+      locales: ['pt-BR'],
+    })
     expect(result.valid).toBe(false)
   })
 
@@ -68,7 +89,7 @@ describe('tags.schema', () => {
   it('rejects forbidden intent tags', () => {
     const result = validateTags({ intent: ['referral-marketing'] })
     expect(result.valid).toBe(false)
-    expect(result.errors.some((e) => e.includes('forbidden'))).toBe(true)
+    expect(result.errors.some(e => e.includes('forbidden'))).toBe(true)
   })
 
   it('rejects unknown pipeline tag', () => {
@@ -84,7 +105,7 @@ describe('tags.schema', () => {
   it('warns on unknown format tag', () => {
     const result = validateTags({ format: ['unknown-format'] })
     expect(result.valid).toBe(true)
-    expect(result.warnings.some((w) => w.includes('format'))).toBe(true)
+    expect(result.warnings.some(w => w.includes('format'))).toBe(true)
   })
 
   it('warns on unknown category', () => {
@@ -96,36 +117,70 @@ describe('tags.schema', () => {
 
 describe('quality.schema', () => {
   it('accepts valid quality', () => {
-    expect(validateQuality({ publishable: false, sourceCount: 1, trustLevel: 'medium' as const, blockers: [] }).valid).toBe(true)
+    expect(
+      validateQuality({
+        publishable: false,
+        sourceCount: 1,
+        trustLevel: 'medium' as const,
+        blockers: [],
+      }).valid
+    ).toBe(true)
   })
 
   it('rejects publishable with low trust', () => {
-    const result = validateQuality({ publishable: true, sourceCount: 5, trustLevel: 'low' as const, blockers: [] })
+    const result = validateQuality({
+      publishable: true,
+      sourceCount: 5,
+      trustLevel: 'low' as const,
+      blockers: [],
+    })
     expect(result.valid).toBe(false)
   })
 
   it('rejects publishable with blockers', () => {
-    const result = validateQuality({ publishable: true, sourceCount: 5, trustLevel: 'high' as const, blockers: ['some blocker'] })
+    const result = validateQuality({
+      publishable: true,
+      sourceCount: 5,
+      trustLevel: 'high' as const,
+      blockers: ['some blocker'],
+    })
     expect(result.valid).toBe(false)
   })
 
   it('rejects publishable with less than 3 sources', () => {
-    const result = validateQuality({ publishable: true, sourceCount: 1, trustLevel: 'high' as const, blockers: [] })
+    const result = validateQuality({
+      publishable: true,
+      sourceCount: 1,
+      trustLevel: 'high' as const,
+      blockers: [],
+    })
     expect(result.valid).toBe(false)
   })
 })
 
 describe('design.schema', () => {
   it('accepts valid design', () => {
-    expect(validateDesign({ layout: 'test', sections: ['intro'], palette: 'blue', tone: 'formal', audienceNotes: 'devs' }).valid).toBe(true)
+    expect(
+      validateDesign({
+        layout: 'test',
+        sections: ['intro'],
+        palette: 'blue',
+        tone: 'formal',
+        audienceNotes: 'devs',
+      }).valid
+    ).toBe(true)
   })
 
   it('rejects missing layout', () => {
-    expect(validateDesign({ sections: ['intro'], palette: 'blue', tone: 'formal' }).valid).toBe(false)
+    expect(validateDesign({ sections: ['intro'], palette: 'blue', tone: 'formal' }).valid).toBe(
+      false
+    )
   })
 
   it('rejects empty sections', () => {
-    expect(validateDesign({ layout: 'test', sections: [], palette: 'blue', tone: 'formal' }).valid).toBe(false)
+    expect(
+      validateDesign({ layout: 'test', sections: [], palette: 'blue', tone: 'formal' }).valid
+    ).toBe(false)
   })
 })
 
@@ -136,7 +191,10 @@ describe('blocks.schema', () => {
   })
 
   it('rejects unknown block kind with restricted set', () => {
-    const result = validateBlocks([{ id: 'b1', kind: 'unknown-block', title: 'Test' }], new Set(['benefit-grid']))
+    const result = validateBlocks(
+      [{ id: 'b1', kind: 'unknown-block', title: 'Test' }],
+      new Set(['benefit-grid'])
+    )
     expect(result.valid).toBe(false)
   })
 
@@ -192,9 +250,20 @@ describe('import-package', () => {
       title: { en: 'Test' },
       description: { en: 'Test' },
       locales: ['en'],
-      layout: { layoutId: 'visual-explainer-v1', designProfile: 'default', density: 'comfortable' as const, audience: 'devs' },
+      layout: {
+        layoutId: 'visual-explainer-v1',
+        designProfile: 'default',
+        density: 'comfortable' as const,
+        audience: 'devs',
+      },
       tags: {},
-      quality: { publishable: false, sourceCount: 1, trustLevel: 'low' as const, blockers: [], warnings: [] },
+      quality: {
+        publishable: false,
+        sourceCount: 1,
+        trustLevel: 'low' as const,
+        blockers: [],
+        warnings: [],
+      },
       sources: [],
       hashes: { contentHash: 'a', manifestHash: 'b' },
       provenance: { exportedAt: '', exportTool: 'test' },
@@ -216,9 +285,20 @@ describe('import-package', () => {
       title: { en: 'Test' },
       description: { en: 'Test' },
       locales: ['en'],
-      layout: { layoutId: 'visual-explainer-v1', designProfile: 'default', density: 'comfortable' as const, audience: 'devs' },
+      layout: {
+        layoutId: 'visual-explainer-v1',
+        designProfile: 'default',
+        density: 'comfortable' as const,
+        audience: 'devs',
+      },
       tags: {},
-      quality: { publishable: true, sourceCount: 5, trustLevel: 'high' as const, blockers: [], warnings: [] },
+      quality: {
+        publishable: true,
+        sourceCount: 5,
+        trustLevel: 'high' as const,
+        blockers: [],
+        warnings: [],
+      },
       sources: [{ title: 'S1', url: 'https://example.com' }],
       hashes: { contentHash: 'a', manifestHash: 'b' },
       provenance: { exportedAt: '', exportTool: 'test' },
@@ -239,7 +319,7 @@ describe('validate-package', () => {
   it('fails for non-existent directory', () => {
     const result = validatePackage('/tmp/non-existent-package')
     expect(result.valid).toBe(false)
-    expect(result.issues.some((i) => i.path === 'manifest.json')).toBe(true)
+    expect(result.issues.some(i => i.path === 'manifest.json')).toBe(true)
   })
 })
 
@@ -256,16 +336,27 @@ describe('map-layout', () => {
       title: { en: 'T' },
       description: { en: 'T' },
       locales: ['en'],
-      layout: { layoutId: 'visual-explainer-v1', designProfile: 'default', density: 'comfortable' as const, audience: 'devs' },
+      layout: {
+        layoutId: 'visual-explainer-v1',
+        designProfile: 'default',
+        density: 'comfortable' as const,
+        audience: 'devs',
+      },
       tags: {},
-      quality: { publishable: false, sourceCount: 1, trustLevel: 'medium' as const, blockers: [], warnings: [] },
+      quality: {
+        publishable: false,
+        sourceCount: 1,
+        trustLevel: 'medium' as const,
+        blockers: [],
+        warnings: [],
+      },
       sources: [],
       hashes: { contentHash: 'a', manifestHash: 'b' },
       provenance: { exportedAt: '', exportTool: 'test' },
     }
     const result = mapLayout(manifest)
     expect(result).not.toBeNull()
-    expect(result!.layoutId).toBe('visual-explainer-v1')
+    expect(result?.layoutId).toBe('visual-explainer-v1')
   })
 
   it('returns null for unknown layoutId', () => {
@@ -280,9 +371,20 @@ describe('map-layout', () => {
       title: { en: 'T' },
       description: { en: 'T' },
       locales: ['en'],
-      layout: { layoutId: 'non-existent-layout', designProfile: 'default', density: 'comfortable' as const, audience: 'devs' },
+      layout: {
+        layoutId: 'non-existent-layout',
+        designProfile: 'default',
+        density: 'comfortable' as const,
+        audience: 'devs',
+      },
       tags: {},
-      quality: { publishable: false, sourceCount: 1, trustLevel: 'medium' as const, blockers: [], warnings: [] },
+      quality: {
+        publishable: false,
+        sourceCount: 1,
+        trustLevel: 'medium' as const,
+        blockers: [],
+        warnings: [],
+      },
       sources: [],
       hashes: { contentHash: 'a', manifestHash: 'b' },
       provenance: { exportedAt: '', exportTool: 'test' },

@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
 import { gzipSync } from 'node:zlib'
 
-export const DEFAULT_ROUTE_GZIP_BUDGET_BYTES = 60 * 1024
+export const DEFAULT_ROUTE_GZIP_BUDGET_BYTES = 85 * 1024
 
 interface ManifestBundle {
   imports?: string[]

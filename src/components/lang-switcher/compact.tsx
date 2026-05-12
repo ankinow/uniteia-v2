@@ -15,7 +15,7 @@ export const LangSelectorCompact = component$(() => {
       {SUPPORTED_LANGUAGES.map(langInfo => (
         <a
           key={langInfo.code}
-          href={`/${langInfo.code}`}
+          href={`/${langInfo.code}/n`}
           class={[
             'block py-1 px-3 text-xs transition-all duration-200',
             lang === langInfo.code

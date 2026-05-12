@@ -47,7 +47,7 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
               {t.footer.links.terms}
             </a>
             <a
-              href="https://github.com/uniteia/uniteia-v2"
+              href="https://github.com/ankinow/uniteia-v2"
               class="text-bone-muted transition-colors duration-200 hover:text-action"
               target="_blank"
               rel="noopener noreferrer"
