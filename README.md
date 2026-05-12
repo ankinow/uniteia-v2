@@ -1,6 +1,6 @@
 # UniTeia v2
 
-Backend de conteúdo curado para UniTeia v2 (Content Factory).
+Frontend e websie 
 
 ## Start here
 
