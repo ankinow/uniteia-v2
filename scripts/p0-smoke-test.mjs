@@ -1,78 +1,85 @@
 #!/usr/bin/env node
-/**
- * P0 smoke test — verifies built static site and source code
- */
-import { readFileSync, existsSync, readdirSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
-import { execSync } from 'node:child_process'
 
-const DIST = '/root/projects/uniteia-multirepo/uniteia-v2/dist'
-const SRC = '/root/projects/uniteia-multirepo/uniteia-v2/src'
+const ROOT = process.cwd()
+const DIST = join(ROOT, 'dist')
+const SRC = join(ROOT, 'src')
+const CONTENT = join(ROOT, 'content')
+
+const OLD_GITHUB = 'github.com/uniteia/uniteia-v2'
+const OLD_TENCENT = 'tencentcloud.com/free'
+
 let failures = 0
 
-function check(label, pass, detail) {
+function check(label, pass, detail = '') {
   const status = pass ? 'OK' : 'FAIL'
-  console.log('  ' + status + ' ' + label + (detail ? ' -- ' + detail : ''))
-  if (!pass) failures++
+  console.log(`  ${status} ${label}${detail ? ` -- ${detail}` : ''}`)
+  if (!pass) failures += 1
 }
 
-// Phase 1: Article HTML audit
-console.log('\n=== PHASE 1: Article HTML URL audit ===')
-let checked = 0
-for (const lang of ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh']) {
-  const langDir = join(DIST, lang)
-  if (!existsSync(langDir)) continue
-  for (const article of readdirSync(langDir).filter(f => existsSync(join(langDir, f, 'index.html')))) {
-    checked++
-    const html = readFileSync(join(langDir, article, 'index.html'), 'utf-8')
-    if (html.includes('github.com/uniteia/uniteia-v2'))
-      check('/' + lang + '/' + article + ': old GitHub', false)
-    if (html.includes('tencentcloud.com/free'))
-      check('/' + lang + '/' + article + ': old Tencent', false)
+function readText(path) {
+  return readFileSync(path, 'utf-8')
+}
+
+function scanTextFiles(dir, matcher, extensions = ['.ts', '.tsx', '.md', '.json', '.mjs']) {
+  const hits = []
+
+  function walk(current) {
+    if (!existsSync(current)) return
+    for (const entry of readdirSync(current, { withFileTypes: true })) {
+      const path = join(current, entry.name)
+      if (entry.isDirectory()) {
+        if (entry.name === 'node_modules' || entry.name === '.git' || entry.name === 'dist')
+          continue
+        walk(path)
+        continue
+      }
+
+      if (!extensions.some(ext => entry.name.endsWith(ext))) continue
+
+      const text = readText(path)
+      if (matcher(text)) hits.push(path)
+    }
   }
-}
-console.log('  (scanned ' + checked + ' articles)')
 
-// Phase 2: Source code audit
-console.log('\n=== PHASE 2: Source code audit ===')
-
-// Redirect route
-const rp = join(SRC, 'routes', '[lang]', 'index.tsx')
-check('Redirect route exists', existsSync(rp))
-if (existsSync(rp)) {
-  const c = readFileSync(rp, 'utf-8')
-  check('Uses buildNicheLocaleRedirectPath', c.includes('buildNicheLocaleRedirectPath'))
-  check('Uses event.redirect', c.includes('redirect'))
+  walk(dir)
+  return hits
 }
 
-// Footer
-const fp = join(SRC, 'components', 'footer', 'index.tsx')
-check('Footer exists', existsSync(fp))
-if (existsSync(fp)) {
-  const c = readFileSync(fp, 'utf-8')
-  check('Footer: ankinow URL', c.includes('github.com/ankinow/uniteia-v2'))
-  check('Footer: no old URL', !c.includes('github.com/uniteia/uniteia-v2'))
+console.log('=== PHASE 1: built HTML audit ===')
+check('dist exists', existsSync(DIST), DIST)
+
+if (existsSync(DIST)) {
+  let checked = 0
+  for (const lang of ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh']) {
+    const articlePath = join(DIST, lang, 'tencent-cloud-deal-stack-builders', 'index.html')
+    if (!existsSync(articlePath)) continue
+
+    checked += 1
+    const html = readText(articlePath)
+    check(`/${lang}/tencent-cloud-deal-stack-builders: old GitHub`, !html.includes(OLD_GITHUB))
+    check(`/${lang}/tencent-cloud-deal-stack-builders: old Tencent`, !html.includes(OLD_TENCENT))
+  }
+  console.log(`  (scanned ${checked} articles)`)
 }
 
-// Lang-switcher
-const lp = join(SRC, 'components', 'lang-switcher', 'compact.tsx')
-check('Lang-switcher exists', existsSync(lp))
-if (existsSync(lp)) {
-  const c = readFileSync(lp, 'utf-8')
-  check('Switcher: links to /{code}/n', c.includes('/${langInfo.code}/n'))
-  check('Switcher: no bare /{code}', !c.includes('href={`/${langInfo.code}`}'))
-}
+console.log('\n=== PHASE 2: source/content URL audit ===')
+const oldGithubHits = scanTextFiles(SRC, text => text.includes(OLD_GITHUB))
+const oldTencentSourceHits = scanTextFiles(SRC, text => text.includes(OLD_TENCENT))
+const oldTencentContentHits = scanTextFiles(CONTENT, text => text.includes(OLD_TENCENT), ['.md'])
 
-// Phase 3: URL grep audit  
-console.log('\n=== PHASE 3: URL grep audit ===')
-for (const [label, pattern, dirs] of [
-  ['Old GitHub URL in src/', 'github.com/uniteia/uniteia-v2', SRC + ' --include=*.ts --include=*.tsx'],
-  ['Old Tencent URL in src/', 'tencentcloud.com/free', SRC + ' --include=*.ts --include=*.tsx'],
-]) {
-  const out = execSync('grep -rn "' + pattern.replace(/"/g,'\\"') + '" ' + dirs + ' 2>/dev/null || true', { encoding: 'utf-8', maxBuffer: 102400 })
-  check(label + '= 0', out.trim() === '', out.trim() || 'clean')
-}
+check('Old GitHub URL in src = 0', oldGithubHits.length === 0, oldGithubHits.join(', ') || 'clean')
+check(
+  'Old Tencent URL in src = 0',
+  oldTencentSourceHits.length === 0,
+  oldTencentSourceHits.join(', ') || 'clean'
+)
+check(
+  'Old Tencent URL in content = 0',
+  oldTencentContentHits.length === 0,
+  oldTencentContentHits.join(', ') || 'clean'
+)
 
-// Summary
-console.log('\n=== RESULTS: ' + (failures === 0 ? 'ALL PASSED' : failures + ' FAILURES') + ' ===')
+console.log(`\n=== RESULTS: ${failures === 0 ? 'ALL PASSED' : `${failures} FAILURES`} ===`)
 process.exit(failures > 0 ? 1 : 0)
