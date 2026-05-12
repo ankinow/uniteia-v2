@@ -11,16 +11,16 @@
  * - draft:enforced
  */
 
-import { describe, expect, it, vi, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import {
+  DOG_CEO_REGISTRY,
   DogCeoRandomImageSchema,
+  clearDogCeoCache,
+  createDogCeoArtifact,
   fetchDogCeoRandomImage,
   fetchDogCeoSafe,
-  getDogCeoFallback,
   generateDogAltText,
-  createDogCeoArtifact,
-  clearDogCeoCache,
-  DOG_CEO_REGISTRY,
+  getDogCeoFallback,
 } from './dog-ceo'
 
 // ─── Test fixtures ─────────────────────────────────────────────────────────
@@ -60,7 +60,7 @@ describe('DogCeoRandomImageSchema', () => {
     expect(result.success).toBe(false)
   })
 
-  it.each(INVALID_RESPONSES)('rejects invalid response: %j', (invalid) => {
+  it.each(INVALID_RESPONSES)('rejects invalid response: %j', invalid => {
     const result = DogCeoRandomImageSchema.safeParse(invalid)
     expect(result.success).toBe(false)
   })
@@ -209,9 +209,7 @@ describe('generateDogAltText', () => {
   })
 
   it('returns generic alt for non-Dog-CEO URLs', () => {
-    expect(generateDogAltText('https://example.com/dog.jpg')).toBe(
-      'A random dog from Dog CEO API'
-    )
+    expect(generateDogAltText('https://example.com/dog.jpg')).toBe('A random dog from Dog CEO API')
   })
 })
 

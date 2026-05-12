@@ -7,11 +7,7 @@
   "mode": "incremental-reinforcement",
   "hashAlgorithm": "sha256",
   "hashPolicy": "sha256 over canonicalized file content where frontmatter.hash is replaced with SELF",
-  "sourceOfTruth": [
-    "AGENTS.md",
-    "CONTEXT-MAP.md",
-    "docs/context/README.md"
-  ],
+  "sourceOfTruth": ["AGENTS.md", "CONTEXT-MAP.md", "docs/context/README.md"],
   "artifacts": [
     {
       "id": "CTX-V2-ROOT-01",

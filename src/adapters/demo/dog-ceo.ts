@@ -144,7 +144,7 @@ export interface DogCeoResult {
  */
 export async function fetchDogCeoSafe(
   fetcher: typeof fetch = fetch,
-  forceRefresh: boolean = false
+  forceRefresh = false
 ): Promise<DogCeoResult> {
   // Return cached data if valid and not forcing refresh
   if (!forceRefresh && isCacheValid() && cache) {
@@ -201,10 +201,8 @@ export function generateDogAltText(imageUrl: string): string {
     const breedIndex = parts.indexOf('breeds')
 
     if (breedIndex !== -1 && breedIndex + 1 < parts.length) {
-      const breed = parts[breedIndex + 1]!
-        .replace(/-/g, ' ')
-        .replace(/\b\w/g, (c) => c.toUpperCase())
-      return `A ${breed} dog`
+      const breed = parts[breedIndex + 1]?.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+      if (breed) return `A ${breed} dog`
     }
   } catch {
     // Invalid URL, use generic alt

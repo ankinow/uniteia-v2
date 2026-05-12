@@ -49,19 +49,9 @@ export const KNOWN_FORMAT_TAGS = new Set([
   'tutorial',
 ])
 
-export const KNOWN_RISK_TAGS = new Set([
-  'low-risk',
-  'medium-risk',
-  'high-risk',
-  'unverified-claim',
-])
+export const KNOWN_RISK_TAGS = new Set(['low-risk', 'medium-risk', 'high-risk', 'unverified-claim'])
 
-export const KNOWN_PIPELINE_TAGS = new Set([
-  'curated',
-  'auto-generated',
-  'human-review',
-  'fixture',
-])
+export const KNOWN_PIPELINE_TAGS = new Set(['curated', 'auto-generated', 'human-review', 'fixture'])
 
 export const FORBIDDEN_INTENT_TAGS = new Set([
   'referral-marketing',
@@ -69,11 +59,13 @@ export const FORBIDDEN_INTENT_TAGS = new Set([
   'fake-urgency',
 ])
 
-export const FORBIDDEN_RISK_TAGS = new Set([
-  'unverified-pricing-claim',
-])
+export const FORBIDDEN_RISK_TAGS = new Set(['unverified-pricing-claim'])
 
-export function validateTags(raw: unknown): { valid: boolean; errors: string[]; warnings: string[] } {
+export function validateTags(raw: unknown): {
+  valid: boolean
+  errors: string[]
+  warnings: string[]
+} {
   const errors: string[] = []
   const warnings: string[] = []
 

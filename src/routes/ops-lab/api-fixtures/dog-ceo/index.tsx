@@ -14,12 +14,12 @@
 import { component$, useSignal } from '@builder.io/qwik'
 import { routeAction$, routeLoader$ } from '@builder.io/qwik-city'
 import {
+  DOG_CEO_REGISTRY,
+  type DogCeoArtifact,
+  type DogCeoResult,
   createDogCeoArtifact,
   fetchDogCeoSafe,
   generateDogAltText,
-  DOG_CEO_REGISTRY,
-  type DogCeoResult,
-  type DogCeoArtifact,
 } from '~/adapters/demo/dog-ceo'
 
 // ─── Data Loaders ──────────────────────────────────────────────────────────
@@ -111,6 +111,7 @@ export default component$(() => {
         {/* Actions */}
         <div class="flex flex-wrap gap-3 mb-8">
           <button
+            type="button"
             onClick$={() => refreshAction.submit({})}
             disabled={refreshAction.isRunning}
             class="px-4 py-2 bg-cyan-base text-void font-medium rounded hover:bg-cyan-hi transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
@@ -118,7 +119,10 @@ export default component$(() => {
             {refreshAction.isRunning ? 'Fetching...' : 'Fetch New Dog'}
           </button>
           <button
-            onClick$={() => (showArtifact.value = !showArtifact.value)}
+            type="button"
+            onClick$={() => {
+              showArtifact.value = !showArtifact.value
+            }}
             class="px-4 py-2 bg-mid text-bone font-medium rounded hover:bg-raised transition-colors border border-raised"
           >
             {showArtifact.value ? 'Hide Artifact' : 'Show Artifact'}
@@ -165,9 +169,15 @@ export default component$(() => {
             <QualityGate label="Fallback fixture" passed={true} />
             <QualityGate label="Cache bounded (24h TTL)" passed={true} />
             <QualityGate label="Image URL valid" passed={result.data.message.startsWith('https')} />
-            <QualityGate label="Alt text generated" passed={!!generateDogAltText(result.data.message)} />
+            <QualityGate
+              label="Alt text generated"
+              passed={!!generateDogAltText(result.data.message)}
+            />
             <QualityGate label="Draft-only enforced" passed={artifact.$meta.draft_only === true} />
-            <QualityGate label="Search index blocked" passed={artifact.$meta.search_index === false} />
+            <QualityGate
+              label="Search index blocked"
+              passed={artifact.$meta.search_index === false}
+            />
           </ul>
         </section>
       </div>

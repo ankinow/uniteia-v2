@@ -1,10 +1,10 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs'
-import { validateManifest, type Manifest } from '../content-contracts/manifest.schema'
-import { validateTags } from '../content-contracts/tags.schema'
-import { validateQuality } from '../content-contracts/quality.schema'
-import { validateDesign } from '../content-contracts/design.schema'
 import { validateBlocks } from '../content-contracts/blocks.schema'
-import { hasLayout, getAllowedBlockKinds, getForbiddenBlocks } from '../layouts/registry'
+import { validateDesign } from '../content-contracts/design.schema'
+import { type Manifest, validateManifest } from '../content-contracts/manifest.schema'
+import { validateQuality } from '../content-contracts/quality.schema'
+import { validateTags } from '../content-contracts/tags.schema'
+import { getAllowedBlockKinds, getForbiddenBlocks, hasLayout } from '../layouts/registry'
 
 export interface PackageValidationIssue {
   path: string
@@ -32,7 +32,11 @@ export function validatePackage(packageDir: string): PackageValidationResult {
     }
     manifestRaw = JSON.parse(readFileSync(manifestPath, 'utf-8'))
   } catch (e: unknown) {
-    issues.push({ path: 'manifest.json', message: `cannot read manifest: ${(e as Error).message}`, severity: 'error' })
+    issues.push({
+      path: 'manifest.json',
+      message: `cannot read manifest: ${(e as Error).message}`,
+      severity: 'error',
+    })
     return { valid: false, issues, packageDir }
   }
 
@@ -131,15 +135,27 @@ export function validatePackage(packageDir: string): PackageValidationResult {
   const validLocales = new Set(['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh', 'pt-BR'])
   for (const locale of manifest.locales) {
     if (!validLocales.has(locale)) {
-      issues.push({ path: 'manifest.json', message: `unknown locale: ${locale}`, severity: 'warning' })
+      issues.push({
+        path: 'manifest.json',
+        message: `unknown locale: ${locale}`,
+        severity: 'warning',
+      })
     }
     try {
       const localeFile = `${path}/content.${locale}.mdx`
       if (!existsSync(localeFile)) {
-        issues.push({ path: `content.${locale}.mdx`, message: `missing locale file: ${locale}`, severity: 'error' })
+        issues.push({
+          path: `content.${locale}.mdx`,
+          message: `missing locale file: ${locale}`,
+          severity: 'error',
+        })
       }
     } catch {
-      issues.push({ path: `content.${locale}.mdx`, message: `cannot check locale file: ${locale}`, severity: 'error' })
+      issues.push({
+        path: `content.${locale}.mdx`,
+        message: `cannot check locale file: ${locale}`,
+        severity: 'error',
+      })
     }
   }
 
@@ -153,7 +169,10 @@ export function validatePackage(packageDir: string): PackageValidationResult {
       for (const blockFile of blockFiles) {
         try {
           const blockRaw = JSON.parse(readFileSync(`${blocksDir}/${blockFile}`, 'utf-8'))
-          const blockResult = validateBlocks([blockRaw], getAllowedBlockKinds(manifest.layout.layoutId))
+          const blockResult = validateBlocks(
+            [blockRaw],
+            getAllowedBlockKinds(manifest.layout.layoutId)
+          )
           for (const err of blockResult.errors) {
             issues.push({ path: `blocks/${blockFile}`, message: err, severity: 'error' })
           }
@@ -165,7 +184,11 @@ export function validatePackage(packageDir: string): PackageValidationResult {
             })
           }
         } catch (e: unknown) {
-          issues.push({ path: `blocks/${blockFile}`, message: `cannot parse: ${(e as Error).message}`, severity: 'error' })
+          issues.push({
+            path: `blocks/${blockFile}`,
+            message: `cannot parse: ${(e as Error).message}`,
+            severity: 'error',
+          })
         }
       }
     }
@@ -175,16 +198,27 @@ export function validatePackage(packageDir: string): PackageValidationResult {
 
   // Draft protections
   if (manifest.status === 'draft') {
-    issues.push({ path: 'package', message: 'draft package: noindex must be applied', severity: 'warning' })
+    issues.push({
+      path: 'package',
+      message: 'draft package: noindex must be applied',
+      severity: 'warning',
+    })
     issues.push({ path: 'package', message: 'draft package: not in sitemap', severity: 'warning' })
-    issues.push({ path: 'package', message: 'draft package: cannot be published', severity: 'warning' })
+    issues.push({
+      path: 'package',
+      message: 'draft package: cannot be published',
+      severity: 'warning',
+    })
   }
 
   if (manifest.quality.publishable === false) {
-    issues.push({ path: 'package', message: 'publishable=false: cannot publish', severity: 'warning' })
+    issues.push({
+      path: 'package',
+      message: 'publishable=false: cannot publish',
+      severity: 'warning',
+    })
   }
 
-  const hasErrors = issues.some((i) => i.severity === 'error')
+  const hasErrors = issues.some(i => i.severity === 'error')
   return { valid: !hasErrors, issues, packageDir }
 }
-

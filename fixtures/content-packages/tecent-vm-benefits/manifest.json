@@ -40,8 +40,14 @@
     "warnings": ["draft content awaiting review"]
   },
   "sources": [
-    { "title": "Tencent Cloud Virtual Machine Overview", "url": "https://cloud.tencent.com/product/cvm" },
-    { "title": "Tencent Cloud Global Infrastructure", "url": "https://cloud.tencent.com/document/product/213" },
+    {
+      "title": "Tencent Cloud Virtual Machine Overview",
+      "url": "https://cloud.tencent.com/product/cvm"
+    },
+    {
+      "title": "Tencent Cloud Global Infrastructure",
+      "url": "https://cloud.tencent.com/document/product/213"
+    },
     { "title": "CVM Pricing Overview", "url": "https://buy.cloud.tencent.com/price/cvm" }
   ],
   "hashes": {

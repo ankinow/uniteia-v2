@@ -34,4 +34,10 @@ export function validateDesign(raw: unknown): { valid: boolean; errors: string[]
   return { valid: errors.length === 0, errors }
 }
 
-export const REQUIRED_DESIGN_FIELDS = ['layout', 'sections', 'palette', 'tone', 'audienceNotes'] as const
+export const REQUIRED_DESIGN_FIELDS = [
+  'layout',
+  'sections',
+  'palette',
+  'tone',
+  'audienceNotes',
+] as const

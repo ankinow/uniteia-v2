@@ -58,5 +58,5 @@ export function getForbiddenBlocks(layoutId: string): Set<string> {
 }
 
 export function listLayoutIds(): string[] {
-  return layouts.map((l) => l.id)
+  return layouts.map(l => l.id)
 }
