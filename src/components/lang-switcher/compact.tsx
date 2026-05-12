@@ -9,9 +9,7 @@ export const LangSelectorCompact = component$(() => {
 
   return (
     <div class="space-y-1">
-      <div class="text-xs font-pixel text-cyan/70 uppercase tracking-wider mb-2">
-        {t.langSwitcher.label}
-      </div>
+      <div class="paper-label">{t.langSwitcher.label}</div>
       {SUPPORTED_LANGUAGES.map(langInfo => (
         <a
           key={langInfo.code}

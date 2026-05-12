@@ -26,7 +26,7 @@ export const ADAPTIVE_HEADER_SCALE: AdaptiveHeaderScale = {
  */
 export const AdaptiveHeader = component$<AdaptiveHeaderProps>(props => {
   return (
-    <section data-testid="adaptive-header" class={['adaptive-header', props.class]}>
+    <section data-testid="adaptive-header" class={['adaptive-header glass-light', props.class]}>
       <h1
         class={[
           'text-2xl leading-9',

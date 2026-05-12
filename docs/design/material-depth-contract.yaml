@@ -1,0 +1,211 @@
+# Material Depth Contract
+# Technical specification of glass, 2.5D, and material surface effects.
+# version: 1.0.0
+# updated: 2026-05-12
+
+glass:
+  - id: glass-sm
+    label: "Light Glass"
+    layer: "overlay"
+    css:
+      background: "oklch(0.17 0.02 260 / 0.6)"
+      backdrop-filter: "blur(4px) saturate(1.2)"
+      -webkit-backdrop-filter: "blur(4px) saturate(1.2)"
+      border: "1px solid oklch(0.25 0.03 260 / 0.3)"
+      box-shadow: "0 1px 2px oklch(0 0 0 / 0.1)"
+    use_cases:
+      - "Navbar background"
+      - "Sidebar overlay"
+      - "Modal backdrop"
+    reduced_motion_fallback:
+      background: "oklch(0.17 0.02 260 / 0.85)"
+      backdrop-filter: "none"
+
+  - id: glass-md
+    label: "Medium Glass"
+    layer: "card"
+    css:
+      background: "oklch(0.17 0.02 260 / 0.4)"
+      backdrop-filter: "blur(8px) saturate(1.5)"
+      -webkit-backdrop-filter: "blur(8px) saturate(1.5)"
+      border: "1px solid oklch(0.25 0.03 260 / 0.5)"
+      box-shadow: "0 4px 12px oklch(0 0 0 / 0.15)"
+    use_cases:
+      - "Lesson Hero container"
+      - "DepthCard glass variant"
+      - "Feature panels"
+    reduced_motion_fallback:
+      background: "oklch(0.17 0.02 260 / 0.75)"
+      backdrop-filter: "none"
+
+  - id: glass-lg
+    label: "Heavy Glass"
+    layer: "hero"
+    css:
+      background: "oklch(0.17 0.02 260 / 0.25)"
+      backdrop-filter: "blur(16px) saturate(1.8)"
+      -webkit-backdrop-filter: "blur(16px) saturate(1.8)"
+      border: "1px solid oklch(0.75 0.15 195 / 0.15)"
+      box-shadow: "0 8px 32px oklch(0 0 0 / 0.2), 0 0 0 1px oklch(0.75 0.15 195 / 0.05)"
+    use_cases:
+      - "Hero section background"
+      - "Full-viewport overlays"
+      - "Signal Grid backdrop"
+    reduced_motion_fallback:
+      background: "oklch(0.13 0.02 260 / 0.85)"
+      backdrop-filter: "none"
+
+# ============================================
+# 2.5D Depth Levels
+# ============================================
+depth_2_5d:
+  front:
+    label: "Front Layer"
+    translateZ: "translateZ(32px)"
+    transform-style: preserve-3d
+    box-shadow:
+      - "0 4px 6px oklch(0 0 0 / 0.3)"
+      - "0 1px 3px oklch(0 0 0 / 0.15)"
+      - "0 0 0 1px oklch(0.75 0.15 195 / 0.08)"
+    filter: "none"
+    z-index: 100
+    perspective: 1000px
+    use_cases:
+      - "Interactive cards on hover"
+      - "CTA buttons"
+      - "Hero title text"
+    reduced_motion_fallback:
+      box-shadow: "0 2px 4px oklch(0 0 0 / 0.2)"
+      transform: "none"
+
+  mid:
+    label: "Mid Layer"
+    translateZ: "translateZ(16px)"
+    transform-style: preserve-3d
+    box-shadow:
+      - "0 2px 8px oklch(0 0 0 / 0.2)"
+      - "0 0 0 1px oklch(0.25 0.03 260 / 0.3)"
+    filter: "none"
+    z-index: 50
+    use_cases:
+      - "Standard cards"
+      - "Content blocks"
+      - "Navigation items"
+    reduced_motion_fallback:
+      box-shadow: "0 1px 4px oklch(0 0 0 / 0.15)"
+      transform: "none"
+
+  back:
+    label: "Back Layer"
+    translateZ: "translateZ(0px)"
+    box-shadow:
+      - "0 0 0 1px oklch(0.25 0.03 260 / 0.15)"
+    filter: "brightness(0.7) blur(1px)"
+    z-index: 10
+    use_cases:
+      - "Background decorative elements"
+      - "Inactive panels"
+      - "Signal Grid ambient nodes"
+    reduced_motion_fallback:
+      filter: "brightness(0.7)"
+      box-shadow: "none"
+
+# ============================================
+# PBR Fake (Material Surface Simulation)
+# ============================================
+pbr_fake:
+  specular:
+    description: "Surface shininess via gradient highlights"
+    technique: "radial-gradient(ellipse at 30% 20%, oklch(1 0 0 / 0.06) 0%, transparent 60%)"
+    use_cases:
+      - "Glass card surfaces"
+      - "Hero light accents"
+    reduced_motion_fallback:
+      background: "none"
+
+  roughness:
+    description: "Surface irregularity via noise overlay"
+    technique: "SVG noise image at 128x128, opacity 0.03, mix-blend-mode overlay"
+    use_cases:
+      - "Paper-like surfaces (AnalogyBox)"
+      - "Matte card finishes"
+    reduced_motion_fallback:
+      opacity: 0
+
+  metalness:
+    description: "Metallic reflection via inset box-shadows"
+    technique:
+      box-shadow:
+        - "inset 0 1px 0 oklch(1 0 0 / 0.08)"
+        - "inset 0 -1px 0 oklch(0 0 0 / 0.15)"
+        - "0 2px 4px oklch(0 0 0 / 0.2)"
+    use_cases:
+      - "CTA buttons"
+      - "Accent borders"
+      - "Icon containers"
+
+# ============================================
+# Microtexture (CSS Noise Overlay)
+# ============================================
+microtexture:
+  selector: "body::after"
+  technique:
+    content: "''"
+    position: fixed
+    inset: 0
+    pointer-events: none
+    z-index: 9999
+    opacity: 0.02
+    background-image: "url('data:image/svg+xml,...')"  # SVG fractal noise
+    background-repeat: repeat
+    background-size: "256px 256px"
+    mix-blend-mode: overlay
+  reduced_motion_fallback:
+    opacity: 0
+    display: none
+
+# ============================================
+# Z-Index Hierarchy Tokens
+# ============================================
+z_index_tokens:
+  - name: "--z-background"
+    value: 0
+    used_by: ["body", "main background"]
+  - name: "--z-noise"
+    value: 1
+    used_by: ["microtexture overlay"]
+  - name: "--z-back-layer"
+    value: 10
+    used_by: ["2.5D back layer", "signal grid ambient"]
+  - name: "--z-mid-layer"
+    value: 50
+    used_by: ["2.5D mid layer", "cards", "content blocks"]
+  - name: "--z-front-layer"
+    value: 100
+    used_by: ["2.5D front layer", "interactive cards on hover", "buttons"]
+  - name: "--z-glass"
+    value: 200
+    used_by: ["glass overlays", "navbar", "sidebar"]
+  - name: "--z-dropdown"
+    value: 300
+    used_by: ["dropdowns", "tooltips"]
+  - name: "--z-modal"
+    value: 400
+    used_by: ["modals", "dialogs"]
+  - name: "--z-toast"
+    value: 500
+    used_by: ["toast notifications"]
+  - name: "--z-skip-link"
+    value: 10000
+    used_by: ["skip-to-content link (must be highest)"]
+
+# ============================================
+# Usage Rules
+# ============================================
+rules:
+  - "Glass effects must always have a reduced-motion fallback with solid background"
+  - "2.5D transforms require parent to have perspective: 1000px"
+  - "PBR fake layers must not affect text readability (applied to ::before/::after)"
+  - "Microtexture noise must never exceed opacity 0.03"
+  - "Z-index tokens must be used via CSS custom properties, never raw numbers"
+  - "All material effects must be testable at 320px viewport width"

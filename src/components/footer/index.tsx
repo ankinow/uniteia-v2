@@ -31,7 +31,7 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
             <p class="text-bone-muted">{t.footer.madeWith}</p>
           </div>
           <nav
-            class="footer-links flex flex-wrap gap-4 justify-center md:justify-end"
+            class="footer-links flex flex-wrap gap-4 justify-center md:justify-end glass-light px-3 py-2"
             data-testid="footer-links"
           >
             <a

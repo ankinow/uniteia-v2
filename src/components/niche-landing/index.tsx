@@ -28,11 +28,11 @@ export const NicheLanding = component$<NicheLandingProps>(
     return (
       <div
         data-testid={`niche-landing-${niche.slug}`}
-        class={['max-w-4xl mx-auto px-4 py-8', classList]}
+        class={['max-w-4xl mx-auto px-4 py-8 grid-signal', classList]}
       >
         {/* Niche header */}
         <DepthSection as="header" depth="front" class="mb-10">
-          <DepthCard depth="front" class="p-6 md:p-8">
+          <DepthCard depth="front" class="p-6 md:p-8 glass">
             <div class="flex items-center gap-4 mb-4">
               {iconClass && <div class={iconClass} aria-hidden="true" />}
               <h1 class="text-3xl font-bold text-bone leading-tight">{niche.title[lang]}</h1>

@@ -47,7 +47,7 @@ export const SiteShell = component$<SiteShellProps>(({ isApexHost }) => {
 
   return (
     <div
-      class="site-shell min-h-screen flex flex-col bg-void text-bone"
+      class="site-shell min-h-screen flex flex-col bg-void text-bone grid-signal"
       data-dopamine-shell-apex={String(budget.isApexHost)}
       data-dopamine-shell-path={budget.pathname}
       data-dopamine-shell-route-remaining={budget.routeBudget.remaining}

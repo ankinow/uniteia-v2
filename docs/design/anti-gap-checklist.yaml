@@ -1,0 +1,283 @@
+# Anti-Gap Checklist
+# Everything that MUST be present — the non-negotiables.
+
+version: "1.0.0"
+updated: "2026-05-12"
+
+---
+
+## 1. Links & Navigation
+
+links:
+  - id: href-not-empty
+    rule: "Every <a> and <Link> must have a non-empty href"
+    check: |
+      grep -r 'href=""' src/    # should return nothing
+      grep -r 'href="#"' src/   # should return nothing
+    fail_if: "href=\"\" or href=\"#\" or missing href"
+    exceptions: "Buttons styled as links should use <button> not <a>"
+
+  - id: href-real-url
+    rule: "All hrefs must resolve to real URLs or valid routes"
+    check: |
+      Internal: must match a route in the router config
+      External: must be a valid URL (https://...)
+    fail_if: "Placeholder, lorem ipsum, or broken internal routes"
+
+  - id: route-404
+    rule: "Invalid locale prefix returns 404"
+    pattern: "/xx/anything → 404"
+    check: "Any 2-letter prefix not in supported locales (en, pt, es, etc.) must 404"
+    fail_if: "/xx/anything renders a page instead of 404"
+
+  - id: route-lang-redirect
+    rule: "/{lang} should redirect to /{lang}/n (lesson listing)"
+    pattern: "/en → /en/n,  /pt → /pt/n"
+    check: "Visit each /{lang} and confirm redirect"
+    fail_if: "/{lang} shows empty page or 404"
+
+---
+
+## 2. Images & Media
+
+images:
+  - id: alt-text-all
+    rule: "Every <img> must have non-empty alt attribute"
+    check: |
+      grep -r '<img[^>]*alt="[[:space:]]*"' src/  # should return nothing
+      grep -r '<img[^>]*alt=""' src/               # should return nothing
+      grep -r '<img[^>]*\\salt(?!\\s*=\\s*")' src/  # missing alt entirely
+    fail_if: "Any image missing alt or with empty alt"
+    exceptions: "Decorative images: alt=\"\" is acceptable, but use aria-hidden=\"true\""
+
+  - id: image-asset-exists
+    rule: "All image src URIs must point to existing files"
+    check: "Build-time check: every src in content/ resolves to a file"
+    fail_if: "Broken image references"
+
+  - id: responsive-images
+    rule: "Images should use srcSet or sizes for responsive delivery"
+    check: "Every <img> in page-level components has srcSet or is SVG"
+    severity: "warning (not a blocker)"
+
+---
+
+## 3. Accessibility (a11y)
+
+accessibility:
+  - id: skip-to-content
+    rule: "First focusable element on page must be a skip-to-content link"
+    check: |
+      Look for: <a href="#main-content" class="skip-link">Skip to content</a>
+      Must be visible on focus (not display:none)
+    fail_if: "Missing skip-to-content link"
+    wcag: "2.4.1 Bypass Blocks"
+
+  - id: focus-visible
+    rule: "All interactive elements must have visible focus indicator"
+    check: |
+      Elements: <a>, <button>, <input>, <select>, <textarea>, [tabindex]
+      Style: focus-visible:ring-2 ring-cyan (or equivalent)
+    fail_if: "Any interactive element loses focus outline"
+    wcag: "2.4.7 Focus Visible"
+
+  - id: semantic-roles
+    rule: "Use semantic HTML elements and ARIA roles where needed"
+    check: |
+      - <nav> for navigation
+      - <main> for primary content
+      - <article> for lessons
+      - <aside> for sidebar
+      - role="alert" for dopamine cards
+      - aria-current="page" for active nav items
+    fail_if: "Div soup without semantic landmarks"
+    wcag: "1.3.1 Info and Relationships"
+
+  - id: heading-hierarchy
+    rule: "Headings must follow a logical hierarchy (h1 → h2 → h3)"
+    check: |
+      - One h1 per page
+      - No skipped levels (h1 → h3 without h2)
+    fail_if: "Broken heading hierarchy"
+    wcag: "1.3.1 Info and Relationships"
+
+  - id: color-contrast
+    rule: "All text must meet WCAG AA contrast ratio (4.5:1)"
+    check: |
+      Body text on --void: oklch(0.70 0.02 260) on oklch(0.13 0.02 260)
+      → Calculate ratio, must be >= 4.5:1
+    fail_if: "Any text below 4.5:1"
+    wcag: "1.4.3 Contrast (Minimum)"
+
+---
+
+## 4. Mobile Responsiveness
+
+mobile:
+  - id: viewport-320
+    rule: "Page must render without horizontal scroll at 320px viewport"
+    check: "Resize browser to 320px width. No overflow-x or horizontal scrollbar."
+    fail_if: "Horizontal scroll or broken layout at 320px"
+    exceptions: "Data tables may scroll horizontally"
+
+  - id: touch-targets
+    rule: "All interactive targets must be at least 44x44px"
+    check: |
+      Every <a>, <button>, [onClick] element:
+      - min-width: 44px (or padding achieves 44px)
+      - min-height: 44px
+    fail_if: "Any touch target smaller than 44x44px"
+    wcag: "2.5.8 Target Size (Minimum)"
+
+  - id: readable-font-size
+    rule: "Font size must not fall below 16px on mobile (prevents iOS zoom)"
+    check: "No text with font-size < 16px on viewport < 768px"
+    fail_if: "Text smaller than 16px on mobile"
+
+---
+
+## 5. Performance
+
+performance:
+  - id: reduced-motion-guard
+    rule: "Every CSS animation/transition must have prefers-reduced-motion guard"
+    check: |
+      grep -r '@keyframes' src/ | while read line; do
+        # check nearby lines for prefers-reduced-motion
+      done
+    fail_if: "Any @keyframes or transition without reduced-motion alternative"
+
+  - id: no-layout-trigger
+    rule: "Animations must only animate compositor properties (opacity, transform)"
+    check: "No animation of width, height, top, left, margin, padding"
+    fail_if: "Layout-triggering animation properties"
+
+  - id: lazy-load-decorative
+    rule: "Below-fold images and non-critical components must lazy-load"
+    check: |
+      - <img loading="lazy"> for below-fold images
+      - Dynamic import() for heavy components
+    fail_if: "All components eagerly loaded"
+
+---
+
+## 6. Visual Tokens
+
+tokens:
+  - id: no-hardcoded-hex
+    rule: "Colors must use SolarLanso tokens, never hardcoded hex values"
+    check: |
+      grep -r '#[0-9a-fA-F]' src/  # review each match
+      grep -r 'rgb(' src/          # review each match
+      grep -r 'oklch(' src/        # allowed only if using token vars
+    fail_if: "Any hex/rgb color outside of token definition files"
+    exceptions:
+      - "ut-paper (#e8ddc8) — defined alias in tokens"
+      - "Handdraw stroke colors in SVG definitions"
+
+  - id: no-rounded
+    rule: "Do not use Tailwind rounded-* classes (global reset enforces radius: 0)"
+    check: |
+      grep -r 'rounded-' src/ --include="*.tsx" --include="*.ts" --include="*.css"
+    fail_if: "Any rounded-* class"
+    exceptions: "Use style={{ borderRadius: '...' }} for radius exceptions"
+
+  - id: no-h-screen
+    rule: "Use min-h-screen instead of h-screen"
+    check: |
+      grep -r 'h-screen' src/
+    fail_if: "h-screen found"
+    reason: "h-screen causes overflow issues on mobile browsers with dynamic toolbars"
+
+---
+
+## 7. Content Integrity
+
+content:
+  - id: no-placeholder-text
+    rule: "No lorem ipsum or placeholder text in components or content"
+    check: |
+      grep -ri 'lorem' src/ content/
+      grep -ri 'ipsum' src/ content/
+    fail_if: "Any lorem ipsum found"
+
+  - id: no-hardcoded-text
+    rule: "Component text must come from props, not hardcoded in component"
+    check: "Review each component: strings should be props or i18n keys"
+    fail_if: "Components with hardcoded display text (loading/empty states exempt)"
+
+  - id: alt-text-content-images
+    rule: "Images in MDX content must have descriptive alt text"
+    check: "Content package validator: every <img> in MDX must have alt"
+    fail_if: "Any content image missing alt"
+
+---
+
+## 8. Build & CI
+
+build:
+  - id: ship-check-gate
+    rule: "Pre-deploy gate must pass: all checks above + quality gates"
+    check: |
+      npm run ship:check
+      - Link checker: 0 broken links
+      - a11y audit: 0 violations
+      - Token audit: 0 hardcoded colors
+      - Mobile check: 320px no overflow
+    fail_if: "Any ship:check step fails"
+
+  - id: reduced-motion-axe
+    rule: "axe-core must not find reduced-motion violations"
+    check: "Run axe with reduced-motion audit rules"
+    fail_if: "axe reports prefers-reduced-motion violations"
+
+---
+
+## 9. Enforcement Scripts
+
+enforcement:
+  pre_commit:
+    - "grep for href=\"\" and href=\"#\""
+    - "grep for hardcoded hex colors in src/"
+    - "grep for h-screen classes"
+
+  ci:
+    - "Full link checker (all internal routes)"
+    - "axe-core a11y audit"
+    - "Lighthouse CI (performance, a11y, best-practices)"
+    - "Mobile viewport screenshot diff at 320px"
+
+  manual_review:
+    - "Tab through entire page — focus indicators visible?"
+    - "Resize to 320px — no horizontal scroll?"
+    - "Enable prefers-reduced-motion: reduce — all animations disabled?"
+    - "Check every page for valid heading hierarchy"
+
+---
+
+## 10. Quick Reference Table
+
+check_id                     | category       | severity  | automated | wcag
+-----------------------------|----------------|-----------|-----------|------
+href-not-empty               | links          | blocker   | yes       | -
+href-real-url                | links          | blocker   | yes       | -
+route-404                    | links          | blocker   | yes       | -
+route-lang-redirect          | links          | high      | yes       | -
+alt-text-all                 | images         | blocker   | yes       | 1.1.1
+skip-to-content              | a11y           | blocker   | yes       | 2.4.1
+focus-visible                | a11y           | blocker   | yes       | 2.4.7
+semantic-roles               | a11y           | high      | partial   | 1.3.1
+heading-hierarchy            | a11y           | high      | yes       | 1.3.1
+color-contrast               | a11y           | blocker   | yes       | 1.4.3
+viewport-320                 | mobile         | blocker   | yes       | -
+touch-targets                | mobile         | blocker   | yes       | 2.5.8
+readable-font-size           | mobile         | high      | yes       | -
+reduced-motion-guard         | performance    | blocker   | partial   | -
+no-layout-trigger            | performance    | high      | yes       | -
+lazy-load-decorative         | performance    | medium    | partial   | -
+no-hardcoded-hex             | tokens         | blocker   | yes       | -
+no-rounded                   | tokens         | blocker   | yes       | -
+no-h-screen                  | tokens         | blocker   | yes       | -
+no-placeholder-text          | content        | blocker   | yes       | -
+no-hardcoded-text            | content        | high      | manual    | -
+ship-check-gate              | build          | blocker   | yes       | -

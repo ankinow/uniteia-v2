@@ -37,6 +37,13 @@ export default {
           muted: '#8B949E',
           primary: '#F0E8D8', // matching text-bone-primary
         },
+
+        // Paper
+        paper: {
+          DEFAULT: '#e8ddc8',
+          text: '#2c2416',
+          border: '#c4b99e',
+        },
       },
       fontFamily: {
         sans: ['"Inter Variable"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
@@ -51,6 +58,24 @@ export default {
       },
       transitionTimingFunction: {
         solar: 'cubic-bezier(.2,.8,.2,1)',
+      },
+
+      // Glass blur levels
+      backdropBlur: {
+        glass: '12px',
+        glassSm: '4px',
+        glassLg: '24px',
+      },
+
+      // 2.5D perspective
+      perspective: {
+        '2d5': '800px',
+      },
+
+      // Signal grid background
+      backgroundImage: {
+        'signal-grid':
+          'linear-gradient(90deg, color-mix(in srgb, oklch(0.85 0.18 210) 5%, transparent) 1px, transparent 1px), linear-gradient(180deg, color-mix(in srgb, oklch(0.85 0.18 210) 5%, transparent) 1px, transparent 1px)',
       },
     },
   },

@@ -1,0 +1,236 @@
+# Experience Storyboard Schema
+# Maps the full visual journey through a UniTeia page.
+# version: 1.0.0
+# updated: 2026-05-12
+
+# ============================================
+# 1. Journey Overview
+# ============================================
+stages:
+  - id: entry
+    label: "Entry"
+    phase: "arrival"
+  - id: navigation
+    label: "Navigation"
+    phase: "persistent"
+  - id: hero
+    label: "Hero"
+    phase: "landing"
+  - id: content
+    label: "Content"
+    phase: "learning"
+  - id: dopamine
+    label: "Dopamine"
+    phase: "reward"
+  - id: exit
+    label: "Exit"
+    phase: "departure"
+
+# ============================================
+# 2. Stage Details
+# ============================================
+stages_detail:
+
+  # ----- STAGE 1: ENTRY -----
+  - id: entry
+    component: "Signal Grid (background)"
+    visual_effect: "Signal Grid fade-in + node pulse"
+    description: "User lands on page. The Signal Grid is the first thing to render — a subtle network of glowing nodes and connection lines that establishes the AI/knowledge atmosphere. It acts as a living background."
+    tokens_used:
+      - "--cyan"
+      - "--void"
+      - "--z-back-layer"
+    timing:
+      phase_1: "0ms — grid backdrop opacity 0 -> 0.15 (400ms)"
+      phase_2: "200ms — connections draw in (600ms)"
+      phase_3: "400ms — nodes scale in with glow (500ms)"
+      phase_4: "600ms — content overlay fades in (300ms)"
+    reduced_motion:
+      fallback: "Render grid in final state instantly"
+      detail: "No animations, static grid with 0.15 opacity"
+    mobile_variant:
+      viewport: "< 768px"
+      changes:
+        - "Grid opacity reduced to 0.08 (prevents visual noise)"
+        - "Fewer nodes rendered (performance)"
+        - "No connection line animation"
+      reduced_motion: "Same as desktop"
+
+  # ----- STAGE 2: NAVIGATION -----
+  - id: navigation
+    component: "Sidebar (JRPG-style)"
+    visual_effect: "Pixel font sidebar with scanlines, glass background"
+    description: "Persistent JRPG-styled sidebar with Silkscreen pixel font, scanline overlay, and glass backdrop. Lists niches and lessons as a quest log. On mobile, collapses to a hamburger menu."
+    tokens_used:
+      - "--ut-bg"
+      - "--cyan"
+      - "--glass-sm"
+      - "--z-glass"
+      - "Silkscreen font"
+    timing:
+      open: "300ms ease-solar, slide from left"
+      close: "200ms ease-snap, slide to left"
+      item_hover: "75ms ease-snap, translateX(2px)"
+    reduced_motion:
+      fallback: "Instant open/close, no slide — background highlight only"
+    mobile_variant:
+      viewport: "< 768px"
+      changes:
+        - "Hidden by default, triggered by hamburger icon"
+        - "Full-width overlay when open"
+        - "Backdrop blur on rest of page"
+        - "Touch target size: 48x48px minimum"
+      reduced_motion: "Fade in/out instead of slide"
+
+  # ----- STAGE 3: HERO -----
+  - id: hero
+    component: "LessonHero"
+    visual_effect: "Glass-lg container + 2.5D front layer title"
+    description: "The hero section sits on top of the Signal Grid. Uses heavy glass (glass-lg) for the container. The title text uses 2.5D front layer with subtle translateZ and shadow. The promise text sits at mid layer."
+    tokens_used:
+      - "--glass-lg"
+      - "--z-front-layer"
+      - "--z-mid-layer"
+      - "--bone"
+      - "--silver"
+      - "--cyan"
+    timing:
+      hero_reveal: "500ms ease-solar, stagger with grid phase 4"
+      title_enter: "opacity 0->1, translateY(16px)->0, blur(4px)->0"
+      promise_enter: "200ms after title, same animation"
+    reduced_motion:
+      fallback: "Instant render, no translate or blur"
+      detail: "opacity 0->1 in 200ms if fade preferred"
+    mobile_variant:
+      viewport: "< 768px"
+      changes:
+        - "Glass-lg reduced to glass-sm (performance)"
+        - "Title font-size scales down"
+        - "2.5D effect removed (no translateZ on mobile)"
+        - "Full-width, no horizontal padding"
+      reduced_motion: "Same as desktop"
+
+  # ----- STAGE 4: CONTENT -----
+  - id: content
+    component: "LessonBlock / AnalogyBox / SummaryBoard / QuestProgress"
+    visual_effect: "Editorial cards with depth, staggered scroll reveal"
+    description: "The main learning content. Each block uses DepthCard (raised variant) or glass-md containers. Components enter on scroll with a staggered reveal. QuestProgress shows current position in the lesson sequence. AnalogyBox uses a paper-like surface (ut-paper)."
+    tokens_used:
+      - "--depth-raised"
+      - "--glass-md"
+      - "--ut-paper"
+      - "--ut-success"
+      - "--ut-warning"
+      - "--z-mid-layer"
+    timing:
+      block_enter: "300ms ease-solar, staggered 100ms apart"
+      analogy_enter: "300ms ease-solar, scale 0.97->1"
+      quest_progress: "Static (no animation), updates on navigation"
+    reduced_motion:
+      fallback: "All blocks visible immediately, no scroll animation"
+      detail: "opacity 0->1 in 200ms if fade preferred"
+    mobile_variant:
+      viewport: "< 768px"
+      changes:
+        - "Single column layout"
+        - "Full-width cards (no side margins)"
+        - "Reduced gap-4 between blocks instead of gap-6"
+        - "AnalogyBox font-size reduced"
+        - "QuestProgress horizontal scroll if many steps"
+      reduced_motion: "Same as desktop"
+
+  # ----- STAGE 5: DOPAMINE -----
+  - id: dopamine
+    component: "DopamineCard"
+    visual_effect: "Celebration card with bounce animation"
+    description: "After completing a lesson section or achieving a milestone, a dopamine card appears with a gentle bounce animation. Uses ease-bounce timing and a subtle brightness flash."
+    tokens_used:
+      - "--ease-bounce"
+      - "--cyan"
+      - "--orange"
+      - "--z-front-layer"
+    timing:
+      enter: "300ms ease-bounce, scale 0.8->1, brightness 1.2->1"
+      exit: "200ms ease-solar, opacity 1->0, scale 1->0.95"
+      auto_dismiss: "After 4 seconds or on user click"
+    reduced_motion:
+      fallback: "Fade in only, no scale or brightness"
+      detail: "opacity 0->1 in 150ms, static after that"
+    mobile_variant:
+      viewport: "< 768px"
+      changes:
+        - "Full-width card"
+        - "Auto-dismiss after 3 seconds"
+        - "Swipe-to-dismiss gesture"
+      reduced_motion: "Same as desktop"
+
+  # ----- STAGE 6: EXIT -----
+  - id: exit
+    component: "NextLessonCard / Footer"
+    visual_effect: "Navigation forward with depth card and arrow"
+    description: "At the bottom of the lesson, the user is guided to the next step via NextLessonCard. A handdraw arrow may point toward the CTA. The footer provides site-wide links. This stage should maintain momentum."
+    tokens_used:
+      - "--depth-raised"
+      - "--orange"
+      - "--cyan"
+      - "--ut-handdraw-stroke"
+    timing:
+      next_card_enter: "300ms ease-solar, slide-up on scroll"
+      handdraw_arrow: "800ms stroke-dasharray animation"
+      cta_hover: "150ms ease-solar, translateY(-2px)"
+    reduced_motion:
+      fallback: "No animation, static card with hover border-color only"
+    mobile_variant:
+      viewport: "< 768px"
+      changes:
+        - "NextLessonCard full-width"
+        - "Handdraw arrow hidden (limited space)"
+        - "Footer stacked vertically"
+        - "CTA button full-width, 48px height minimum"
+      reduced_motion: "Same as desktop"
+
+# ============================================
+# 3. Timing Orchestration
+# ============================================
+orchestration:
+  description: "On page load, stages 1-3 play in sequence automatically. Stages 4-6 are triggered by scroll position."
+  auto_sequence:
+    - stage: "entry"
+      duration: "1000ms total (phased)"
+    - stage: "navigation"
+      duration: "300ms (sidebar slides in)"
+    - stage: "hero"
+      duration: "500ms (after navigation settles)"
+      overlap_with_entry: true
+  scroll_triggered:
+    - stage: "content"
+      threshold: "0.15 (15% of element visible)"
+      stagger: true
+    - stage: "dopamine"
+      threshold: "0.3"
+      delay: "500ms after milestone"
+    - stage: "exit"
+      threshold: "0.2"
+
+# ============================================
+# 4. Reduced Motion Orchestration
+# ============================================
+reduced_motion_orchestration:
+  auto_sequence:
+    - "All phases render instantly"
+    - "Maximum delay: 50ms between stage renders"
+    - "Opacity fade preferred if any motion requested"
+  scroll_triggered:
+    - "Content blocks render fully visible, no scroll animation"
+    - "Handdraw strokes render fully drawn"
+    - "Dopamine card appears with opacity only"
+
+# ============================================
+# 5. Accessibility Notes
+# ============================================
+accessibility:
+  - "All animations have prefers-reduced-motion guards"
+  - "Skip-to-content link bypasses stages 1-3 directly to stage 4"
+  - "Signal Grid has aria-hidden='true' (decorative only)"
+  - "Scroll-triggered animations use IntersectionObserver, not scroll listeners"
+  - "Dopamine cards have role='status' and aria-live='polite'"

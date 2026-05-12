@@ -5,12 +5,12 @@ import { SidebarNav } from './sidebar-nav'
 
 export const Sidebar = component$(() => {
   return (
-    <aside class="w-64 h-screen sticky top-0 bg-deep border-r-4 border-cyan/30 relative overflow-y-auto surface-hud">
+    <aside class="w-64 h-screen sticky top-0 glass-light border-r-4 border-cyan/30 relative overflow-y-auto surface-hud">
       {/* Scanlines overlay */}
       <div class="scanlines absolute inset-0 pointer-events-none" />
 
       {/* Logo JRPG Style */}
-      <div class="p-4 border-b border-cyan/10 text-center">
+      <div class="p-4 border-b border-cyan/10 text-center glass">
         <div class="text-2xl font-pixel text-cyan tracking-wider">
           <span class="text-cyan">UNI</span>TEIA
         </div>
