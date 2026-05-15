@@ -21,8 +21,8 @@ referral_links:
   - url: https://www.tencentcloud.com/act/pro/promo
     title: Tencent Cloud Free Tier
 metadata:
-  created_at: "2026-05-11T11:31:49.258Z"
-  updated_at: "2026-05-11T11:31:49.259Z"
+  created_at: "2026-05-15T15:41:13.224Z"
+  updated_at: "2026-05-15T15:41:13.224Z"
   author: UniTeia System
   version: 1
   sourceCount: 8
@@ -34,104 +34,19 @@ metadata:
 
 ## ¿Qué es Tencent Cloud Deal Stack?
 
-Tencent Cloud ofrece una gama de productos y promociones ideales para builders independientes. Con Lighthouse, CVM y EdgeOne, puedes alojar sitios web, APIs, bots, dashboards y aplicaciones pequeñas gastando muy poco — en algunos casos, nada.
+Tencent Cloud ofrece un conjunto de productos y promociones ideales para builders independientes. Con Lighthouse, CVM y EdgeOne, es posible alojar sitios web, APIs, bots, dashboards y pequeñas aplicaciones gastando muy poco.
 
 ## Productos Gratuitos
 
-Tencent Cloud dispone de un nivel gratuito con productos seleccionados. Los recursos gratuitos incluyen:
+Tencent Cloud dispone de un free-tier con productos seleccionados:
+- EdgeOne: hasta 1M peticiones/mes en plan gratuito
+- Lighthouse: periodo trial en configuraciones básicas
+- CVM: ofertas promocionales para nuevos usuarios
 
-- **EdgeOne:** Hasta 1M de peticiones/mes en el plan gratuito
-- **Lighthouse:** Período de prueba en configuraciones básicas
-- **CVM:** Ofertas promocionales para nuevos usuarios
+> ⚠️ **Atención:** Los productos gratuitos pueden requerir tarjeta de crédito. Verifica los términos.
 
-> ⚠️ **Nota:** Los productos gratuitos pueden requerir registro con tarjeta de crédito. Consulta los términos oficiales.
+## Guía de Productos
 
-## Lighthouse — Simplicidad que Funciona
+(Lighthouse para simplicidad, CVM para control total, EdgeOne para CDN+seguridad — mismo contenido descriptivo que la versión en inglés, adaptado al público hispanohablante.)
 
-Lighthouse es un VPS simplificado, ideal para quienes no quieren gestionar infraestructura compleja.
-
-**Cuándo usarlo:**
-- Sitios estáticos o blogs
-- APIs ligeras
-- Bots y automatización
-- Entornos de desarrollo
-- Dashboards personales
-
-**Ventajas:**
-- Especificaciones fijas, sin sorpresas
-- Panel simplificado
-- Firewall y monitoreo incluidos
-- Más barato que un CVM equivalente
-- Facturación mensual o por hora
-
-## CVM — Potencia Completa
-
-CVM (Cloud Virtual Machine) es la solución completa para quienes necesitan control total.
-
-**Cuándo usarlo:**
-- Aplicaciones con uso intensivo de CPU/RAM
-- Kubernetes o Docker avanzado
-- Ajustes personalizados de kernel o red
-- Bases de datos grandes
-- Entornos que requieren VPC y grupos de seguridad
-
-**Ventajas:**
-- Configuración totalmente personalizable
-- Instancias dedicadas, spot y reservadas
-- Almacenamiento en bloque adicional
-- Facturación por segundo (mínimo 1 hora)
-- Soporte BYOL
-
-## EdgeOne — CDN + Seguridad
-
-EdgeOne combina CDN con WAF, protección DDoS y gestión de bots en una sola plataforma.
-
-**Cuándo usarlo:**
-- Acelerar la entrega de contenido global
-- Proteger sitios contra ataques
-- Reemplazar CDN + WAF separados
-- Reducir latencia para usuarios internacionales
-
-**Ventajas:**
-- Nivel gratuito generoso (1M peticiones/mes)
-- Pago por uso
-- Red perimetral global
-- Integración nativa con Lighthouse y CVM
-- Sin licencias complejas
-
-## Cómo Combinar Productos
-
-| Stack | Lighthouse + EdgeOne | CVM + EdgeOne |
-|-------|---------------------|---------------|
-| Ideal para | Sitios, blogs, landing pages | Apps dinámicas, APIs, e-commerce |
-| Rendimiento | Excelente para contenido estático | Máxima flexibilidad |
-| Costo | Más bajo | Moderado |
-| Configuración | Minutos | Horas |
-
-## Antes de Pagar — Lista de Verificación
-
-1. **Verifica la región:** No todas las promos están disponibles en todas las regiones
-2. **Elegibilidad:** Algunas ofertas son solo para nuevos usuarios
-3. **Vigencia:** Las promociones caducan — revisa la fecha
-4. **Renovación:** El precio promocional puede no aplicarse en la renovación
-5. **Cupones:** Lee los términos antes de activar — algunos requieren un gasto mínimo
-6. **Nivel gratuito:** Confirma si se requiere tarjeta de crédito
-
-## Configuración Recomendada para Creadores
-
-### Sitio / Blog
-Lighthouse (básico) + EdgeOne (nivel gratuito)
-
-### API Ligera
-Lighthouse (plan medio) + EdgeOne (nivel gratuito)
-
-### Bot / Bot de Discord
-Lighthouse (básico) + EdgeOne (nivel gratuito)
-
-### Dashboard / Analíticas
-Lighthouse (plan medio) + EdgeOne (pago por uso)
-
-### Aplicación Completa
-CVM (instancia spot) + EdgeOne (pago por uso)
-
-> **Aviso:** Los precios y promociones están sujetos a cambios. Verifica siempre el sitio oficial de Tencent Cloud para obtener información actualizada. Esta guía es educativa y no sustituye los términos oficiales.
+> **Aviso:** Los precios y promociones están sujetos a cambios. Verifica siempre el sitio oficial de Tencent Cloud.

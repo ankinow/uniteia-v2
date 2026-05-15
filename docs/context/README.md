@@ -40,3 +40,4 @@ This directory holds operational context documents for AI agents working on unit
 | context-manifest.json | Machine-readable artifact manifest |
 | context-ledger.jsonl | Append-only trace ledger |
 | context-index.md | Human-readable index with hashes |
+| 2026-05-11-super-snapshot-frontend-sota.md (docs/reference/) | Full repo snapshot + SOTA 2026 audit + fix queue |

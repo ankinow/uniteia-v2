@@ -21,8 +21,8 @@ referral_links:
   - url: https://www.tencentcloud.com/act/pro/promo
     title: Tencent Cloud Free Tier
 metadata:
-  created_at: "2026-05-11T11:31:49.250Z"
-  updated_at: "2026-05-11T11:31:49.250Z"
+  created_at: "2026-05-15T15:41:13.221Z"
+  updated_at: "2026-05-15T15:41:13.221Z"
   author: UniTeia System
   version: 1
   sourceCount: 8
@@ -35,8 +35,6 @@ metadata:
 ## O que é a Tencent Cloud Deal Stack?
 
 A Tencent Cloud oferece um conjunto de produtos e promoções ideais para builders independentes. Com Lighthouse, CVM e EdgeOne, é possível subir sites, APIs, bots, dashboards e pequenos apps gastando muito pouco — e em alguns casos, nada.
-
-![Brief Visual — Tencent Cloud Deal Stack](/assets/wiki/tencent-cloud-deal-stack-builders/visual-brief.svg)
 
 ## Produtos Gratuitos
 
