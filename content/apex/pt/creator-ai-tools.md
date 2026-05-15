@@ -1,5 +1,5 @@
 ---
-slug: galaxy
+slug: creator-ai-tools
 lang: pt
 title: "Galaxy — Exploração de Conteúdo e Fontes"
 verdict: caution
