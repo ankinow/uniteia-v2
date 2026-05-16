@@ -15,6 +15,14 @@ type AlternateLink = {
 /** Quick lookup set for valid language codes */
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
 
+export const onStaticGenerate = () => {
+  return {
+    params: SUPPORTED_LANGUAGES.map(l => ({
+      lang: l.code,
+    })),
+  }
+}
+
 /**
  * routeLoader$ that loads all niches from config for the niche index page.
  * Returns the full NichesConfig array (all validated niches).
