@@ -60,10 +60,10 @@ findHtmlPages(distDir, '')
 const routes = {
   version: 1,
   include: ['/*'],
-  exclude: ['/build/*', '/assets/*', '/sitemap.xml', '/robots.txt', '/favicon.ico', ...ssgExcludes],
+  exclude: ['/build/*', '/assets/*', '/sitemap.xml', '/robots.txt', '/favicon.ico'],
 }
 writeFileSync(routesPath, JSON.stringify(routes, null, 2))
 
 console.log(
-  `Prep done: dist/server/ copied, dist/_worker.js path fixed, ${ssgExcludes.length} SSG paths excluded from Worker`
+  'Prep done: dist/server/ copied, dist/_worker.js path fixed, Worker handles all locale routes'
 )
