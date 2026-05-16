@@ -69,6 +69,20 @@ export const pt: TranslationStrings = {
   dopamineCard: {
     readMore: 'Leia mais',
   },
+  signal: {
+    qualityLabel: 'Qualidade',
+    sourceCount: '{count} fontes',
+    sources: 'fontes',
+  },
+  search: {
+    placeholder: 'Buscar temas, artigos...',
+    resultsFor: 'Resultados para "{query}"',
+    noResults: 'Nenhum resultado encontrado',
+    noResultsHint: 'Tente palavras-chave diferentes ou navegue pelos temas',
+    resultCount: '{count} resultados',
+    searchTitle: 'Buscar',
+    searchDescription: 'Buscar artigos e temas na UniTeia',
+  },
   seo: {
     siteName: 'UniTeia',
     articleTitleTemplate: '{title} | UniTeia',

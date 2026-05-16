@@ -204,6 +204,8 @@ export interface NicheArticleEntry {
   updatedAt: string | undefined
   title: string
   summary: string | undefined
+  qualityScore?: number
+  verdict?: string
 }
 
 const nicheArticlesCache = new Map<string, NicheArticleEntry[]>()

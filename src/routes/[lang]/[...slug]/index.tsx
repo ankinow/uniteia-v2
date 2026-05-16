@@ -2,13 +2,13 @@ import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
 import { AdaptiveHeader } from '~/components/adaptive-header'
 import { ArticleFrame } from '~/components/article-frame'
-import { EditorialVerdict } from '~/components/editorial-verdict'
 import { NotFound } from '~/components/error-pages/not-found'
 import { FrontmatterSlots } from '~/components/frontmatter-slots'
 import { JSONLD } from '~/components/json-ld'
-import { QualityRing } from '~/components/quality-ring'
+import { RelatedArticles } from '~/components/related-articles'
+import { SignalGrid } from '~/components/signal-grid'
 import { SourceLedger } from '~/components/source-ledger'
-import { REGISTRY_PATHS } from '~/content-registry.generated'
+import type { ContentNode } from '~/content-graph/contracts/node'
 import { getTranslation, useI18n } from '~/i18n/context'
 import type { SupportedLanguage } from '~/i18n/types'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
@@ -23,16 +23,16 @@ import { generateArticleSchema } from '~/utils/schema-generators'
  */
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
 
-export const onStaticGenerate = () => {
-  const params: Array<Record<string, string>> = []
-  for (const key of REGISTRY_PATHS) {
-    const match = key.match(/\/content\/([^/]+)\/([^/]+)\/(.+)\.md$/)
-    if (!match) continue
-    const lang = match[2]
-    const slugFile = match[3]
-    if (!lang || !slugFile || slugFile === '_index') continue
-    params.push({ lang, slug: slugFile })
-  }
+export const onStaticGenerate = async () => {
+  const { contentGraphProvider } = await import('~/content-graph.generated')
+  const { isPublicNode } = await import('~/content-graph')
+  const allNodes = contentGraphProvider.getNodes()
+  const params = allNodes
+    .filter(n => n.slug !== '_index' && isPublicNode(n))
+    .map(node => ({
+      lang: node.locale,
+      slug: node.slug,
+    }))
   return { params }
 }
 
@@ -74,6 +74,36 @@ export const useContent = routeLoader$<LlmWikiContent | null>(async ({ params, e
   }
 })
 
+export const useRelated = routeLoader$<ContentNode[]>(async ({ params }) => {
+  const lang = params.lang
+  const slugRaw = params.slug
+  if (!lang || !slugRaw) return []
+
+  const { contentGraphProvider } = await import('~/content-graph.generated')
+  const { isPublicNode } = await import('~/content-graph')
+
+  const slug = slugRaw.replaceAll('/', '-')
+  const locale = lang as import('~/content-graph').ContentLocale
+  const current = contentGraphProvider.getNodes({ locale }).find(n => n.slug === slug)
+
+  if (!current) {
+    const nicheNodes = contentGraphProvider
+      .getNodes({ locale })
+      .filter(n => n.locale === lang && isPublicNode(n) && n.slug !== slug)
+    return nicheNodes.slice(0, 4)
+  }
+
+  const related = contentGraphProvider.getRelated(current.id).filter(isPublicNode).slice(0, 4)
+
+  if (related.length > 0) return related
+
+  const nicheRelated = contentGraphProvider
+    .getNodes({ locale, visibility: 'public' })
+    .filter(n => n.niche.some(nn => current.niche.includes(nn)) && n.id !== current.id)
+
+  return nicheRelated.slice(0, 4)
+})
+
 /**
  * Content route page component
  * Uses ArticleFrame + AdaptiveHeader + FrontmatterSlots + SourceLedger
@@ -84,6 +114,7 @@ export default component$(() => {
   const { t } = useI18n()
   const location = useLocation()
   const { niche } = parseHost(location.url.host)
+  const relatedNodes = useRelated()
 
   if (!content.value) {
     return <NotFound />
@@ -104,14 +135,12 @@ export default component$(() => {
     <ArticleFrame>
       <JSONLD data={articleSchema} />
       <AdaptiveHeader title={content.value.title} subtitle={content.value.subjects.join(', ')} />
-      {/* Editorial verdict — derived from content metadata if available */}
-      <div class="mt-3 flex items-center gap-4">
-        <EditorialVerdict verdict={content.value.verdict ?? 'trusted'} lang={content.value.lang} />
-        <QualityRing
-          score={content.value.quality_score ?? 85}
+      {/* Editorial signals grid */}
+      <div class="mt-3">
+        <SignalGrid
+          qualityScore={content.value.quality_score ?? 85}
+          verdict={content.value.verdict ?? 'trusted'}
           lang={content.value.lang}
-          size={40}
-          strokeWidth={3}
         />
       </div>
       <FrontmatterSlots
@@ -136,6 +165,12 @@ export default component$(() => {
         referralLinks={content.value.referral_links}
         sourcesLabel={t.article.sourcesLabel}
       />
+      <div class="mt-12">
+        <RelatedArticles
+          nodes={relatedNodes.value}
+          lang={content.value.lang as SupportedLanguage}
+        />
+      </div>
     </ArticleFrame>
   )
 })
@@ -203,7 +238,7 @@ export const head: DocumentHead = ({ resolveValue, url, params }) => {
       {
         name: 'robots',
         content:
-          content.verdict === 'caution' || (content.quality_score ?? 85) < 50
+          content.verdict === 'caution' || (content.quality_score ?? 0) < 95
             ? 'noindex, nofollow'
             : 'index, follow',
       },

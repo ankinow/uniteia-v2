@@ -56,3 +56,6 @@ session-*.md
 apps/content-factory/content/
 apps/content-factory/llm-wiki-uniteia/
 
+# Content Graph build artifact
+src/content-graph/generated/*.json
+

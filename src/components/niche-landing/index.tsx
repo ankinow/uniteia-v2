@@ -57,6 +57,8 @@ export const NicheLanding = component$<NicheLandingProps>(
                     title={article.title}
                     description={article.summary ?? ''}
                     href={`/${lang}/n/${niche.slugs[lang]}/${article.slug}`}
+                    score={article.qualityScore ?? 0}
+                    verdict={article.verdict as 'trusted' | 'caution' | 'flagged'}
                     lang={lang}
                     data-testid="article-card"
                   />

@@ -111,6 +111,9 @@ export default component$(() => {
             <a href={`/${lang}/n`} class="text-bone-muted hover:text-bone transition-colors">
               {t.nav.topics}
             </a>
+            <a href={`/${lang}/search`} class="text-bone-muted hover:text-bone transition-colors">
+              Search
+            </a>
           </div>
 
           <LangSwitcher />

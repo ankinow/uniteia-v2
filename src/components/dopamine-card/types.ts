@@ -1,6 +1,8 @@
 import type { ClassList } from '@builder.io/qwik'
 import type { SupportedLanguage } from '~/i18n/types'
 
+import type { VerdictLevel } from '~/components/editorial-verdict/types'
+
 export interface DopamineCardProps {
   /** Card title */
   title: string
@@ -10,6 +12,10 @@ export interface DopamineCardProps {
   href: string
   /** Optional quality score 0-100 (shows QualityRing if provided) */
   score?: number
+  /** Optional verdict level (shows SignalBar if provided) */
+  verdict?: VerdictLevel
+  /** Optional source count */
+  sourceCount?: number
   /** Optional Lucide icon name */
   icon?: string
   /** Current language for i18n */

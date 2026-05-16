@@ -61,7 +61,10 @@
       "server",
       ".imports",
       "apps",
-      "open-design"
+      "open-design",
+      "src/content-graph/generated",
+      "src/content-graph.generated.ts",
+      "src/search-index.generated.ts"
     ]
   }
 }

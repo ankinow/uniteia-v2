@@ -69,6 +69,20 @@ export const zh: TranslationStrings = {
   dopamineCard: {
     readMore: '阅读更多',
   },
+  signal: {
+    qualityLabel: '质量',
+    sourceCount: '{count} 来源',
+    sources: '来源',
+  },
+  search: {
+    placeholder: '搜索主题、文章...',
+    resultsFor: '"{query}" 的结果',
+    noResults: '未找到结果',
+    noResultsHint: '尝试不同的关键词或浏览我们的主题',
+    resultCount: '{count} 条结果',
+    searchTitle: '搜索',
+    searchDescription: '搜索 UniTeia 的文章和主题',
+  },
   seo: {
     siteName: 'UniTeia',
     articleTitleTemplate: '{title} | UniTeia',

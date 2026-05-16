@@ -26,6 +26,14 @@ export const SidebarNav = component$(() => {
         </a>
       </li>
       <li>
+        <a
+          href={`/${lang}/search`}
+          class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-all duration-200 font-pixel text-xs uppercase tracking-wider"
+        >
+          Search
+        </a>
+      </li>
+      <li>
         <button
           type="button"
           onClick$={() => {

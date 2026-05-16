@@ -71,6 +71,20 @@ export interface TranslationStrings {
   dopamineCard: {
     readMore: string
   }
+  signal: {
+    qualityLabel: string
+    sourceCount: string
+    sources: string
+  }
+  search: {
+    placeholder: string
+    resultsFor: string
+    noResults: string
+    noResultsHint: string
+    resultCount: string
+    searchTitle: string
+    searchDescription: string
+  }
   seo: {
     siteName: string
     articleTitleTemplate: string

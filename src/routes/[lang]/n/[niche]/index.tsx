@@ -7,9 +7,8 @@ import {
 } from '@builder.io/qwik-city'
 import { JSONLD } from '~/components/json-ld'
 import { NicheLanding } from '~/components/niche-landing'
-import { SUPPORTED_LANGUAGES } from '~/i18n/types'
-import type { SupportedLanguage } from '~/i18n/types'
-import { type NicheArticleEntry, listNicheArticles } from '~/utils/content-loader'
+import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
+import type { NicheArticleEntry } from '~/utils/content-loader'
 import { findNicheBySlug, getNicheSlug, loadNichesConfig } from '~/utils/niche-loader'
 import { generateWebSiteSchema } from '~/utils/schema-generators'
 import type { NicheRouteData } from './types'
@@ -85,7 +84,21 @@ export const useNicheArticles = routeLoader$<NicheArticleEntry[]>(async ({ param
   const niche = findNicheBySlug(niches, nicheSlug, lang as SupportedLanguage)
   if (!niche) return []
 
-  return await listNicheArticles(niche.slug)
+  const { contentGraphProvider } = await import('~/content-graph.generated')
+  const nodes = contentGraphProvider.getByNiche(niche.slug)
+
+  return nodes
+    .filter(n => n.slug !== '_index')
+    .map(node => ({
+      slug: node.slug,
+      lang: node.locale as SupportedLanguage,
+      title: node.title,
+      updatedAt: node.timestamps.updatedAt,
+      summary: node.summary,
+      qualityScore: node.qualityScore,
+      verdict:
+        node.verdict === 'safe' ? 'trusted' : node.verdict === 'unsafe' ? 'flagged' : node.verdict,
+    }))
 })
 
 /**
