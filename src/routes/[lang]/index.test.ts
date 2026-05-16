@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest'
 import { extractLocale, isValidLocale } from '~/i18n/locale-validation'
 
 /**
- * Tests for the /{lang} → /{lang}/n redirect implemented in src/routes/[lang]/index.tsx
+ * Tests for the /{lang} → /{lang}/signals redirect implemented in src/routes/[lang]/index.tsx
  *
  * The route uses isValidLocale() to validate the language parameter,
- * then throws redirect(302, `/${lang}/n`) to redirect to the niche index.
+ * then throws redirect(302, `/${lang}/signals`) to redirect to the niche index.
  *
  * These tests validate the locale-building blocks used by the route.
  * Full redirect behavior requires browser-level verification (Phase F).
@@ -35,9 +35,9 @@ describe('language root redirect — P0 fix', () => {
       }
     })
 
-    it('extracts locale from /{lang}/n (the redirect target path)', () => {
+    it('extracts locale from /{lang}/signals (the redirect target path)', () => {
       for (const code of SUPPORTED_LOCALE_CODES) {
-        expect(extractLocale(`/${code}/n`)).toBe(code)
+        expect(extractLocale(`/${code}/signals`)).toBe(code)
       }
     })
 
@@ -47,9 +47,9 @@ describe('language root redirect — P0 fix', () => {
   })
 
   describe('redirect target paths', () => {
-    it('each /{lang} resolves to a reachable /{lang}/n path', () => {
+    it('each /{lang} resolves to a reachable /{lang}/signals path', () => {
       for (const code of SUPPORTED_LOCALE_CODES) {
-        const targetPath = `/${code}/n`
+        const targetPath = `/${code}/signals`
         expect(extractLocale(targetPath)).toBe(code)
         expect(isValidLocale(code)).toBe(true)
       }

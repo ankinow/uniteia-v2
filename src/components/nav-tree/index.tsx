@@ -30,7 +30,7 @@ export const NavTree = component$<NavTreeProps>(
         return {
           id: nicheId,
           title: landing?.title || nicheId,
-          href: `/${currentLang}/n/${nicheSlugMap?.[nicheId] ?? nicheId}`,
+          href: `/${currentLang}/signals/${nicheSlugMap?.[nicheId] ?? nicheId}`,
           isActive: currentNiche === nicheId,
         }
       })

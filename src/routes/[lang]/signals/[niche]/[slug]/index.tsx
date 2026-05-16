@@ -188,20 +188,20 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
 
   const niche = params.niche ?? ''
   const slug = params.slug ?? ''
-  const canonicalHref = `/${lang}/n/${niche}/${slug}`
+  const canonicalHref = `/${lang}/signals/${niche}/${slug}`
   const canonicalUrl = new URL(canonicalHref, url.origin)
 
   const alternateLinks: Array<{ rel: string; hreflang: string; href: string }> =
     SUPPORTED_LANGUAGES.map(l => ({
       rel: 'alternate' as const,
       hreflang: l.code,
-      href: new URL(`/${l.code}/n/${niche}/${slug}`, url.origin).href,
+      href: new URL(`/${l.code}/signals/${niche}/${slug}`, url.origin).href,
     }))
 
   alternateLinks.push({
     rel: 'alternate',
     hreflang: 'x-default',
-    href: new URL(`/en/n/${niche}/${slug}`, url.origin).href,
+    href: new URL(`/en/signals/${niche}/${slug}`, url.origin).href,
   })
 
   return {

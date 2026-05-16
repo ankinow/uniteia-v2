@@ -5,8 +5,8 @@ export function compileRouting(nodes: Map<string, ContentNode>): void {
     const locale = node.locale
     const niche = node.niche[0] ?? 'apex'
 
-    const canonical = `/${locale}/n/${niche}/${node.canonicalSlug}`
-    const localeAlias = `/${node.locale}/n/${niche}/${node.slug}`
+    const canonical = `/${locale}/signals/${niche}/${node.canonicalSlug}`
+    const localeAlias = `/${node.locale}/signals/${niche}/${node.slug}`
 
     node.routes = {
       canonical,

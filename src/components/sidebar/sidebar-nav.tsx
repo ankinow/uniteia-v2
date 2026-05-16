@@ -1,7 +1,12 @@
 import { component$, useSignal } from '@builder.io/qwik'
+import type { NavigationItem } from '~/content-graph/projections'
 import { getTranslation, useI18n } from '~/i18n/context'
 
-export const SidebarNav = component$(() => {
+export interface SidebarNavProps {
+  navigationItems: NavigationItem[]
+}
+
+export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
   const i18n = useI18n()
   const lang = i18n.lang.value
   const t = getTranslation(lang)
@@ -19,7 +24,7 @@ export const SidebarNav = component$(() => {
       </li>
       <li>
         <a
-          href={`/${lang}/n`}
+          href={`/${lang}/signals`}
           class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-all duration-200 font-pixel text-xs uppercase tracking-wider"
         >
           {t.nav.topics}
@@ -45,38 +50,13 @@ export const SidebarNav = component$(() => {
         </button>
         {expanded.value && (
           <ul class="ml-4 mt-2 space-y-1">
-            <li>
-              <a
-                href={`/${lang}/singularity`}
-                class="block py-1 px-3 text-bone-muted hover:text-cyan text-xs"
-              >
-                Singularity
-              </a>
-            </li>
-            <li>
-              <a
-                href={`/${lang}/hardware`}
-                class="block py-1 px-3 text-bone-muted hover:text-cyan text-xs"
-              >
-                Hardware
-              </a>
-            </li>
-            <li>
-              <a
-                href={`/${lang}/dev`}
-                class="block py-1 px-3 text-bone-muted hover:text-cyan text-xs"
-              >
-                Dev
-              </a>
-            </li>
-            <li>
-              <a
-                href={`/${lang}/privacy`}
-                class="block py-1 px-3 text-bone-muted hover:text-cyan text-xs"
-              >
-                Privacy
-              </a>
-            </li>
+            {navigationItems.map(item => (
+              <li key={item.nicheSlug}>
+                <a href={item.href} class="block py-1 px-3 text-bone-muted hover:text-cyan text-xs">
+                  {item.label}
+                </a>
+              </li>
+            ))}
           </ul>
         )}
       </li>

@@ -232,8 +232,8 @@ const SUPPORTED_LANGUAGES = new Set(['en', 'pt', 'es', 'ja', 'zh'])
 function rewritePreviewPathname(pathname: string): string {
   const trimmedPathname =
     pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname
-  if (SUPPORTED_LANGUAGES.has(trimmedPathname.slice(1)) && !trimmedPathname.endsWith('/n')) {
-    return `${trimmedPathname}/n`
+  if (SUPPORTED_LANGUAGES.has(trimmedPathname.slice(1)) && !trimmedPathname.endsWith('/signals')) {
+    return `${trimmedPathname}/signals`
   }
 
   return pathname

@@ -15,6 +15,7 @@ function makeNode(overrides: Partial<ContentNode> & { id: string }): ContentNode
     tags: [],
     entities: [],
     qualityScore: overrides.qualityScore ?? 95,
+    trustScore: overrides.trustScore ?? 95,
     visibility: overrides.visibility ?? 'published',
     lifecycle: overrides.lifecycle ?? 'published',
     verdict: overrides.verdict ?? 'safe',
@@ -23,6 +24,12 @@ function makeNode(overrides: Partial<ContentNode> & { id: string }): ContentNode
     related: [],
     seo: { noindex: false, priority: 95 },
     timestamps: { createdAt: '', updatedAt: '' },
+    metrics: overrides.metrics ?? {
+      edgeRank: 0,
+      semanticDensity: 50,
+      freshnessScore: 50,
+      graphScore: 50,
+    },
   }
 }
 

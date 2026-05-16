@@ -4,7 +4,7 @@ import { DEFAULT_LANGUAGE } from '~/i18n/types'
 
 describe('resolveDocumentLanguageFromPathname', () => {
   it('uses the leading supported path segment when one is present', () => {
-    expect(resolveDocumentLanguageFromPathname('/en/n/')).toBe('en')
+    expect(resolveDocumentLanguageFromPathname('/en/signals/')).toBe('en')
     expect(resolveDocumentLanguageFromPathname('/pt/blog')).toBe('pt')
     expect(resolveDocumentLanguageFromPathname('///ja///')).toBe('ja')
   })

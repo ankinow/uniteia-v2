@@ -147,6 +147,12 @@ function parseRegistryEntry(
   const v: ContentNodeVerdict =
     qualityScore >= 95 ? 'safe' : qualityScore >= 50 ? 'caution' : 'unsafe'
 
+  const trustScore = computeTrustScore(verdict, qualityScore)
+  const semanticDensity = computeSemanticDensity(body, subjects)
+  const freshnessScore = computeFreshnessScore(
+    (metadata?.updated_at as string) ?? (metadata?.created_at as string)
+  )
+
   return {
     id,
     locale,
@@ -159,6 +165,7 @@ function parseRegistryEntry(
     tags: subjects,
     entities: [],
     qualityScore,
+    trustScore,
     visibility,
     lifecycle,
     verdict: v,
@@ -175,6 +182,12 @@ function parseRegistryEntry(
     timestamps: {
       createdAt: (metadata?.created_at as string) ?? new Date().toISOString(),
       updatedAt: (metadata?.updated_at as string) ?? new Date().toISOString(),
+    },
+    metrics: {
+      edgeRank: 0,
+      semanticDensity,
+      freshnessScore,
+      graphScore: 0,
     },
   }
 }
@@ -196,6 +209,33 @@ function extractSummary(body: string): string {
   return cleaned.slice(0, 200).replace(/\s+\S*$/, '')
 }
 
+function computeTrustScore(verdict: string, qualityScore: number): number {
+  if (verdict === 'trusted' || verdict === 'safe') return qualityScore
+  if (verdict === 'caution') return Math.min(qualityScore * 0.6, 80)
+  return Math.min(qualityScore * 0.3, 30)
+}
+
+function computeSemanticDensity(body: string, tags: string[]): number {
+  const contentLength = body.length
+  if (contentLength === 0) return 0
+  const tagDensity = Math.min(tags.length / 3, 1)
+  const contentDensity = Math.min(contentLength / 500, 1)
+  return Math.round((tagDensity * 0.4 + contentDensity * 0.6) * 100)
+}
+
+function computeFreshnessScore(updatedAt: string | undefined): number {
+  if (!updatedAt) return 0
+  const updated = new Date(updatedAt).getTime()
+  if (Number.isNaN(updated)) return 50
+  const now = Date.now()
+  const ageDays = (now - updated) / (1000 * 60 * 60 * 24)
+  if (ageDays < 7) return 100
+  if (ageDays < 30) return 90
+  if (ageDays < 90) return 75
+  if (ageDays < 180) return 50
+  return 25
+}
+
 function buildCollections(
   allNodes: ContentNode[],
   groups: import('../contracts/group').ContentGroupCollection
@@ -214,9 +254,11 @@ function buildCollections(
     byLocale[node.locale]?.push(node)
   }
 
+  computeGraphScores(allNodes)
+
   const featured = allNodes
     .filter(n => publicGroupIds.has(n.id))
-    .sort((a, b) => b.qualityScore - a.qualityScore)
+    .sort((a, b) => b.metrics.graphScore - a.metrics.graphScore)
     .slice(0, 12)
 
   const publicNodes = allNodes.filter(n => publicGroupIds.has(n.id))
@@ -226,6 +268,32 @@ function buildCollections(
     byNiche,
     byLocale: byLocale as Record<ContentLocale, ContentNode[]>,
     public: publicNodes,
+  }
+}
+
+function computeGraphScores(allNodes: ContentNode[]): void {
+  const totalNodes = allNodes.length
+  if (totalNodes === 0) return
+
+  const incomingEdges = new Map<string, number>()
+  for (const node of allNodes) {
+    for (const relatedId of node.related) {
+      incomingEdges.set(relatedId, (incomingEdges.get(relatedId) ?? 0) + 1)
+    }
+  }
+
+  for (const node of allNodes) {
+    const edgeRank = Math.round(((incomingEdges.get(node.id) ?? 0) / Math.max(totalNodes, 1)) * 100)
+    const graphScore = Math.round(
+      node.qualityScore * 0.25 +
+        node.trustScore * 0.25 +
+        node.metrics.semanticDensity * 0.2 +
+        node.metrics.freshnessScore * 0.15 +
+        edgeRank * 0.15
+    )
+
+    node.metrics.edgeRank = edgeRank
+    node.metrics.graphScore = graphScore
   }
 }
 

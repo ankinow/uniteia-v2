@@ -1,10 +1,11 @@
 import { $, Slot, component$, useOnWindow, useSignal } from '@builder.io/qwik'
 import { type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
 import { Footer } from '~/components/footer'
-import { LangSwitcher } from '~/components/lang-switcher'
 import { NavTree } from '~/components/nav-tree'
 import { Sidebar } from '~/components/sidebar'
 import { SiteShell } from '~/components/site-shell'
+import { contentGraphProvider } from '~/content-graph.generated'
+import { getPublicNavigation } from '~/content-graph/projections'
 import { getTranslation, useProvideI18n } from '~/i18n/context'
 import { DEFAULT_LANGUAGE, type SupportedLanguage } from '~/i18n/types'
 import type { NichesConfig } from '~/types/niche'
@@ -58,11 +59,18 @@ export const useNavigation = routeLoader$<NavigationData>(async () => {
   return await deriveNavigation()
 })
 
+export const useSidebarNavigation = routeLoader$(async ({ headers }) => {
+  const lang = (headers.get('x-negotiated-lang') as SupportedLanguage) ?? DEFAULT_LANGUAGE
+  const niches = await loadNichesConfig()
+  return getPublicNavigation(contentGraphProvider, niches, lang)
+})
+
 export default component$(() => {
   const langSignal = useLanguage()
   const nichesSignal = useNiches()
   const nicheSignal = useNiche()
   const navSignal = useNavigation()
+  const sidebarNavSignal = useSidebarNavigation()
   const lang = langSignal.value
   const topicsOpen = useSignal(false)
 
@@ -95,28 +103,9 @@ export default component$(() => {
           class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-action/10"
           data-testid="main-nav"
         >
-          <a
-            href="/"
-            class="brand flex items-center gap-2 text-xl font-bold text-bone hover:text-action transition-colors"
-            data-testid="nav-logo"
-          >
-            <span class="text-action">Uni</span>
-            <span>Teia</span>
+          <a href={`/${lang}/signals`} class="text-bone-muted hover:text-bone transition-colors">
+            {t.nav.topics}
           </a>
-
-          <div class="nav-links hidden md:flex items-center gap-6">
-            <a href="/" class="text-bone-muted hover:text-bone transition-colors">
-              {t.nav.home}
-            </a>
-            <a href={`/${lang}/n`} class="text-bone-muted hover:text-bone transition-colors">
-              {t.nav.topics}
-            </a>
-            <a href={`/${lang}/search`} class="text-bone-muted hover:text-bone transition-colors">
-              Search
-            </a>
-          </div>
-
-          <LangSwitcher />
         </nav>
 
         {/* Dynamic Niche Navigation (Auto-derived) */}
@@ -134,7 +123,7 @@ export default component$(() => {
       <div class="flex min-h-screen">
         {/* Sidebar - JRPG Style (apenas desktop) */}
         <aside class="hidden md:block w-64 flex-shrink-0">
-          <Sidebar />
+          <Sidebar navigationItems={sidebarNavSignal.value} />
         </aside>
 
         {/* Main Content */}

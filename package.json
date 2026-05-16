@@ -32,7 +32,7 @@
     "slug:check": "bun run scripts/slug-lint.ts",
     "content:check": "bun run scripts/validate-content.ts \"content/**/*.md\"",
     "size:check": "bun run scripts/size-gate.ts",
-    "lighthouse:check": "bun run scripts/lighthouse-gate.ts --audit-path /en/n/",
+    "lighthouse:check": "bun run scripts/lighthouse-gate.ts --audit-path /en/signals/",
     "ship:check": "bun run scripts/ship-check.ts",
     "header:check": "bun run scripts/check-single-header.ts",
     "smoke:check": "bun run scripts/smoke-test.ts",

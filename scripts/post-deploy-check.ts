@@ -42,8 +42,8 @@ async function runLighthouse(url: string) {
 }
 
 async function main() {
-  await checkUrl(`${DEPLOY_URL}/en/n/`)
-  await runLighthouse(`${DEPLOY_URL}/en/n/`)
+  await checkUrl(`${DEPLOY_URL}/en/signals/`)
+  await runLighthouse(`${DEPLOY_URL}/en/signals/`)
 }
 
 main()

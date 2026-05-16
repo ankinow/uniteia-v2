@@ -56,7 +56,7 @@ export const NicheLanding = component$<NicheLandingProps>(
                     key={article.slug}
                     title={article.title}
                     description={article.summary ?? ''}
-                    href={`/${lang}/n/${niche.slugs[lang]}/${article.slug}`}
+                    href={`/${lang}/signals/${niche.slugs[lang]}/${article.slug}`}
                     score={article.qualityScore ?? 0}
                     verdict={article.verdict as 'trusted' | 'caution' | 'flagged'}
                     lang={lang}
@@ -86,7 +86,7 @@ export const NicheLanding = component$<NicheLandingProps>(
                     key={related.slug}
                     title={related.title[lang]}
                     description={related.description[lang]}
-                    href={`/${lang}/n/${getNicheSlug(related, lang)}`}
+                    href={`/${lang}/signals/${getNicheSlug(related, lang)}`}
                     icon={related.icon}
                     lang={lang}
                   />

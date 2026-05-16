@@ -107,7 +107,7 @@ describe('compileContentGraph', () => {
     })
     const node = graph.nodes.get('en-llm-aggregators-compared')
     expect(node).toBeDefined()
-    expect(node?.routes.canonical).toBe('/en/n/ai-agents/llm-aggregators-compared')
+    expect(node?.routes.canonical).toBe('/en/signals/ai-agents/llm-aggregators-compared')
   })
 
   it('populates locale alternates for translated content', () => {
@@ -118,7 +118,7 @@ describe('compileContentGraph', () => {
     })
     const enNode = graph.nodes.get('en-llm-aggregators-compared')
     expect(enNode).toBeDefined()
-    expect(enNode?.alternates.pt).toBe('/pt/n/ai-agents/llm-aggregators-compared')
+    expect(enNode?.alternates.pt).toBe('/pt/signals/ai-agents/llm-aggregators-compared')
     const ptNode = graph.nodes.get('pt-llm-aggregators-compared')
     expect(ptNode).toBeDefined()
     expect(ptNode?.slug).toBe('agregadores-llm')

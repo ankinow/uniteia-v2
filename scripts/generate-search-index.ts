@@ -24,7 +24,7 @@ async function main() {
     id: node.id,
     title: node.title,
     summary: node.summary,
-    href: node.routes.canonical || `/${node.locale}/n/${node.niche[0]}/${node.slug}`,
+    href: node.routes.canonical || `/${node.locale}/signals/${node.niche[0]}/${node.slug}`,
     locale: node.locale,
     tags: node.tags,
   }))

@@ -45,11 +45,11 @@ describe('verifyContentGraph', () => {
     })
     const enNode = graph.nodes.get('en-llm-aggregators-compared')
     if (enNode) {
-      enNode.routes.canonical = '/en/n/ai-agents/llm-aggregators-compared'
+      enNode.routes.canonical = '/en/signals/ai-agents/llm-aggregators-compared'
     }
     const ptNode = graph.nodes.get('pt-llm-aggregators-compared')
     if (ptNode) {
-      ptNode.routes.canonical = '/en/n/ai-agents/llm-aggregators-compared'
+      ptNode.routes.canonical = '/en/signals/ai-agents/llm-aggregators-compared'
     }
 
     const report = verifyContentGraph(graph)

@@ -31,7 +31,7 @@ export const useAllNiches = routeLoader$<NichesConfig>(async ({ params, error })
 
 /**
  * Niche index page — renders all niche cards in a grid.
- * Each card links to its niche landing page at /[lang]/n/[niche].
+ * Each card links to its niche landing page at /[lang]/signals/[niche].
  */
 export default component$(() => {
   const nichesSignal = useAllNiches()
@@ -67,13 +67,13 @@ export const head: DocumentHead = ({ params, url }) => {
   const alternateLinks: AlternateLink[] = SUPPORTED_LANGUAGES.map(l => ({
     rel: 'alternate',
     hreflang: l.code,
-    href: new URL(`/${l.code}/n`, url.origin).href,
+    href: new URL(`/${l.code}/signals`, url.origin).href,
   }))
 
   alternateLinks.push({
     rel: 'alternate',
     hreflang: 'x-default',
-    href: new URL('/en/n', url.origin).href,
+    href: new URL('/en/signals', url.origin).href,
   })
 
   return {
@@ -82,6 +82,9 @@ export const head: DocumentHead = ({ params, url }) => {
       { name: 'description', content: t.seo.topicsDescription },
       { name: 'robots', content: 'index, follow' },
     ],
-    links: [{ rel: 'canonical', href: new URL(`/${lang}/n`, url.origin).href }, ...alternateLinks],
+    links: [
+      { rel: 'canonical', href: new URL(`/${lang}/signals`, url.origin).href },
+      ...alternateLinks,
+    ],
   }
 }

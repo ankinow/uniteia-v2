@@ -11,7 +11,7 @@ import type { NicheCardProps } from './types'
  * Follows S01 isolation pattern with types.ts + index.tsx.
  */
 export const NicheCard = component$<NicheCardProps>(({ niche, lang, class: classList }) => {
-  const href = `/${lang}/n/${getNicheSlug(niche, lang)}`
+  const href = `/${lang}/signals/${getNicheSlug(niche, lang)}`
   const iconClass = getLucideIconClass(niche.icon)
 
   return (

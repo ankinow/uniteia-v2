@@ -39,7 +39,7 @@ export const onRequest: RequestHandler = async event => {
 
   const localeSlug = getNicheSlug(niche, lang as SupportedLanguage)
   if (localeSlug !== nicheSlug) {
-    throw event.redirect(301, `/${lang}/n/${localeSlug}${event.url.search}`)
+    throw event.redirect(301, `/${lang}/signals/${localeSlug}${event.url.search}`)
   }
 }
 
@@ -152,20 +152,20 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
   const lang = (params.lang as SupportedLanguage) || 'en'
 
   const localizedSlug = getNicheSlug(data.niche, lang as SupportedLanguage)
-  const canonicalUrl = new URL(`/${lang}/n/${localizedSlug}`, url.origin)
+  const canonicalUrl = new URL(`/${lang}/signals/${localizedSlug}`, url.origin)
   const pageTitle = `${data.niche.title[lang]} — UniTeia`
   const description = data.niche.description[lang]
 
   const alternateLinks: AlternateLink[] = SUPPORTED_LANGUAGES.map(l => ({
     rel: 'alternate',
     hreflang: l.code,
-    href: new URL(`/${l.code}/n/${getNicheSlug(data.niche, l.code)}`, url.origin).href,
+    href: new URL(`/${l.code}/signals/${getNicheSlug(data.niche, l.code)}`, url.origin).href,
   }))
 
   alternateLinks.push({
     rel: 'alternate',
     hreflang: 'x-default',
-    href: new URL(`/en/n/${getNicheSlug(data.niche, 'en')}`, url.origin).href,
+    href: new URL(`/en/signals/${getNicheSlug(data.niche, 'en')}`, url.origin).href,
   })
 
   return {

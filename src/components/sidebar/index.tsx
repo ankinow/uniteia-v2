@@ -1,9 +1,14 @@
 import { component$ } from '@builder.io/qwik'
+import type { NavigationItem } from '~/content-graph/projections'
 import { DonationButton } from '../donation'
 import { LangSelectorCompact } from '../lang-switcher/compact'
 import { SidebarNav } from './sidebar-nav'
 
-export const Sidebar = component$(() => {
+export interface SidebarProps {
+  navigationItems: NavigationItem[]
+}
+
+export const Sidebar = component$<SidebarProps>(({ navigationItems }) => {
   return (
     <aside class="w-64 h-screen sticky top-0 glass-light border-r-4 border-cyan/30 relative overflow-y-auto surface-hud">
       {/* Scanlines overlay */}
@@ -18,7 +23,7 @@ export const Sidebar = component$(() => {
 
       {/* Navigation */}
       <nav class="p-4">
-        <SidebarNav />
+        <SidebarNav navigationItems={navigationItems} />
       </nav>
 
       <div class="scratch-divider my-4" />

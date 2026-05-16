@@ -44,7 +44,7 @@ export const onRequest: RequestHandler = async event => {
 
   if (node) {
     const firstNiche = node.niche[0] ?? 'apex'
-    throw event.redirect(308, `/${lang}/n/${firstNiche}/${node.slug}`)
+    throw event.redirect(308, `/${lang}/signals/${firstNiche}/${node.slug}`)
   }
 }
 

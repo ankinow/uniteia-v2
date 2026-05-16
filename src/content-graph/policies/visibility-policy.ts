@@ -2,7 +2,7 @@ import type { ContentGroup } from '../contracts/group'
 import type { ContentNode, ContentNodeVerdict } from '../contracts/node'
 
 export function isPublicNode(node: ContentNode): boolean {
-  return node.visibility === 'published' && node.qualityScore >= 95
+  return node.visibility === 'published' && node.qualityScore >= 95 && node.trustScore >= 80
 }
 
 export function isIndexableNode(node: ContentNode): boolean {
@@ -30,7 +30,7 @@ export function isPublicContentGroup(group: ContentGroup): boolean {
   if (!group.isFullySymmetric) return false
   if (group.missingLocales.length > 0) return false
   if (group.nodes.length !== 8) return false
-  return group.nodes.every(node => isPublicNode(node))
+  return group.nodes.every(node => isPublicNode(node) && node.trustScore >= 95)
 }
 
 export function getGroupVisibilityScore(group: ContentGroup): number {

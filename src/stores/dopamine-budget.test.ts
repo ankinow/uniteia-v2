@@ -11,10 +11,10 @@ import {
 
 describe('createDopamineBudgetState', () => {
   it('seeds an apex route with the shared route and session whisper budgets available', () => {
-    const state = createDopamineBudgetState({ pathname: '/en/n', isApexHost: true })
+    const state = createDopamineBudgetState({ pathname: '/en/signals', isApexHost: true })
 
     expect(state.isApexHost).toBe(true)
-    expect(state.pathname).toBe('/en/n')
+    expect(state.pathname).toBe('/en/signals')
     expect(state.routeBudget.remaining).toBe(DOPAMINE_ROUTE_BUDGET)
     expect(state.routeBudget.consumed).toBe(0)
     expect(state.sessionBudget.remaining).toBe(DOPAMINE_SESSION_BUDGET)
@@ -24,7 +24,7 @@ describe('createDopamineBudgetState', () => {
   })
 
   it('spends the route budget once per route and restores it when the route changes', () => {
-    const state = createDopamineBudgetState({ pathname: '/en/n/ai-agents', isApexHost: true })
+    const state = createDopamineBudgetState({ pathname: '/en/signals/ai-agents', isApexHost: true })
 
     expect(reserveRouteWhisper(state, 'dopamine-card')).toMatchObject({
       allowed: true,
@@ -42,9 +42,9 @@ describe('createDopamineBudgetState', () => {
     expect(state.routeBudget.remaining).toBe(0)
     expect(state.routeBudget.consumed).toBe(DOPAMINE_ROUTE_BUDGET)
 
-    resetDopamineRoute(state, '/en/n/language-models')
+    resetDopamineRoute(state, '/en/signals/language-models')
 
-    expect(state.pathname).toBe('/en/n/language-models')
+    expect(state.pathname).toBe('/en/signals/language-models')
     expect(state.routeBudget.remaining).toBe(DOPAMINE_ROUTE_BUDGET)
     expect(state.routeBudget.consumed).toBe(0)
     expect(state.whisperState).toBe('ready')
@@ -83,7 +83,7 @@ describe('createDopamineBudgetState', () => {
   })
 
   it('blocks whispers on non-apex hosts', () => {
-    const state = createDopamineBudgetState({ pathname: '/en/n', isApexHost: false })
+    const state = createDopamineBudgetState({ pathname: '/en/signals', isApexHost: false })
 
     expect(state.routeBudget.remaining).toBe(0)
     expect(state.sessionBudget.remaining).toBe(0)

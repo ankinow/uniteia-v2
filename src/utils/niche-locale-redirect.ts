@@ -37,9 +37,9 @@ export function buildNicheLocaleRedirectPath(
   const normalizedPath =
     pathname.endsWith('/') && pathname.length > 1 ? pathname.slice(0, -1) : pathname
 
-  const tail = normalizedPath === '/n' ? '' : normalizedPath.slice('/n'.length)
+  const tail = normalizedPath === '/signals' ? '' : normalizedPath.slice('/signals'.length)
 
-  // Ensure /n or /n/ goes to /pt/n (no trailing slash)
-  // Ensure /n/tail goes to /pt/n/tail
-  return `/${lang}/n${tail}${search}`
+  // Ensure /signals or /signals/ goes to /pt/signals (no trailing slash)
+  // Ensure /signals/tail goes to /pt/signals/tail
+  return `/${lang}/signals${tail}${search}`
 }

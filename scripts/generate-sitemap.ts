@@ -48,7 +48,7 @@ async function generate() {
       if (!node) continue
 
       const firstNiche = node.niche[0] ?? 'apex'
-      const loc = `${origin}/${node.locale}/n/${firstNiche}/${node.slug}`
+      const loc = `${origin}/${node.locale}/signals/${firstNiche}/${node.slug}`
       const lastmodDate = formatSitemapDate(node.timestamps.updatedAt)
       const lastmod = lastmodDate ? `    <lastmod>${lastmodDate}</lastmod>\n` : ''
 
@@ -57,14 +57,14 @@ async function generate() {
         .filter(v => v.lang !== node.locale)
         .map(
           v =>
-            `    <xhtml:link rel="alternate" hreflang="${v.lang}" href="${origin}/${v.lang}/n/${firstNiche}/${v.slug}" />`
+            `    <xhtml:link rel="alternate" hreflang="${v.lang}" href="${origin}/${v.lang}/signals/${firstNiche}/${v.slug}" />`
         )
 
       const hasEn = group.some(v => v.lang === 'en')
       if (hasEn) {
         const enSlug = group.find(v => v.lang === 'en')?.slug ?? node.slug
         hreflangLines.push(
-          `    <xhtml:link rel="alternate" hreflang="x-default" href="${origin}/en/n/${firstNiche}/${enSlug}" />`
+          `    <xhtml:link rel="alternate" hreflang="x-default" href="${origin}/en/signals/${firstNiche}/${enSlug}" />`
         )
       }
 

@@ -22,6 +22,7 @@ export interface ContentNode {
   tags: string[]
   entities: string[]
   qualityScore: number
+  trustScore: number
   visibility: ContentNodeVisibility
   lifecycle: ContentNodeLifecycle
   verdict: ContentNodeVerdict
@@ -38,6 +39,12 @@ export interface ContentNode {
   timestamps: {
     createdAt: string
     updatedAt: string
+  }
+  metrics: {
+    edgeRank: number
+    semanticDensity: number
+    freshnessScore: number
+    graphScore: number
   }
   visualStyle?: VisualStyle
   sketchnoteSpecId?: string
