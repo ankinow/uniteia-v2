@@ -3,7 +3,7 @@ slug: test-article
 lang: en
 title: Test Article for Integration Verification
 verdict: trusted
-quality_score: 92
+quality_score: 95
 subjects:
   - testing
   - integration

@@ -13,6 +13,12 @@ export type {
 } from './contracts/graph'
 
 export type {
+  ContentGroup,
+  ContentGroupCollection,
+} from './contracts/group'
+export { REQUIRED_LOCALES } from './contracts/group'
+
+export type {
   ContentGraphProvider,
   ContentGraphQuery,
 } from './contracts/provider'
@@ -66,4 +72,7 @@ export {
   isIndexableNode,
   getVisibilityVerdict,
   deriveVisibility,
+  isPublicContentGroup,
 } from './policies/visibility-policy'
+
+export { compileGroups } from './compiler/compile-groups'

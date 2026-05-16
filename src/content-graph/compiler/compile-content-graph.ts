@@ -7,7 +7,7 @@ import type {
   ContentNodeVerdict,
   ContentNodeVisibility,
 } from '../contracts/node'
-import { isPublicNode } from '../policies/visibility-policy'
+import { compileGroups } from './compile-groups'
 import { compileLocales } from './compile-locales'
 import { compileRelated } from './compile-related'
 import { compileRouting } from './compile-routing'
@@ -33,12 +33,14 @@ export function compileContentGraph(input: CompileInput): ContentGraph {
   compileLocales(nodes)
   compileRelated(nodes)
 
+  const groups = compileGroups(nodes)
   const allNodes = Array.from(nodes.values())
 
-  const collections = buildCollections(allNodes)
+  const collections = buildCollections(allNodes, groups)
 
   const graph: ContentGraph = {
     nodes,
+    groups,
     collections,
     metadata: {
       totalNodes: nodes.size,
@@ -59,6 +61,7 @@ export function serializeGraph(graph: ContentGraph): SerializableContentGraph {
 
   return {
     nodes: nodeEntries,
+    groups: graph.groups,
     collections: {
       featured: graph.collections.featured.map(n => n.id),
       byNiche: mapValues(graph.collections.byNiche, arr => arr.map(n => n.id)),
@@ -77,8 +80,28 @@ export function deserializeGraph(serialized: SerializableContentGraph): ContentG
 
   const resolve = (ids: string[]) => ids.map(id => nodes.get(id)).filter(Boolean) as ContentNode[]
 
+  const resolveGroup = (g: import('../contracts/group').ContentGroup) => ({
+    ...g,
+    nodes: g.nodes.map(n => nodes.get(n.id)).filter(Boolean) as ContentNode[],
+  })
+
+  const groups = serialized.groups
+    ? {
+        ...serialized.groups,
+        groups: serialized.groups.groups.map(resolveGroup),
+        fullySymmetric: serialized.groups.fullySymmetric.map(resolveGroup),
+        publicGroups: serialized.groups.publicGroups.map(resolveGroup),
+        byCompletion: {
+          complete: (serialized.groups.byCompletion?.complete ?? []).map(resolveGroup),
+          partial: (serialized.groups.byCompletion?.partial ?? []).map(resolveGroup),
+          incomplete: (serialized.groups.byCompletion?.incomplete ?? []).map(resolveGroup),
+        },
+      }
+    : undefined
+
   return {
     nodes,
+    groups: groups ?? compileGroups(nodes),
     collections: {
       featured: resolve(serialized.collections.featured),
       byNiche: mapValues(serialized.collections.byNiche, resolve),
@@ -173,9 +196,14 @@ function extractSummary(body: string): string {
   return cleaned.slice(0, 200).replace(/\s+\S*$/, '')
 }
 
-function buildCollections(allNodes: ContentNode[]): ContentGraph['collections'] {
+function buildCollections(
+  allNodes: ContentNode[],
+  groups: import('../contracts/group').ContentGroupCollection
+): ContentGraph['collections'] {
   const byNiche: Record<string, ContentNode[]> = {}
   const byLocale: Record<string, ContentNode[]> = {}
+
+  const publicGroupIds = new Set(groups.publicGroups.flatMap(g => g.nodes.map(n => n.id)))
 
   for (const node of allNodes) {
     for (const n of node.niche) {
@@ -186,13 +214,18 @@ function buildCollections(allNodes: ContentNode[]): ContentGraph['collections'] 
     byLocale[node.locale]?.push(node)
   }
 
-  const sortedByQuality = [...allNodes].sort((a, b) => b.qualityScore - a.qualityScore)
+  const featured = allNodes
+    .filter(n => publicGroupIds.has(n.id))
+    .sort((a, b) => b.qualityScore - a.qualityScore)
+    .slice(0, 12)
+
+  const publicNodes = allNodes.filter(n => publicGroupIds.has(n.id))
 
   return {
-    featured: sortedByQuality.filter(isPublicNode).slice(0, 12),
+    featured,
     byNiche,
     byLocale: byLocale as Record<ContentLocale, ContentNode[]>,
-    public: allNodes.filter(isPublicNode),
+    public: publicNodes,
   }
 }
 

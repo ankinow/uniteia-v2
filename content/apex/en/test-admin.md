@@ -11,7 +11,7 @@ metadata:
   author: Test
   version: 1
 verdict: trusted
-quality_score: 85
+quality_score: 95
 ---
 This is a test article with a banned slug term in the parameter. The content must exceed one hundred
 characters to pass the loader's content checks and remain a tracked fixture for the slug-validation

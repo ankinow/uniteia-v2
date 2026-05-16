@@ -1,13 +1,7 @@
 import { component$ } from '@builder.io/qwik'
-import {
-  type DocumentHead,
-  type RequestHandler,
-  routeLoader$,
-  useLocation,
-} from '@builder.io/qwik-city'
+import { type DocumentHead, type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
 import { AdaptiveHeader } from '~/components/adaptive-header'
 import { ArticleFrame } from '~/components/article-frame'
-import { NotFound } from '~/components/error-pages/not-found'
 import { FrontmatterSlots } from '~/components/frontmatter-slots'
 import { JSONLD } from '~/components/json-ld'
 import { RelatedArticles } from '~/components/related-articles'
@@ -20,55 +14,46 @@ import { SUPPORTED_LANGUAGES } from '~/i18n/types'
 import type { LlmWikiContent } from '~/types/content'
 import { ContentLoaderError } from '~/types/content'
 import { loadContent } from '~/utils/content-loader'
-import { parseHost } from '~/utils/host-parser'
 import { generateArticleSchema } from '~/utils/schema-generators'
 
-/**
- * Supported language codes for quick lookup
- */
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
 
-export const onRequest: RequestHandler = async event => {
-  const lang = event.params.lang ?? ''
-  const slugRaw = event.params.slug ?? ''
-
-  if (!lang || !VALID_LANG_CODES.has(lang)) return
-
-  const slug = slugRaw.replaceAll('/', '-')
+export const onStaticGenerate = async () => {
   const { contentGraphProvider } = await import('~/content-graph.generated')
-  const { isPublicNode } = await import('~/content-graph')
-
-  const node = contentGraphProvider
-    .getNodes({ locale: lang as ContentLocale, visibility: 'public' })
-    .find(n => n.slug === slug && isPublicNode(n))
-
-  if (node) {
-    const firstNiche = node.niche[0] ?? 'apex'
-    throw event.redirect(308, `/${lang}/n/${firstNiche}/${node.slug}`)
+  const nodes = contentGraphProvider.getNodes()
+  const { contentGraphData } = await import('~/content-graph.generated')
+  const publicGroupIds = new Set(
+    contentGraphData.groups?.publicGroups.flatMap(g => g.nodes.map(n => n.id)) ?? []
+  )
+  return {
+    params: nodes
+      .filter(n => n.slug !== '_index' && publicGroupIds.has(n.id))
+      .map(node => ({
+        lang: node.locale,
+        niche: node.niche[0] ?? 'apex',
+        slug: node.slug,
+      })),
   }
 }
 
-/**
- * Thin routeLoader$ wrapper that validates lang, calls loadContent(),
- * and catches ContentLoaderError → error(404).
- *
- * All server-only logic (fs, gray-matter, ajv) lives in loadContent()
- * which uses dynamic imports per D001 to stay tree-shaken from client.
- */
-export const useContent = routeLoader$<LlmWikiContent | null>(async ({ params, error, url }) => {
+export const onRequest: RequestHandler = async event => {
+  const lang = event.params.lang ?? ''
+  if (!lang || !VALID_LANG_CODES.has(lang)) {
+    throw event.error(404, `Language "${lang ?? 'unknown'}" not supported`)
+  }
+}
+
+export const useArticle = routeLoader$<LlmWikiContent | null>(async ({ params, error }) => {
   const lang = params.lang
-  const slugRaw = params.slug
+  const niche = params.niche
+  const slug = params.slug
 
   if (!lang || !VALID_LANG_CODES.has(lang)) {
     throw error(404, `Language "${lang ?? 'unknown'}" not supported`)
   }
-
-  if (!slugRaw) {
-    throw error(404, 'No slug provided')
+  if (!niche || !slug) {
+    throw error(404, 'Missing niche or slug')
   }
-
-  const { niche } = parseHost(url.host)
-  const slug = slugRaw.replaceAll('/', '-')
 
   try {
     return await loadContent(niche, slug, lang as SupportedLanguage)
@@ -80,7 +65,7 @@ export const useContent = routeLoader$<LlmWikiContent | null>(async ({ params, e
           err.errors
         )
       }
-      return null as unknown as LlmWikiContent | null
+      throw error(404, `Content not found: ${niche}/${slug} (${lang})`)
     }
     throw err
   }
@@ -88,48 +73,48 @@ export const useContent = routeLoader$<LlmWikiContent | null>(async ({ params, e
 
 export const useRelated = routeLoader$<ContentNode[]>(async ({ params }) => {
   const lang = params.lang
-  const slugRaw = params.slug
-  if (!lang || !slugRaw) return []
+  const slug = params.slug
+  if (!lang || !slug) return []
 
-  const { contentGraphProvider } = await import('~/content-graph.generated')
-  const { isPublicNode } = await import('~/content-graph')
+  const { contentGraphProvider, contentGraphData } = await import('~/content-graph.generated')
+  const publicGroupIds = new Set(
+    contentGraphData.groups?.publicGroups.flatMap(g => g.nodes.map(n => n.id)) ?? []
+  )
 
-  const slug = slugRaw.replaceAll('/', '-')
-  const locale = lang as import('~/content-graph').ContentLocale
+  const locale = lang as ContentLocale
   const current = contentGraphProvider.getNodes({ locale }).find(n => n.slug === slug)
 
   if (!current) {
-    const nicheNodes = contentGraphProvider
-      .getNodes({ locale })
-      .filter(n => n.locale === lang && isPublicNode(n) && n.slug !== slug)
-    return nicheNodes.slice(0, 4)
+    return contentGraphProvider
+      .getNodes({ locale, visibility: 'public' })
+      .filter(n => n.slug !== slug && publicGroupIds.has(n.id))
+      .slice(0, 4)
   }
 
-  const related = contentGraphProvider.getRelated(current.id).filter(isPublicNode).slice(0, 4)
-
+  const related = contentGraphProvider
+    .getRelated(current.id)
+    .filter(n => publicGroupIds.has(n.id))
+    .slice(0, 4)
   if (related.length > 0) return related
 
-  const nicheRelated = contentGraphProvider
+  return contentGraphProvider
     .getNodes({ locale, visibility: 'public' })
-    .filter(n => n.niche.some(nn => current.niche.includes(nn)) && n.id !== current.id)
-
-  return nicheRelated.slice(0, 4)
+    .filter(
+      n =>
+        n.niche.some(nn => current.niche.includes(nn)) &&
+        n.id !== current.id &&
+        publicGroupIds.has(n.id)
+    )
+    .slice(0, 4)
 })
 
-/**
- * Content route page component
- * Uses ArticleFrame + AdaptiveHeader + FrontmatterSlots + SourceLedger
- * with i18n-aware labels from the translation context
- */
 export default component$(() => {
-  const content = useContent()
-  const { t } = useI18n()
-  const location = useLocation()
-  const { niche } = parseHost(location.url.host)
+  const content = useArticle()
   const relatedNodes = useRelated()
+  const { t } = useI18n()
 
   if (!content.value) {
-    return <NotFound />
+    return <div class="text-bone-muted p-8 text-center">Content not found</div>
   }
 
   const articleSchema = generateArticleSchema({
@@ -139,7 +124,7 @@ export default component$(() => {
     datePublished: content.value.metadata?.created_at || new Date().toISOString(),
     dateModified: content.value.metadata?.updated_at || undefined,
     url: content.value.slug,
-    niche,
+    niche: content.value.slug,
     lang: content.value.lang,
   })
 
@@ -147,7 +132,6 @@ export default component$(() => {
     <ArticleFrame>
       <JSONLD data={articleSchema} />
       <AdaptiveHeader title={content.value.title} subtitle={content.value.subjects.join(', ')} />
-      {/* Editorial signals grid */}
       <div class="mt-3">
         <SignalGrid
           qualityScore={content.value.quality_score ?? 85}
@@ -187,24 +171,10 @@ export default component$(() => {
   )
 })
 
-function extractExcerpt(html: string, maxLength = 155): string {
-  const text = html
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/\s+/g, ' ')
-    .trim()
-  if (text.length <= maxLength) return text
-  if (text[maxLength] === ' ') return `${text.slice(0, maxLength)}…`
-  return `${text.slice(0, maxLength).replace(/\s+\S*$/, '')}…`
-}
-
-export const head: DocumentHead = ({ resolveValue, url, params }) => {
-  const content = resolveValue(useContent)
-  const t = getTranslation(params.lang as SupportedLanguage)
+export const head: DocumentHead = ({ resolveValue, params, url }) => {
+  const content = resolveValue(useArticle)
+  const lang = (params.lang as SupportedLanguage) || 'en'
+  const t = getTranslation(lang)
 
   if (!content) {
     return {
@@ -216,37 +186,28 @@ export const head: DocumentHead = ({ resolveValue, url, params }) => {
     }
   }
 
-  const canonicalUrl = new URL(url.href)
-  canonicalUrl.search = '' // Strip query params for canonical
-  if (canonicalUrl.pathname !== '/' && canonicalUrl.pathname.endsWith('/')) {
-    canonicalUrl.pathname = canonicalUrl.pathname.replace(/\/$/, '')
-  }
+  const niche = params.niche ?? ''
+  const slug = params.slug ?? ''
+  const canonicalHref = `/${lang}/n/${niche}/${slug}`
+  const canonicalUrl = new URL(canonicalHref, url.origin)
 
-  const alternateLinks: Array<{ rel: string; hreflang: string; href: string }> = (
-    content.translations || []
-  ).map(tLang => ({
+  const alternateLinks: Array<{ rel: string; hreflang: string; href: string }> =
+    SUPPORTED_LANGUAGES.map(l => ({
+      rel: 'alternate' as const,
+      hreflang: l.code,
+      href: new URL(`/${l.code}/n/${niche}/${slug}`, url.origin).href,
+    }))
+
+  alternateLinks.push({
     rel: 'alternate',
-    hreflang: tLang,
-    href: new URL(`/${tLang}/${content.slug}`, url.origin).href,
-  }))
-
-  // Add x-default hreflang pointing to English version if available
-  // If not, point to the first available translation
-  const fallbackLang = content.translations?.includes('en') ? 'en' : content.translations?.[0]
-  if (fallbackLang) {
-    alternateLinks.push({
-      rel: 'alternate',
-      hreflang: 'x-default',
-      href: new URL(`/${fallbackLang}/${content.slug}`, url.origin).href,
-    })
-  }
-
-  const excerpt = extractExcerpt(content.content)
+    hreflang: 'x-default',
+    href: new URL(`/en/n/${niche}/${slug}`, url.origin).href,
+  })
 
   return {
     title: t.seo.articleTitleTemplate.replace('{title}', content.title),
     meta: [
-      { name: 'description', content: excerpt || content.subjects.join(', ') },
+      { name: 'description', content: content.subjects.join(', ') },
       {
         name: 'robots',
         content:
@@ -254,19 +215,17 @@ export const head: DocumentHead = ({ resolveValue, url, params }) => {
             ? 'noindex, nofollow'
             : 'index, follow',
       },
-      // Open Graph
       { property: 'og:title', content: content.title },
-      { property: 'og:description', content: excerpt || content.subjects.join(', ') },
+      { property: 'og:description', content: content.subjects.join(', ') },
       { property: 'og:url', content: canonicalUrl.href },
       { property: 'og:type', content: 'article' },
       { property: 'og:site_name', content: t.seo.siteName },
       { property: 'og:locale', content: content.lang },
       { property: 'og:image', content: 'https://uniteia.com/og-image.png' },
-      // Twitter
-      { name: 'twitter:image', content: 'https://uniteia.com/og-image.png' },
       { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:image', content: 'https://uniteia.com/og-image.png' },
       { name: 'twitter:title', content: content.title },
-      { name: 'twitter:description', content: excerpt || content.subjects.join(', ') },
+      { name: 'twitter:description', content: content.subjects.join(', ') },
     ],
     links: [{ rel: 'canonical', href: canonicalUrl.href }, ...alternateLinks],
   }

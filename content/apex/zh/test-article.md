@@ -3,7 +3,7 @@ slug: test-article
 lang: zh
 title: 集成验证测试文章
 verdict: trusted
-quality_score: 92
+quality_score: 95
 subjects:
   - 测试
   - 集成

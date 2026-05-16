@@ -3,7 +3,7 @@ slug: test-article
 lang: pt
 title: Artigo de Teste para Verificação de Integração
 verdict: trusted
-quality_score: 92
+quality_score: 95
 subjects:
   - testes
   - integração

@@ -31,7 +31,7 @@ export const NicheLanding = component$<NicheLandingProps>(
         class={['max-w-4xl mx-auto px-4 py-8 grid-signal', classList]}
       >
         {/* Niche header */}
-        <DepthSection as="header" depth="front" class="mb-10">
+        <DepthSection as="div" depth="front" class="mb-10">
           <DepthCard depth="front" class="p-6 md:p-8 glass">
             <div class="flex items-center gap-4 mb-4">
               {iconClass && <div class={iconClass} aria-hidden="true" />}

@@ -43,6 +43,18 @@ export const onRequest: RequestHandler = async event => {
   }
 }
 
+export const onStaticGenerate = async () => {
+  const niches = await loadNichesConfig()
+  return {
+    params: SUPPORTED_LANGUAGES.flatMap(l =>
+      niches.map(n => ({
+        lang: l.code,
+        niche: getNicheSlug(n, l.code),
+      }))
+    ),
+  }
+}
+
 /**
  * routeLoader$ that loads the niches config, finds the niche matching
  * the URL slug, validates the language param, and returns typed

@@ -1,16 +1,8 @@
-import type {
-  ContentNode,
-  ContentNodeLifecycle,
-  ContentNodeVerdict,
-  ContentNodeVisibility,
-} from '../contracts/node'
+import type { ContentGroup } from '../contracts/group'
+import type { ContentNode, ContentNodeVerdict } from '../contracts/node'
 
 export function isPublicNode(node: ContentNode): boolean {
-  return (
-    node.visibility === 'published' &&
-    node.qualityScore >= 95 &&
-    (node.lifecycle === 'published' || node.lifecycle === 'reviewed')
-  )
+  return node.visibility === 'published' && node.qualityScore >= 95
 }
 
 export function isIndexableNode(node: ContentNode): boolean {
@@ -26,17 +18,23 @@ export function getVisibilityVerdict(node: ContentNode): ContentNodeVerdict {
 
 export function deriveVisibility(
   qualityScore: number,
-  publishable: boolean,
-  lifecycle?: string
+  publishable: boolean
 ): {
-  visibility: ContentNodeVisibility
-  lifecycle: ContentNodeLifecycle
-  verdict: ContentNodeVerdict
+  noindex: boolean
 } {
-  const isDraft = !publishable || (lifecycle !== undefined && lifecycle === 'draft')
-  const visibility: ContentNodeVisibility = isDraft ? 'draft' : 'published'
-  const lc: ContentNodeLifecycle = isDraft ? 'generated' : 'published'
-  const verdict: ContentNodeVerdict =
-    qualityScore >= 95 ? 'safe' : qualityScore >= 50 ? 'caution' : 'unsafe'
-  return { visibility, lifecycle: lc, verdict }
+  const isDraft = !publishable || qualityScore < 95
+  return { noindex: isDraft }
+}
+
+export function isPublicContentGroup(group: ContentGroup): boolean {
+  if (!group.isFullySymmetric) return false
+  if (group.missingLocales.length > 0) return false
+  if (group.nodes.length !== 8) return false
+  return group.nodes.every(node => isPublicNode(node))
+}
+
+export function getGroupVisibilityScore(group: ContentGroup): number {
+  const publishedCount = group.publishedLocales.length
+  const totalRequired = 8
+  return publishedCount / totalRequired
 }

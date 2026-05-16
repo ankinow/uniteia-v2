@@ -44,7 +44,7 @@ describe('loadContent', () => {
     expect(result.subjects.length).toBeGreaterThanOrEqual(1)
     expect(result.referral_links).toBeInstanceOf(Array)
     expect(result.verdict).toBe('trusted')
-    expect(result.quality_score).toBe(92)
+    expect(result.quality_score).toBe(95)
   }, 30_000)
 
   /**

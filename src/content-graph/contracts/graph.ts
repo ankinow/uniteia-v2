@@ -1,7 +1,9 @@
+import type { ContentGroupCollection } from './group'
 import type { ContentLocale, ContentNode } from './node'
 
 export interface ContentGraph {
   nodes: Map<string, ContentNode>
+  groups: ContentGroupCollection
   collections: {
     featured: ContentNode[]
     byNiche: Record<string, ContentNode[]>
@@ -18,6 +20,7 @@ export interface ContentGraph {
 
 export interface SerializableContentGraph {
   nodes: Record<string, import('./node').ContentNode>
+  groups?: import('./group').ContentGroupCollection
   collections: {
     featured: string[]
     byNiche: Record<string, string[]>

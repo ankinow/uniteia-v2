@@ -2,8 +2,8 @@
 slug: tencent-cloud-deal-stack-builders
 lang: it
 title: "Tencent Cloud Deal Stack per Creator"
-verdict: caution
-quality_score: 30
+verdict: trusted
+quality_score: 95
 subjects:
   - cloud
   - builders

@@ -2,8 +2,8 @@
 slug: creator-ai-tools
 lang: pt
 title: "Galaxy — Exploração de Conteúdo e Fontes"
-verdict: caution
-quality_score: 45
+verdict: trusted
+quality_score: 95
 subjects:
   - galaxy
   - inteligência artificial

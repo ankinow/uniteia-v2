@@ -3,7 +3,7 @@ slug: test-article
 lang: ja
 title: 統合検証用テスト記事
 verdict: trusted
-quality_score: 92
+quality_score: 95
 subjects:
   - テスト
   - 統合

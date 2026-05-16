@@ -22,8 +22,10 @@ export function serializeGraphArtifacts(graph: ContentGraph): GraphArtifacts {
   const nodes = Array.from(graph.nodes.values())
   const now = new Date().toISOString()
 
+  const publicGroupIds = new Set(graph.groups.publicGroups.flatMap(g => g.nodes.map(n => n.id)))
+
   const sitemapEligible = nodes
-    .filter(n => n.visibility === 'published' && n.qualityScore >= 95 && !n.seo.noindex)
+    .filter(n => publicGroupIds.has(n.id) && !n.seo.noindex)
     .map(n => n.id)
 
   const edges = buildEdges(graph)
@@ -59,6 +61,7 @@ export function serializeGraphArtifacts(graph: ContentGraph): GraphArtifacts {
     generatedAt: now,
     nodes,
     edges,
+    groups: graph.groups,
     indexes: {
       byId,
       bySlug,
@@ -66,9 +69,7 @@ export function serializeGraphArtifacts(graph: ContentGraph): GraphArtifacts {
       byLocale: byLocale as Record<import('../contracts/node').ContentLocale, string[]>,
       byNiche,
       byTag,
-      public: nodes
-        .filter(n => n.visibility === 'published' && n.qualityScore >= 95)
-        .map(n => n.id),
+      public: nodes.filter(n => publicGroupIds.has(n.id)).map(n => n.id),
       sitemapEligible,
     },
   }
@@ -128,9 +129,7 @@ export function serializeGraphArtifacts(graph: ContentGraph): GraphArtifacts {
     visibilityIndex: {
       version: 'visibility-index.v1',
       generatedAt: now,
-      public: nodes
-        .filter(n => n.visibility === 'published' && n.qualityScore >= 95)
-        .map(n => n.id),
+      public: nodes.filter(n => publicGroupIds.has(n.id)).map(n => n.id),
       noindex: nodes.filter(n => n.seo.noindex).map(n => n.id),
       sitemapEligible,
       draft: nodes.filter(n => n.visibility === 'draft').map(n => n.id),

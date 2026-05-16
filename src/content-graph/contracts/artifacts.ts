@@ -1,4 +1,5 @@
 import type { GraphEdge } from './edge'
+import type { ContentGroupCollection } from './group'
 import type { ContentLocale, ContentNode } from './node'
 
 export interface SerializableGraphV1 {
@@ -6,6 +7,7 @@ export interface SerializableGraphV1 {
   generatedAt: string
   nodes: ContentNode[]
   edges: GraphEdge[]
+  groups?: ContentGroupCollection
   indexes: {
     byId: Record<string, number>
     bySlug: Record<string, string>

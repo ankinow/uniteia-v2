@@ -1,7 +1,6 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { compileContentGraph } from '../src/content-graph'
-import { isPublicNode } from '../src/content-graph/policies/visibility-policy'
 
 const GENERATED_DIR = resolve(import.meta.dirname, '..', 'src', 'content-graph', 'generated')
 const OUT_DIR = resolve(import.meta.dirname, '..', 'src')
@@ -17,8 +16,9 @@ async function main() {
     defaultLocale: 'en',
   })
 
+  const publicGroupIds = new Set(graph.groups.publicGroups.flatMap(g => g.nodes.map(n => n.id)))
   const nodes = Array.from(graph.nodes.values())
-  const publicNodes = nodes.filter(isPublicNode)
+  const publicNodes = nodes.filter(n => publicGroupIds.has(n.id))
 
   const documents = publicNodes.map(node => ({
     id: node.id,
