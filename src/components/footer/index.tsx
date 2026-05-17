@@ -2,6 +2,7 @@ import { component$, useSignal } from '@builder.io/qwik'
 import { HudLabel } from '~/components/hud-label'
 import { ScratchDivider } from '~/components/scratch-divider'
 import { getLanguageName, useI18n } from '~/i18n/context'
+import { staticPage } from '~/routing/routes'
 import type { FooterProps } from './types'
 
 export const Footer = component$<FooterProps>(({ class: classList }) => {
@@ -35,13 +36,13 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
             data-testid="footer-links"
           >
             <a
-              href="/privacy"
+              href={staticPage(lang.value, 'privacy')}
               class="text-bone-muted transition-colors duration-200 hover:text-action"
             >
               {t.footer.links.privacy}
             </a>
             <a
-              href="/terms"
+              href={staticPage(lang.value, 'terms')}
               class="text-bone-muted transition-colors duration-200 hover:text-action"
             >
               {t.footer.links.terms}

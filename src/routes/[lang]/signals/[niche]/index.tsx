@@ -8,6 +8,7 @@ import {
 import { JSONLD } from '~/components/json-ld'
 import { NicheLanding } from '~/components/niche-landing'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
+import { canonicalUrl, xdefaultUrl } from '~/routing/routes'
 import type { NicheArticleEntry } from '~/utils/content-loader'
 import { findNicheBySlug, getNicheSlug, loadNichesConfig } from '~/utils/niche-loader'
 import { generateWebSiteSchema } from '~/utils/schema-generators'
@@ -152,20 +153,20 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
   const lang = (params.lang as SupportedLanguage) || 'en'
 
   const localizedSlug = getNicheSlug(data.niche, lang as SupportedLanguage)
-  const canonicalUrl = new URL(`/${lang}/signals/${localizedSlug}`, url.origin)
+  const nicheStr = data.niche.slug
   const pageTitle = `${data.niche.title[lang]} — UniTeia`
   const description = data.niche.description[lang]
 
   const alternateLinks: AlternateLink[] = SUPPORTED_LANGUAGES.map(l => ({
     rel: 'alternate',
     hreflang: l.code,
-    href: new URL(`/${l.code}/signals/${getNicheSlug(data.niche, l.code)}`, url.origin).href,
+    href: canonicalUrl(url.origin, `/${l.code}/signals/${getNicheSlug(data.niche, l.code)}`),
   }))
 
   alternateLinks.push({
     rel: 'alternate',
     hreflang: 'x-default',
-    href: new URL(`/en/signals/${getNicheSlug(data.niche, 'en')}`, url.origin).href,
+    href: xdefaultUrl(url.origin, nicheStr),
   })
 
   return {
@@ -175,13 +176,19 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
       { name: 'robots', content: 'index, follow' },
       { property: 'og:title', content: pageTitle },
       { property: 'og:description', content: description },
-      { property: 'og:url', content: canonicalUrl.href },
+      {
+        property: 'og:url',
+        content: canonicalUrl(url.origin, `/${lang}/signals/${localizedSlug}`),
+      },
       { property: 'og:type', content: 'article' },
       { property: 'og:locale', content: lang },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: pageTitle },
       { name: 'twitter:description', content: description },
     ],
-    links: [{ rel: 'canonical', href: canonicalUrl.href }, ...alternateLinks],
+    links: [
+      { rel: 'canonical', href: canonicalUrl(url.origin, `/${lang}/signals/${localizedSlug}`) },
+      ...alternateLinks,
+    ],
   }
 }

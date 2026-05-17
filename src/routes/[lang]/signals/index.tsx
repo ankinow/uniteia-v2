@@ -3,6 +3,7 @@ import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-c
 import { NicheCard } from '~/components/niche-card'
 import { useI18n } from '~/i18n/context'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
+import { canonicalUrl, signalsIndex, xdefaultUrl } from '~/routing/routes'
 import type { NichesConfig } from '~/types/niche'
 import { loadNichesConfig } from '~/utils/niche-loader'
 
@@ -75,13 +76,13 @@ export const head: DocumentHead = ({ params, url }) => {
   const alternateLinks: AlternateLink[] = SUPPORTED_LANGUAGES.map(l => ({
     rel: 'alternate',
     hreflang: l.code,
-    href: new URL(`/${l.code}/signals`, url.origin).href,
+    href: canonicalUrl(url.origin, signalsIndex(l.code)),
   }))
 
   alternateLinks.push({
     rel: 'alternate',
     hreflang: 'x-default',
-    href: new URL('/en/signals', url.origin).href,
+    href: xdefaultUrl(url.origin),
   })
 
   return {
@@ -91,7 +92,7 @@ export const head: DocumentHead = ({ params, url }) => {
       { name: 'robots', content: 'index, follow' },
     ],
     links: [
-      { rel: 'canonical', href: new URL(`/${lang}/signals`, url.origin).href },
+      { rel: 'canonical', href: canonicalUrl(url.origin, signalsIndex(lang)) },
       ...alternateLinks,
     ],
   }

@@ -7,7 +7,8 @@ import { SiteShell } from '~/components/site-shell'
 import { contentGraphProvider } from '~/content-graph.generated'
 import { getPublicNavigation } from '~/content-graph/projections'
 import { getTranslation, useProvideI18n } from '~/i18n/context'
-import { DEFAULT_LANGUAGE, type SupportedLanguage } from '~/i18n/types'
+import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
+import { signalsIndex } from '~/routing/routes'
 import type { NichesConfig } from '~/types/niche'
 import { type NavigationData, deriveNavigation } from '~/utils/content-loader'
 import { getNicheSlug, loadNichesConfig } from '~/utils/niche-loader'
@@ -33,7 +34,8 @@ export const onRequest: RequestHandler = async event => {
 
 export const useLanguage = routeLoader$<SupportedLanguage>(({ headers }) => {
   const lang = headers.get('x-negotiated-lang')
-  if (lang && ['en', 'pt', 'es', 'ja', 'zh'].includes(lang)) return lang as SupportedLanguage
+  const validCodes = new Set(SUPPORTED_LANGUAGES.map(l => l.code))
+  if (lang && validCodes.has(lang)) return lang as SupportedLanguage
   return DEFAULT_LANGUAGE
 })
 
@@ -103,7 +105,7 @@ export default component$(() => {
           class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-action/10"
           data-testid="main-nav"
         >
-          <a href={`/${lang}/signals`} class="text-bone-muted hover:text-bone transition-colors">
+          <a href={signalsIndex(lang)} class="text-bone-muted hover:text-bone transition-colors">
             {t.nav.topics}
           </a>
         </nav>

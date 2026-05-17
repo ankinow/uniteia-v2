@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from '~/i18n/types'
+import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 
 /**
  * Generate hreflang links for all available language versions
@@ -74,5 +74,5 @@ export async function getAvailableLanguages(
   _slug: string
 ): Promise<SupportedLanguage[]> {
   // Default to all supported languages if no specific data
-  return ['en', 'pt', 'es', 'ja', 'zh'] as SupportedLanguage[]
+  return SUPPORTED_LANGUAGES.map(l => l.code)
 }

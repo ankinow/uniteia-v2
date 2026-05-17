@@ -1,7 +1,7 @@
 # UniTeia Niche Configuration
 # Adding a niche = adding an entry here with zero code changes.
 # Each niche must have:
-#   slug:        2-6 lowercase hyphen-separated segments (must pass SLUG_PATTERN)
+#   slug:        1-6 lowercase hyphen-separated segments (must pass SLUG_PATTERN)
 #   icon:        Lucide icon name string
 #   title:       map of SupportedLanguage → display string
 #   description: map of SupportedLanguage → short description
@@ -65,6 +65,36 @@
     it: Modelli su larga scala che comprendono e generano il linguaggio umano.
     ja: 人間の言語を理解し生成する大規模モデル。
     zh: 理解和生成人类语言的大规模模型。
+
+- slug: apex
+  slugs:
+    en: apex
+    pt: apex
+    es: apex
+    fr: apex
+    de: apex
+    it: apex
+    ja: apex
+    zh: apex
+  icon: radio
+  title:
+    en: Apex
+    pt: Apex
+    es: Apex
+    fr: Apex
+    de: Apex
+    it: Apex
+    ja: エイペックス
+    zh: 巅峰
+  description:
+    en: Emerging signals at the frontier of AI research and industry.
+    pt: Sinais emergentes na fronteira da pesquisa e indústria de IA.
+    es: Señales emergentes en la frontera de la investigación y la industria de IA.
+    fr: Signaux émergents à la frontière de la recherche et de l'industrie de l'IA.
+    de: Aufkommende Signale an der Grenze von KI-Forschung und Industrie.
+    it: Segnali emergenti alla frontiera della ricerca e dell'industria dell'IA.
+    ja: AI研究と産業の最前線における新興シグナル。
+    zh: 人工智能研究和产业前沿的新兴信号。
 
 - slug: prompt-engineering
   slugs:

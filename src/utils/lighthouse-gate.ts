@@ -227,7 +227,7 @@ async function loadPreviewWorker(): Promise<WorkerModule> {
   return (await import(workerUrl)) as WorkerModule
 }
 
-const SUPPORTED_LANGUAGES = new Set(['en', 'pt', 'es', 'ja', 'zh'])
+const SUPPORTED_LANGUAGES = new Set(['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'])
 
 function rewritePreviewPathname(pathname: string): string {
   const trimmedPathname =

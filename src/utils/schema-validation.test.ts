@@ -117,8 +117,8 @@ describe('validateContent', () => {
 
   // ── Invalid slug patterns ────────────────────────────────────────────
 
-  it('rejects single-segment slug (no hyphens)', () => {
-    const result = validateContent(validContent({ slug: 'solar' }))
+  it('rejects slug with numeric segment', () => {
+    const result = validateContent(validContent({ slug: 'solar-system-1' }))
     expect(result.valid).toBe(false)
     expect(result.errors.some(e => e.field === 'slug')).toBe(true)
   })
@@ -197,7 +197,7 @@ describe('validateContent', () => {
   // ── filePath propagation ─────────────────────────────────────────────
 
   it('propagates filePath to error issues', () => {
-    const result = validateContent(validContent({ slug: 'bad' }), 'custom/path.md')
+    const result = validateContent(validContent({ slug: 'bad-1' }), 'custom/path.md')
     expect(result.valid).toBe(false)
     expect(result.errors.every(e => e.filePath === 'custom/path.md')).toBe(true)
   })

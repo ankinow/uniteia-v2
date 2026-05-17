@@ -1,5 +1,6 @@
 import { component$ } from '@builder.io/qwik'
 import type { SupportedLanguage } from '~/i18n/types'
+import { nicheIndex } from '~/routing/routes'
 import type { NavigationData } from '~/utils/content-loader'
 
 export interface NavTreeProps {
@@ -30,7 +31,7 @@ export const NavTree = component$<NavTreeProps>(
         return {
           id: nicheId,
           title: landing?.title || nicheId,
-          href: `/${currentLang}/signals/${nicheSlugMap?.[nicheId] ?? nicheId}`,
+          href: nicheIndex(currentLang, nicheSlugMap?.[nicheId] ?? nicheId),
           isActive: currentNiche === nicheId,
         }
       })

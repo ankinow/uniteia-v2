@@ -1,3 +1,4 @@
+import { nicheIndex } from '~/routing/routes'
 import type { NicheConfig } from '~/types/niche'
 import type { ContentLocale, ContentNode } from '../contracts/node'
 import type { ContentGraphProvider } from '../contracts/provider'
@@ -39,7 +40,7 @@ export function getPublicNavigation(
     items.push({
       nicheSlug,
       label: config.title[locale] ?? config.title.en,
-      href: `/${locale}/signals/${nicheSlug}`,
+      href: nicheIndex(locale, nicheSlug),
       articleCount: nodes.length,
       avgGraphScore: totalScore / nodes.length,
     })

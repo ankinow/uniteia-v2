@@ -1,7 +1,7 @@
 /** URL validation utilities for content slug enforcement */
 
-// Base pattern for content slugs: 2-6 hyphen-separated lowercase segments
-const BASE_PATTERN = /^[a-z]+(-[a-z]+){1,5}$/
+// Base pattern for slugs: 1-6 hyphen-separated lowercase segments
+const BASE_PATTERN = /^[a-z]+(-[a-z]+){0,5}$/
 
 /**
  * Primary slug pattern used across the application
@@ -74,7 +74,7 @@ export function validateSlug(slug: string): { valid: boolean; error?: string } {
   if (!isValidSlugPattern(slug)) {
     return {
       valid: false,
-      error: `Slug "${slug}" does not match pattern ${BASE_PATTERN.toString()}. Must be 2-6 lowercase hyphen-separated segments.`,
+      error: `Slug "${slug}" does not match pattern ${BASE_PATTERN.toString()}. Must be 1-6 lowercase hyphen-separated segments.`,
     }
   }
   const bannedTerm = findBannedSlugTerm(slug)

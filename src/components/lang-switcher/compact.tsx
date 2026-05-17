@@ -1,6 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import { getTranslation, useI18n } from '~/i18n/context'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
+import { signalsIndex } from '~/routing/routes'
 
 export const LangSelectorCompact = component$(() => {
   const i18n = useI18n()
@@ -13,7 +14,7 @@ export const LangSelectorCompact = component$(() => {
       {SUPPORTED_LANGUAGES.map(langInfo => (
         <a
           key={langInfo.code}
-          href={`/${langInfo.code}/signals`}
+          href={signalsIndex(langInfo.code)}
           class={[
             'block py-1 px-3 text-xs transition-all duration-200',
             lang === langInfo.code

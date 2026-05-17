@@ -11,6 +11,7 @@ import type { ContentLocale, ContentNode } from '~/content-graph/contracts/node'
 import { getTranslation, useI18n } from '~/i18n/context'
 import type { SupportedLanguage } from '~/i18n/types'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
+import { canonicalUrl, xdefaultUrl } from '~/routing/routes'
 import type { LlmWikiContent } from '~/types/content'
 import { ContentLoaderError } from '~/types/content'
 import { loadContent } from '~/utils/content-loader'
@@ -188,20 +189,18 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
 
   const niche = params.niche ?? ''
   const slug = params.slug ?? ''
-  const canonicalHref = `/${lang}/signals/${niche}/${slug}`
-  const canonicalUrl = new URL(canonicalHref, url.origin)
 
   const alternateLinks: Array<{ rel: string; hreflang: string; href: string }> =
     SUPPORTED_LANGUAGES.map(l => ({
       rel: 'alternate' as const,
       hreflang: l.code,
-      href: new URL(`/${l.code}/signals/${niche}/${slug}`, url.origin).href,
+      href: canonicalUrl(url.origin, `/${l.code}/signals/${niche}/${slug}`),
     }))
 
   alternateLinks.push({
     rel: 'alternate',
     hreflang: 'x-default',
-    href: new URL(`/en/signals/${niche}/${slug}`, url.origin).href,
+    href: xdefaultUrl(url.origin, niche, slug),
   })
 
   return {
@@ -217,7 +216,10 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
       },
       { property: 'og:title', content: content.title },
       { property: 'og:description', content: content.subjects.join(', ') },
-      { property: 'og:url', content: canonicalUrl.href },
+      {
+        property: 'og:url',
+        content: canonicalUrl(url.origin, `/${lang}/signals/${niche}/${slug}`),
+      },
       { property: 'og:type', content: 'article' },
       { property: 'og:site_name', content: t.seo.siteName },
       { property: 'og:locale', content: content.lang },
@@ -227,6 +229,9 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
       { name: 'twitter:title', content: content.title },
       { name: 'twitter:description', content: content.subjects.join(', ') },
     ],
-    links: [{ rel: 'canonical', href: canonicalUrl.href }, ...alternateLinks],
+    links: [
+      { rel: 'canonical', href: canonicalUrl(url.origin, `/${lang}/signals/${niche}/${slug}`) },
+      ...alternateLinks,
+    ],
   }
 }

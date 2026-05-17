@@ -1,4 +1,5 @@
 import type { ClassList } from '@builder.io/qwik'
+import type { SupportedLanguage } from '~/i18n/types'
 
 /**
  * LangSwitcher component props
@@ -30,5 +31,3 @@ export interface LangSwitcherLogEvent {
   to?: string
   redirectUrl?: string
 }
-
-type SupportedLanguage = 'en' | 'pt' | 'es' | 'ja' | 'zh'

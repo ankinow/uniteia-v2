@@ -31,7 +31,7 @@ export const LangSwitcher = component$<LangSwitcherProps>(
 
       const pathSegments = window.location.pathname.split('/').filter(Boolean)
       const existingLang = pathSegments[0] ?? ''
-      const remainder = ['en', 'pt', 'es', 'ja', 'zh'].includes(existingLang)
+      const remainder = SUPPORTED_LANGUAGES.some(l => l.code === existingLang)
         ? pathSegments.slice(1)
         : pathSegments
       const redirectPath = `/${newLang}${remainder.length > 0 ? `/${remainder.join('/')}` : ''}`

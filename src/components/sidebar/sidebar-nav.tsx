@@ -1,6 +1,7 @@
 import { component$, useSignal } from '@builder.io/qwik'
 import type { NavigationItem } from '~/content-graph/projections'
 import { getTranslation, useI18n } from '~/i18n/context'
+import { searchPage, signalsIndex } from '~/routing/routes'
 
 export interface SidebarNavProps {
   navigationItems: NavigationItem[]
@@ -16,7 +17,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
     <ul class="space-y-2">
       <li>
         <a
-          href="/"
+          href={signalsIndex(lang)}
           class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-all duration-200 font-pixel text-xs uppercase tracking-wider"
         >
           {t.nav.home}
@@ -24,7 +25,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
       </li>
       <li>
         <a
-          href={`/${lang}/signals`}
+          href={signalsIndex(lang)}
           class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-all duration-200 font-pixel text-xs uppercase tracking-wider"
         >
           {t.nav.topics}
@@ -32,7 +33,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
       </li>
       <li>
         <a
-          href={`/${lang}/search`}
+          href={searchPage(lang)}
           class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-all duration-200 font-pixel text-xs uppercase tracking-wider"
         >
           Search
