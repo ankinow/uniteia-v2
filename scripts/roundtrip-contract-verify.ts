@@ -161,8 +161,8 @@ const graph = compileContentGraph({
 })
 
 console.error(
-  `[verify] ✅ Graph compiled: ${graph.metadata.totalNodes} nodes, ` +
-    `${graph.collections.public.length} public`
+  `[verify] ✅ Graph compiled: ${graph.nodes.length} nodes, ` +
+    `${graph.nodes.filter(n => n.visibility === 'public' || (n.visibility as string) === 'published').length} public`
 )
 
 // ── Phase 6: Verify field fidelity ─────────────────────────────────────────

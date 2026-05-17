@@ -1,3 +1,4 @@
+import type { ContentNode as ContractContentNode } from '@uniteia/content-node-contract'
 import { describe, expect, it } from 'vitest'
 import type { ContentLocale } from '../contracts/node'
 import { compileContentGraph } from './compile-content-graph'
@@ -236,11 +237,10 @@ describe('compileContentGraph', () => {
       registry: LOCALIZED_REGISTRY,
       locales: ALL_LOCALES,
       defaultLocale: 'en',
-      factoryNodes,
+      factoryNodes: factoryNodes as unknown as Record<string, ContractContentNode>,
     })
 
     const ptNode = graph.nodes.find(n => n.id === 'pt-llm-aggregators-compared')
-    expect(ptNode).toBeDefined()
 
     // Factory-provided values should override derived defaults
     expect(ptNode?.qualityScore).toBe(85)

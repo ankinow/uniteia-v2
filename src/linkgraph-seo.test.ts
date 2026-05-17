@@ -185,7 +185,8 @@ describe('computeDegreeCentrality', () => {
     ]
     const result = computeDegreeCentrality(edges, nodes)
     for (let i = 1; i < result.length; i++) {
-      expect(result[i]?.total).toBeLessThanOrEqual(result[i - 1]?.total)
+      // biome-ignore lint/style/noNonNullAssertion: known safe, within loop bounds
+      expect(result[i]!.total).toBeLessThanOrEqual(result[i - 1]!.total)
     }
   })
 })

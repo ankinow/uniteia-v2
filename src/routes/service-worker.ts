@@ -1,11 +1,29 @@
-declare const self: ServiceWorkerGlobalScope
+type SWScope = typeof globalThis & {
+  skipWaiting(): void
+  clients: {
+    claim(): Promise<void>
+    matchAll(): Promise<Array<{ navigate(url: string | URL): Promise<void>; url: string }>>
+  }
+  addEventListener(type: 'install' | 'activate' | 'fetch', listener: (event: Event) => void): void
+}
+
+type SWFetchEvent = Event & {
+  request: Request
+  respondWith(response: Response | Promise<Response>): void
+}
+
+type SWInstallEvent = Event & {
+  waitUntil(promise: Promise<unknown>): void
+}
 
 let validChunks: Set<string> | null = null
 let storedManifestHash: string | null = null
 
-self.addEventListener('install', event => {
-  self.skipWaiting()
-  event.waitUntil(
+const swSelf = self as unknown as SWScope
+
+swSelf.addEventListener('install', (event: Event) => {
+  swSelf.skipWaiting()
+  ;(event as SWInstallEvent).waitUntil(
     fetch('/q-manifest.json')
       .then(r => r.json() as Promise<{ manifestHash: string; bundles: Record<string, unknown> }>)
       .then(manifest => {
@@ -18,15 +36,19 @@ self.addEventListener('install', event => {
   )
 })
 
-self.addEventListener('activate', () => {
-  self.clients.claim()
+swSelf.addEventListener('activate', () => {
+  swSelf.clients.claim()
 })
 
-self.addEventListener('fetch', event => {
-  const url = new URL(event.request.url)
+swSelf.addEventListener('fetch', (event: Event) => {
+  const fetchEvent = event as SWFetchEvent
+  const url = new URL(fetchEvent.request.url)
 
   // Preloader/prefetch: let through without interception
-  if (event.request.destination === '' || event.request.destination === 'modulepreload') {
+  if (
+    (fetchEvent.request.destination as string) === '' ||
+    (fetchEvent.request.destination as string) === 'modulepreload'
+  ) {
     return
   }
 
@@ -36,7 +58,7 @@ self.addEventListener('fetch', event => {
       const chunkName = url.pathname.split('/').pop() ?? ''
       if (chunkName !== '' && !validChunks.has(chunkName)) {
         // Stale CDN chunk: bypass cache to fetch fresh version
-        event.respondWith(fetch(event.request, { cache: 'reload' }))
+        fetchEvent.respondWith(fetch(fetchEvent.request, { cache: 'reload' }))
         return
       }
     }
@@ -45,22 +67,22 @@ self.addEventListener('fetch', event => {
   }
 
   // Navigation: detect BUILD_ID mismatch and force cache invalidation
-  if (event.request.mode === 'navigate') {
-    event.respondWith(
+  if (fetchEvent.request.mode === 'navigate') {
+    fetchEvent.respondWith(
       (async () => {
-        const response = await fetch(event.request)
+        const response = await fetch(fetchEvent.request)
         const html = await response.clone().text()
         const match = html.match(/q:manifest-hash="([^"]+)"/)
         if (match && storedManifestHash && match[1] !== storedManifestHash) {
           // BUILD_ID changed: clear all caches, reset chunk validation,
           // and force every client to reload with fresh assets
           validChunks = null
-          storedManifestHash = match[1]
+          storedManifestHash = match[1] ?? storedManifestHash
           await Promise.all([
             caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k)))),
-            self.clients.claim(),
+            swSelf.clients.claim(),
           ])
-          const allClients = await self.clients.matchAll()
+          const allClients = await swSelf.clients.matchAll()
           for (const client of allClients) {
             client.navigate(client.url).catch(() => {})
           }

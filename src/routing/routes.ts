@@ -1,7 +1,29 @@
-import { contentGraphProvider } from '~/content-graph.generated'
 import type { ContentLocale } from '~/content-graph/contracts/node'
 import type { RouteContract } from '~/content-graph/contracts/routing'
 import type { SupportedLanguage } from '~/i18n/types'
+
+/**
+ * Lazy accessor for the content graph provider.
+ * Avoids static import of ~88KB graph data in the shared client bundle.
+ */
+let _graphProvider: import('~/content-graph/contracts/provider').ContentGraphProvider | null = null
+let _graphPromise: Promise<void> | null = null
+
+async function ensureGraphProvider(): Promise<void> {
+  if (_graphProvider) return
+  if (_graphPromise) return _graphPromise
+  _graphPromise = (async () => {
+    const mod = await import('~/content-graph.generated')
+    _graphProvider = mod.contentGraphProvider
+  })()
+  return _graphPromise
+}
+
+function getGraphProvider():
+  | import('~/content-graph/contracts/provider').ContentGraphProvider
+  | null {
+  return _graphProvider
+}
 
 export function localed(lang: SupportedLanguage): string {
   return `/${lang}`
@@ -89,14 +111,17 @@ export class AppRoutes implements RouteContract {
         const niche = rest[1] as string
         const slug = rest[2] as string
 
-        const node = contentGraphProvider.getNode(slug, localePart as ContentLocale)
-        if (node) {
-          const targetNode = contentGraphProvider
-            .getGroup(node.canonicalSlug)
-            ?.find(n => n.locale === targetLocale)
-          if (targetNode) {
-            const targetNiche = targetNode.niche[0] ?? 'apex'
-            return `/${targetLocale}/signals/${targetNiche}/${targetNode.slug}${query}${hash}`
+        const provider = getGraphProvider()
+        if (provider) {
+          const node = provider.getNode(slug, localePart as ContentLocale)
+          if (node) {
+            const targetNode = provider
+              .getGroup(node.canonicalSlug)
+              ?.find(n => n.locale === targetLocale)
+            if (targetNode) {
+              const targetNiche = targetNode.niche[0] ?? 'apex'
+              return `/${targetLocale}/signals/${targetNiche}/${targetNode.slug}${query}${hash}`
+            }
           }
         }
         return `/${targetLocale}/signals/${niche}/${slug}${query}${hash}`
@@ -113,5 +138,9 @@ export class AppRoutes implements RouteContract {
     }
   }
 }
+
+// Eagerly start loading the content graph provider in the background.
+// When ready, subsequent localized() calls use graph-aware locale switching.
+ensureGraphProvider()
 
 export const routes = new AppRoutes()
