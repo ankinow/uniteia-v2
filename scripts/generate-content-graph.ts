@@ -1,19 +1,45 @@
-import { mkdirSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { compileContentGraph, serializeGraphArtifacts } from '../src/content-graph'
 
 const GENERATED_DIR = resolve(import.meta.dirname, '..', 'src', 'content-graph', 'generated')
 const GENERATED_TS = resolve(import.meta.dirname, '..', 'src', 'content-graph.generated.ts')
+const CONTENT_METADATA_DIR = resolve(import.meta.dirname, '..', 'content-metadata')
 
 async function main() {
   console.log('[content-graph] Generating content graph...')
 
   const { contentRegistry } = await import('../src/content-registry.generated')
 
+  // Load factory-provided ContentNodes from content-metadata dirs
+  const factoryNodes: Record<string, unknown> = {}
+  if (existsSync(CONTENT_METADATA_DIR)) {
+    const slugs = (await import('node:fs')).readdirSync(CONTENT_METADATA_DIR)
+    for (const slug of slugs) {
+      const nodePath = resolve(CONTENT_METADATA_DIR, slug, 'content-nodes.json')
+      if (existsSync(nodePath)) {
+        try {
+          const nodes = JSON.parse(readFileSync(nodePath, 'utf-8'))
+          if (Array.isArray(nodes)) {
+            for (const node of nodes) {
+              if (node.id) {
+                factoryNodes[node.id] = node
+              }
+            }
+          }
+        } catch {
+          // Skip invalid content-nodes.json
+        }
+      }
+    }
+    console.log(`[content-graph] Loaded ${Object.keys(factoryNodes).length} factory nodes`)
+  }
+
   const graph = compileContentGraph({
     registry: contentRegistry,
     locales: ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'],
     defaultLocale: 'en',
+    factoryNodes: factoryNodes as Record<string, any>,
   })
 
   const artifacts = serializeGraphArtifacts(graph)

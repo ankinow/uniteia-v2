@@ -7,9 +7,10 @@ import {
   writeFileSync,
 } from 'node:fs'
 import { join } from 'node:path'
-import { importPackage } from '../src/content-import/import-package'
+import { importPackage, getFactoryNode } from '../src/content-import/import-package'
 import { mapLayout } from '../src/content-import/map-layout'
 import { validatePackage } from '../src/content-import/validate-package'
+import type { ContentNode } from '@uniteia/content-node-contract'
 
 const V2_ROOT = process.cwd()
 const FACTORY_ROOT = join(V2_ROOT, '..', 'uniteia-mega-factory')
@@ -25,24 +26,46 @@ const CONTRACT_TO_V2_LOCALE: Record<string, string> = {
   zh: 'zh',
 }
 
+const V2_TO_CONTRACT_LOCALE: Record<string, string> = {
+  pt: 'pt-BR',
+  en: 'en',
+  es: 'es',
+  fr: 'fr',
+  de: 'de',
+  it: 'it',
+  ja: 'ja',
+  zh: 'zh',
+}
+
 const NICHE = 'apex'
 
 function buildFrontmatter(
   slug: string,
   lang: string,
   title: string,
-  importReport: Record<string, unknown>
+  importReport: Record<string, unknown>,
+  factoryNode?: ContentNode
 ): string {
-  const isDraft = importReport.canPublish === false
-  const sourceCount = 8
+  const qualityScore = factoryNode?.qualityScore ?? (importReport.canPublish === false ? 30 : 65)
+  const trustScore = factoryNode?.trustScore ?? 35
+  const verdict = factoryNode?.verdict ?? 'caution'
+  const visibility = factoryNode?.visibility ?? 'draft'
+  const lifecycle = factoryNode?.lifecycle ?? 'generated'
+  const createdAt = factoryNode?.timestamps.createdAt ?? new Date().toISOString()
+  const updatedAt = factoryNode?.timestamps.updatedAt ?? new Date().toISOString()
+  const noindex = factoryNode?.seo.noindex ?? (importReport.canPublish === false)
+  const seoPriority = factoryNode?.seo.priority ?? qualityScore
 
   return [
     '---',
     `slug: ${slug}`,
     `lang: ${lang}`,
     `title: ${JSON.stringify(title)}`,
-    'verdict: caution',
-    `quality_score: ${isDraft ? 30 : 65}`,
+    `verdict: ${verdict}`,
+    `quality_score: ${qualityScore}`,
+    `trust_score: ${trustScore}`,
+    `visibility: ${visibility}`,
+    `lifecycle: ${lifecycle}`,
     'subjects:',
     '  - cloud',
     '  - builders',
@@ -59,13 +82,14 @@ function buildFrontmatter(
     '    title: EdgeOne Overview',
     '  - url: https://www.tencentcloud.com/act/pro/promo',
     '    title: Tencent Cloud Free Tier',
+    'seo:',
+    `  noindex: ${noindex}`,
+    `  priority: ${seoPriority}`,
     'metadata:',
-    `  created_at: "${new Date().toISOString()}"`,
-    `  updated_at: "${new Date().toISOString()}"`,
+    `  created_at: "${createdAt}"`,
+    `  updated_at: "${updatedAt}"`,
     '  author: UniTeia System',
     '  version: 1',
-    `  sourceCount: ${sourceCount}`,
-    '  trustLevel: low',
     '  importedFrom: uniteia-mega-factory',
     '  contentPackage: uniteia-content-package/v1',
     '---',
@@ -108,6 +132,8 @@ function main(): void {
   console.log(`  Status: ${imported.importReport.status}`)
   console.log(`  canPublish: ${imported.importReport.canPublish}`)
   console.log(`  shouldNoindex: ${imported.importReport.shouldNoindex}`)
+  console.log(`  Factory nodes: ${imported.importReport.nodeCount}`)
+  console.log(`  Metadata origin: ${imported.importReport.metadataOrigin}`)
   console.log(`  Warnings: ${imported.importReport.warnings.join(', ')}`)
 
   // Phase 3 — Map Layout
@@ -124,7 +150,7 @@ function main(): void {
     process.exit(1)
   }
 
-  // Phase 4 — Copy content to site content/ directory
+  // Phase 4 — Copy content to site content/ directory with factory metadata
   console.log('\n--- Phase 4: Copy content to content/apex/ ---')
   const contentBase = join(V2_ROOT, 'content', NICHE)
   const assetDir = join(V2_ROOT, 'public', 'assets', 'wiki', slug)
@@ -155,17 +181,31 @@ function main(): void {
       // Strip any existing frontmatter (shouldn't exist, but safety)
       const cleanContent = rawMdx.replace(/^---[\s\S]*?---\n*/m, '')
       const title = titleByLang[v2Locale] || slug
+
+      // Attempt to get factory-provided ContentNode for metadata
+      const factoryNode = getFactoryNode(imported.factoryNodes, contractLocale, slug)
+
       const frontmatter = buildFrontmatter(
         slug,
         v2Locale,
         title,
-        imported.importReport as unknown as Record<string, unknown>
+        imported.importReport as unknown as Record<string, unknown>,
+        factoryNode
       )
       writeFileSync(targetPath, `${frontmatter + cleanContent.trim()}\n`)
-      console.log(`  ✓ ${NICHE}/${v2Locale}/${slug}.md`)
+      console.log(`  ✓ ${NICHE}/${v2Locale}/${slug}.md${factoryNode ? ' (factory metadata)' : ' (re-derived metadata)'}`)
     } else {
       console.log(`  ✗ ${NICHE}/${v2Locale}/${slug}.md — content.${contractLocale}.mdx not found`)
     }
+  }
+
+  // Copy content-nodes.json to content metadata dir (for compiler consumption)
+  const contentNodesSrc = join(packageDir, 'content-nodes.json')
+  if (existsSync(contentNodesSrc)) {
+    const contentNodesDir = join(V2_ROOT, 'content-metadata', slug)
+    mkdirSync(contentNodesDir, { recursive: true })
+    copyFileSync(contentNodesSrc, join(contentNodesDir, 'content-nodes.json'))
+    console.log(`  ✓ content-metadata/${slug}/content-nodes.json`)
   }
 
   // Copy assets
@@ -205,6 +245,7 @@ function main(): void {
   console.log(`  Content: content/${NICHE}/{lang}/${slug}.md`)
   console.log(`  Assets: public/assets/wiki/${slug}/`)
   console.log(`  Metadata: content-metadata/${slug}/`)
+  console.log(`  Metadata origin: ${imported.importReport.metadataOrigin}`)
 }
 
 main()

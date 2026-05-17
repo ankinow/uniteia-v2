@@ -12,18 +12,26 @@ import { compileLocales } from './compile-locales'
 import { compileRelated } from './compile-related'
 import { compileRouting } from './compile-routing'
 import { compileTaxonomy } from './compile-taxonomy'
+import type { ContentNode as ContractContentNode } from '@uniteia/content-node-contract'
 
 export interface CompileInput {
   registry: Record<string, string>
   locales: ContentLocale[]
   defaultLocale: ContentLocale
+  /**
+   * Optional factory-provided ContentNode records (from content-nodes.json).
+   * Keyed by "{locale}-{canonicalSlug}". When present, the compiler prefers
+   * factory-provided qualityScore, trustScore, visibility, lifecycle, verdict, seo, timestamps.
+   */
+  factoryNodes?: Record<string, ContractContentNode>
 }
 
 export function compileContentGraph(input: CompileInput): ContentGraph {
   const nodes = new Map<string, ContentNode>()
+  const factoryMap = input.factoryNodes ?? {}
 
   for (const [path, raw] of Object.entries(input.registry)) {
-    const node = parseRegistryEntry(path, raw, input.defaultLocale)
+    const node = parseRegistryEntry(path, raw, input.defaultLocale, factoryMap)
     if (!node) continue
     nodes.set(node.id, node)
   }
@@ -115,7 +123,8 @@ export function deserializeGraph(serialized: SerializableContentGraph): ContentG
 function parseRegistryEntry(
   path: string,
   raw: string,
-  _defaultLocale: ContentLocale
+  _defaultLocale: ContentLocale,
+  factoryMap?: Record<string, ContractContentNode>
 ): ContentNode | null {
   const match = path.match(/\.\/content\/([^/]+)\/([^/]+)\/(.+)\.md$/)
   if (!match) return null
@@ -141,13 +150,29 @@ function parseRegistryEntry(
 
   const id = `${locale}-${canonicalSlug}`
 
-  const isDraft = verdict !== 'trusted' || qualityScore < 95
-  const visibility: ContentNodeVisibility = isDraft ? 'draft' : 'published'
-  const lifecycle: ContentNodeLifecycle = isDraft ? 'generated' : 'published'
-  const v: ContentNodeVerdict =
-    qualityScore >= 95 ? 'safe' : qualityScore >= 50 ? 'caution' : 'unsafe'
+  // Check for factory-provided ContentNode metadata (L2 bridge contract)
+  const factoryNode = factoryMap?.[id]
 
-  const trustScore = computeTrustScore(verdict, qualityScore)
+  const isDraft: boolean = factoryNode
+    ? factoryNode.visibility === 'draft'
+    : (verdict !== 'trusted' || qualityScore < 95)
+  const visibility: ContentNodeVisibility = factoryNode
+    ? factoryNode.visibility
+    : isDraft ? 'draft' : 'published'
+  const lifecycle: ContentNodeLifecycle = factoryNode
+    ? factoryNode.lifecycle
+    : isDraft ? 'generated' : 'published'
+  const v: ContentNodeVerdict = factoryNode
+    ? factoryNode.verdict
+    : qualityScore >= 95 ? 'safe' : qualityScore >= 50 ? 'caution' : 'unsafe'
+
+  // Prefer factory qualityScore and trustScore, fall back to computed
+  const effectiveQualityScore = factoryNode?.qualityScore ?? qualityScore
+  const trustScore = factoryNode?.trustScore ?? computeTrustScore(verdict, qualityScore)
+  const seoNoindex = factoryNode?.seo.noindex ?? isDraft
+  const seoPriority = factoryNode?.seo.priority ?? effectiveQualityScore
+  const createdAt = factoryNode?.timestamps.createdAt ?? (metadata?.created_at as string) ?? new Date().toISOString()
+  const updatedAt = factoryNode?.timestamps.updatedAt ?? (metadata?.updated_at as string) ?? new Date().toISOString()
   const semanticDensity = computeSemanticDensity(body, subjects)
   const freshnessScore = computeFreshnessScore(
     (metadata?.updated_at as string) ?? (metadata?.created_at as string)
@@ -164,7 +189,7 @@ function parseRegistryEntry(
     niche: [niche],
     tags: subjects,
     entities: [],
-    qualityScore,
+    qualityScore: effectiveQualityScore,
     trustScore,
     visibility,
     lifecycle,
@@ -176,12 +201,12 @@ function parseRegistryEntry(
     alternates: {},
     related: [],
     seo: {
-      noindex: isDraft,
-      priority: qualityScore,
+      noindex: seoNoindex,
+      priority: seoPriority,
     },
     timestamps: {
-      createdAt: (metadata?.created_at as string) ?? new Date().toISOString(),
-      updatedAt: (metadata?.updated_at as string) ?? new Date().toISOString(),
+      createdAt,
+      updatedAt,
     },
     metrics: {
       edgeRank: 0,

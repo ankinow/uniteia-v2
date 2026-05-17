@@ -40,6 +40,20 @@
     "postbuild": "bun run scripts/generate-sitemap.ts && bun run prepare:cloudflare-pages",
     "import:package": "bun run scripts/import-content-package.ts"
   },
+  "dependencies": {
+    "@uniteia/content-node-contract": "file:../uniteia-mega-factory/packages/content-node-contract",
+    "@builder.io/qwik": "^1.19.2",
+    "@builder.io/qwik-city": "^1.19.2",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource/geist-sans": "^5.2.5",
+    "@fontsource/jetbrains-mono": "^5.2.8",
+    "@modular-forms/qwik": "^0.24.0",
+    "gray-matter": "^4.0.3",
+    "isomorphic-dompurify": "^3.10.0",
+    "js-yaml": "^4.1.0",
+    "marked": "^18.0.2",
+    "zod": "^4.4.3"
+  },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@cloudflare/workers-types": "^4.20250409.0",
@@ -53,9 +67,6 @@
     "ajv": "^8.18.0",
     "ajv-formats": "^3.0.1",
     "autoprefixer": "^10.5.0",
-    "glob": "^13.0.6",
-    "ignore": "^7.0.5",
-    "lighthouse": "^13.1.0",
     "postcss": "^8.5.10",
     "postcss-custom-media": "^11.0.5",
     "postcss-nesting": "^12.1.5",
@@ -66,19 +77,6 @@
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^4.1.5",
     "wrangler": "^4.84.1"
-  },
-  "dependencies": {
-    "@builder.io/qwik": "^1.19.2",
-    "@builder.io/qwik-city": "^1.19.2",
-    "@fontsource-variable/inter": "^5.2.8",
-    "@fontsource/geist-sans": "^5.2.5",
-    "@fontsource/jetbrains-mono": "^5.2.8",
-    "@modular-forms/qwik": "^0.24.0",
-    "gray-matter": "^4.0.3",
-    "isomorphic-dompurify": "^3.10.0",
-    "js-yaml": "^4.1.0",
-    "marked": "^18.0.2",
-    "zod": "^4.4.3"
   },
   "engines": {
     "node": ">=20.0.0"

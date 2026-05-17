@@ -5,6 +5,7 @@ import { type Manifest, validateManifest } from '../content-contracts/manifest.s
 import { validateQuality } from '../content-contracts/quality.schema'
 import { validateTags } from '../content-contracts/tags.schema'
 import { getAllowedBlockKinds, getForbiddenBlocks, hasLayout } from '../layouts/registry'
+import { contentNodeSchema } from '@uniteia/content-node-contract'
 
 export interface PackageValidationIssue {
   path: string
@@ -50,6 +51,33 @@ export function validatePackage(packageDir: string): PackageValidationResult {
   }
 
   const manifest = manifestRaw as Manifest
+
+  // Validate content-nodes.json if present (L2 bridge contract)
+  const contentNodesPath = `${path}/content-nodes.json`
+  if (existsSync(contentNodesPath)) {
+    try {
+      const contentNodesRaw = JSON.parse(readFileSync(contentNodesPath, 'utf-8'))
+      if (!Array.isArray(contentNodesRaw)) {
+        issues.push({ path: 'content-nodes.json', message: 'content-nodes.json must be a JSON array', severity: 'error' })
+      } else if (contentNodesRaw.length === 0) {
+        issues.push({ path: 'content-nodes.json', message: 'content-nodes.json is empty', severity: 'warning' })
+      } else {
+        for (let i = 0; i < contentNodesRaw.length; i++) {
+          try {
+            contentNodeSchema.parse(contentNodesRaw[i])
+          } catch (e: unknown) {
+            issues.push({
+              path: `content-nodes.json[${i}]`,
+              message: `invalid ContentNode: ${(e as Error).message}`,
+              severity: 'error',
+            })
+          }
+        }
+      }
+    } catch {
+      issues.push({ path: 'content-nodes.json', message: 'cannot parse content-nodes.json', severity: 'error' })
+    }
+  }
 
   // Check layoutId
   if (!hasLayout(manifest.layout.layoutId)) {
