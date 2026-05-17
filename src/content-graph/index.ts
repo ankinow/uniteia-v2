@@ -23,6 +23,8 @@ export type {
   ContentGraphQuery,
 } from './contracts/provider'
 
+export type { RouteContract } from './contracts/routing'
+
 export type {
   CollectionKind,
   CollectionQuery,

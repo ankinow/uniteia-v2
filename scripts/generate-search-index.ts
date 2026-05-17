@@ -16,8 +16,21 @@ async function main() {
     defaultLocale: 'en',
   })
 
-  const publicGroupIds = new Set(graph.groups.publicGroups.flatMap(g => g.nodes.map(n => n.id)))
-  const nodes = Array.from(graph.nodes.values())
+  const publicGroupIds = new Set<string>()
+  for (const [_, groupNodes] of graph.groups.entries()) {
+    if (groupNodes.length >= 8) {
+      const locales = new Set(groupNodes.map(n => n.locale))
+      if (
+        locales.size === 8 &&
+        groupNodes.every(n => n.visibility === 'published' && n.qualityScore >= 95)
+      ) {
+        for (const n of groupNodes) {
+          publicGroupIds.add(n.id)
+        }
+      }
+    }
+  }
+  const nodes = graph.nodes
   const publicNodes = nodes.filter(n => publicGroupIds.has(n.id))
 
   const documents = publicNodes.map(node => ({

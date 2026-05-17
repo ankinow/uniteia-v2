@@ -19,10 +19,25 @@ export interface GraphArtifacts {
 }
 
 export function serializeGraphArtifacts(graph: ContentGraph): GraphArtifacts {
-  const nodes = Array.from(graph.nodes.values())
+  const nodes = graph.nodes
   const now = new Date().toISOString()
 
-  const publicGroupIds = new Set(graph.groups.publicGroups.flatMap(g => g.nodes.map(n => n.id)))
+  // Compute public group node IDs dynamically
+  const publicGroupIds = new Set<string>()
+  for (const [_, groupNodes] of graph.groups.entries()) {
+    // A group is public if it has all 8 target locales, and all of them are published and quality >= 95
+    if (groupNodes.length >= 8) {
+      const locales = new Set(groupNodes.map(n => n.locale))
+      if (
+        locales.size === 8 &&
+        groupNodes.every(n => n.visibility === 'published' && n.qualityScore >= 95)
+      ) {
+        for (const n of groupNodes) {
+          publicGroupIds.add(n.id)
+        }
+      }
+    }
+  }
 
   const sitemapEligible = nodes
     .filter(n => publicGroupIds.has(n.id) && !n.seo.noindex)
@@ -56,12 +71,39 @@ export function serializeGraphArtifacts(graph: ContentGraph): GraphArtifacts {
     }
   })
 
+  // Format groups for SerializableGraphV1: it expects ContentGroupCollection structure
+  const groupsList = Array.from(graph.groups.entries()).map(([canonicalSlug, groupNodes]) => {
+    return {
+      canonicalSlug,
+      title: groupNodes[0]?.title ?? canonicalSlug,
+      contentType: 'article' as const,
+      nodes: groupNodes,
+      publishedLocales: groupNodes.map(n => n.locale),
+      missingLocales: [] as import('../contracts/node').ContentLocale[],
+      completionScore: groupNodes.length / 8,
+      isFullySymmetric: groupNodes.length >= 8,
+    }
+  })
+
   const graphArtifact: SerializableGraphV1 = {
     version: 'content-graph.v1',
     generatedAt: now,
     nodes,
     edges,
-    groups: graph.groups,
+    groups: {
+      groups: groupsList,
+      byCompletion: {
+        complete: groupsList.filter(g => g.completionScore >= 1),
+        partial: groupsList.filter(g => g.completionScore >= 0.5 && g.completionScore < 1),
+        incomplete: groupsList.filter(g => g.completionScore < 0.5),
+      },
+      fullySymmetric: groupsList.filter(g => g.isFullySymmetric),
+      publicGroups: groupsList.filter(
+        g =>
+          g.isFullySymmetric &&
+          g.nodes.every(n => n.visibility === 'published' && n.qualityScore >= 95)
+      ),
+    },
     indexes: {
       byId,
       bySlug,
@@ -139,11 +181,12 @@ export function serializeGraphArtifacts(graph: ContentGraph): GraphArtifacts {
 
 function buildEdges(graph: ContentGraph): GraphEdge[] {
   const edges: GraphEdge[] = []
-  const nodes = Array.from(graph.nodes.values())
+  const nodes = graph.nodes
+  const nodeIdSet = new Set(nodes.map(n => n.id))
 
   for (const node of nodes) {
     for (const relatedId of node.related) {
-      if (graph.nodes.has(relatedId)) {
+      if (nodeIdSet.has(relatedId)) {
         edges.push({
           from: node.id,
           to: relatedId,

@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
-import { compileContentGraph, serializeGraphArtifacts } from '../src/content-graph'
 import { LOCALE_BCP47_TO_V2 } from '@uniteia/content-node-contract'
+import { compileContentGraph, serializeGraphArtifacts } from '../src/content-graph'
 
 const GENERATED_DIR = resolve(import.meta.dirname, '..', 'src', 'content-graph', 'generated')
 const GENERATED_TS = resolve(import.meta.dirname, '..', 'src', 'content-graph.generated.ts')
@@ -39,17 +39,16 @@ function normalizeFactoryNode(node: Record<string, unknown>): string {
     node.canonicalLocale &&
     LOCALE_BCP47_TO_V2[node.canonicalLocale as keyof typeof LOCALE_BCP47_TO_V2]
   ) {
-    node.canonicalLocale = LOCALE_BCP47_TO_V2[node.canonicalLocale as keyof typeof LOCALE_BCP47_TO_V2]
+    node.canonicalLocale =
+      LOCALE_BCP47_TO_V2[node.canonicalLocale as keyof typeof LOCALE_BCP47_TO_V2]
   }
 
   // Normalize alternates keys and values (pt-BR → pt in locale keys and ID values)
   if (node.alternates && typeof node.alternates === 'object') {
     const normalized: Record<string, string> = {}
     for (const [key, val] of Object.entries(node.alternates)) {
-      const v2Key =
-        LOCALE_BCP47_TO_V2[key as keyof typeof LOCALE_BCP47_TO_V2] ?? key
-      normalized[v2Key] =
-        typeof val === 'string' ? normalizeBcp47NodeId(val) : String(val)
+      const v2Key = LOCALE_BCP47_TO_V2[key as keyof typeof LOCALE_BCP47_TO_V2] ?? key
+      normalized[v2Key] = typeof val === 'string' ? normalizeBcp47NodeId(val) : String(val)
     }
     node.alternates = normalized
   }
@@ -131,8 +130,8 @@ async function main() {
   ].join('\n')
   writeFileSync(GENERATED_TS, generatedTs, 'utf-8')
 
-  console.log(`[content-graph] Generated ${graph.metadata.totalNodes} nodes`)
-  console.log(`[content-graph] Public: ${graph.collections.public.length}`)
+  console.log(`[content-graph] Generated ${graph.nodes.length} nodes`)
+  console.log(`[content-graph] Public: ${artifacts.graph.indexes.public.length}`)
   console.log(`[content-graph] Edges: ${artifacts.graph.edges.length}`)
   console.log(`[content-graph] Written ${files.length} artifact files to ${GENERATED_DIR}`)
   console.log(`[content-graph] Written generated TS module to ${GENERATED_TS}`)

@@ -8,7 +8,6 @@ import type {
   ContentNodeVerdict,
   ContentNodeVisibility,
 } from '../contracts/node'
-import { compileGroups } from './compile-groups'
 import { compileLocales } from './compile-locales'
 import { compileRelated } from './compile-related'
 import { compileRouting } from './compile-routing'
@@ -41,82 +40,141 @@ export function compileContentGraph(input: CompileInput): ContentGraph {
   compileLocales(nodes)
   compileRelated(nodes)
 
-  const groups = compileGroups(nodes)
-  const allNodes = Array.from(nodes.values())
+  const allNodes = Array.from(nodes.values()) as ContentNode[] & {
+    get(id: string): ContentNode | undefined
+    has(id: string): boolean
+  }
+  allNodes.get = (id: string) => nodes.get(id)
+  allNodes.has = (id: string) => nodes.has(id)
 
-  const collections = buildCollections(allNodes, groups)
-
-  const graph: ContentGraph = {
-    nodes,
-    groups,
-    collections,
-    metadata: {
-      totalNodes: nodes.size,
-      lastGenerated: new Date().toISOString(),
-      version: '2026.05',
-      packageSources: derivePackageSources(allNodes),
-    },
+  const groupsMap = new Map<string, ContentNode[]>()
+  for (const node of allNodes) {
+    const key = node.canonicalSlug
+    const group = groupsMap.get(key) ?? []
+    group.push(node)
+    groupsMap.set(key, group)
   }
 
-  return graph
+  const nichesMap = new Map<string, ContentNode[]>()
+  for (const node of allNodes) {
+    for (const niche of node.niche) {
+      const list = nichesMap.get(niche) ?? []
+      list.push(node)
+      nichesMap.set(niche, list)
+    }
+  }
+
+  computeGraphScores(allNodes)
+
+  return {
+    nodes: allNodes,
+    groups: groupsMap,
+    niches: nichesMap,
+  }
 }
 
 export function serializeGraph(graph: ContentGraph): SerializableContentGraph {
   const nodeEntries: Record<string, ContentNode> = {}
-  for (const [id, node] of graph.nodes) {
-    nodeEntries[id] = node
+  for (const node of graph.nodes) {
+    nodeEntries[node.id] = node
+  }
+
+  const groupsObj: Record<string, string[]> = {}
+  for (const [key, list] of graph.groups.entries()) {
+    groupsObj[key] = list.map(n => n.id)
+  }
+
+  const nichesObj: Record<string, string[]> = {}
+  for (const [key, list] of graph.niches.entries()) {
+    nichesObj[key] = list.map(n => n.id)
   }
 
   return {
     nodes: nodeEntries,
-    groups: graph.groups,
-    collections: {
-      featured: graph.collections.featured.map(n => n.id),
-      byNiche: mapValues(graph.collections.byNiche, arr => arr.map(n => n.id)),
-      byLocale: mapValues(graph.collections.byLocale, arr => arr.map(n => n.id)),
-      public: graph.collections.public.map(n => n.id),
-    },
-    metadata: graph.metadata,
+    groups: groupsObj,
+    niches: nichesObj,
   }
 }
 
-export function deserializeGraph(serialized: SerializableContentGraph): ContentGraph {
-  const nodes = new Map<string, ContentNode>()
-  for (const [id, node] of Object.entries(serialized.nodes)) {
-    nodes.set(id, node as ContentNode)
+// biome-ignore lint/suspicious/noExplicitAny: serialized is dynamic untrusted JSON payload
+export function deserializeGraph(serialized: any): ContentGraph {
+  const nodesMap = new Map<string, ContentNode>()
+  const nodesArr: ContentNode[] = []
+
+  const rawNodes = Array.isArray(serialized.nodes)
+    ? serialized.nodes
+    : Object.values(serialized.nodes || {})
+
+  for (const node of rawNodes) {
+    const n = node as ContentNode
+    nodesMap.set(n.id, n)
+    nodesArr.push(n)
   }
 
-  const resolve = (ids: string[]) => ids.map(id => nodes.get(id)).filter(Boolean) as ContentNode[]
+  const decoratedNodesArr = nodesArr as ContentNode[] & {
+    get(id: string): ContentNode | undefined
+    has(id: string): boolean
+  }
+  decoratedNodesArr.get = (id: string) => nodesMap.get(id)
+  decoratedNodesArr.has = (id: string) => nodesMap.has(id)
 
-  const resolveGroup = (g: import('../contracts/group').ContentGroup) => ({
-    ...g,
-    nodes: g.nodes.map(n => nodes.get(n.id)).filter(Boolean) as ContentNode[],
-  })
+  const groupsMap = new Map<string, ContentNode[]>()
+  const groupsSource = serialized.groups || {}
 
-  const groups = serialized.groups
-    ? {
-        ...serialized.groups,
-        groups: serialized.groups.groups.map(resolveGroup),
-        fullySymmetric: serialized.groups.fullySymmetric.map(resolveGroup),
-        publicGroups: serialized.groups.publicGroups.map(resolveGroup),
-        byCompletion: {
-          complete: (serialized.groups.byCompletion?.complete ?? []).map(resolveGroup),
-          partial: (serialized.groups.byCompletion?.partial ?? []).map(resolveGroup),
-          incomplete: (serialized.groups.byCompletion?.incomplete ?? []).map(resolveGroup),
-        },
+  if (Array.isArray(groupsSource.groups)) {
+    for (const g of groupsSource.groups) {
+      const gNodes = (g.nodes || [])
+        // biome-ignore lint/suspicious/noExplicitAny: nodes list can contain raw IDs or objects
+        .map((n: any) => (typeof n === 'string' ? nodesMap.get(n) : nodesMap.get(n.id)))
+        .filter(Boolean) as ContentNode[]
+      groupsMap.set(g.canonicalSlug, gNodes)
+    }
+  } else {
+    for (const [key, ids] of Object.entries(groupsSource)) {
+      if (Array.isArray(ids)) {
+        groupsMap.set(key, ids.map(id => nodesMap.get(id)).filter(Boolean) as ContentNode[])
       }
-    : undefined
+    }
+  }
+
+  const nichesMap = new Map<string, ContentNode[]>()
+  const nichesSource =
+    serialized.niches || serialized.indexes?.byNiche || serialized.collections?.byNiche || {}
+  for (const [key, ids] of Object.entries(nichesSource)) {
+    if (Array.isArray(ids)) {
+      nichesMap.set(
+        key,
+        ids
+          // biome-ignore lint/suspicious/noExplicitAny: id can be raw string or object wrapper
+          .map(id => (typeof id === 'string' ? nodesMap.get(id) : nodesMap.get((id as any).id)))
+          .filter(Boolean) as ContentNode[]
+      )
+    }
+  }
+
+  if (groupsMap.size === 0) {
+    for (const node of nodesArr) {
+      const key = node.canonicalSlug
+      const group = groupsMap.get(key) ?? []
+      group.push(node)
+      groupsMap.set(key, group)
+    }
+  }
+
+  if (nichesMap.size === 0) {
+    for (const node of nodesArr) {
+      for (const niche of node.niche) {
+        const list = nichesMap.get(niche) ?? []
+        list.push(node)
+        nichesMap.set(niche, list)
+      }
+    }
+  }
 
   return {
-    nodes,
-    groups: groups ?? compileGroups(nodes),
-    collections: {
-      featured: resolve(serialized.collections.featured),
-      byNiche: mapValues(serialized.collections.byNiche, resolve),
-      byLocale: mapValues(serialized.collections.byLocale, resolve),
-      public: resolve(serialized.collections.public),
-    },
-    metadata: serialized.metadata,
+    nodes: decoratedNodesArr,
+    groups: groupsMap,
+    niches: nichesMap,
   }
 }
 
@@ -275,41 +333,6 @@ function computeFreshnessScore(updatedAt: string | undefined): number {
   return 25
 }
 
-function buildCollections(
-  allNodes: ContentNode[],
-  groups: import('../contracts/group').ContentGroupCollection
-): ContentGraph['collections'] {
-  const byNiche: Record<string, ContentNode[]> = {}
-  const byLocale: Record<string, ContentNode[]> = {}
-
-  const publicGroupIds = new Set(groups.publicGroups.flatMap(g => g.nodes.map(n => n.id)))
-
-  for (const node of allNodes) {
-    for (const n of node.niche) {
-      if (!byNiche[n]) byNiche[n] = []
-      byNiche[n]?.push(node)
-    }
-    if (!byLocale[node.locale]) byLocale[node.locale] = []
-    byLocale[node.locale]?.push(node)
-  }
-
-  computeGraphScores(allNodes)
-
-  const featured = allNodes
-    .filter(n => publicGroupIds.has(n.id))
-    .sort((a, b) => b.metrics.graphScore - a.metrics.graphScore)
-    .slice(0, 12)
-
-  const publicNodes = allNodes.filter(n => publicGroupIds.has(n.id))
-
-  return {
-    featured,
-    byNiche,
-    byLocale: byLocale as Record<ContentLocale, ContentNode[]>,
-    public: publicNodes,
-  }
-}
-
 function computeGraphScores(allNodes: ContentNode[]): void {
   const totalNodes = allNodes.length
   if (totalNodes === 0) return
@@ -334,28 +357,4 @@ function computeGraphScores(allNodes: ContentNode[]): void {
     node.metrics.edgeRank = edgeRank
     node.metrics.graphScore = graphScore
   }
-}
-
-function derivePackageSources(nodes: ContentNode[]): string[] {
-  const sources = new Set<string>()
-  for (const node of nodes) {
-    if (node.slug.includes('tencent-cloud') || node.slug.includes('creator-ai')) {
-      sources.add('uniteia-mega-factory')
-    }
-    if (node.slug.includes('foundation-models') || node.slug.includes('llm-aggregators')) {
-      sources.add('uniteia-editorial')
-    }
-  }
-  return Array.from(sources)
-}
-
-function mapValues<K extends string, V, R>(
-  obj: Record<K, V[]>,
-  fn: (arr: V[]) => R[]
-): Record<K, R[]> {
-  const result: Record<string, R[]> = {}
-  for (const [key, val] of Object.entries(obj)) {
-    result[key] = fn(val as V[])
-  }
-  return result as Record<K, R[]>
 }

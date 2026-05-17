@@ -53,9 +53,9 @@ describe('compileContentGraph', () => {
       locales: TEST_LOCALES,
       defaultLocale: 'en',
     })
-    expect(graph.metadata.totalNodes).toBe(3)
-    expect(graph.nodes.has('en-_index')).toBe(false)
-    expect(graph.nodes.has('pt-_index')).toBe(false)
+    expect(graph.nodes.length).toBe(3)
+    expect(graph.nodes.find(n => n.id === 'en-_index')).toBeUndefined()
+    expect(graph.nodes.find(n => n.id === 'pt-_index')).toBeUndefined()
   })
 
   it('marks low-quality content as draft with noindex', () => {
@@ -64,7 +64,7 @@ describe('compileContentGraph', () => {
       locales: TEST_LOCALES,
       defaultLocale: 'en',
     })
-    const draftNode = graph.nodes.get('en-foundation-models')
+    const draftNode = graph.nodes.find(n => n.id === 'en-foundation-models')
     expect(draftNode).toBeDefined()
     expect(draftNode?.visibility).toBe('draft')
     expect(draftNode?.seo.noindex).toBe(true)
@@ -77,7 +77,7 @@ describe('compileContentGraph', () => {
       locales: TEST_LOCALES,
       defaultLocale: 'en',
     })
-    const node = graph.nodes.get('en-llm-aggregators-compared')
+    const node = graph.nodes.find(n => n.id === 'en-llm-aggregators-compared')
     expect(node).toBeDefined()
     expect(node?.visibility).toBe('published')
     expect(node?.qualityScore).toBe(96)
@@ -91,7 +91,7 @@ describe('compileContentGraph', () => {
       locales: TEST_LOCALES,
       defaultLocale: 'en',
     })
-    const publicNodes = Array.from(graph.nodes.values()).filter(isPublicNode)
+    const publicNodes = graph.nodes.filter(isPublicNode)
     expect(publicNodes.length).toBe(2)
     for (const node of publicNodes) {
       expect(node.qualityScore).toBeGreaterThanOrEqual(95)
@@ -105,7 +105,7 @@ describe('compileContentGraph', () => {
       locales: TEST_LOCALES,
       defaultLocale: 'en',
     })
-    const node = graph.nodes.get('en-llm-aggregators-compared')
+    const node = graph.nodes.find(n => n.id === 'en-llm-aggregators-compared')
     expect(node).toBeDefined()
     expect(node?.routes.canonical).toBe('/en/signals/ai-agents/llm-aggregators-compared')
   })
@@ -116,21 +116,17 @@ describe('compileContentGraph', () => {
       locales: TEST_LOCALES,
       defaultLocale: 'en',
     })
-    const enNode = graph.nodes.get('en-llm-aggregators-compared')
+    const enNode = graph.nodes.find(n => n.id === 'en-llm-aggregators-compared')
     expect(enNode).toBeDefined()
     expect(enNode?.alternates.pt).toBe('/pt/signals/ai-agents/llm-aggregators-compared')
-    const ptNode = graph.nodes.get('pt-llm-aggregators-compared')
+    const ptNode = graph.nodes.find(n => n.id === 'pt-llm-aggregators-compared')
     expect(ptNode).toBeDefined()
     expect(ptNode?.slug).toBe('agregadores-llm')
     expect(ptNode?.canonicalSlug).toBe('llm-aggregators-compared')
   })
 
   it('picks up factory-provided fields after BCP47→v2 locale normalization', () => {
-    // Simulate factory nodes after BCP47→v2 locale normalization.
-    // In generate-content-graph.ts, IDs like "pt-BR-{slug}" are normalized to
-    // "pt-{slug}" and locale "pt-BR" is mapped to "pt" using LOCALE_BCP47_TO_V2.
-    // This test verifies the compiler correctly matches the normalized IDs.
-    const factoryNodes: Record<string, any> = {
+    const factoryNodes: Record<string, unknown> = {
       'pt-llm-aggregators-compared': {
         id: 'pt-llm-aggregators-compared',
         locale: 'pt',
@@ -166,7 +162,7 @@ describe('compileContentGraph', () => {
       factoryNodes,
     })
 
-    const ptNode = graph.nodes.get('pt-llm-aggregators-compared')
+    const ptNode = graph.nodes.find(n => n.id === 'pt-llm-aggregators-compared')
     expect(ptNode).toBeDefined()
 
     // Factory-provided values should override derived defaults
@@ -184,6 +180,6 @@ describe('compileContentGraph', () => {
     expect(ptNode?.routes.canonical).toBe('/pt/signals/ai-agents/llm-aggregators-compared')
 
     // Without normalization, a pt-BR keyed node would be silently missed
-    expect(graph.nodes.has('pt-BR-llm-aggregators-compared')).toBe(false)
+    expect(graph.nodes.find(n => n.id === 'pt-BR-llm-aggregators-compared')).toBeUndefined()
   })
 })
