@@ -13,7 +13,7 @@
  * Output: artifacts/m010/routing-audit-report.md
  */
 
-import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import type { ContentLocale } from '../src/content-graph/contracts/node'
 import type { RouteContract } from '../src/content-graph/contracts/routing'
@@ -54,8 +54,8 @@ function checkHardcodedPaths(): SourceLinkCheck[] {
         // Check for hardcoded language-specific paths (e.g. '/en/...' or '/pt/...')
         for (const locale of LOCALES) {
           const pattern = new RegExp(`['"\`]/${locale}/[a-z]`, 'g')
-          let match: RegExpExecArray | null
-          while ((match = pattern.exec(lines[i])) !== null) {
+          const matches = Array.from(lines[i].matchAll(pattern))
+          for (const match of matches) {
             // Exclude known valid patterns (route builders, localization helpers)
             const line = lines[i].trim()
             if (
@@ -63,7 +63,7 @@ function checkHardcodedPaths(): SourceLinkCheck[] {
               line.includes('localized(') ||
               line.includes('RouteContract') ||
               line.includes('AppRoutes') ||
-              line.includes(`'/${locale}/signals`) && line.includes('import')
+              (line.includes(`'/${locale}/signals`) && line.includes('import'))
             ) {
               continue
             }
@@ -77,7 +77,11 @@ function checkHardcodedPaths(): SourceLinkCheck[] {
         }
 
         // Check for legacy '/n/' paths
-        if (/['"`]\/n\//.test(lines[i]) && !lines[i].includes('legacy') && !lines[i].includes('redirect')) {
+        if (
+          /['"`]\/n\//.test(lines[i]) &&
+          !lines[i].includes('legacy') &&
+          !lines[i].includes('redirect')
+        ) {
           findings.push({
             file: entry.replace(fullPath, dir),
             line: i + 1,
@@ -94,11 +98,17 @@ function checkHardcodedPaths(): SourceLinkCheck[] {
 
 function readdirRecursive(dir: string): string[] {
   const results: string[] = []
-  const list = (() => { try { return require('fs').readdirSync(dir) } catch { return [] } })()
+  const list = (() => {
+    try {
+      return readdirSync(dir)
+    } catch {
+      return []
+    }
+  })()
   for (const entry of list) {
     const fullPath = resolve(dir, entry)
     try {
-      const stat = require('fs').statSync(fullPath)
+      const stat = statSync(fullPath)
       if (stat.isDirectory()) {
         results.push(...readdirRecursive(fullPath))
       } else {
@@ -113,7 +123,7 @@ function readdirRecursive(dir: string): string[] {
 
 function checkLocaleSwitchMatrix(
   routes: RouteContract,
-  provider: { getPublicNodes: (locale: ContentLocale) => Array<{ niche: string[]; slug: string }> }
+  _provider: { getPublicNodes: (locale: ContentLocale) => Array<{ niche: string[]; slug: string }> }
 ): AuditEntry[] {
   const results: AuditEntry[] = []
 
@@ -304,7 +314,8 @@ async function main() {
     '| Check | Status | Detail |',
     '|---|---|---|',
     ...entries.map(
-      e => `| ${e.check} | ${e.status === 'pass' ? '✅' : e.status === 'warn' ? '⚠️' : '❌'} ${e.status} | ${e.detail} |`
+      e =>
+        `| ${e.check} | ${e.status === 'pass' ? '✅' : e.status === 'warn' ? '⚠️' : '❌'} ${e.status} | ${e.detail} |`
     ),
     '',
   ]
@@ -315,9 +326,7 @@ async function main() {
       '',
       '| File | Line | URL | Issue |',
       '|---|---|---|---|',
-      ...sourceIssues.map(
-        i => `| ${i.file} | ${i.line} | \`${i.url}\` | ${i.issues.join('; ')} |`
-      ),
+      ...sourceIssues.map(i => `| ${i.file} | ${i.line} | \`${i.url}\` | ${i.issues.join('; ')} |`),
       ''
     )
   }
@@ -327,23 +336,23 @@ async function main() {
     '',
     `- **8 locales tested:** ${LOCALES.join(', ')}`,
     `- **Switch pairs:** 8 × 8 = ${LOCALES.length * LOCALES.length} combinations`,
-    `- **Query/hash preservation:** tested`,
+    '- **Query/hash preservation:** tested',
     '',
     '## Recommendations',
     '',
     failed.length > 0
       ? '- Fix all failures before shipping\n- Re-run after any RouteContract or content change'
       : '- No blocking issues found',
-    warnings.length > 0
-      ? '- Review warnings for potential improvements'
-      : '',
+    warnings.length > 0 ? '- Review warnings for potential improvements' : '',
     '- Re-run this script after adding new content or routes',
-    '',
+    ''
   )
 
   writeFileSync(REPORT_PATH, report.join('\n'), 'utf-8')
   console.log(`[audit-routing] Report written to ${REPORT_PATH}`)
-  console.log(`[audit-routing] ${passed.length} passed, ${warnings.length} warnings, ${failed.length} failed`)
+  console.log(
+    `[audit-routing] ${passed.length} passed, ${warnings.length} warnings, ${failed.length} failed`
+  )
 
   process.exit(failed.length > 0 ? 1 : 0)
 }

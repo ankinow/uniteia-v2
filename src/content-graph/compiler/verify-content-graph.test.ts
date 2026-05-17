@@ -3,7 +3,9 @@ import type { ContentLocale } from '../contracts/node'
 import { compileContentGraph } from './compile-content-graph'
 import { verifyContentGraph } from './verify-content-graph'
 
-const CLEAN_REGISTRY: Record<string, string> = {
+const ALL_LOCALES: ContentLocale[] = ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh']
+
+const FULL_REGISTRY: Record<string, string> = {
   './content/ai-agents/en/llm-aggregators-compared.md': `---
 title: "LLM Aggregators Compared"
 quality_score: 96
@@ -21,15 +23,67 @@ subjects: ["llm", "agregadores"]
 ---
 Conteúdo.
 `,
+  './content/ai-agents/es/agregadores-llm.md': `---
+title: "Agregadores de LLM"
+quality_score: 96
+verdict: "trusted"
+canonical_slug: "llm-aggregators-compared"
+subjects: ["llm"]
+---
+Contenido.
+`,
+  './content/ai-agents/fr/agregateurs-llm.md': `---
+title: "Agrégateurs LLM"
+quality_score: 96
+verdict: "trusted"
+canonical_slug: "llm-aggregators-compared"
+subjects: ["llm"]
+---
+Contenu.
+`,
+  './content/ai-agents/de/llm-vergleicher.md': `---
+title: "LLM-Vergleicher"
+quality_score: 96
+verdict: "trusted"
+canonical_slug: "llm-aggregators-compared"
+subjects: ["llm"]
+---
+Testinhalt.
+`,
+  './content/ai-agents/it/confronto-llm.md': `---
+title: "Confronto LLM"
+quality_score: 96
+verdict: "trusted"
+canonical_slug: "llm-aggregators-compared"
+subjects: ["llm"]
+---
+Contenuto.
+`,
+  './content/ai-agents/ja/llm-aggregators-compared.md': `---
+title: "LLMアグリゲーター比較"
+quality_score: 96
+verdict: "trusted"
+canonical_slug: "llm-aggregators-compared"
+subjects: ["llm"]
+---
+テストコンテンツ
+`,
+  './content/ai-agents/zh/llm-aggregators-compared.md': `---
+title: "LLM聚合器比较"
+quality_score: 96
+verdict: "trusted"
+canonical_slug: "llm-aggregators-compared"
+subjects: ["llm"]
+---
+测试内容
+`,
 }
 
-const TEST_LOCALES: ContentLocale[] = ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh']
-
 describe('verifyContentGraph', () => {
-  it('passes for a clean graph', () => {
+  it('passes for a clean graph with 8-locale symmetry', () => {
     const graph = compileContentGraph({
-      registry: CLEAN_REGISTRY,
-      locales: TEST_LOCALES,
+      registry: FULL_REGISTRY,
+      locales: ALL_LOCALES,
       defaultLocale: 'en',
     })
     const report = verifyContentGraph(graph)
@@ -39,15 +93,15 @@ describe('verifyContentGraph', () => {
 
   it('detects duplicate routes as errors', () => {
     const graph = compileContentGraph({
-      registry: CLEAN_REGISTRY,
-      locales: TEST_LOCALES,
+      registry: FULL_REGISTRY,
+      locales: ALL_LOCALES,
       defaultLocale: 'en',
     })
-    const enNode = graph.nodes.get('en-llm-aggregators-compared')
+    const enNode = graph.nodes.find(n => n.id === 'en-llm-aggregators-compared')
     if (enNode) {
       enNode.routes.canonical = '/en/signals/ai-agents/llm-aggregators-compared'
     }
-    const ptNode = graph.nodes.get('pt-llm-aggregators-compared')
+    const ptNode = graph.nodes.find(n => n.id === 'pt-llm-aggregators-compared')
     if (ptNode) {
       ptNode.routes.canonical = '/en/signals/ai-agents/llm-aggregators-compared'
     }
@@ -59,7 +113,7 @@ describe('verifyContentGraph', () => {
 
   it('detects broken related refs as warnings', () => {
     const registry: Record<string, string> = {
-      ...CLEAN_REGISTRY,
+      ...FULL_REGISTRY,
       './content/ai-agents/en/some-article.md': `---
 title: "Some Article"
 quality_score: 80
@@ -71,11 +125,11 @@ Content.
     }
     const graph = compileContentGraph({
       registry,
-      locales: TEST_LOCALES,
+      locales: ALL_LOCALES,
       defaultLocale: 'en',
     })
 
-    const someNode = graph.nodes.get('en-some-article')
+    const someNode = graph.nodes.find(n => n.id === 'en-some-article')
     if (someNode) {
       someNode.related = ['en-nonexistent-id']
     }
@@ -87,11 +141,11 @@ Content.
 
   it('detects sitemap-incoherent (public + noindex) as errors', () => {
     const graph = compileContentGraph({
-      registry: CLEAN_REGISTRY,
-      locales: TEST_LOCALES,
+      registry: FULL_REGISTRY,
+      locales: ALL_LOCALES,
       defaultLocale: 'en',
     })
-    const enNode = graph.nodes.get('en-llm-aggregators-compared')
+    const enNode = graph.nodes.find(n => n.id === 'en-llm-aggregators-compared')
     if (enNode) {
       enNode.seo.noindex = true
     }
