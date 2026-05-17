@@ -61,7 +61,7 @@ export function computeReciprocity(edges: GraphEdge[]): ReciprocityEntry[] {
   const byKind = new Map<GraphEdgeKind, GraphEdge[]>()
   for (const e of edges) {
     if (!byKind.has(e.kind)) byKind.set(e.kind, [])
-    byKind.get(e.kind)!.push(e)
+    byKind.get(e.kind)?.push(e)
   }
 
   const results: ReciprocityEntry[] = []
@@ -169,7 +169,7 @@ export function computeNicheConnectivity(
   for (const n of nodes) {
     for (const niche of n.niche) {
       if (!nodesInNiche.has(niche)) nodesInNiche.set(niche, new Set())
-      nodesInNiche.get(niche)!.add(n.id)
+      nodesInNiche.get(niche)?.add(n.id)
     }
   }
 
@@ -276,7 +276,7 @@ async function main() {
   try {
     const mod = await import('../src/content-graph.generated')
     graph = mod.contentGraphData
-  } catch (err) {
+  } catch (_err) {
     console.error('[linkgraph] Failed to load content graph data.')
     console.error('[linkgraph] Run `bun run generate:content-graph` first.')
     process.exit(1)
@@ -337,7 +337,7 @@ async function main() {
     '',
     degreeTable(degree, 5),
     '',
-    `> Full node list with individual degree scores: see appendix below.`,
+    '> Full node list with individual degree scores: see appendix below.',
     '',
     '## Niche Connectivity',
     '',

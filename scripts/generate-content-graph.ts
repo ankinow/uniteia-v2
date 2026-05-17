@@ -1,10 +1,62 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { compileContentGraph, serializeGraphArtifacts } from '../src/content-graph'
+import { LOCALE_BCP47_TO_V2 } from '@uniteia/content-node-contract'
 
 const GENERATED_DIR = resolve(import.meta.dirname, '..', 'src', 'content-graph', 'generated')
 const GENERATED_TS = resolve(import.meta.dirname, '..', 'src', 'content-graph.generated.ts')
 const CONTENT_METADATA_DIR = resolve(import.meta.dirname, '..', 'content-metadata')
+
+/**
+ * Normalize a factory node ID from BCP47 locale prefix to v2 internal locale code.
+ * E.g., "pt-BR-roundtrip-test-fixture" → "pt-roundtrip-test-fixture"
+ * Identity mappings (en→en, es→es, etc.) are skipped.
+ */
+function normalizeBcp47NodeId(id: string): string {
+  for (const [bcp47, v2] of Object.entries(LOCALE_BCP47_TO_V2)) {
+    if (bcp47 === v2) continue
+    const prefix = `${bcp47}-`
+    if (id.startsWith(prefix)) {
+      return id.replace(prefix, `${v2}-`)
+    }
+  }
+  return id
+}
+
+/**
+ * Normalize all locale-related fields in a factory node from BCP47 to v2 internal locale codes.
+ * Mutates the node in place and returns the normalized id.
+ */
+function normalizeFactoryNode(node: Record<string, unknown>): string {
+  const rawId = node.id as string
+  const normalizedId = normalizeBcp47NodeId(rawId)
+
+  // Normalize the locale and canonicalLocale fields
+  if (node.locale && LOCALE_BCP47_TO_V2[node.locale as keyof typeof LOCALE_BCP47_TO_V2]) {
+    node.locale = LOCALE_BCP47_TO_V2[node.locale as keyof typeof LOCALE_BCP47_TO_V2]
+  }
+  if (
+    node.canonicalLocale &&
+    LOCALE_BCP47_TO_V2[node.canonicalLocale as keyof typeof LOCALE_BCP47_TO_V2]
+  ) {
+    node.canonicalLocale = LOCALE_BCP47_TO_V2[node.canonicalLocale as keyof typeof LOCALE_BCP47_TO_V2]
+  }
+
+  // Normalize alternates keys and values (pt-BR → pt in locale keys and ID values)
+  if (node.alternates && typeof node.alternates === 'object') {
+    const normalized: Record<string, string> = {}
+    for (const [key, val] of Object.entries(node.alternates)) {
+      const v2Key =
+        LOCALE_BCP47_TO_V2[key as keyof typeof LOCALE_BCP47_TO_V2] ?? key
+      normalized[v2Key] =
+        typeof val === 'string' ? normalizeBcp47NodeId(val) : String(val)
+    }
+    node.alternates = normalized
+  }
+
+  node.id = normalizedId
+  return normalizedId
+}
 
 async function main() {
   console.log('[content-graph] Generating content graph...')
@@ -23,7 +75,10 @@ async function main() {
           if (Array.isArray(nodes)) {
             for (const node of nodes) {
               if (node.id) {
-                factoryNodes[node.id] = node
+                // Normalize BCP47 locale prefix to v2 internal code
+                // E.g., "pt-BR-slug" → "pt-slug", locale "pt-BR" → "pt"
+                const normalizedId = normalizeFactoryNode(node)
+                factoryNodes[normalizedId] = node
               }
             }
           }
@@ -39,6 +94,7 @@ async function main() {
     registry: contentRegistry,
     locales: ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'],
     defaultLocale: 'en',
+    // biome-ignore lint/suspicious/noExplicitAny: factory nodes come from dynamic LLM output with unknown shape
     factoryNodes: factoryNodes as Record<string, any>,
   })
 

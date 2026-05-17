@@ -54,6 +54,7 @@ export const DEFAULT_SHIP_CHECK_KILL_GRACE_MS = 5_000
 
 export function createDefaultShipCheckSteps(): ShipCheckStep[] {
   return [
+    // Group A — Static analysis
     { name: 'lint', command: ['bun', 'run', 'lint'] },
     { name: 'typecheck', command: ['bun', 'run', 'typecheck'] },
     { name: 'test:unit', command: ['bun', 'run', 'test:unit'] },
@@ -63,6 +64,25 @@ export function createDefaultShipCheckSteps(): ShipCheckStep[] {
     { name: 'slug:check', command: ['bun', 'run', 'slug:check'] },
     { name: 'content:check', command: ['bun', 'run', 'content:check'] },
     { name: 'sitemap:check', command: ['bun', 'run', 'scripts/check-sitemap.ts'] },
+    // M003 — Linkgraph + SEO
+    { name: 'linkgraph:report', command: ['bun', 'run', 'generate:linkgraph-report'] },
+    { name: 'seo:verification', command: ['bun', 'run', 'generate:seo-verification'] },
+    // M003 — Performance sub-budgets
+    { name: 'size:sub-budgets', command: ['bun', 'run', 'size:check', '--threshold', '50120'] },
+
+    // Group B — Preview-required QA (runs after preview server starts)
+    { name: 'edge:chaos', command: ['bun', 'run', 'edge:chaos'] },
+    {
+      name: 'route:fuzzing',
+      command: ['bun', 'run', 'test:e2e', 'tests/e2e/s05-route-fuzzing.spec.ts'],
+    },
+    {
+      name: 'hydration:resilience',
+      command: ['bun', 'run', 'test:e2e', 'tests/e2e/s03-hydration-resilience.spec.ts'],
+    },
+    { name: 'visual:qa', command: ['bun', 'run', 'test:e2e', 'tests/e2e/s06-visual-qa.spec.ts'] },
+
+    // Legacy steps
     { name: 'lighthouse:check', command: ['bun', 'run', 'lighthouse:check'] },
     { name: 'smoke:200s', command: ['bun', 'run', 'scripts/smoke-test.ts'] },
     { name: 'invalid-locale-404', command: ['bun', 'run', 'scripts/check-invalid-locale.ts'] },

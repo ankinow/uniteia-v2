@@ -105,9 +105,9 @@ describe('computeReciprocity', () => {
     const result = computeReciprocity(edges)
     const translated = result.find(r => r.kind === 'translated-as')
     expect(translated).toBeDefined()
-    expect(translated!.total).toBe(4)
-    expect(translated!.reciprocalCount).toBe(4)
-    expect(translated!.reciprocalPct).toBe(100)
+    expect(translated?.total).toBe(4)
+    expect(translated?.reciprocalCount).toBe(4)
+    expect(translated?.reciprocalPct).toBe(100)
   })
 
   it('reports 0% reciprocity for one-way edges', () => {
@@ -118,9 +118,9 @@ describe('computeReciprocity', () => {
     const result = computeReciprocity(edges)
     const translated = result.find(r => r.kind === 'translated-as')
     expect(translated).toBeDefined()
-    expect(translated!.total).toBe(2)
-    expect(translated!.reciprocalCount).toBe(0)
-    expect(translated!.reciprocalPct).toBe(0)
+    expect(translated?.total).toBe(2)
+    expect(translated?.reciprocalCount).toBe(0)
+    expect(translated?.reciprocalPct).toBe(0)
   })
 
   it('flags belongs-to-niche and related-to as expected asymmetric', () => {
@@ -163,17 +163,17 @@ describe('computeDegreeCentrality', () => {
     const c = result.find(r => r.nodeId === 'c')
 
     expect(a).toBeDefined()
-    expect(a!.outbound).toBe(2)
-    expect(a!.inbound).toBe(0)
-    expect(a!.total).toBe(2)
+    expect(a?.outbound).toBe(2)
+    expect(a?.inbound).toBe(0)
+    expect(a?.total).toBe(2)
 
-    expect(b!.outbound).toBe(1)
-    expect(b!.inbound).toBe(1)
-    expect(b!.total).toBe(2)
+    expect(b?.outbound).toBe(1)
+    expect(b?.inbound).toBe(1)
+    expect(b?.total).toBe(2)
 
-    expect(c!.outbound).toBe(0)
-    expect(c!.inbound).toBe(2)
-    expect(c!.total).toBe(2)
+    expect(c?.outbound).toBe(0)
+    expect(c?.inbound).toBe(2)
+    expect(c?.total).toBe(2)
   })
 
   it('returns entries sorted by total degree descending', () => {
@@ -207,8 +207,8 @@ describe('computeNicheConnectivity', () => {
     const result = computeNicheConnectivity(edges, nodes)
     const tech = result.find(r => r.niche === 'tech')
     expect(tech).toBeDefined()
-    expect(tech!.nodeCount).toBe(3)
-    expect(tech!.internalEdgeCount).toBe(2)
+    expect(tech?.nodeCount).toBe(3)
+    expect(tech?.internalEdgeCount).toBe(2)
   })
 
   it('tracks cross-niche connections', () => {
@@ -236,11 +236,11 @@ describe('computeNicheConnectivity', () => {
     const design = result.find(r => r.niche === 'design')
 
     expect(tech).toBeDefined()
-    expect(tech!.nodeCount).toBe(2) // a and b
-    expect(tech!.internalEdgeCount).toBe(1) // shared niche 'tech'
+    expect(tech?.nodeCount).toBe(2) // a and b
+    expect(tech?.internalEdgeCount).toBe(1) // shared niche 'tech'
 
     expect(design).toBeDefined()
-    expect(design!.nodeCount).toBe(1) // only a
+    expect(design?.nodeCount).toBe(1) // only a
   })
 })
 
@@ -487,11 +487,11 @@ describe('scripts end-to-end (requires content-graph.generated.ts)', () => {
   const seoReport = join(artifactsDir, 'seo/seo-verification-report.md')
 
   // Track whether the reports existed pre-existing for cleanup
-  let preExistingLinkgraph = false
-  let preExistingSeo = false
+  let _preExistingLinkgraph = false
+  let _preExistingSeo = false
 
   it('generate:linkgraph-report exits 0 and writes a non-empty report', () => {
-    if (existsSync(linkgraphReport)) preExistingLinkgraph = true
+    if (existsSync(linkgraphReport)) _preExistingLinkgraph = true
     else {
       // Schedule cleanup only if we created the file
       onTestFailed(() => {}) // no-op; keep artifacts on failure for inspection
@@ -511,7 +511,7 @@ describe('scripts end-to-end (requires content-graph.generated.ts)', () => {
   })
 
   it('generate:seo-verification exits 0 and writes a non-empty report', () => {
-    if (existsSync(seoReport)) preExistingSeo = true
+    if (existsSync(seoReport)) _preExistingSeo = true
     else {
       onTestFailed(() => {})
     }

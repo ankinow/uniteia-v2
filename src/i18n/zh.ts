@@ -62,10 +62,6 @@ export const zh: TranslationStrings = {
     qualityScore: '质量评分',
     editorialQuality: '编辑质量',
   },
-  qualityRing: {
-    qualityScore: '质量评分',
-    editorialQuality: '编辑质量',
-  },
   dopamineCard: {
     readMore: '阅读更多',
   },

@@ -62,10 +62,6 @@ export const ja: TranslationStrings = {
     qualityScore: '品質スコア',
     editorialQuality: '編集品質',
   },
-  qualityRing: {
-    qualityScore: '品質スコア',
-    editorialQuality: '編集品質',
-  },
   dopamineCard: {
     readMore: '続きを読む',
   },

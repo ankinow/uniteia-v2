@@ -1,6 +1,3 @@
-import type { ClassList } from '@builder.io/qwik'
-import type { SupportedLanguage } from '~/i18n/types'
-
 import type { VerdictLevel } from '~/components/editorial-verdict/types'
 
 export interface DopamineCardProps {
@@ -10,7 +7,7 @@ export interface DopamineCardProps {
   description: string
   /** Link destination */
   href: string
-  /** Optional quality score 0-100 (shows QualityRing if provided) */
+  /** Optional quality score 0-100 */
   score?: number
   /** Optional verdict level (shows SignalBar if provided) */
   verdict?: VerdictLevel

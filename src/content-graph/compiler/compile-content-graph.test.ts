@@ -124,4 +124,66 @@ describe('compileContentGraph', () => {
     expect(ptNode?.slug).toBe('agregadores-llm')
     expect(ptNode?.canonicalSlug).toBe('llm-aggregators-compared')
   })
+
+  it('picks up factory-provided fields after BCP47→v2 locale normalization', () => {
+    // Simulate factory nodes after BCP47→v2 locale normalization.
+    // In generate-content-graph.ts, IDs like "pt-BR-{slug}" are normalized to
+    // "pt-{slug}" and locale "pt-BR" is mapped to "pt" using LOCALE_BCP47_TO_V2.
+    // This test verifies the compiler correctly matches the normalized IDs.
+    const factoryNodes: Record<string, any> = {
+      'pt-llm-aggregators-compared': {
+        id: 'pt-llm-aggregators-compared',
+        locale: 'pt',
+        canonicalLocale: 'pt',
+        slug: 'agregadores-llm',
+        canonicalSlug: 'llm-aggregators-compared',
+        title: 'Agregadores de LLM (factory)',
+        summary: 'Factory-provided summary.',
+        niche: [],
+        tags: [],
+        entities: [],
+        qualityScore: 85,
+        trustScore: 90,
+        visibility: 'published',
+        lifecycle: 'verified',
+        verdict: 'safe',
+        routes: { canonical: '', aliases: [] },
+        alternates: {},
+        related: [],
+        seo: { noindex: false, priority: 85 },
+        timestamps: {
+          createdAt: '2026-01-01T00:00:00.000Z',
+          updatedAt: '2026-06-01T00:00:00.000Z',
+        },
+        metrics: { edgeRank: 0, semanticDensity: 0, freshnessScore: 0, graphScore: 0 },
+      },
+    }
+
+    const graph = compileContentGraph({
+      registry: TEST_REGISTRY,
+      locales: TEST_LOCALES,
+      defaultLocale: 'en',
+      factoryNodes,
+    })
+
+    const ptNode = graph.nodes.get('pt-llm-aggregators-compared')
+    expect(ptNode).toBeDefined()
+
+    // Factory-provided values should override derived defaults
+    expect(ptNode?.qualityScore).toBe(85)
+    expect(ptNode?.trustScore).toBe(90)
+    expect(ptNode?.visibility).toBe('published')
+    expect(ptNode?.lifecycle).toBe('verified')
+    expect(ptNode?.seo.noindex).toBe(false)
+
+    // Factory timestamps preserved
+    expect(ptNode?.timestamps.createdAt).toBe('2026-01-01T00:00:00.000Z')
+    expect(ptNode?.timestamps.updatedAt).toBe('2026-06-01T00:00:00.000Z')
+
+    // Routes still populated by compiler (not overridden by factory)
+    expect(ptNode?.routes.canonical).toBe('/pt/signals/ai-agents/llm-aggregators-compared')
+
+    // Without normalization, a pt-BR keyed node would be silently missed
+    expect(graph.nodes.has('pt-BR-llm-aggregators-compared')).toBe(false)
+  })
 })

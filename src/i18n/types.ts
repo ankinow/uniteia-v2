@@ -64,10 +64,6 @@ export interface TranslationStrings {
     qualityScore: string
     editorialQuality: string
   }
-  qualityRing: {
-    qualityScore: string
-    editorialQuality: string
-  }
   dopamineCard: {
     readMore: string
   }

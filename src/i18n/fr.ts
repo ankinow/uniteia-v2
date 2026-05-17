@@ -63,10 +63,6 @@ export const fr: TranslationStrings = {
     qualityScore: 'Score de Qualité',
     editorialQuality: 'Qualité Éditoriale',
   },
-  qualityRing: {
-    qualityScore: 'Score de Qualité',
-    editorialQuality: 'Editorial Quality',
-  },
   dopamineCard: {
     readMore: 'Lire la suite',
   },

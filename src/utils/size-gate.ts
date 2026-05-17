@@ -1,8 +1,25 @@
+import { existsSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
 import { gzipSync } from 'node:zlib'
 
 export const DEFAULT_ROUTE_GZIP_BUDGET_BYTES = 85 * 1024
+
+// ── Sub-budgets (M003 S05) ─────────────────────────────────────────────
+
+export const SUB_BUDGET_HTML_GZIP = 20 * 1024 // 20 KB — initial HTML per route
+export const SUB_BUDGET_ENTRY_GZIP = 15 * 1024 // 15 KB — first interaction chunk
+export const SUB_BUDGET_TOTAL_GZIP = 50 * 1024 // 50 KB — total critical path
+
+export interface SubBudgetResult {
+  htmlGzipBytes: number | null
+  htmlWithinBudget: boolean
+  entryGzipBytes: number | null
+  entryWithinBudget: boolean
+  totalGzipBytes: number | null
+  totalWithinBudget: boolean
+  violations: string[]
+}
 
 interface ManifestBundle {
   imports?: string[]
@@ -20,6 +37,7 @@ export interface RouteSizeReport {
   entryBundle: string
   artifactPaths: string[]
   gzipBytes: number | null
+  subBudgets?: SubBudgetResult
 }
 
 export interface SizeGateIssue {
@@ -162,6 +180,82 @@ function joinArtifactPaths(buildDir: string, bundleNames: string[]): string[] {
 
 function formatBytes(bytes: number | null): string {
   return bytes === null ? 'unavailable' : `${bytes.toLocaleString('en-US')} gzip bytes`
+}
+
+/**
+ * Evaluate sub-budgets for a route: HTML size, entry bundle size, and total size.
+ * Returns the sub-budget result with violation messages.
+ */
+export async function evaluateSubBudgets(
+  buildDir: string,
+  routeKey: string,
+  entryBundle: string,
+  _artifactPaths: string[],
+  totalGzipBytes: number | null
+): Promise<SubBudgetResult> {
+  const violations: string[] = []
+  let htmlGzipBytes: number | null = null
+  let entryGzipBytes: number | null = null
+  let htmlWithinBudget = false
+  let entryWithinBudget = false
+  let totalWithinBudget = false
+
+  // Measure HTML file: dist/{locale}/{route}/index.html or dist/{locale}/index.html
+  const htmlPath = join(buildDir, routeKey.slice(1), 'index.html')
+  const altHtmlPath = join(buildDir, routeKey.slice(1).replace(/\/[^/]+$/, ''), 'index.html')
+
+  for (const hp of [htmlPath, altHtmlPath]) {
+    if (existsSync(hp)) {
+      try {
+        const htmlContent = await readFile(hp, 'utf-8')
+        htmlGzipBytes = gzipSync(htmlContent).length
+        break
+      } catch {
+        // continue to next path
+      }
+    }
+  }
+
+  // Measure entry bundle
+  const entryPath = join(buildDir, 'build', entryBundle)
+  try {
+    const entryContent = await readFile(entryPath, 'utf-8')
+    entryGzipBytes = gzipSync(entryContent).length
+  } catch {
+    // entry bundle not found
+  }
+
+  htmlWithinBudget = htmlGzipBytes !== null && htmlGzipBytes <= SUB_BUDGET_HTML_GZIP
+  entryWithinBudget = entryGzipBytes !== null && entryGzipBytes <= SUB_BUDGET_ENTRY_GZIP
+  totalWithinBudget = totalGzipBytes !== null && totalGzipBytes <= SUB_BUDGET_TOTAL_GZIP
+
+  if (htmlGzipBytes !== null && !htmlWithinBudget) {
+    violations.push(
+      `Route ${routeKey} HTML exceeds ${SUB_BUDGET_HTML_GZIP.toLocaleString('en-US')} gzip bytes: ${htmlGzipBytes.toLocaleString('en-US')} bytes`
+    )
+  }
+
+  if (entryGzipBytes !== null && !entryWithinBudget) {
+    violations.push(
+      `Route ${routeKey} entry bundle "${entryBundle}" exceeds ${SUB_BUDGET_ENTRY_GZIP.toLocaleString('en-US')} gzip bytes: ${entryGzipBytes.toLocaleString('en-US')} bytes`
+    )
+  }
+
+  if (totalGzipBytes !== null && !totalWithinBudget) {
+    violations.push(
+      `Route ${routeKey} total critical path exceeds ${SUB_BUDGET_TOTAL_GZIP.toLocaleString('en-US')} gzip bytes: ${totalGzipBytes.toLocaleString('en-US')} bytes`
+    )
+  }
+
+  return {
+    htmlGzipBytes,
+    htmlWithinBudget,
+    entryGzipBytes,
+    entryWithinBudget,
+    totalGzipBytes,
+    totalWithinBudget,
+    violations,
+  }
 }
 
 export async function evaluateRouteSizeGate(
@@ -312,6 +406,27 @@ export async function evaluateRouteSizeGate(
     }
 
     routeReport.gzipBytes = totalBytes
+
+    // Evaluate sub-budgets (M003 S05)
+    const subResult = await evaluateSubBudgets(
+      buildDir,
+      route.routeKey,
+      route.entryBundle,
+      artifactPaths,
+      totalBytes
+    )
+    routeReport.subBudgets = subResult
+
+    for (const violation of subResult.violations) {
+      issues.push({
+        kind: 'route-over-budget',
+        message: violation,
+        routeKey: route.routeKey,
+        entryBundle: route.entryBundle,
+        artifactPaths,
+      })
+    }
+
     if (totalBytes > thresholdBytes) {
       issues.push({
         kind: 'route-over-budget',
@@ -345,13 +460,19 @@ export async function evaluateRouteSizeGate(
 
 export function formatRouteSizeGateReport(report: SizeGateReport): string {
   const header = report.ok
-    ? `✅ Route size gate passed (${report.routes.length} routes, threshold ${report.thresholdBytes.toLocaleString('en-US')} gzip bytes)`
+    ? `✅ Route size gate passed (${report.routes.length} routes, overall threshold ${report.thresholdBytes.toLocaleString('en-US')} gzip bytes, sub-budgets: HTML < 20KB | Entry < 15KB | Total < 50KB)`
     : `❌ Route size gate failed (${report.issues.length} issue${report.issues.length === 1 ? '' : 's'})`
 
   const routeLines = report.routes.map(route => {
+    const sb = route.subBudgets
+    const subBudgetLine = sb
+      ? ` [HTML: ${formatBytes(sb.htmlGzipBytes)}${sb.htmlWithinBudget ? ' ✅' : ' ❌'}` +
+        ` | Entry: ${formatBytes(sb.entryGzipBytes)}${sb.entryWithinBudget ? ' ✅' : ' ❌'}` +
+        ` | Total: ${formatBytes(sb.totalGzipBytes)}${sb.totalWithinBudget ? ' ✅' : ' ❌'}]`
+      : ''
     const artifactSuffix =
       route.artifactPaths.length > 0 ? ` [${route.artifactPaths.join(', ')}]` : ''
-    return `- ${route.routeKey}: ${formatBytes(route.gzipBytes)}${artifactSuffix}`
+    return `- ${route.routeKey}: ${formatBytes(route.gzipBytes)}${subBudgetLine}${artifactSuffix}`
   })
 
   const issueLines = report.issues.map(issue => {

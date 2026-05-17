@@ -67,6 +67,7 @@ const routes = {
     '/robots.txt',
     '/favicon.ico',
     '/q-manifest.json',
+    '/service-worker.js',
   ],
 }
 writeFileSync(routesPath, JSON.stringify(routes, null, 2))

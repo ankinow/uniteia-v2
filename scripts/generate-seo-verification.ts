@@ -196,8 +196,6 @@ export function checkNoindexAlignment(nodes: ContentNode[]): NoindexIssue[] {
         })
       }
       if (node.visibility === 'published' && ['generated', 'deprecated'].includes(node.lifecycle)) {
-        // Published with noindex but lifecycle is generated/deprecated — acceptable per spec
-        continue
       }
     } else {
       // Node does NOT have noindex — it should not be non-published unless lifecycle justifies it
@@ -295,7 +293,7 @@ function hreflangTable(issues: HreflangIssue[]): string {
       return `| ${i.nodeId} | \`${i.locale}\` → \`${i.targetUrl}\` | ${i.targetNodeId} | ${desc} |`
     })
     .join('\n')
-  return '| Node | Link | Target Node | Issue |\n|------|------|-------------|-------|\n' + rows
+  return `| Node | Link | Target Node | Issue |\n|------|------|-------------|-------|\n${rows}`
 }
 
 function sitemapTable(issues: SitemapIssue[]): string {
@@ -309,7 +307,7 @@ function sitemapTable(issues: SitemapIssue[]): string {
       return `| ${i.nodeId} | ${desc} |`
     })
     .join('\n')
-  return '| Node | Issue |\n|------|-------|\n' + rows
+  return `| Node | Issue |\n|------|-------|\n${rows}`
 }
 
 function noindexTable(issues: NoindexIssue[]): string {
@@ -323,7 +321,7 @@ function noindexTable(issues: NoindexIssue[]): string {
       return `| ${i.nodeId} | ${desc} |`
     })
     .join('\n')
-  return '| Node | Issue |\n|------|-------|\n' + rows
+  return `| Node | Issue |\n|------|-------|\n${rows}`
 }
 
 function canonicalTable(issues: CanonicalIssue[]): string {
@@ -337,7 +335,7 @@ function canonicalTable(issues: CanonicalIssue[]): string {
       return `| ${i.nodeId} | \`${i.canonicalUrl}\` | ${desc} |`
     })
     .join('\n')
-  return '| Node | Canonical URL | Issue |\n|------|---------------|-------|\n' + rows
+  return `| Node | Canonical URL | Issue |\n|------|---------------|-------|\n${rows}`
 }
 
 function priorityHistogram(buckets: PriorityBucket[]): string {
@@ -347,7 +345,7 @@ function priorityHistogram(buckets: PriorityBucket[]): string {
       return `| ${b.range} | ${b.count} | ${bar} |`
     })
     .join('\n')
-  return '| Range | Count | Distribution |\n|-------|-------|--------------|\n' + rows
+  return `| Range | Count | Distribution |\n|-------|-------|--------------|\n${rows}`
 }
 
 function perNodeSeoSnapshot(nodes: ContentNode[]): string {
@@ -358,10 +356,7 @@ function perNodeSeoSnapshot(nodes: ContentNode[]): string {
       return `| \`${n.id}\` | ${n.locale} | ${n.visibility} | ${n.lifecycle} | ${n.seo.noindex} | ${n.seo.priority} | ${n.routes.canonical} | ${altLocales} |`
     })
     .join('\n')
-  return (
-    '| Node | Locale | Visibility | Lifecycle | Noindex | Priority | Canonical URL | Alternates |\n|------|--------|------------|-----------|---------|----------|---------------|------------|\n' +
-    rows
-  )
+  return `| Node | Locale | Visibility | Lifecycle | Noindex | Priority | Canonical URL | Alternates |\n|------|--------|------------|-----------|---------|----------|---------------|------------|\n${rows}`
 }
 
 // ── Main script ─────────────────────────────────────────────────────────
@@ -373,7 +368,7 @@ async function main() {
   try {
     const mod = await import('../src/content-graph.generated')
     graph = mod.contentGraphData
-  } catch (err) {
+  } catch (_err) {
     console.error('[seo] Failed to load content graph data.')
     console.error('[seo] Run `bun run generate:content-graph` first.')
     process.exit(1)
@@ -446,8 +441,8 @@ async function main() {
     '',
     '## Summary',
     '',
-    `| Check | Status | Issues |`,
-    `|-------|--------|--------|`,
+    '| Check | Status | Issues |',
+    '|-------|--------|--------|',
     `| Hreflang Reciprocity | ${hreflangPassed ? '✅ PASS' : '❌ FAIL'} | ${hreflangIssues.length} |`,
     `| Sitemap Coherence | ${sitemapPassed ? '✅ PASS' : '❌ FAIL'} | ${sitemapIssues.length} |`,
     `| Noindex Alignment | ${noindexPassed ? '✅ PASS' : '❌ FAIL'} | ${noindexIssues.length} |`,
