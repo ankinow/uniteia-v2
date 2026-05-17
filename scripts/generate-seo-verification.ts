@@ -270,8 +270,10 @@ export function buildPriorityHistogram(nodes: ContentNode[]): PriorityBucket[] {
     else if (p >= 61 && p <= 80) idx = 3
     else idx = 4 // 81-100
 
-    buckets[idx].count++
-    buckets[idx].nodes.push(node.id)
+    const bucket: { count: number; nodes: string[] } | undefined = buckets[idx]
+    if (!bucket) continue
+    bucket.count++
+    bucket.nodes.push(node.id)
   }
 
   return buckets
