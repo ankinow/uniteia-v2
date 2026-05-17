@@ -1,4 +1,6 @@
+import type { ClassList } from '@builder.io/qwik'
 import type { VerdictLevel } from '~/components/editorial-verdict/types'
+import type { SupportedLanguage } from '~/i18n/types'
 
 export interface DopamineCardProps {
   /** Card title */

@@ -100,3 +100,6 @@ cd apps/web && npm run dev               # Astro dev server
 - uniteia-v2: `docs/adr/` — content import contract, bridge validation, page size budget
 - uniteia-mega-factory: `docs/adr/` — factory architecture decisions
 - CTt-Guaratuba-AI: `docs/adr/` — static-first, Nova isolation
+
+## Active Milestone Context
+- **M010 — Graph-Native Stabilization**: Complete rewrite of the content compilation and routing layer to fully rely on the in-memory content graph. Enforces quality visibility gates, i18n symmetry, and localized link generation. Spec exists at `src/content-graph/SPEC.md`, plan at `.gsd/milestones/M010-GRAPH-NATIVE-STABILIZATION/M010-ROADMAP.md`.

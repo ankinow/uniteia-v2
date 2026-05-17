@@ -2,7 +2,10 @@ import type { ContentGroup } from '../contracts/group'
 import type { ContentNode, ContentNodeVerdict } from '../contracts/node'
 
 export function isPublicNode(node: ContentNode): boolean {
-  return node.visibility === 'published' && node.qualityScore >= 95 && node.trustScore >= 80
+  if (node.visibility !== 'published' || node.qualityScore < 95) return false
+  // Enforce 8-locale symmetry (current locale + 7 alternates = 8 locales complete)
+  const alternateCount = Object.keys(node.alternates).length
+  return alternateCount >= 7
 }
 
 export function isIndexableNode(node: ContentNode): boolean {

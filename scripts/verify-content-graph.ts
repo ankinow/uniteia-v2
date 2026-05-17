@@ -32,8 +32,17 @@ async function main() {
     }
   }
 
-  console.log(`[content-graph] Nodes: ${graph.metadata.totalNodes}`)
-  console.log(`[content-graph] Public: ${graph.collections.public.length}`)
+  console.log(`[content-graph] Nodes: ${graph.nodes.length}`)
+  const publicCount = graph.nodes.filter(n => {
+    const group = graph.groups.get(n.canonicalSlug)
+    if (!group || group.length < 8) return false
+    const locales = new Set(group.map(node => node.locale))
+    return (
+      locales.size === 8 &&
+      group.every(node => node.visibility === 'published' && node.qualityScore >= 95)
+    )
+  }).length
+  console.log(`[content-graph] Public: ${publicCount}`)
 
   if (report.ok) {
     console.log('[content-graph] Verification PASSED')

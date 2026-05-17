@@ -1,6 +1,5 @@
 import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
-import { contentGraphProvider } from '~/content-graph.generated'
 import { getHomepageProjection } from '~/content-graph/projections'
 import type { HomepageProjection } from '~/content-graph/projections'
 import { getTranslation } from '~/i18n/context'
@@ -18,6 +17,7 @@ export const onStaticGenerate = () => {
 
 export const useHomepageData = routeLoader$<HomepageProjection>(async ({ params }) => {
   const lang = (params.lang as SupportedLanguage) ?? 'en'
+  const { contentGraphProvider } = await import('~/content-graph.generated')
   const niches = await loadNichesConfig()
   return getHomepageProjection(contentGraphProvider, niches, lang)
 })

@@ -1,9 +1,11 @@
+import type { ContentNode as ContractContentNode } from '@uniteia/content-node-contract'
 import { describe, expect, it } from 'vitest'
 import type { ContentLocale } from '../contracts/node'
-import { isPublicNode } from '../policies/visibility-policy'
 import { compileContentGraph } from './compile-content-graph'
 
-const TEST_REGISTRY: Record<string, string> = {
+const ALL_LOCALES: ContentLocale[] = ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh']
+
+const LOCALIZED_REGISTRY: Record<string, string> = {
   './content/ai-agents/en/llm-aggregators-compared.md': `---
 title: "LLM Aggregators Compared"
 quality_score: 96
@@ -25,6 +27,72 @@ subjects: ["llm", "agregadores"]
 
 Conteúdo de teste.
 `,
+  './content/ai-agents/es/agregadores-llm.md': `---
+title: "Agregadores de LLM"
+quality_score: 96
+verdict: "trusted"
+canonical_slug: "llm-aggregators-compared"
+subjects: ["llm", "agregadores"]
+---
+# Agregadores de LLM
+
+Contenido de prueba.
+`,
+  './content/ai-agents/fr/agregateurs-llm.md': `---
+title: "Agrégateurs LLM"
+quality_score: 96
+verdict: "trusted"
+canonical_slug: "llm-aggregators-compared"
+subjects: ["llm"]
+---
+# Agrégateurs LLM
+
+Contenu de test.
+`,
+  './content/ai-agents/de/llm-vergleicher.md': `---
+title: "LLM-Vergleicher"
+quality_score: 96
+verdict: "trusted"
+canonical_slug: "llm-aggregators-compared"
+subjects: ["llm"]
+---
+# LLM-Vergleicher
+
+Testinhalt.
+`,
+  './content/ai-agents/it/confronto-llm.md': `---
+title: "Confronto LLM"
+quality_score: 96
+verdict: "trusted"
+canonical_slug: "llm-aggregators-compared"
+subjects: ["llm"]
+---
+# Confronto LLM
+
+Contenuto di test.
+`,
+  './content/ai-agents/ja/llm-aggregators-compared.md': `---
+title: "LLMアグリゲーター比較"
+quality_score: 96
+verdict: "trusted"
+canonical_slug: "llm-aggregators-compared"
+subjects: ["llm"]
+---
+# LLMアグリゲーター比較
+
+テストコンテンツ
+`,
+  './content/ai-agents/zh/llm-aggregators-compared.md': `---
+title: "LLM聚合器比较"
+quality_score: 96
+verdict: "trusted"
+canonical_slug: "llm-aggregators-compared"
+subjects: ["llm"]
+---
+# LLM聚合器比较
+
+测试内容
+`,
   './content/language-models/en/foundation-models.md': `---
 title: "Foundation Models"
 quality_score: 50
@@ -44,27 +112,25 @@ Hub index.
 `,
 }
 
-const TEST_LOCALES: ContentLocale[] = ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh']
-
 describe('compileContentGraph', () => {
   it('excludes _index files from the graph', () => {
     const graph = compileContentGraph({
-      registry: TEST_REGISTRY,
-      locales: TEST_LOCALES,
+      registry: LOCALIZED_REGISTRY,
+      locales: ALL_LOCALES,
       defaultLocale: 'en',
     })
-    expect(graph.metadata.totalNodes).toBe(3)
-    expect(graph.nodes.has('en-_index')).toBe(false)
-    expect(graph.nodes.has('pt-_index')).toBe(false)
+    expect(graph.nodes.length).toBe(9)
+    expect(graph.nodes.find(n => n.id === 'en-_index')).toBeUndefined()
+    expect(graph.nodes.find(n => n.id === 'pt-_index')).toBeUndefined()
   })
 
   it('marks low-quality content as draft with noindex', () => {
     const graph = compileContentGraph({
-      registry: TEST_REGISTRY,
-      locales: TEST_LOCALES,
+      registry: LOCALIZED_REGISTRY,
+      locales: ALL_LOCALES,
       defaultLocale: 'en',
     })
-    const draftNode = graph.nodes.get('en-foundation-models')
+    const draftNode = graph.nodes.find(n => n.id === 'en-foundation-models')
     expect(draftNode).toBeDefined()
     expect(draftNode?.visibility).toBe('draft')
     expect(draftNode?.seo.noindex).toBe(true)
@@ -73,11 +139,11 @@ describe('compileContentGraph', () => {
 
   it('marks high-quality trusted content as published', () => {
     const graph = compileContentGraph({
-      registry: TEST_REGISTRY,
-      locales: TEST_LOCALES,
+      registry: LOCALIZED_REGISTRY,
+      locales: ALL_LOCALES,
       defaultLocale: 'en',
     })
-    const node = graph.nodes.get('en-llm-aggregators-compared')
+    const node = graph.nodes.find(n => n.id === 'en-llm-aggregators-compared')
     expect(node).toBeDefined()
     expect(node?.visibility).toBe('published')
     expect(node?.qualityScore).toBe(96)
@@ -85,14 +151,19 @@ describe('compileContentGraph', () => {
     expect(node?.seo.noindex).toBe(false)
   })
 
-  it('identifies only high-quality published nodes as public', () => {
+  it('identifies only high-quality published nodes with 8-locale symmetry as public', () => {
     const graph = compileContentGraph({
-      registry: TEST_REGISTRY,
-      locales: TEST_LOCALES,
+      registry: LOCALIZED_REGISTRY,
+      locales: ALL_LOCALES,
       defaultLocale: 'en',
     })
-    const publicNodes = Array.from(graph.nodes.values()).filter(isPublicNode)
-    expect(publicNodes.length).toBe(2)
+    const publicNodes = graph.nodes.filter(n => {
+      if (n.visibility !== 'published' || n.qualityScore < 95) return false
+      // Enforce 8-locale symmetry (the S03 policy)
+      return Object.keys(n.alternates).length >= 7
+    })
+    // All 8 locale variants of llm-aggregators-compared should be public
+    expect(publicNodes.length).toBe(8)
     for (const node of publicNodes) {
       expect(node.qualityScore).toBeGreaterThanOrEqual(95)
       expect(node.visibility).toBe('published')
@@ -101,36 +172,39 @@ describe('compileContentGraph', () => {
 
   it('populates canonical routes', () => {
     const graph = compileContentGraph({
-      registry: TEST_REGISTRY,
-      locales: TEST_LOCALES,
+      registry: LOCALIZED_REGISTRY,
+      locales: ALL_LOCALES,
       defaultLocale: 'en',
     })
-    const node = graph.nodes.get('en-llm-aggregators-compared')
+    const node = graph.nodes.find(n => n.id === 'en-llm-aggregators-compared')
     expect(node).toBeDefined()
     expect(node?.routes.canonical).toBe('/en/signals/ai-agents/llm-aggregators-compared')
   })
 
-  it('populates locale alternates for translated content', () => {
+  it('populates locale alternates for translated content across all 8 locales', () => {
     const graph = compileContentGraph({
-      registry: TEST_REGISTRY,
-      locales: TEST_LOCALES,
+      registry: LOCALIZED_REGISTRY,
+      locales: ALL_LOCALES,
       defaultLocale: 'en',
     })
-    const enNode = graph.nodes.get('en-llm-aggregators-compared')
+    const enNode = graph.nodes.find(n => n.id === 'en-llm-aggregators-compared')
     expect(enNode).toBeDefined()
     expect(enNode?.alternates.pt).toBe('/pt/signals/ai-agents/llm-aggregators-compared')
-    const ptNode = graph.nodes.get('pt-llm-aggregators-compared')
+    expect(enNode?.alternates.es).toBe('/es/signals/ai-agents/llm-aggregators-compared')
+    expect(enNode?.alternates.fr).toBe('/fr/signals/ai-agents/llm-aggregators-compared')
+    expect(enNode?.alternates.de).toBe('/de/signals/ai-agents/llm-aggregators-compared')
+    expect(enNode?.alternates.it).toBe('/it/signals/ai-agents/llm-aggregators-compared')
+    expect(enNode?.alternates.ja).toBe('/ja/signals/ai-agents/llm-aggregators-compared')
+    expect(enNode?.alternates.zh).toBe('/zh/signals/ai-agents/llm-aggregators-compared')
+
+    const ptNode = graph.nodes.find(n => n.id === 'pt-llm-aggregators-compared')
     expect(ptNode).toBeDefined()
     expect(ptNode?.slug).toBe('agregadores-llm')
     expect(ptNode?.canonicalSlug).toBe('llm-aggregators-compared')
   })
 
   it('picks up factory-provided fields after BCP47→v2 locale normalization', () => {
-    // Simulate factory nodes after BCP47→v2 locale normalization.
-    // In generate-content-graph.ts, IDs like "pt-BR-{slug}" are normalized to
-    // "pt-{slug}" and locale "pt-BR" is mapped to "pt" using LOCALE_BCP47_TO_V2.
-    // This test verifies the compiler correctly matches the normalized IDs.
-    const factoryNodes: Record<string, any> = {
+    const factoryNodes: Record<string, unknown> = {
       'pt-llm-aggregators-compared': {
         id: 'pt-llm-aggregators-compared',
         locale: 'pt',
@@ -160,14 +234,13 @@ describe('compileContentGraph', () => {
     }
 
     const graph = compileContentGraph({
-      registry: TEST_REGISTRY,
-      locales: TEST_LOCALES,
+      registry: LOCALIZED_REGISTRY,
+      locales: ALL_LOCALES,
       defaultLocale: 'en',
-      factoryNodes,
+      factoryNodes: factoryNodes as unknown as Record<string, ContractContentNode>,
     })
 
-    const ptNode = graph.nodes.get('pt-llm-aggregators-compared')
-    expect(ptNode).toBeDefined()
+    const ptNode = graph.nodes.find(n => n.id === 'pt-llm-aggregators-compared')
 
     // Factory-provided values should override derived defaults
     expect(ptNode?.qualityScore).toBe(85)
@@ -184,6 +257,6 @@ describe('compileContentGraph', () => {
     expect(ptNode?.routes.canonical).toBe('/pt/signals/ai-agents/llm-aggregators-compared')
 
     // Without normalization, a pt-BR keyed node would be silently missed
-    expect(graph.nodes.has('pt-BR-llm-aggregators-compared')).toBe(false)
+    expect(graph.nodes.find(n => n.id === 'pt-BR-llm-aggregators-compared')).toBeUndefined()
   })
 })

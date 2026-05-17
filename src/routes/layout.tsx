@@ -5,7 +5,6 @@ import { LangSwitcher } from '~/components/lang-switcher'
 import { NavTree } from '~/components/nav-tree'
 import { Sidebar } from '~/components/sidebar'
 import { SiteShell } from '~/components/site-shell'
-import { contentGraphProvider } from '~/content-graph.generated'
 import { getPublicNavigation } from '~/content-graph/projections'
 import { getTranslation, useProvideI18n } from '~/i18n/context'
 import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
@@ -63,6 +62,7 @@ export const useNavigation = routeLoader$<NavigationData>(async () => {
 
 export const useSidebarNavigation = routeLoader$(async ({ headers }) => {
   const lang = (headers.get('x-negotiated-lang') as SupportedLanguage) ?? DEFAULT_LANGUAGE
+  const { contentGraphProvider } = await import('~/content-graph.generated')
   const niches = await loadNichesConfig()
   return getPublicNavigation(contentGraphProvider, niches, lang)
 })

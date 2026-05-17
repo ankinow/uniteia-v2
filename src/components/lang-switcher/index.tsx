@@ -2,6 +2,7 @@ import { $, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 import { getLanguageName, useI18n } from '~/i18n/context'
 import { updateLangCookie } from '~/i18n/set-lang-cookie'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
+import { routes } from '~/routing/routes'
 import type { LangSwitcherLogEvent, LangSwitcherProps } from './types'
 
 export const LangSwitcher = component$<LangSwitcherProps>(
@@ -25,17 +26,8 @@ export const LangSwitcher = component$<LangSwitcherProps>(
       isRedirecting.value = true
       isOpen.value = false
 
-      const searchParams = new URLSearchParams(window.location.search)
-      searchParams.delete('lang')
-      const newSearch = searchParams.toString()
-
-      const pathSegments = window.location.pathname.split('/').filter(Boolean)
-      const existingLang = pathSegments[0] ?? ''
-      const remainder = SUPPORTED_LANGUAGES.some(l => l.code === existingLang)
-        ? pathSegments.slice(1)
-        : pathSegments
-      const redirectPath = `/${newLang}${remainder.length > 0 ? `/${remainder.join('/')}` : ''}`
-      const redirectUrl = `${redirectPath}${newSearch ? `?${newSearch}` : ''}`
+      const currentPath = window.location.pathname + window.location.search + window.location.hash
+      const redirectUrl = routes.localized(currentPath, newLang)
       logEvent({ type: 'redirect', to: newLang, redirectUrl })
 
       updateLangCookie(newLang).finally(() => {

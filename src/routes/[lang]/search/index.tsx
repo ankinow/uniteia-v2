@@ -3,7 +3,15 @@ import type { DocumentHead } from '@builder.io/qwik-city'
 import { routeLoader$, useLocation } from '@builder.io/qwik-city'
 import { SearchResults } from '~/components/search'
 import { getTranslation } from '~/i18n/context'
-import type { SupportedLanguage } from '~/i18n/types'
+import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
+
+export const onStaticGenerate = () => {
+  return {
+    params: SUPPORTED_LANGUAGES.map(l => ({
+      lang: l.code,
+    })),
+  }
+}
 
 export const useSearchIndex = routeLoader$(async () => {
   const { searchIndexDocuments } = await import('~/search-index.generated')

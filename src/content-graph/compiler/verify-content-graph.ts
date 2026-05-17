@@ -30,7 +30,8 @@ export interface GraphVerificationReport {
 export function verifyContentGraph(graph: ContentGraph): GraphVerificationReport {
   const errors: GraphVerificationIssue[] = []
   const warnings: GraphVerificationIssue[] = []
-  const nodes = Array.from(graph.nodes.values())
+  const nodes = graph.nodes
+  const nodeIds = new Set(nodes.map(n => n.id))
 
   for (const node of nodes) {
     const routeCounts: Record<string, string[]> = {}
@@ -85,7 +86,7 @@ export function verifyContentGraph(graph: ContentGraph): GraphVerificationReport
 
     for (const n of nodes) {
       for (const relatedId of n.related) {
-        if (!graph.nodes.has(relatedId)) {
+        if (!nodeIds.has(relatedId)) {
           warnings.push({
             severity: 'warning',
             code: 'broken-related-ref',
@@ -193,19 +194,22 @@ export function verifyContentGraph(graph: ContentGraph): GraphVerificationReport
       })
     }
 
-    if (graph.groups) {
-      const matchingGroup = graph.groups.groups.find(g => g.canonicalSlug === slug)
-      if (matchingGroup) {
-        const expectedPublic =
-          matchingGroup.isFullySymmetric &&
-          matchingGroup.nodes.every(n => n.visibility === 'published' && n.qualityScore >= 95)
-        const actualPublic = graph.collections.public.some(n => n.canonicalSlug === slug)
+    const matchingGroup = graph.groups.get(slug)
+    if (matchingGroup) {
+      const isFullySymmetric = matchingGroup.length >= 8
+      const expectedPublic =
+        isFullySymmetric &&
+        matchingGroup.every(n => n.visibility === 'published' && n.qualityScore >= 95)
 
-        if (expectedPublic && !actualPublic) {
+      if (expectedPublic) {
+        const hasVisibilityIssues = matchingGroup.some(
+          n => n.visibility !== 'published' || n.qualityScore < 95
+        )
+        if (hasVisibilityIssues) {
           errors.push({
             severity: 'error',
             code: 'group-visibility-mismatch',
-            message: `Group "${slug}" meets public criteria but is not in public collection`,
+            message: `Group "${slug}" meets public criteria but has visibility/quality issues`,
           })
         }
       }

@@ -102,7 +102,10 @@ export const useRelated = routeLoader$<ContentNode[]>(async ({ params }) => {
     return nicheNodes.slice(0, 4)
   }
 
-  const related = contentGraphProvider.getRelated(current.id).filter(isPublicNode).slice(0, 4)
+  const related = contentGraphProvider
+    .getRelated(current.id, locale)
+    .filter(isPublicNode)
+    .slice(0, 4)
 
   if (related.length > 0) return related
 

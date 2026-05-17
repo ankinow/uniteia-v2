@@ -138,7 +138,7 @@ describe('computeReciprocity', () => {
   it('does not flag translated-as as expected asymmetric', () => {
     const edges: GraphEdge[] = [makeEdge('translated-as', 'a', 'b')]
     const result = computeReciprocity(edges)
-    expect(result[0].expectedAsymmetric).toBe(false)
+    expect(result[0]?.expectedAsymmetric).toBe(false)
   })
 })
 
@@ -185,7 +185,8 @@ describe('computeDegreeCentrality', () => {
     ]
     const result = computeDegreeCentrality(edges, nodes)
     for (let i = 1; i < result.length; i++) {
-      expect(result[i].total).toBeLessThanOrEqual(result[i - 1].total)
+      // biome-ignore lint/style/noNonNullAssertion: known safe, within loop bounds
+      expect(result[i]!.total).toBeLessThanOrEqual(result[i - 1]!.total)
     }
   })
 })
@@ -286,9 +287,9 @@ describe('checkHreflangReciprocity', () => {
     // const reciprocalUrl = targetNode.alternates[node.locale] => alternates['en'] => undefined
     // So issues.push with nodeId = node.id = hello-en and targetNodeId = hello-pt, reciprocalMissing = true
     expect(issues).toHaveLength(1)
-    expect(issues[0].nodeId).toBe('hello-en')
-    expect(issues[0].reciprocalMissing).toBe(true)
-    expect(issues[0].targetNodeId).toBe('hello-pt')
+    expect(issues[0]?.nodeId).toBe('hello-en')
+    expect(issues[0]?.reciprocalMissing).toBe(true)
+    expect(issues[0]?.targetNodeId).toBe('hello-pt')
   })
 
   it('flags reciprocal pointing to wrong node', () => {
@@ -301,9 +302,9 @@ describe('checkHreflangReciprocity', () => {
     ]
     const issues = checkHreflangReciprocity(nodes, routeIndex)
     expect(issues).toHaveLength(1)
-    expect(issues[0].nodeId).toBe('hello-en')
-    expect(issues[0].reciprocalMissing).toBe(false)
-    expect(issues[0].reciprocalPointsWrong).toBe(true)
+    expect(issues[0]?.nodeId).toBe('hello-en')
+    expect(issues[0]?.reciprocalMissing).toBe(false)
+    expect(issues[0]?.reciprocalPointsWrong).toBe(true)
   })
 })
 
@@ -326,8 +327,8 @@ describe('checkSitemapCoherence', () => {
     ]
     const issues = checkSitemapCoherence(nodes, ['a', 'b'], ['b'])
     expect(issues).toHaveLength(1)
-    expect(issues[0].nodeId).toBe('a')
-    expect(issues[0].problem).toBe('sitemap-listed-not-published')
+    expect(issues[0]?.nodeId).toBe('a')
+    expect(issues[0]?.problem).toBe('sitemap-listed-not-published')
   })
 
   it('flags published nodes not in sitemapEligible', () => {
@@ -338,8 +339,8 @@ describe('checkSitemapCoherence', () => {
     ]
     const issues = checkSitemapCoherence(nodes, ['a'], ['a', 'b'])
     expect(issues).toHaveLength(1)
-    expect(issues[0].nodeId).toBe('b')
-    expect(issues[0].problem).toBe('published-not-sitemap-listed')
+    expect(issues[0]?.nodeId).toBe('b')
+    expect(issues[0]?.problem).toBe('published-not-sitemap-listed')
   })
 })
 
@@ -364,8 +365,8 @@ describe('checkNoindexAlignment', () => {
     ]
     const issues = checkNoindexAlignment(nodes)
     expect(issues).toHaveLength(1)
-    expect(issues[0].nodeId).toBe('a')
-    expect(issues[0].problem).toBe('published-with-noindex')
+    expect(issues[0]?.nodeId).toBe('a')
+    expect(issues[0]?.problem).toBe('published-with-noindex')
   })
 
   it('does not flag published nodes with noindex when lifecycle is generated or deprecated', () => {
@@ -416,8 +417,8 @@ describe('checkCanonicalCoherence', () => {
     ]
     const issues = checkCanonicalCoherence(nodes, routeIndex)
     expect(issues).toHaveLength(1)
-    expect(issues[0].problem).toBe('does-not-resolve')
-    expect(issues[0].canonicalUrl).toBe('/en/nonexistent/')
+    expect(issues[0]?.problem).toBe('does-not-resolve')
+    expect(issues[0]?.canonicalUrl).toBe('/en/nonexistent/')
   })
 
   it('flags canonical URLs that resolve to a different node', () => {
@@ -428,9 +429,9 @@ describe('checkCanonicalCoherence', () => {
     const issues = checkCanonicalCoherence(nodes, routeIndex)
     // hello-en's canonical /en/world/ resolves to world-en, not hello-en
     expect(issues).toHaveLength(1)
-    expect(issues[0].nodeId).toBe('hello-en')
-    expect(issues[0].problem).toBe('resolves-to-different-node')
-    expect(issues[0].resolvedNodeId).toBe('world-en')
+    expect(issues[0]?.nodeId).toBe('hello-en')
+    expect(issues[0]?.problem).toBe('resolves-to-different-node')
+    expect(issues[0]?.resolvedNodeId).toBe('world-en')
   })
 })
 
@@ -449,17 +450,17 @@ describe('buildPriorityHistogram', () => {
   it('places priority 0 in the 0–20 bucket', () => {
     const nodes: ContentNode[] = [makeNode({ id: 'a', seo: { noindex: false, priority: 0 } })]
     const result = buildPriorityHistogram(nodes)
-    expect(result[0].range).toBe('0–20')
-    expect(result[0].count).toBe(1)
-    expect(result[0].nodes).toEqual(['a'])
+    expect(result[0]?.range).toBe('0–20')
+    expect(result[0]?.count).toBe(1)
+    expect(result[0]?.nodes).toEqual(['a'])
   })
 
   it('places priority 100 in the 81–100 bucket', () => {
     const nodes: ContentNode[] = [makeNode({ id: 'b', seo: { noindex: false, priority: 100 } })]
     const result = buildPriorityHistogram(nodes)
-    expect(result[4].range).toBe('81–100')
-    expect(result[4].count).toBe(1)
-    expect(result[4].nodes).toEqual(['b'])
+    expect(result[4]?.range).toBe('81–100')
+    expect(result[4]?.count).toBe(1)
+    expect(result[4]?.nodes).toEqual(['b'])
   })
 
   it('distributes nodes across all buckets correctly', () => {
@@ -471,11 +472,11 @@ describe('buildPriorityHistogram', () => {
       makeNode({ id: 'n4', seo: { noindex: false, priority: 85 } }),
     ]
     const result = buildPriorityHistogram(nodes)
-    expect(result[0].count).toBe(1) // 0–20: n0
-    expect(result[1].count).toBe(1) // 21–40: n1
-    expect(result[2].count).toBe(1) // 41–60: n2
-    expect(result[3].count).toBe(1) // 61–80: n3
-    expect(result[4].count).toBe(1) // 81–100: n4
+    expect(result[0]?.count).toBe(1) // 0–20: n0
+    expect(result[1]?.count).toBe(1) // 21–40: n1
+    expect(result[2]?.count).toBe(1) // 41–60: n2
+    expect(result[3]?.count).toBe(1) // 61–80: n3
+    expect(result[4]?.count).toBe(1) // 81–100: n4
   })
 })
 
