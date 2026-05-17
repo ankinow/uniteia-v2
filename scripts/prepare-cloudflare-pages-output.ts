@@ -64,6 +64,32 @@ const routes = {
 }
 writeFileSync(routesPath, JSON.stringify(routes, null, 2))
 
+// Adiciona variantes sem trailing slash ao Set de paths estáticos
+// para que URLs como /pt/signals/apex/tencent-cloud-deal-stack-builders
+// (sem / no final) sejam servidas via ASSETS.fetch em vez de cair no Worker SSR
+const staticPathsPath = join(distServerDir, '@qwik-city-static-paths.js')
+if (existsSync(staticPathsPath)) {
+  const spContent = readFileSync(staticPathsPath, 'utf-8')
+  const noSlashVariants: string[] = []
+  const setRegex = /new Set\(\[([^\]]+)\]\)/
+  const match = spContent.match(setRegex)
+  if (match) {
+    const entries = match[1].split(',').map(s => s.trim().replace(/^"/, '').replace(/"$/, ''))
+    for (const entry of entries) {
+      if (entry.endsWith('/') && entry !== '/') {
+        noSlashVariants.push(entry.slice(0, -1))
+      }
+    }
+    if (noSlashVariants.length > 0) {
+      const allEntries = [...entries, ...noSlashVariants]
+      const newSet = `new Set(["${allEntries.join('","')}"])`
+      const newContent = spContent.replace(setRegex, newSet)
+      writeFileSync(staticPathsPath, newContent, 'utf-8')
+      console.log(`  Added ${noSlashVariants.length} no-slash variants to static paths`)
+    }
+  }
+}
+
 console.log(
   'Prep done: dist/server/ copied, dist/_worker.js path fixed, Worker handles all locale routes'
 )

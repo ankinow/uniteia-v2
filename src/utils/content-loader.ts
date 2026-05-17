@@ -53,7 +53,11 @@ export async function loadContent(
   const { validateSlug } = await import('~/utils/url-validation')
   const { validateContent } = await import('~/utils/schema-validation')
 
-  const contentKey = REGISTRY_PATHS.find(k => k.endsWith(`/content/${niche}/${lang}/${slug}.md`))
+  const contentKey = REGISTRY_PATHS.find(
+    k =>
+      k.endsWith(`/content/${niche}/${lang}/${slug}.md`) ||
+      k.endsWith(`content/${niche}/${lang}/${slug}.md`)
+  )
   const rawContent = contentKey ? contentRegistry[contentKey] : undefined
 
   if (!rawContent) {
