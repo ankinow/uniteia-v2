@@ -8,34 +8,13 @@ import {
 } from 'node:fs'
 import { join } from 'node:path'
 import type { ContentNode } from '@uniteia/content-node-contract'
+import { CONTRACT_TO_V2_LOCALE } from '@uniteia/content-node-contract'
 import { getFactoryNode, importPackage } from '../src/content-import/import-package'
 import { mapLayout } from '../src/content-import/map-layout'
 import { validatePackage } from '../src/content-import/validate-package'
 
 const V2_ROOT = process.cwd()
 const FACTORY_ROOT = join(V2_ROOT, '..', 'uniteia-mega-factory')
-
-const CONTRACT_TO_V2_LOCALE: Record<string, string> = {
-  'pt-BR': 'pt',
-  en: 'en',
-  es: 'es',
-  fr: 'fr',
-  de: 'de',
-  it: 'it',
-  ja: 'ja',
-  zh: 'zh',
-}
-
-const V2_TO_CONTRACT_LOCALE: Record<string, string> = {
-  pt: 'pt-BR',
-  en: 'en',
-  es: 'es',
-  fr: 'fr',
-  de: 'de',
-  it: 'it',
-  ja: 'ja',
-  zh: 'zh',
-}
 
 const NICHE = 'apex'
 
