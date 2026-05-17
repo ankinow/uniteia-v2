@@ -2,7 +2,7 @@
   "schemaVersion": "uniteia-context-manifest/v1",
   "repo": "uniteia-v2",
   "repoRole": "consumer",
-  "generatedAt": "2026-05-11T00:00:00Z",
+  "generatedAt": "2026-05-17T00:00:00Z",
   "operator": "Luiz/LERMF",
   "mode": "incremental-reinforcement",
   "hashAlgorithm": "sha256",
@@ -13,21 +13,21 @@
       "id": "CTX-V2-ROOT-01",
       "path": "AGENTS.md",
       "symbol": "\u03a3",
-      "sha256": "9ebba085a3978514acee7f94b6dc7c55bffa92c7f73c3d8d4cfb6aea890b8ef2",
+      "sha256": "e119344d3d2558559fb6f0311a0ef0870806b11cb1736e4e7c029233382c706d",
       "status": "active"
     },
     {
       "id": "CTX-V2-ROOT-02",
       "path": "CONTEXT-MAP.md",
       "symbol": "\u03a3",
-      "sha256": "9ef211d064ca341c616e89ec370446384a6c7639156feb4d04a6686ab3dcd0a8",
+      "sha256": "03aa5b5c36237d4e2920b27becb70a14d6f16883de70366d7a3da9532ed15df5",
       "status": "active"
     },
     {
       "id": "CTX-V2-ROOT-03",
       "path": "docs/context/README.md",
       "symbol": "\u03a3",
-      "sha256": "c03b44d48e740efc22882af76ff395ee98c093468c9c1aafcd4ed533caed7fd3",
+      "sha256": "6a13c2bfa771cb473936c5416f70ed200dc494d3976aa4885e25ca6287505bff",
       "status": "active"
     },
     {
@@ -97,7 +97,7 @@
       "id": "CTX-V2-GUARD-01",
       "path": "docs/context/context-ids.json",
       "symbol": "\u26d3\ufe0f",
-      "sha256": "320f4f94833c7307fdf22666dfebba52698899cc30344832066216312704fbd8",
+      "sha256": "52a4d0904779bb539be1575b284452e318e0fe2831c6374b24ee717c861977b2",
       "status": "active"
     },
     {
@@ -111,14 +111,14 @@
       "id": "CTX-V2-GUARD-03",
       "path": "docs/context/context-ledger.jsonl",
       "symbol": "\u0394",
-      "sha256": "2e1f20affa1e8bfcc0fe1ce269433da8bd93e3f8f2e5c6f68ba67bfe8d522d2d",
+      "sha256": "d5b7bcf8dfd037fe3366b048eafca29dca0acb865130bc8e38de53cedd8a6986",
       "status": "active"
     },
     {
       "id": "CTX-V2-GUARD-04",
       "path": "docs/context/context-index.md",
       "symbol": "\u03a9",
-      "sha256": "1c7b8b19c1a4a21d858711b61643157ec6cd067be3143b015280567b27411a4e",
+      "sha256": "a65748df0cd0c952bd1a9deda90da0f276582785be433e53d07d9c3c18828493",
       "status": "active"
     }
   ],
@@ -133,6 +133,7 @@
   "verification": {
     "gitDiffCheck": "pass",
     "secretScan": "pass",
-    "statusShort": "clean (38 untracked — expected)"
+    "statusShort": "clean (modified tracked files expected)",
+    "notes": "2026-05-17: context audit completed. All TODO_HASH replaced with computed SHA-256. CONTEXT-MAP.md domain contexts marked stale. 3 manifest hashes updated (AGENTS.md, README.md, context-ids.json)."
   }
 }

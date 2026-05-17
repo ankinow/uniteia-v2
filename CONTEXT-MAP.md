@@ -6,7 +6,7 @@ symbol: Σ
 status: active
 version: 1.0.0
 created_at: 2026-05-11
-updated_at: 2026-05-11
+updated_at: 2026-05-17
 source_of_truth: true
 depends_on: [CTX-V2-ROOT-01]
 hash: SELF
@@ -29,15 +29,17 @@ hash: SELF
 
 ### Content Niche Contexts (v2 legacy)
 
-| Context | CONTEXT.md | ADR Directory | Description |
-|---|---|---|---|
-| singularity | content/singularity/CONTEXT.md | content/singularity/docs/adr/ | AI/LLM content niche |
-| hardware | content/hardware/CONTEXT.md | content/hardware/docs/adr/ | Hardware reviews |
-| dev | content/dev/CONTEXT.md | content/dev/docs/adr/ | Dev tools |
-| privacy | content/privacy/CONTEXT.md | content/privacy/docs/adr/ | Privacy/security |
-| apex | CONTEXT.md (root) | docs/adr/ | Apex landing |
-| infrastructure | CONTEXT.md (root) | docs/adr/ | Build pipeline |
-| jrpg-sidebar | docs/jrpg-sidebar/CONTEXT.md | docs/jrpg-sidebar/docs/adr/ | JRPG sidebar |
+> **Note:** The per-niche CONTEXT.md files and ADR directories listed below have been removed from disk as part of project consolidation. The apex/infrastructure docs/adr/ directory is the only surviving ADR location. This section is retained as a reference for historical niche structure; agents should rely on docs/context/*.md for current operational context.
+
+| Context | CONTEXT.md | ADR Directory | Description | Status |
+|---|---|---|---|---|
+| singularity | content/singularity/CONTEXT.md | content/singularity/docs/adr/ | AI/LLM content niche | ⛔ removed |
+| hardware | content/hardware/CONTEXT.md | content/hardware/docs/adr/ | Hardware reviews | ⛔ removed |
+| dev | content/dev/CONTEXT.md | content/dev/docs/adr/ | Dev tools | ⛔ removed |
+| privacy | content/privacy/CONTEXT.md | content/privacy/docs/adr/ | Privacy/security | ⛔ removed |
+| apex | CONTEXT.md (root) | docs/adr/ | Apex landing | ⛔ removed (ADR survives) |
+| infrastructure | CONTEXT.md (root) | docs/adr/ | Build pipeline | ⛔ removed (ADR survives) |
+| jrpg-sidebar | docs/jrpg-sidebar/CONTEXT.md | docs/jrpg-sidebar/docs/adr/ | JRPG sidebar | ⛔ removed |
 
 ### Context Engineering Documents (CER-v1)
 
