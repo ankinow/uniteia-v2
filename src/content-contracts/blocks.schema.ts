@@ -14,6 +14,7 @@ export const KNOWN_BLOCK_KINDS = new Set([
   'prose',
   'visual',
   'callout',
+  'data-table',
 ])
 
 export function validateBlocks(

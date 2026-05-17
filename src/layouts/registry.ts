@@ -32,6 +32,12 @@ const layouts: LayoutEntry[] = [
     allowedBlocks: ALL_BLOCKS,
     forbiddenBlocks: new Set(),
   },
+  {
+    id: 'roundtrip-test-v1',
+    label: 'Roundtrip Test Fixture',
+    allowedBlocks: ALL_BLOCKS,
+    forbiddenBlocks: new Set(),
+  },
 ]
 
 const registry = new Map<string, LayoutEntry>()
