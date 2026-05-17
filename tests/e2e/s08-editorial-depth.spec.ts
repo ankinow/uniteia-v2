@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 test.describe('S08 editorial depth', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/en/n/ai-agents', { waitUntil: 'networkidle' })
+    await page.goto('/en/signals/ai-agents', { waitUntil: 'networkidle' })
     await page.evaluate(async () => {
       await document.fonts.ready
     })

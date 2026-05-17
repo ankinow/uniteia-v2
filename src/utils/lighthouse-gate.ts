@@ -210,11 +210,18 @@ async function serveStaticAsset(distDir: string, request: Request): Promise<Resp
   }
 
   try {
-    const contents = await readFile(filePath)
+    let contents: Buffer
+    let finalPath = filePath
+    try {
+      contents = await readFile(filePath)
+    } catch {
+      finalPath = resolve(filePath, 'index.html')
+      contents = await readFile(finalPath)
+    }
     return new Response(contents, {
       status: 200,
       headers: {
-        'content-type': contentTypeForPath(filePath),
+        'content-type': contentTypeForPath(finalPath),
       },
     })
   } catch {
@@ -279,6 +286,15 @@ async function startPreviewServer(distDir: string, port: number): Promise<Previe
   const server = createServer(async (request, response) => {
     try {
       const previewRequest = createPreviewRequest(request, port)
+
+      // 1. Try static asset first (emulate Cloudflare Pages CDN)
+      const staticResponse = await serveStaticAsset(distDir, previewRequest)
+      if (staticResponse.status === 200) {
+        await writePreviewResponse(staticResponse, response)
+        return
+      }
+
+      // 2. Fall back to Worker SSR
       const previewResponse = await worker.fetch(
         previewRequest,
         {

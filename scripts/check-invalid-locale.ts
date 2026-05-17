@@ -4,7 +4,7 @@
  * Verifies that invalid locales return 404 Not Found
  */
 const BASE_URL = 'http://localhost:8788'
-const INVALID_LOCALES = ['/xx', '/de', '/fr']
+const INVALID_LOCALES = ['/xx', '/yy', '/zz']
 
 async function main() {
   const customBaseUrl = process.argv[2]

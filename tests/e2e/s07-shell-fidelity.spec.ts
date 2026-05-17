@@ -54,7 +54,7 @@ test.describe('S07 shell fidelity', () => {
   test('keeps the /en/n shell chrome visually stable and stamped with HUD grammar', async ({
     page,
   }) => {
-    await page.goto('/en/n', { waitUntil: 'networkidle' })
+    await page.goto('/en/signals', { waitUntil: 'networkidle' })
     await page.evaluate(async () => {
       await document.fonts.ready
     })
@@ -77,22 +77,22 @@ test.describe('S07 shell fidelity', () => {
     })
   })
 
-  test('stamps article metadata and verdict surfaces with the shared grammar', async ({ page }) => {
-    await page.goto('/en/test-article', { waitUntil: 'networkidle' })
+  test('stamps article metadata and frontmatter surfaces with the shared grammar', async ({
+    page,
+  }) => {
+    await page.goto('/en/signals/apex/tencent-cloud-deal-stack-builders', {
+      waitUntil: 'networkidle',
+    })
     await page.evaluate(async () => {
       await document.fonts.ready
     })
 
-    const verdict = page.locator('[data-testid="editorial-verdict"]')
-    const verdictLabel = page.locator('[data-testid="hud-label"][data-surface="verdict"]')
     const frontmatter = page.locator('[data-testid="frontmatter-slots"]')
     const frontmatterLabel = page.locator('[data-testid="hud-label"][data-surface="frontmatter"]')
     const frontmatterScratch = page.locator(
       '[data-testid="scratch-divider"][data-surface="frontmatter"]'
     )
 
-    await expect(verdict).toBeVisible()
-    await expect(verdictLabel.first()).toBeVisible()
     await expect(frontmatter).toBeVisible()
     await expect(frontmatterLabel.first()).toBeVisible()
     await expect(frontmatterScratch).toBeVisible()

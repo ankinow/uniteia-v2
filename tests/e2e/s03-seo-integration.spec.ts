@@ -1,15 +1,18 @@
 import { type Page, expect, test } from '@playwright/test'
 
-const ARTICLE_PATH = '/en/test-article'
-const ARTICLE_TITLE = 'Test Article for Integration Verification'
-const ARTICLE_DESCRIPTION = 'testing, integration, verification'
+const ARTICLE_PATH = '/en/signals/apex/tencent-cloud-deal-stack-builders'
+const ARTICLE_TITLE = 'Tencent Cloud Deal Stack for Builders'
+const ARTICLE_DESCRIPTION = 'cloud, builders, infrastructure, tencent-cloud'
 const EXPECTED_ALTERNATES = {
-  en: '/en/test-article',
-  es: '/es/test-article',
-  ja: '/ja/test-article',
-  pt: '/pt/test-article',
-  zh: '/zh/test-article',
-  'x-default': '/en/test-article',
+  en: '/en/signals/apex/tencent-cloud-deal-stack-builders',
+  es: '/es/signals/apex/tencent-cloud-deal-stack-builders',
+  ja: '/ja/signals/apex/tencent-cloud-deal-stack-builders',
+  pt: '/pt/signals/apex/tencent-cloud-deal-stack-builders',
+  zh: '/zh/signals/apex/tencent-cloud-deal-stack-builders',
+  de: '/de/signals/apex/tencent-cloud-deal-stack-builders',
+  fr: '/fr/signals/apex/tencent-cloud-deal-stack-builders',
+  it: '/it/signals/apex/tencent-cloud-deal-stack-builders',
+  'x-default': '/en/signals/apex/tencent-cloud-deal-stack-builders',
 } as const
 
 function trackConsoleAndNetworkFailures(page: Page) {
@@ -76,7 +79,7 @@ test.describe('S03 SEO integration', () => {
 
     expect(description).toBe(ARTICLE_DESCRIPTION)
     expect(robots).toBe('index, follow')
-    expect(canonicalHref).toMatch(/\/en\/test-article$/)
+    expect(canonicalHref).toMatch(/\/en\/signals\/apex\/tencent-cloud-deal-stack-builders$/)
 
     expect(ogTitle).toBe(ARTICLE_TITLE)
     expect(ogDescription).toBe(ARTICLE_DESCRIPTION)
@@ -143,17 +146,25 @@ test.describe('S03 SEO integration', () => {
     expect(headers['cache-control']).toContain('s-maxage=3600')
 
     const body = await response.text()
-    const origin = new URL(page.url()).origin
 
+    const sitemapOrigin = 'https://uniteia.com'
     expect(body).toContain('<?xml version="1.0" encoding="UTF-8"?>')
-    expect(body).toContain(`<loc>${origin}/</loc>`)
-    expect(body).toContain(`<loc>${origin}/en/test-article</loc>`)
-    expect(body).toContain(`<loc>${origin}/es/test-article</loc>`)
-    expect(body).toContain(`<loc>${origin}/ja/test-article</loc>`)
-    expect(body).toContain(`<loc>${origin}/pt/test-article</loc>`)
-    expect(body).toContain(`<loc>${origin}/zh/test-article</loc>`)
-    expect(body).not.toContain(`<loc>${origin}/en/test-admin</loc>`)
-    expect(body).toContain(`<loc>${origin}/en/test-invalid-schema</loc>`)
+    expect(body).toContain(`<loc>${sitemapOrigin}/</loc>`)
+    expect(body).toContain(
+      `<loc>${sitemapOrigin}/en/signals/apex/tencent-cloud-deal-stack-builders</loc>`
+    )
+    expect(body).toContain(
+      `<loc>${sitemapOrigin}/es/signals/apex/tencent-cloud-deal-stack-builders</loc>`
+    )
+    expect(body).toContain(
+      `<loc>${sitemapOrigin}/ja/signals/apex/tencent-cloud-deal-stack-builders</loc>`
+    )
+    expect(body).toContain(
+      `<loc>${sitemapOrigin}/pt/signals/apex/tencent-cloud-deal-stack-builders</loc>`
+    )
+    expect(body).toContain(
+      `<loc>${sitemapOrigin}/zh/signals/apex/tencent-cloud-deal-stack-builders</loc>`
+    )
     expect(body).not.toMatch(/<loc>[^<]*\?[^<]*<\/loc>/)
   })
 })

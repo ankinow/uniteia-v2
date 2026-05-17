@@ -1,6 +1,7 @@
 import { $, Slot, component$, useOnWindow, useSignal } from '@builder.io/qwik'
 import { type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
 import { Footer } from '~/components/footer'
+import { LangSwitcher } from '~/components/lang-switcher'
 import { NavTree } from '~/components/nav-tree'
 import { Sidebar } from '~/components/sidebar'
 import { SiteShell } from '~/components/site-shell'
@@ -107,6 +108,7 @@ export default component$(() => {
           <a href={signalsIndex(lang)} class="text-bone-muted hover:text-bone transition-colors">
             {t.nav.topics}
           </a>
+          <LangSwitcher />
         </nav>
 
         {/* Dynamic Niche Navigation (Auto-derived) */}

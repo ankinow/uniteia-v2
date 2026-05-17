@@ -52,7 +52,7 @@ test.describe('S05 shell visual baseline', () => {
   })
 
   test('captures a deterministic /en/n shell baseline', async ({ page }) => {
-    await page.goto('/en/n', { waitUntil: 'networkidle' })
+    await page.goto('/en/signals', { waitUntil: 'networkidle' })
     await page.evaluate(async () => {
       await document.fonts.ready
     })

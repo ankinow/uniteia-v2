@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 test.describe('S02 Editorial Fidelity', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to a route that uses the article frame to ensure tokens are visible
-    await page.goto('/en/test-article')
+    await page.goto('/en/signals/apex/tencent-cloud-deal-stack-builders')
     await page.waitForLoadState('networkidle')
   })
 
