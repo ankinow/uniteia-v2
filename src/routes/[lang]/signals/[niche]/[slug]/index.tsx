@@ -98,7 +98,7 @@ export const useRelated = routeLoader$<ContentNode[]>(async ({ params }) => {
   }
 
   const related = contentGraphProvider
-    .getRelated(current.id)
+    .getRelated(current.id, locale)
     .filter(n => publicGroupIds.has(n.id))
     .slice(0, 4)
   if (related.length > 0) return related

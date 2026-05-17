@@ -72,7 +72,7 @@ export class AppRoutes implements RouteContract {
         return `/${targetLocale}${query}${hash}`
       }
 
-      let localePart = parts[0]
+      let localePart = parts[0] ?? 'en'
       let rest = parts.slice(1)
 
       const isLocale = /^[a-z]{2}(-[A-Z]{2})?$/.test(localePart)
@@ -86,8 +86,8 @@ export class AppRoutes implements RouteContract {
       }
 
       if (rest[0] === 'signals' && rest.length >= 3) {
-        const niche = rest[1]
-        const slug = rest[2]
+        const niche = rest[1] as string
+        const slug = rest[2] as string
 
         const node = contentGraphProvider.getNode(slug, localePart as ContentLocale)
         if (node) {
@@ -95,14 +95,15 @@ export class AppRoutes implements RouteContract {
             .getGroup(node.canonicalSlug)
             ?.find(n => n.locale === targetLocale)
           if (targetNode) {
-            return `/${targetLocale}/signals/${targetNode.niche[0]}/${targetNode.slug}${query}${hash}`
+            const targetNiche = targetNode.niche[0] ?? 'apex'
+            return `/${targetLocale}/signals/${targetNiche}/${targetNode.slug}${query}${hash}`
           }
         }
         return `/${targetLocale}/signals/${niche}/${slug}${query}${hash}`
       }
 
       if (rest[0] === 'signals' && rest.length === 2) {
-        const niche = rest[1]
+        const niche = rest[1] as string
         return `/${targetLocale}/signals/${niche}${query}${hash}`
       }
 

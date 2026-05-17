@@ -119,10 +119,12 @@ export class StaticJsonContentGraphProvider implements ContentGraphProvider {
       if (nodes.length === 0) continue
       const totalScore = nodes.reduce((sum, n) => sum + n.metrics.graphScore, 0)
 
+      const firstNode = nodes[0]
+      if (!firstNode) continue
       items.push({
         nicheSlug,
         label: nicheSlug.charAt(0).toUpperCase() + nicheSlug.slice(1),
-        href: `/${nodes[0].locale}/signals/${nicheSlug}`,
+        href: `/${firstNode.locale}/signals/${nicheSlug}`,
         articleCount: nodes.length,
         avgGraphScore: totalScore / nodes.length,
       })
