@@ -55,6 +55,12 @@ export const useArticle = routeLoader$<LlmWikiContent | null>(async ({ params, e
     throw error(404, 'Missing niche or slug')
   }
 
+  const { contentGraphProvider } = await import('~/content-graph.generated')
+  const node = contentGraphProvider.getNode(slug, lang as ContentLocale)
+  if (!node || !contentGraphProvider.isPublic(node)) {
+    throw error(404, `Content not found or not published: ${niche}/${slug} (${lang})`)
+  }
+
   try {
     return await loadContent(niche, slug, lang as SupportedLanguage)
   } catch (err) {
