@@ -1,3 +1,4 @@
+import type { ContentNode as ContractContentNode } from '@uniteia/content-node-contract'
 import matter from 'gray-matter'
 import type { ContentGraph, SerializableContentGraph } from '../contracts/graph'
 import type {
@@ -12,7 +13,6 @@ import { compileLocales } from './compile-locales'
 import { compileRelated } from './compile-related'
 import { compileRouting } from './compile-routing'
 import { compileTaxonomy } from './compile-taxonomy'
-import type { ContentNode as ContractContentNode } from '@uniteia/content-node-contract'
 
 export interface CompileInput {
   registry: Record<string, string>
@@ -155,24 +155,38 @@ function parseRegistryEntry(
 
   const isDraft: boolean = factoryNode
     ? factoryNode.visibility === 'draft'
-    : (verdict !== 'trusted' || qualityScore < 95)
+    : verdict !== 'trusted' || qualityScore < 95
   const visibility: ContentNodeVisibility = factoryNode
     ? factoryNode.visibility
-    : isDraft ? 'draft' : 'published'
+    : isDraft
+      ? 'draft'
+      : 'published'
   const lifecycle: ContentNodeLifecycle = factoryNode
     ? factoryNode.lifecycle
-    : isDraft ? 'generated' : 'published'
+    : isDraft
+      ? 'generated'
+      : 'published'
   const v: ContentNodeVerdict = factoryNode
     ? factoryNode.verdict
-    : qualityScore >= 95 ? 'safe' : qualityScore >= 50 ? 'caution' : 'unsafe'
+    : qualityScore >= 95
+      ? 'safe'
+      : qualityScore >= 50
+        ? 'caution'
+        : 'unsafe'
 
   // Prefer factory qualityScore and trustScore, fall back to computed
   const effectiveQualityScore = factoryNode?.qualityScore ?? qualityScore
   const trustScore = factoryNode?.trustScore ?? computeTrustScore(verdict, qualityScore)
   const seoNoindex = factoryNode?.seo.noindex ?? isDraft
   const seoPriority = factoryNode?.seo.priority ?? effectiveQualityScore
-  const createdAt = factoryNode?.timestamps.createdAt ?? (metadata?.created_at as string) ?? new Date().toISOString()
-  const updatedAt = factoryNode?.timestamps.updatedAt ?? (metadata?.updated_at as string) ?? new Date().toISOString()
+  const createdAt =
+    factoryNode?.timestamps.createdAt ??
+    (metadata?.created_at as string) ??
+    new Date().toISOString()
+  const updatedAt =
+    factoryNode?.timestamps.updatedAt ??
+    (metadata?.updated_at as string) ??
+    new Date().toISOString()
   const semanticDensity = computeSemanticDensity(body, subjects)
   const freshnessScore = computeFreshnessScore(
     (metadata?.updated_at as string) ?? (metadata?.created_at as string)

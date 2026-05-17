@@ -8,6 +8,8 @@
   "scripts": {
     "generate:content-registry": "bun run scripts/generate-content-registry.ts && bun run lint.fix",
     "generate:content-graph": "bun run scripts/generate-content-graph.ts && bun run lint.fix",
+    "generate:linkgraph-report": "bun run scripts/generate-linkgraph-report.ts",
+    "generate:seo-verification": "bun run scripts/generate-seo-verification.ts",
     "verify:content-graph": "bun run scripts/verify-content-graph.ts",
     "generate:search-index": "bun run scripts/generate-search-index.ts",
     "generate:content": "bun run generate:content-registry && bun run generate:content-graph && bun run verify:content-graph && bun run generate:search-index",
@@ -37,7 +39,7 @@
     "header:check": "bun run scripts/check-single-header.ts",
     "smoke:check": "bun run scripts/smoke-test.ts",
     "prepare:cloudflare-pages": "bun run scripts/prepare-cloudflare-pages-output.ts",
-    "postbuild": "bun run scripts/generate-sitemap.ts && bun run prepare:cloudflare-pages",
+    "postbuild": "bun run scripts/generate-sitemap.ts && bun run scripts/build-service-worker.ts && bun run prepare:cloudflare-pages",
     "import:package": "bun run scripts/import-content-package.ts"
   },
   "dependencies": {

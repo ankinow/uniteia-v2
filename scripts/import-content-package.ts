@@ -7,10 +7,10 @@ import {
   writeFileSync,
 } from 'node:fs'
 import { join } from 'node:path'
-import { importPackage, getFactoryNode } from '../src/content-import/import-package'
+import type { ContentNode } from '@uniteia/content-node-contract'
+import { getFactoryNode, importPackage } from '../src/content-import/import-package'
 import { mapLayout } from '../src/content-import/map-layout'
 import { validatePackage } from '../src/content-import/validate-package'
-import type { ContentNode } from '@uniteia/content-node-contract'
 
 const V2_ROOT = process.cwd()
 const FACTORY_ROOT = join(V2_ROOT, '..', 'uniteia-mega-factory')
@@ -53,7 +53,7 @@ function buildFrontmatter(
   const lifecycle = factoryNode?.lifecycle ?? 'generated'
   const createdAt = factoryNode?.timestamps.createdAt ?? new Date().toISOString()
   const updatedAt = factoryNode?.timestamps.updatedAt ?? new Date().toISOString()
-  const noindex = factoryNode?.seo.noindex ?? (importReport.canPublish === false)
+  const noindex = factoryNode?.seo.noindex ?? importReport.canPublish === false
   const seoPriority = factoryNode?.seo.priority ?? qualityScore
 
   return [
@@ -193,7 +193,9 @@ function main(): void {
         factoryNode
       )
       writeFileSync(targetPath, `${frontmatter + cleanContent.trim()}\n`)
-      console.log(`  ✓ ${NICHE}/${v2Locale}/${slug}.md${factoryNode ? ' (factory metadata)' : ' (re-derived metadata)'}`)
+      console.log(
+        `  ✓ ${NICHE}/${v2Locale}/${slug}.md${factoryNode ? ' (factory metadata)' : ' (re-derived metadata)'}`
+      )
     } else {
       console.log(`  ✗ ${NICHE}/${v2Locale}/${slug}.md — content.${contractLocale}.mdx not found`)
     }

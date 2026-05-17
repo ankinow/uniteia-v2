@@ -60,7 +60,14 @@ findHtmlPages(distDir, '')
 const routes = {
   version: 1,
   include: ['/*'],
-  exclude: ['/build/*', '/assets/*', '/sitemap.xml', '/robots.txt', '/favicon.ico'],
+  exclude: [
+    '/build/*',
+    '/assets/*',
+    '/sitemap.xml',
+    '/robots.txt',
+    '/favicon.ico',
+    '/q-manifest.json',
+  ],
 }
 writeFileSync(routesPath, JSON.stringify(routes, null, 2))
 

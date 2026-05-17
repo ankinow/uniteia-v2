@@ -1,11 +1,11 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs'
+import { contentNodeSchema } from '@uniteia/content-node-contract'
 import { validateBlocks } from '../content-contracts/blocks.schema'
 import { validateDesign } from '../content-contracts/design.schema'
 import { type Manifest, validateManifest } from '../content-contracts/manifest.schema'
 import { validateQuality } from '../content-contracts/quality.schema'
 import { validateTags } from '../content-contracts/tags.schema'
 import { getAllowedBlockKinds, getForbiddenBlocks, hasLayout } from '../layouts/registry'
-import { contentNodeSchema } from '@uniteia/content-node-contract'
 
 export interface PackageValidationIssue {
   path: string
@@ -58,9 +58,17 @@ export function validatePackage(packageDir: string): PackageValidationResult {
     try {
       const contentNodesRaw = JSON.parse(readFileSync(contentNodesPath, 'utf-8'))
       if (!Array.isArray(contentNodesRaw)) {
-        issues.push({ path: 'content-nodes.json', message: 'content-nodes.json must be a JSON array', severity: 'error' })
+        issues.push({
+          path: 'content-nodes.json',
+          message: 'content-nodes.json must be a JSON array',
+          severity: 'error',
+        })
       } else if (contentNodesRaw.length === 0) {
-        issues.push({ path: 'content-nodes.json', message: 'content-nodes.json is empty', severity: 'warning' })
+        issues.push({
+          path: 'content-nodes.json',
+          message: 'content-nodes.json is empty',
+          severity: 'warning',
+        })
       } else {
         for (let i = 0; i < contentNodesRaw.length; i++) {
           try {
@@ -75,7 +83,11 @@ export function validatePackage(packageDir: string): PackageValidationResult {
         }
       }
     } catch {
-      issues.push({ path: 'content-nodes.json', message: 'cannot parse content-nodes.json', severity: 'error' })
+      issues.push({
+        path: 'content-nodes.json',
+        message: 'cannot parse content-nodes.json',
+        severity: 'error',
+      })
     }
   }
 

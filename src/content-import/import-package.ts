@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs'
-import type { Manifest } from '../content-contracts/manifest.schema'
 import type { ContentNode as ContractContentNode } from '@uniteia/content-node-contract'
 import { contentNodeSchema } from '@uniteia/content-node-contract'
+import type { Manifest } from '../content-contracts/manifest.schema'
 
 export interface ImportedPackage {
   manifest: Manifest
@@ -74,7 +74,5 @@ export function getFactoryNode(
   locale: string,
   canonicalSlug: string
 ): ContractContentNode | undefined {
-  return factoryNodes.find(
-    (n) => n.locale === locale && n.canonicalSlug === canonicalSlug
-  )
+  return factoryNodes.find(n => n.locale === locale && n.canonicalSlug === canonicalSlug)
 }

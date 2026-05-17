@@ -12,8 +12,8 @@
 
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import type { GraphEdge, GraphEdgeKind } from '../src/content-graph/contracts/edge'
 import type { SerializableGraphV1 } from '../src/content-graph/contracts/artifacts'
+import type { GraphEdge, GraphEdgeKind } from '../src/content-graph/contracts/edge'
 import type { ContentNode } from '../src/content-graph/contracts/node'
 
 // ── Core analysis functions (exported for testing) ──────────────────────
@@ -103,10 +103,7 @@ export interface DegreeEntry {
  * Compute degree centrality: inbound count, outbound count, and total degree
  * per node. Returns all nodes sorted by total degree descending.
  */
-export function computeDegreeCentrality(
-  edges: GraphEdge[],
-  nodes: ContentNode[],
-): DegreeEntry[] {
+export function computeDegreeCentrality(edges: GraphEdge[], nodes: ContentNode[]): DegreeEntry[] {
   const nodeMap = new Map<string, ContentNode>()
   for (const n of nodes) {
     nodeMap.set(n.id, n)
@@ -159,7 +156,7 @@ export interface NicheConnectivityEntry {
  */
 export function computeNicheConnectivity(
   edges: GraphEdge[],
-  nodes: ContentNode[],
+  nodes: ContentNode[]
 ): NicheConnectivityEntry[] {
   // Map nodeId → set of niches
   const nodeNiches = new Map<string, Set<string>>()
@@ -223,9 +220,7 @@ function formatTimestamp(): string {
 }
 
 function edgeDistributionTable(entries: EdgeDistributionEntry[]): string {
-  const rows = entries
-    .map(e => `| ${e.kind} | ${e.count} |`)
-    .join('\n')
+  const rows = entries.map(e => `| ${e.kind} | ${e.count} |`).join('\n')
   return `| Edge Kind | Count |\n|-----------|-------|\n${rows}`
 }
 
@@ -242,16 +237,17 @@ function reciprocityTable(entries: ReciprocityEntry[]): string {
 function degreeTable(entries: DegreeEntry[], limit: number): string {
   const rows = entries
     .slice(0, limit)
-    .map(e => `| ${escapeMd(e.title)} | \`${e.slug}\` | ${e.inbound} | ${e.outbound} | ${e.total} |`)
+    .map(
+      e => `| ${escapeMd(e.title)} | \`${e.slug}\` | ${e.inbound} | ${e.outbound} | ${e.total} |`
+    )
     .join('\n')
   return `| Title | Slug | Inbound | Outbound | Total |\n|-------|------|---------|----------|-------|\n${rows}`
 }
 
 function nicheConnectivitySection(entries: NicheConnectivityEntry[]): string {
   const parts = entries.map(e => {
-    const connected = e.connectedNiches.length > 0
-      ? e.connectedNiches.map(n => `\`${n}\``).join(', ')
-      : '*none*'
+    const connected =
+      e.connectedNiches.length > 0 ? e.connectedNiches.map(n => `\`${n}\``).join(', ') : '*none*'
     return `### ${escapeMd(e.niche)}\n\n- Nodes: ${e.nodeCount}\n- Internal edges: ${e.internalEdgeCount}\n- Connected to: ${connected}`
   })
   return parts.join('\n\n')
@@ -259,7 +255,10 @@ function nicheConnectivitySection(entries: NicheConnectivityEntry[]): string {
 
 function fullNodeList(nodes: ContentNode[]): string {
   const rows = nodes
-    .map(n => `| \`${n.id}\` | ${escapeMd(n.title)} | \`${n.slug}\` | ${n.locale} | ${n.niche.map(nn => `\`${nn}\``).join(', ')} |`)
+    .map(
+      n =>
+        `| \`${n.id}\` | ${escapeMd(n.title)} | \`${n.slug}\` | ${n.locale} | ${n.niche.map(nn => `\`${nn}\``).join(', ')} |`
+    )
     .join('\n')
   return `| ID | Title | Slug | Locale | Niches |\n|----|-------|------|--------|--------|\n${rows}`
 }
@@ -297,12 +296,16 @@ async function main() {
   // --- Reciprocity ---
   const reciprocity = computeReciprocity(graph.edges)
   for (const r of reciprocity) {
-    console.log(`[linkgraph] Reciprocity ${r.kind}: ${r.reciprocalCount}/${r.total} (${r.reciprocalPct}%)${r.expectedAsymmetric ? ' [expected asymmetric]' : ''}`)
+    console.log(
+      `[linkgraph] Reciprocity ${r.kind}: ${r.reciprocalCount}/${r.total} (${r.reciprocalPct}%)${r.expectedAsymmetric ? ' [expected asymmetric]' : ''}`
+    )
   }
 
   // --- Degree centrality ---
   const degree = computeDegreeCentrality(graph.edges, graph.nodes)
-  console.log(`[linkgraph] Top node: ${degree[0]?.title ?? 'N/A'} (degree ${degree[0]?.total ?? 0})`)
+  console.log(
+    `[linkgraph] Top node: ${degree[0]?.title ?? 'N/A'} (degree ${degree[0]?.total ?? 0})`
+  )
 
   // --- Niche connectivity ---
   const niche = computeNicheConnectivity(graph.edges, graph.nodes)
@@ -363,10 +366,10 @@ async function main() {
 }
 
 // Only run main() when this module is the entry point (not when imported for tests)
-const isMain = process.argv[1] && (
-  process.argv[1].endsWith('scripts/generate-linkgraph-report.ts') ||
-  process.argv[1].endsWith('generate-linkgraph-report.ts')
-)
+const isMain =
+  process.argv[1] &&
+  (process.argv[1].endsWith('scripts/generate-linkgraph-report.ts') ||
+    process.argv[1].endsWith('generate-linkgraph-report.ts'))
 
 if (isMain) {
   await main().catch(err => {

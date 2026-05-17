@@ -12,8 +12,8 @@
 
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import type { ContentLocale, ContentNode } from '../src/content-graph/contracts/node'
 import type { SerializableGraphV1 } from '../src/content-graph/contracts/artifacts'
+import type { ContentLocale, ContentNode } from '../src/content-graph/contracts/node'
 
 // ── Result types ────────────────────────────────────────────────────────
 
@@ -74,7 +74,7 @@ export interface SeoVerificationReport {
  */
 export function checkHreflangReciprocity(
   nodes: ContentNode[],
-  routeToNodeId: Record<string, string>,
+  routeToNodeId: Record<string, string>
 ): HreflangIssue[] {
   const issues: HreflangIssue[] = []
   const nodeMap = new Map<string, ContentNode>()
@@ -136,7 +136,7 @@ export function checkHreflangReciprocity(
 export function checkSitemapCoherence(
   nodes: ContentNode[],
   sitemapEligible: string[],
-  publicNodeIds: string[],
+  publicNodeIds: string[]
 ): SitemapIssue[] {
   const issues: SitemapIssue[] = []
   const sitemapSet = new Set(sitemapEligible)
@@ -184,7 +184,10 @@ export function checkNoindexAlignment(nodes: ContentNode[]): NoindexIssue[] {
   for (const node of nodes) {
     if (node.seo.noindex) {
       // Node has noindex — it should not be published (or be in generated/deprecated lifecycle)
-      if (node.visibility === 'published' && !['generated', 'deprecated'].includes(node.lifecycle)) {
+      if (
+        node.visibility === 'published' &&
+        !['generated', 'deprecated'].includes(node.lifecycle)
+      ) {
         issues.push({
           nodeId: node.id,
           problem: 'published-with-noindex',
@@ -217,7 +220,7 @@ export function checkNoindexAlignment(nodes: ContentNode[]): NoindexIssue[] {
  */
 export function checkCanonicalCoherence(
   nodes: ContentNode[],
-  routeToNodeId: Record<string, string>,
+  routeToNodeId: Record<string, string>
 ): CanonicalIssue[] {
   const issues: CanonicalIssue[] = []
 
@@ -299,9 +302,10 @@ function sitemapTable(issues: SitemapIssue[]): string {
   if (issues.length === 0) return '*No issues found.*'
   const rows = issues
     .map(i => {
-      const desc = i.problem === 'sitemap-listed-not-published'
-        ? `Listed in sitemap but visibility is \`${i.visibility}\``
-        : 'Published but not listed in sitemap'
+      const desc =
+        i.problem === 'sitemap-listed-not-published'
+          ? `Listed in sitemap but visibility is \`${i.visibility}\``
+          : 'Published but not listed in sitemap'
       return `| ${i.nodeId} | ${desc} |`
     })
     .join('\n')
@@ -312,9 +316,10 @@ function noindexTable(issues: NoindexIssue[]): string {
   if (issues.length === 0) return '*No issues found.*'
   const rows = issues
     .map(i => {
-      const desc = i.problem === 'published-with-noindex'
-        ? `Published node has \`noindex: true\` (lifecycle: ${i.lifecycle})`
-        : `Unpublished node without \`noindex\` (visibility: ${i.visibility}, lifecycle: ${i.lifecycle})`
+      const desc =
+        i.problem === 'published-with-noindex'
+          ? `Published node has \`noindex: true\` (lifecycle: ${i.lifecycle})`
+          : `Unpublished node without \`noindex\` (visibility: ${i.visibility}, lifecycle: ${i.lifecycle})`
       return `| ${i.nodeId} | ${desc} |`
     })
     .join('\n')
@@ -325,9 +330,10 @@ function canonicalTable(issues: CanonicalIssue[]): string {
   if (issues.length === 0) return '*No issues found.*'
   const rows = issues
     .map(i => {
-      const desc = i.problem === 'does-not-resolve'
-        ? 'Canonical URL does not resolve to any node'
-        : `Resolves to \`${i.resolvedNodeId}\` instead of this node`
+      const desc =
+        i.problem === 'does-not-resolve'
+          ? 'Canonical URL does not resolve to any node'
+          : `Resolves to \`${i.resolvedNodeId}\` instead of this node`
       return `| ${i.nodeId} | \`${i.canonicalUrl}\` | ${desc} |`
     })
     .join('\n')
@@ -347,13 +353,15 @@ function priorityHistogram(buckets: PriorityBucket[]): string {
 function perNodeSeoSnapshot(nodes: ContentNode[]): string {
   const rows = nodes
     .map(n => {
-      const altLocales = Object.keys(n.alternates).length > 0
-        ? Object.keys(n.alternates).join(', ')
-        : '*none*'
+      const altLocales =
+        Object.keys(n.alternates).length > 0 ? Object.keys(n.alternates).join(', ') : '*none*'
       return `| \`${n.id}\` | ${n.locale} | ${n.visibility} | ${n.lifecycle} | ${n.seo.noindex} | ${n.seo.priority} | ${n.routes.canonical} | ${altLocales} |`
     })
     .join('\n')
-  return '| Node | Locale | Visibility | Lifecycle | Noindex | Priority | Canonical URL | Alternates |\n|------|--------|------------|-----------|---------|----------|---------------|------------|\n' + rows
+  return (
+    '| Node | Locale | Visibility | Lifecycle | Noindex | Priority | Canonical URL | Alternates |\n|------|--------|------------|-----------|---------|----------|---------------|------------|\n' +
+    rows
+  )
 }
 
 // ── Main script ─────────────────────────────────────────────────────────
@@ -377,19 +385,25 @@ async function main() {
   }
 
   const { nodes, indexes } = graph
-  console.log(`[seo] Loaded ${nodes.length} nodes and ${indexes.sitemapEligible.length} sitemap-eligible entries`)
+  console.log(
+    `[seo] Loaded ${nodes.length} nodes and ${indexes.sitemapEligible.length} sitemap-eligible entries`
+  )
 
   // --- Hreflang reciprocity ---
   const hreflangIssues = checkHreflangReciprocity(nodes, indexes.byRoute)
   const hreflangPassed = hreflangIssues.length === 0
-  console.log(`[seo] Hreflang reciprocity: ${hreflangPassed ? 'PASS' : 'FAIL'} (${hreflangIssues.length} issues)`)
+  console.log(
+    `[seo] Hreflang reciprocity: ${hreflangPassed ? 'PASS' : 'FAIL'} (${hreflangIssues.length} issues)`
+  )
 
   // --- Sitemap coherence ---
   // "Public nodes" = nodes with visibility === 'published'
   const allPublicNodeIds = nodes.filter(n => n.visibility === 'published').map(n => n.id)
   const sitemapIssues = checkSitemapCoherence(nodes, indexes.sitemapEligible, allPublicNodeIds)
   const sitemapPassed = sitemapIssues.length === 0
-  console.log(`[seo] Sitemap coherence: ${sitemapPassed ? 'PASS' : 'FAIL'} (${sitemapIssues.length} issues)`)
+  console.log(
+    `[seo] Sitemap coherence: ${sitemapPassed ? 'PASS' : 'FAIL'} (${sitemapIssues.length} issues)`
+  )
   for (const si of sitemapIssues) {
     console.log(`[seo]   Sitemap issue: ${si.nodeId} — ${si.problem}`)
   }
@@ -397,12 +411,16 @@ async function main() {
   // --- Noindex alignment ---
   const noindexIssues = checkNoindexAlignment(nodes)
   const noindexPassed = noindexIssues.length === 0
-  console.log(`[seo] Noindex alignment: ${noindexPassed ? 'PASS' : 'FAIL'} (${noindexIssues.length} issues)`)
+  console.log(
+    `[seo] Noindex alignment: ${noindexPassed ? 'PASS' : 'FAIL'} (${noindexIssues.length} issues)`
+  )
 
   // --- Canonical coherence ---
   const canonicalIssues = checkCanonicalCoherence(nodes, indexes.byRoute)
   const canonicalPassed = canonicalIssues.length === 0
-  console.log(`[seo] Canonical coherence: ${canonicalPassed ? 'PASS' : 'FAIL'} (${canonicalIssues.length} issues)`)
+  console.log(
+    `[seo] Canonical coherence: ${canonicalPassed ? 'PASS' : 'FAIL'} (${canonicalIssues.length} issues)`
+  )
 
   // --- Priority distribution ---
   const buckets = buildPriorityHistogram(nodes)
@@ -414,7 +432,9 @@ async function main() {
 
   // --- Assemble report ---
   const totalChecks = 4
-  const passedChecks = [hreflangPassed, sitemapPassed, noindexPassed, canonicalPassed].filter(Boolean).length
+  const passedChecks = [hreflangPassed, sitemapPassed, noindexPassed, canonicalPassed].filter(
+    Boolean
+  ).length
   const overallPassed = passedChecks === totalChecks
 
   const report = [
@@ -458,7 +478,7 @@ async function main() {
     '',
     '## Canonical Coherence',
     '',
-    'Verifies that each node\'s canonical URL resolves to the correct node via the route index.',
+    "Verifies that each node's canonical URL resolves to the correct node via the route index.",
     '',
     canonicalTable(canonicalIssues),
     '',
@@ -487,10 +507,10 @@ async function main() {
 }
 
 // Only run main() when this module is the entry point (not when imported for tests)
-const isMain = process.argv[1] && (
-  process.argv[1].endsWith('scripts/generate-seo-verification.ts') ||
-  process.argv[1].endsWith('generate-seo-verification.ts')
-)
+const isMain =
+  process.argv[1] &&
+  (process.argv[1].endsWith('scripts/generate-seo-verification.ts') ||
+    process.argv[1].endsWith('generate-seo-verification.ts'))
 
 if (isMain) {
   await main().catch(err => {
