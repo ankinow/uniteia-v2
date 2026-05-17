@@ -5,8 +5,7 @@ import { ArticleFrame } from '~/components/article-frame'
 import { FrontmatterSlots } from '~/components/frontmatter-slots'
 import { JSONLD } from '~/components/json-ld'
 import { RelatedArticles } from '~/components/related-articles'
-import { SignalGrid } from '~/components/signal-grid'
-import { SourceLedger } from '~/components/source-ledger'
+
 import type { ContentLocale, ContentNode } from '~/content-graph/contracts/node'
 import { getTranslation, useI18n } from '~/i18n/context'
 import type { SupportedLanguage } from '~/i18n/types'
@@ -122,8 +121,6 @@ export default component$(() => {
     headline: content.value.title,
     description: content.value.subjects.join(', '),
     author: content.value.metadata?.author || 'UniTeia System',
-    datePublished: content.value.metadata?.created_at || new Date().toISOString(),
-    dateModified: content.value.metadata?.updated_at || undefined,
     url: content.value.slug,
     niche: content.value.slug,
     lang: content.value.lang,
@@ -133,21 +130,12 @@ export default component$(() => {
     <ArticleFrame>
       <JSONLD data={articleSchema} />
       <AdaptiveHeader title={content.value.title} subtitle={content.value.subjects.join(', ')} />
-      <div class="mt-3">
-        <SignalGrid
-          qualityScore={content.value.quality_score ?? 85}
-          verdict={content.value.verdict ?? 'trusted'}
-          lang={content.value.lang}
-        />
-      </div>
       <FrontmatterSlots
         subjects={content.value.subjects}
         lang={content.value.lang}
         metadata={content.value.metadata}
         labels={{
           subjectsLabel: t.article.subjectsLabel,
-          published: t.article.published,
-          updated: t.article.updated,
           byAuthor: t.article.byAuthor,
           version: t.article.version,
           readInLang: t.article.readInLang,
@@ -158,10 +146,7 @@ export default component$(() => {
         // biome-ignore lint/security/noDangerouslySetInnerHtml: content is pre-validated markdown
         dangerouslySetInnerHTML={content.value.content}
       />
-      <SourceLedger
-        referralLinks={content.value.referral_links}
-        sourcesLabel={t.article.sourcesLabel}
-      />
+
       <div class="mt-12">
         <RelatedArticles
           nodes={relatedNodes.value}
@@ -207,13 +192,7 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
     title: t.seo.articleTitleTemplate.replace('{title}', content.title),
     meta: [
       { name: 'description', content: content.subjects.join(', ') },
-      {
-        name: 'robots',
-        content:
-          content.verdict === 'caution' || (content.quality_score ?? 0) < 95
-            ? 'noindex, nofollow'
-            : 'index, follow',
-      },
+      { name: 'robots', content: 'index, follow' },
       { property: 'og:title', content: content.title },
       { property: 'og:description', content: content.subjects.join(', ') },
       {

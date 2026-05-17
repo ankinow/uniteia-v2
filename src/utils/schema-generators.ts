@@ -7,8 +7,6 @@ export function generateArticleSchema(props: {
   headline: string
   description?: string
   author?: string
-  datePublished: string
-  dateModified?: string | undefined
   image?: string
   url: string
   niche: string
@@ -29,8 +27,6 @@ export function generateArticleSchema(props: {
           name: props.author,
         }
       : undefined,
-    datePublished: props.datePublished,
-    dateModified: props.dateModified || props.datePublished,
     image: props.image || `${siteUrl}/og-image.png`,
     url: articleUrl,
     publisher: {

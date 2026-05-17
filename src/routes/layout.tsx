@@ -34,8 +34,7 @@ export const onRequest: RequestHandler = async event => {
 
 export const useLanguage = routeLoader$<SupportedLanguage>(({ headers }) => {
   const lang = headers.get('x-negotiated-lang')
-  const validCodes = new Set(SUPPORTED_LANGUAGES.map(l => l.code))
-  if (lang && validCodes.has(lang)) return lang as SupportedLanguage
+  if (lang && SUPPORTED_LANGUAGES.some(l => l.code === lang)) return lang as SupportedLanguage
   return DEFAULT_LANGUAGE
 })
 

@@ -3,7 +3,7 @@ import { DepthCard } from '~/components/depth-card'
 import { DepthSection } from '~/components/depth-section'
 import { DopamineCard } from '~/components/dopamine-card'
 import { useI18n } from '~/i18n/context'
-import { nicheIndex, signalPage } from '~/routing/routes'
+import { nicheIndex } from '~/routing/routes'
 import { getLucideIconClass } from '~/utils/icon-classes'
 import { getNicheSlug } from '~/utils/niche-loader'
 import type { NicheLandingProps } from './types'
@@ -57,9 +57,7 @@ export const NicheLanding = component$<NicheLandingProps>(
                     key={article.slug}
                     title={article.title}
                     description={article.summary ?? ''}
-                    href={signalPage(lang, niche.slugs[lang], article.slug)}
-                    score={article.qualityScore ?? 0}
-                    verdict={article.verdict as 'trusted' | 'caution' | 'flagged'}
+                    href={`/${lang}/signals/${niche.slugs[lang]}/${article.slug}`}
                     lang={lang}
                     data-testid="article-card"
                   />

@@ -1,21 +1,11 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
-import { QualityRing } from '~/components/quality-ring'
-import { SignalGrid } from '~/components/signal-grid'
 import { getTranslation } from '~/i18n/context'
 import { reserveRouteWhisper, useDopamineBudget } from '~/stores/dopamine-budget'
 import { getLucideIconClass } from '~/utils/icon-classes'
 import type { DopamineCardProps } from './types'
 
-/**
- * dopamine-card — engaging card with whisper animation.
- * R012 compliant: 1 whisper per viewport (hover-only), max -2px translateY, ≤250ms.
- * Uses CSS custom properties for motion tokens:
- *   --whisper-y: -2px (max translate distance)
- *   --whisper-duration: 250ms (max animation duration)
- * Respects prefers-reduced-motion via motion-reduce: variant.
- */
 export const DopamineCard = component$<DopamineCardProps>(
-  ({ title, description, href, score, verdict, sourceCount, icon, lang, class: className }) => {
+  ({ title, description, href, icon, lang, class: className }) => {
     const t = getTranslation(lang)
     const budget = useDopamineBudget()
     const whisperState = useSignal<'pending' | 'armed' | 'spent' | 'blocked'>('pending')
@@ -61,30 +51,14 @@ export const DopamineCard = component$<DopamineCardProps>(
         lang={lang}
         aria-disabled={whisperState.value === 'blocked'}
       >
-        {/* Header row: icon + title */}
         <div class="flex items-start gap-3">
           {iconClass && <div class={iconClass} aria-hidden="true" />}
           <h3 class="text-base font-semibold text-bone group-hover:text-action transition-colors duration-200">
             {title}
           </h3>
         </div>
-
-        {/* Description */}
         <p class="text-sm text-bone/70 leading-relaxed">{description}</p>
-
-        {/* Footer: SignalBar (if verdict provided) or QualityRing + read more */}
         <div class="mt-auto flex items-center justify-between pt-2">
-          {verdict !== undefined ? (
-            <SignalGrid
-              qualityScore={score ?? 0}
-              verdict={verdict}
-              {...(sourceCount !== undefined && { sourceCount })}
-              lang={lang}
-              variant="bar"
-            />
-          ) : score !== undefined ? (
-            <QualityRing score={score} lang={lang} size={32} strokeWidth={3} />
-          ) : null}
           <span class="ml-auto text-xs text-action/60 group-hover:text-action transition-colors duration-200">
             {t.dopamineCard.readMore} →
           </span>

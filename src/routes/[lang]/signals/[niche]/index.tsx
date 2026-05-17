@@ -106,11 +106,8 @@ export const useNicheArticles = routeLoader$<NicheArticleEntry[]>(async ({ param
       slug: node.slug,
       lang: node.locale as SupportedLanguage,
       title: node.title,
-      updatedAt: node.timestamps.updatedAt,
       summary: node.summary,
-      qualityScore: node.qualityScore,
-      verdict:
-        node.verdict === 'safe' ? 'trusted' : node.verdict === 'unsafe' ? 'flagged' : node.verdict,
+      updatedAt: node.timestamps.updatedAt,
     }))
 })
 

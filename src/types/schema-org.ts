@@ -9,7 +9,7 @@ export interface ArticleSchema {
   headline: string
   description?: string | undefined
   author?: PersonSchema | OrganizationSchema | undefined
-  datePublished: string
+  datePublished?: string
   dateModified?: string | undefined
   image?: string | undefined
   url: string

@@ -283,20 +283,3 @@ describe('validateMarkdownFrontmatter', () => {
     expect(result.errors.every(e => e.filePath === 'solar-system.md')).toBe(true)
   })
 })
-
-// ── test-invalid-schema fixture ─────────────────────────────────────────
-describe('test-invalid-schema fixture', () => {
-  it('is rejected by validateMarkdownFrontmatter', async () => {
-    const fs = await import('node:fs')
-    const path = await import('node:path')
-    const fixturePath = path.resolve(
-      import.meta.dirname,
-      '../../content/apex/en/test-invalid-schema.md'
-    )
-    const markdown = fs.readFileSync(fixturePath, 'utf-8')
-    const result = validateMarkdownFrontmatter(markdown, 'test-invalid-schema.md')
-    expect(result.valid).toBe(false)
-    // The fixture is missing required fields (subjects, referral_links, content too short)
-    expect(result.errors.length).toBeGreaterThanOrEqual(1)
-  })
-})

@@ -8,7 +8,6 @@ describe('JSON-LD Schema Generators', () => {
         headline: 'Test Article',
         description: 'A test description',
         author: 'Test Author',
-        datePublished: '2026-04-27',
         url: 'test-article',
         niche: 'singularity',
         lang: 'en',
@@ -22,37 +21,9 @@ describe('JSON-LD Schema Generators', () => {
       expect(schema.inLanguage).toBe('en')
     })
 
-    it('uses datePublished for dateModified when not provided', () => {
-      const schema = generateArticleSchema({
-        headline: 'Test',
-        datePublished: '2026-04-27',
-        url: 'test',
-        niche: 'apex',
-        lang: 'pt',
-      })
-
-      expect(schema.dateModified).toBe('2026-04-27')
-      expect(schema.datePublished).toBe('2026-04-27')
-    })
-
-    it('uses custom dateModified when provided', () => {
-      const schema = generateArticleSchema({
-        headline: 'Test',
-        datePublished: '2026-01-15',
-        dateModified: '2026-04-27',
-        url: 'test',
-        niche: 'hardware',
-        lang: 'es',
-      })
-
-      expect(schema.datePublished).toBe('2026-01-15')
-      expect(schema.dateModified).toBe('2026-04-27')
-    })
-
     it('generates correct URL for niche', () => {
       const schema = generateArticleSchema({
         headline: 'Test',
-        datePublished: '2026-04-27',
         url: 'my-article',
         niche: 'dev',
         lang: 'ja',
@@ -64,7 +35,6 @@ describe('JSON-LD Schema Generators', () => {
     it('uses root domain for apex niche', () => {
       const schema = generateArticleSchema({
         headline: 'Test',
-        datePublished: '2026-04-27',
         url: 'my-article',
         niche: 'apex',
         lang: 'pt',
@@ -76,7 +46,6 @@ describe('JSON-LD Schema Generators', () => {
     it('includes publisher Organization', () => {
       const schema = generateArticleSchema({
         headline: 'Test',
-        datePublished: '2026-04-27',
         url: 'test',
         niche: 'privacy',
         lang: 'zh',
@@ -92,7 +61,6 @@ describe('JSON-LD Schema Generators', () => {
     it('handles missing optional fields', () => {
       const schema = generateArticleSchema({
         headline: 'Minimal Article',
-        datePublished: '2026-04-27',
         url: 'minimal',
         niche: 'singularity',
         lang: 'en',
@@ -151,7 +119,6 @@ describe('JSON-LD Schema Generators', () => {
     it('Article schema has required @context and @type', () => {
       const article = generateArticleSchema({
         headline: 'Test',
-        datePublished: '2026-04-27',
         url: 'test',
         niche: 'singularity',
         lang: 'en',

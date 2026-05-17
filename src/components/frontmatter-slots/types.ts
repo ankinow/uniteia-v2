@@ -21,8 +21,6 @@ export interface FrontmatterSlotsProps {
  */
 export interface FrontmatterLabels {
   subjectsLabel: string
-  published: string
-  updated: string
   byAuthor: string
   version: string
   readInLang: string
@@ -33,8 +31,6 @@ export interface FrontmatterLabels {
  * Subset of ArticleMetadata focused on display fields
  */
 export interface ArticleMetadataSlots {
-  created_at?: string
-  updated_at?: string
   author?: string
   version?: number
 }

@@ -3,10 +3,6 @@ import { HudLabel } from '~/components/hud-label'
 import { ScratchDivider } from '~/components/scratch-divider'
 import type { FrontmatterSlotsProps } from './types'
 
-/**
- * Language display labels for the lang indicator pill
- * Maps ISO 639-1 codes to native script labels
- */
 const LANG_LABELS: Record<string, string> = {
   en: 'EN',
   pt: 'PT',
@@ -15,28 +11,13 @@ const LANG_LABELS: Record<string, string> = {
   zh: '中文',
 }
 
-/**
- * Default English labels when i18n context is not available
- */
 const DEFAULT_LABELS = {
   subjectsLabel: 'Subjects',
-  published: 'Published',
-  updated: 'Updated',
   byAuthor: 'by {author}',
   version: 'v{version}',
   readInLang: 'Read in {lang}',
 }
 
-/**
- * FrontmatterSlots - Article metadata display component
- *
- * Renders three metadata sections below the article header:
- * 1. Subjects as colored tag pills (curation/bronze theme)
- * 2. Timestamps in monospace format with optional author/version
- * 3. Language indicator pill
- *
- * Follows S01 isolation pattern with types.ts + index.tsx.
- */
 export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
   const labels = props.labels ?? DEFAULT_LABELS
   const langLabel = LANG_LABELS[props.lang] ?? props.lang.toUpperCase()
@@ -48,7 +29,6 @@ export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
       data-testid="frontmatter-slots"
       class={['frontmatter-slots', 'hud-panel', 'mt-6 flex flex-col gap-4 p-4', props.class]}
     >
-      {/* Subject tag pills */}
       {hasSubjects && (
         <div class="flex flex-wrap items-center gap-2" aria-label={labels.subjectsLabel}>
           <HudLabel label={labels.subjectsLabel} tone="curation" surface="frontmatter" />
@@ -71,25 +51,8 @@ export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
         <ScratchDivider tone="curation" surface="frontmatter" class="opacity-80" />
       )}
 
-      {/* Timestamps row */}
       {props.metadata && (
         <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-bone-muted">
-          {props.metadata.created_at && (
-            <div class="flex items-center gap-2">
-              <HudLabel label={labels.published} tone="muted" surface="frontmatter" />
-              <time dateTime={props.metadata.created_at} class="font-mono text-xs text-bone-muted">
-                {props.metadata.created_at}
-              </time>
-            </div>
-          )}
-          {props.metadata.updated_at && (
-            <div class="flex items-center gap-2">
-              <HudLabel label={labels.updated} tone="muted" surface="frontmatter" />
-              <time dateTime={props.metadata.updated_at} class="font-mono text-xs text-bone-muted">
-                {props.metadata.updated_at}
-              </time>
-            </div>
-          )}
           {props.metadata.author && (
             <div class="flex items-center gap-2 text-xs text-bone-muted">
               <HudLabel
@@ -111,7 +74,6 @@ export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
         </div>
       )}
 
-      {/* Language indicator */}
       <div class="flex items-center gap-2">
         <HudLabel
           label={labels.readInLang.replace('{lang}', langLabel)}
