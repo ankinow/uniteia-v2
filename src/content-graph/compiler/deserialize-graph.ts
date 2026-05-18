@@ -1,4 +1,4 @@
-import type { ContentGraph, SerializableContentGraph } from '../contracts/graph'
+import type { ContentGraph } from '../contracts/graph'
 import type { ContentNode } from '../contracts/node'
 
 /**
@@ -7,7 +7,8 @@ import type { ContentNode } from '../contracts/node'
  * Separated from compile-content-graph.ts to prevent gray-matter from
  * leaking into runtime bundles.
  */
-export function deserializeGraph(serialized: SerializableContentGraph): ContentGraph {
+// biome-ignore lint/suspicious/noExplicitAny: serialized is dynamic untrusted JSON payload
+export function deserializeGraph(serialized: any): ContentGraph {
   const nodesMap = new Map<string, ContentNode>()
   const nodesArr: ContentNode[] = []
 
