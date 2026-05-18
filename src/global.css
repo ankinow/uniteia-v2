@@ -1,10 +1,92 @@
 /**
- * UNITEIA · SOLARLANSO 2100 v1.2
- * Global CSS Foundation
- * Aesthetic: Brutalist bones. Editorial flesh. One JRPG whisper. Kuwaii breath.
+ * UNITEIA · VISUAL DNA RENAISSANCE v2.0
+ * Tailwind v4 Oxide · CSS-first @theme · OKLCH wide-gamut
+ * Aesthetic: Editorial Collage + Signal Grid V3 + 2.5D Neo-Realistic
+ * Warm tactile: grain 4K + paper fiber + glassmorphism 2.0
  */
 
-/* Font display strategy: swap prevents FOIT, ensures text is visible during load */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "@iconify/tailwind4";
+
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS — CSS-first @theme (Oxide)
+   ═══════════════════════════════════════════ */
+
+@theme {
+  /* ── Surfaces ── */
+  --color-void: #0d1117;
+  --color-deep: #161b22;
+  --color-mid: #21262d;
+  --color-raised: #30363d;
+
+  /* ── Semantic · Cyan (action) ── */
+  --color-action: oklch(0.85 0.18 210);
+  --color-action-hi: oklch(0.9 0.18 210);
+
+  /* ── Semantic · Verified ── */
+  --color-verified: oklch(0.79 0.18 145);
+  --color-verified-hi: oklch(0.84 0.18 145);
+
+  /* ── Semantic · Curation ── */
+  --color-curation: oklch(0.79 0.09 75);
+  --color-curation-hi: oklch(0.84 0.09 75);
+
+  /* ── Text · Bone hierarchy ── */
+  --color-bone: #f0e8d8;
+  --color-bone-muted: #8b949e;
+
+  /* ── Paper ── */
+  --color-paper: #e8ddc8;
+  --color-paper-text: #2c2416;
+  --color-paper-border: #c4b99e;
+
+  /* ── M011: Visual DNA — OKLCH wide-gamut Coral + Cyan brand ── */
+  --color-coral: oklch(0.7 0.15 30);
+  --color-coral-hi: oklch(0.78 0.16 30);
+  --color-cyan-brand: oklch(0.7 0.12 200);
+  --color-cyan-brand-hi: oklch(0.78 0.13 200);
+
+  /* ── Typography ── */
+  --font-family-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --font-family-display: "Geist Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --font-family-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+  --font-family-pixel: "Press Start 2P", cursive;
+
+  /* ── Motion ── */
+  --transition-duration-fast: 120ms;
+  --transition-duration-base: 200ms;
+  --transition-duration-slow: 250ms;
+  --transition-timing-function-solar: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --transition-timing-function-warm: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* ── Glass backdrop-blur scale ── */
+  --backdrop-blur-glass-sm: 4px;
+  --backdrop-blur-glass: 12px;
+  --backdrop-blur-glass-lg: 24px;
+
+  /* ── 2.5D Perspective scale ── */
+  --perspective-2d5: 800px;
+  --perspective-dramatic: 1000px;
+
+  /* ── Spacing scale (M011: fluid clamp typography) ── */
+  --font-size-display-xl: clamp(2.5rem, 8vw, 5rem);
+  --font-size-display-lg: clamp(2rem, 6vw, 3.5rem);
+  --font-size-display-md: clamp(1.5rem, 4vw, 2.5rem);
+
+  /* ── 2026 Visual DNA: Material properties ── */
+  --glass-opacity: 0.15;
+  --pbr-roughness: 0.4;
+  --depth-2-5d: 12px;
+}
+
+/* ═══════════════════════════════════════════
+   FONT FACE
+   ═══════════════════════════════════════════ */
+
 @font-face {
   font-family: "Geist Sans";
   src: url("/fonts/geist.woff2") format("woff2");
@@ -32,95 +114,116 @@
   font-display: swap;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ═══════════════════════════════════════════
+   CSS CUSTOM PROPERTIES (consumed by utilities)
+   ═══════════════════════════════════════════ */
+
+:root {
+  /* Surfaces */
+  --void: #0d1117;
+  --deep: #161b22;
+  --mid: #21262d;
+  --raised: #30363d;
+
+  /* Semantic */
+  --cyan: oklch(0.85 0.18 210);
+  --cyan-hi: oklch(0.9 0.18 210);
+  --vine: oklch(0.79 0.18 145);
+  --bronze: oklch(0.79 0.09 75);
+
+  /* Text */
+  --bone: #f0e8d8;
+  --bone-muted: #8b949e;
+
+  /* Motion */
+  --t-fast: 120ms;
+  --t-base: 200ms;
+  --t-slow: 250ms;
+  --ease-solar: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Glass */
+  --glass-bg: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--raised) 20%, transparent),
+    transparent
+  );
+  --glass-border: 1px solid color-mix(in srgb, var(--cyan) 15%, transparent);
+  --glass-blur: 12px;
+  --glass-blur-sm: 4px;
+  --glass-blur-lg: 24px;
+
+  /* PBR fake */
+  --pbr-specular: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--cyan) 8%, transparent) 0%,
+    transparent 60%
+  );
+  --pbr-metalness: 0 1px 2px color-mix(in srgb, var(--cyan) 10%, transparent), 0 2px 4px
+    color-mix(in srgb, var(--cyan) 5%, transparent);
+
+  /* 2.5D depth */
+  --z-2d5-back: -1;
+  --z-2d5-base: 0;
+  --z-2d5-front: 1;
+  --z-2d5-floating: 2;
+  --perspective-2d5: 800px;
+  --perspective-dramatic: 1000px;
+
+  /* Paper */
+  --paper-bg: #e8ddc8;
+  --paper-text: #2c2416;
+  --paper-border: 1px solid #c4b99e;
+
+  /* Typography */
+  --font-display: "Geist Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+}
+
+/* ═══════════════════════════════════════════
+   COMPONENTS (flattened: Tailwind v4 @apply rules)
+   ═══════════════════════════════════════════ */
 
 @layer components {
   .btn {
-    @apply px-4 py-2 rounded-none font-medium transition-all duration-base ease-solar;
+    @apply px-4 py-2 font-medium transition-all;
+    border-radius: 0;
+    transition-duration: var(--t-base);
+    transition-timing-function: var(--ease-solar);
   }
+
   .btn-primary {
-    @apply btn bg-action text-void hover:bg-action-hi;
+    @apply px-4 py-2 font-medium transition-all bg-action text-void;
+    border-radius: 0;
+    transition-duration: var(--t-base);
+    transition-timing-function: var(--ease-solar);
+
+    &:hover {
+      background-color: var(--cyan-hi);
+    }
   }
+
   .btn-outline {
-    @apply btn border border-current hover:bg-white/5;
+    @apply px-4 py-2 font-medium transition-all border border-current;
+    border-radius: 0;
+    transition-duration: var(--t-base);
+    transition-timing-function: var(--ease-solar);
+
+    &:hover {
+      background-color: color-mix(in srgb, white 5%, transparent);
+    }
   }
-  .hud-panel {
-    @apply surface-hud;
-  }
-  .hud-label {
-    @apply hud-label-base;
-  }
+
+  /* hud-panel / hud-label compose via className in JSX — no @apply chain needed */
 }
 
-@layer base {
-  :root {
-    /* Surfaces */
-    --void: #0d1117;
-    --deep: #161b22;
-    --mid: #21262d;
-    --raised: #30363d;
+/* ═══════════════════════════════════════════
+   BRUTALIST RESET
+   ═══════════════════════════════════════════ */
 
-    /* Semantic */
-    --cyan: oklch(0.85 0.18 210);
-    --cyan-hi: oklch(0.9 0.18 210);
-    --vine: oklch(0.79 0.18 145);
-    --bronze: oklch(0.79 0.09 75);
-
-    /* Text */
-    --bone: #f0e8d8;
-    --bone-muted: #8b949e;
-
-    /* Motion */
-    --t-fast: 120ms;
-    --t-base: 200ms;
-    --t-slow: 250ms;
-    --ease-solar: cubic-bezier(0.2, 0.8, 0.2, 1);
-
-    /* Glass */
-    --glass-bg: linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--raised) 20%, transparent),
-      transparent
-    );
-    --glass-border: 1px solid color-mix(in srgb, var(--cyan) 15%, transparent);
-    --glass-blur: 12px;
-    --glass-blur-sm: 4px;
-    --glass-blur-lg: 24px;
-
-    /* PBR fake */
-    --pbr-specular: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--cyan) 8%, transparent) 0%,
-      transparent 60%
-    );
-    --pbr-metalness: 0 1px 2px color-mix(in srgb, var(--cyan) 10%, transparent), 0 2px 4px
-      color-mix(in srgb, var(--cyan) 5%, transparent);
-
-    /* 2.5D depth */
-    --z-2d5-back: -1;
-    --z-2d5-base: 0;
-    --z-2d5-front: 1;
-    --z-2d5-floating: 2;
-    --perspective-2d5: 800px;
-
-    /* Paper */
-    --paper-bg: #e8ddc8;
-    --paper-text: #2c2416;
-    --paper-border: 1px solid #c4b99e;
-
-    /* Typography */
-    --font-display: "Geist Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
-    --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
-    --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas,
-      "Liberation Mono", monospace;
-  }
-}
-
-/* Brutalist reset */
 *,
 *::before,
 *::after {
@@ -148,7 +251,10 @@ body {
   flex-direction: column;
 }
 
-/* Editorial Typography */
+/* ═══════════════════════════════════════════
+   EDITORIAL TYPOGRAPHY
+   ═══════════════════════════════════════════ */
+
 h1,
 h2,
 h3,
@@ -176,7 +282,10 @@ p {
   margin-bottom: 1.5rem;
 }
 
-/* Links */
+/* ═══════════════════════════════════════════
+   LINKS · FOCUS · SELECTION
+   ═══════════════════════════════════════════ */
+
 a {
   color: var(--cyan);
   text-decoration: none;
@@ -187,19 +296,20 @@ a:hover {
   color: var(--cyan-hi);
 }
 
-/* Focus */
 :focus-visible {
   outline: 2px solid var(--cyan);
   outline-offset: 2px;
 }
 
-/* Selection */
 ::selection {
   background-color: var(--cyan);
   color: var(--void);
 }
 
-/* JRPG Whisper Pattern */
+/* ═══════════════════════════════════════════
+   JRPG WHISPER
+   ═══════════════════════════════════════════ */
+
 .whisper-hover {
   transition: transform var(--t-base) var(--ease-solar);
 }
@@ -208,7 +318,12 @@ a:hover {
   transform: translateY(-2px);
 }
 
+/* ═══════════════════════════════════════════
+   UTILITY LAYER — Glass · Depth · HUD · Noise
+   ═══════════════════════════════════════════ */
+
 @layer utilities {
+  /* ── HUD Panel ── */
   .surface-hud {
     position: relative;
     isolation: isolate;
@@ -245,6 +360,7 @@ a:hover {
     z-index: 1;
   }
 
+  /* ── HUD Label Base ── */
   .hud-label-base {
     --hud-accent: var(--cyan);
     display: inline-flex;
@@ -281,6 +397,7 @@ a:hover {
     --hud-accent: var(--bone-muted);
   }
 
+  /* ── Scratch Divider ── */
   .scratch-divider {
     --scratch-accent: var(--cyan);
     position: relative;
@@ -320,6 +437,7 @@ a:hover {
     );
   }
 
+  /* ── Depth Surfaces ── */
   .depth-surface {
     --depth-accent: var(--cyan);
     --depth-shadow: 0 14px 32px rgb(0 0 0 / 0.24);
@@ -362,6 +480,7 @@ a:hover {
       ), color-mix(in srgb, var(--void) 88%, transparent);
   }
 
+  /* ── Glass Morphism (M011: glassmorphism-2) ── */
   .glass {
     background: var(--glass-bg);
     border: var(--glass-border);
@@ -384,6 +503,19 @@ a:hover {
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
   }
 
+  /* M011: Glassmorphism 2.0 — deeper blur + directional shadow + semi-transparent bg */
+  .glassmorphism-2 {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--raised) 20%, transparent),
+      color-mix(in srgb, var(--void) 60%, transparent)
+    );
+    border: 1px solid color-mix(in srgb, var(--cyan) 12%, transparent);
+    backdrop-filter: blur(var(--glass-blur-lg));
+    box-shadow: 0 4px 24px rgb(0 0 0 / 0.3), var(--pbr-metalness);
+  }
+
+  /* ── Signal Grid ── */
   .grid-signal {
     background-image: linear-gradient(
         90deg,
@@ -394,6 +526,7 @@ a:hover {
     background-size: 40px 40px;
   }
 
+  /* ── Noise Mask ── */
   .noise-mask {
     position: absolute;
     inset: 0;
@@ -405,6 +538,33 @@ a:hover {
     background-size: 256px 256px;
   }
 
+  /* M011: Grain 4K overlay (higher quality noise for tactile warmth) */
+  .grain-4k {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 512px 512px;
+  }
+
+  /* M011: Paper fiber SVG overlay */
+  .paper-fiber {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.08;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04 0.15' numOctaves='3' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 400px 400px;
+  }
+
+  /* ── Paper Label ── */
   .paper-label {
     background: var(--paper-bg);
     color: var(--paper-text);
@@ -423,6 +583,83 @@ a:hover {
     min-height: 1.875rem;
   }
 
+  /* ── M011: 2.5D Perspective primitives ── */
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .perspective-dramatic {
+    perspective: var(--perspective-dramatic);
+  }
+
+  /* ── M012: Corkboard + Mixed-Media Foundations (MasterOpenCanvas) ── */
+  .corkboard-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.08;
+    background-image: radial-gradient(#c4b99e 0.6px, transparent 0.6px);
+    background-size: 6px 6px;
+  }
+
+  .corkboard-layer[data-intensity="medium"] {
+    opacity: 0.12;
+  }
+
+  .corkboard-layer[data-intensity="rich"] {
+    opacity: 0.16;
+    background-size: 4px 4px;
+  }
+
+  .paper-real-texture {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.12;
+    mix-blend-mode: multiply;
+    background-image: radial-gradient(ellipse at 20% 50%, rgba(0 0 0 / 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 50%, rgba(0 0 0 / 0.06) 0%, transparent 50%);
+  }
+
+  .ink-effect {
+    position: relative;
+    filter: saturate(0.85) contrast(1.08);
+    transform: rotate(-0.3deg);
+  }
+
+  .ink-effect[data-intensity="medium"] {
+    transform: rotate(-0.5deg);
+  }
+
+  .ink-effect[data-intensity="rich"] {
+    transform: rotate(-0.7deg) scale(1.01);
+    filter: saturate(0.75) contrast(1.12);
+  }
+
+  .mixed-media-canvas {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .mixed-media-canvas::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: radial-gradient(#c4b99e 0.6px, transparent 0.6px);
+    background-size: 6px 6px;
+    opacity: 0.08;
+  }
+
+  .mixed-media-canvas > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Reduced Motion ── */
   @media (prefers-reduced-motion: reduce) {
     .depth-surface {
       transform: none;

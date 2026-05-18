@@ -14,6 +14,26 @@ function parseCookie(cookieHeader: string | null, key: string): string | null {
   return null
 }
 
+const SUPPORTED_LOCALE_CODES = ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh']
+const DEFAULT_LOCALE = 'en'
+
+function negotiateLocale(cookieLang: string | null, acceptLanguage: string | null): string {
+  // 1. Cookie (primary experience)
+  if (cookieLang && SUPPORTED_LOCALE_CODES.includes(cookieLang)) {
+    return cookieLang
+  }
+  // 2. Accept-Language header
+  if (acceptLanguage) {
+    for (const code of SUPPORTED_LOCALE_CODES) {
+      if (acceptLanguage.toLowerCase().includes(code)) {
+        return code
+      }
+    }
+  }
+  // 3. Default
+  return DEFAULT_LOCALE
+}
+
 // Extend the Environment type for Cloudflare Pages
 type Env = Record<string, never> // Cloudflare Pages environment - no custom bindings needed
 
@@ -21,13 +41,54 @@ function isMissingLocaleNichePath(pathname: string): boolean {
   return pathname === '/n' || pathname === '/n/' || pathname.startsWith('/n/')
 }
 
+/**
+ * Check if a path has no locale prefix (root path or non-locale path).
+ * Paths like /, /about, /n, /n/ai-agents — anything not starting with /xx/
+ */
+function isMissingLocale(pathname: string): boolean {
+  if (pathname === '/' || pathname === '') return true
+  const segments = pathname.split('/').filter(Boolean)
+  if (segments.length === 0) return true
+  const first = segments[0] as string
+  return !SUPPORTED_LOCALE_CODES.includes(first)
+}
+
 export const onRequest: PagesFunction<Env> = async context => {
   const { request } = context
   const url = new URL(request.url)
   const pathname = url.pathname
 
-  // Explicitly handle trailing slash for /n/ and /n/tail to avoid multi-hop
-  // Cloudflare Pages normally 301s /n/ to /n. We intercept here to do it in 1 hop.
+  // Root / no-locale paths — redirect to negotiated locale.
+  // Cookie > Accept-Language > en (default).
+  if (isMissingLocale(pathname)) {
+    const cookieLang = parseCookie(request.headers.get('Cookie'), 'uniteia_lang')
+    const acceptLanguage = request.headers.get('Accept-Language')
+    const locale = negotiateLocale(cookieLang, acceptLanguage)
+
+    // Build target path: /{locale}/{rest}
+    let targetPath: string
+    if (pathname === '/' || pathname === '') {
+      targetPath = `/${locale}/`
+    } else if (pathname.startsWith('/n')) {
+      // Niche paths: /n → /{locale}/n, /n/ai-agents → /{locale}/n/ai-agents
+      const nicheRest = pathname === '/n' || pathname === '/n/' ? '/n' : pathname
+      targetPath = `/${locale}${nicheRest}`
+    } else {
+      targetPath = `/${locale}${pathname}`
+    }
+
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: targetPath + url.search,
+        Vary: 'Accept-Language, Cookie',
+        'Set-Cookie': `uniteia_lang=${locale}; Path=/; Max-Age=31536000; SameSite=Lax; Secure; HttpOnly`,
+      },
+    })
+  }
+
+  // Niche paths without locale — handled but now should be unreachable
+  // (the isMissingLocale check above catches these earlier)
   if (isMissingLocaleNichePath(pathname)) {
     const cookieLang = parseCookie(request.headers.get('Cookie'), 'uniteia_lang')
     const location = buildNicheLocaleRedirectPath(
@@ -73,7 +134,6 @@ export const onRequest: PagesFunction<Env> = async context => {
   })
 
   // Let the request continue to Qwik City
-  // Note: Cloudflare Pages will handle this via the adapter
   const response = await context.next(modifiedRequest)
 
   // Add security headers to the final response

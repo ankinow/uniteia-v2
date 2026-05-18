@@ -1,5 +1,6 @@
 import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
+import { MasterOpenCanvas } from '~/components/master-open-canvas'
 import { getHomepageProjection } from '~/content-graph/projections'
 import type { HomepageProjection } from '~/content-graph/projections'
 import { getTranslation } from '~/i18n/context'
@@ -30,6 +31,41 @@ export default component$(() => {
 
   return (
     <div class="space-y-12 p-6 md:p-8 mx-auto max-w-4xl">
+      {/* M012: MasterOpenCanvas — sketchnote hero */}
+      <MasterOpenCanvas
+        title="UniTeia Network State"
+        decisionNodes={[
+          {
+            id: 'signal-intake',
+            label: 'Signal Intake',
+            outcome: 'real-time multi-source ingestion',
+          },
+          {
+            id: 'knowledge-clusters',
+            label: 'Knowledge Clusters',
+            outcome: 'cross-domain graph synthesis',
+            children: [
+              {
+                id: 'verified',
+                label: 'Verified Signals',
+                outcome: 'editorial review + source attestation',
+              },
+              {
+                id: 'frontier',
+                label: 'Frontier Streams',
+                outcome: 'emerging patterns, low-latency',
+              },
+            ],
+          },
+          {
+            id: 'delivery',
+            label: 'Delivery Layer',
+            outcome: '8-locale static-first CF Pages',
+          },
+        ]}
+        class="mb-4"
+      />
+
       {featuredSignals.length > 0 && (
         <section>
           <h2 class="text-xl font-bold font-pixel text-bone mb-4 uppercase tracking-wider">

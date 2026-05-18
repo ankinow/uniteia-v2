@@ -22,7 +22,7 @@ const PROJECT_ROOT = join(import.meta.dirname, '..')
 const CHAOS_SPEC = 'tests/e2e/s02-edge-chaos.spec.ts'
 const REPORT_DIR = join(PROJECT_ROOT, 'artifacts', 'edge-chaos')
 const REPORT_PATH = join(REPORT_DIR, 'chaos-report.md')
-const PREVIEW_PORT = 8788
+const PREVIEW_PORT = Number.parseInt(process.env.PREVIEW_PORT ?? '8788', 10)
 const PREVIEW_URL = `http://localhost:${PREVIEW_PORT}`
 
 // ── Helpers ─────────────────────────────────────────────────────────────

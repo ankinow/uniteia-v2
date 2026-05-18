@@ -8,7 +8,7 @@
 | Total scenarios | 8 |
 | Passed | 8 |
 | Failed | 0 |
-| Total duration | 24800 ms |
+| Total duration | 16300 ms |
 
 
 ## ✅ All Tests Passed
@@ -31,6 +31,6 @@ Running 8 tests using 2 workers
 [1A[2K[6/8] [chromium] › tests/e2e/s02-edge-chaos.spec.ts:250:5 › Edge Chaos — cross-route smoke › no console errors on /en/signals/apex/tencent-cloud-deal-stack-builders with active SW
 [1A[2K[7/8] [chromium] › tests/e2e/s02-edge-chaos.spec.ts:250:5 › Edge Chaos — cross-route smoke › no console errors on /en/signals with active SW
 [1A[2K[8/8] [chromium] › tests/e2e/s02-edge-chaos.spec.ts:250:5 › Edge Chaos — cross-route smoke › no console errors on /en/signals/ai-agents with active SW
-[1A[2K  8 passed (24.8s)
+[1A[2K  8 passed (16.3s)
 
 ```

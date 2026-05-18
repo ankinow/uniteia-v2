@@ -1,5 +1,6 @@
 import { $, Slot, component$, useOnDocument } from '@builder.io/qwik'
 import { type RequestHandler, useLocation } from '@builder.io/qwik-city'
+import { SiteHeader2D5 } from '~/components/adaptive-header/SiteHeader2D5'
 import { useI18n } from '~/i18n/context'
 import { onLanguageNegotiation } from '~/i18n/middleware'
 import { useDopamineBudgetProvider } from '~/stores/dopamine-budget'
@@ -47,7 +48,7 @@ export const SiteShell = component$<SiteShellProps>(({ isApexHost }) => {
 
   return (
     <div
-      class="site-shell min-h-screen flex flex-col bg-void text-bone grid-signal"
+      class="site-shell min-h-screen flex flex-col bg-void text-bone grid-signal relative"
       data-dopamine-shell-apex={String(budget.isApexHost)}
       data-dopamine-shell-path={budget.pathname}
       data-dopamine-shell-route-remaining={budget.routeBudget.remaining}
@@ -56,21 +57,28 @@ export const SiteShell = component$<SiteShellProps>(({ isApexHost }) => {
       data-testid="site-shell"
     >
       <SvgFilters />
-      <a
-        href="#main-content"
-        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-action focus:text-void focus:rounded"
-      >
-        Skip to main content
-      </a>
-      <header class="site-header" data-testid="site-header">
-        <Slot name="header" />
-      </header>
-      <main id="main-content" class="site-main flex-1" data-testid="site-main">
-        <Slot />
-      </main>
-      <footer class="site-footer" data-testid="site-footer">
-        <Slot name="footer" />
-      </footer>
+      {/* M011 S02: Tactile Warmth — grain 4K + paper fiber overlays */}
+      <div class="grain-4k fixed inset-0 pointer-events-none z-0" aria-hidden="true" />
+      <div class="paper-fiber fixed inset-0 pointer-events-none z-0" aria-hidden="true" />
+      <div class="relative z-[1] flex flex-col min-h-screen">
+        <a
+          href="#main-content"
+          class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-action focus:text-void focus:rounded"
+        >
+          Skip to main content
+        </a>
+        <SiteHeader2D5>
+          <header class="site-header" data-testid="site-header">
+            <Slot name="header" />
+          </header>
+        </SiteHeader2D5>
+        <main id="main-content" class="site-main flex-1" data-testid="site-main">
+          <Slot />
+        </main>
+        <footer class="site-footer" data-testid="site-footer">
+          <Slot name="footer" />
+        </footer>
+      </div>
     </div>
   )
 })

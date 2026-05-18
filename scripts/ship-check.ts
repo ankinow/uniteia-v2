@@ -51,8 +51,18 @@ async function main(): Promise<void> {
   try {
     const steps = createDefaultShipCheckSteps()
 
-    // Split steps into before and after preview
-    const needsPreview = ['lighthouse:check', 'browser:verify', 'smoke:200s', 'invalid-locale-404']
+    // Split steps into before and after preview.
+    // All e2e / Playwright / lighthouse steps need the preview server running.
+    const needsPreview = [
+      'edge:chaos',
+      'route:fuzzing',
+      'hydration:resilience',
+      'm011-visual-dna',
+      'visual:qa',
+      'lighthouse:check',
+      'smoke:200s',
+      'invalid-locale-404',
+    ]
 
     const prePreviewSteps = steps.filter(s => !needsPreview.includes(s.name))
     const previewSteps = steps.filter(s => needsPreview.includes(s.name))
@@ -87,7 +97,11 @@ async function main(): Promise<void> {
     // Wait for server to be ready
     await new Promise(resolve => setTimeout(resolve, 15000))
 
-    // Update commands with dynamic port
+    // Set env vars for preview-dependent steps
+    process.env.PLAYWRIGHT_BASE_URL = PREVIEW_URL
+    process.env.PREVIEW_PORT = String(PREVIEW_PORT)
+
+    // Update commands with dynamic URL where needed
     for (const step of previewSteps) {
       if (step.name === 'smoke:200s' || step.name === 'invalid-locale-404') {
         step.command.push(PREVIEW_URL)

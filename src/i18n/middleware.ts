@@ -70,11 +70,22 @@ function isValidLanguage(lang: string | null | undefined): lang is SupportedLang
 }
 
 /**
- * Language and Niche negotiation middleware
- * Language Priority: URL param > Cookie > Accept-Language > CF-IPCountry > Default (EN)
- * Niche: Extracted from Host header
+ * Language and Niche negotiation middleware.
  *
- * Logs the negotiation result for debugging
+ * UniTeia language model:
+ * - No fixed language. Content is structurally equivalent across all 8 locales.
+ * - Primary experience: cookie-driven (uniteia_lang).
+ * - URL path (/{lang}/...) = override for deep links and SEO.
+ * - 8-locale symmetry = publication gate (isPublic()), not runtime selection.
+ *
+ * Priority chain:
+ *   1. URL path segment (deep link / shared URL — strongest override)
+ *   2. Cookie (uniteia_lang — user's primary experience)
+ *   3. CF-IPCountry (Cloudflare geo header)
+ *   4. Accept-Language (browser preference)
+ *   5. Default: en
+ *
+ * Logs the negotiation result for debugging (DEV only).
  */
 export const onLanguageNegotiation: RequestHandler = ({ request, cookie, url, headers }) => {
   // --- Niche Detection ---

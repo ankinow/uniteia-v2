@@ -49,16 +49,20 @@ export default component$(() => {
   const { t } = useI18n()
 
   return (
-    <div class="max-w-4xl mx-auto px-4 py-8" data-testid="niche-index">
-      <div class="mb-8">
-        <h1 class="text-3xl font-bold text-bone">{t.niche.allNiches}</h1>
+    <div class="px-4 py-8" data-testid="niche-index">
+      <div class="mb-8 px-4">
+        <h1 class="text-3xl font-bold text-bone font-display">{t.niche.allNiches}</h1>
       </div>
 
       {nichesSignal.value.length > 0 ? (
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {nichesSignal.value.map(niche => (
-            <NicheCard key={niche.slug} niche={niche} lang={lang} />
-          ))}
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 px-4">
+          {nichesSignal.value.map((niche, index) => {
+            // Organic anti-grid pattern: first niche is hero, then alternate 1-1-2
+            const isHero = index === 0
+            const isDouble = index > 0 && index % 3 === 0
+            const cardSize = isHero ? 'hero' : isDouble ? 'hero' : 'medium'
+            return <NicheCard key={niche.slug} niche={niche} lang={lang} size={cardSize} />
+          })}
         </div>
       ) : (
         <p class="text-bone-muted">{t.niche.topicsLabel}</p>

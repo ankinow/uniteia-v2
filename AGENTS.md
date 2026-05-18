@@ -102,4 +102,12 @@ cd apps/web && npm run dev               # Astro dev server
 - CTt-Guaratuba-AI: `docs/adr/` — static-first, Nova isolation
 
 ## Active Milestone Context
-- **M010 — Graph-Native Stabilization**: Complete rewrite of the content compilation and routing layer to fully rely on the in-memory content graph. Enforces quality visibility gates, i18n symmetry, and localized link generation. Spec exists at `src/content-graph/SPEC.md`, plan at `.gsd/milestones/M010-GRAPH-NATIVE-STABILIZATION/M010-ROADMAP.md`.
+- **M010 — Graph-Native Stabilization**: Complete rewrite of the content compilation and routing layer to fully rely on the in-memory content graph. Enforces quality visibility gates, i18n symmetry, and localized link generation. Spec exists at `src/content-graph/SPEC.md`.
+- **M011 — Visual DNA Renaissance** (functionally complete): Tailwind v4 Oxide, OKLCH palette, tactile warmth (grain-4k + paper-fiber), 2.5D header with WAAPI tilt, organic anti-grid layout, visual regression gate. 8.3/10 SOTA. Post-M011 re-evaluation at `docs/reference/post-m011-sota-reevaluation.md`.
+- **M012 — MasterOpenCanvas** (active): Interactive sketchnote decision surface. Reuses VisualDNAIntegrator + DecisionMap + DepthSection. Component at `src/components/master-open-canvas/`, wired into homepage hero.
+
+## Active JIT Skills (2026-05-18)
+- **VisualDNAIntegrator_v2026_05** — Editorial Collage + Signal Grid + 2.5D depth (3 variants)
+- **MasterOpenCanvas_v2026_05** — sketchnote decision flows → M012 bleeding-edge canvas
+- **DecisionMap_v2026_05** — organic branching decision tree (sketchnote/signal/minimal)
+- **JIT Mutant Compiler ativo** (GraphRAG + MCP)

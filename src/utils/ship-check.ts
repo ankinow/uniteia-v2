@@ -80,6 +80,10 @@ export function createDefaultShipCheckSteps(): ShipCheckStep[] {
       name: 'hydration:resilience',
       command: ['bun', 'run', 'test:e2e', 'tests/e2e/s03-hydration-resilience.spec.ts'],
     },
+    {
+      name: 'm011-visual-dna',
+      command: ['bun', 'run', 'test:e2e', 'tests/e2e/m011-visual-dna.spec.ts'],
+    },
     { name: 'visual:qa', command: ['bun', 'run', 'test:e2e', 'tests/e2e/s06-visual-qa.spec.ts'] },
 
     // Legacy steps

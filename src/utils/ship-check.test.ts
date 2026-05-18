@@ -108,6 +108,7 @@ describe('runShipCheck', () => {
       'edge:chaos',
       'route:fuzzing',
       'hydration:resilience',
+      'm011-visual-dna',
       'visual:qa',
       'lighthouse:check',
       'smoke:200s',
