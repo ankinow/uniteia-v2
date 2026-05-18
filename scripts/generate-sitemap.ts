@@ -36,7 +36,7 @@ async function generate() {
 
     for (const l of SUPPORTED_LANGUAGES) {
       entries.push(
-        `  <url>\n    <loc>${origin}/${l.code}/n</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.8</priority>\n  </url>`
+        `  <url>\n    <loc>${origin}/${l.code}/signals</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.8</priority>\n  </url>`
       )
     }
 

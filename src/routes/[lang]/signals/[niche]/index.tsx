@@ -101,7 +101,7 @@ export const useNicheArticles = routeLoader$<NicheArticleEntry[]>(async ({ param
   const nodes = contentGraphProvider.getByNiche(niche.slug)
 
   return nodes
-    .filter(n => n.slug !== '_index')
+    .filter(n => n.slug !== '_index' && contentGraphProvider.isPublic(n))
     .map(node => ({
       slug: node.slug,
       lang: node.locale as SupportedLanguage,

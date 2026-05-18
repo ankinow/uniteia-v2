@@ -34,7 +34,7 @@ export function getHomepageProjection(
 ): HomepageProjection {
   const nicheMap = new Map(nicheConfig.map(n => [n.slug, n]))
   const allLocaleNodes = provider.getByLocale(locale)
-  const publicNodes = allLocaleNodes.filter(n => n.visibility === 'published' && n.trustScore >= 80)
+  const publicNodes = allLocaleNodes.filter(n => provider.isPublic(n))
 
   const featuredSignals: FeaturedSignal[] = [...publicNodes]
     .sort((a, b) => b.metrics.graphScore - a.metrics.graphScore)

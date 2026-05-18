@@ -193,7 +193,7 @@ export class StaticJsonContentGraphProvider implements ContentGraphProvider {
 
   getFeatured(query?: ContentGraphQuery): ContentNode[] {
     let result = [...this.allNodes]
-      .filter(n => n.visibility === 'published' && n.qualityScore >= 95)
+      .filter(n => this.isPublic(n))
       .sort((a, b) => b.qualityScore - a.qualityScore)
 
     if (query) {
@@ -228,7 +228,7 @@ export class StaticJsonContentGraphProvider implements ContentGraphProvider {
       result = result.filter(n => n.tags.includes(tag))
     }
     if (query.visibility === 'public') {
-      result = result.filter(n => n.visibility === 'published' && n.qualityScore >= 95)
+      result = result.filter(n => this.isPublic(n))
     }
     if (query.limit) {
       result = result.slice(0, query.limit)
