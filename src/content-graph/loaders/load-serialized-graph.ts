@@ -1,4 +1,4 @@
-import { deserializeGraph } from '../compiler/compile-content-graph'
+import { deserializeGraph } from '../compiler/deserialize-graph'
 import type { SerializableGraphV1 } from '../contracts/artifacts'
 import type { SerializableContentGraph } from '../contracts/graph'
 

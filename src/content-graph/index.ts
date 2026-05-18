@@ -53,8 +53,9 @@ export type { GraphArtifacts } from './compiler/serialize-graph-artifacts'
 export {
   compileContentGraph,
   serializeGraph,
-  deserializeGraph,
 } from './compiler/compile-content-graph'
+
+export { deserializeGraph } from './compiler/deserialize-graph'
 
 export { compileTaxonomy } from './compiler/compile-taxonomy'
 export { compileLocales } from './compiler/compile-locales'
