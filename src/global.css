@@ -386,22 +386,38 @@ a:hover {
     font-family: var(--font-mono);
     font-size: 0.6875rem;
     font-weight: 600;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.16em;
     line-height: 1;
     text-transform: uppercase;
     white-space: nowrap;
   }
 
+  /* Per-tone opacity hierarchy: action (1.0) → curation (0.9) → verified (0.8) → muted (0.65) */
+  .hud-label-base[data-tone="action"] {
+    --hud-accent: var(--cyan);
+    opacity: 1;
+  }
+
   .hud-label-base[data-tone="curation"] {
     --hud-accent: var(--bronze);
+    opacity: 0.9;
   }
 
   .hud-label-base[data-tone="verified"] {
     --hud-accent: var(--vine);
+    opacity: 0.8;
   }
 
   .hud-label-base[data-tone="muted"] {
     --hud-accent: var(--bone-muted);
+    opacity: 0.65;
+  }
+
+  /* Compact size variant */
+  .hud-label-base[data-size="compact"] {
+    font-size: 0.625rem;
+    padding: 0.25rem 0.625rem;
+    min-height: 1.5rem;
   }
 
   /* ── Scratch Divider ── */
