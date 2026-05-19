@@ -36,35 +36,25 @@ export default component$(() => {
       {/* M012: MasterOpenCanvas — sketchnote hero */}
       <MasterOpenCanvas
         title="UniTeia Network State"
-        decisionNodes={[
-          {
+        decisionNodes={(() => {
+          const clusterNodes = knowledgeClusters.map(c => ({
+            id: c.nicheSlug,
+            label: c.label,
+            outcome: `${c.articleCount} signals · Q${c.avgGraphScore.toFixed(0)}`,
+          }))
+          const rootNode = {
             id: 'signal-intake',
             label: 'Signal Intake',
-            outcome: 'real-time multi-source ingestion',
-          },
-          {
-            id: 'knowledge-clusters',
-            label: 'Knowledge Clusters',
-            outcome: 'cross-domain graph synthesis',
-            children: [
-              {
-                id: 'verified',
-                label: 'Verified Signals',
-                outcome: 'editorial review + source attestation',
-              },
-              {
-                id: 'frontier',
-                label: 'Frontier Streams',
-                outcome: 'emerging patterns, low-latency',
-              },
-            ],
-          },
-          {
+            outcome: `${featuredSignals.length + frontierStreams.length} signals curated across ${clusterNodes.length} niches`,
+            children: clusterNodes.length > 0 ? clusterNodes : undefined,
+          }
+          const deliveryNode = {
             id: 'delivery',
             label: 'Delivery Layer',
-            outcome: '8-locale static-first CF Pages',
-          },
-        ]}
+            outcome: `${SUPPORTED_LANGUAGES.length}-locale CF Pages · sitemap · search index`,
+          }
+          return [rootNode, deliveryNode]
+        })()}
         class="mb-4"
       />
 

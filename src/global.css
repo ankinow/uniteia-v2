@@ -702,6 +702,12 @@ a:hover {
     z-index: 1;
   }
 
+  /* ── M012 S08: Cursor stylus (pen tip) ── */
+  .cursor-stylus {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpolygon points='2,14 6,4 10,10' fill='%2300e5ff'/%3E%3C/svg%3E")
+      6 0, crosshair;
+  }
+
   /* ── Reduced Motion ── */
   @media (prefers-reduced-motion: reduce) {
     .depth-surface {

@@ -137,7 +137,7 @@ export const MasterOpenCanvas = component$<MasterOpenCanvasProps>(
           },
           {
             duration: 400,
-            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
             fill: 'forwards',
           }
         )
@@ -153,7 +153,7 @@ export const MasterOpenCanvas = component$<MasterOpenCanvasProps>(
           { transform: 'rotateX(0deg) rotateY(0deg)' },
           {
             duration: 600,
-            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
             fill: 'forwards',
           }
         )
@@ -170,7 +170,10 @@ export const MasterOpenCanvas = component$<MasterOpenCanvasProps>(
 
     return (
       <div
-        class={['mixed-media-canvas perspective-dramatic preserve-3d relative', className]
+        class={[
+          'mixed-media-canvas cursor-stylus perspective-dramatic preserve-3d relative',
+          className,
+        ]
           .filter(Boolean)
           .join(' ')}
       >
