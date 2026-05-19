@@ -56,9 +56,10 @@ export const NicheLanding = component$<NicheLandingProps>(
               {t.niche.articleCount.replace('{count}', localizedArticles.length.toString())}
             </h2>
             {localizedArticles.length > 0 ? (
-              <div class="grid grid-cols-1 gap-4">
-                {localizedArticles.map(article => (
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {localizedArticles.map((article, i) => (
                   <DopamineCard
+                    class={i === 0 ? 'md:col-span-2' : ''}
                     key={article.slug}
                     title={article.title}
                     description={article.summary ?? ''}
@@ -90,7 +91,7 @@ export const NicheLanding = component$<NicheLandingProps>(
               <h2 class="text-2xl font-display tracking-[-1px] text-paper-text mb-6">
                 {t.niche.allNiches}
               </h2>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {otherNiches.map(related => (
                   <DopamineCard
                     key={related.slug}

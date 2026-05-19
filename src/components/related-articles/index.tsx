@@ -11,9 +11,10 @@ export const RelatedArticles = component$<RelatedArticlesProps>(({ nodes, lang, 
     <DepthSection depth="back" aria-label={label ?? 'Related articles'}>
       <DepthCard depth="back" class="p-6 md:p-8">
         {label && <h2 class="text-xl font-semibold text-bone mb-4">{label}</h2>}
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {nodes.map(node => (
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {nodes.map((node, i) => (
             <DopamineCard
+              class={i === 0 ? 'sm:col-span-2' : ''}
               key={node.id}
               title={node.title}
               description={node.summary}
