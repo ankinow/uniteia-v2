@@ -6,17 +6,17 @@ import type { NicheCardProps, NicheCardSize } from './types'
 const SIZE_STYLES: Record<NicheCardSize, { wrapper: string; title: string; padding: string }> = {
   hero: {
     wrapper: 'col-span-2',
-    title: 'text-xl md:text-2xl font-display font-semibold',
+    title: 'text-lg md:text-xl font-display font-semibold',
     padding: 'p-6',
   },
   medium: {
     wrapper: 'col-span-1',
-    title: 'text-base md:text-lg font-display font-semibold',
+    title: 'text-sm md:text-base font-display font-semibold',
     padding: 'p-4',
   },
   compact: {
     wrapper: 'col-span-1',
-    title: 'text-sm md:text-base font-display font-medium',
+    title: 'text-xs md:text-sm font-display font-medium',
     padding: 'p-3',
   },
 }
@@ -64,7 +64,9 @@ export const NicheCard = component$<NicheCardProps>(
             />
           )}
           <div class="min-w-0">
-            <h2 class={['text-bone leading-tight', styles.title]}>{niche.title[lang]}</h2>
+            <h2 class={['text-bone leading-tight break-words', styles.title]}>
+              {niche.title[lang]}
+            </h2>
             {size !== 'compact' && (
               <p class="text-bone-muted text-sm mt-1 leading-relaxed line-clamp-2">
                 {niche.description[lang]}
