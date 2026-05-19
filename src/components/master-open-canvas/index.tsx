@@ -208,6 +208,9 @@ export const MasterOpenCanvas = component$<MasterOpenCanvasProps>(
           {/* Paper real texture layer */}
           {cfg.paperVisible && <span class="paper-real-texture" aria-hidden="true" />}
 
+          {/* Paper fiber — background layer */}
+          <div class="paper-fiber" aria-hidden="true" />
+
           {/* Grain 4K overlay */}
           <div class="grain-4k" style={{ opacity: cfg.grainOpacity }} aria-hidden="true" />
 

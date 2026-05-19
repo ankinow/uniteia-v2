@@ -87,6 +87,7 @@ export const DepthCard = component$<DepthSurfaceProps>(
 
     // Build inline style for 2.5D
     const style2d5 = depth2d5 ? build2D5Style(depth2d5) : undefined
+    const showGrain = !!getVisualUpgradeClass(depth, depth2d5, glass)
 
     const sharedProps = {
       ...attrs,
@@ -100,42 +101,63 @@ export const DepthCard = component$<DepthSurfaceProps>(
       case 'header':
         return (
           <header {...sharedProps}>
+            {showGrain && (
+              <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
+            )}
             <Slot />
           </header>
         )
       case 'article':
         return (
           <article {...sharedProps}>
+            {showGrain && (
+              <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
+            )}
             <Slot />
           </article>
         )
       case 'aside':
         return (
           <aside {...sharedProps}>
+            {showGrain && (
+              <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
+            )}
             <Slot />
           </aside>
         )
       case 'section':
         return (
           <section {...sharedProps}>
+            {showGrain && (
+              <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
+            )}
             <Slot />
           </section>
         )
       case 'footer':
         return (
           <footer {...sharedProps}>
+            {showGrain && (
+              <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
+            )}
             <Slot />
           </footer>
         )
       case 'nav':
         return (
           <nav {...sharedProps}>
+            {showGrain && (
+              <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
+            )}
             <Slot />
           </nav>
         )
       default:
         return (
           <div {...sharedProps}>
+            {showGrain && (
+              <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
+            )}
             <Slot />
           </div>
         )

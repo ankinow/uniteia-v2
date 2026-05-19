@@ -19,6 +19,7 @@ export const ArticleFrame = component$<ArticleFrameProps>(props => {
         'px-6 py-12 md:px-12 md:py-24',
         'font-sans antialiased',
         'glassmorphism-1',
+        'relative',
         /* Swiss Grid: align children to a consistent baseline if possible */
         '[&>h1]:mb-12 [&>h2]:mb-8 [&>h2]:mt-16 [&>p]:mb-6',
         /* Editorial: balance headings */
@@ -26,6 +27,8 @@ export const ArticleFrame = component$<ArticleFrameProps>(props => {
         props.class,
       ]}
     >
+      {/* grain-4k tactile overlay */}
+      <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
       <Slot />
     </article>
   )

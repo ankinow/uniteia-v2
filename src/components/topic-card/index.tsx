@@ -30,6 +30,8 @@ export const TopicCard = component$<TopicCardProps>(
         </div>
         {/* UE5 volumetric glow edge */}
         <div class="absolute bottom-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-[var(--color-cyan)]/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
+        {/* grain-4k tactile overlay */}
+        <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
       </article>
     )
 

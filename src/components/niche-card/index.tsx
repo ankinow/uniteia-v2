@@ -51,6 +51,8 @@ export const NicheCard = component$<NicheCardProps>(
       >
         {/* Grain overlay */}
         <div class="absolute inset-0 bg-[radial-gradient(#ffffff08_0.5px,transparent_1px)] bg-[length:3px_3px] opacity-50 pointer-events-none" />
+        {/* grain-4k tactile overlay */}
+        <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
         {/* UE5 glow edge on hover */}
         <div class="absolute bottom-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-[var(--color-cyan)]/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
         <div class="relative z-[var(--z-raised)] flex items-start gap-3">
