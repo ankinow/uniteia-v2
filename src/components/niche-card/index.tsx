@@ -3,19 +3,16 @@ import { getLucideIconClass } from '~/utils/icon-classes'
 import { getNicheSlug } from '~/utils/niche-loader'
 import type { NicheCardProps, NicheCardSize } from './types'
 
-const SIZE_STYLES: Record<NicheCardSize, { wrapper: string; title: string; padding: string }> = {
+const SIZE_STYLES: Record<NicheCardSize, { title: string; padding: string }> = {
   hero: {
-    wrapper: 'col-span-2',
     title: 'text-lg md:text-xl font-display font-semibold',
     padding: 'p-6',
   },
   medium: {
-    wrapper: 'col-span-1',
     title: 'text-sm md:text-base font-display font-semibold',
     padding: 'p-4',
   },
   compact: {
-    wrapper: 'col-span-1',
     title: 'text-xs md:text-sm font-display font-medium',
     padding: 'p-3',
   },
@@ -42,8 +39,7 @@ export const NicheCard = component$<NicheCardProps>(
         data-testid={`niche-card-${niche.slug}`}
         data-size={size}
         class={[
-          'niche-card group block relative overflow-hidden rounded-2xl border border-white/10',
-          'bg-zinc-950/60 backdrop-blur-xl',
+          'niche-card glassmorphism-2 group block relative overflow-hidden rounded-2xl',
           'transition-all duration-300 hover:-translate-y-0.5',
           'hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]',
           'hover:border-white/20',

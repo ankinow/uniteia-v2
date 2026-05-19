@@ -72,12 +72,14 @@ const build2D5Style = (level: 'back' | 'base' | 'front' | 'floating'): Record<st
 export const DepthCard = component$<DepthSurfaceProps>(
   ({ as = 'div', depth = 'surface', depth2d5, glass, class: classList, ...attrs }) => {
     // Build base classes
+    const visualUpgrade = getVisualUpgradeClass(depth, depth2d5, glass)
     const classes: (string | undefined | null)[] = [
       'surface-hud',
       'depth-surface',
       'depth-card',
-      getGlassClass(depth, glass),
-      getVisualUpgradeClass(depth, depth2d5, glass),
+      visualUpgrade ? null : getGlassClass(depth, glass),
+      visualUpgrade,
+      visualUpgrade ? 'glassmorphism-2' : null,
     ]
 
     // Compute data-depth for CSS targeting (backward compatible)

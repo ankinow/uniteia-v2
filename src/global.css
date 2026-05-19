@@ -515,6 +515,17 @@ a:hover {
     box-shadow: 0 4px 24px rgb(0 0 0 / 0.3), var(--pbr-metalness);
   }
 
+  /* M012 S04: Glassmorphism 1.0 — subtle glass for low-priority surfaces */
+  .glassmorphism-1 {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--raised) 12%, transparent),
+      color-mix(in srgb, var(--void) 40%, transparent)
+    );
+    border: 1px solid color-mix(in srgb, var(--cyan) 8%, transparent);
+    backdrop-filter: blur(var(--glass-blur-sm));
+  }
+
   /* ── Signal Grid ── */
   .grid-signal {
     background-image: linear-gradient(

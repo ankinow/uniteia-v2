@@ -27,7 +27,13 @@ export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
   return (
     <div
       data-testid="frontmatter-slots"
-      class={['frontmatter-slots', 'hud-panel', 'mt-6 flex flex-col gap-4 p-4', props.class]}
+      class={[
+        'frontmatter-slots',
+        'hud-panel',
+        'glassmorphism-1',
+        'mt-6 flex flex-col gap-4 p-4',
+        props.class,
+      ]}
     >
       {hasSubjects && (
         <div class="flex flex-wrap items-center gap-2" aria-label={labels.subjectsLabel}>

@@ -49,7 +49,7 @@ export const NicheLanding = component$<NicheLandingProps>(
         </DepthSection>
 
         {/* Article list — canvas-light + grain + ue5-illusion (mixed UI: light content) */}
-        <section class="canvas-light ue5-illusion relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k">
+        <section class="canvas-light ue5-illusion glassmorphism-2 relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k">
           <div class="paper-fiber" />
           <div class="relative z-10">
             <h2 class="text-2xl font-display tracking-[-1px] text-paper-text mb-6">
@@ -82,7 +82,7 @@ export const NicheLanding = component$<NicheLandingProps>(
         {/* Related niches — canvas-light + grain (mixed UI continuity) */}
         {otherNiches.length > 0 && (
           <section
-            class="canvas-light ue5-illusion relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k"
+            class="canvas-light ue5-illusion glassmorphism-2 relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k"
             aria-label={t.niche.allNiches}
           >
             <div class="paper-fiber" />
