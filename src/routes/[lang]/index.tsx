@@ -1,6 +1,8 @@
 import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
+import { CinematicDepthCard } from '~/components/cinematic-depth'
 import { MasterOpenCanvas } from '~/components/master-open-canvas'
+import { ScrollContentCanvas } from '~/components/scroll-driven'
 import { getHomepageProjection } from '~/content-graph/projections'
 import type { HomepageProjection } from '~/content-graph/projections'
 import { getTranslation } from '~/i18n/context'
@@ -66,75 +68,113 @@ export default component$(() => {
         class="mb-4"
       />
 
-      {featuredSignals.length > 0 && (
-        <section>
-          <h2 class="text-xl font-bold font-pixel text-bone mb-4 uppercase tracking-wider">
-            Featured Signals
-          </h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {featuredSignals.map(signal => (
-              <a
-                key={signal.node.id}
-                href={signal.href}
-                class="border border-action/20 hover:border-action bg-void/raised rounded-lg p-4 transition-all duration-200 block"
-              >
-                <p class="font-semibold text-bone">{signal.node.title}</p>
-                <p class="text-sm text-bone-muted mt-1 line-clamp-2">{signal.node.summary}</p>
-                <div class="flex gap-3 mt-2 text-xs">
-                  <span class="text-cyan">Q{signal.node.metrics.graphScore.toFixed(0)}</span>
-                  <span class="text-bone-muted uppercase">{signal.node.locale}</span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
+      <ScrollContentCanvas class="my-8">
+        {featuredSignals.length > 0 && (
+          <section class="mb-10">
+            <h2
+              class="text-xl font-bold font-pixel text-paper-text mb-6 uppercase tracking-wider scroll-reveal"
+              data-step="1"
+            >
+              Featured Signals
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredSignals.map((signal, i) => (
+                <a
+                  key={signal.node.id}
+                  href={signal.href}
+                  class="block no-underline scroll-reveal"
+                  data-step={String(i + 2)}
+                >
+                  <CinematicDepthCard variant="card" layer={i % 3}>
+                    <div class="p-5">
+                      <p class="font-semibold text-bone text-base leading-tight">
+                        {signal.node.title}
+                      </p>
+                      <p class="text-sm text-bone/70 mt-2 line-clamp-2 leading-relaxed">
+                        {signal.node.summary}
+                      </p>
+                      <div class="flex gap-3 mt-3 text-xs">
+                        <span class="text-cyan font-mono">
+                          Q{signal.node.metrics.graphScore.toFixed(0)}
+                        </span>
+                        <span class="text-bone/50 uppercase tracking-wider">
+                          {signal.node.locale}
+                        </span>
+                      </div>
+                    </div>
+                  </CinematicDepthCard>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
 
-      {knowledgeClusters.length > 0 && (
-        <section>
-          <h2 class="text-xl font-bold font-pixel text-bone mb-4 uppercase tracking-wider">
-            Knowledge Clusters
-          </h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {knowledgeClusters.map(cluster => (
-              <a
-                key={cluster.nicheSlug}
-                href={cluster.href}
-                class="border border-action/20 hover:border-action bg-void/raised rounded-lg p-4 transition-all duration-200 block"
-              >
-                <p class="font-semibold text-bone">{cluster.label}</p>
-                <p class="text-sm text-bone-muted mt-1">
-                  {cluster.articleCount} signal{cluster.articleCount !== 1 ? 's' : ''} · &empty;
-                  {cluster.avgGraphScore.toFixed(0)}
-                </p>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
+        {knowledgeClusters.length > 0 && (
+          <section class="mb-10">
+            <h2
+              class="text-xl font-bold font-pixel text-paper-text mb-6 uppercase tracking-wider scroll-reveal"
+              data-step="1"
+            >
+              Knowledge Clusters
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {knowledgeClusters.map((cluster, i) => (
+                <a
+                  key={cluster.nicheSlug}
+                  href={cluster.href}
+                  class="block no-underline scroll-reveal"
+                  data-step={String(i + 2)}
+                >
+                  <CinematicDepthCard variant="subtle" layer={i % 2}>
+                    <div class="p-5">
+                      <p class="font-semibold text-bone text-base">{cluster.label}</p>
+                      <p class="text-sm text-bone/70 mt-2">
+                        {cluster.articleCount} signal{cluster.articleCount !== 1 ? 's' : ''} ·
+                        &empty; {cluster.avgGraphScore.toFixed(0)}
+                      </p>
+                    </div>
+                  </CinematicDepthCard>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
 
-      {frontierStreams.length > 0 && (
-        <section>
-          <h2 class="text-xl font-bold font-pixel text-bone mb-4 uppercase tracking-wider">
-            Frontier Streams
-          </h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {frontierStreams.map(stream => (
-              <a
-                key={stream.node.id}
-                href={stream.href}
-                class="border border-action/20 hover:border-action bg-void/raised rounded-lg p-4 transition-all duration-200 block"
-              >
-                <p class="font-semibold text-bone">{stream.node.title}</p>
-                <p class="text-sm text-bone-muted mt-1 line-clamp-2">{stream.node.summary}</p>
-                <p class="text-xs text-bone-muted mt-1">
-                  Freshness: {stream.node.metrics.freshnessScore.toFixed(0)}
-                </p>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
+        {frontierStreams.length > 0 && (
+          <section class="mb-10">
+            <h2
+              class="text-xl font-bold font-pixel text-paper-text mb-6 uppercase tracking-wider scroll-reveal"
+              data-step="1"
+            >
+              Frontier Streams
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {frontierStreams.map((stream, i) => (
+                <a
+                  key={stream.node.id}
+                  href={stream.href}
+                  class="block no-underline scroll-reveal"
+                  data-step={String(i + 2)}
+                >
+                  <CinematicDepthCard variant="card" layer={i % 2}>
+                    <div class="p-5">
+                      <p class="font-semibold text-bone text-base leading-tight">
+                        {stream.node.title}
+                      </p>
+                      <p class="text-sm text-bone/70 mt-2 line-clamp-2 leading-relaxed">
+                        {stream.node.summary}
+                      </p>
+                      <p class="text-xs text-bone/50 mt-2 font-mono">
+                        Freshness: {stream.node.metrics.freshnessScore.toFixed(0)}
+                      </p>
+                    </div>
+                  </CinematicDepthCard>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+      </ScrollContentCanvas>
 
       {featuredSignals.length === 0 &&
         knowledgeClusters.length === 0 &&
