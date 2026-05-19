@@ -3,6 +3,7 @@ import { type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
 import { Footer } from '~/components/footer'
 import { LangSwitcher } from '~/components/lang-switcher'
 import { NavTree } from '~/components/nav-tree'
+import { SidebarScrollGlow } from '~/components/scroll-driven'
 import { Sidebar } from '~/components/sidebar'
 import { SiteShell } from '~/components/site-shell'
 import { getPublicNavigation } from '~/content-graph/projections'
@@ -126,7 +127,9 @@ export default component$(() => {
       <div class="flex min-h-screen">
         {/* Sidebar - JRPG Style (apenas desktop) */}
         <aside class="hidden md:block w-64 flex-shrink-0">
-          <Sidebar navigationItems={sidebarNavSignal.value} />
+          <SidebarScrollGlow>
+            <Sidebar navigationItems={sidebarNavSignal.value} />
+          </SidebarScrollGlow>
         </aside>
 
         {/* Main Content */}

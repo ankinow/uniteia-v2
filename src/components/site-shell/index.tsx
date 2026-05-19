@@ -75,9 +75,6 @@ export const SiteShell = component$<SiteShellProps>(({ isApexHost }) => {
         <main id="main-content" class="site-main flex-1" data-testid="site-main">
           <Slot />
         </main>
-        <footer class="site-footer" data-testid="site-footer">
-          <Slot name="footer" />
-        </footer>
       </div>
     </div>
   )
