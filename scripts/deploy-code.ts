@@ -5,7 +5,7 @@ import { execSync } from 'node:child_process'
 function run(label: string, command: string): void {
   console.log(`\n▶ ${label}`)
   console.log(`  $ ${command}`)
-  execSync(command, { stdio: 'inherit', cwd: import.meta.dirname + '/..' })
+  execSync(command, { stdio: 'inherit', cwd: `${import.meta.dirname}/..` })
 }
 
 function main(): void {

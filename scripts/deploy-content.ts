@@ -7,13 +7,20 @@ import { resolve } from 'node:path'
 function run(label: string, command: string): void {
   console.log(`\n▶ ${label}`)
   console.log(`  $ ${command}`)
-  execSync(command, { stdio: 'inherit', cwd: import.meta.dirname + '/..' })
+  execSync(command, { stdio: 'inherit', cwd: `${import.meta.dirname}/..` })
 }
 
 function visibilityGate(): void {
   console.log('\n▶ visibility-gate: checking no draft nodes leaked to public surfaces')
 
-  const graphPath = resolve(import.meta.dirname, '..', 'src', 'content-graph', 'generated', 'content-graph.json')
+  const graphPath = resolve(
+    import.meta.dirname,
+    '..',
+    'src',
+    'content-graph',
+    'generated',
+    'content-graph.json'
+  )
   if (!existsSync(graphPath)) {
     console.log('  ⚠ content-graph.json not found — was generate:content run?')
     return
@@ -35,18 +42,25 @@ function visibilityGate(): void {
     const inPublicGroup = publicGroupIds.has(node.id)
 
     if (isPublic && !inPublicGroup) {
-      console.log(`  ⚠ [visibility] public node NOT in any public group: ${node.id} (q=${node.qualityScore})`)
+      console.log(
+        `  ⚠ [visibility] public node NOT in any public group: ${node.id} (q=${node.qualityScore})`
+      )
       leaked++
     }
     if (!isPublic && inPublicGroup) {
-      console.log(`  ❌ [visibility] draft/low-quality node IN public group: ${node.id} (visibility=${node.visibility}, q=${node.qualityScore})`)
+      console.log(
+        `  ❌ [visibility] draft/low-quality node IN public group: ${node.id} (visibility=${node.visibility}, q=${node.qualityScore})`
+      )
       leaked++
     }
   }
 
   if (leaked === 0) {
     const total = nodes.length
-    const publicCount = nodes.filter((n: { visibility: string; qualityScore: number }) => n.visibility === 'published' && n.qualityScore >= 95).length
+    const publicCount = nodes.filter(
+      (n: { visibility: string; qualityScore: number }) =>
+        n.visibility === 'published' && n.qualityScore >= 95
+    ).length
     console.log(`  ✅ Gate clean: ${publicCount}/${total} nodes public, 0 leaked`)
   } else {
     console.log(`  ❌ Gate failed: ${leaked} leaked nodes`)
