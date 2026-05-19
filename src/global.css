@@ -717,14 +717,44 @@ a:hover {
   border-radius: inherit;
 }
 
+/* ── Mixed UI Zone: Canvas Light ── */
 .canvas-light {
-  background: #f2f0e9;
-  color: #0f0e0d;
+  --zone-bg: #f2f0e9;
+  --zone-text: #0f0e0d;
+  --zone-text-muted: #3d3a35;
+  --zone-border: #d4d0c7;
+  --zone-accent: #1a6b8a;
+  background: var(--zone-bg);
+  color: var(--zone-text);
 }
 
+/* Zone children: text inherits zone colors for WCAG AA (17:1 on #f2f0e9) */
+.canvas-light h1,
+.canvas-light h2,
+.canvas-light h3,
+.canvas-light h4,
+.canvas-light h5,
+.canvas-light h6,
+.canvas-light p,
+.canvas-light li,
+.canvas-light label {
+  color: var(--zone-text);
+}
+
+/* Muted text on light canvas: #8b949e has only ~2.8:1 — override to dark warm gray */
+.canvas-light .text-bone-muted {
+  color: var(--zone-text-muted);
+}
+
+/* ── Mixed UI Zone: Interface Dark ── */
 .interface-dark {
-  background: #0f0e0d;
-  color: #f2f0e9;
+  --zone-dark-bg: #0f0e0d;
+  --zone-dark-text: #f2f0e9;
+  --zone-dark-text-muted: #8b949e;
+  --zone-dark-border: rgba(255, 255, 255, 0.08);
+  --zone-dark-accent: var(--cyan);
+  background: var(--zone-dark-bg);
+  color: var(--zone-dark-text);
 }
 
 /* Mixed UI: glass glow sutil em links compactos */
