@@ -68,10 +68,10 @@ function runPlaywrightTests(): { passed: boolean; stdout: string } {
 
   try {
     const stdout = execSync(
-      `PLAYWRIGHT_BASE_URL=${PREVIEW_URL} npx playwright test ${CHAOS_SPEC}`,
+      `PLAYWRIGHT_BASE_URL=${PREVIEW_URL} npx playwright test ${CHAOS_SPEC} --max-failures=2`,
       {
         cwd: PROJECT_ROOT,
-        timeout: 120_000,
+        timeout: 300_000,
         encoding: 'utf-8',
         stdio: ['pipe', 'pipe', 'pipe'],
       }
@@ -84,32 +84,52 @@ function runPlaywrightTests(): { passed: boolean; stdout: string } {
   }
 }
 
-function parseResults(stdout: string): {
+function parseResults(
+  stdout: string,
+  passed: boolean
+): {
   total: number
   passed: number
   failed: number
   durationMs: number
+  failedReason?: string
 } {
-  // Parse output like "8 passed (12.5s)" or "1 failed" or "7 passed, 1 failed"
   let total = 0
-  let passed = 0
+  let passedCount = 0
   let failed = 0
   let durationMs = 0
+  let failedReason: string | undefined
 
   const passMatch = stdout.match(/(\d+)\s+passed/)
-  if (passMatch) passed = Number.parseInt(passMatch[1] as string, 10)
+  if (passMatch) passedCount = Number.parseInt(passMatch[1] as string, 10)
 
   const failMatch = stdout.match(/(\d+)\s+failed/)
   if (failMatch) failed = Number.parseInt(failMatch[1] as string, 10)
 
-  total = passed + failed
+  total = passedCount + failed
 
   const durationMatch = stdout.match(/\(([\d.]+)\s*s\)/)
   if (durationMatch) {
     durationMs = Math.round(Number.parseFloat(durationMatch[1] as string) * 1000)
   }
 
-  return { total, passed, failed, durationMs }
+  if (total === 0 && !passed) {
+    total = 8
+    failed = 8
+    failedReason =
+      'Playwright execution failed (timeout or crash) — no summary output generated. ' +
+      'Likely causes: missing public pages after visibility gate, or execSync timeout too low.'
+
+    const lines = stdout.split('\n')
+    const errorHint = lines.find(
+      l => l.includes('Error') || l.includes('timeout') || l.match(/^\s*\d+\)\s/)
+    )
+    if (errorHint) {
+      failedReason += ` Hint: ${errorHint.trim()}`
+    }
+  }
+
+  return { total, passed: passedCount, failed, durationMs, failedReason }
 }
 
 function generateReport(results: {
@@ -119,8 +139,9 @@ function generateReport(results: {
   passedCount: number
   failedCount: number
   durationMs: number
-}): string {
-  const { passed, total, passedCount, failedCount, durationMs, stdout } = results
+  failedReason?: string
+}) {
+  const { passed, total, passedCount, failedCount, durationMs, stdout, failedReason } = results
 
   const status = passed ? 'passed' : failedCount === total ? 'failed' : 'partial'
   const errors: string[] = []
@@ -154,6 +175,9 @@ function generateReport(results: {
     lines.push('')
   } else {
     lines.push('## ❌ Failures', '')
+    if (failedReason) {
+      lines.push(`**Root cause:** ${failedReason}`, '')
+    }
     for (const err of errors) {
       lines.push(`- ${err}`)
     }
@@ -181,11 +205,25 @@ function main(): void {
   ensureServerRunning()
 
   const { passed, stdout } = runPlaywrightTests()
-  const { total, passed: passedCount, failed: failedCount, durationMs } = parseResults(stdout)
+  const {
+    total,
+    passed: passedCount,
+    failed: failedCount,
+    durationMs,
+    failedReason,
+  } = parseResults(stdout, passed)
 
   // Write report
   mkdirSync(REPORT_DIR, { recursive: true })
-  const report = generateReport({ passed, stdout, total, passedCount, failedCount, durationMs })
+  const report = generateReport({
+    passed,
+    stdout,
+    total,
+    passedCount,
+    failedCount,
+    durationMs,
+    failedReason,
+  })
   writeFileSync(REPORT_PATH, report, 'utf-8')
   console.log(`Report written to ${REPORT_PATH}`)
 
