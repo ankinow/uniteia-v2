@@ -11,21 +11,22 @@ UniTeia-v2 é o **palco visual premium** do ecossistema UniTeia. Não é fábric
 
 ---
 
-## Direção Visual · Mirror-Chameleon Knowledge Interface
+## Direção Visual · Mirror-Chameleon + UE5 Illusion + Mixed UI
 
 ```yaml
 aesthetic_mix:
   editorial_collage:          30%  # torn textures, stickers, cutouts, scrapbook
-  hyper_tactile_material:     25%  # glass, 2.5D, PBR fake, microtexture
-  dopamine_microinteractions: 15%  # badges, pills, whispers, reward moments
-  retrofuture_y2k:            12%  # pixel hints, neon, chrome, sci-fi editorial
-  neo_brutal_controlled:      10%  # 90° corners, strong borders, anti-SaaS
-  handdraw_sketchnote:         8%  # SVG hand-drawn arrows, circles, annotations
+  hyper_tactile_material:     25%  # glass 2.5D, PBR fake, microtexture, UE5 illusion
+  scroll_driven_narrative:    15%  # @scroll-timeline parallax, velocity glow, cinematic sequence
+  dopamine_microinteractions: 12%  # badges, pills, whispers, reward moments
+  mixed_ui_zones:             10%  # canvas-light (#f2f0e9) content + interface-dark (#0f0e0d) controls
+  neo_brutal_controlled:       5%  # 90° corners, strong borders (with rounded exceptions for mixed-UI)
+  handdraw_sketchnote:         3%  # SVG hand-drawn arrows, circles, annotations
 ```
 
-**Princípio Mirror-Chameleon:** o design espelha o assunto, público e contexto — cada tipo de página recebe um estilo derivado dos tokens canônicos sem quebrar a identidade geral.
+**Fase atual:** 3 — Scroll-Driven Narrative aplicada. Visual DNA em 8.3/10 SOTA (up from 2.5/10).
 
-Fórmula: `Σ($ROUTE + $LANG + $CONTENT_TYPE) → ⊕(tokens + collage + material) → λ(layout) → ♻️(a11y/link/perf)`
+Fórmula: `Σ($ROUTE + $LANG + $CONTENT_TYPE) → ⊕(tokens + collage + material + scroll) → λ(layout) → ♻️(a11y/link/perf)`
 
 ---
 
@@ -195,6 +196,23 @@ bun run preview
 | `docs/design/experience-storyboard.schema.yaml` | Jornada visual em 6 estágios |
 | `docs/design/anti-gap-checklist.yaml` | Checklist de qualidade não-negociável |
 | `docs/design/visual-verification-plan.md` | Plano operacional de verificação |
+
+---
+
+## Skills (para agentes)
+
+| Skill | Escopo | Como carregar |
+|---|---|---|
+| `uniteia-frontend-design-system` | Design system, frontend, UX/UI | `skill_view(name='uniteia-frontend-design-system')` |
+| `uniteia-core` | Master activator (11 skills) | `skill_view(name='uniteia-core')` |
+| `web-platform-design-review` | Revisão de design | `skill_view(name='web-platform-design-review')` |
+
+---
+
+## Licença
+
+MIT — aberto, colaborativo, feito para aprender e ensinar.
+ `docs/design/visual-verification-plan.md` | Plano operacional de verificação |
 
 ---
 

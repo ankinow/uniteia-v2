@@ -6,9 +6,9 @@ symbol: Σ
 status: active
 version: 1.0.0
 created_at: 2026-05-11
-updated_at: 2026-05-17
+updated_at: 2026-05-19
 source_of_truth: true
-depends_on: [CTX-V2-ROOT-01]
+depends_on: [CTX-V2-ROOT-01, CTX-V2-VISUAL-02]
 hash: SELF
 ---
 
@@ -92,6 +92,13 @@ hash: SELF
 |---|---|
 | context docs | git diff --check; secret scan; git status --short |
 | source change | vitest; tsc --noEmit; bun run build |
+| bridge/import | vitest content-package + content-import |
+| roundtrip | factory export → v2 validate → import → render |
+
+## 6. Recovery
+
+Read: docs/context/SESSION-RECOVERY.md
+st; tsc --noEmit; bun run build |
 | bridge/import | vitest content-package + content-import |
 | roundtrip | factory export → v2 validate → import → render |
 

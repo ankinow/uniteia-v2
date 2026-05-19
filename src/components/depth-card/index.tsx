@@ -29,6 +29,20 @@ const getGlassClass = (depth: DepthVariant | DepthPlane, glass?: boolean): strin
 }
 
 /**
+ * Returns ue5-illusion and glass-2-5d classes when the card has depth or glass active
+ * (Σ LOAD refinement — zero API break).
+ */
+const getVisualUpgradeClass = (
+  depth: DepthVariant | DepthPlane,
+  depth2d5?: 'back' | 'base' | 'front' | 'floating',
+  glass?: boolean
+): string | null => {
+  const hasDepth =
+    depth2d5 || depth === 'glass-heavy' || depth === 'glass-light' || glass || depth === 'glass'
+  return hasDepth ? 'ue5-illusion glass-2-5d' : null
+}
+
+/**
  * Builds inline style for 2.5D depth effect (perspective + translateZ + scale + shadow).
  */
 const build2D5Style = (level: 'back' | 'base' | 'front' | 'floating'): Record<string, string> => {
@@ -63,6 +77,7 @@ export const DepthCard = component$<DepthSurfaceProps>(
       'depth-surface',
       'depth-card',
       getGlassClass(depth, glass),
+      getVisualUpgradeClass(depth, depth2d5, glass),
     ]
 
     // Compute data-depth for CSS targeting (backward compatible)

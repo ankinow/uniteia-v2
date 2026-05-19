@@ -1,9 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import { CinematicDepthCard } from '~/components/cinematic-depth'
-import { DepthCard } from '~/components/depth-card'
 import { DepthSection } from '~/components/depth-section'
 import { DopamineCard } from '~/components/dopamine-card'
-import { VisualDNAIntegrator } from '~/components/visual-dna-integrator'
 import { useI18n } from '~/i18n/context'
 import { nicheIndex } from '~/routing/routes'
 import { getLucideIconClass } from '~/utils/icon-classes'
@@ -31,10 +29,10 @@ export const NicheLanding = component$<NicheLandingProps>(
     return (
       <div
         data-testid={`niche-landing-${niche.slug}`}
-        class={['max-w-4xl mx-auto px-4 py-8 grid-signal', classList]}
+        class={['max-w-4xl mx-auto px-4 py-8 space-y-10', classList]}
       >
         {/* Niche header — CinematicDepthCard with hero variant for 2.5D glass depth */}
-        <DepthSection as="div" depth="front" class="mb-10">
+        <DepthSection as="div" depth="front" class="mb-2">
           <CinematicDepthCard variant="hero" class="w-full">
             <div class="p-6 md:p-8">
               <div class="flex items-center gap-4 mb-4">
@@ -50,47 +48,48 @@ export const NicheLanding = component$<NicheLandingProps>(
           </CinematicDepthCard>
         </DepthSection>
 
-        {/* Article list area — VisualDNAIntegrator for editorial collage depth treatment */}
-        <DepthSection
-          depth="mid"
-          class="mb-12 transition-all duration-300 ease-warm"
-          aria-label={t.niche.topicsLabel}
-        >
-          <VisualDNAIntegrator variant="editorial-collage" class="w-full">
-            <DepthCard depth="mid" class="p-6 md:p-8">
-              <h2 class="text-xl font-semibold text-bone mb-4 font-display">
-                {t.niche.articleCount.replace('{count}', localizedArticles.length.toString())}
-              </h2>
-              {localizedArticles.length > 0 ? (
-                <div class="grid grid-cols-1 gap-4">
-                  {localizedArticles.map(article => (
-                    <DopamineCard
-                      key={article.slug}
-                      title={article.title}
-                      description={article.summary ?? ''}
-                      href={`/${lang}/signals/${niche.slugs[lang]}/${article.slug}`}
-                      lang={lang}
-                      data-testid="article-card"
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div
-                  class="border border-dashed border-action/20 rounded-lg p-8 text-center text-bone-muted"
-                  data-testid="niche-articles-placeholder"
-                >
-                  <p>{t.niche.exploreNiche.replace('{niche}', niche.title[lang])}</p>
-                </div>
-              )}
-            </DepthCard>
-          </VisualDNAIntegrator>
-        </DepthSection>
+        {/* Article list — canvas-light + grain + ue5-illusion (mixed UI: light content) */}
+        <section class="canvas-light ue5-illusion relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k">
+          <div class="paper-fiber" />
+          <div class="relative z-10">
+            <h2 class="text-2xl font-display tracking-[-1px] text-paper-text mb-6">
+              {t.niche.articleCount.replace('{count}', localizedArticles.length.toString())}
+            </h2>
+            {localizedArticles.length > 0 ? (
+              <div class="grid grid-cols-1 gap-4">
+                {localizedArticles.map(article => (
+                  <DopamineCard
+                    key={article.slug}
+                    title={article.title}
+                    description={article.summary ?? ''}
+                    href={`/${lang}/signals/${niche.slugs[lang]}/${article.slug}`}
+                    lang={lang}
+                    data-testid="article-card"
+                  />
+                ))}
+              </div>
+            ) : (
+              <div
+                class="border border-dashed border-paper-border rounded-lg p-8 text-center text-paper-text/60"
+                data-testid="niche-articles-placeholder"
+              >
+                <p>{t.niche.exploreNiche.replace('{niche}', niche.title[lang])}</p>
+              </div>
+            )}
+          </div>
+        </section>
 
-        {/* Related niches grid — using DopamineCard for richer engagement */}
+        {/* Related niches — canvas-light + grain (mixed UI continuity) */}
         {otherNiches.length > 0 && (
-          <DepthSection depth="back" aria-label={t.niche.allNiches}>
-            <DepthCard depth="back" class="p-6 md:p-8">
-              <h2 class="text-xl font-semibold text-bone mb-4 font-display">{t.niche.allNiches}</h2>
+          <section
+            class="canvas-light ue5-illusion relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k"
+            aria-label={t.niche.allNiches}
+          >
+            <div class="paper-fiber" />
+            <div class="relative z-10">
+              <h2 class="text-2xl font-display tracking-[-1px] text-paper-text mb-6">
+                {t.niche.allNiches}
+              </h2>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {otherNiches.map(related => (
                   <DopamineCard
@@ -103,8 +102,8 @@ export const NicheLanding = component$<NicheLandingProps>(
                   />
                 ))}
               </div>
-            </DepthCard>
-          </DepthSection>
+            </div>
+          </section>
         )}
       </div>
     )

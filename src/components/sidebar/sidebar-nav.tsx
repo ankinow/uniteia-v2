@@ -19,6 +19,15 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
         <a
           href={signalsIndex(lang)}
           class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-all duration-200 font-pixel text-xs uppercase tracking-wider"
+          style="text-shadow: none"
+          onMouseEnter$={e => {
+            const el = e.target as HTMLElement
+            el.style.textShadow = '0 0 8px rgba(100, 220, 255, 0.6)'
+          }}
+          onMouseLeave$={e => {
+            const el = e.target as HTMLElement
+            el.style.textShadow = 'none'
+          }}
         >
           {t.nav.home}
         </a>
@@ -27,6 +36,15 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
         <a
           href={signalsIndex(lang)}
           class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-all duration-200 font-pixel text-xs uppercase tracking-wider"
+          style="text-shadow: none"
+          onMouseEnter$={e => {
+            const el = e.target as HTMLElement
+            el.style.textShadow = '0 0 8px rgba(100, 220, 255, 0.6)'
+          }}
+          onMouseLeave$={e => {
+            const el = e.target as HTMLElement
+            el.style.textShadow = 'none'
+          }}
         >
           {t.nav.topics}
         </a>
@@ -35,6 +53,15 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
         <a
           href={searchPage(lang)}
           class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-all duration-200 font-pixel text-xs uppercase tracking-wider"
+          style="text-shadow: none"
+          onMouseEnter$={e => {
+            const el = e.target as HTMLElement
+            el.style.textShadow = '0 0 8px rgba(100, 220, 255, 0.6)'
+          }}
+          onMouseLeave$={e => {
+            const el = e.target as HTMLElement
+            el.style.textShadow = 'none'
+          }}
         >
           Search
         </a>
@@ -46,6 +73,15 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
             expanded.value = !expanded.value
           }}
           class="pixel-cursor block w-full text-left py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-all duration-200 font-pixel text-xs uppercase tracking-wider"
+          style="text-shadow: none"
+          onMouseEnter$={e => {
+            const el = e.target as HTMLElement
+            el.style.textShadow = '0 0 8px rgba(100, 220, 255, 0.6)'
+          }}
+          onMouseLeave$={e => {
+            const el = e.target as HTMLElement
+            el.style.textShadow = 'none'
+          }}
         >
           Niches {expanded.value ? '▼' : '▶'}
         </button>

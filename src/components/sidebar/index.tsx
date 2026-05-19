@@ -10,7 +10,7 @@ export interface SidebarProps {
 
 export const Sidebar = component$<SidebarProps>(({ navigationItems }) => {
   return (
-    <aside class="w-64 h-screen sticky top-0 glass-light border-r-4 border-cyan/30 relative overflow-y-auto surface-hud">
+    <aside class="interface-dark w-64 h-screen sticky top-0 glass-light border-r-4 border-cyan/30 relative overflow-y-auto surface-hud rounded-2xl border border-white/10">
       {/* Scanlines overlay */}
       <div class="scanlines absolute inset-0 pointer-events-none" />
 
@@ -21,8 +21,13 @@ export const Sidebar = component$<SidebarProps>(({ navigationItems }) => {
         </div>
       </div>
 
+      {/* Label: Interface Compacta */}
+      <div class="text-xs uppercase tracking-[1px] opacity-60 mb-0 px-4 pt-3">
+        Interface Compacta
+      </div>
+
       {/* Navigation */}
-      <nav class="p-4">
+      <nav class="p-4 pt-1">
         <SidebarNav navigationItems={navigationItems} />
       </nav>
 

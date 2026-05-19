@@ -103,11 +103,13 @@ cd apps/web && npm run dev               # Astro dev server
 
 ## Active Milestone Context
 - **M010 — Graph-Native Stabilization**: Complete rewrite of the content compilation and routing layer to fully rely on the in-memory content graph. Enforces quality visibility gates, i18n symmetry, and localized link generation. Spec exists at `src/content-graph/SPEC.md`.
-- **M011 — Visual DNA Renaissance** (functionally complete): Tailwind v4 Oxide, OKLCH palette, tactile warmth (grain-4k + paper-fiber), 2.5D header with WAAPI tilt, organic anti-grid layout, visual regression gate. 8.3/10 SOTA. Post-M011 re-evaluation at `docs/reference/post-m011-sota-reevaluation.md`.
-- **M012 — MasterOpenCanvas** (active): Interactive sketchnote decision surface. Reuses VisualDNAIntegrator + DecisionMap + DepthSection. Component at `src/components/master-open-canvas/`, wired into homepage hero.
+- **M011 — Visual DNA Renaissance** (✅ complete): Tailwind v4 Oxide, OKLCH palette, tactile warmth (grain-4k + paper-fiber), 2.5D header with WAAPI tilt, organic anti-grid layout, visual regression gate. 8.3/10 SOTA. Post-M011 re-evaluation at `docs/reference/post-m011-sota-reevaluation.md`.
+- **M012 — MasterOpenCanvas + Mixed UI + Scroll-Driven** (🔄 active): Interactive sketchnote decision surface + mixed UI directive (light canvas content + dark compact interfaces) + UE5 illusion + glass-2-5d + scroll-driven narrative (@scroll-timeline parallax, velocity detection, cinematic sequence). S01 (CSS foundations) ✅, S02 (MasterOpenCanvas component) ✅, S03 (Homepage integration + Ship Gate) ⏳ pending. Components: `src/components/master-open-canvas/`, `src/components/scroll-driven/`, `src/components/topic-card/`, `src/components/depth-card/`.
 
-## Active JIT Skills (2026-05-18)
+## Active JIT Skills (2026-05-19)
 - **VisualDNAIntegrator_v2026_05** — Editorial Collage + Signal Grid + 2.5D depth (3 variants)
 - **MasterOpenCanvas_v2026_05** — sketchnote decision flows → M012 bleeding-edge canvas
 - **DecisionMap_v2026_05** — organic branching decision tree (sketchnote/signal/minimal)
+- **ScrollDrivenNarrative_v2026_05** — @scroll-timeline parallax + velocity + cinematic sequence (Fase 3)
+- **MixedUI_v2026_05** — canvas-light/dark-compact zones + UE5 illusion + tactile warmth
 - **JIT Mutant Compiler ativo** (GraphRAG + MCP)
