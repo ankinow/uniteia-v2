@@ -27,6 +27,6 @@ export default defineConfig({
     command: 'DOMAIN=http://localhost:8788 bun run build && bun run preview:cf',
     url: 'http://localhost:8788',
     reuseExistingServer: true,
-    timeout: 120_000,
+    timeout: 180_000,
   },
 })
