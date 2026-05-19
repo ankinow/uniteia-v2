@@ -1,6 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
 import { NicheCard } from '~/components/niche-card'
+import { ScrollDepthCardEnhancer } from '~/components/scroll-driven'
 import { useI18n } from '~/i18n/context'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 import { canonicalUrl, signalsIndex, xdefaultUrl } from '~/routing/routes'
@@ -61,7 +62,11 @@ export default component$(() => {
             const isHero = index === 0
             const isDouble = index > 0 && index % 3 === 0
             const cardSize = isHero ? 'hero' : isDouble ? 'hero' : 'medium'
-            return <NicheCard key={niche.slug} niche={niche} lang={lang} size={cardSize} />
+            return (
+              <ScrollDepthCardEnhancer key={niche.slug}>
+                <NicheCard niche={niche} lang={lang} size={cardSize} />
+              </ScrollDepthCardEnhancer>
+            )
           })}
         </div>
       ) : (

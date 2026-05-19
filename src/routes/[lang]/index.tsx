@@ -2,7 +2,11 @@ import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
 import { CinematicDepthCard } from '~/components/cinematic-depth'
 import { MasterOpenCanvas } from '~/components/master-open-canvas'
-import { ScrollContentCanvas } from '~/components/scroll-driven'
+import {
+  ScrollContentCanvas,
+  ScrollDepthCardEnhancer,
+  ScrollHeroOrganism,
+} from '~/components/scroll-driven'
 import { getHomepageProjection } from '~/content-graph/projections'
 import type { HomepageProjection } from '~/content-graph/projections'
 import { getTranslation } from '~/i18n/context'
@@ -33,29 +37,62 @@ export default component$(() => {
 
   return (
     <div class="space-y-12 p-6 md:p-8 mx-auto max-w-4xl">
-      {/* M012: MasterOpenCanvas — sketchnote hero */}
-      <MasterOpenCanvas
-        title="UniTeia Network State"
-        decisionNodes={(() => {
-          const clusterNodes = knowledgeClusters.map(c => ({
-            id: c.nicheSlug,
-            label: c.label,
-            outcome: `${c.articleCount} signals · Q${c.avgGraphScore.toFixed(0)}`,
-          }))
-          const rootNode = {
-            id: 'signal-intake',
-            label: 'Signal Intake',
-            outcome: `${featuredSignals.length + frontierStreams.length} signals curated across ${clusterNodes.length} niches`,
-            children: clusterNodes.length > 0 ? clusterNodes : undefined,
-          }
-          const deliveryNode = {
-            id: 'delivery',
-            label: 'Delivery Layer',
-            outcome: `${SUPPORTED_LANGUAGES.length}-locale CF Pages · sitemap · search index`,
-          }
-          return [rootNode, deliveryNode]
-        })()}
-        class="mb-4"
+      {/* M012 S07: ScrollHeroOrganism — 5-layer parallax hero */}
+      <ScrollHeroOrganism
+        layers={[
+          {
+            content: (
+              <div class="absolute inset-0 bg-gradient-to-b from-void via-void/60 to-void" />
+            ),
+            speed: 0.15,
+          },
+          {
+            content: (
+              <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(100,220,255,0.05),transparent_70%)]" />
+            ),
+            speed: 0.3,
+          },
+          {
+            content: <div class="absolute inset-0 grain-4k opacity-25" />,
+            speed: 0.6,
+          },
+          {
+            content: (
+              <MasterOpenCanvas
+                title="UniTeia Network State"
+                decisionNodes={(() => {
+                  const clusterNodes = knowledgeClusters.map(c => ({
+                    id: c.nicheSlug,
+                    label: c.label,
+                    outcome: `${c.articleCount} signals · Q${c.avgGraphScore.toFixed(0)}`,
+                  }))
+                  const rootNode = {
+                    id: 'signal-intake',
+                    label: 'Signal Intake',
+                    outcome: `${featuredSignals.length + frontierStreams.length} signals curated across ${clusterNodes.length} niches`,
+                    children: clusterNodes.length > 0 ? clusterNodes : undefined,
+                  }
+                  const deliveryNode = {
+                    id: 'delivery',
+                    label: 'Delivery Layer',
+                    outcome: `${SUPPORTED_LANGUAGES.length}-locale CF Pages · sitemap · search index`,
+                  }
+                  return [rootNode, deliveryNode]
+                })()}
+                class="mb-4"
+              />
+            ),
+            speed: 1.0,
+          },
+          {
+            content: (
+              <div class="absolute bottom-12 left-0 right-0 text-center text-sm tracking-[0.3em] uppercase text-bone/25">
+                UniTeia Network State
+              </div>
+            ),
+            speed: 1.5,
+          },
+        ]}
       />
 
       <ScrollContentCanvas class="my-8">
@@ -75,24 +112,26 @@ export default component$(() => {
                   class="block no-underline scroll-reveal"
                   data-step={String(i + 2)}
                 >
-                  <CinematicDepthCard variant="card" layer={i % 3}>
-                    <div class="p-5">
-                      <p class="font-semibold text-bone text-base leading-tight">
-                        {signal.node.title}
-                      </p>
-                      <p class="text-sm text-bone/70 mt-2 line-clamp-2 leading-relaxed">
-                        {signal.node.summary}
-                      </p>
-                      <div class="flex gap-3 mt-3 text-xs">
-                        <span class="text-cyan font-mono">
-                          Q{signal.node.metrics.graphScore.toFixed(0)}
-                        </span>
-                        <span class="text-bone/50 uppercase tracking-wider">
-                          {signal.node.locale}
-                        </span>
+                  <ScrollDepthCardEnhancer>
+                    <CinematicDepthCard variant="card" layer={i % 3}>
+                      <div class="p-5">
+                        <p class="font-semibold text-bone text-base leading-tight">
+                          {signal.node.title}
+                        </p>
+                        <p class="text-sm text-bone/70 mt-2 line-clamp-2 leading-relaxed">
+                          {signal.node.summary}
+                        </p>
+                        <div class="flex gap-3 mt-3 text-xs">
+                          <span class="text-cyan font-mono">
+                            Q{signal.node.metrics.graphScore.toFixed(0)}
+                          </span>
+                          <span class="text-bone/50 uppercase tracking-wider">
+                            {signal.node.locale}
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  </CinematicDepthCard>
+                    </CinematicDepthCard>
+                  </ScrollDepthCardEnhancer>
                 </a>
               ))}
             </div>
@@ -115,15 +154,17 @@ export default component$(() => {
                   class="block no-underline scroll-reveal"
                   data-step={String(i + 2)}
                 >
-                  <CinematicDepthCard variant="subtle" layer={i % 2}>
-                    <div class="p-5">
-                      <p class="font-semibold text-bone text-base">{cluster.label}</p>
-                      <p class="text-sm text-bone/70 mt-2">
-                        {cluster.articleCount} signal{cluster.articleCount !== 1 ? 's' : ''} ·
-                        &empty; {cluster.avgGraphScore.toFixed(0)}
-                      </p>
-                    </div>
-                  </CinematicDepthCard>
+                  <ScrollDepthCardEnhancer>
+                    <CinematicDepthCard variant="subtle" layer={i % 2}>
+                      <div class="p-5">
+                        <p class="font-semibold text-bone text-base">{cluster.label}</p>
+                        <p class="text-sm text-bone/70 mt-2">
+                          {cluster.articleCount} signal{cluster.articleCount !== 1 ? 's' : ''} ·
+                          &empty; {cluster.avgGraphScore.toFixed(0)}
+                        </p>
+                      </div>
+                    </CinematicDepthCard>
+                  </ScrollDepthCardEnhancer>
                 </a>
               ))}
             </div>
@@ -146,19 +187,21 @@ export default component$(() => {
                   class="block no-underline scroll-reveal"
                   data-step={String(i + 2)}
                 >
-                  <CinematicDepthCard variant="card" layer={i % 2}>
-                    <div class="p-5">
-                      <p class="font-semibold text-bone text-base leading-tight">
-                        {stream.node.title}
-                      </p>
-                      <p class="text-sm text-bone/70 mt-2 line-clamp-2 leading-relaxed">
-                        {stream.node.summary}
-                      </p>
-                      <p class="text-xs text-bone/50 mt-2 font-mono">
-                        Freshness: {stream.node.metrics.freshnessScore.toFixed(0)}
-                      </p>
-                    </div>
-                  </CinematicDepthCard>
+                  <ScrollDepthCardEnhancer>
+                    <CinematicDepthCard variant="card" layer={i % 2}>
+                      <div class="p-5">
+                        <p class="font-semibold text-bone text-base leading-tight">
+                          {stream.node.title}
+                        </p>
+                        <p class="text-sm text-bone/70 mt-2 line-clamp-2 leading-relaxed">
+                          {stream.node.summary}
+                        </p>
+                        <p class="text-xs text-bone/50 mt-2 font-mono">
+                          Freshness: {stream.node.metrics.freshnessScore.toFixed(0)}
+                        </p>
+                      </div>
+                    </CinematicDepthCard>
+                  </ScrollDepthCardEnhancer>
                 </a>
               ))}
             </div>
