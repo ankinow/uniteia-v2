@@ -58,12 +58,18 @@ export const SiteShell = component$<SiteShellProps>(({ isApexHost }) => {
     >
       <SvgFilters />
       {/* M011 S02: Tactile Warmth — grain 4K + paper fiber overlays */}
-      <div class="grain-4k fixed inset-0 pointer-events-none z-0" aria-hidden="true" />
-      <div class="paper-fiber fixed inset-0 pointer-events-none z-0" aria-hidden="true" />
+      <div
+        class="grain-4k fixed inset-0 pointer-events-none z-[var(--z-surface)]"
+        aria-hidden="true"
+      />
+      <div
+        class="paper-fiber fixed inset-0 pointer-events-none z-[var(--z-surface)]"
+        aria-hidden="true"
+      />
       <div class="relative z-[1] flex flex-col min-h-screen">
         <a
           href="#main-content"
-          class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-action focus:text-void focus:rounded"
+          class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[var(--z-overlay)] focus:px-4 focus:py-2 focus:bg-action focus:text-void focus:rounded"
         >
           Skip to main content
         </a>

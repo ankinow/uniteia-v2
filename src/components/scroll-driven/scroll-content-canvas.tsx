@@ -40,7 +40,7 @@ export const ScrollContentCanvas = component$<ScrollContentCanvasProps>(({ class
       {/* Corkboard micro-dots */}
       <div class="corkboard-layer" data-intensity="medium" />
 
-      <div class="relative z-10">
+      <div class="relative z-[var(--z-raised)]">
         <Slot />
       </div>
     </section>

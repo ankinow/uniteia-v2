@@ -73,7 +73,7 @@ export const SiteHeader2D5 = component$(() => {
       >
         {/* Micro grain layer at 3% */}
         <div
-          class="grain-4k absolute inset-0 pointer-events-none z-0"
+          class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
           style={{ opacity: '0.03' }}
           aria-hidden="true"
         />

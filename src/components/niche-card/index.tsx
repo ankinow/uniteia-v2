@@ -38,6 +38,7 @@ export const NicheCard = component$<NicheCardProps>(
         href={href}
         data-testid={`niche-card-${niche.slug}`}
         data-size={size}
+        data-surface="niche-card"
         class={[
           'niche-card glassmorphism-2 group block relative overflow-hidden rounded-2xl',
           'transition-all duration-300 hover:-translate-y-0.5',
@@ -52,7 +53,7 @@ export const NicheCard = component$<NicheCardProps>(
         <div class="absolute inset-0 bg-[radial-gradient(#ffffff08_0.5px,transparent_1px)] bg-[length:3px_3px] opacity-50 pointer-events-none" />
         {/* UE5 glow edge on hover */}
         <div class="absolute bottom-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-[var(--color-cyan)]/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
-        <div class="relative z-10 flex items-start gap-3">
+        <div class="relative z-[var(--z-raised)] flex items-start gap-3">
           {iconClass && (
             <div
               class={[iconClass, size === 'compact' ? 'text-lg' : 'text-xl', 'text-cyan shrink-0']}

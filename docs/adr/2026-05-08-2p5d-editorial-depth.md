@@ -23,6 +23,33 @@ The codebase also has only 3 niches in `config/niches.yaml`, so virtualization, 
 - The pilot surface gains hierarchy with no new dependencies.
 - The implementation stays easy to remove or extend because the wrappers are focused and the CSS is global.
 
+## CSS Mapping (S03: Depth Syntax Normalization)
+
+The 4 semantic depth levels are implemented via CSS custom properties in `src/global.css:173-177`:
+
+| Level | Token | z-index | Purpose |
+|-------|-------|---------|---------|
+| surface | `--z-surface` | 0 | Background textures (grain-4k, paper-fiber) |
+| raised | `--z-raised` | 10 | Content cards, sections, wrappers |
+| pressed | `--z-pressed` | 20 | Interactive active state, hover lift (.depth-raised:hover) |
+| floating | `--z-floating` | 30 | Overlays, tooltips, floating dropdown panels |
+| overlay | `--z-overlay` | 50 | Modals, skip-links, accessibility overlays |
+
+### Depth Surface Mapping (`.depth-surface[data-depth]`)
+
+| data-depth | z-index | Accent | Visual Role |
+|-----------|---------|--------|-------------|
+| front | `var(--z-raised)` | cyan | Foreground surface — highest emphasis |
+| mid | 1 | vine | Middle ground — moderate emphasis |
+| back | `var(--z-surface)` | bronze | Background surface — lowest emphasis |
+
+### Components Using Semantic Depth
+
+Components reference tokens via Tailwind arbitrary values (`z-[var(--z-raised)]`):
+- `SiteHeader2D5`, `ScrollContentCanvas`, `SidebarScrollGlow`, `NicheLanding`, `TopicCard`, `NicheCard`, `CinematicDepthCard`, `LangSwitcher`
+- Background overlays use `z-[var(--z-surface)]`: grain-4k, paper-fiber
+- `data-surface` attributes propagated to NicheCard (`niche-card`), ArticleFrame (`article-frame`), DepthCard, DepthSection
+
 ## Verification
 
 - `bun run typecheck`

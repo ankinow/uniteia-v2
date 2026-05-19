@@ -46,7 +46,7 @@ export const SidebarScrollGlow = component$<SidebarScrollGlowProps>(({ class: cl
           `,
         }}
       />
-      <div class="relative z-10">
+      <div class="relative z-[var(--z-raised)]">
         <Slot />
       </div>
     </div>

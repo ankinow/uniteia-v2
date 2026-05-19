@@ -117,7 +117,7 @@ export const CinematicDepthCard = component$<CinematicDepthCardProps>(
         {/* Layer 1 + 2 — Content + texture */}
         <div
           ref={cardRef}
-          class="glassmorphism-2 depth-surface relative preserve-3d cursor-pointer"
+          class="glassmorphism-2 depth-surface depth-raised relative preserve-3d cursor-pointer"
           style={{
             transform: `translateZ(${cfg.translateZ + layer}px)`,
             transformStyle: 'preserve-3d',
@@ -126,7 +126,7 @@ export const CinematicDepthCard = component$<CinematicDepthCardProps>(
         >
           {/* Layer 2 — Grain overlay */}
           <div
-            class="grain-4k absolute inset-0 pointer-events-none z-0"
+            class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
             style={{ opacity: cfg.grainOpacity }}
             aria-hidden="true"
           />

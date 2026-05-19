@@ -19,12 +19,12 @@ export const TopicCard = component$<TopicCardProps>(
     const content = (
       <article
         class={[
-          'ue5-illusion glassmorphism-2 group glass-2-5d relative overflow-hidden rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1 hover:rotate-[0.4deg]',
+          'ue5-illusion depth-raised glassmorphism-2 group glass-2-5d relative overflow-hidden rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1 hover:rotate-[0.4deg]',
           classList,
         ]}
         style={{ perspective: '1400px' }}
       >
-        <div class="relative z-10">
+        <div class="relative z-[var(--z-raised)]">
           <h3 class="font-display text-3xl md:text-4xl tracking-[-2px] text-bone mb-4">{title}</h3>
           <p class="text-[15.5px] text-zinc-300 leading-relaxed">{summary}</p>
         </div>

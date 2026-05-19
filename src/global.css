@@ -169,6 +169,13 @@
   --perspective-2d5: 800px;
   --perspective-dramatic: 1000px;
 
+  /* S03: Semantic Depth z-index (matches ADR 4-level depth system) */
+  --z-surface: 0; /* background, grain, paper */
+  --z-raised: 10; /* content cards, sections */
+  --z-pressed: 20; /* interactive active, hover lift */
+  --z-floating: 30; /* overlays, tooltips, dropdown panels */
+  --z-overlay: 50; /* modals, skip-links */
+
   /* Paper */
   --paper-bg: #e8ddc8;
   --paper-text: #2c2416;
@@ -452,6 +459,7 @@ a:hover {
     --depth-accent: var(--cyan);
     --depth-shadow: 0 18px 42px rgb(0 0 0 / 0.34);
     --depth-lift: -1px;
+    z-index: var(--z-raised);
     border-color: color-mix(in srgb, var(--cyan) 24%, transparent);
     box-shadow: var(--depth-shadow);
   }
@@ -459,6 +467,7 @@ a:hover {
   .depth-surface[data-depth="mid"] {
     --depth-accent: var(--vine);
     --depth-shadow: 0 12px 28px rgb(0 0 0 / 0.24);
+    z-index: 1;
     border-color: color-mix(in srgb, var(--vine) 20%, transparent);
     box-shadow: var(--depth-shadow);
   }
@@ -466,9 +475,16 @@ a:hover {
   .depth-surface[data-depth="back"] {
     --depth-accent: var(--bronze);
     --depth-shadow: 0 8px 20px rgb(0 0 0 / 0.18);
+    z-index: var(--z-surface);
     border-color: color-mix(in srgb, var(--bronze) 18%, transparent);
     box-shadow: var(--depth-shadow);
     opacity: 0.98;
+  }
+
+  /* S03: Depth press — lift card into pressed layer on hover/active */
+  .depth-raised:hover,
+  .depth-raised[data-active="true"] {
+    z-index: var(--z-pressed);
   }
 
   .depth-section,
@@ -542,7 +558,7 @@ a:hover {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: 0;
+    z-index: var(--z-surface);
     opacity: 0.035;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
     background-repeat: repeat;
@@ -554,7 +570,7 @@ a:hover {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: 0;
+    z-index: var(--z-surface);
     opacity: 0.06;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
@@ -567,7 +583,7 @@ a:hover {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: 0;
+    z-index: var(--z-surface);
     opacity: 0.08;
     mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04 0.15' numOctaves='3' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
@@ -608,7 +624,7 @@ a:hover {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: 0;
+    z-index: var(--z-surface);
     opacity: 0.08;
     background-image: radial-gradient(#c4b99e 0.6px, transparent 0.6px);
     background-size: 6px 6px;
@@ -627,7 +643,7 @@ a:hover {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: 0;
+    z-index: var(--z-surface);
     opacity: 0.12;
     mix-blend-mode: multiply;
     background-image: radial-gradient(ellipse at 20% 50%, rgba(0 0 0 / 0.08) 0%, transparent 50%),
@@ -659,7 +675,7 @@ a:hover {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: 0;
+    z-index: var(--z-surface);
     background-image: radial-gradient(#c4b99e 0.6px, transparent 0.6px);
     background-size: 6px 6px;
     opacity: 0.08;
@@ -722,8 +738,8 @@ a:hover {
   --zone-bg: #f2f0e9;
   --zone-text: #0f0e0d;
   --zone-text-muted: #3d3a35;
-  --zone-border: #d4d0c7;   /* design token — available for child components */
-  --zone-accent: #1a6b8a;   /* design token — available for child components */
+  --zone-border: #d4d0c7; /* design token — available for child components */
+  --zone-accent: #1a6b8a; /* design token — available for child components */
   background: var(--zone-bg);
   color: var(--zone-text);
 }
@@ -752,7 +768,7 @@ a:hover {
   --zone-dark-text: #f2f0e9;
   --zone-dark-text-muted: #8b949e;
   --zone-dark-border: rgba(255, 255, 255, 0.08); /* design token — available for child components */
-  --zone-dark-accent: var(--cyan);                /* design token — available for child components */
+  --zone-dark-accent: var(--cyan); /* design token — available for child components */
   background: var(--zone-dark-bg);
   color: var(--zone-dark-text);
 }
@@ -775,8 +791,6 @@ a:hover {
 .ue5-illusion.rounded-3xl {
   border-radius: 1.5rem !important;
 }
-
-
 
 /* ═══════════════════════════════════════════
    FASE 3 — Scroll-Driven Narrative (UE5 Illusion em Movimento)

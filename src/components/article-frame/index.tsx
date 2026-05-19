@@ -12,6 +12,7 @@ export const ArticleFrame = component$<ArticleFrameProps>(props => {
   return (
     <article
       data-testid="article-frame"
+      data-surface="article-frame"
       class={[
         'article-frame',
         'mx-auto w-full max-w-prose',
