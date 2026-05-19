@@ -3,27 +3,21 @@ import { getLucideIconClass } from '~/utils/icon-classes'
 import { getNicheSlug } from '~/utils/niche-loader'
 import type { NicheCardProps, NicheCardSize } from './types'
 
-const SIZE_STYLES: Record<
-  NicheCardSize,
-  { wrapper: string; title: string; padding: string; glass: boolean }
-> = {
+const SIZE_STYLES: Record<NicheCardSize, { wrapper: string; title: string; padding: string }> = {
   hero: {
     wrapper: 'col-span-2',
-    title: 'text-xl font-display font-semibold',
+    title: 'text-xl md:text-2xl font-display font-semibold',
     padding: 'p-6',
-    glass: true,
   },
   medium: {
     wrapper: 'col-span-1',
-    title: 'text-base font-display font-semibold',
+    title: 'text-base md:text-lg font-display font-semibold',
     padding: 'p-4',
-    glass: false,
   },
   compact: {
     wrapper: 'col-span-1',
-    title: 'text-sm font-display font-medium',
+    title: 'text-sm md:text-base font-display font-medium',
     padding: 'p-3',
-    glass: false,
   },
 }
 
@@ -48,16 +42,24 @@ export const NicheCard = component$<NicheCardProps>(
         data-testid={`niche-card-${niche.slug}`}
         data-size={size}
         class={[
-          'niche-card block border border-action/20 hover:border-action transition-all duration-300 ease-warm bg-void/raised',
+          'niche-card group block relative overflow-hidden rounded-2xl border border-white/10',
+          'bg-zinc-950/60 backdrop-blur-xl',
+          'transition-all duration-300 hover:-translate-y-0.5',
+          'hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]',
+          'hover:border-white/20',
           styles.padding,
-          size === 'hero' ? 'glass-heavy sm:col-span-2' : 'col-span-1',
+          size === 'hero' ? 'sm:col-span-2' : 'col-span-1',
           classList,
         ]}
       >
-        <div class="flex items-start gap-3">
+        {/* Grain overlay */}
+        <div class="absolute inset-0 bg-[radial-gradient(#ffffff08_0.5px,transparent_1px)] bg-[length:3px_3px] opacity-50 pointer-events-none" />
+        {/* UE5 glow edge on hover */}
+        <div class="absolute bottom-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-[var(--color-cyan)]/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
+        <div class="relative z-10 flex items-start gap-3">
           {iconClass && (
             <div
-              class={[iconClass, size === 'compact' ? 'text-lg' : 'text-xl']}
+              class={[iconClass, size === 'compact' ? 'text-lg' : 'text-xl', 'text-cyan shrink-0']}
               aria-hidden="true"
             />
           )}
