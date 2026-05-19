@@ -7,7 +7,7 @@
  */
 import { Slot, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 
-export type CinematicVariant = 'card' | 'hero' | 'subtle'
+export type CinematicVariant = 'card' | 'hero' | 'subtle' | 'collage-editorial'
 
 export interface CinematicDepthCardProps {
   /** Visual intensity tier */
@@ -39,6 +39,12 @@ const VARIANT_CONFIG: Record<
     grainOpacity: '0.02',
     shadow: '0 8px 20px rgb(0 0 0 / 0.20)',
     translateZ: 0,
+  },
+  'collage-editorial': {
+    tiltMax: 12,
+    grainOpacity: '0.05',
+    shadow: '0 20px 48px rgb(0 0 0 / 0.30)',
+    translateZ: 15,
   },
 }
 
@@ -100,8 +106,15 @@ export const CinematicDepthCard = component$<CinematicDepthCardProps>(
 
     return (
       <div
-        class={['perspective-dramatic relative', className]}
-        style={{ perspectiveOrigin: 'center center' }}
+        class={[
+          'perspective-dramatic relative',
+          variant === 'collage-editorial' && '-mx-1 -my-1',
+          className,
+        ]}
+        style={{
+          perspectiveOrigin: 'center center',
+          ...(variant === 'collage-editorial' ? { overflow: 'visible' } : {}),
+        }}
       >
         {/* Layer 0 — Shadow plane */}
         <div
@@ -131,8 +144,25 @@ export const CinematicDepthCard = component$<CinematicDepthCardProps>(
             aria-hidden="true"
           />
 
+          {variant === 'collage-editorial' && (
+            <>
+              {/* Scrapbook layer */}
+              <div class="scrapbook-layer" aria-hidden="true">
+                <span class="corkboard-layer" />
+                <div class="paper-fiber" />
+                <div class="ink-effect" data-intensity="medium" />
+              </div>
+
+              {/* Clip-path diagonal overlay */}
+              <div class="clip-diagonal-a" aria-hidden="true" />
+
+              {/* HUD label */}
+              <div class="collage-hud">EDITORIAL</div>
+            </>
+          )}
+
           {/* Content */}
-          <div class="relative z-[1]">
+          <div class={['relative z-[1]', variant === 'collage-editorial' && 'ink-annotations']}>
             <Slot />
           </div>
         </div>

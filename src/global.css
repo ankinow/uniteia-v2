@@ -708,6 +708,91 @@ a:hover {
       6 0, crosshair;
   }
 
+  /* ── M012 S09: Collage-Editorial Variant (CinematicDepthCard) ── */
+
+  /* Scrapbook: layered corkboard + paper + ink, slight rotation offset */
+  .scrapbook-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: var(--z-surface);
+    overflow: hidden;
+  }
+
+  .scrapbook-layer .corkboard-layer {
+    position: absolute;
+    inset: 0;
+  }
+
+  .scrapbook-layer .paper-fiber {
+    position: absolute;
+    inset: 0;
+  }
+
+  .scrapbook-layer .ink-effect {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* Dadaist clip-path diagonal overlays */
+  .clip-diagonal-a {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: calc(var(--z-surface) + 1);
+    clip-path: polygon(85% 0, 100% 15%, 100% 100%, 0 100%, 0 0);
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--cyan) 6%, transparent),
+      transparent 70%
+    );
+  }
+
+  .clip-diagonal-b {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: calc(var(--z-surface) + 1);
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 15% 100%, 0 100%);
+    background: linear-gradient(
+      315deg,
+      color-mix(in srgb, var(--cyan) 6%, transparent),
+      transparent 70%
+    );
+  }
+
+  /* Ink annotations: wavy underlines on links, irregular border-left on blockquotes */
+  .ink-annotations a {
+    text-decoration: underline wavy var(--cyan);
+    text-underline-offset: 3px;
+  }
+
+  .ink-annotations blockquote {
+    border-left: 3px solid color-mix(in srgb, var(--cyan) 30%, transparent);
+    margin-left: 0;
+    padding-left: 1rem;
+    font-style: italic;
+  }
+
+  /* Collage HUD: rotated mono label, top-right */
+  .collage-hud {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: calc(var(--z-floating));
+    transform: rotate(-2deg);
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    background: color-mix(in srgb, var(--void) 85%, transparent);
+    padding: 0.2rem 0.5rem;
+    border: 1px solid color-mix(in srgb, var(--cyan) 20%, transparent);
+    pointer-events: none;
+  }
+
   /* ── Reduced Motion ── */
   @media (prefers-reduced-motion: reduce) {
     .depth-surface {
