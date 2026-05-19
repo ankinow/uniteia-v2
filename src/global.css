@@ -722,8 +722,8 @@ a:hover {
   --zone-bg: #f2f0e9;
   --zone-text: #0f0e0d;
   --zone-text-muted: #3d3a35;
-  --zone-border: #d4d0c7;
-  --zone-accent: #1a6b8a;
+  --zone-border: #d4d0c7;   /* design token — available for child components */
+  --zone-accent: #1a6b8a;   /* design token — available for child components */
   background: var(--zone-bg);
   color: var(--zone-text);
 }
@@ -751,8 +751,8 @@ a:hover {
   --zone-dark-bg: #0f0e0d;
   --zone-dark-text: #f2f0e9;
   --zone-dark-text-muted: #8b949e;
-  --zone-dark-border: rgba(255, 255, 255, 0.08);
-  --zone-dark-accent: var(--cyan);
+  --zone-dark-border: rgba(255, 255, 255, 0.08); /* design token — available for child components */
+  --zone-dark-accent: var(--cyan);                /* design token — available for child components */
   background: var(--zone-dark-bg);
   color: var(--zone-dark-text);
 }
@@ -776,10 +776,7 @@ a:hover {
   border-radius: 1.5rem !important;
 }
 
-.glass-2-5d.rounded-3xl,
-.glass-2-5d.rounded-3xl * {
-  border-radius: 1.5rem !important;
-}
+
 
 /* ═══════════════════════════════════════════
    FASE 3 — Scroll-Driven Narrative (UE5 Illusion em Movimento)
