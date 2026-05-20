@@ -517,12 +517,24 @@ a:hover {
       ), color-mix(in srgb, var(--void) 88%, transparent);
   }
 
-  /* ── Glass Morphism (M011: glassmorphism-2) ── */
+  /* ── Glass Morphism (consolidated: 3 variants) ── */
   .glass {
     background: var(--glass-bg);
     border: var(--glass-border);
     border-color: color-mix(in srgb, var(--cyan) 10%, transparent);
     backdrop-filter: blur(var(--glass-blur));
+  }
+
+  /* Deep blur modifier (replaces .glassmorphism-2) */
+  .glass[data-blur="lg"] {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--raised) 20%, transparent),
+      color-mix(in srgb, var(--void) 60%, transparent)
+    );
+    border: 1px solid color-mix(in srgb, var(--cyan) 12%, transparent);
+    backdrop-filter: blur(var(--glass-blur-lg));
+    box-shadow: 0 4px 24px rgb(0 0 0 / 0.3), var(--pbr-metalness);
   }
 
   .glass-light {
@@ -535,16 +547,14 @@ a:hover {
     backdrop-filter: blur(var(--glass-blur-sm));
   }
 
-  /* M011: Glassmorphism 2.0 — deeper blur + directional shadow + semi-transparent bg */
-  .glassmorphism-2 {
-    background: linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--raised) 20%, transparent),
-      color-mix(in srgb, var(--void) 60%, transparent)
-    );
-    border: 1px solid color-mix(in srgb, var(--cyan) 12%, transparent);
-    backdrop-filter: blur(var(--glass-blur-lg));
-    box-shadow: 0 4px 24px rgb(0 0 0 / 0.3), var(--pbr-metalness);
+  /* 2.5D glass: uses tokens + saturate modifier */
+  .glass-2-5d {
+    --glass-saturate: 180%;
+    background: var(--color-glass);
+    backdrop-filter: blur(var(--glass-blur-lg)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur-lg)) saturate(var(--glass-saturate));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 60px -15px rgb(0 0 0 / 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
   }
 
   /* ── Signal Grid ── */
@@ -885,209 +895,4 @@ a:hover {
 .glass-2-5d,
 .ue5-illusion.rounded-3xl {
   border-radius: 1.5rem;
-}
-
-/* ═══════════════════════════════════════════
-   FASE 3 — Scroll-Driven Narrative (UE5 Illusion em Movimento)
-   CSS-first @scroll-timeline + velocity + parallax + cinematic sequence
-   ═══════════════════════════════════════════ */
-
-/* ── Named scroll timelines ── */
-.scroll-narrative-root {
-  scroll-timeline-name: --narrative;
-  scroll-timeline-axis: block;
-}
-
-.scroll-content-root {
-  scroll-timeline-name: --content;
-  scroll-timeline-axis: block;
-}
-
-/* ── Parallax layers (5 planos, translateZ + scroll speeds) ── */
-.parallax-layer {
-  --parallax-speed: 1;
-  animation: parallax-drift linear both;
-  animation-timeline: --narrative;
-  animation-range: entry 0% exit 100%;
-}
-
-.parallax-layer[data-speed="0.2"] {
-  --parallax-speed: 0.2;
-}
-.parallax-layer[data-speed="0.4"] {
-  --parallax-speed: 0.4;
-}
-.parallax-layer[data-speed="0.6"] {
-  --parallax-speed: 0.6;
-}
-.parallax-layer[data-speed="0.8"] {
-  --parallax-speed: 0.8;
-}
-.parallax-layer[data-speed="1.2"] {
-  --parallax-speed: 1.2;
-}
-
-@keyframes parallax-drift {
-  to {
-    transform: translateY(calc(var(--parallax-speed) * -120px));
-  }
-}
-
-/* ── Scroll-driven narrative sequence (hero → content → cards → CTA) ── */
-.scroll-reveal {
-  --reveal-delay: 0;
-  animation: reveal-up linear both;
-  animation-timeline: view();
-  animation-range: entry calc(var(--reveal-delay) * 1%) entry calc(20% + var(--reveal-delay) * 1%);
-}
-
-.scroll-reveal[data-step="1"] {
-  --reveal-delay: 0;
-}
-.scroll-reveal[data-step="2"] {
-  --reveal-delay: 5;
-}
-.scroll-reveal[data-step="3"] {
-  --reveal-delay: 10;
-}
-.scroll-reveal[data-step="4"] {
-  --reveal-delay: 15;
-}
-
-@keyframes reveal-up {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.97);
-    filter: blur(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-}
-
-/* ── Velocity detection glow (intensifica no scroll rápido via CSS) ── */
-.velocity-glow {
-  animation: velocity-pulse linear both;
-  animation-timeline: --narrative;
-  animation-range: entry 0% exit 100%;
-}
-
-@keyframes velocity-pulse {
-  0% {
-    box-shadow: 0 0 0px rgba(100, 220, 255, 0);
-  }
-  30% {
-    box-shadow: 0 0 20px rgba(100, 220, 255, 0.15);
-  }
-  60% {
-    box-shadow: 0 0 40px rgba(100, 220, 255, 0.25);
-  }
-  100% {
-    box-shadow: 0 0 8px rgba(100, 220, 255, 0.1);
-  }
-}
-
-/* ── Grain intensifica com scroll ── */
-.grain-scroll-aware {
-  animation: grain-intensify linear both;
-  animation-timeline: --content;
-  animation-range: entry 0% exit 100%;
-}
-
-@keyframes grain-intensify {
-  from {
-    opacity: 0.04;
-  }
-  to {
-    opacity: 0.12;
-  }
-}
-
-/* ── Depth card: foliage growth + neural glow on scroll ── */
-.card-scroll-depth {
-  animation: card-depth-grow linear both;
-  animation-timeline: view();
-  animation-range: entry 0% entry 60%;
-}
-
-@keyframes card-depth-grow {
-  from {
-    transform: translateY(24px) scale(0.96);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  }
-  to {
-    transform: translateY(0) scale(1);
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(100, 220, 255, 0.1);
-  }
-}
-
-/* ── Sidebar scanline + glow progressivo ── */
-.sidebar-scroll-glow {
-  animation: sidebar-glow-progress linear both;
-  animation-timeline: --narrative;
-  animation-range: entry 0% exit 100%;
-}
-
-@keyframes sidebar-glow-progress {
-  0% {
-    border-color: rgba(100, 220, 255, 0.08);
-  }
-  50% {
-    border-color: rgba(100, 220, 255, 0.22);
-    box-shadow: inset 0 0 30px rgba(100, 220, 255, 0.04);
-  }
-  100% {
-    border-color: rgba(100, 220, 255, 0.14);
-    box-shadow: inset 0 0 15px rgba(100, 220, 255, 0.02);
-  }
-}
-
-/* ── LivingCharacterMini: acordam no scroll ── */
-.living-character-wake {
-  animation: character-wake linear both;
-  animation-timeline: view();
-  animation-range: entry 10% entry 50%;
-}
-
-@keyframes character-wake {
-  from {
-    opacity: 0.1;
-    transform: translateY(12px) rotate(-2deg);
-    filter: blur(3px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) rotate(0deg);
-    filter: blur(0);
-  }
-}
-
-/* ── Reduced motion: overrides para acessibilidade ── */
-@media (prefers-reduced-motion: reduce) {
-  .parallax-layer,
-  .scroll-reveal,
-  .velocity-glow,
-  .grain-scroll-aware,
-  .card-scroll-depth,
-  .sidebar-scroll-glow,
-  .living-character-wake {
-    animation: none !important;
-  }
-
-  .parallax-layer {
-    transform: none !important;
-  }
-
-  .scroll-reveal {
-    opacity: 1;
-    transform: none;
-    filter: none;
-  }
-
-  .card-scroll-depth {
-    transform: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
 }

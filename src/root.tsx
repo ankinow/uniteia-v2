@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik'
+import { component$, useVisibleTask$ } from '@builder.io/qwik'
 import { QwikCityProvider, RouterOutlet, ServiceWorkerRegister } from '@builder.io/qwik-city'
 import { RouterHead } from '~/components/router-head'
 import './global.css'
@@ -6,11 +6,25 @@ import './global.css'
 /**
  * UniTeia Root Component
  * Optimized for Core Web Vitals:
- * - Font preconnect for faster external font loading
+ * - Font preconnect for faster LCP
  * - Critical resource hints to reduce LCP
  * - CLS-prevention via font-display strategy in CSS
+ * - Scroll-driven CSS loaded deferred (non-critical, below-fold)
  */
 export default component$(() => {
+  // Deferred load of scroll-driven CSS (non-critical, below-fold animations)
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
+    const link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.href = '/scroll-driven.css'
+    link.media = 'print'
+    link.onload = () => {
+      link.media = 'all'
+    }
+    document.head.appendChild(link)
+  })
+
   return (
     <QwikCityProvider>
       <head>

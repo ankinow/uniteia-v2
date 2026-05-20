@@ -77,7 +77,7 @@ export const DepthCard = component$<DepthSurfaceProps>(
       'depth-card',
       visualUpgrade ? null : getGlassClass(depth, glass),
       visualUpgrade,
-      visualUpgrade ? 'glassmorphism-2' : null,
+      visualUpgrade ? 'glass' : null,
     ]
 
     // Compute data-depth for CSS targeting (backward compatible)
@@ -91,6 +91,7 @@ export const DepthCard = component$<DepthSurfaceProps>(
       ...attrs,
       'data-surface': 'depth-card',
       'data-depth': dataDepth,
+      ...(visualUpgrade ? { 'data-blur': 'lg' } : {}),
       class: [classes, classList],
       style: style2d5,
     }

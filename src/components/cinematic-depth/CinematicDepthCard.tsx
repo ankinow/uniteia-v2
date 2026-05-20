@@ -1,7 +1,7 @@
 /**
  * CinematicDepthCard v2026 — JIT Skill Mutant D002
  * 2.5D Neo-Realistic depth card with WAAPI spring tilt,
- * glassmorphism-2, grain-4k texture, and sharp directional shadows.
+ * glass[data-blur="lg"], grain-4k texture, and sharp directional shadows.
  *
  * Composable unit — replaces flat depth-card across all surfaces.
  */
@@ -52,7 +52,7 @@ const VARIANT_CONFIG: Record<
  * CinematicDepthCard — 2.5D Perspective Card
  *
  * Architecture (front-to-back):
- *  Layer 2 (front): Grain-4k texture + glassmorphism-2 border
+ *  Layer 2 (front): Grain-4k texture + glass border
  *  Layer 1 (content): Card body with content via slot
  *  Layer 0 (back): Directional shadow plane
  *
@@ -135,7 +135,8 @@ export const CinematicDepthCard = component$<CinematicDepthCardProps>(
         {/* Layer 1 + 2 — Content + texture */}
         <div
           ref={cardRef}
-          class="glassmorphism-2 depth-surface depth-raised relative preserve-3d cursor-pointer"
+          class="glass depth-surface depth-raised relative preserve-3d cursor-pointer"
+          data-blur="lg"
           style={{
             transform: `translateZ(${cfg.translateZ + layer}px)`,
             transformStyle: 'preserve-3d',

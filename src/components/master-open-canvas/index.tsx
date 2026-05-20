@@ -8,7 +8,7 @@
  *
  * Architecture (front-to-back):
  *   Layer 0 (back):   Shadow plane (rich only, translateZ(-10px) scale(0.96))
- *   Layer 1 (middle): Content card — glassmorphism-2 + depth-surface
+ *   Layer 1 (middle): Content card — glass[data-blur="lg"] + depth-surface
  *     - Corkboard texture span (medium/rich) with data-intensity
  *     - Paper real texture span (medium/rich)
  *     - Grain 4K overlay (all variants, variant opacity)
@@ -193,7 +193,8 @@ export const MasterOpenCanvas = component$<MasterOpenCanvasProps>(
         {/* Layer 1 — Content card */}
         <div
           ref={cardRef}
-          class="glassmorphism-2 depth-surface relative preserve-3d"
+          class="glass depth-surface relative preserve-3d"
+          data-blur="lg"
           style={{
             transformStyle: 'preserve-3d',
             willChange: 'transform',

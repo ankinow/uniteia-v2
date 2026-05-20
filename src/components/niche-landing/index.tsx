@@ -51,7 +51,10 @@ export const NicheLanding = component$<NicheLandingProps>(
 
         {/* Article list — canvas-light + grain + ue5-illusion (mixed UI: light content) */}
         <ErrorBoundary label="Article Grid">
-          <section class="canvas-light ue5-illusion glassmorphism-2 relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k">
+          <section
+            class="canvas-light ue5-illusion glass relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k"
+            data-blur="lg"
+          >
             <div class="paper-fiber" aria-hidden="true" />
             <div class="relative z-[var(--z-raised)]">
               <h2 class="text-2xl font-display tracking-[-1px] text-paper-text mb-6">
@@ -88,7 +91,8 @@ export const NicheLanding = component$<NicheLandingProps>(
         <ErrorBoundary label="Related Niches">
           {otherNiches.length > 0 && (
             <section
-              class="canvas-light ue5-illusion glassmorphism-2 relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k"
+              class="canvas-light ue5-illusion glass relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k"
+              data-blur="lg"
               aria-label={t.niche.allNiches}
             >
               <div class="paper-fiber" aria-hidden="true" />

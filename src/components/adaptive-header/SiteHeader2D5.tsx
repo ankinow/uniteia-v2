@@ -65,7 +65,8 @@ export const SiteHeader2D5 = component$(() => {
       {/* Header content at translateZ(20px) */}
       <div
         ref={wrapperRef}
-        class="glassmorphism-2 relative preserve-3d"
+        class="glass relative preserve-3d"
+        data-blur="lg"
         style={{
           transform: 'translateZ(20px)',
           transformStyle: 'preserve-3d',
