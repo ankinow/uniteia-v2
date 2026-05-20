@@ -240,7 +240,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  border-radius: 0 !important; /* Corners 90° non-negotiable */
+  border-radius: 0; /* Brutalist default — override per surface */
 }
 
 html {
@@ -892,14 +892,13 @@ a:hover {
   text-shadow: 0 0 8px color-mix(in srgb, var(--cyan) 60%, transparent);
 }
 
-/* ══ Brutalism override: permitir rounded nas zonas mixed-UI + glass-2-5d ══ */
+/* ══ Mixed-UI zones — rounded corners without !important war ══ */
 .canvas-light,
 .canvas-light *,
 .interface-dark,
 .glass-2-5d,
-.glass-2-5d *,
 .ue5-illusion.rounded-3xl {
-  border-radius: 1.5rem !important;
+  border-radius: 1.5rem;
 }
 
 /* ═══════════════════════════════════════════
