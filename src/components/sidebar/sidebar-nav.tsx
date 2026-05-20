@@ -72,6 +72,8 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
           onClick$={() => {
             expanded.value = !expanded.value
           }}
+          aria-expanded={expanded.value}
+          aria-controls="sidebar-niches-list"
           class="pixel-cursor block w-full text-left py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider"
           style="text-shadow: none"
           onMouseEnter$={e => {
@@ -86,7 +88,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
           Niches {expanded.value ? '▼' : '▶'}
         </button>
         {expanded.value && (
-          <ul class="ml-4 mt-2 space-y-1">
+          <ul id="sidebar-niches-list" class="ml-4 mt-2 space-y-1">
             {navigationItems.map(item => (
               <li key={item.nicheSlug}>
                 <a href={item.href} class="block py-1 px-3 text-bone-muted hover:text-cyan text-xs">
