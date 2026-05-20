@@ -1,3 +1,4 @@
+import { CONTENT_GRAPH_SCHEMA_VERSION } from '@uniteia/content-node-contract'
 import { describe, expect, it } from 'vitest'
 import { importPackage } from '../content-import/import-package'
 import { mapLayout } from '../content-import/map-layout'
@@ -391,5 +392,11 @@ describe('map-layout', () => {
     }
     const result = mapLayout(manifest)
     expect(result).toBeNull()
+  })
+})
+
+describe('contract version gate', () => {
+  it('CONTENT_GRAPH_SCHEMA_VERSION matches v2 expected version', () => {
+    expect(CONTENT_GRAPH_SCHEMA_VERSION).toBe('content-graph.v1')
   })
 })

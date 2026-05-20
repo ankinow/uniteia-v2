@@ -1,11 +1,24 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs'
-import { contentNodeSchema } from '@uniteia/content-node-contract'
+import {
+  CONTENT_GRAPH_SCHEMA_VERSION,
+  contentNodeSchema,
+  requireCurrentVersion,
+} from '@uniteia/content-node-contract'
 import { validateBlocks } from '../content-contracts/blocks.schema'
 import { validateDesign } from '../content-contracts/design.schema'
 import { type Manifest, validateManifest } from '../content-contracts/manifest.schema'
 import { validateQuality } from '../content-contracts/quality.schema'
 import { validateTags } from '../content-contracts/tags.schema'
 import { getAllowedBlockKinds, getForbiddenBlocks, hasLayout } from '../layouts/registry'
+
+/**
+ * Contract version gate — ensures the factory's content graph contract
+ * matches what v2 expects. If the factory ships a different version,
+ * this fails immediately with a clear error.
+ */
+function assertContractVersion(): void {
+  requireCurrentVersion(CONTENT_GRAPH_SCHEMA_VERSION)
+}
 
 export interface PackageValidationIssue {
   path: string
@@ -20,6 +33,9 @@ export interface PackageValidationResult {
 }
 
 export function validatePackage(packageDir: string): PackageValidationResult {
+  // Contract version gate — fail fast if factory ships a different version
+  assertContractVersion()
+
   const issues: PackageValidationIssue[] = []
   const path = packageDir
 
