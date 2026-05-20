@@ -17,17 +17,7 @@ import { getNicheSlug, loadNichesConfig } from '~/utils/niche-loader'
 export const onRequest: RequestHandler = async event => {
   const { onLanguageNegotiation } = await import('~/i18n/middleware')
   await onLanguageNegotiation(event)
-
-  // Set security headers
-  event.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload')
-  event.headers.set('X-Frame-Options', 'DENY')
-  event.headers.set('X-Content-Type-Options', 'nosniff')
-  event.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
-  event.headers.set(
-    'Permissions-Policy',
-    'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()'
-  )
-  // CSP is set in functions/[[route]].ts — single source of truth
+  // Security headers applied at edge only (functions/[[route]].ts + _headers)
 }
 
 export const useLanguage = routeLoader$<SupportedLanguage>(({ headers }) => {

@@ -1,17 +1,17 @@
+import { LOCALE_CODES, type SupportedLocale } from '../edge/contract.v1'
+import { parseAcceptLanguage } from '../edge/parse-accept-language'
 import { countryToLang } from '../i18n/geo-map'
-import { parseAcceptLanguage } from '../i18n/middleware'
-import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '../i18n/types'
 
-const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
+const VALID_LANG_CODES = new Set<string>(LOCALE_CODES)
 
 export function chooseNicheFallbackLocale(
   acceptLanguage: string | null,
   countryCode: string | null = null,
   cookieLang: string | null = null
-): SupportedLanguage {
+): SupportedLocale {
   // 1. Check for language cookie first
   if (cookieLang && VALID_LANG_CODES.has(cookieLang)) {
-    return cookieLang as SupportedLanguage
+    return cookieLang as SupportedLocale
   }
 
   // 2. Try CF-IPCountry (edge signal)

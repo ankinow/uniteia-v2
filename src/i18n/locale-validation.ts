@@ -1,15 +1,6 @@
-import type { SupportedLanguage } from './types'
+import { LOCALE_CODES, type SupportedLocale } from '../edge/contract.v1'
 
-export const SUPPORTED_LOCALES: SupportedLanguage[] = [
-  'en',
-  'pt',
-  'es',
-  'fr',
-  'de',
-  'it',
-  'ja',
-  'zh',
-]
+export const SUPPORTED_LOCALES: SupportedLocale[] = [...LOCALE_CODES]
 
 /**
  * Extract the first path segment from a URL pathname
@@ -22,8 +13,8 @@ export function extractLocale(pathname: string): string | null {
 /**
  * Check if a locale string is a supported language code
  */
-export function isValidLocale(locale: string): locale is SupportedLanguage {
-  return SUPPORTED_LOCALES.includes(locale as SupportedLanguage)
+export function isValidLocale(locale: string): locale is SupportedLocale {
+  return SUPPORTED_LOCALES.includes(locale as SupportedLocale)
 }
 
 /**
@@ -32,7 +23,7 @@ export function isValidLocale(locale: string): locale is SupportedLanguage {
  * Returns the locale if valid, null if invalid
  */
 export function validateLocalePath(pathname: string): {
-  locale: SupportedLanguage | null
+  locale: SupportedLocale | null
   isValid: boolean
   originalSegment: string | null
 } {

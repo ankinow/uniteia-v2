@@ -1,72 +1,22 @@
 import type { RequestHandler } from '@builder.io/qwik-city'
+import {
+  DEFAULT_LOCALE,
+  EDGE_HEADERS,
+  LANGUAGE_COOKIE_NAME,
+  LOCALE_CODES,
+  type SupportedLocale,
+} from '../edge/contract.v1'
+import { parseAcceptLanguage } from '../edge/parse-accept-language'
 import { parseHost } from '../utils/host-parser'
 import { countryToLang } from './geo-map'
-import {
-  DEFAULT_LANGUAGE,
-  LANGUAGE_COOKIE_NAME,
-  SUPPORTED_LANGUAGES,
-  type SupportedLanguage,
-} from './types'
 
-/**
- * Parse Accept-Language header and extract preferred language
- * Returns the first matching supported language or null
- */
-export function parseAcceptLanguage(header: string | null): SupportedLanguage | null {
-  if (!header) return null
-
-  // Parse Accept-Language: en-US,en;q=0.9,pt-BR;q=0.8,pt;q=0.7
-  const languages = header
-    .split(',')
-    .map(langEntry => {
-      const parts = langEntry.trim().split(';')
-      const code = parts[0] ?? ''
-      const qValue = parts[1] ?? 'q=1'
-      const quality = Number.parseFloat(qValue.split('=')[1] ?? '1')
-      return { code: code.trim().toLowerCase(), quality }
-    })
-    .sort((a, b) => b.quality - a.quality)
-
-  // Try to match supported languages
-  for (const { code } of languages) {
-    // Exact match: 'en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'
-    if (
-      code === 'en' ||
-      code === 'pt' ||
-      code === 'es' ||
-      code === 'fr' ||
-      code === 'de' ||
-      code === 'it' ||
-      code === 'ja' ||
-      code === 'zh'
-    ) {
-      return code as SupportedLanguage
-    }
-
-    // Locale match
-    const baseLang = code.split('-')[0]
-    if (
-      baseLang === 'en' ||
-      baseLang === 'pt' ||
-      baseLang === 'es' ||
-      baseLang === 'fr' ||
-      baseLang === 'de' ||
-      baseLang === 'it' ||
-      baseLang === 'ja' ||
-      baseLang === 'zh'
-    ) {
-      return baseLang as SupportedLanguage
-    }
-  }
-
-  return null
-}
+const LOCALE_SET = new Set<SupportedLocale>(LOCALE_CODES)
 
 /**
  * Validate if a string is a supported language code
  */
-function isValidLanguage(lang: string | null | undefined): lang is SupportedLanguage {
-  return !!lang && SUPPORTED_LANGUAGES.some(l => l.code === lang)
+function isValidLanguage(lang: string | null | undefined): lang is SupportedLocale {
+  return lang != null && LOCALE_SET.has(lang as SupportedLocale)
 }
 
 /**
@@ -93,7 +43,7 @@ export const onLanguageNegotiation: RequestHandler = ({ request, cookie, url, he
   const { niche } = parseHost(host)
 
   // --- Language Negotiation ---
-  let negotiatedLang: SupportedLanguage = DEFAULT_LANGUAGE
+  let negotiatedLang: SupportedLocale = DEFAULT_LOCALE
   let negotiationSource = 'default'
 
   const pathSegments = url.pathname.split('/').filter(Boolean)
@@ -133,17 +83,17 @@ export const onLanguageNegotiation: RequestHandler = ({ request, cookie, url, he
   }
 
   // Store in headers for downstream use
-  headers.set('x-negotiated-lang', negotiatedLang)
-  headers.set('x-negotiated-niche', niche)
+  headers.set(EDGE_HEADERS.negotiatedLang, negotiatedLang)
+  headers.set(EDGE_HEADERS.negotiatedNiche, niche)
 }
 
 /**
  * Get the negotiated language from response headers
  * Used by route loaders to determine language
  */
-export function getNegotiatedLanguage(response: Response): SupportedLanguage {
+export function getNegotiatedLanguage(response: Response): SupportedLocale {
   const lang = response.headers.get('x-negotiated-lang')
-  return lang && isValidLanguage(lang) ? (lang as SupportedLanguage) : DEFAULT_LANGUAGE
+  return lang && isValidLanguage(lang) ? (lang as SupportedLocale) : DEFAULT_LOCALE
 }
 
 /**

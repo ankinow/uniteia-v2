@@ -1,7 +1,21 @@
 /**
  * Translation type contract for UniTeia i18n system
  * All language files must implement this interface
+ *
+ * Locale codes, defaults, and cookie names are sourced from edge/contract.v1.ts.
+ * Re-exported here for backwards compatibility.
  */
+
+export {
+  LOCALE_CODES,
+  DEFAULT_LOCALE as DEFAULT_LANGUAGE,
+  LANGUAGE_COOKIE_NAME,
+  type SupportedLocale as SupportedLanguage,
+} from '../edge/contract.v1'
+
+import type { SupportedLocale } from '../edge/contract.v1'
+
+// ── Translation Strings Interface ─────────────────────────────────────
 export interface TranslationStrings {
   nav: {
     home: string
@@ -89,10 +103,10 @@ export interface TranslationStrings {
   }
 }
 
-export type SupportedLanguage = 'en' | 'pt' | 'es' | 'fr' | 'de' | 'it' | 'ja' | 'zh'
+// ── Language Info (UI-facing metadata) ────────────────────────────────
 
 export interface LanguageInfo {
-  code: SupportedLanguage
+  code: SupportedLocale
   name: string
   nativeName: string
 }
@@ -107,7 +121,3 @@ export const SUPPORTED_LANGUAGES: LanguageInfo[] = [
   { code: 'ja', name: 'Japanese', nativeName: '日本語' },
   { code: 'zh', name: 'Chinese', nativeName: '中文' },
 ]
-
-export const DEFAULT_LANGUAGE: SupportedLanguage = 'en'
-
-export const LANGUAGE_COOKIE_NAME = 'uniteia_lang'
