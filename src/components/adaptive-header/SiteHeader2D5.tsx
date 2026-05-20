@@ -22,19 +22,25 @@ export const SiteHeader2D5 = component$(() => {
       typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReducedMotion) return
 
+    let rafId = 0
+
     // Subtle tilt — max ±3deg, slower spring than CinematicDepthCard
     const handleMove = (e: MouseEvent) => {
-      const rect = el.getBoundingClientRect()
-      const cx = (e.clientX - rect.left) / rect.width - 0.5
-      tiltX.value = cx * -3
+      if (rafId) cancelAnimationFrame(rafId)
+      rafId = requestAnimationFrame(() => {
+        const rect = el.getBoundingClientRect()
+        const cx = (e.clientX - rect.left) / rect.width - 0.5
+        tiltX.value = cx * -3
 
-      el.animate(
-        { transform: `rotateY(${tiltX.value}deg) translateZ(20px)` },
-        { duration: 500, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', fill: 'forwards' }
-      )
+        el.animate(
+          { transform: `rotateY(${tiltX.value}deg) translateZ(20px)` },
+          { duration: 500, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', fill: 'forwards' }
+        )
+      })
     }
 
     const handleLeave = () => {
+      if (rafId) cancelAnimationFrame(rafId)
       tiltX.value = 0
       el.animate(
         { transform: 'rotateY(0deg) translateZ(20px)' },

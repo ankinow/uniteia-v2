@@ -1,6 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
 import { CinematicDepthCard } from '~/components/cinematic-depth'
+import { JSONLD } from '~/components/json-ld'
 import { MasterOpenCanvas } from '~/components/master-open-canvas'
 import {
   ScrollContentCanvas,
@@ -33,10 +34,33 @@ export default component$(() => {
   const homepage = useHomepageData()
   const loc = useLocation()
   const lang = (loc.params.lang as SupportedLanguage) ?? 'en'
+  const t = getTranslation(lang)
+  const siteName = t.seo.siteName
   const { featuredSignals, knowledgeClusters, frontierStreams } = homepage.value
 
   return (
     <div class="space-y-12 p-6 md:p-8 mx-auto max-w-4xl">
+      {/* JSON-LD: WebSite + Organization + SearchAction */}
+      <JSONLD
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: siteName,
+          url: `https://uniteia.com/${lang}`,
+          description: t.seo.topicsDescription,
+          inLanguage: lang,
+          publisher: {
+            '@type': 'Organization',
+            name: siteName,
+            url: 'https://uniteia.com',
+          },
+          potentialAction: {
+            '@type': 'SearchAction',
+            target: `https://uniteia.com/${lang}/search?q={search_term_string}`,
+            'query-input': 'required name=search_term_string',
+          },
+        }}
+      />
       {/* M012 S07: ScrollHeroOrganism — 5-layer parallax hero */}
       <ScrollHeroOrganism
         layers={[
@@ -233,12 +257,29 @@ export const head: DocumentHead = ({ params }) => {
   const lang = (params.lang as SupportedLanguage) ?? 'en'
   const t = getTranslation(lang)
   const siteName = t.seo.siteName
+  const baseUrl = 'https://uniteia.com'
+  const localeUrl = `${baseUrl}/${lang}`
+  const title = `${siteName} — ${t.nav.home}`
+  const description = t.seo.topicsDescription
 
   return {
-    title: `${siteName} — ${t.nav.home}`,
+    title,
     meta: [
-      { name: 'description', content: t.seo.topicsDescription },
+      { name: 'description', content: description },
       { name: 'robots', content: 'index, follow' },
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: description },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: localeUrl },
+      { property: 'og:locale', content: lang },
+      { property: 'og:site_name', content: siteName },
+      { property: 'og:image', content: `${baseUrl}/og-image.png` },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: title },
+      { name: 'twitter:description', content: description },
+      { name: 'twitter:image', content: `${baseUrl}/og-image.png` },
     ],
+    links: [{ rel: 'canonical', href: localeUrl }],
+    fonts: [],
   }
 }

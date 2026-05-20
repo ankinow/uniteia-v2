@@ -26,6 +26,13 @@ export interface WebSiteSchema {
   description?: string | undefined
   publisher?: OrganizationSchema | undefined
   inLanguage?: string | undefined
+  potentialAction?: SearchActionSchema | undefined
+}
+
+export interface SearchActionSchema {
+  '@type': 'SearchAction'
+  target: string
+  'query-input': string
 }
 
 export interface OrganizationSchema {
