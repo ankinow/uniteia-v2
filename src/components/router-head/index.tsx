@@ -62,6 +62,7 @@ export const RouterHead = component$(() => {
       <title>{title}</title>
 
       <link rel="canonical" href={canonicalUrl} />
+      <meta name="color-scheme" content="dark" />
 
       {head.meta.map(meta => (
         <meta key={JSON.stringify(meta)} {...meta} />

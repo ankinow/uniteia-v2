@@ -16,6 +16,8 @@ export default component$(() => {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#0B0C15" />
+        <meta name="color-scheme" content="dark" />
 
         {/* CWV: Preload critical fonts to reduce LCP and layout shift */}
         <link
