@@ -18,6 +18,10 @@ export const SiteHeader2D5 = component$(() => {
     const el = wrapperRef.value
     if (!el) return
 
+    const prefersReducedMotion =
+      typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) return
+
     // Subtle tilt — max ±3deg, slower spring than CinematicDepthCard
     const handleMove = (e: MouseEvent) => {
       const rect = el.getBoundingClientRect()

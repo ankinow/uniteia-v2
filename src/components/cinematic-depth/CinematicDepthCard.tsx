@@ -71,6 +71,11 @@ export const CinematicDepthCard = component$<CinematicDepthCardProps>(
       const el = cardRef.value
       if (!el) return
 
+      const prefersReducedMotion =
+        typeof window !== 'undefined' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      if (prefersReducedMotion) return
+
       const handleMove = (e: MouseEvent) => {
         const rect = el.getBoundingClientRect()
         const cx = (e.clientX - rect.left) / rect.width - 0.5
