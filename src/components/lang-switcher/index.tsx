@@ -10,6 +10,8 @@ export const LangSwitcher = component$<LangSwitcherProps>(
     const { lang, t } = useI18n()
     const isOpen = useSignal(false)
     const isRedirecting = useSignal(false)
+    const triggerRef = useSignal<HTMLButtonElement>()
+    const focusedIndex = useSignal(-1)
 
     const logEvent = $((event: Omit<LangSwitcherLogEvent, 'timestamp'>) => {
       if (import.meta.env.DEV) {
@@ -40,22 +42,59 @@ export const LangSwitcher = component$<LangSwitcherProps>(
       logEvent({ type: isOpen.value ? 'open' : 'close' })
     })
 
+    const handleKeyDown = $((e: KeyboardEvent) => {
+      if (!isOpen.value) {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault()
+          toggleDropdown()
+        }
+        return
+      }
+
+      const items = document.querySelectorAll<HTMLElement>('[data-lang-switcher] [role="menuitem"]')
+      if (items.length === 0) return
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault()
+        const next = focusedIndex.value < items.length - 1 ? focusedIndex.value + 1 : 0
+        focusedIndex.value = next
+        items[next]?.focus()
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault()
+        const prev = focusedIndex.value > 0 ? focusedIndex.value - 1 : items.length - 1
+        focusedIndex.value = prev
+        items[prev]?.focus()
+      } else if (e.key === 'Escape') {
+        e.preventDefault()
+        isOpen.value = false
+      } else if (e.key === 'Tab') {
+        isOpen.value = false
+      }
+    })
+
+    useVisibleTask$(({ track }) => {
+      track(() => isOpen.value)
+
+      if (isOpen.value) {
+        const firstItem = document.querySelector<HTMLElement>(
+          '[data-lang-switcher] [role="menuitem"]'
+        )
+        firstItem?.focus()
+        focusedIndex.value = 0
+      } else {
+        triggerRef.value?.focus()
+        focusedIndex.value = -1
+      }
+    })
+
     useVisibleTask$(({ cleanup }) => {
       const handleClickOutside = (e: MouseEvent) => {
-        if (!(e.target as HTMLElement).closest('[data-lang-switcher]')) isOpen.value = false
-      }
-      const handleEscape = (e: KeyboardEvent) => {
-        if (e.key === 'Escape' && isOpen.value) {
+        if (!(e.target as HTMLElement).closest('[data-lang-switcher]')) {
           isOpen.value = false
-          logEvent({ type: 'close' })
         }
       }
       document.addEventListener('click', handleClickOutside)
-      document.addEventListener('keydown', handleEscape)
-      cleanup(() => {
-        document.removeEventListener('click', handleClickOutside)
-        document.removeEventListener('keydown', handleEscape)
-      })
+      cleanup(() => document.removeEventListener('click', handleClickOutside))
     })
 
     return (
@@ -66,6 +105,7 @@ export const LangSwitcher = component$<LangSwitcherProps>(
       >
         <button
           type="button"
+          ref={triggerRef}
           class={[
             'lang-switcher-trigger appearance-none flex items-center gap-2 px-3 py-2',
             'bg-void border border-action/30 rounded-none text-bone-primary',
@@ -119,7 +159,7 @@ export const LangSwitcher = component$<LangSwitcherProps>(
             role="menu"
             aria-label={t.langSwitcher.available}
             data-testid="lang-switcher-dropdown"
-            tabIndex={-1}
+            onKeyDown$={handleKeyDown}
           >
             {SUPPORTED_LANGUAGES.map(langInfo => (
               <button

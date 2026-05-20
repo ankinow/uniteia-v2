@@ -27,10 +27,7 @@ export const onRequest: RequestHandler = async event => {
     'Permissions-Policy',
     'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()'
   )
-  event.headers.set(
-    'Content-Security-Policy',
-    "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
-  )
+  // CSP is set in functions/[[route]].ts — single source of truth
 }
 
 export const useLanguage = routeLoader$<SupportedLanguage>(({ headers }) => {

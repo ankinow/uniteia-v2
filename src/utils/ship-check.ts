@@ -111,7 +111,12 @@ export async function runShipCheckStep(
   return await new Promise((resolve, reject) => {
     const child = spawn(command, args, {
       cwd: process.cwd(),
-      env: process.env,
+      env: {
+        NODE_ENV: process.env.NODE_ENV,
+        CF_PAGES: process.env.CF_PAGES,
+        SITE_URL: process.env.SITE_URL,
+        BUILD_ID: process.env.BUILD_ID,
+      },
       stdio: 'inherit',
     })
 
