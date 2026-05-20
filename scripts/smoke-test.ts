@@ -7,10 +7,10 @@ const TIMEOUT_MS = 30000
 
 const KEY_ROUTES = [
   { url: '/', name: 'root' },
-  { url: '/en/n', name: 'en-niche-index' },
-  { url: '/pt/n', name: 'pt-niche-index' },
-  { url: '/es/n', name: 'es-niche-index' },
-  { url: '/en/test-article', name: 'en-article' },
+  { url: '/en/signals/', name: 'en-signals-index' },
+  { url: '/pt/signals/', name: 'pt-signals-index' },
+  { url: '/es/signals/', name: 'es-signals-index' },
+  { url: '/en/signals/ai-agents/', name: 'en-niche-landing' },
 ]
 
 interface CheckResult {
@@ -29,7 +29,7 @@ async function fetchWithTimeout(url: string, timeoutMs: number): Promise<Respons
     const response = await fetch(url, { signal: controller.signal, redirect: 'follow' })
     clearTimeout(timeoutId)
     return response
-  } catch (_error) {
+  } catch (error) {
     clearTimeout(timeoutId)
     throw error
   }
