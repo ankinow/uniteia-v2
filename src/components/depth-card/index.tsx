@@ -102,7 +102,10 @@ export const DepthCard = component$<DepthSurfaceProps>(
         return (
           <header {...sharedProps}>
             {showGrain && (
-              <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
+              <div
+                class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
+                aria-hidden="true"
+              />
             )}
             <Slot />
           </header>
@@ -111,7 +114,10 @@ export const DepthCard = component$<DepthSurfaceProps>(
         return (
           <article {...sharedProps}>
             {showGrain && (
-              <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
+              <div
+                class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
+                aria-hidden="true"
+              />
             )}
             <Slot />
           </article>
@@ -120,7 +126,10 @@ export const DepthCard = component$<DepthSurfaceProps>(
         return (
           <aside {...sharedProps}>
             {showGrain && (
-              <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
+              <div
+                class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
+                aria-hidden="true"
+              />
             )}
             <Slot />
           </aside>
@@ -129,7 +138,10 @@ export const DepthCard = component$<DepthSurfaceProps>(
         return (
           <section {...sharedProps}>
             {showGrain && (
-              <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
+              <div
+                class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
+                aria-hidden="true"
+              />
             )}
             <Slot />
           </section>
@@ -138,7 +150,10 @@ export const DepthCard = component$<DepthSurfaceProps>(
         return (
           <footer {...sharedProps}>
             {showGrain && (
-              <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
+              <div
+                class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
+                aria-hidden="true"
+              />
             )}
             <Slot />
           </footer>
@@ -147,7 +162,10 @@ export const DepthCard = component$<DepthSurfaceProps>(
         return (
           <nav {...sharedProps}>
             {showGrain && (
-              <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
+              <div
+                class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
+                aria-hidden="true"
+              />
             )}
             <Slot />
           </nav>
@@ -156,7 +174,10 @@ export const DepthCard = component$<DepthSurfaceProps>(
         return (
           <div {...sharedProps}>
             {showGrain && (
-              <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
+              <div
+                class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
+                aria-hidden="true"
+              />
             )}
             <Slot />
           </div>

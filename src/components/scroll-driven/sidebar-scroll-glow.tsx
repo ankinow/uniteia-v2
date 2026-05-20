@@ -45,6 +45,7 @@ export const SidebarScrollGlow = component$<SidebarScrollGlowProps>(({ class: cl
             )
           `,
         }}
+        aria-hidden="true"
       />
       <div class="relative z-[var(--z-raised)]">
         <Slot />

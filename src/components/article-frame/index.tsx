@@ -28,7 +28,10 @@ export const ArticleFrame = component$<ArticleFrameProps>(props => {
       ]}
     >
       {/* grain-4k tactile overlay */}
-      <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
+      <div
+        class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
+        aria-hidden="true"
+      />
       <Slot />
     </article>
   )

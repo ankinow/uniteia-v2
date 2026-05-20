@@ -35,6 +35,7 @@ export const ScrollDepthCardEnhancer = component$<ScrollDepthCardEnhancerProps>(
             background:
               'radial-gradient(ellipse at 50% 100%, rgba(100,220,255,0.08) 0%, transparent 60%)',
           }}
+          aria-hidden="true"
         />
       </div>
     )

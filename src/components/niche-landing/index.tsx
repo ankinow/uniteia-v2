@@ -50,7 +50,7 @@ export const NicheLanding = component$<NicheLandingProps>(
 
         {/* Article list — canvas-light + grain + ue5-illusion (mixed UI: light content) */}
         <section class="canvas-light ue5-illusion glassmorphism-2 relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k">
-          <div class="paper-fiber" />
+          <div class="paper-fiber" aria-hidden="true" />
           <div class="relative z-[var(--z-raised)]">
             <h2 class="text-2xl font-display tracking-[-1px] text-paper-text mb-6">
               {t.niche.articleCount.replace('{count}', localizedArticles.length.toString())}
@@ -86,7 +86,7 @@ export const NicheLanding = component$<NicheLandingProps>(
             class="canvas-light ue5-illusion glassmorphism-2 relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k"
             aria-label={t.niche.allNiches}
           >
-            <div class="paper-fiber" />
+            <div class="paper-fiber" aria-hidden="true" />
             <div class="relative z-[var(--z-raised)]">
               <h2 class="text-2xl font-display tracking-[-1px] text-paper-text mb-6">
                 {t.niche.allNiches}

@@ -149,7 +149,7 @@ export const CinematicDepthCard = component$<CinematicDepthCardProps>(
               {/* Scrapbook layer */}
               <div class="scrapbook-layer" aria-hidden="true">
                 <span class="corkboard-layer" />
-                <div class="paper-fiber" />
+                <div class="paper-fiber" aria-hidden="true" />
                 <div class="ink-effect" data-intensity="medium" />
               </div>
 
@@ -157,7 +157,9 @@ export const CinematicDepthCard = component$<CinematicDepthCardProps>(
               <div class="clip-diagonal-a" aria-hidden="true" />
 
               {/* HUD label */}
-              <div class="collage-hud">EDITORIAL</div>
+              <div class="collage-hud" aria-hidden="true">
+                EDITORIAL
+              </div>
             </>
           )}
 

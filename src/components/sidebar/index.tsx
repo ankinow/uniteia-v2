@@ -10,9 +10,12 @@ export interface SidebarProps {
 
 export const Sidebar = component$<SidebarProps>(({ navigationItems }) => {
   return (
-    <aside class="interface-dark w-64 h-screen sticky top-0 glass-light border-r-4 border-cyan/30 relative overflow-y-auto surface-hud rounded-2xl border border-white/10">
+    <aside
+      aria-label="Main navigation"
+      class="interface-dark w-64 h-screen sticky top-0 glass-light border-r-4 border-cyan/30 relative overflow-y-auto surface-hud rounded-2xl border border-white/10"
+    >
       {/* Scanlines overlay */}
-      <div class="scanlines absolute inset-0 pointer-events-none" />
+      <div class="scanlines absolute inset-0 pointer-events-none" aria-hidden="true" />
 
       {/* Logo JRPG Style */}
       <div class="p-4 border-b border-cyan/10 text-center glass">
@@ -31,14 +34,14 @@ export const Sidebar = component$<SidebarProps>(({ navigationItems }) => {
         <SidebarNav navigationItems={navigationItems} />
       </nav>
 
-      <div class="scratch-divider my-4" />
+      <div class="scratch-divider my-4" aria-hidden="true" />
 
       {/* Donation Button */}
       <div class="px-4">
         <DonationButton />
       </div>
 
-      <div class="scratch-divider my-4" />
+      <div class="scratch-divider my-4" aria-hidden="true" />
 
       {/* Language Selector */}
       <div class="p-4 border-t border-cyan/10">

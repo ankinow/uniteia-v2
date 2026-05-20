@@ -103,6 +103,7 @@ export default component$(() => {
       {/* Header - mantido no mobile conforme solicitado */}
       <div q:slot="header" class="w-full">
         <nav
+          aria-label="Primary navigation"
           class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-action/10"
           data-testid="main-nav"
         >

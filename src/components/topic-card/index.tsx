@@ -34,7 +34,10 @@ export const TopicCard = component$<TopicCardProps>(
           aria-hidden="true"
         />
         {/* grain-4k tactile overlay */}
-        <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
+        <div
+          class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
+          aria-hidden="true"
+        />
       </article>
     )
 
