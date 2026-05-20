@@ -22,7 +22,6 @@ const mapDepthToDataAttr = (depth: DepthVariant | DepthPlane): DepthPlane => {
  * Returns the glass CSS class when glass mode is active, or null otherwise.
  */
 const getGlassClass = (depth: DepthVariant | DepthPlane, glass?: boolean): string | null => {
-  if (depth === 'glass-heavy') return 'glass-heavy'
   if (depth === 'glass-light') return 'glass-light'
   if (glass || depth === 'glass') return 'glass'
   return null
@@ -37,8 +36,7 @@ const getVisualUpgradeClass = (
   depth2d5?: 'back' | 'base' | 'front' | 'floating',
   glass?: boolean
 ): string | null => {
-  const hasDepth =
-    depth2d5 || depth === 'glass-heavy' || depth === 'glass-light' || glass || depth === 'glass'
+  const hasDepth = depth2d5 || depth === 'glass-light' || glass || depth === 'glass'
   return hasDepth ? 'ue5-illusion glass-2-5d' : null
 }
 

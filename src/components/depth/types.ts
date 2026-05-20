@@ -4,13 +4,7 @@ export type DepthPlane = 'front' | 'mid' | 'back'
 
 export type DepthSurfaceTag = 'section' | 'header' | 'article' | 'aside' | 'div' | 'footer' | 'nav'
 
-export type DepthVariant =
-  | 'surface'
-  | 'raised'
-  | 'pressed'
-  | 'glass'
-  | 'glass-light'
-  | 'glass-heavy'
+export type DepthVariant = 'surface' | 'raised' | 'pressed' | 'glass' | 'glass-light'
 
 export type Depth2D5Level = 'back' | 'base' | 'front' | 'floating'
 

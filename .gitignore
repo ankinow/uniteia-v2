@@ -60,3 +60,4 @@ apps/content-factory/llm-wiki-uniteia/
 src/content-graph/generated/*.json
 
 .worktrees/
+*.md

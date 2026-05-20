@@ -526,18 +526,13 @@ a:hover {
   }
 
   .glass-light {
-    background: var(--glass-bg);
-    border: var(--glass-border);
-    border-color: color-mix(in srgb, var(--cyan) 6%, transparent);
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--raised) 12%, transparent),
+      color-mix(in srgb, var(--void) 40%, transparent)
+    );
+    border: 1px solid color-mix(in srgb, var(--cyan) 8%, transparent);
     backdrop-filter: blur(var(--glass-blur-sm));
-  }
-
-  .glass-heavy {
-    background: var(--glass-bg);
-    border: var(--glass-border);
-    border-color: color-mix(in srgb, var(--cyan) 20%, transparent);
-    backdrop-filter: blur(var(--glass-blur-lg));
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
   }
 
   /* M011: Glassmorphism 2.0 — deeper blur + directional shadow + semi-transparent bg */
@@ -550,17 +545,6 @@ a:hover {
     border: 1px solid color-mix(in srgb, var(--cyan) 12%, transparent);
     backdrop-filter: blur(var(--glass-blur-lg));
     box-shadow: 0 4px 24px rgb(0 0 0 / 0.3), var(--pbr-metalness);
-  }
-
-  /* M012 S04: Glassmorphism 1.0 — subtle glass for low-priority surfaces */
-  .glassmorphism-1 {
-    background: linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--raised) 12%, transparent),
-      color-mix(in srgb, var(--void) 40%, transparent)
-    );
-    border: 1px solid color-mix(in srgb, var(--cyan) 8%, transparent);
-    backdrop-filter: blur(var(--glass-blur-sm));
   }
 
   /* ── Signal Grid ── */
@@ -1080,36 +1064,6 @@ a:hover {
   }
 }
 
-/* ── Scroll-driven hero collapse (hero → compact header) ── */
-.scroll-hero-collapse {
-  animation: hero-collapse linear both;
-  animation-timeline: --narrative;
-  animation-range: entry 0% entry 35%;
-}
-
-@keyframes hero-collapse {
-  from {
-    transform: scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: scale(0.92);
-    opacity: 0.3;
-  }
-}
-
-/* ── Dwell-time indicator (subtle) ── */
-.dwell-indicator {
-  --dwell-progress: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(100, 220, 255, 0.3) 0%,
-    rgba(100, 220, 255, 0.3) calc(var(--dwell-progress) * 100%),
-    transparent calc(var(--dwell-progress) * 100%)
-  );
-  transition: --dwell-progress 0.3s ease;
-}
-
 /* ── Reduced motion: overrides para acessibilidade ── */
 @media (prefers-reduced-motion: reduce) {
   .parallax-layer,
@@ -1118,8 +1072,7 @@ a:hover {
   .grain-scroll-aware,
   .card-scroll-depth,
   .sidebar-scroll-glow,
-  .living-character-wake,
-  .scroll-hero-collapse {
+  .living-character-wake {
     animation: none !important;
   }
 

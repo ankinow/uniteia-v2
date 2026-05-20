@@ -18,7 +18,7 @@ export const ArticleFrame = component$<ArticleFrameProps>(props => {
         'mx-auto w-full max-w-prose',
         'px-6 py-12 md:px-12 md:py-24',
         'font-sans antialiased',
-        'glassmorphism-1',
+        'glass-light',
         'relative',
         /* Swiss Grid: align children to a consistent baseline if possible */
         '[&>h1]:mb-12 [&>h2]:mb-8 [&>h2]:mt-16 [&>p]:mb-6',
