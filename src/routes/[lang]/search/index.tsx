@@ -27,14 +27,18 @@ export default component$(() => {
   return (
     <div class="max-w-4xl mx-auto px-4 py-8">
       <form method="GET" class="mb-8" preventdefault:submit>
+        <label class="sr-only" for="search-input">
+          Search topics, articles
+        </label>
         <div class="relative">
           <input
+            id="search-input"
             type="search"
             name="q"
             value={query}
             placeholder="Search topics, articles..."
             class="w-full px-4 py-3 bg-void border border-action/30 rounded-lg text-bone placeholder:text-bone-muted/50 focus:outline-none focus:border-action"
-            aria-label="Search"
+            aria-label="Search topics, articles"
           />
         </div>
       </form>

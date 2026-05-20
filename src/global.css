@@ -634,6 +634,40 @@ a:hover {
     perspective: var(--perspective-dramatic);
   }
 
+  .perspective-origin-center-top {
+    perspective-origin: 50% 0%;
+  }
+
+  /* ── SVG container hidden (accessibility + layout) ── */
+  .svg-hidden {
+    position: absolute;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* ── Utility: micro-opacity for texture overlays ── */
+  .opacity-micro {
+    opacity: 0.03;
+  }
+
+  /* ── 2.5D depth layers (header shadow plane + content plane) ── */
+  .depth-shadow-plane {
+    transform: translateZ(-10px);
+    box-shadow: 0 4px 24px rgb(0 0 0 / 0.15);
+  }
+
+  .depth-content-plane {
+    transform: translateZ(20px);
+    transform-style: preserve-3d;
+    will-change: transform;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
   /* ── M012: Corkboard + Mixed-Media Foundations (MasterOpenCanvas) ── */
   .corkboard-layer {
     position: absolute;

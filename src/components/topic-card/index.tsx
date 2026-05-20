@@ -23,7 +23,6 @@ export const TopicCard = component$<TopicCardProps>(
           classList,
         ]}
         data-blur="lg"
-        style={{ perspective: '1400px' }}
       >
         <div class="relative z-[var(--z-raised)]">
           <h3 class="font-display text-3xl md:text-4xl tracking-[-2px] text-bone mb-4">{title}</h3>

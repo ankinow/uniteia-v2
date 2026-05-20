@@ -7,12 +7,7 @@ import { component$ } from '@builder.io/qwik'
  */
 export const SvgFilters = component$(() => {
   return (
-    <svg
-      aria-hidden="true"
-      class="pointer-events-none absolute h-0 w-0"
-      style={{ visibility: 'hidden' }}
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg aria-hidden="true" class="svg-hidden" xmlns="http://www.w3.org/2000/svg">
       <defs>
         {/* 
           #scratch - Horizontal scratch texture 

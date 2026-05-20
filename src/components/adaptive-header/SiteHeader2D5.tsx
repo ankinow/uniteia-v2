@@ -57,35 +57,15 @@ export const SiteHeader2D5 = component$(() => {
   })
 
   return (
-    <div class="perspective-dramatic relative" style={{ perspectiveOrigin: '50% 0%' }}>
+    <header class="perspective-dramatic perspective-origin-center-top relative">
       {/* Shadow accent plane behind header */}
-      <div
-        class="absolute inset-x-0 top-0 h-full"
-        style={{
-          transform: 'translateZ(-10px)',
-          boxShadow: '0 4px 24px rgb(0 0 0 / 0.15)',
-        }}
-        aria-hidden="true"
-      />
+      <div class="absolute inset-x-0 top-0 h-full depth-shadow-plane" aria-hidden="true" />
 
       {/* Header content at translateZ(20px) */}
-      <div
-        ref={wrapperRef}
-        class="glass relative preserve-3d"
-        data-blur="lg"
-        style={{
-          transform: 'translateZ(20px)',
-          transformStyle: 'preserve-3d',
-          willChange: 'transform',
-          borderTop: 'none',
-          borderLeft: 'none',
-          borderRight: 'none',
-        }}
-      >
+      <div ref={wrapperRef} class="glass relative preserve-3d depth-content-plane" data-blur="lg">
         {/* Micro grain layer at 3% */}
         <div
-          class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
-          style={{ opacity: '0.03' }}
+          class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)] opacity-micro"
           aria-hidden="true"
         />
 
@@ -94,6 +74,6 @@ export const SiteHeader2D5 = component$(() => {
           <Slot />
         </div>
       </div>
-    </div>
+    </header>
   )
 })
