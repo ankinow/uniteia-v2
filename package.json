@@ -16,7 +16,7 @@
     "dev": "vite --mode ssr",
     "edge:chaos": "bun run scripts/edge-chaos-test.ts",
     "cloudflare:purge": "bun run scripts/cloudflare-purge.ts",
-    "build": "bun run generate:content && vite build -c adapters/cloudflare-pages/vite.config.ts",
+    "build": "bun run generate:content && qwik build",
     "build.preview": "wrangler pages dev dist --compatibility-date=2026-04-01 --compatibility-flags nodejs_compat --port=8788",
     "build.client": "vite build",
     "build.ssr": "vite build --ssr src/entry.ssr.tsx",
