@@ -2,6 +2,7 @@ import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
 import { AdaptiveHeader } from '~/components/adaptive-header'
 import { ArticleFrame } from '~/components/article-frame'
+import { ErrorBoundary } from '~/components/error-boundary'
 import { FrontmatterSlots } from '~/components/frontmatter-slots'
 import { JSONLD } from '~/components/json-ld'
 import { RelatedArticles } from '~/components/related-articles'
@@ -147,18 +148,22 @@ export default component$(() => {
           readInLang: t.article.readInLang,
         }}
       />
-      <div
-        class="prose prose-invert mt-8 max-w-none text-bone-primary prose-a:text-action hover:prose-a:text-action-hi transition-colors"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: content is pre-validated markdown
-        dangerouslySetInnerHTML={content.value.content}
-      />
-
-      <div class="mt-12">
-        <RelatedArticles
-          nodes={relatedNodes.value}
-          lang={content.value.lang as SupportedLanguage}
+      <ErrorBoundary label="Article Content">
+        <div
+          class="prose prose-invert mt-8 max-w-none text-bone-primary prose-a:text-action hover:prose-a:text-action-hi transition-colors"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: content is pre-validated markdown
+          dangerouslySetInnerHTML={content.value.content}
         />
-      </div>
+      </ErrorBoundary>
+
+      <ErrorBoundary label="Related Articles">
+        <div class="mt-12">
+          <RelatedArticles
+            nodes={relatedNodes.value}
+            lang={content.value.lang as SupportedLanguage}
+          />
+        </div>
+      </ErrorBoundary>
     </ArticleFrame>
   )
 })

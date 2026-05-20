@@ -2,6 +2,7 @@ import { component$ } from '@builder.io/qwik'
 import { CinematicDepthCard } from '~/components/cinematic-depth'
 import { DepthSection } from '~/components/depth-section'
 import { DopamineCard } from '~/components/dopamine-card'
+import { ErrorBoundary } from '~/components/error-boundary'
 import { useI18n } from '~/i18n/context'
 import { nicheIndex } from '~/routing/routes'
 import { getLucideIconClass } from '~/utils/icon-classes'
@@ -49,63 +50,68 @@ export const NicheLanding = component$<NicheLandingProps>(
         </DepthSection>
 
         {/* Article list — canvas-light + grain + ue5-illusion (mixed UI: light content) */}
-        <section class="canvas-light ue5-illusion glassmorphism-2 relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k">
-          <div class="paper-fiber" aria-hidden="true" />
-          <div class="relative z-[var(--z-raised)]">
-            <h2 class="text-2xl font-display tracking-[-1px] text-paper-text mb-6">
-              {t.niche.articleCount.replace('{count}', localizedArticles.length.toString())}
-            </h2>
-            {localizedArticles.length > 0 ? (
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {localizedArticles.map((article, i) => (
-                  <DopamineCard
-                    class={i === 0 ? 'md:col-span-2' : ''}
-                    key={article.slug}
-                    title={article.title}
-                    description={article.summary ?? ''}
-                    href={`/${lang}/signals/${niche.slugs[lang]}/${article.slug}`}
-                    lang={lang}
-                    data-testid="article-card"
-                  />
-                ))}
-              </div>
-            ) : (
-              <div
-                class="border border-dashed border-paper-border rounded-lg p-8 text-center text-paper-text/60"
-                data-testid="niche-articles-placeholder"
-              >
-                <p>{t.niche.exploreNiche.replace('{niche}', niche.title[lang])}</p>
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* Related niches — canvas-light + grain (mixed UI continuity) */}
-        {otherNiches.length > 0 && (
-          <section
-            class="canvas-light ue5-illusion glassmorphism-2 relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k"
-            aria-label={t.niche.allNiches}
-          >
+        <ErrorBoundary label="Article Grid">
+          <section class="canvas-light ue5-illusion glassmorphism-2 relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k">
             <div class="paper-fiber" aria-hidden="true" />
             <div class="relative z-[var(--z-raised)]">
               <h2 class="text-2xl font-display tracking-[-1px] text-paper-text mb-6">
-                {t.niche.allNiches}
+                {t.niche.articleCount.replace('{count}', localizedArticles.length.toString())}
               </h2>
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {otherNiches.map(related => (
-                  <DopamineCard
-                    key={related.slug}
-                    title={related.title[lang]}
-                    description={related.description[lang]}
-                    href={nicheIndex(lang, getNicheSlug(related, lang))}
-                    icon={related.icon}
-                    lang={lang}
-                  />
-                ))}
-              </div>
+              {localizedArticles.length > 0 ? (
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {localizedArticles.map((article, i) => (
+                    <ErrorBoundary key={article.slug} label="Article Card">
+                      <DopamineCard
+                        class={i === 0 ? 'md:col-span-2' : ''}
+                        title={article.title}
+                        description={article.summary ?? ''}
+                        href={`/${lang}/signals/${niche.slugs[lang]}/${article.slug}`}
+                        lang={lang}
+                        data-testid="article-card"
+                      />
+                    </ErrorBoundary>
+                  ))}
+                </div>
+              ) : (
+                <div
+                  class="border border-dashed border-paper-border rounded-lg p-8 text-center text-paper-text/60"
+                  data-testid="niche-articles-placeholder"
+                >
+                  <p>{t.niche.exploreNiche.replace('{niche}', niche.title[lang])}</p>
+                </div>
+              )}
             </div>
           </section>
-        )}
+        </ErrorBoundary>
+
+        {/* Related niches — canvas-light + grain (mixed UI continuity) */}
+        <ErrorBoundary label="Related Niches">
+          {otherNiches.length > 0 && (
+            <section
+              class="canvas-light ue5-illusion glassmorphism-2 relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k"
+              aria-label={t.niche.allNiches}
+            >
+              <div class="paper-fiber" aria-hidden="true" />
+              <div class="relative z-[var(--z-raised)]">
+                <h2 class="text-2xl font-display tracking-[-1px] text-paper-text mb-6">
+                  {t.niche.allNiches}
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {otherNiches.map(related => (
+                    <DopamineCard
+                      key={related.slug}
+                      title={related.title[lang]}
+                      description={related.description[lang]}
+                      href={nicheIndex(lang, getNicheSlug(related, lang))}
+                      icon={related.icon}
+                      lang={lang}
+                    />
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+        </ErrorBoundary>
       </div>
     )
   }
