@@ -41,7 +41,7 @@ export const NicheCard = component$<NicheCardProps>(
         data-surface="niche-card"
         class={[
           'niche-card glassmorphism-2 group block relative overflow-hidden rounded-2xl',
-          'transition-all duration-300 hover:-translate-y-0.5',
+          'transition-transform duration-300 hover:-translate-y-0.5',
           'hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]',
           'hover:border-white/20',
           styles.padding,
@@ -54,7 +54,10 @@ export const NicheCard = component$<NicheCardProps>(
         {/* grain-4k tactile overlay */}
         <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
         {/* UE5 glow edge on hover */}
-        <div class="absolute bottom-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-[var(--color-cyan)]/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
+        <div
+          class="absolute bottom-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-[var(--color-cyan)]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+          aria-hidden="true"
+        />
         <div class="relative z-[var(--z-raised)] flex items-start gap-3">
           {iconClass && (
             <div

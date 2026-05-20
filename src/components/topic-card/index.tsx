@@ -19,7 +19,7 @@ export const TopicCard = component$<TopicCardProps>(
     const content = (
       <article
         class={[
-          'ue5-illusion depth-raised glassmorphism-2 group glass-2-5d relative overflow-hidden rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1 hover:rotate-[0.4deg]',
+          'ue5-illusion depth-raised glassmorphism-2 group glass-2-5d relative overflow-hidden rounded-3xl p-8 transition-transform duration-500 hover:-translate-y-1 hover:rotate-[0.4deg]',
           classList,
         ]}
         style={{ perspective: '1400px' }}
@@ -29,7 +29,10 @@ export const TopicCard = component$<TopicCardProps>(
           <p class="text-[15.5px] text-zinc-300 leading-relaxed">{summary}</p>
         </div>
         {/* UE5 volumetric glow edge */}
-        <div class="absolute bottom-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-[var(--color-cyan)]/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
+        <div
+          class="absolute bottom-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-[var(--color-cyan)]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+          aria-hidden="true"
+        />
         {/* grain-4k tactile overlay */}
         <div class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]" />
       </article>

@@ -31,7 +31,7 @@ export const SourceLedger = component$<SourceLedgerProps>(props => {
                 'px-4 py-4',
                 'bg-deep/30',
                 'border border-mid/30',
-                'transition-all duration-base ease-solar',
+                'transition-colors duration-base ease-solar',
                 'hover:border-action/40 hover:bg-deep/60 whisper-hover',
               ]}
             >

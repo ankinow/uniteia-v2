@@ -69,7 +69,7 @@ export const LangSwitcher = component$<LangSwitcherProps>(
           class={[
             'lang-switcher-trigger appearance-none flex items-center gap-2 px-3 py-2',
             'bg-void border border-action/30 rounded-none text-bone-primary',
-            'hover:border-action hover:bg-action/5 transition-all duration-200',
+            'hover:border-action hover:bg-action/5 transition-colors duration-200',
             'focus:outline-none focus:ring-2 focus:ring-action/50',
             'min-h-[2.5rem] min-w-[120px]',
             isRedirecting.value && 'opacity-50 cursor-wait',

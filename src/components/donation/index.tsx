@@ -10,7 +10,7 @@ export const DonationButton = component$(() => {
              bg-gradient-to-b from-yellow-900/40 to-yellow-950/60
              border-2 border-yellow-500/50
              hover:border-yellow-400 hover:shadow-glow-yellow
-             transition-all duration-200
+             transition-colors duration-200
              font-pixel text-xs uppercase tracking-wider"
     >
       <span class="inline-block mr-2">☕</span>

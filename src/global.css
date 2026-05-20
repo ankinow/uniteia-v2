@@ -196,15 +196,17 @@
 
 @layer components {
   .btn {
-    @apply px-4 py-2 font-medium transition-all;
+    @apply px-4 py-2 font-medium;
     border-radius: 0;
+    transition-property: color, background-color, border-color, box-shadow, transform, opacity;
     transition-duration: var(--t-base);
     transition-timing-function: var(--ease-solar);
   }
 
   .btn-primary {
-    @apply px-4 py-2 font-medium transition-all bg-action text-void;
+    @apply px-4 py-2 font-medium bg-action text-void;
     border-radius: 0;
+    transition-property: color, background-color, border-color, box-shadow, transform, opacity;
     transition-duration: var(--t-base);
     transition-timing-function: var(--ease-solar);
 
@@ -214,8 +216,9 @@
   }
 
   .btn-outline {
-    @apply px-4 py-2 font-medium transition-all border border-current;
+    @apply px-4 py-2 font-medium border border-current;
     border-radius: 0;
+    transition-property: color, background-color, border-color, box-shadow, transform, opacity;
     transition-duration: var(--t-base);
     transition-timing-function: var(--ease-solar);
 

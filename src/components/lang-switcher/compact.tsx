@@ -16,7 +16,7 @@ export const LangSelectorCompact = component$(() => {
           key={langInfo.code}
           href={signalsIndex(langInfo.code)}
           class={[
-            'block py-1 px-3 text-xs transition-all duration-200',
+            'block py-1 px-3 text-xs transition-colors duration-200',
             lang === langInfo.code
               ? 'text-cyan bg-cyan/10 font-medium'
               : 'text-bone-muted hover:text-bone hover:bg-cyan/5',

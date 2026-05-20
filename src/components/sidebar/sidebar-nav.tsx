@@ -18,7 +18,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
       <li>
         <a
           href={signalsIndex(lang)}
-          class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-all duration-200 font-pixel text-xs uppercase tracking-wider"
+          class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider"
           style="text-shadow: none"
           onMouseEnter$={e => {
             const el = e.target as HTMLElement
@@ -35,7 +35,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
       <li>
         <a
           href={signalsIndex(lang)}
-          class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-all duration-200 font-pixel text-xs uppercase tracking-wider"
+          class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider"
           style="text-shadow: none"
           onMouseEnter$={e => {
             const el = e.target as HTMLElement
@@ -52,7 +52,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
       <li>
         <a
           href={searchPage(lang)}
-          class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-all duration-200 font-pixel text-xs uppercase tracking-wider"
+          class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider"
           style="text-shadow: none"
           onMouseEnter$={e => {
             const el = e.target as HTMLElement
@@ -72,7 +72,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
           onClick$={() => {
             expanded.value = !expanded.value
           }}
-          class="pixel-cursor block w-full text-left py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-all duration-200 font-pixel text-xs uppercase tracking-wider"
+          class="pixel-cursor block w-full text-left py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider"
           style="text-shadow: none"
           onMouseEnter$={e => {
             const el = e.target as HTMLElement
