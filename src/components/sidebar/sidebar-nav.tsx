@@ -1,4 +1,4 @@
-import { component$, useSignal } from '@builder.io/qwik'
+import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 import type { NavigationItem } from '~/content-graph/projections'
 import { getTranslation, useI18n } from '~/i18n/context'
 import { searchPage, signalsIndex } from '~/routing/routes'
@@ -12,6 +12,18 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
   const lang = i18n.lang.value
   const t = getTranslation(lang)
   const expanded = useSignal(false)
+  const toggleRef = useSignal<HTMLButtonElement>()
+
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(({ track }) => {
+    track(() => expanded.value)
+    if (expanded.value) {
+      const firstLink = document.querySelector<HTMLAnchorElement>('#sidebar-niches-list a')
+      firstLink?.focus()
+    } else {
+      toggleRef.value?.focus()
+    }
+  })
 
   return (
     <ul class="space-y-2">
@@ -69,6 +81,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
       <li>
         <button
           type="button"
+          ref={toggleRef}
           onClick$={() => {
             expanded.value = !expanded.value
           }}
