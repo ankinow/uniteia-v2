@@ -12,7 +12,7 @@ export const Sidebar = component$<SidebarProps>(({ navigationItems }) => {
   return (
     <aside
       aria-label="Main navigation"
-      class="interface-dark w-64 h-screen sticky top-0 glass-light border-r-4 border-cyan/30 relative overflow-y-auto surface-hud rounded-2xl border border-white/10"
+      class="interface-dark w-64 h-screen sticky top-0 border-r-4 border-cyan/30 relative overflow-y-auto surface-hud rounded-2xl border border-white/10"
     >
       {/* Scanlines overlay */}
       <div class="scanlines absolute inset-0 pointer-events-none" aria-hidden="true" />

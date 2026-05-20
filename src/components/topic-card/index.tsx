@@ -19,10 +19,9 @@ export const TopicCard = component$<TopicCardProps>(
     const content = (
       <article
         class={[
-          'ue5-illusion depth-raised glass glass-2-5d group relative overflow-hidden rounded-3xl p-8 transition-transform duration-500 hover:-translate-y-1 hover:rotate-[0.4deg]',
+          'ue5-illusion depth-raised glass-2-5d group relative overflow-hidden rounded-3xl p-8 transition-transform duration-500 hover:-translate-y-1 hover:rotate-[0.4deg]',
           classList,
         ]}
-        data-blur="lg"
       >
         <div class="relative z-[var(--z-raised)]">
           <h3 class="font-display text-3xl md:text-4xl tracking-[-2px] text-bone mb-4">{title}</h3>

@@ -77,7 +77,6 @@ export const DepthCard = component$<DepthSurfaceProps>(
       'depth-card',
       visualUpgrade ? null : getGlassClass(depth, glass),
       visualUpgrade,
-      visualUpgrade ? 'glass' : null,
     ]
 
     // Compute data-depth for CSS targeting (backward compatible)

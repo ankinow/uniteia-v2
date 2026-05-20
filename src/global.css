@@ -508,8 +508,8 @@ a:hover {
     z-index: var(--z-pressed);
   }
 
-  .depth-section,
-  .depth-card {
+  .depth-section:not([class*="glass"]),
+  .depth-card:not([class*="glass"]) {
     background: linear-gradient(
         180deg,
         color-mix(in srgb, var(--depth-accent) 10%, transparent),
@@ -547,15 +547,7 @@ a:hover {
     backdrop-filter: blur(var(--glass-blur-sm));
   }
 
-  /* 2.5D glass: uses tokens + saturate modifier */
-  .glass-2-5d {
-    --glass-saturate: 180%;
-    background: var(--color-glass);
-    backdrop-filter: blur(var(--glass-blur-lg)) saturate(var(--glass-saturate));
-    -webkit-backdrop-filter: blur(var(--glass-blur-lg)) saturate(var(--glass-saturate));
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 60px -15px rgb(0 0 0 / 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  }
+  /* 2.5D glass — defined in unlayered Σ LOAD section (cascade priority) */
 
   /* ── Signal Grid ── */
   .grid-signal {
@@ -823,6 +815,19 @@ a:hover {
     background: color-mix(in srgb, var(--void) 85%, transparent);
     padding: 0.2rem 0.5rem;
     border: 1px solid color-mix(in srgb, var(--cyan) 20%, transparent);
+    pointer-events: none;
+  }
+
+  /* ── Scanlines (JRPG sidebar texture) ── */
+  .scanlines {
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      color-mix(in srgb, var(--cyan) 3%, transparent) 2px,
+      color-mix(in srgb, var(--cyan) 3%, transparent) 4px
+    );
+    opacity: 0.4;
     pointer-events: none;
   }
 
