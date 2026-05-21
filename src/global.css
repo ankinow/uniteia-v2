@@ -63,6 +63,17 @@
   --transition-timing-function-solar: cubic-bezier(0.2, 0.8, 0.2, 1);
   --transition-timing-function-warm: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
+  /* ── Motion: compositor-only, dopamine-budget compliant ── */
+  --ease-micro: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-base: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-slow: cubic-bezier(0.3, 1.2, 0.5, 1);
+  --ease-narrative: cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  --duration-micro: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 350ms;
+  --duration-narrative: 400ms;
+
   /* ── Glass backdrop-blur scale ── */
   --backdrop-blur-glass-sm: 4px;
   --backdrop-blur-glass: 12px;
@@ -213,16 +224,16 @@
     @apply px-4 py-2 font-medium;
     border-radius: 0;
     transition-property: color, background-color, border-color, box-shadow, transform, opacity;
-    transition-duration: var(--t-base);
-    transition-timing-function: var(--ease-solar);
+    transition-duration: var(--duration-base);
+    transition-timing-function: var(--ease-micro);
   }
 
   .btn-primary {
     @apply px-4 py-2 font-medium bg-action text-void;
     border-radius: 0;
     transition-property: color, background-color, border-color, box-shadow, transform, opacity;
-    transition-duration: var(--t-base);
-    transition-timing-function: var(--ease-solar);
+    transition-duration: var(--duration-base);
+    transition-timing-function: var(--ease-micro);
 
     &:hover {
       background-color: var(--color-cyan-hi);
@@ -233,8 +244,8 @@
     @apply px-4 py-2 font-medium border border-current;
     border-radius: 0;
     transition-property: color, background-color, border-color, box-shadow, transform, opacity;
-    transition-duration: var(--t-base);
-    transition-timing-function: var(--ease-solar);
+    transition-duration: var(--duration-base);
+    transition-timing-function: var(--ease-micro);
 
     &:hover {
       background-color: color-mix(in srgb, white 5%, transparent);
@@ -315,7 +326,7 @@ p {
 a {
   color: var(--color-cyan);
   text-decoration: none;
-  transition: color var(--t-fast) var(--ease-solar);
+  transition: color var(--duration-micro) var(--ease-micro);
 }
 
 a:hover {
@@ -323,8 +334,37 @@ a:hover {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-cyan);
+  outline: 3px solid var(--color-cyan);
   outline-offset: 2px;
+  border-radius: 2px; /* override brutalist reset for a11y */
+}
+
+/* Dark surface focus-visible (on void/deep backgrounds) */
+.interface-dark :focus-visible {
+  outline-color: var(--color-cyan);
+}
+
+/* Light canvas focus-visible — use darker accent for contrast */
+.canvas-light :focus-visible {
+  outline-color: oklch(0.52 0.12 195);
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: var(--z-overlay);
+  padding: 0.75rem 1.25rem;
+  background: var(--color-cyan);
+  color: var(--void);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: top var(--duration-micro) var(--ease-micro);
+}
+
+.skip-link:focus {
+  top: 0;
 }
 
 ::selection {
@@ -337,7 +377,7 @@ a:hover {
    ═══════════════════════════════════════════ */
 
 .whisper-hover {
-  transition: transform var(--t-base) var(--ease-solar);
+  transition: transform var(--duration-base) var(--ease-micro);
 }
 
 .whisper-hover:hover {
@@ -429,7 +469,7 @@ a:hover {
 
   .hud-label-base[data-tone="muted"] {
     --hud-accent: var(--bone-muted);
-    opacity: 0.65;
+    opacity: 0.85;
   }
 
   /* Compact size variant */
@@ -486,8 +526,8 @@ a:hover {
     --depth-lift: 0px;
     position: relative;
     transform: translateY(var(--depth-lift));
-    transition: transform var(--t-base) var(--ease-solar), box-shadow var(--t-base)
-      var(--ease-solar), border-color var(--t-base) var(--ease-solar);
+    transition: transform var(--duration-base) var(--ease-micro), box-shadow var(--duration-base)
+      var(--ease-micro), border-color var(--duration-base) var(--ease-micro);
   }
 
   .depth-surface[data-depth="front"] {
