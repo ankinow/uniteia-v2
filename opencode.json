@@ -1,0 +1,246 @@
+{
+  "$schema": "https://opencode.ai/schemas/opencode.json",
+  "version": "1.0.0",
+  "project": {
+    "name": "uniteia-v2",
+    "type": "qwik-city",
+    "root": ".",
+    "packageManager": "bun",
+    "packageManagerVersion": "1.3.6"
+  },
+  "agents": {
+    "default": "dev-agent",
+    "subagents": [
+      {
+        "id": "dev-agent",
+        "name": "UniTeia Developer",
+        "description": "Implements code, handles refactors, fixes bugs, manages components",
+        "model": "claude-sonnet-4",
+        "skills": [
+          "typescript-qwik",
+          "tailwind-v4",
+          "vitest-testing",
+          "cloudflare-pages",
+          "biome-linting"
+        ],
+        "permissions": [
+          "read:src/**",
+          "write:src/**",
+          "read:tests/**",
+          "write:tests/**",
+          "read:package.json",
+          "read:tsconfig.json",
+          "read:vite.config.ts",
+          "read:biome.json"
+        ],
+        "autoApprove": [
+          "bun run test:unit",
+          "bun run ship:check",
+          "bun run lint",
+          "bun run lint.fix",
+          "bun run build",
+          "bun run typecheck",
+          "git commit"
+        ],
+        "contextFiles": [
+          "AGENTS.md",
+          "CHANGELOG.md",
+          "M014-SUPER-PROMPT.md",
+          "biome.json",
+          "package.json"
+        ]
+      },
+      {
+        "id": "content-agent",
+        "name": "UniTeia Content Curator",
+        "description": "Generates and edits content across 8 locales, maintains YAML/MD symmetry",
+        "model": "claude-sonnet-4",
+        "skills": ["i18n-management", "yaml-editing", "markdown-prose", "exa-search"],
+        "permissions": [
+          "read:content/**",
+          "write:content/**",
+          "read:public/locales/**",
+          "write:public/locales/**",
+          "read:src/content-graph.generated.ts",
+          "read:src/content-registry.generated.ts"
+        ],
+        "autoApprove": ["bun run build", "bun run generate:content"],
+        "contextFiles": ["AGENTS.md", "content/niches/*.yaml"]
+      },
+      {
+        "id": "visual-agent",
+        "name": "UniTeia Visual Designer",
+        "description": "Manages CSS tokens, animations, visual regression, design system",
+        "model": "claude-sonnet-4",
+        "skills": ["tailwind-v4", "oklch-colors", "css-animations", "playwright-visual"],
+        "permissions": [
+          "read:src/global.css",
+          "write:src/global.css",
+          "read:src/components/**/style.css",
+          "write:src/components/**/style.css",
+          "read:src/components/**/*.tsx"
+        ],
+        "autoApprove": ["bun run build", "bun run test:unit", "bun run lint.fix"],
+        "contextFiles": ["AGENTS.md", "src/global.css"]
+      },
+      {
+        "id": "ops-agent",
+        "name": "UniTeia DevOps",
+        "description": "Handles builds, CI/CD, bundle analysis, Cloudflare deploys",
+        "model": "claude-sonnet-4",
+        "skills": [
+          "cloudflare-pages",
+          "github-actions",
+          "bundle-analysis",
+          "vitest-testing",
+          "wrangler-cli"
+        ],
+        "permissions": [
+          "read:.github/workflows/**",
+          "write:.github/workflows/**",
+          "read:dist/**",
+          "read:package.json",
+          "write:package.json",
+          "read:wrangler.toml",
+          "write:wrangler.toml",
+          "read:wrangler.jsonc",
+          "write:wrangler.jsonc"
+        ],
+        "autoApprove": [
+          "bun run build",
+          "bun run preview",
+          "bun run preview:cf",
+          "wrangler pages deploy --dry-run"
+        ],
+        "contextFiles": ["AGENTS.md", "package.json", "wrangler.toml", "wrangler.jsonc"]
+      },
+      {
+        "id": "test-agent",
+        "name": "UniTeia QA Engineer",
+        "description": "Writes tests, discovers edge cases, maintains coverage",
+        "model": "claude-sonnet-4",
+        "skills": ["vitest-testing", "playwright-e2e", "edge-case-discovery", "coverage-analysis"],
+        "permissions": [
+          "read:src/**",
+          "write:src/**/*.test.ts",
+          "write:src/**/*.spec.ts",
+          "read:vitest.config.ts",
+          "read:playwright.config.ts",
+          "read:tests/e2e/**",
+          "write:tests/e2e/**"
+        ],
+        "autoApprove": ["bun run test:unit", "bun run ship:check", "bun run test:e2e"],
+        "contextFiles": ["AGENTS.md", "vitest.config.ts", "playwright.config.ts"]
+      }
+    ]
+  },
+  "skills": {
+    "registry": "https://github.com/tech-leads-club/agent-skills",
+    "installed": [
+      "typescript-qwik",
+      "tailwind-v4",
+      "vitest-testing",
+      "cloudflare-pages",
+      "biome-linting",
+      "i18n-management",
+      "oklch-colors",
+      "css-animations",
+      "playwright-visual",
+      "playwright-e2e",
+      "edge-case-discovery",
+      "coverage-analysis",
+      "yaml-editing",
+      "markdown-prose",
+      "exa-search",
+      "bundle-analysis",
+      "github-actions",
+      "wrangler-cli"
+    ],
+    "lazyLoad": true,
+    "projectSkill": ".opencode/skills/uniteia-dev.md"
+  },
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "env": {},
+      "alwaysAllow": ["read_file", "write_file", "list_directory"]
+    },
+    "browser-skills": {
+      "command": "npx",
+      "args": ["-y", "playwright-mcp@latest"],
+      "env": {},
+      "alwaysAllow": ["browser_navigate", "browser_screenshot", "browser_click"]
+    },
+    "parallel-search": {
+      "command": "npx",
+      "args": ["-y", "@opencode/mcp-parallel-search"],
+      "env": {},
+      "alwaysAllow": ["search", "multi_search"]
+    },
+    "deep-thinker": {
+      "command": "npx",
+      "args": ["-y", "@opencode/mcp-deep-thinker"],
+      "env": {},
+      "alwaysAllow": ["think", "analyze", "compare"]
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@opencode/mcp-context7"],
+      "env": {},
+      "alwaysAllow": ["retrieve_context", "search_codebase"]
+    },
+    "exa": {
+      "command": "npx",
+      "args": ["-y", "@exa/mcp-server"],
+      "env": {
+        "EXA_API_KEY": "${EXA_API_KEY}"
+      },
+      "alwaysAllow": ["exa_search", "exa_get_contents"]
+    },
+    "composio": {
+      "command": "npx",
+      "args": ["-y", "composio-mcp@latest"],
+      "env": {
+        "COMPOSIO_API_KEY": "${COMPOSIO_API_KEY}"
+      },
+      "alwaysAllow": ["execute_action"]
+    }
+  },
+  "permissions": {
+    "humanConfirmation": {
+      "pushToMain": true,
+      "modifyGeneratedFiles": true,
+      "addDependencies": true,
+      "deleteComponents": true,
+      "deployProduction": true,
+      "modifyCI": true,
+      "modifyGitignore": true
+    },
+    "autoApprove": {
+      "runTests": true,
+      "runBuild": true,
+      "runLint": true,
+      "runLintFix": true,
+      "runTypecheck": true,
+      "formatCode": true,
+      "updateChangelog": true,
+      "gitCommit": true
+    }
+  },
+  "context": {
+    "maxTokens": 200000,
+    "retrievalDepth": 3,
+    "includeFileTree": true,
+    "includeGitHistory": true,
+    "includePackageJson": true,
+    "includeBiomeConfig": true
+  },
+  "ui": {
+    "theme": "dark",
+    "denseMode": true,
+    "showHashes": true,
+    "symbolicNotation": true,
+    "language": "pt-BR"
+  }
+}
