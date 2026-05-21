@@ -3,6 +3,7 @@ import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-c
 import { CinematicDepthCard } from '~/components/cinematic-depth'
 import { JSONLD } from '~/components/json-ld'
 import { MasterOpenCanvas } from '~/components/master-open-canvas'
+import { OnboardingFlow } from '~/components/onboarding-flow'
 import {
   ScrollContentCanvas,
   ScrollDepthCardEnhancer,
@@ -61,6 +62,7 @@ export default component$(() => {
           },
         }}
       />
+      <OnboardingFlow locale={lang} siteName={siteName} />
       {/* M012 S07: ScrollHeroOrganism — 5-layer parallax hero */}
       <ScrollHeroOrganism
         layers={[

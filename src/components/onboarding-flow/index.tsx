@@ -6,7 +6,7 @@ export interface OnboardingFlowProps {
   siteName?: string
 }
 
-export const OnboardingFlow = component$<OnboardingFlowProps>(({ locale, siteName = 'UniTeia' }) => {
+export const OnboardingFlow = component$<OnboardingFlowProps>(({ siteName = 'UniTeia' }) => {
   const steps = [
     {
       tone: 'action' as const,
@@ -35,16 +35,10 @@ export const OnboardingFlow = component$<OnboardingFlowProps>(({ locale, siteNam
       <div class="mb-16 text-center perspective-dramatic preserve-3d">
         <DepthCard depth="surface" depth2d5="floating" glass={true}>
           <div class="p-8 md:p-12 relative">
-            <span
-              class="hud-label-base mb-4"
-              data-tone="action"
-              aria-hidden="true"
-            >
+            <span class="hud-label-base mb-4" data-tone="action" aria-hidden="true">
               Step 1
             </span>
-            <h1 class="text-display-xl font-display font-normal mb-4">
-              The world is noisy.
-            </h1>
+            <h1 class="text-display-xl font-display font-normal mb-4">The world is noisy.</h1>
             <h2 class="text-display-md font-display font-normal text-bone-muted mb-6">
               We filter the signal.
             </h2>
@@ -52,7 +46,10 @@ export const OnboardingFlow = component$<OnboardingFlowProps>(({ locale, siteNam
               {siteName} ingests thousands of sources daily, extracting what matters.
               <span class="block mt-3 text-coral font-medium">so you don't have to.</span>
             </p>
-            <div class="absolute inset-0 grid-signal opacity-[0.04] animate-pulse pointer-events-none" aria-hidden="true" />
+            <div
+              class="absolute inset-0 grid-signal opacity-[0.04] animate-pulse pointer-events-none"
+              aria-hidden="true"
+            />
           </div>
         </DepthCard>
       </div>
@@ -63,7 +60,7 @@ export const OnboardingFlow = component$<OnboardingFlowProps>(({ locale, siteNam
           Every signal passes 7 quality gates before reaching you.
         </h3>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {steps.map((step) => (
+          {steps.map(step => (
             <DepthCard key={step.label} depth="raised" depth2d5="front">
               <div class="p-5">
                 <span class="hud-label-base mb-3 block" data-tone={step.tone}>
@@ -85,12 +82,8 @@ export const OnboardingFlow = component$<OnboardingFlowProps>(({ locale, siteNam
           Only what matters. Delivered in your language, on your terms.
         </p>
         <div class="flex flex-wrap justify-center gap-2">
-          {['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'].map((code) => (
-            <span
-              key={code}
-              class="paper-label text-xs"
-              aria-label={`Available in ${code}`}
-            >
+          {['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'].map(code => (
+            <span key={code} class="paper-label text-xs" aria-label={`Available in ${code}`}>
               {code}
             </span>
           ))}
