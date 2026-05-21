@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 vi.mock('@builder.io/qwik', () => ({
   component$: <T>(fn: T) => fn,

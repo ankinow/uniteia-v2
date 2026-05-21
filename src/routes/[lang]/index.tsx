@@ -139,7 +139,10 @@ export default component$(() => {
                   data-step={String(i + 2)}
                 >
                   <ScrollDepthCardEnhancer>
-                    <CinematicDepthCard visualStyle={signal.node.visualStyle} layer={i % 3}>
+                    <CinematicDepthCard
+                      {...(signal.node.visualStyle ? { visualStyle: signal.node.visualStyle } : {})}
+                      layer={i % 3}
+                    >
                       <div class="p-5">
                         <p class="font-semibold text-bone text-base leading-tight">
                           {signal.node.title}

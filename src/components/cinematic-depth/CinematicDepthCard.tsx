@@ -51,18 +51,14 @@ const VARIANT_CONFIG: Record<
   },
 }
 
-function visualStyleToVariant(style?: VisualStyle): CinematicVariant {
+function visualStyleToVariant(style: VisualStyle): CinematicVariant {
   switch (style) {
     case 'editorial-collage':
-    case 'decision-map':
       return 'collage-editorial'
     case 'signal-grid':
-    case 'practical-explainer':
       return 'card'
     case 'material-myth':
       return 'subtle'
-    default:
-      return 'card'
   }
 }
 
