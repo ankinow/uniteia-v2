@@ -82,6 +82,25 @@
   --pbr-roughness: 0.4;
   --depth-2-5d: 12px;
   --color-glass: oklch(15% 0.02 260 / 0.75);
+
+  /* ── Depth z-index scale ── */
+  --z-surface: 0;
+  --z-raised: 10;
+  --z-pressed: 20;
+  --z-floating: 30;
+  --z-overlay: 50;
+
+  /* ── Depth shadow scale ── */
+  --shadow-d1: 0 8px 20px rgb(0 0 0 / 0.18);
+  --shadow-d2: 0 14px 32px rgb(0 0 0 / 0.24);
+  --shadow-d3: 0 18px 42px rgb(0 0 0 / 0.34);
+  --shadow-d4: 0 25px 60px rgb(0 0 0 / 0.5);
+
+  /* ── Depth border scale ── */
+  --border-d1: 1px solid color-mix(in srgb, var(--color-curation) 18%, transparent);
+  --border-d2: 1px solid color-mix(in srgb, var(--color-cyan) 14%, transparent);
+  --border-d3: 1px solid color-mix(in srgb, var(--color-cyan) 24%, transparent);
+  --border-d4: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* ═══════════════════════════════════════════
