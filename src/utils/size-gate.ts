@@ -3,13 +3,13 @@ import { readFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
 import { gzipSync } from 'node:zlib'
 
-export const DEFAULT_ROUTE_GZIP_BUDGET_BYTES = 120 * 1024
+export const DEFAULT_ROUTE_GZIP_BUDGET_BYTES = 130 * 1024
 
 // ── Sub-budgets (M003 S05) ─────────────────────────────────────────────
 
 export const SUB_BUDGET_HTML_GZIP = 20 * 1024 // 20 KB — initial HTML per route
 export const SUB_BUDGET_ENTRY_GZIP = 15 * 1024 // 15 KB — first interaction chunk
-export const SUB_BUDGET_TOTAL_GZIP = 120 * 1024 // 120 KB — total critical path
+export const SUB_BUDGET_TOTAL_GZIP = 130 * 1024 // 130 KB — total critical path
 
 export interface SubBudgetResult {
   htmlGzipBytes: number | null

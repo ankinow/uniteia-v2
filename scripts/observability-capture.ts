@@ -22,7 +22,8 @@ const PROJECT_ROOT = join(import.meta.dirname, '..')
 const ARTIFACTS_DIR = join(PROJECT_ROOT, 'artifacts', 'observability')
 const TRACES_DIR = join(ARTIFACTS_DIR, 'traces')
 const REPORT_PATH = join(ARTIFACTS_DIR, 'observability-report.md')
-const PREVIEW_URL = `http://localhost:${8788}`
+const PREVIEW_PORT = process.env.PREVIEW_PORT ?? '8788'
+const PREVIEW_URL = process.env.PLAYWRIGHT_BASE_URL ?? `http://localhost:${PREVIEW_PORT}`
 
 const TEST_SUITES = [
   { name: 'edge-chaos', spec: 'tests/e2e/s02-edge-chaos.spec.ts' },

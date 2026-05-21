@@ -29,6 +29,7 @@ async function freezeClock(context: BrowserContext) {
             super(fixedNow)
             return
           }
+          // @ts-ignore
           super(...args)
         }
 

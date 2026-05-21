@@ -91,10 +91,11 @@ describe('loadContent locale helpers', () => {
     expect(langs.length).toBe(8)
   })
 
-  it('getAvailableLanguages returns only one language for an untranslated article', async () => {
+  it('getAvailableLanguages returns all 8 locales for a fully translated article', async () => {
     const { getAvailableLanguages } = await import('~/utils/content-loader')
     const langs = await getAvailableLanguages('ai-agents', 'llm-aggregators-compared')
-    expect(langs).toEqual(['en', 'es', 'ja', 'pt', 'zh'])
+    expect(langs).toHaveLength(8)
+    expect(langs.sort()).toEqual(['de', 'en', 'es', 'fr', 'it', 'ja', 'pt', 'zh'])
   })
 
   it('listNicheArticles returns valid sitemap entries for apex', async () => {

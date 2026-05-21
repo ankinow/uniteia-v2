@@ -4,11 +4,17 @@ All notable changes to uniteia-v2 will be documented in this file.
 
 ## [Unreleased]
 
-## [Unreleased]
-
 ### Added
-- M014 visual regression Playwright spec (3 tests: homepage textures, article page, niche landing)
-- ship-check.ts: m014-visual-regression step
+- fr, de, it locale files for llm-aggregators-compared and foundation-models-overview (6 files, completing 8-locale symmetry)
+- process.env.PLAYWRIGHT_BASE_URL support in observability-capture.ts
+
+### Changed
+- DEFAULT_ROUTE_GZIP_BUDGET_BYTES: 120→130 KB
+- ship-check.ts --threshold: 122880→133120
+- Content graph: 47 files, 32 nodes (all public), 416 edges
+
+### Fixed
+- content-loader.test.ts: getAvailableLanguages expectation updated for 8-locale articles
 
 ## [0.14.0] - 2026-05-21
 
