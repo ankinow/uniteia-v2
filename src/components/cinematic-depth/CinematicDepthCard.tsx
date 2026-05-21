@@ -6,6 +6,7 @@
  * Composable unit — replaces flat depth-card across all surfaces.
  */
 import { Slot, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
+import type { VisualStyle } from '~/content-graph/contracts/node'
 
 export type CinematicVariant = 'card' | 'hero' | 'subtle' | 'collage-editorial'
 
@@ -14,6 +15,8 @@ export interface CinematicDepthCardProps {
   variant?: CinematicVariant
   /** Base translateZ offset in px (default: 0) */
   layer?: number
+  /** ContentNode visualStyle metadata — overrides variant if provided */
+  visualStyle?: VisualStyle
   /** Additional CSS classes */
   class?: string
 }
@@ -48,6 +51,21 @@ const VARIANT_CONFIG: Record<
   },
 }
 
+function visualStyleToVariant(style?: VisualStyle): CinematicVariant {
+  switch (style) {
+    case 'editorial-collage':
+    case 'decision-map':
+      return 'collage-editorial'
+    case 'signal-grid':
+    case 'practical-explainer':
+      return 'card'
+    case 'material-myth':
+      return 'subtle'
+    default:
+      return 'card'
+  }
+}
+
 /**
  * CinematicDepthCard — 2.5D Perspective Card
  *
@@ -60,8 +78,8 @@ const VARIANT_CONFIG: Record<
  * Hydration-safe: useVisibleTask$ isolates browser-only pointer events.
  */
 export const CinematicDepthCard = component$<CinematicDepthCardProps>(
-  ({ variant = 'card', layer = 0, class: className }) => {
-    const cfg = VARIANT_CONFIG[variant]
+  ({ variant = 'card', layer = 0, visualStyle, class: className }) => {
+    const cfg = VARIANT_CONFIG[visualStyle ? visualStyleToVariant(visualStyle) : variant]
     const tiltX = useSignal(0)
     const tiltY = useSignal(0)
     const cardRef = useSignal<HTMLDivElement>()
