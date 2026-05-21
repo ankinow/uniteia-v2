@@ -86,4 +86,19 @@ export const de: TranslationStrings = {
     topicsTitle: 'AI Topics',
     topicsDescription: 'Explore our curated list of Artificial Intelligence topics and niches.',
   },
+  onboarding: {
+    step1: {
+      title: 'Die Welt ist laut.',
+      subtitle: 'Wir filtern das Signal.',
+      desc: '{siteName} nimmt täglich Tausende von Quellen auf und extrahiert, was zählt. Damit Sie es nicht tun müssen.',
+    },
+    step2: {
+      title: 'Jedes Signal durchläuft 7 Qualitätsprüfungen, bevor es Sie erreicht.',
+    },
+    step3: {
+      title: 'Verfügbar in 8 Sprachen.',
+      desc: 'Nur was zählt. In Ihrer Sprache, zu Ihren Bedingungen.',
+      badge: '8 Stimmen',
+    },
+  },
 }

@@ -86,4 +86,19 @@ export const es: TranslationStrings = {
     topicsDescription:
       'Explore nuestra lista seleccionada de temas y nichos de Inteligencia Artificial.',
   },
+  onboarding: {
+    step1: {
+      title: 'El mundo es ruidoso.',
+      subtitle: 'Nosotros filtramos la señal.',
+      desc: '{siteName} ingiere miles de fuentes diariamente, extrayendo lo que importa. Para que tú no tengas que hacerlo.',
+    },
+    step2: {
+      title: 'Cada señal pasa por 7 compuertas de calidad antes de llegar a ti.',
+    },
+    step3: {
+      title: 'Disponible en 8 idiomas.',
+      desc: 'Solo lo que importa. Entregado en tu idioma, en tus términos.',
+      badge: '8 voces',
+    },
+  },
 }

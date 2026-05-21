@@ -85,4 +85,19 @@ export const zh: TranslationStrings = {
     topicsTitle: 'AI 主题',
     topicsDescription: '探索我们精选的人工智能主题和领域列表。',
   },
+  onboarding: {
+    step1: {
+      title: '世界充满噪音。',
+      subtitle: '我们过滤信号。',
+      desc: '{siteName} 每天摄入数千个来源，提取重要的信息。让您无需亲力亲为。',
+    },
+    step2: {
+      title: '每个信号在到达您之前都经过7道质量关卡。',
+    },
+    step3: {
+      title: '支持8种语言。',
+      desc: '只有重要的内容。用您的语言，按您的方式。',
+      badge: '8种声音',
+    },
+  },
 }

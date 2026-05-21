@@ -1,29 +1,16 @@
 import { component$ } from '@builder.io/qwik'
 import { DepthCard } from '~/components/depth-card'
+import { getTranslation } from '~/i18n/context'
+import type { SupportedLanguage } from '~/i18n/types'
 
 export interface OnboardingFlowProps {
-  locale: string
+  locale: SupportedLanguage
   siteName?: string
 }
 
-export const OnboardingFlow = component$<OnboardingFlowProps>(({ siteName = 'UniTeia' }) => {
-  const steps = [
-    {
-      tone: 'action' as const,
-      label: 'Research',
-      desc: 'Raw sources are ingested and scored for trust.',
-    },
-    {
-      tone: 'verified' as const,
-      label: 'Verify',
-      desc: 'Claims are cross-checked against independent sources.',
-    },
-    {
-      tone: 'curation' as const,
-      label: 'Structure',
-      desc: 'Content is formatted, localized, and readied for delivery.',
-    },
-  ]
+export const OnboardingFlow = component$<OnboardingFlowProps>(({ locale, siteName }) => {
+  const t = getTranslation(locale)
+  const name = siteName || t.seo.siteName
 
   return (
     <section
@@ -38,13 +25,14 @@ export const OnboardingFlow = component$<OnboardingFlowProps>(({ siteName = 'Uni
             <span class="hud-label-base mb-4" data-tone="action" aria-hidden="true">
               Step 1
             </span>
-            <h1 class="text-display-xl font-display font-normal mb-4">The world is noisy.</h1>
+            <h1 class="text-display-xl font-display font-normal mb-4">
+              {t.onboarding.step1.title}
+            </h1>
             <h2 class="text-display-md font-display font-normal text-bone-muted mb-6">
-              We filter the signal.
+              {t.onboarding.step1.subtitle}
             </h2>
             <p class="text-body-lg text-bone/80 max-w-[68ch] mx-auto">
-              {siteName} ingests thousands of sources daily, extracting what matters.
-              <span class="block mt-3 text-coral font-medium">so you don't have to.</span>
+              {t.onboarding.step1.desc.replace('{siteName}', name)}
             </p>
             <div
               class="absolute inset-0 grid-signal opacity-[0.04] animate-pulse pointer-events-none"
@@ -57,10 +45,26 @@ export const OnboardingFlow = component$<OnboardingFlowProps>(({ siteName = 'Uni
       {/* Step 2 — Curated */}
       <div class="mb-16">
         <h3 class="text-center font-display font-normal text-display-md mb-8">
-          Every signal passes 7 quality gates before reaching you.
+          {t.onboarding.step2.title}
         </h3>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {steps.map(step => (
+          {[
+            {
+              tone: 'action' as const,
+              label: 'Research',
+              desc: 'Raw sources are ingested and scored for trust.',
+            },
+            {
+              tone: 'verified' as const,
+              label: 'Verify',
+              desc: 'Claims are cross-checked against independent sources.',
+            },
+            {
+              tone: 'curation' as const,
+              label: 'Structure',
+              desc: 'Content is formatted, localized, and readied for delivery.',
+            },
+          ].map(step => (
             <DepthCard key={step.label} depth="raised" depth2d5="front">
               <div class="p-5">
                 <span class="hud-label-base mb-3 block" data-tone={step.tone}>
@@ -76,10 +80,10 @@ export const OnboardingFlow = component$<OnboardingFlowProps>(({ siteName = 'Uni
       {/* Step 3 — Delivery Layer */}
       <div class="text-center canvas-light rounded-3xl p-6 md:p-10">
         <h3 class="font-display font-normal text-display-md text-paper-text mb-4">
-          Available in 8 languages.
+          {t.onboarding.step3.title}
         </h3>
         <p class="text-body-lg text-paper-text/80 max-w-[52ch] mx-auto mb-6">
-          Only what matters. Delivered in your language, on your terms.
+          {t.onboarding.step3.desc}
         </p>
         <div class="flex flex-wrap justify-center gap-2">
           {['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'].map(code => (
@@ -89,7 +93,7 @@ export const OnboardingFlow = component$<OnboardingFlowProps>(({ siteName = 'Uni
           ))}
         </div>
         <span class="hud-label-base mt-4" data-tone="verified" data-size="compact">
-          8 voices
+          {t.onboarding.step3.badge}
         </span>
       </div>
     </section>

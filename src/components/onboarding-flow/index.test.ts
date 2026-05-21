@@ -2,6 +2,18 @@ import { describe, expect, it, vi } from 'vitest'
 
 vi.mock('@builder.io/qwik', () => ({
   component$: <T>(fn: T) => fn,
+  createContextId: () => 'i18n',
+}))
+
+vi.mock('~/i18n/context', () => ({
+  getTranslation: () => ({
+    seo: { siteName: 'UniTeia', articleTitleTemplate: '', topicsTitle: '', topicsDescription: '' },
+    onboarding: {
+      step1: { title: '', subtitle: '', desc: '' },
+      step2: { title: '' },
+      step3: { title: '', desc: '', badge: '' },
+    },
+  }),
 }))
 
 vi.mock('~/components/depth-card', () => ({

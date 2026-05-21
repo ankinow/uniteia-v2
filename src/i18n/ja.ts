@@ -85,4 +85,19 @@ export const ja: TranslationStrings = {
     topicsTitle: 'AIトピック',
     topicsDescription: '厳選された人工知能のトピックとニッチのリストをご覧ください。',
   },
+  onboarding: {
+    step1: {
+      title: '世界はノイズにあふれています。',
+      subtitle: '私たちはシグナルを濾過します。',
+      desc: '{siteName}は毎日何千ものソースを取り込み、重要なものを抽出します。あなたがする必要はありません。',
+    },
+    step2: {
+      title: 'すべてのシグナルは、あなたに届く前に7つの品質ゲートを通過します。',
+    },
+    step3: {
+      title: '8言語で利用可能。',
+      desc: '重要なものだけを。あなたの言語で、あなたの条件で。',
+      badge: '8つの声',
+    },
+  },
 }
