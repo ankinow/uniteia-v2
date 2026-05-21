@@ -14,6 +14,7 @@ Thumbs.db
 *.swp
 *.swo
 *~
+=3
 .idea/
 .vscode/
 *.code-workspace
@@ -51,6 +52,7 @@ test-results/
 
 # Session logs
 session-*.md
+gsd-session-*.html
 
 # Content Factory generated
 apps/content-factory/content/
