@@ -1,17 +1,17 @@
 # Linkgraph Report
 
-**Generated:** 2026-05-21T03:25:49.115Z
-**Source:** content-graph.generated (2026-05-21T03:13:58.101Z)
-**Nodes:** 11
-**Edges:** 104
+**Generated:** 2026-05-21T17:02:41.487Z
+**Source:** content-graph.generated (2026-05-21T17:02:12.778Z)
+**Nodes:** 26
+**Edges:** 298
 
 ## Edge Kind Distribution
 
 | Edge Kind | Count |
 |-----------|-------|
-| translated-as | 56 |
-| belongs-to-niche | 45 |
-| related-to | 3 |
+| translated-as | 152 |
+| belongs-to-niche | 120 |
+| related-to | 26 |
 
 ## Edge Reciprocity
 
@@ -20,9 +20,9 @@ Kinds marked as *expected asymmetric* are designed to be one-directional; low re
 
 | Edge Kind | Total | Reciprocal | % Reciprocal |
 |-----------|-------|------------|--------------|
-| translated-as | 56 | 56 | 100% |
-| belongs-to-niche | 45 | 30 | 67% (expected) |
-| related-to | 3 | 2 | 67% (expected) |
+| translated-as | 152 | 152 | 100% |
+| belongs-to-niche | 120 | 70 | 58% (expected) |
+| related-to | 26 | 26 | 100% (expected) |
 
 ## Top Linked Nodes (by degree centrality)
 
@@ -30,11 +30,11 @@ Nodes with the highest total degree (inbound + outbound connections):
 
 | Title | Slug | Inbound | Outbound | Total |
 |-------|------|---------|----------|-------|
-| Tencent Cloud Deal Stack: Cloud Barata para Builders | `tencent-cloud-deal-stack-builders` | 16 | 13 | 29 |
-| Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | 15 | 12 | 27 |
-| Tencent Cloud Deal Stack para Creadores | `tencent-cloud-deal-stack-builders` | 15 | 12 | 27 |
-| Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | 15 | 12 | 27 |
-| Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | 12 | 12 | 24 |
+| Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | 23 | 13 | 36 |
+| Galaxy AI: Tools and Strategies for Content Creators | `creator-ai-tools` | 23 | 13 | 36 |
+| Tencent Cloud Deal Stack para Creadores | `tencent-cloud-deal-stack-builders` | 23 | 13 | 36 |
+| Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | 23 | 13 | 36 |
+| Galaxy AI: Herramientas y Estrategias para Creadores de Contenido | `creator-ai-tools` | 23 | 13 | 36 |
 
 > Full node list with individual degree scores: see appendix below.
 
@@ -44,20 +44,20 @@ For each niche, this section reports how many internal edges exist (edges where 
 
 ### apex
 
-- Nodes: 9
-- Internal edges: 103
+- Nodes: 16
+- Internal edges: 208
 - Connected to: *none*
 
 ### ai-agents
 
-- Nodes: 1
-- Internal edges: 0
+- Nodes: 5
+- Internal edges: 40
 - Connected to: `language-models`
 
 ### language-models
 
-- Nodes: 1
-- Internal edges: 0
+- Nodes: 5
+- Internal edges: 40
 - Connected to: `ai-agents`
 
 ## Appendix: Full Node List
@@ -65,17 +65,32 @@ For each niche, this section reports how many internal edges exist (edges where 
 | ID | Title | Slug | Locale | Niches |
 |----|-------|------|--------|--------|
 | `en-llm-aggregators-compared` | LLM Aggregators Compared | `llm-aggregators-compared` | en | `ai-agents` |
+| `es-llm-aggregators-compared` | Agregadores de LLM Comparados | `llm-aggregators-compared` | es | `ai-agents` |
+| `ja-llm-aggregators-compared` | LLMアグリゲーター比較 | `llm-aggregators-compared` | ja | `ai-agents` |
+| `pt-llm-aggregators-compared` | Agregadores de LLM Comparados | `llm-aggregators-compared` | pt | `ai-agents` |
+| `zh-llm-aggregators-compared` | LLM聚合器比较 | `llm-aggregators-compared` | zh | `ai-agents` |
 | `en-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | en | `apex` |
+| `en-creator-ai-tools` | Galaxy AI: Tools and Strategies for Content Creators | `creator-ai-tools` | en | `apex` |
 | `es-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack para Creadores | `tencent-cloud-deal-stack-builders` | es | `apex` |
+| `es-creator-ai-tools` | Galaxy AI: Herramientas y Estrategias para Creadores de Contenido | `creator-ai-tools` | es | `apex` |
 | `ja-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | ja | `apex` |
+| `ja-creator-ai-tools` | Galaxy AI: コンテンツクリエイターのためのツールと戦略 | `creator-ai-tools` | ja | `apex` |
 | `pt-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack: Cloud Barata para Builders | `tencent-cloud-deal-stack-builders` | pt | `apex` |
-| `pt-creator-ai-tools` | Galaxy — Exploração de Conteúdo e Fontes | `creator-ai-tools` | pt | `apex` |
+| `pt-creator-ai-tools` | Galaxy AI: Ferramentas e Estratégias para Criadores de Conteúdo | `creator-ai-tools` | pt | `apex` |
 | `zh-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | zh | `apex` |
+| `zh-creator-ai-tools` | Galaxy AI：内容创作者的工具与策略 | `creator-ai-tools` | zh | `apex` |
 | `de-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack für Entwickler | `tencent-cloud-deal-stack-builders` | de | `apex` |
+| `de-creator-ai-tools` | Galaxy AI: Tools und Strategien für Content Creator | `creator-ai-tools` | de | `apex` |
 | `fr-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack pour Builders | `tencent-cloud-deal-stack-builders` | fr | `apex` |
+| `fr-creator-ai-tools` | Galaxy AI : Outils et Stratégies pour les Créateurs de Contenu | `creator-ai-tools` | fr | `apex` |
 | `it-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack per Creator | `tencent-cloud-deal-stack-builders` | it | `apex` |
+| `it-creator-ai-tools` | Galaxy AI: Strumenti e Strategie per i Creatori di Contenuti | `creator-ai-tools` | it | `apex` |
 | `en-foundation-models-overview` | Foundation Models Overview | `foundation-models-overview` | en | `language-models` |
+| `es-foundation-models-overview` | Visión General de los Modelos Fundacionales | `foundation-models-overview` | es | `language-models` |
+| `ja-foundation-models-overview` | ファンデーションモデル概要 | `foundation-models-overview` | ja | `language-models` |
+| `pt-foundation-models-overview` | Visão Geral de Modelos Fundacionais | `foundation-models-overview` | pt | `language-models` |
+| `zh-foundation-models-overview` | 基础模型概述 | `foundation-models-overview` | zh | `language-models` |
 
 ---
 
-*Report generated by scripts/generate-linkgraph-report.ts at 2026-05-21T03:25:49.120Z*
+*Report generated by scripts/generate-linkgraph-report.ts at 2026-05-21T17:02:41.488Z*

@@ -116,6 +116,7 @@ export async function runShipCheckStep(
     const child = spawn(command, args, {
       cwd: process.cwd(),
       env: {
+        PATH: process.env.PATH,
         NODE_ENV: process.env.NODE_ENV,
         CF_PAGES: process.env.CF_PAGES,
         SITE_URL: process.env.SITE_URL,

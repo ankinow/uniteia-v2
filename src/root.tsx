@@ -34,20 +34,12 @@ export default component$(() => {
         <meta name="color-scheme" content="dark" />
         <link rel="manifest" href="/manifest.json" />
 
-        {/* CWV: Preload critical fonts to reduce LCP and layout shift */}
+        {/* CWV: Google Fonts CDN — Sora display + Inter body + JetBrains Mono code */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          rel="preload"
-          href="/fonts/geist.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/inter.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
+          href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+          rel="stylesheet"
         />
 
         <RouterHead />

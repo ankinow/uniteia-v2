@@ -116,6 +116,9 @@ function parseRegistryEntry(
   const frontmatter = parseFrontmatter(raw)
   if (!frontmatter) return null
 
+  const isStub = !raw.trim() || (frontmatter.quality_score === 0 && !frontmatter.verdict)
+  if (isStub) return null
+
   const title = (frontmatter.title as string) ?? slugWithExt
   const qualityScore = (frontmatter.quality_score as number) ?? 0
   const verdict = (frontmatter.verdict as string) ?? 'caution'

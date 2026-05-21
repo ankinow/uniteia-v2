@@ -95,7 +95,7 @@ export default component$(() => {
                   const rootNode = {
                     id: 'signal-intake',
                     label: 'Signal Intake',
-                    outcome: `${featuredSignals.length + frontierStreams.length} signals curated across ${clusterNodes.length} niches`,
+                    outcome: `${new Set([...featuredSignals, ...frontierStreams].map(s => s.node.id)).size} signals curated across ${clusterNodes.length} niches`,
                     children: clusterNodes.length > 0 ? clusterNodes : undefined,
                   }
                   const deliveryNode = {

@@ -1,13 +1,7 @@
 import { Slot, component$ } from '@builder.io/qwik'
+import { DopamineCard } from '~/components/dopamine-card'
 import type { ArticleFrameProps } from './types'
 
-/**
- * ArticleFrame - Main content container for wiki articles
- *
- * Provides a prose-styled, max-width-constrained container with
- * dark theme surface styling and responsive padding.
- * Follows S01 isolation pattern with types.ts + index.tsx.
- */
 export const ArticleFrame = component$<ArticleFrameProps>(props => {
   return (
     <article
@@ -20,18 +14,33 @@ export const ArticleFrame = component$<ArticleFrameProps>(props => {
         'font-sans antialiased',
         'glass-light',
         'relative',
-        /* Swiss Grid: align children to a consistent baseline if possible */
         '[&>h1]:mb-12 [&>h2]:mb-8 [&>h2]:mt-16 [&>p]:mb-6',
-        /* Editorial: balance headings */
         '[&>h1]:text-wrap-balance [&>h2]:text-wrap-balance',
         props.class,
       ]}
     >
-      {/* grain-4k tactile overlay */}
       <div
         class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
         aria-hidden="true"
       />
+      {props.dopamineCard &&
+        (() => {
+          const dc = props.dopamineCard
+          return (
+            <div class="mb-8">
+              <DopamineCard
+                title={dc.title}
+                description={dc.description}
+                href={dc.href}
+                lang={dc.lang}
+                {...(dc.score !== undefined ? { score: dc.score } : {})}
+                {...(dc.verdict !== undefined ? { verdict: dc.verdict } : {})}
+                {...(dc.sourceCount !== undefined ? { sourceCount: dc.sourceCount } : {})}
+                {...(dc.icon !== undefined ? { icon: dc.icon } : {})}
+              />
+            </div>
+          )
+        })()}
       <Slot />
     </article>
   )

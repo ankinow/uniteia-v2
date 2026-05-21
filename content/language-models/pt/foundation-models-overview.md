@@ -1,7 +1,7 @@
 ---
 slug: foundation-models-overview
-lang: en
-title: Foundation Models Overview
+lang: pt
+title: Visão Geral de Modelos Fundacionais
 verdict: trusted
 quality_score: 95
 subjects:
@@ -10,18 +10,17 @@ subjects:
   - transformers
 referral_links:
   - url: https://arxiv.org/abs/2005.14165
-    title: GPT-3 Paper
-    description: Language Models are Few-Shot Learners by Brown et al.
+    title: Artigo GPT-3
+    description: Language Models are Few-Shot Learners por Brown et al.
   - url: https://arxiv.org/abs/1706.03762
     title: Attention Is All You Need
-    description: The original Transformer architecture paper by Vaswani et al.
+    description: O artigo original sobre a arquitetura Transformer por Vaswani et al.
 metadata:
   created_at: "2026-04-26T12:00:00Z"
-  updated_at: "2026-04-26T12:00:00Z"
-  author: UniTeia Editorial
+  updated_at: "2026-05-21T00:00:00Z"
+  author: UniTeia System
   version: 1
 ---
-
 # Foundation Models Overview
 
 A concise guide to the paradigm shift from task-specific models to general-purpose foundation models — and what it means for developers building on top of them.

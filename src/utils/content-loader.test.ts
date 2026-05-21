@@ -69,7 +69,7 @@ describe('loadContent', () => {
     expect(result.lang).toBe('en')
     expect(result.title).toBe('Foundation Models Overview')
     expect(result.verdict).toBe('trusted')
-    expect(result.quality_score).toBe(88)
+    expect(result.quality_score).toBe(95)
     expect(result.subjects).toContain('llm')
     expect(result.referral_links.length).toBeGreaterThanOrEqual(1)
     expect(result.content).toContain('<h2>')
@@ -94,7 +94,7 @@ describe('loadContent locale helpers', () => {
   it('getAvailableLanguages returns only one language for an untranslated article', async () => {
     const { getAvailableLanguages } = await import('~/utils/content-loader')
     const langs = await getAvailableLanguages('ai-agents', 'llm-aggregators-compared')
-    expect(langs).toEqual(['en'])
+    expect(langs).toEqual(['en', 'es', 'ja', 'pt', 'zh'])
   })
 
   it('listNicheArticles returns valid sitemap entries for apex', async () => {

@@ -57,7 +57,7 @@ export const SiteHeader2D5 = component$(() => {
   })
 
   return (
-    <header class="perspective-dramatic perspective-origin-center-top relative">
+    <div class="perspective-dramatic perspective-origin-center-top relative">
       {/* Shadow accent plane behind header */}
       <div class="absolute inset-x-0 top-0 h-full depth-shadow-plane" aria-hidden="true" />
 
@@ -74,6 +74,6 @@ export const SiteHeader2D5 = component$(() => {
           <Slot />
         </div>
       </div>
-    </header>
+    </div>
   )
 })

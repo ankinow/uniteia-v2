@@ -68,8 +68,34 @@ const build2D5Style = (level: 'back' | 'base' | 'front' | 'floating'): Record<st
 }
 
 export const DepthCard = component$<DepthSurfaceProps>(
-  ({ as = 'div', depth = 'surface', depth2d5, glass, class: classList, ...attrs }) => {
-    // Build base classes
+  ({
+    as = 'div',
+    depth = 'surface',
+    depth2d5: depth2d5Prop,
+    glass: glassProp,
+    variant,
+    class: classList,
+    ...attrs
+  }) => {
+    const variantDefaults =
+      variant === 'glass'
+        ? { glass: true, depth2d5: 'base' as const }
+        : variant === 'cinematic'
+          ? { glass: false, depth2d5: 'floating' as const }
+          : variant === 'paper'
+            ? { glass: false, depth2d5: 'back' as const }
+            : {}
+
+    const depth2d5 = depth2d5Prop ?? variantDefaults.depth2d5
+    const glass =
+      glassProp !== undefined
+        ? glassProp
+        : 'glass' in variantDefaults
+          ? variantDefaults.glass
+          : undefined
+    const isCinematic = variant === 'cinematic'
+    const isPaper = variant === 'paper'
+
     const visualUpgrade = getVisualUpgradeClass(depth, depth2d5, glass)
     const classes: (string | undefined | null)[] = [
       'surface-hud',
@@ -77,12 +103,10 @@ export const DepthCard = component$<DepthSurfaceProps>(
       'depth-card',
       visualUpgrade ? null : getGlassClass(depth, glass),
       visualUpgrade,
+      isCinematic ? 'neon-edge' : null,
     ]
 
-    // Compute data-depth for CSS targeting (backward compatible)
     const dataDepth = mapDepthToDataAttr(depth)
-
-    // Build inline style for 2.5D
     const style2d5 = depth2d5 ? build2D5Style(depth2d5) : undefined
     const showGrain = !!getVisualUpgradeClass(depth, depth2d5, glass)
 
@@ -95,91 +119,38 @@ export const DepthCard = component$<DepthSurfaceProps>(
       style: style2d5,
     }
 
+    const inner = (
+      <>
+        {showGrain && (
+          <div
+            class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
+            aria-hidden="true"
+          />
+        )}
+        {isPaper && (
+          <div class="paper-fiber absolute inset-0 pointer-events-none" aria-hidden="true" />
+        )}
+        <Slot />
+      </>
+    )
+
     switch (as) {
       case 'header':
-        return (
-          <header {...sharedProps}>
-            {showGrain && (
-              <div
-                class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
-                aria-hidden="true"
-              />
-            )}
-            <Slot />
-          </header>
-        )
+        return <header {...sharedProps}>{inner}</header>
       case 'article':
-        return (
-          <article {...sharedProps}>
-            {showGrain && (
-              <div
-                class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
-                aria-hidden="true"
-              />
-            )}
-            <Slot />
-          </article>
-        )
+        return <article {...sharedProps}>{inner}</article>
       case 'aside':
-        return (
-          <aside {...sharedProps}>
-            {showGrain && (
-              <div
-                class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
-                aria-hidden="true"
-              />
-            )}
-            <Slot />
-          </aside>
-        )
+        return <aside {...sharedProps}>{inner}</aside>
       case 'section':
-        return (
-          <section {...sharedProps}>
-            {showGrain && (
-              <div
-                class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
-                aria-hidden="true"
-              />
-            )}
-            <Slot />
-          </section>
-        )
+        return <section {...sharedProps}>{inner}</section>
       case 'footer':
-        return (
-          <footer {...sharedProps}>
-            {showGrain && (
-              <div
-                class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
-                aria-hidden="true"
-              />
-            )}
-            <Slot />
-          </footer>
-        )
+        return <footer {...sharedProps}>{inner}</footer>
       case 'nav':
-        return (
-          <nav {...sharedProps}>
-            {showGrain && (
-              <div
-                class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
-                aria-hidden="true"
-              />
-            )}
-            <Slot />
-          </nav>
-        )
+        return <nav {...sharedProps}>{inner}</nav>
       default:
-        return (
-          <div {...sharedProps}>
-            {showGrain && (
-              <div
-                class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)]"
-                aria-hidden="true"
-              />
-            )}
-            <Slot />
-          </div>
-        )
+        return <div {...sharedProps}>{inner}</div>
     }
   }
 )
+
+export type { DepthCardVariant } from '~/components/depth/types'
