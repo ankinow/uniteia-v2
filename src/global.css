@@ -21,8 +21,8 @@
   --color-raised: #30363d;
 
   /* ── Semantic · Cyan (action) ── */
-  --color-action: oklch(0.85 0.18 210);
-  --color-action-hi: oklch(0.9 0.18 210);
+  --color-action: oklch(0.78 0.16 195);
+  --color-action-hi: oklch(0.85 0.16 195);
 
   /* ── Semantic · Verified ── */
   --color-verified: oklch(0.79 0.18 145);
@@ -42,10 +42,10 @@
   --color-paper-border: #c4b99e;
 
   /* ── M011: Visual DNA — OKLCH wide-gamut Coral + Cyan brand ── */
-  --color-coral: oklch(0.7 0.15 30);
-  --color-coral-hi: oklch(0.78 0.16 30);
-  --color-cyan-brand: oklch(0.7 0.12 200);
-  --color-cyan-brand-hi: oklch(0.78 0.13 200);
+  --color-coral: oklch(0.72 0.2 22);
+  --color-coral-hi: oklch(0.8 0.22 22);
+  --color-cyan: oklch(0.78 0.16 195);
+  --color-cyan-hi: oklch(0.85 0.16 195);
 
   /* ── Typography ── */
   --font-family-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
@@ -81,6 +81,7 @@
   --glass-opacity: 0.15;
   --pbr-roughness: 0.4;
   --depth-2-5d: 12px;
+  --color-glass: oklch(15% 0.02 260 / 0.75);
 }
 
 /* ═══════════════════════════════════════════
@@ -125,12 +126,6 @@
   --mid: #21262d;
   --raised: #30363d;
 
-  /* Semantic */
-  --cyan: oklch(0.85 0.18 210);
-  --cyan-hi: oklch(0.9 0.18 210);
-  --vine: oklch(0.79 0.18 145);
-  --bronze: oklch(0.79 0.09 75);
-
   /* Text */
   --bone: #f0e8d8;
   --bone-muted: #8b949e;
@@ -147,7 +142,7 @@
     color-mix(in srgb, var(--raised) 20%, transparent),
     transparent
   );
-  --glass-border: 1px solid color-mix(in srgb, var(--cyan) 15%, transparent);
+  --glass-border: 1px solid color-mix(in srgb, var(--color-cyan) 15%, transparent);
   --glass-blur: 12px;
   --glass-blur-sm: 4px;
   --glass-blur-lg: 24px;
@@ -155,11 +150,11 @@
   /* PBR fake */
   --pbr-specular: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--cyan) 8%, transparent) 0%,
+    color-mix(in srgb, var(--color-cyan) 8%, transparent) 0%,
     transparent 60%
   );
-  --pbr-metalness: 0 1px 2px color-mix(in srgb, var(--cyan) 10%, transparent), 0 2px 4px
-    color-mix(in srgb, var(--cyan) 5%, transparent);
+  --pbr-metalness: 0 1px 2px color-mix(in srgb, var(--color-cyan) 10%, transparent), 0 2px 4px
+    color-mix(in srgb, var(--color-cyan) 5%, transparent);
 
   /* 2.5D depth */
   --z-2d5-back: -1;
@@ -211,7 +206,7 @@
     transition-timing-function: var(--ease-solar);
 
     &:hover {
-      background-color: var(--cyan-hi);
+      background-color: var(--color-cyan-hi);
     }
   }
 
@@ -299,22 +294,22 @@ p {
    ═══════════════════════════════════════════ */
 
 a {
-  color: var(--cyan);
+  color: var(--color-cyan);
   text-decoration: none;
   transition: color var(--t-fast) var(--ease-solar);
 }
 
 a:hover {
-  color: var(--cyan-hi);
+  color: var(--color-cyan-hi);
 }
 
 :focus-visible {
-  outline: 2px solid var(--cyan);
+  outline: 2px solid var(--color-cyan);
   outline-offset: 2px;
 }
 
 ::selection {
-  background-color: var(--cyan);
+  background-color: var(--color-cyan);
   color: var(--void);
 }
 
@@ -340,7 +335,7 @@ a:hover {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    border: 1px solid color-mix(in srgb, var(--cyan) 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-cyan) 14%, transparent);
     background: linear-gradient(
         180deg,
         color-mix(in srgb, var(--raised) 26%, transparent),
@@ -356,12 +351,12 @@ a:hover {
     background-image: linear-gradient(
         180deg,
         transparent,
-        color-mix(in srgb, var(--cyan) 10%, transparent),
+        color-mix(in srgb, var(--color-cyan) 10%, transparent),
         transparent
       ),
       repeating-linear-gradient(
         135deg,
-        color-mix(in srgb, var(--cyan) 5%, transparent) 0 8px,
+        color-mix(in srgb, var(--color-cyan) 5%, transparent) 0 8px,
         transparent 8px 12px
       );
     opacity: 0.7;
@@ -374,7 +369,7 @@ a:hover {
 
   /* ── HUD Label Base ── */
   .hud-label-base {
-    --hud-accent: var(--cyan);
+    --hud-accent: var(--color-cyan);
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -399,17 +394,17 @@ a:hover {
 
   /* Per-tone opacity hierarchy: action (1.0) → curation (0.9) → verified (0.8) → muted (0.65) */
   .hud-label-base[data-tone="action"] {
-    --hud-accent: var(--cyan);
+    --hud-accent: var(--color-cyan);
     opacity: 1;
   }
 
   .hud-label-base[data-tone="curation"] {
-    --hud-accent: var(--bronze);
+    --hud-accent: var(--color-curation);
     opacity: 0.9;
   }
 
   .hud-label-base[data-tone="verified"] {
-    --hud-accent: var(--vine);
+    --hud-accent: var(--color-verified);
     opacity: 0.8;
   }
 
@@ -427,7 +422,7 @@ a:hover {
 
   /* ── Scratch Divider ── */
   .scratch-divider {
-    --scratch-accent: var(--cyan);
+    --scratch-accent: var(--color-cyan);
     position: relative;
     display: block;
     width: 100%;
@@ -443,11 +438,11 @@ a:hover {
   }
 
   .scratch-divider[data-tone="curation"] {
-    --scratch-accent: var(--bronze);
+    --scratch-accent: var(--color-curation);
   }
 
   .scratch-divider[data-tone="verified"] {
-    --scratch-accent: var(--vine);
+    --scratch-accent: var(--color-verified);
   }
 
   .scratch-divider[data-tone="muted"] {
@@ -467,7 +462,7 @@ a:hover {
 
   /* ── Depth Surfaces ── */
   .depth-surface {
-    --depth-accent: var(--cyan);
+    --depth-accent: var(--color-cyan);
     --depth-shadow: 0 14px 32px rgb(0 0 0 / 0.24);
     --depth-lift: 0px;
     position: relative;
@@ -477,27 +472,27 @@ a:hover {
   }
 
   .depth-surface[data-depth="front"] {
-    --depth-accent: var(--cyan);
+    --depth-accent: var(--color-cyan);
     --depth-shadow: 0 18px 42px rgb(0 0 0 / 0.34);
     --depth-lift: -1px;
     z-index: var(--z-raised);
-    border-color: color-mix(in srgb, var(--cyan) 24%, transparent);
+    border-color: color-mix(in srgb, var(--color-cyan) 24%, transparent);
     box-shadow: var(--depth-shadow);
   }
 
   .depth-surface[data-depth="mid"] {
-    --depth-accent: var(--vine);
+    --depth-accent: var(--color-verified);
     --depth-shadow: 0 12px 28px rgb(0 0 0 / 0.24);
     z-index: 1;
-    border-color: color-mix(in srgb, var(--vine) 20%, transparent);
+    border-color: color-mix(in srgb, var(--color-verified) 20%, transparent);
     box-shadow: var(--depth-shadow);
   }
 
   .depth-surface[data-depth="back"] {
-    --depth-accent: var(--bronze);
+    --depth-accent: var(--color-curation);
     --depth-shadow: 0 8px 20px rgb(0 0 0 / 0.18);
     z-index: var(--z-surface);
-    border-color: color-mix(in srgb, var(--bronze) 18%, transparent);
+    border-color: color-mix(in srgb, var(--color-curation) 18%, transparent);
     box-shadow: var(--depth-shadow);
     opacity: 0.98;
   }
@@ -521,7 +516,7 @@ a:hover {
   .glass {
     background: var(--glass-bg);
     border: var(--glass-border);
-    border-color: color-mix(in srgb, var(--cyan) 10%, transparent);
+    border-color: color-mix(in srgb, var(--color-cyan) 10%, transparent);
     backdrop-filter: blur(var(--glass-blur));
   }
 
@@ -532,7 +527,7 @@ a:hover {
       color-mix(in srgb, var(--raised) 20%, transparent),
       color-mix(in srgb, var(--void) 60%, transparent)
     );
-    border: 1px solid color-mix(in srgb, var(--cyan) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-cyan) 12%, transparent);
     backdrop-filter: blur(var(--glass-blur-lg));
     box-shadow: 0 4px 24px rgb(0 0 0 / 0.3), var(--pbr-metalness);
   }
@@ -543,7 +538,7 @@ a:hover {
       color-mix(in srgb, var(--raised) 12%, transparent),
       color-mix(in srgb, var(--void) 40%, transparent)
     );
-    border: 1px solid color-mix(in srgb, var(--cyan) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-cyan) 8%, transparent);
     backdrop-filter: blur(var(--glass-blur-sm));
   }
 
@@ -553,10 +548,14 @@ a:hover {
   .grid-signal {
     background-image: linear-gradient(
         90deg,
-        color-mix(in srgb, var(--cyan) 5%, transparent) 1px,
+        color-mix(in srgb, var(--color-cyan) 5%, transparent) 1px,
         transparent 1px
       ),
-      linear-gradient(180deg, color-mix(in srgb, var(--cyan) 5%, transparent) 1px, transparent 1px);
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-cyan) 5%, transparent) 1px,
+        transparent 1px
+      );
     background-size: 40px 40px;
   }
 
@@ -768,7 +767,7 @@ a:hover {
     clip-path: polygon(85% 0, 100% 15%, 100% 100%, 0 100%, 0 0);
     background: linear-gradient(
       135deg,
-      color-mix(in srgb, var(--cyan) 6%, transparent),
+      color-mix(in srgb, var(--color-cyan) 6%, transparent),
       transparent 70%
     );
   }
@@ -781,19 +780,19 @@ a:hover {
     clip-path: polygon(0 0, 100% 0, 100% 85%, 15% 100%, 0 100%);
     background: linear-gradient(
       315deg,
-      color-mix(in srgb, var(--cyan) 6%, transparent),
+      color-mix(in srgb, var(--color-cyan) 6%, transparent),
       transparent 70%
     );
   }
 
   /* Ink annotations: wavy underlines on links, irregular border-left on blockquotes */
   .ink-annotations a {
-    text-decoration: underline wavy var(--cyan);
+    text-decoration: underline wavy var(--color-cyan);
     text-underline-offset: 3px;
   }
 
   .ink-annotations blockquote {
-    border-left: 3px solid color-mix(in srgb, var(--cyan) 30%, transparent);
+    border-left: 3px solid color-mix(in srgb, var(--color-cyan) 30%, transparent);
     margin-left: 0;
     padding-left: 1rem;
     font-style: italic;
@@ -811,10 +810,10 @@ a:hover {
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--cyan);
+    color: var(--color-cyan);
     background: color-mix(in srgb, var(--void) 85%, transparent);
     padding: 0.2rem 0.5rem;
-    border: 1px solid color-mix(in srgb, var(--cyan) 20%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-cyan) 20%, transparent);
     pointer-events: none;
   }
 
@@ -824,8 +823,8 @@ a:hover {
       0deg,
       transparent,
       transparent 2px,
-      color-mix(in srgb, var(--cyan) 3%, transparent) 2px,
-      color-mix(in srgb, var(--cyan) 3%, transparent) 4px
+      color-mix(in srgb, var(--color-cyan) 3%, transparent) 2px,
+      color-mix(in srgb, var(--color-cyan) 3%, transparent) 4px
     );
     opacity: 0.4;
     pointer-events: none;
@@ -844,12 +843,6 @@ a:hover {
    Σ LOAD: UE5 Illusion + Mixed UI + Tactile Warmth
    Refinamento imediato — sem refatoração
    ═══════════════════════════════════════════ */
-
-@theme {
-  --color-coral: oklch(72% 0.25 22);
-  --color-cyan: oklch(78% 0.18 195);
-  --color-glass: oklch(15% 0.02 260 / 0.75);
-}
 
 .glass-2-5d {
   background: var(--color-glass);
@@ -913,7 +906,7 @@ a:hover {
   --zone-dark-text: #f2f0e9;
   --zone-dark-text-muted: #8b949e;
   --zone-dark-border: rgba(255, 255, 255, 0.08); /* design token — available for child components */
-  --zone-dark-accent: var(--cyan); /* design token — available for child components */
+  --zone-dark-accent: var(--color-cyan); /* design token — available for child components */
   background: var(--zone-dark-bg);
   color: var(--zone-dark-text);
 }
@@ -924,7 +917,7 @@ a:hover {
 }
 
 .interface-dark a:hover {
-  text-shadow: 0 0 8px color-mix(in srgb, var(--cyan) 60%, transparent);
+  text-shadow: 0 0 8px color-mix(in srgb, var(--color-cyan) 60%, transparent);
 }
 
 /* ══ Mixed-UI zones — rounded corners without !important war ══ */
