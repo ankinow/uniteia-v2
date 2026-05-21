@@ -4,6 +4,12 @@ All notable changes to uniteia-v2 will be documented in this file.
 
 ## [Unreleased]
 
+## [Unreleased]
+
+### Added
+- M014 visual regression Playwright spec (3 tests: homepage textures, article page, niche landing)
+- ship-check.ts: m014-visual-regression step
+
 ## [0.14.0] - 2026-05-21
 
 ### Added

@@ -25,6 +25,7 @@ export const KindlePlayground = component$<KindlePlaygroundProps>(
 
     return (
       <div
+        data-testid="kindle-playground"
         class={['relative min-h-screen flex flex-col', 'paper-fiber', className]}
         style={{
           background: 'linear-gradient(180deg, #1a1a1a 0%, #141414 100%)',

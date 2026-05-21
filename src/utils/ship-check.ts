@@ -89,6 +89,10 @@ export function createDefaultShipCheckSteps(): ShipCheckStep[] {
       name: 'm013-onboarding-visual',
       command: ['bun', 'run', 'test:e2e', 'tests/e2e/m013-onboarding-visual.spec.ts'],
     },
+    {
+      name: 'm014-visual-regression',
+      command: ['bun', 'run', 'test:e2e', 'tests/e2e/m014-visual-regression.spec.ts'],
+    },
 
     // Legacy steps
     { name: 'lighthouse:check', command: ['bun', 'run', 'lighthouse:check'] },

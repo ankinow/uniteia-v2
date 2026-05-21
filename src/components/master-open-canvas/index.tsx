@@ -182,6 +182,7 @@ export const MasterOpenCanvas = component$<MasterOpenCanvasProps>(
 
     return (
       <div
+        data-testid="master-open-canvas"
         class={[
           'mixed-media-canvas cursor-stylus perspective-dramatic preserve-3d relative',
           className,

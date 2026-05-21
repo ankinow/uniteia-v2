@@ -40,6 +40,7 @@ export const SignalGrid = component$<SignalGridProps>(
     if (variant === 'organic') {
       return (
         <div
+          data-testid="signal-grid-organic"
           class={[
             'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 auto-rows-auto',
             'paper-fiber bg-paper/5 border border-paper-border/20 rounded-xl p-4 sm:p-6',
@@ -63,7 +64,10 @@ export const SignalGrid = component$<SignalGridProps>(
     }
 
     return (
-      <div class={['grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6', className]}>
+      <div
+        data-testid="signal-grid-tabular"
+        class={['grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6', className]}
+      >
         {signals.map(signal => (
           <SignalCard key={signal.id} signal={signal} />
         ))}

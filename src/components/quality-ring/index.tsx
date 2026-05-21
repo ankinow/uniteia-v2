@@ -37,7 +37,7 @@ export const QualityRing = component$<QualityRingProps>(
     })
 
     return (
-      <div class={['flex flex-col items-center gap-1', className]}>
+      <div data-testid="quality-ring" class={['flex flex-col items-center gap-1', className]}>
         <div
           role="progressbar"
           aria-valuenow={adjustedScore}
