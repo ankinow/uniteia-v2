@@ -84,7 +84,9 @@ export const DepthCard = component$<DepthSurfaceProps>(
           ? { glass: false, depth2d5: 'floating' as const }
           : variant === 'paper'
             ? { glass: false, depth2d5: 'back' as const }
-            : {}
+            : variant === 'collage-editorial'
+              ? { glass: false, depth2d5: 'floating' as const }
+              : {}
 
     const depth2d5 = depth2d5Prop ?? variantDefaults.depth2d5
     const glass =
@@ -95,6 +97,7 @@ export const DepthCard = component$<DepthSurfaceProps>(
           : undefined
     const isCinematic = variant === 'cinematic'
     const isPaper = variant === 'paper'
+    const isCollageEditorial = variant === 'collage-editorial'
 
     const visualUpgrade = getVisualUpgradeClass(depth, depth2d5, glass)
     const classes: (string | undefined | null)[] = [
@@ -104,6 +107,9 @@ export const DepthCard = component$<DepthSurfaceProps>(
       visualUpgrade ? null : getGlassClass(depth, glass),
       visualUpgrade,
       isCinematic ? 'neon-edge' : null,
+      isCollageEditorial
+        ? 'corkboard paper-real-texture ink-effect scrapbook-layer clip-diagonal-a'
+        : null,
     ]
 
     const dataDepth = mapDepthToDataAttr(depth)
@@ -129,6 +135,16 @@ export const DepthCard = component$<DepthSurfaceProps>(
         )}
         {isPaper && (
           <div class="paper-fiber absolute inset-0 pointer-events-none" aria-hidden="true" />
+        )}
+        {isCollageEditorial && (
+          <>
+            <div class="scrapbook-layer absolute inset-0 pointer-events-none" aria-hidden="true">
+              <span class="corkboard-layer" />
+              <div class="paper-real-texture" aria-hidden="true" />
+              <div class="ink-effect" data-intensity="medium" />
+            </div>
+            <div class="clip-diagonal-a" aria-hidden="true" />
+          </>
         )}
         <Slot />
       </>

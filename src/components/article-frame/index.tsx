@@ -1,5 +1,6 @@
 import { Slot, component$ } from '@builder.io/qwik'
 import { DopamineCard } from '~/components/dopamine-card'
+import { KindlePlayground } from '~/components/kindle-playground'
 import type { ArticleFrameProps } from './types'
 
 export const ArticleFrame = component$<ArticleFrameProps>(props => {
@@ -12,7 +13,9 @@ export const ArticleFrame = component$<ArticleFrameProps>(props => {
         'mx-auto w-full max-w-prose',
         'px-6 py-12 md:px-12 md:py-24',
         'font-sans antialiased',
-        'glass-light',
+        props.kindleMode
+          ? 'bg-amber-50 dark:bg-amber-950 text-amber-900 dark:text-amber-100'
+          : 'glass-light',
         'relative',
         '[&>h1]:mb-12 [&>h2]:mb-8 [&>h2]:mt-16 [&>p]:mb-6',
         '[&>h1]:text-wrap-balance [&>h2]:text-wrap-balance',
@@ -41,6 +44,9 @@ export const ArticleFrame = component$<ArticleFrameProps>(props => {
             </div>
           )
         })()}
+      {props.kindleMode && (
+        <KindlePlayground title="" content="" progress={0} font="serif" fontSize="base" />
+      )}
       <Slot />
     </article>
   )

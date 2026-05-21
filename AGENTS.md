@@ -1,115 +1,270 @@
-# AGENTS.md — UniTeia Multi-Repo Agent Context
+# AGENTS.md — UniTeia Ecosystem
+# Canonical: sim | Stale copy: AGENTS(1).md (session artifact — delete)
+# Verified: 2026-05-21 via codebase inspection (ship-check.ts, package.json, biome.json, tsconfig.json, vitest.config.ts, vite.config.ts, playwright.config.ts)
+# Protocol: AGENTS.md v1.2 (OpenCode /init compatible)
+# Scope: Multi-repo — UniTeia v2 (product) + UniTeia Mega-Factory (orchestration) + CTt-Guaratuba-AI (satellite)
 
-## Repositories
+## Ecosystem Map
 
-### uniteia-v2 (content platform / publisher)
-- **Path:** `/home/lermf/uniteia-v2`
-- **Stack:** Qwik City, Bun 1.3.6, TypeScript, Biome, Vitest, Playwright
-- **Runner:** `bun run test:unit` (vitest, 224 tests) — NOT `bun test` (native runner loads Playwright + content-factory)
-- **Lint:** `bun run lint` = `biome check .`
-- **Typecheck:** `bunx tsc`
-- **Build:** `bun run build` (content-registry → qwik build → sitemap → CF Pages prep)
-- **Ship check:** `bun run ship:check` — runs lint → typecheck → test:unit → build → size → header → slug → content → sitemap → lighthouse → smoke → invalid-locale
-- **Dev:** `bun run dev` (vite --mode ssr)
-- **Size threshold:** 87,040 gzip bytes (85 KB, DECISION-SIZE-001)
-- **Deploy:** Cloudflare Pages via Wrangler (`bun run preview:cf` for local preview)
-- **Gate to verify before PR:** `bun run ship:check`
-- **CI:** `.github/workflows/quality-gates.yml` — runs `bun run ship:check` on push/PR
-
-### uniteia-mega-factory (content generation / producer)
-- **Path:** `/home/lermf/uniteia-mega-factory`
-- **Stack:** TypeScript monorepo (core/db/web/tui), Bun workspaces
-- **Typecheck:** `bun run typecheck` (uses `bunx tsc`)
-- **Test:** `bun test` (234 pass, 0 fail)
-- **Build:** `bun run build`
-- **Verify:** `bun run verify` (typecheck → test → build)
-- **CI:** `.github/workflows/ci.yml` — runs typecheck → test → build on push/PR
-
-### CTt-Guaratuba-AI (civic dashboard)
-- **Path:** `/home/lermf/CTt-Guaratuba-AI`
-- **Stack:** npm workspaces, Qwik (civic-os), Astro (web), Deno/TS (ingest), Python (nlp-pipeline), Rust (dedup-rust)
-- **No CI** — no GitHub workflows configured
-
-## Architecture
-
-Two-repo content system + one civic dashboard:
 ```
-uniteia-mega-factory (producer) → Content Package Contract v1 → uniteia-v2 (consumer/publisher)
-CTt-Guaratuba-AI (civic-os) → static-first radar dashboard, independent
+┌─────────────────────────────────────────────────────────────┐
+│                    UNITEIA ECOSYSTEM                         │
+├─────────────────────────────────────────────────────────────┤
+│  uniteia-v2 (this repo)                                     │
+│  ├── Product: Multilingual editorial platform (8 locales)  │
+│  ├── Stack: Qwik City + Tailwind v4 + Cloudflare Pages     │
+│  └── Role: Primary deliverable — what users see              │
+│                                                              │
+│  uniteia-mega-factory (sibling repo)                        │
+│  ├── Orchestration: 44-agent pipeline                        │
+│  ├── Stack: Node.js + custom agent framework               │
+│  └── Role: Content generation + quality gates              │
+│                                                              │
+│  CTt-Guaratuba-AI (satellite repo)                          │
+│  ├── Scope: Regional AI experiments                          │
+│  ├── Stack: Python + local LLM inference                     │
+│  └── Role: R&D + low-cost inference validation             │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-u2 never writes to the factory. Factory never deploys to production.
+## Repo: UniTeia v2 (this repo)
 
-## Connected MCP Tools
+### Stack
 
-| Tool | Role |
-|------|------|
-| `filesystem` | Local truth — files, configs, logs, scripts |
-| `context7` | Library/API/framework documentation |
-| `exa` | Targeted web/code search |
-| `parallel-search` | Multi-source research |
-| `deep-thinker` | DAG reasoning, branching, critique |
-| `graphrag` (CLI) | Entity/relation KG — multi-hop, cross-file |
-| `playwright` | Browser automation, e2e testing |
-| `browser-skills` | Browser interaction skills |
+| Layer | Tool | Version | Notes |
+|-------|------|---------|-------|
+| Framework | Qwik City | 1.19.x | SSR/SSG with resumability |
+| Styling | Tailwind CSS v4 | Oxide engine | `@tailwindcss/vite` plugin only |
+| Runtime | Bun | 1.3.6 | **Mandatory** — never npm/yarn/pnpm |
+| Lint/Format | Biome | 1.9.4 | **NOT** ESLint/Prettier |
+| Unit Test | Vitest | 4.x | Pattern: `src/**/*.test.ts` |
+| E2E Test | Playwright | 1.60 | `tests/e2e/*.spec.ts` |
+| Deploy | Cloudflare Pages | — | Wrangler (`wrangler.toml` / `wrangler.jsonc`) |
 
-## Key Commands (uniteia-v2)
+### Build & Quality Commands
+
+| Command | What it does |
+|---------|-------------|
+| `bun install` | Install dependencies |
+| `bun run dev` | Dev server (port **3000**, `vite --mode ssr`) |
+| `bun run build` | Content generation + Qwik SSG build → `dist/` |
+| `bun run typecheck` | `tsc --noEmit` |
+| `bun run lint` | `biome check .` (no autofix) |
+| `bun run lint.fix` | `biome check --write .` (autofix) |
+| `bun run test:unit` | Vitest run (`src/**/*.test.ts`) |
+| `bun run test:e2e` | Playwright test (`tests/e2e/`) |
+| `bun run ship:check` | Full quality gate — sequence at `src/utils/ship-check.ts:55-97` |
+| `bun run preview` | `qwik preview` on port **4000** |
+| `bun run preview:cf` | Wrangler preview on port **8788** (used by Playwright) |
+
+**Quick loop:** `bun run lint.fix && bun run typecheck && bun run test:unit`  
+**Full gate:** `bun run ship:check`
+
+### ⚠️ CRITICAL: .gitignore *.md Catch-All
+
+`.gitignore` line 63 contains `*.md`. **New markdown files are NOT tracked by git automatically.**
+
 ```bash
-bun run dev          # Qwik City dev server
-bun run test:unit    # vitest (NOT bun test)
-bun run test:e2e     # playwright e2e tests
-bun run ship:check   # full quality gate before PR
-bun run lint         # biome check .
-bun run lint.fix     # biome check --write .
-bun run size:check   # bundle size gate
-bun run import:package  # import content package from factory
+git add -f AGENTS.md          # ← required -f flag
+git add -f CHANGELOG.md       # ← required -f flag
+git add -f *.md               # ← NEVER works without -f
 ```
 
-## Key Commands (uniteia-mega-factory)
-```bash
-bun run verify           # pre-PR gate: typecheck + test + build
-bun run factory:wiki:dry-run  # dry-run wiki pipeline (start here)
-bun run factory:wiki     # run full wiki pipeline
-bun run package:roundtrip  # full bridge test: export → v2 import → render
-bun run doctor:providers # LLM provider diagnostics
+### Content Pipeline (SACRED — read-only generated files)
+
+```
+content/niches/*.yaml  +  content/articles/**/index.{lang}.md
+        │
+        ▼  (bun run generate:content, also runs on build)
+        │
+src/content-graph.generated.ts      ← AUTO-GENERATED, read-only
+src/content-registry.generated.ts   ← AUTO-GENERATED, read-only
+src/search-index.generated.ts       ← AUTO-GENERATED, read-only
+src/content-graph/generated/*.json  ← AUTO-GENERATED (gitignored)
 ```
 
-## Key Commands (CTt-Guaratuba-AI)
-```bash
-cd apps/civic-os && npm run dev          # Qwik dev server
-cd apps/civic-os && npm run build        # Qwik build
-cd apps/civic-os && npm run lint         # eslint
-cd apps/civic-os && npm run build.types  # tsc --noEmit
-cd apps/web && npm run dev               # Astro dev server
+- **8-locale symmetry is non-negotiable:** `en, pt, es, fr, de, it, ja, zh`
+- Adding content to one locale requires at least stubs in the other 7
+- `ship:check` validates locale symmetry; failure blocks the gate
+- Niches with 0 articles are filtered at **compile time** — never filter at runtime
+
+### Architecture
+
+#### Routes (Qwik City file-based)
+
+```
+src/routes/
+  [lang]/              ← 8 locales: en, pt, es, fr, de, it, ja, zh
+    signals/           ← content by niche
+    search/            ← search page
+    [...slug]/         ← article detail
+    index.tsx          ← language landing
+    layout.tsx         ← lang layout wrapper
+  n/                   ← non-locale fallback
+  [...catchall]/       ← 404 handler
+  ops-lab/             ← demo API fixtures
 ```
 
-## Content Import Workflow (uniteia-v2)
-- Factory exports Content Package Contract v1 → `bun run import:package` validates and imports
-- Required package files: manifest.json, content.*.mdx, design.md, quality.json, sources.json, tags.json, blocks/*.json
-- After import: `bun run generate:content` rebuilds registry, graph, and search index
+#### Key directories
 
-## Quality Artifacts (uniteia-v2 docs/context/)
-| File | Purpose |
-|------|---------|
-| `CONTEXT-MAP.md` | Context map index |
-| `post-merge-state.md` | Canonical post-merge state snapshot |
-| `quality-completion-report.md` | Full quality closeout report |
-| `context-runtime/*.md` | 6 modular agent policy files |
+| Directory | Purpose |
+|-----------|---------|
+| `src/components/` | Components: `{name}/index.tsx` + optional `index.test.ts` + optional `style.css` |
+| `src/routes/` | Qwik City routing |
+| `src/i18n/` | Locale detection, document language, middlewares |
+| `src/content-graph/` | Content graph compiler, contracts, loaders |
+| `src/pipeline/` | Content transformation pipeline |
+| `scripts/` | 41 build/dev scripts (bun + TypeScript) |
+| `tests/e2e/` | Playwright E2E specs (14 files) |
+| `content/` | Source: YAML niches + MD articles per locale |
 
-## ADRs
-- uniteia-v2: `docs/adr/` — content import contract, bridge validation, page size budget
-- uniteia-mega-factory: `docs/adr/` — factory architecture decisions
-- CTt-Guaratuba-AI: `docs/adr/` — static-first, Nova isolation
+#### Entry points
 
-## Active Milestone Context
-- **M010 — Graph-Native Stabilization**: Complete rewrite of the content compilation and routing layer to fully rely on the in-memory content graph. Enforces quality visibility gates, i18n symmetry, and localized link generation. Spec exists at `src/content-graph/SPEC.md`.
-- **M011 — Visual DNA Renaissance** (✅ complete): Tailwind v4 Oxide, OKLCH palette, tactile warmth (grain-4k + paper-fiber), 2.5D header with WAAPI tilt, organic anti-grid layout, visual regression gate. 8.3/10 SOTA. Post-M011 re-evaluation at `docs/reference/post-m011-sota-reevaluation.md`.
-- **M012 — MasterOpenCanvas + Mixed UI + Scroll-Driven** (🔄 active): Interactive sketchnote decision surface + mixed UI directive (light canvas content + dark compact interfaces) + UE5 illusion + glass-2-5d + scroll-driven narrative (@scroll-timeline parallax, velocity detection, cinematic sequence). S01 (CSS foundations) ✅, S02 (MasterOpenCanvas component) ✅, S03 (Homepage integration + Ship Gate) ⏳ pending. Components: `src/components/master-open-canvas/`, `src/components/scroll-driven/`, `src/components/topic-card/`, `src/components/depth-card/`.
+- `src/root.tsx` — QwikCityProvider, global CSS, RouterHead
+- `src/entry.ssr.tsx` — SSR render entry, document language resolution
+- `src/entry.cloudflare-pages.tsx` — Cloudflare adapter entry
 
-## Active JIT Skills (2026-05-19)
-- **VisualDNAIntegrator_v2026_05** — Editorial Collage + Signal Grid + 2.5D depth (3 variants)
-- **MasterOpenCanvas_v2026_05** — sketchnote decision flows → M012 bleeding-edge canvas
-- **DecisionMap_v2026_05** — organic branching decision tree (sketchnote/signal/minimal)
-- **ScrollDrivenNarrative_v2026_05** — @scroll-timeline parallax + velocity + cinematic sequence (Fase 3)
-- **MixedUI_v2026_05** — canvas-light/dark-compact zones + UE5 illusion + tactile warmth
-- **JIT Mutant Compiler ativo** (GraphRAG + MCP)
+### Qwik Conventions
+
+- Use `component$()` for all components
+- Use `$()` for callbacks/event handlers
+- `useSignal()` for simple state, `useStore()` for complex objects
+- `useVisibleTask$()` only when unavoidable (SEO penalty)
+- **Never** use `useClientEffect$()` — deprecated, breaks resumability
+- `useTask$()` with `track()` for reactive side effects
+- Path alias: `~/` → `src/` (configured in `tsconfig.json`)
+- Imports use `verbatimModuleSyntax` — use `import type` for type-only imports
+
+### Design Constraints
+
+- Colors: OKLCH wide-gamut only (defined in `src/global.css` as `@theme` tokens)
+- Fonts: Sora (display), Inter Variable (body), JetBrains Mono (mono), Press Start 2P (JRPG)
+- Motion: compositor-only (`transform`, `opacity`), 120ms–400ms max
+- Bundle cap: **87KB gzip** (checked by `bun run size:check`)
+- **Never** use `!important` in CSS
+- **Never** use CSS-in-JS (emotion, styled-components) — Tailwind v4 only
+- Biome enforces: `noExplicitAny`, `noForEach`, `noUnusedVariables`, `noUnusedImports`, `noNonNullAssertion`, `useImportType`, a11y recommended rules
+
+### Testing
+
+#### Unit Tests (Vitest)
+
+- Pattern: `src/**/*.test.ts` (NOT `.test.tsx` — confirmed in `vitest.config.ts`)
+- Import `createDOM` from `@builder.io/qwik/testing` for component rendering
+- No special fixtures required — tests run standalone
+- Update snapshots: `bun run test:unit --update`
+
+#### E2E Tests (Playwright)
+
+- Runs against `http://localhost:8788` (Wrangler CF preview)
+- Must `bun run build` first or use built-in webServer config
+- `bun run test:e2e` starts CF preview automatically (webServer in `playwright.config.ts`)
+- Visual regression uses Playwright screenshots
+- Run single spec: `bun run test:e2e tests/e2e/smoke.spec.ts`
+
+### Git & Repo Rules
+
+- `.gitignore` line 63: `*.md` → new .md files require `git add -f`
+- `node_modules`, `dist`, `.gsd`, `.bg-shell`, `.opencode/`, `.wrangler`, `playwright-report`, `test-results`, `.worktrees`, `server/` are all gitignored
+- Commit convention: `M{NNN}-S{step}: {type} — {desc}`
+- Types: `feat | fix | refactor | docs | test | chore | cleanup | reconcile | evolve | verify`
+
+### Milestone Context
+
+| Milestone | Status | Description |
+|-----------|--------|-------------|
+| M012 | ✅ Merged | Visual Refinement — Sora Serif, OKLCH tokens, 5 new components, Galaxy AI content |
+| M013 | ✅ Merged | Visual Evolution System v2 — OnboardingFlow, CinematicDepth, adaptive-header |
+| M014 | 🔄 Active | Cleanup + Reconciliation + Evolution (see `M014-SUPER-PROMPT.md`) |
+
+## Repo: UniTeia Mega-Factory (sibling)
+
+### Role
+Orchestration layer for 44-agent content pipeline. Generates articles, runs quality gates, manages i18n stubs.
+
+### Key Integration Points
+- Consumes `content-graph.generated.ts` from uniteia-v2 to know content structure
+- Outputs `content/articles/**/index.{lang}.md` back to uniteia-v2
+- Uses free/low-cost inference (local LLMs, Gemini Flash, etc.)
+- Dense symbolic notation + hash tracking + file traceability
+
+### Agent Architecture (44 agents)
+```
+Tier 1: Research (exa-search, parallel-search, deep-thinker)
+Tier 2: Drafting (content-agent, i18n-agent, fact-check-agent)
+Tier 3: Review (test-agent, visual-agent, ops-agent)
+Tier 4: Integration (dev-agent, deploy-agent)
+```
+
+### Communication Protocol
+- Agents generate prompts with `$M{NNN}-H{NNN}` hashes
+- File traceability in all outputs
+- Portuguese (pt-BR) for internal notes, English for code/docs
+
+## Repo: CTt-Guaratuba-AI (satellite)
+
+### Role
+R&D lab for regional AI experiments. Validates low-cost inference strategies before adoption in mega-factory.
+
+### Stack
+- Python 3.11+
+- Local LLM inference (llama.cpp, ollama, vllm)
+- FastAPI for API layer
+- SQLite for experiment tracking
+
+### Integration
+- Experiment results feed back into mega-factory agent configurations
+- Not directly connected to uniteia-v2 production pipeline
+
+## Subagents & Responsibilities (OpenCode)
+
+| Subagent | Role | Scope | Permissions |
+|----------|------|-------|-------------|
+| `dev-agent` | Code implementation, refactors, bugfixes | uniteia-v2 | write `src/`, `tests/` |
+| `content-agent` | Content generation, i18n, YAML/MD editing | uniteia-v2 + mega-factory | write `content/`, `public/locales/` |
+| `visual-agent` | CSS, tokens, animations, visual regression | uniteia-v2 | write `src/global.css`, `src/components/**/style.css` |
+| `ops-agent` | Build, deploy, CI, bundle analysis | uniteia-v2 | read `dist/`, write `.github/workflows/` |
+| `test-agent` | Test writing, coverage, edge-case discovery | uniteia-v2 | write `src/**/*.test.ts`, `tests/e2e/` |
+| `research-agent` | Multi-source research, fact-checking | mega-factory | read `content/`, exa-search |
+| `factory-agent` | Agent pipeline orchestration, 44-agent coordination | mega-factory | write pipeline configs, agent manifests |
+
+## MCP Servers (Connected)
+
+| Server | Purpose | Use When | Scope |
+|--------|---------|----------|-------|
+| `filesystem` | Read/write project files | Always active | All repos |
+| `browser-skills` | Playwright-based visual regression | Visual tasks, E2E | uniteia-v2 |
+| `parallel-search` | Multi-source research | Research tasks | mega-factory |
+| `deep-thinker` | Complex architectural decisions | ADR-level decisions | All repos |
+| `context7` | Codebase context retrieval | Large refactors | uniteia-v2 |
+| `exa` | Web search for fact-checking | Content verification | mega-factory |
+| `composio` | External tool gateway | Integrations | mega-factory |
+
+## Communication Style
+
+- **Dense symbolic notation** preferred: `§`, `→`, `⊕`, `Σ`, `⟳`
+- **Hash tracking** for every file change: `$M{NNN}-H{NNN}`
+- **File traceability** in commits: `M014-S03: evolve — $M014-H009 article-frame.tsx`
+- **No prose waste** — bullet points, tables, code blocks only
+- Portuguese (pt-BR) for internal notes, English for code/docs
+
+## Auto-Approve Rules
+
+**Auto-approved (no human confirmation):**
+- `bun run test:unit`, `bun run ship:check`, `bun run lint`, `bun run lint.fix`, `bun run build`, `bun run typecheck`
+- Formatting with Biome
+- Updating `CHANGELOG.md` (with `git add -f`)
+- Committing with conventional format `M{NNN}-S{step}: {type} — {desc}`
+
+**Requires human confirmation:**
+- Pushing to `main` branch (any repo)
+- Modifying sacred files (`compile-content-graph.ts`, `*.generated.ts`)
+- Adding new npm/bun dependencies
+- Deleting existing components
+- Deploying to production (Cloudflare Pages)
+- Modifying `.github/workflows/` (CI changes)
+- Changes to mega-factory agent configurations (44-agent architecture)
+
+## Vibe Coding Prohibition
+
+This ecosystem uses **Spec-Driven Development**. All changes must reference a milestone (M012-M014) and a task hash. No "vibe coding" — every modification is traceable to a specification.

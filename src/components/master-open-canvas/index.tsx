@@ -79,12 +79,24 @@ export interface MasterOpenCanvasProps {
   variant?: MasterOpenCanvasVariant
   /** Additional CSS classes */
   class?: string
+  /** Renders a sticky note overlay (yellow, rotated, hand-drawn border) */
+  showStickyNote?: boolean
+  /** Renders a cardboard texture layer behind the content */
+  showCardboard?: boolean
 }
 
 // ── Component ──
 
 export const MasterOpenCanvas = component$<MasterOpenCanvasProps>(
-  ({ title, decisionNodes, sketchnoteSpec, variant = 'medium', class: className }) => {
+  ({
+    title,
+    decisionNodes,
+    sketchnoteSpec,
+    variant = 'medium',
+    class: className,
+    showStickyNote,
+    showCardboard,
+  }) => {
     const cfg = VARIANT_CONFIG[variant]
     const tiltX = useSignal(0)
     const tiltY = useSignal(0)
@@ -218,6 +230,9 @@ export const MasterOpenCanvas = component$<MasterOpenCanvasProps>(
           {/* Grain 4K overlay */}
           <div class="grain-4k" style={{ opacity: cfg.grainOpacity }} aria-hidden="true" />
 
+          {/* Cardboard texture layer */}
+          {showCardboard && <div class="cardboard-layer" aria-hidden="true" />}
+
           {/* Content */}
           <div class="relative z-[1] p-6 md:p-8">
             <h1 class="text-4xl font-display text-bone mb-8">{title}</h1>
@@ -244,6 +259,9 @@ export const MasterOpenCanvas = component$<MasterOpenCanvasProps>(
               />
             )}
           </div>
+
+          {/* Sticky note overlay */}
+          {showStickyNote && <div class="sticky-note" aria-hidden="true" />}
         </div>
       </div>
     )

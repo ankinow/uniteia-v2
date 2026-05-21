@@ -8,6 +8,7 @@ import type { SupportedLanguage } from '~/i18n/types'
 export interface ArticleFrameProps {
   /** Optional CSS class for additional styling */
   class?: string
+  kindleMode?: boolean
   dopamineCard?: {
     title: string
     description: string

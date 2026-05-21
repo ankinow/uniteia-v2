@@ -10,7 +10,10 @@ export interface SignalGridItem {
   href: string
 }
 
+export type SignalGridVariant = 'tabular' | 'organic'
+
 export interface SignalGridProps {
   signals: SignalGridItem[]
+  variant?: SignalGridVariant
   class?: ClassList
 }

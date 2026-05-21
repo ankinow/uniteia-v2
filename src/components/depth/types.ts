@@ -8,7 +8,7 @@ export type DepthVariant = 'surface' | 'raised' | 'pressed' | 'glass' | 'glass-l
 
 export type Depth2D5Level = 'back' | 'base' | 'front' | 'floating'
 
-export type DepthCardVariant = 'glass' | 'cinematic' | 'paper'
+export type DepthCardVariant = 'glass' | 'cinematic' | 'paper' | 'collage-editorial'
 
 export interface DepthSurfaceProps {
   as?: DepthSurfaceTag

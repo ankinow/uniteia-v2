@@ -6,4 +6,5 @@ export interface QualityRingProps {
   strokeWidth?: number
   label?: string
   class?: ClassList
+  publishedAt?: string
 }
