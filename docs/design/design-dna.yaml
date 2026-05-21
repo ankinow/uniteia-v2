@@ -48,11 +48,11 @@ colors:
 
   teaching_aliases:
     ut-bg: "var(--void)"
-    ut-cyan: "var(--cyan)"
+    ut-cyan: "var(--color-cyan)"
     ut-paper: "#e8ddc8"
-    ut-success: "var(--vine)"
-    ut-warning: "var(--bronze)"
-    ut-handdraw-stroke: "var(--cyan)"
+    ut-success: "var(--color-verified)"
+    ut-warning: "var(--color-curation)"
+    ut-handdraw-stroke: "var(--color-cyan)"
 
 typography:
   fonts:
