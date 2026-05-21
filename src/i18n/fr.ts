@@ -86,4 +86,19 @@ export const fr: TranslationStrings = {
     topicsTitle: 'AI Topics',
     topicsDescription: 'Explore our curated list of Artificial Intelligence topics and niches.',
   },
+  onboarding: {
+    step1: {
+      title: 'Le monde est bruyant.',
+      subtitle: 'Nous filtrons le signal.',
+      desc: "{siteName} ingère des milliers de sources quotidiennement, extrayant l'essentiel. Pour que vous n'ayez pas à le faire.",
+    },
+    step2: {
+      title: 'Chaque signal traverse 7 barrières de qualité avant de vous atteindre.',
+    },
+    step3: {
+      title: 'Disponible en 8 langues.',
+      desc: "Seulement l'essentiel. Dans votre langue, selon vos termes.",
+      badge: '8 voix',
+    },
+  },
 }

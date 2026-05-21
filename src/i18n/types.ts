@@ -101,6 +101,21 @@ export interface TranslationStrings {
     topicsTitle: string
     topicsDescription: string
   }
+  onboarding: {
+    step1: {
+      title: string
+      subtitle: string
+      desc: string
+    }
+    step2: {
+      title: string
+    }
+    step3: {
+      title: string
+      desc: string
+      badge: string
+    }
+  }
 }
 
 // ── Language Info (UI-facing metadata) ────────────────────────────────

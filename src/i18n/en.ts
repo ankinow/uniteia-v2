@@ -85,4 +85,19 @@ export const en: TranslationStrings = {
     topicsTitle: 'AI Topics',
     topicsDescription: 'Explore our curated list of Artificial Intelligence topics and niches.',
   },
+  onboarding: {
+    step1: {
+      title: 'The world is noisy.',
+      subtitle: 'We filter the signal.',
+      desc: "{siteName} ingests thousands of sources daily, extracting what matters. So you don't have to.",
+    },
+    step2: {
+      title: 'Every signal passes 7 quality gates before reaching you.',
+    },
+    step3: {
+      title: 'Available in 8 languages.',
+      desc: 'Only what matters. Delivered in your language, on your terms.',
+      badge: '8 voices',
+    },
+  },
 }

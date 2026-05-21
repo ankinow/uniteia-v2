@@ -59,6 +59,7 @@ async function main(): Promise<void> {
       'hydration:resilience',
       'm011-visual-dna',
       'visual:qa',
+      'm013-onboarding-visual',
       'lighthouse:check',
       'smoke:200s',
       'invalid-locale-404',

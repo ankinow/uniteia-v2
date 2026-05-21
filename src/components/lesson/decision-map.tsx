@@ -51,7 +51,7 @@ export const DecisionMap = component$<DecisionMapProps>(
             <div key={node.id ?? node.label}>
               <div class={nodeVariantStyles[variant]}>
                 <span class="font-semibold">{node.label}</span>
-                {node.outcome && <span class="text-cyan-brand ml-2 text-sm">→ {node.outcome}</span>}
+                {node.outcome && <span class="text-cyan ml-2 text-sm">→ {node.outcome}</span>}
               </div>
 
               {node.children && node.children.length > 0 && (
@@ -60,7 +60,7 @@ export const DecisionMap = component$<DecisionMapProps>(
                     <div key={child.id ?? child.label} class={nodeVariantStyles[variant]}>
                       <span>{child.label}</span>
                       {child.outcome && (
-                        <span class="text-cyan-brand ml-2 text-sm">→ {child.outcome}</span>
+                        <span class="text-cyan ml-2 text-sm">→ {child.outcome}</span>
                       )}
                     </div>
                   ))}
