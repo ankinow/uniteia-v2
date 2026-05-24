@@ -583,7 +583,6 @@
   },
   "contentFiles": [
     {
-      "path": "content/ai-agents/en/llm-aggregators-compared.md",
       "niche": "ai-agents",
       "lang": "en",
       "role": "editorial",
