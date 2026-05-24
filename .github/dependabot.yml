@@ -1,0 +1,77 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "dependabot"
+      include: "scope"
+    allow:
+      - dependency-type: "production"
+      - dependency-type: "development"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security:
+        applies-to: "security-updates"
+        patterns: ["*"]
+      prod-deps:
+        dependency-type: "production"
+        patterns: ["*"]
+      dev-deps:
+        dependency-type: "development"
+        patterns: ["*"]
+    labels:
+      - "dependencies"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "npm"
+    directory: "/apps/content-factory"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "dependabot"
+      include: "scope"
+    allow:
+      - dependency-type: "production"
+      - dependency-type: "development"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security:
+        applies-to: "security-updates"
+        patterns: ["*"]
+      prod-deps:
+        dependency-type: "production"
+        patterns: ["*"]
+      dev-deps:
+        dependency-type: "development"
+        patterns: ["*"]
+    labels:
+      - "dependencies"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "dependabot"
+    groups:
+      actions:
+        patterns: ["*"]
+    labels:
+      - "ci"
+      - "dependencies"
+    rebase-strategy: "auto"
+
+# _meta
+# trace_ref: dependabot-monorepo-20260521
+# rollback_ref: 77c2c9b
+# public_safe: true

@@ -1,20 +1,20 @@
 # SEO Verification Report
 
-**Generated:** 2026-05-21T19:37:51.384Z
-**Source:** content-graph.generated (2026-05-21T19:36:58.363Z)
-**Nodes analyzed:** 26
+**Generated:** 2026-05-23T19:49:07.910Z
+**Source:** content-graph.generated (2026-05-23T18:44:07.260Z)
+**Nodes analyzed:** 32
 
 ## Summary
 
 | Check | Status | Issues |
 |-------|--------|--------|
 | Hreflang Reciprocity | ✅ PASS | 0 |
-| Sitemap Coherence | ❌ FAIL | 10 |
+| Sitemap Coherence | ✅ PASS | 0 |
 | Noindex Alignment | ✅ PASS | 0 |
 | Canonical Coherence | ✅ PASS | 0 |
-| **Overall** | **⚠️  ISSUES FOUND** | **10** |
+| **Overall** | **✅ PASS** | **0** |
 
-1 of 4 checks have issues that may require attention.
+All SEO checks passed.
 
 ## Hreflang Reciprocity
 
@@ -26,18 +26,7 @@ Verifies that for every alternate link A→B, node B has a reciprocal link back 
 
 Verifies that all sitemap-eligible nodes are published and all published nodes are sitemap-eligible.
 
-| Node | Issue |
-|------|-------|
-| en-llm-aggregators-compared | Published but not listed in sitemap |
-| es-llm-aggregators-compared | Published but not listed in sitemap |
-| ja-llm-aggregators-compared | Published but not listed in sitemap |
-| pt-llm-aggregators-compared | Published but not listed in sitemap |
-| zh-llm-aggregators-compared | Published but not listed in sitemap |
-| en-foundation-models-overview | Published but not listed in sitemap |
-| es-foundation-models-overview | Published but not listed in sitemap |
-| ja-foundation-models-overview | Published but not listed in sitemap |
-| pt-foundation-models-overview | Published but not listed in sitemap |
-| zh-foundation-models-overview | Published but not listed in sitemap |
+*No issues found.*
 
 ## Noindex Alignment
 
@@ -59,17 +48,20 @@ Verifies that each node's canonical URL resolves to the correct node via the rou
 | 21–40 | 0 | █ |
 | 41–60 | 0 | █ |
 | 61–80 | 0 | █ |
-| 81–100 | 26 | ██████████████████████████ |
+| 81–100 | 32 | ████████████████████████████████ |
 
 ## Appendix: Per-Node SEO Snapshot
 
 | Node | Locale | Visibility | Lifecycle | Noindex | Priority | Canonical URL | Alternates |
 |------|--------|------------|-----------|---------|----------|---------------|------------|
-| `en-llm-aggregators-compared` | en | published | published | false | 95 | /en/signals/ai-agents/llm-aggregators-compared | es, ja, pt, zh |
-| `es-llm-aggregators-compared` | es | published | published | false | 95 | /es/signals/ai-agents/llm-aggregators-compared | en, ja, pt, zh |
-| `ja-llm-aggregators-compared` | ja | published | published | false | 95 | /ja/signals/ai-agents/llm-aggregators-compared | en, es, pt, zh |
-| `pt-llm-aggregators-compared` | pt | published | published | false | 95 | /pt/signals/ai-agents/llm-aggregators-compared | en, es, ja, zh |
-| `zh-llm-aggregators-compared` | zh | published | published | false | 95 | /zh/signals/ai-agents/llm-aggregators-compared | en, es, ja, pt |
+| `en-llm-aggregators-compared` | en | published | published | false | 95 | /en/signals/ai-agents/llm-aggregators-compared | es, ja, pt, zh, fr, de, it |
+| `es-llm-aggregators-compared` | es | published | published | false | 95 | /es/signals/ai-agents/llm-aggregators-compared | en, ja, pt, zh, fr, de, it |
+| `ja-llm-aggregators-compared` | ja | published | published | false | 95 | /ja/signals/ai-agents/llm-aggregators-compared | en, es, pt, zh, fr, de, it |
+| `pt-llm-aggregators-compared` | pt | published | published | false | 95 | /pt/signals/ai-agents/llm-aggregators-compared | en, es, ja, zh, fr, de, it |
+| `zh-llm-aggregators-compared` | zh | published | published | false | 95 | /zh/signals/ai-agents/llm-aggregators-compared | en, es, ja, pt, fr, de, it |
+| `fr-llm-aggregators-compared` | fr | published | published | false | 95 | /fr/signals/ai-agents/llm-aggregators-compared | en, es, ja, pt, zh, de, it |
+| `de-llm-aggregators-compared` | de | published | published | false | 95 | /de/signals/ai-agents/llm-aggregators-compared | en, es, ja, pt, zh, fr, it |
+| `it-llm-aggregators-compared` | it | published | published | false | 95 | /it/signals/ai-agents/llm-aggregators-compared | en, es, ja, pt, zh, fr, de |
 | `en-tencent-cloud-deal-stack-builders` | en | published | published | false | 95 | /en/signals/apex/tencent-cloud-deal-stack-builders | es, ja, pt, zh, de, fr, it |
 | `en-creator-ai-tools` | en | published | published | false | 95 | /en/signals/apex/creator-ai-tools | es, ja, pt, zh, de, fr, it |
 | `es-tencent-cloud-deal-stack-builders` | es | published | published | false | 95 | /es/signals/apex/tencent-cloud-deal-stack-builders | en, ja, pt, zh, de, fr, it |
@@ -86,12 +78,15 @@ Verifies that each node's canonical URL resolves to the correct node via the rou
 | `fr-creator-ai-tools` | fr | published | published | false | 95 | /fr/signals/apex/creator-ai-tools | en, es, ja, pt, zh, de, it |
 | `it-tencent-cloud-deal-stack-builders` | it | published | published | false | 95 | /it/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, zh, de, fr |
 | `it-creator-ai-tools` | it | published | published | false | 95 | /it/signals/apex/creator-ai-tools | en, es, ja, pt, zh, de, fr |
-| `en-foundation-models-overview` | en | published | published | false | 95 | /en/signals/language-models/foundation-models-overview | es, ja, pt, zh |
-| `es-foundation-models-overview` | es | published | published | false | 95 | /es/signals/language-models/foundation-models-overview | en, ja, pt, zh |
-| `ja-foundation-models-overview` | ja | published | published | false | 95 | /ja/signals/language-models/foundation-models-overview | en, es, pt, zh |
-| `pt-foundation-models-overview` | pt | published | published | false | 95 | /pt/signals/language-models/foundation-models-overview | en, es, ja, zh |
-| `zh-foundation-models-overview` | zh | published | published | false | 95 | /zh/signals/language-models/foundation-models-overview | en, es, ja, pt |
+| `en-foundation-models-overview` | en | published | published | false | 95 | /en/signals/language-models/foundation-models-overview | es, ja, pt, zh, fr, de, it |
+| `es-foundation-models-overview` | es | published | published | false | 95 | /es/signals/language-models/foundation-models-overview | en, ja, pt, zh, fr, de, it |
+| `ja-foundation-models-overview` | ja | published | published | false | 95 | /ja/signals/language-models/foundation-models-overview | en, es, pt, zh, fr, de, it |
+| `pt-foundation-models-overview` | pt | published | published | false | 95 | /pt/signals/language-models/foundation-models-overview | en, es, ja, zh, fr, de, it |
+| `zh-foundation-models-overview` | zh | published | published | false | 95 | /zh/signals/language-models/foundation-models-overview | en, es, ja, pt, fr, de, it |
+| `fr-foundation-models-overview` | fr | published | published | false | 95 | /fr/signals/language-models/foundation-models-overview | en, es, ja, pt, zh, de, it |
+| `de-foundation-models-overview` | de | published | published | false | 95 | /de/signals/language-models/foundation-models-overview | en, es, ja, pt, zh, fr, it |
+| `it-foundation-models-overview` | it | published | published | false | 95 | /it/signals/language-models/foundation-models-overview | en, es, ja, pt, zh, fr, de |
 
 ---
 
-*Report generated by scripts/generate-seo-verification.ts at 2026-05-21T19:37:51.384Z*
+*Report generated by scripts/generate-seo-verification.ts at 2026-05-23T19:49:07.911Z*

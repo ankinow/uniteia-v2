@@ -1,0 +1,58 @@
+.analog-connector {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 0;
+}
+
+.analog-connector__path {
+  fill: none;
+  transition: stroke var(--t-fast) var(--ease-solar);
+}
+
+.analog-connector__path--solid {
+  stroke: var(--color-aether-indigo);
+  stroke-width: 2;
+}
+
+.analog-connector__path--dashed {
+  stroke: var(--color-aether-indigo);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+}
+
+.analog-connector__path--dotted {
+  stroke: var(--color-aether-indigo);
+  stroke-width: 1.5;
+  stroke-dasharray: 2 4;
+}
+
+.analog-connector__path--glow {
+  stroke: var(--color-aether-indigo);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 6px var(--color-aether-indigo-glow));
+}
+
+.analog-connector__path--animated {
+  stroke-dasharray: 4 4;
+  animation: analog-connector-dash 1.2s linear infinite;
+}
+
+@keyframes analog-connector-dash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .analog-connector__path {
+    transition: none;
+  }
+
+  .analog-connector__path--animated {
+    animation: none;
+  }
+}

@@ -118,6 +118,27 @@
   --border-d2: 1px solid color-mix(in srgb, var(--color-cyan) 14%, transparent);
   --border-d3: 1px solid color-mix(in srgb, var(--color-cyan) 24%, transparent);
   --border-d4: 1px solid rgba(255, 255, 255, 0.1);
+
+  /* ── Aether OS Phase 4: Cinematic Depth Card accent colors ── */
+  --color-aether-parchment: oklch(93% 0.03 75);
+  --color-aether-indigo: oklch(60% 0.2 265);
+  --color-aether-indigo-glow: oklch(60% 0.3 265 / 0.35);
+  --color-aether-amber: oklch(72% 0.165 80);
+  --color-aether-amber-glow: oklch(72% 0.3 80 / 0.35);
+  --color-aether-teal: oklch(70% 0.16 195);
+  --color-aether-teal-glow: oklch(70% 0.28 195 / 0.35);
+
+  /* ── Phase 5: Agent-intent semantic tokens (SignalChip variants) ── */
+  --color-agent-moderator: oklch(0.65 0.15 280);
+  --color-agent-moderator-glow: oklch(0.65 0.3 280 / 0.35);
+  --color-agent-researcher: oklch(0.65 0.15 220);
+  --color-agent-researcher-glow: oklch(0.65 0.3 220 / 0.35);
+  --color-agent-writer: oklch(0.7 0.15 80);
+  --color-agent-writer-glow: oklch(0.7 0.3 80 / 0.35);
+  --color-agent-curator: oklch(0.6 0.12 160);
+  --color-agent-curator-glow: oklch(0.6 0.25 160 / 0.35);
+  --color-agent-analyst: oklch(0.65 0.18 15);
+  --color-agent-analyst-glow: oklch(0.65 0.3 15 / 0.35);
 }
 
 /* ═══════════════════════════════════════════
@@ -218,6 +239,11 @@
   --heading-letter-spacing-md: -0.01em;
   --body-line-height-lg: 1.6;
   --body-max-width: 68ch;
+
+  /* Aether OS Phase 4: glass backdrop refinado */
+  --glass-backdrop: blur(16px) saturate(140%);
+  --glass-inner-glow: inset 0 0 24px var(--card-accent);
+  --ease-bloom: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* ═══════════════════════════════════════════

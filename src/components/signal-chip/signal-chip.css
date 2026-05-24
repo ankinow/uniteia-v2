@@ -1,0 +1,100 @@
+/**
+ * SignalChip — Phase 5: Agent-intent semantic badge
+ * Inline-flex pill with variant accent dot, metric, label, and trend indicator.
+ *
+ * Dependencies: global.css (--color-agent-{variant} tokens)
+ */
+
+/* ── Scoped variant accent tokens ── */
+.signal-chip {
+  --chip-accent: var(--color-agent-moderator);
+  --chip-glow: var(--color-agent-moderator-glow);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  line-height: 1;
+  white-space: nowrap;
+
+  background: color-mix(in srgb, var(--chip-glow) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--chip-accent) 20%, transparent);
+  color: var(--color-bone);
+
+  transition: color var(--duration-micro) var(--ease-micro), background-color var(--duration-micro)
+    var(--ease-micro), border-color var(--duration-micro) var(--ease-micro);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal-chip {
+    transition: none;
+  }
+}
+
+/* ── Variant hues ── */
+.signal-chip--moderator {
+  --chip-accent: var(--color-agent-moderator);
+  --chip-glow: var(--color-agent-moderator-glow);
+}
+
+.signal-chip--researcher {
+  --chip-accent: var(--color-agent-researcher);
+  --chip-glow: var(--color-agent-researcher-glow);
+}
+
+.signal-chip--writer {
+  --chip-accent: var(--color-agent-writer);
+  --chip-glow: var(--color-agent-writer-glow);
+}
+
+.signal-chip--curator {
+  --chip-accent: var(--color-agent-curator);
+  --chip-glow: var(--color-agent-curator-glow);
+}
+
+.signal-chip--analyst {
+  --chip-accent: var(--color-agent-analyst);
+  --chip-glow: var(--color-agent-analyst-glow);
+}
+
+/* ── Accent dot ── */
+.signal-chip__dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--chip-accent);
+  flex-shrink: 0;
+}
+
+/* ── Metric ── */
+.signal-chip__metric {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Label ── */
+.signal-chip__label {
+  opacity: 0.8;
+}
+
+/* ── Trend indicator ── */
+.signal-chip__trend {
+  font-size: 0.625rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.signal-chip[data-trend="up"] .signal-chip__trend {
+  color: #4ade80;
+}
+
+.signal-chip[data-trend="down"] .signal-chip__trend {
+  color: #f87171;
+}
+
+.signal-chip[data-trend="stable"] .signal-chip__trend {
+  color: #a1a1aa;
+}

@@ -19,7 +19,7 @@ function visibilityGate(): void {
     'src',
     'content-graph',
     'generated',
-    'content-graph.json'
+    'content-graph.v1.json'
   )
   if (!existsSync(graphPath)) {
     console.log('  ⚠ content-graph.json not found — was generate:content run?')
@@ -32,8 +32,8 @@ function visibilityGate(): void {
 
   const publicGroupIds: Set<string> = new Set(
     (groups.publicGroups || [])
-      .filter((g: { nodeIds?: string[] }) => g.nodeIds?.length === 8)
-      .flatMap((g: { nodeIds: string[] }) => g.nodeIds)
+      .filter((g: { nodes?: Array<{ id: string }> }) => g.nodes?.length === 8)
+      .flatMap((g: { nodes: Array<{ id: string }> }) => g.nodes.map(n => n.id))
   )
 
   let leaked = 0
