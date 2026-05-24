@@ -56,10 +56,10 @@ describe('loadContent', () => {
     }
   })
 
-  it('handles niche-based glob keys correctly (ai-agents)', async () => {
-    const result = await loadContent('ai-agents', 'llm-aggregators-compared', 'en')
-    expect(result.slug).toBe('llm-aggregators-compared')
-    expect(result.title).toBe('LLM Aggregators Compared')
+  it('handles niche-based glob keys correctly (apex)', async () => {
+    const result = await loadContent('apex', 'tencent-cloud-deal-stack-builders', 'en')
+    expect(result.slug).toBe('tencent-cloud-deal-stack-builders')
+    expect(result.title).toBe('Tencent Cloud Deal Stack for Builders')
     expect(result.content).toContain('<h2>')
   })
 
@@ -93,7 +93,7 @@ describe('loadContent locale helpers', () => {
 
   it('getAvailableLanguages returns all 8 locales for a fully translated article', async () => {
     const { getAvailableLanguages } = await import('~/utils/content-loader')
-    const langs = await getAvailableLanguages('ai-agents', 'llm-aggregators-compared')
+    const langs = await getAvailableLanguages('apex', 'tencent-cloud-deal-stack-builders')
     expect(langs).toHaveLength(8)
     expect(langs.sort()).toEqual(['de', 'en', 'es', 'fr', 'it', 'ja', 'pt', 'zh'])
   })

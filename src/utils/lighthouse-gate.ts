@@ -218,7 +218,7 @@ async function serveStaticAsset(distDir: string, request: Request): Promise<Resp
       finalPath = resolve(filePath, 'index.html')
       contents = await readFile(finalPath)
     }
-    return new Response(contents, {
+    return new Response(new Uint8Array(contents), {
       status: 200,
       headers: {
         'content-type': contentTypeForPath(finalPath),
