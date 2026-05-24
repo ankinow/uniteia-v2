@@ -38,6 +38,7 @@ export function compileContentGraph(input: CompileInput): ContentGraph {
   compileTaxonomy(nodes)
   compileRouting(nodes)
   compileLocales(nodes)
+  compileSymmetry(nodes)
   compileRelated(nodes)
 
   const allNodes = Array.from(nodes.values()) as ContentNode[] & {
@@ -135,6 +136,8 @@ function parseRegistryEntry(
   const isDraft: boolean = factoryNode
     ? factoryNode.visibility === 'draft'
     : verdict !== 'trusted' || qualityScore < 95
+  const source = (frontmatter.source as string) ?? 'manual'
+  if (source === 'placeholder') return null
   const visibility: ContentNodeVisibility = factoryNode
     ? factoryNode.visibility
     : isDraft
@@ -252,6 +255,29 @@ function computeFreshnessScore(updatedAt: string | undefined): number {
   if (ageDays < 90) return 75
   if (ageDays < 180) return 50
   return 25
+}
+
+const ALL_LOCALES: ContentLocale[] = ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh']
+
+function compileSymmetry(nodes: Map<string, ContentNode>): void {
+  const byCanonicalSlug = new Map<string, ContentNode[]>()
+  for (const node of nodes.values()) {
+    const key = node.canonicalSlug
+    const group = byCanonicalSlug.get(key) ?? []
+    group.push(node)
+    byCanonicalSlug.set(key, group)
+  }
+
+  for (const [, group] of byCanonicalSlug) {
+    const presentLocales = new Set(group.map(n => n.locale))
+    const allLocalesPresent = ALL_LOCALES.every(l => presentLocales.has(l))
+    if (!allLocalesPresent) {
+      for (const node of group) {
+        node.visibility = 'draft'
+        node.seo.noindex = true
+      }
+    }
+  }
 }
 
 function computeGraphScores(allNodes: ContentNode[]): void {
