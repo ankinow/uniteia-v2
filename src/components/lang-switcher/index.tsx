@@ -230,13 +230,16 @@ export const LangSwitcherSegmented = component$<LangSwitcherSegmentedProps>(
       }
 
       if (next !== idx) {
-        onLangChange$(tabs[next].code)
-        setTimeout(() => {
-          const btn = document.querySelector(
-            `[data-lang-segmented="${tabs[next].code}"]`
-          ) as HTMLElement | null
-          btn?.focus()
-        })
+        const target = tabs[next]
+        if (target) {
+          onLangChange$(target.code)
+          setTimeout(() => {
+            const btn = document.querySelector(
+              `[data-lang-segmented="${target.code}"]`
+            ) as HTMLElement | null
+            btn?.focus()
+          })
+        }
       }
     })
 

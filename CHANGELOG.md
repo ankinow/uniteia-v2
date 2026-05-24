@@ -2,6 +2,16 @@
 
 All notable changes to uniteia-v2 will be documented in this file.
 
+## Phase4 — 2026-05-24
+
+### Fixed
+- **BUG-001 (a11y):** Language selector codes concatenated, not individually accessible. Replaced inline `<a>` links in root route with `LangSwitcherSegmented` component using WAI-ARIA radio group pattern (`role="radio"`, `aria-checked`, `aria-label` with full native names). 2-letter codes displayed visually. Keyboard navigation via ArrowLeft/Right, Home/End. In-place language change via `history.replaceState` (no page redirect).
+- **CodeQL #17, #18:** `routes/index.tsx` URL derivation wrapped in `useComputed$` to satisfy static analysis post-validation.
+- **ARIA:** `LangSelectorCompact` sidebar variant now uses `<fieldset>` with `aria-label` and `aria-current="page"`.
+
+### Added
+- `src/components/lang-switcher/index.test.ts` — 6 tests for SegmentedControl module export, function contract, and language metadata.
+
 ## [Unreleased]
 
 ### Added
