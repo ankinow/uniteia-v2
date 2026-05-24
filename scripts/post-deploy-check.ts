@@ -1,4 +1,5 @@
 import { execSync } from 'node:child_process'
+import { readFileSync } from 'node:fs'
 
 const DEPLOY_URL = 'https://uniteia-v2.pages.dev'
 
@@ -31,7 +32,7 @@ async function runLighthouse(url: string) {
       `bunx lighthouse ${url} --output json --output-path ./report.json --chrome-flags="--headless"`,
       { stdio: 'inherit' }
     )
-    const report = JSON.parse(execSync('cat ./report.json').toString())
+    const report = JSON.parse(readFileSync('./report.json', 'utf-8'))
     console.log(`Performance: ${report.categories.performance.score * 100}`)
     console.log(`Accessibility: ${report.categories.accessibility.score * 100}`)
     console.log(`Best Practices: ${report.categories['best-practices'].score * 100}`)

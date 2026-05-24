@@ -129,7 +129,7 @@
       var qs = new URLSearchParams(location.search);
       var src = qs.get('screen');
       var iframe = document.getElementById('screen');
-      if (src) iframe.src = src;
+      if (src && src.startsWith('/')) iframe.src = src;
     })();
   </script>
 </body>

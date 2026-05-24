@@ -307,10 +307,10 @@ async function startPreviewServer(distDir: string, port: number): Promise<Previe
 
       await writePreviewResponse(previewResponse, response)
     } catch (error) {
-      const message = error instanceof Error ? error.message : String(error)
+      const _message = error instanceof Error ? error.message : String(error)
       response.statusCode = 500
       response.setHeader('content-type', 'text/plain; charset=utf-8')
-      response.end(message)
+      response.end('Internal Server Error')
     }
   })
 

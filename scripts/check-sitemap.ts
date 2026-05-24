@@ -67,7 +67,7 @@ async function validateSitemap(): Promise<CheckResult[]> {
   }
 
   // Check has xmlns schema
-  if (content.includes('sitemaps.org')) {
+  if (content.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"')) {
     results.push({
       name: 'xmlns-schema',
       passed: true,

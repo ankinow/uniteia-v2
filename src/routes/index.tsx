@@ -15,6 +15,10 @@ export default component$(() => {
     const el = document.querySelector('[data-negotiated-lang]')
     if (el) {
       lang.value = el.getAttribute('data-negotiated-lang') || 'en'
+      const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
+      if (!VALID_LANG_CODES.has(lang.value)) {
+        lang.value = 'en'
+      }
     }
     mounted.value = true
   })

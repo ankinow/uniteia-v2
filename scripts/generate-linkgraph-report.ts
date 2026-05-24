@@ -264,7 +264,7 @@ function fullNodeList(nodes: ContentNode[]): string {
 }
 
 function escapeMd(text: string): string {
-  return text.replace(/\|/g, '\\|')
+  return text.replace(/\|/g, '\\|').replace(/\n/g, ' ')
 }
 
 // ── Main script ─────────────────────────────────────────────────────────

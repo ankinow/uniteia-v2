@@ -52,7 +52,7 @@ export interface DopamineBudgetProviderOptions {
 export const DOPAMINE_BUDGET_CTX = createContextId<DopamineBudgetState>('dopamine-budget')
 
 function createSessionId(): string {
-  return globalThis.crypto?.randomUUID?.() ?? `dopamine-${Math.random().toString(36).slice(2, 10)}`
+  return globalThis.crypto?.randomUUID?.() ?? crypto.randomUUID()
 }
 
 function nowIso(): string {
