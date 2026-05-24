@@ -31,12 +31,20 @@ async function generate() {
 
     const entries: string[] = []
     entries.push(
-      `  <url>\n    <loc>${origin}/</loc>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>`
+      `  <url>
+    <loc>${origin}/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>`
     )
 
     for (const l of SUPPORTED_LANGUAGES) {
       entries.push(
-        `  <url>\n    <loc>${origin}/${l.code}/signals</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.8</priority>\n  </url>`
+        `  <url>
+    <loc>${origin}/${l.code}/signals</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>`
       )
     }
 
@@ -69,7 +77,12 @@ async function generate() {
       }
 
       entries.push(
-        `  <url>\n    <loc>${loc}</loc>\n${lastmod}    <changefreq>weekly</changefreq>\n    <priority>0.7</priority>\n${hreflangLines.join('\n')}\n  </url>`
+        `  <url>
+    <loc>${loc}</loc>
+${lastmod}    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+${hreflangLines.join('\n')}
+  </url>`
       )
     }
 

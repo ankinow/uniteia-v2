@@ -1,5 +1,5 @@
 import { $, component$, useComputed$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
-import type { RequestHandler } from '@builder.io/qwik-city'
+import type { DocumentHead, RequestHandler } from '@builder.io/qwik-city'
 import { LangSwitcherSegmented } from '~/components/lang-switcher'
 import { onLanguageNegotiation } from '~/i18n/middleware'
 import { updateLangCookie } from '~/i18n/set-lang-cookie'
@@ -75,3 +75,38 @@ export default component$(() => {
     </div>
   )
 })
+
+export const head: DocumentHead = {
+  title: 'UniTeia — Curadoria de Sinais em Inteligência Artificial',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Aether OS — a camada de curadoria que transforma ruído em sinal. 8 idiomas · curadoria perene · qualidade em 7 gates.',
+    },
+    {
+      property: 'og:description',
+      content: 'Aether OS — a camada de curadoria que transforma ruído em sinal.',
+    },
+    { property: 'og:image', content: 'https://uniteia.com/og-image.png' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: 'https://uniteia.com/' },
+    {
+      property: 'og:title',
+      content: 'UniTeia — Curadoria de Sinais em Inteligência Artificial',
+    },
+    { property: 'og:site_name', content: 'UniTeia' },
+    { property: 'og:locale', content: 'pt_BR' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    {
+      name: 'twitter:title',
+      content: 'UniTeia — Curadoria de Sinais em Inteligência Artificial',
+    },
+    {
+      name: 'twitter:description',
+      content: 'Aether OS — a camada de curadoria que transforma ruído em sinal. 8 idiomas.',
+    },
+    { name: 'robots', content: 'index, follow' },
+  ],
+  links: [{ rel: 'canonical', href: 'https://uniteia.com/' }],
+}

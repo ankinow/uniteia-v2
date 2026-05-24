@@ -246,7 +246,7 @@ export const LangSwitcherSegmented = component$<LangSwitcherSegmentedProps>(
     return (
       <fieldset
         aria-label="Language selector"
-        class={['inline-flex flex-wrap gap-1 border-0 p-0 m-0', classList]}
+        class={['inline-flex flex-wrap gap-2 border-0 p-0 m-0', classList]}
         onKeyDown$={handleKeyDown}
       >
         {tabs.map(l => (
