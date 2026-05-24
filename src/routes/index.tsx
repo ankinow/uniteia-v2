@@ -1,26 +1,37 @@
-import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
+import { $, component$, useComputed$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 import type { RequestHandler } from '@builder.io/qwik-city'
+import { LangSwitcherSegmented } from '~/components/lang-switcher'
 import { onLanguageNegotiation } from '~/i18n/middleware'
-import { SUPPORTED_LANGUAGES } from '~/i18n/types'
+import { updateLangCookie } from '~/i18n/set-lang-cookie'
+import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 
 export const onGet: RequestHandler = event => {
   onLanguageNegotiation(event)
 }
 
 export default component$(() => {
-  const lang = useSignal('en')
+  const lang = useSignal<SupportedLanguage>('en')
   const mounted = useSignal(false)
 
   useVisibleTask$(() => {
     const el = document.querySelector('[data-negotiated-lang]')
     if (el) {
-      lang.value = el.getAttribute('data-negotiated-lang') || 'en'
+      const raw = el.getAttribute('data-negotiated-lang')
       const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
-      if (!VALID_LANG_CODES.has(lang.value)) {
-        lang.value = 'en'
-      }
+      lang.value = raw && VALID_LANG_CODES.has(raw) ? (raw as SupportedLanguage) : 'en'
     }
     mounted.value = true
+  })
+
+  const exploreUrl = useComputed$(() => `/${lang.value}/signals`)
+  const switchUrl = useComputed$(() => `/${lang.value === 'pt' ? 'en' : lang.value}/signals`)
+
+  const handleLangChange = $((newLang: SupportedLanguage) => {
+    lang.value = newLang
+    updateLangCookie(newLang)
+    if (typeof window !== 'undefined') {
+      window.history.replaceState(null, '', `/${newLang}`)
+    }
   })
 
   return (
@@ -44,32 +55,20 @@ export default component$(() => {
           </p>
           <div class="flex flex-wrap gap-4 justify-center mb-12">
             <a
-              href={`/${lang.value}/signals`}
+              href={exploreUrl.value}
               class="inline-flex items-center gap-2 px-6 py-3 bg-cyan/20 border border-cyan/50 text-cyan hover:bg-cyan/30 transition-colors rounded-none text-sm uppercase tracking-wider font-medium"
             >
               Explorar Tópicos
             </a>
             <a
-              href={`/${lang.value === 'pt' ? 'en' : lang.value}/signals`}
+              href={switchUrl.value}
               class="inline-flex items-center gap-2 px-6 py-3 border border-bone/20 text-bone-muted hover:text-bone hover:border-bone/40 transition-colors rounded-none text-sm uppercase tracking-wider"
             >
               {lang.value === 'pt' ? 'Switch to English' : 'Switch Language'}
             </a>
           </div>
           <div class="flex flex-wrap gap-3 justify-center">
-            {SUPPORTED_LANGUAGES.map(l => (
-              <a
-                key={l.code}
-                href={`/${l.code}/signals`}
-                class={`px-3 py-1.5 text-xs uppercase tracking-wider border transition-colors ${
-                  l.code === lang.value
-                    ? 'border-cyan/40 text-cyan bg-cyan/10'
-                    : 'border-transparent text-bone-muted hover:text-bone hover:border-bone/20'
-                }`}
-              >
-                {l.code}
-              </a>
-            ))}
+            <LangSwitcherSegmented currentLang={lang} onLangChange$={handleLangChange} />
           </div>
         </div>
       </section>
