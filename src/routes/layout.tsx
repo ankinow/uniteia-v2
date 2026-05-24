@@ -1,5 +1,6 @@
 import { $, Slot, component$, useOnWindow, useSignal } from '@builder.io/qwik'
 import { type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
+import { AnalogConnector } from '~/components/analog-connector'
 import { Footer } from '~/components/footer'
 import { LangSwitcher } from '~/components/lang-switcher'
 import { NavTree } from '~/components/nav-tree'
@@ -94,7 +95,10 @@ export default component$(() => {
           class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-action/10"
           data-testid="main-nav"
         >
-          <a href={signalsIndex(lang)} class="text-bone-muted hover:text-bone transition-colors">
+          <a
+            href={signalsIndex(lang)}
+            class="text-bone-muted hover:text-bone transition-colors focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
+          >
             {t.nav.topics}
           </a>
           <LangSwitcher />
@@ -121,7 +125,9 @@ export default component$(() => {
         </aside>
 
         {/* Main Content */}
-        <div class="flex-1 flex flex-col min-w-0">
+        <div class="flex-1 flex flex-col min-w-0" data-analog-container>
+          {/* M019: Edge data will be wired when homepage projection moves to layout-level routeLoader */}
+          <AnalogConnector edges={[]} variant="glow" animated />
           <div class="site-main flex-1">
             <Slot />
           </div>

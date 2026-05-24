@@ -17,7 +17,7 @@ export const LangSelectorCompact = component$(() => {
           href={signalsIndex(langInfo.code)}
           aria-current={lang === langInfo.code ? 'page' : undefined}
           class={[
-            'block py-1 px-3 text-xs transition-colors duration-200',
+            'block py-1 px-3 text-xs transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none',
             lang === langInfo.code
               ? 'text-cyan bg-cyan/10 font-medium'
               : 'text-bone-muted hover:text-bone hover:bg-cyan/5',

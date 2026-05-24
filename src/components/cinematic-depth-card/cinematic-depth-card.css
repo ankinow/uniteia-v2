@@ -27,7 +27,7 @@
   );
   backdrop-filter: var(--glass-backdrop, blur(16px) saturate(140%));
   -webkit-backdrop-filter: var(--glass-backdrop, blur(16px) saturate(140%));
-  border: 1px solid color-mix(in srgb, var(--card-accent) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--card-accent) 40%, transparent);
 
   transition: transform var(--duration-base) var(--ease-solar), box-shadow var(--duration-base)
     var(--ease-solar);

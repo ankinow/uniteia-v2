@@ -150,7 +150,7 @@ export default component$(() => {
           subjectsLabel: content.value.subjects.join(', '),
           byAuthor: content.value.metadata?.author || 'UniTeia System',
           version: content.value.metadata?.version?.toString() || '',
-          readInLang: content.value.lang,
+          readInLang: getTranslation(content.value.lang).article.readInLang,
         }}
       />
       <div

@@ -114,7 +114,7 @@ export default component$(() => {
             type="button"
             onClick$={() => refreshAction.submit({})}
             disabled={refreshAction.isRunning}
-            class="px-4 py-2 bg-cyan-base text-void font-medium rounded hover:bg-cyan-hi transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            class="px-4 py-2 bg-cyan-base text-void font-medium rounded hover:bg-cyan-hi transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
           >
             {refreshAction.isRunning ? 'Fetching...' : 'Fetch New Dog'}
           </button>
@@ -123,7 +123,7 @@ export default component$(() => {
             onClick$={() => {
               showArtifact.value = !showArtifact.value
             }}
-            class="px-4 py-2 bg-mid text-bone font-medium rounded hover:bg-raised transition-colors border border-raised"
+            class="px-4 py-2 bg-mid text-bone font-medium rounded hover:bg-raised transition-colors border border-raised focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
           >
             {showArtifact.value ? 'Hide Artifact' : 'Show Artifact'}
           </button>

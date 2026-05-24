@@ -49,7 +49,7 @@ const ErrorContent = component$(() => {
       {/* Navigation back to home */}
       <a
         href="/"
-        class="error-home-link inline-flex items-center gap-2 px-6 py-3 bg-action text-void font-semibold rounded-lg hover:bg-action/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-action focus:ring-offset-2 focus:ring-offset-void"
+        class="error-home-link inline-flex items-center gap-2 px-6 py-3 bg-action text-void font-semibold rounded-lg hover:bg-action/90 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action focus-visible:ring-offset-2 focus-visible:ring-offset-void"
         data-testid="error-home-link"
       >
         <svg

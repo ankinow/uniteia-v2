@@ -32,7 +32,7 @@ export const KindlePlayground = component$<KindlePlaygroundProps>(
         }}
       >
         <div
-          class="fixed top-0 left-0 h-1 bg-action transition-all duration-300 z-[var(--z-floating)]"
+          class="fixed top-0 left-0 h-1 bg-action transition-all duration-300 z-[var(--z-floating)] focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
           style={{ width: `${clampedProgress}%` }}
           role="progressbar"
           aria-valuenow={clampedProgress}
@@ -47,7 +47,7 @@ export const KindlePlayground = component$<KindlePlaygroundProps>(
               <button
                 onClick$={toggleFont}
                 type="button"
-                class="text-xs text-bone-muted hover:text-action transition-colors duration-200 font-mono px-3 py-1.5 border border-bone-muted/20 rounded"
+                class="text-xs text-bone-muted hover:text-action transition-colors duration-200 font-mono px-3 py-1.5 border border-bone-muted/20 rounded focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
                 aria-label="Toggle font"
               >
                 {currentFont.value === 'serif' ? 'Aa' : 'Aa'}
@@ -55,7 +55,7 @@ export const KindlePlayground = component$<KindlePlaygroundProps>(
               <button
                 onClick$={cycleSize}
                 type="button"
-                class="text-xs text-bone-muted hover:text-action transition-colors duration-200 font-mono px-3 py-1.5 border border-bone-muted/20 rounded"
+                class="text-xs text-bone-muted hover:text-action transition-colors duration-200 font-mono px-3 py-1.5 border border-bone-muted/20 rounded focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
                 aria-label="Change font size"
               >
                 T

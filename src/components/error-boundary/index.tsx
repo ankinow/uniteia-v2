@@ -19,7 +19,7 @@ export const ErrorBoundary = component$<ErrorBoundaryProps>(({ label }) => {
             onClick$={() => {
               store.error = undefined
             }}
-            class="mt-3 text-xs text-coral hover:text-coral/80 underline underline-offset-2 transition-colors"
+            class="mt-3 text-xs text-coral hover:text-coral/80 underline underline-offset-2 transition-colors focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
           >
             Try again
           </button>

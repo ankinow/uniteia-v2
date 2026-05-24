@@ -101,4 +101,14 @@ export const it: TranslationStrings = {
       badge: '8 voci',
     },
   },
+  legal: {
+    privacy: {
+      title: 'Informativa sulla Privacy',
+      body: 'Informativa sulla Privacy. La tua privacy è importante per noi. Raccogliamo ed elaboriamo solo i dati minimi necessari per fornire il servizio di curatione UniTeia. Non vendiamo i tuoi dati a terze parti. Questa informativa descrive le nostre pratiche di raccolta, archiviazione e elaborazione dei dati.',
+    },
+    terms: {
+      title: 'Termini di Servizio',
+      body: 'Termini di Servizio. Utilizzando UniTeia, accetti questi termini. Il contenuto fornito è solo a scopo informativo e non costituisce consulenza professionale. Ci riserviamo il diritto di modificare questi termini in qualsiasi momento.',
+    },
+  },
 }

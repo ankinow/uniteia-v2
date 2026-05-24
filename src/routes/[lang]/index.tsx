@@ -9,6 +9,7 @@ import {
   ScrollDepthCardEnhancer,
   ScrollHeroOrganism,
 } from '~/components/scroll-driven'
+import { SignalChip } from '~/components/signal-chip'
 import { getHomepageProjection } from '~/content-graph/projections'
 import type { HomepageProjection } from '~/content-graph/projections'
 import { getTranslation } from '~/i18n/context'
@@ -151,9 +152,12 @@ export default component$(() => {
                           {signal.node.summary}
                         </p>
                         <div class="flex gap-3 mt-3 text-xs">
-                          <span class="text-cyan font-mono">
-                            Q{signal.node.metrics.graphScore.toFixed(0)}
-                          </span>
+                          <SignalChip
+                            metric={signal.node.metrics.graphScore}
+                            label="Quality"
+                            variant="analyst"
+                            trend={signal.node.metrics.graphScore >= 70 ? 'up' : 'stable'}
+                          />
                           <span class="text-bone/50 uppercase tracking-wider">
                             {signal.node.locale}
                           </span>
@@ -225,9 +229,20 @@ export default component$(() => {
                         <p class="text-sm text-bone/70 mt-2 line-clamp-2 leading-relaxed">
                           {stream.node.summary}
                         </p>
-                        <p class="text-xs text-bone/50 mt-2 font-mono">
-                          Freshness: {stream.node.metrics.freshnessScore.toFixed(0)}
-                        </p>
+                        <div class="flex gap-2 mt-2">
+                          <SignalChip
+                            metric={stream.node.metrics.freshnessScore}
+                            label="Freshness"
+                            variant="curator"
+                            trend={
+                              stream.node.metrics.freshnessScore >= 70
+                                ? 'up'
+                                : stream.node.metrics.freshnessScore >= 40
+                                  ? 'stable'
+                                  : 'down'
+                            }
+                          />
+                        </div>
                       </div>
                     </CinematicDepthCard>
                   </ScrollDepthCardEnhancer>

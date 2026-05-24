@@ -86,7 +86,6 @@ export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
           tone="action"
           surface="frontmatter"
         />
-        <span class="text-xs text-bone-muted">{langLabel}</span>
       </div>
     </div>
   )

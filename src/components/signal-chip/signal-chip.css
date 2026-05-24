@@ -20,7 +20,7 @@
   white-space: nowrap;
 
   background: color-mix(in srgb, var(--chip-glow) 20%, transparent);
-  border: 1px solid color-mix(in srgb, var(--chip-accent) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--chip-accent) 55%, transparent);
   color: var(--color-bone);
 
   transition: color var(--duration-micro) var(--ease-micro), background-color var(--duration-micro)

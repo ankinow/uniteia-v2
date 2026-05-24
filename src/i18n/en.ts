@@ -100,4 +100,14 @@ export const en: TranslationStrings = {
       badge: '8 voices',
     },
   },
+  legal: {
+    privacy: {
+      title: 'Privacy Policy',
+      body: 'Privacy Policy. Your privacy is important to us. We collect and process minimal data necessary to provide the UniTeia curation service. We do not sell your data to third parties. This policy outlines our data collection, storage, and processing practices.',
+    },
+    terms: {
+      title: 'Terms of Service',
+      body: 'Terms of Service. By using UniTeia, you agree to these terms. The content provided is for informational purposes only and does not constitute professional advice. We reserve the right to modify these terms at any time.',
+    },
+  },
 }

@@ -110,7 +110,7 @@ export const LangSwitcher = component$<LangSwitcherProps>(
             'lang-switcher-trigger appearance-none flex items-center gap-2 px-3 py-2',
             'bg-void border border-action/30 rounded-none text-bone-primary',
             'hover:border-action hover:bg-action/5 transition-colors duration-200',
-            'focus:outline-none focus:ring-2 focus:ring-action/50',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan/50',
             'min-h-[2.5rem] min-w-[120px]',
             isRedirecting.value && 'opacity-50 cursor-wait',
           ]}
@@ -167,7 +167,7 @@ export const LangSwitcher = component$<LangSwitcherProps>(
                 type="button"
                 class={[
                   'appearance-none bg-transparent border-0 w-full px-4 py-3 flex items-center justify-between text-left',
-                  'hover:bg-action/10 focus:bg-action/10 focus:outline-none transition-colors duration-150',
+                  'hover:bg-action/10 focus-visible:bg-action/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan/30 transition-colors duration-150',
                   lang.value === langInfo.code && 'bg-action/5 text-action',
                 ]}
                 onClick$={() => handleSelect(langInfo.code)}
@@ -266,7 +266,7 @@ export const LangSwitcherSegmented = component$<LangSwitcherSegmentedProps>(
             }}
             class={[
               'min-h-11 min-w-11 px-3 py-2 text-sm uppercase tracking-wider border transition-colors motion-safe:duration-150',
-              'focus:outline-none focus:ring-2 focus:ring-cyan',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan',
               currentLang.value === l.code
                 ? 'border-cyan/40 text-cyan bg-cyan/10'
                 : 'border-transparent text-bone-muted hover:text-bone hover:border-bone/20',

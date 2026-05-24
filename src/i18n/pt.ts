@@ -100,4 +100,14 @@ export const pt: TranslationStrings = {
       badge: '8 vozes',
     },
   },
+  legal: {
+    privacy: {
+      title: 'Política de Privacidade',
+      body: 'Política de Privacidade. Sua privacidade é importante para nós. Coletamos e processamos apenas os dados mínimos necessários para fornecer o serviço de curadoria UniTeia. Não vendemos seus dados a terceiros. Esta política descreve nossas práticas de coleta, armazenamento e processamento de dados.',
+    },
+    terms: {
+      title: 'Termos de Serviço',
+      body: 'Termos de Serviço. Ao usar UniTeia, você concorda com estes termos. O conteúdo fornecido é apenas para fins informativos e não constitui aconselhamento profissional. Reservamo-nos o direito de modificar estes termos a qualquer momento.',
+    },
+  },
 }

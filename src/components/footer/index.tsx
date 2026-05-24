@@ -38,19 +38,19 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
           >
             <a
               href={staticPage(lang.value, 'privacy')}
-              class="text-bone-muted transition-colors duration-200 hover:text-action"
+              class="text-bone-muted transition-colors duration-200 hover:text-action focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
             >
               {t.footer.links.privacy}
             </a>
             <a
               href={staticPage(lang.value, 'terms')}
-              class="text-bone-muted transition-colors duration-200 hover:text-action"
+              class="text-bone-muted transition-colors duration-200 hover:text-action focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
             >
               {t.footer.links.terms}
             </a>
             <a
               href="https://github.com/ankinow/uniteia-v2"
-              class="text-bone-muted transition-colors duration-200 hover:text-action"
+              class="text-bone-muted transition-colors duration-200 hover:text-action focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
               target="_blank"
               rel="noopener noreferrer"
             >

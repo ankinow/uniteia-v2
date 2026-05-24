@@ -101,4 +101,14 @@ export const de: TranslationStrings = {
       badge: '8 Stimmen',
     },
   },
+  legal: {
+    privacy: {
+      title: 'Datenschutzerklärung',
+      body: 'Datenschutzerklärung. Ihre Privatsphäre ist uns wichtig. Wir erfassen und verarbeiten nur die minimal notwendigen Daten, um den UniTeia-Kurationsdienst bereitzustellen. Wir verkaufen Ihre Daten nicht an Dritte. Diese Richtlinie beschreibt unsere Datenerfassungs-, Speicher- und Verarbeitungspraktiken.',
+    },
+    terms: {
+      title: 'Nutzungsbedingungen',
+      body: 'Nutzungsbedingungen. Durch die Nutzung von UniTeia stimmen Sie diesen Bedingungen zu. Die bereitgestellten Inhalte dienen ausschließlich zu Informationszwecken und stellen keine professionelle Beratung dar. Wir behalten uns das Recht vor, diese Bedingungen jederzeit zu ändern.',
+    },
+  },
 }

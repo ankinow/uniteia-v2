@@ -56,13 +56,13 @@ export default component$(() => {
           <div class="flex flex-wrap gap-4 justify-center mb-12">
             <a
               href={exploreUrl.value}
-              class="inline-flex items-center gap-2 px-6 py-3 bg-cyan/20 border border-cyan/50 text-cyan hover:bg-cyan/30 transition-colors rounded-none text-sm uppercase tracking-wider font-medium"
+              class="inline-flex items-center gap-2 px-6 py-3 bg-cyan/20 border border-cyan/50 text-cyan hover:bg-cyan/30 transition-colors rounded-none text-sm uppercase tracking-wider font-medium focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
             >
               Explorar Tópicos
             </a>
             <a
               href={switchUrl.value}
-              class="inline-flex items-center gap-2 px-6 py-3 border border-bone/20 text-bone-muted hover:text-bone hover:border-bone/40 transition-colors rounded-none text-sm uppercase tracking-wider"
+              class="inline-flex items-center gap-2 px-6 py-3 border border-bone/20 text-bone-muted hover:text-bone hover:border-bone/40 transition-colors rounded-none text-sm uppercase tracking-wider focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
             >
               {lang.value === 'pt' ? 'Switch to English' : 'Switch Language'}
             </a>

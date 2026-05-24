@@ -13,28 +13,19 @@ interface SearchResultsProps {
 export const SearchResults = component$<SearchResultsProps>(({ documents, query, lang }) => {
   const { t } = useI18n()
 
-  const filtered = query
-    ? documents.filter(
-        d =>
-          d.title.toLowerCase().includes(query.toLowerCase()) ||
-          d.summary.toLowerCase().includes(query.toLowerCase()) ||
-          d.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
-      )
-    : []
-
   return (
     <div class="max-w-3xl mx-auto px-4 py-8">
       {query && (
         <p class="text-bone-muted mb-6">
           {t.search.resultsFor.replace('{query}', query)}
           {' — '}
-          {t.search.resultCount.replace('{count}', String(filtered.length))}
+          {t.search.resultCount.replace('{count}', String(documents.length))}
         </p>
       )}
 
-      {filtered.length > 0 ? (
+      {documents.length > 0 ? (
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filtered.map(doc => (
+          {documents.map(doc => (
             <DopamineCard
               key={doc.id}
               title={doc.title}

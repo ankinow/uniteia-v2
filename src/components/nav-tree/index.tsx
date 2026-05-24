@@ -48,7 +48,7 @@ export const NavTree = component$<NavTreeProps>(
               <a
                 href={niche.href}
                 class={[
-                  'px-3 py-2 rounded-md transition-colors',
+                  'px-3 py-2 rounded-md transition-colors focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none',
                   niche.isActive
                     ? 'bg-action text-void'
                     : 'text-bone-muted hover:text-bone hover:bg-white/5',

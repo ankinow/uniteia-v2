@@ -116,6 +116,16 @@ export interface TranslationStrings {
       badge: string
     }
   }
+  legal: {
+    privacy: {
+      title: string
+      body: string
+    }
+    terms: {
+      title: string
+      body: string
+    }
+  }
 }
 
 // ── Language Info (UI-facing metadata) ────────────────────────────────

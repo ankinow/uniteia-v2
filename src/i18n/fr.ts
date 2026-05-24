@@ -101,4 +101,14 @@ export const fr: TranslationStrings = {
       badge: '8 voix',
     },
   },
+  legal: {
+    privacy: {
+      title: 'Politique de Confidentialité',
+      body: 'Politique de Confidentialité. Votre vie privée est importante pour nous. Nous collectons et traitons les données minimales nécessaires pour fournir le service de curation UniTeia. Nous ne vendons pas vos données à des tiers. Cette politique décrit nos pratiques de collecte, de stockage et de traitement des données.',
+    },
+    terms: {
+      title: "Conditions d'Utilisation",
+      body: "Conditions d'Utilisation. En utilisant UniTeia, vous acceptez ces conditions. Le contenu fourni est à titre informatif uniquement et ne constitue pas un avis professionnel. Nous nous réservons le droit de modifier ces conditions à tout moment.",
+    },
+  },
 }
