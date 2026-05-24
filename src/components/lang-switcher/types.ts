@@ -1,5 +1,14 @@
-import type { ClassList } from '@builder.io/qwik'
+import type { ClassList, QRL, Signal } from '@builder.io/qwik'
 import type { SupportedLanguage } from '~/i18n/types'
+
+/**
+ * LangSwitcherSegmented component props
+ */
+export interface LangSwitcherSegmentedProps {
+  currentLang: Signal<SupportedLanguage>
+  onLangChange$: QRL<(lang: SupportedLanguage) => void>
+  class?: ClassList
+}
 
 /**
  * LangSwitcher component props
