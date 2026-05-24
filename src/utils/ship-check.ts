@@ -125,6 +125,8 @@ export async function runShipCheckStep(
         CF_PAGES: process.env.CF_PAGES,
         SITE_URL: process.env.SITE_URL,
         BUILD_ID: process.env.BUILD_ID,
+        PREVIEW_PORT: process.env.PREVIEW_PORT,
+        PLAYWRIGHT_BASE_URL: process.env.PLAYWRIGHT_BASE_URL,
       },
       stdio: 'inherit',
     })
