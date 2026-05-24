@@ -9,12 +9,13 @@ export const LangSelectorCompact = component$(() => {
   const t = getTranslation(lang)
 
   return (
-    <div class="space-y-1">
+    <fieldset class="space-y-1 border-0 p-0 m-0" aria-label="Language selector">
       <div class="paper-label">{t.langSwitcher.label}</div>
       {SUPPORTED_LANGUAGES.map(langInfo => (
         <a
           key={langInfo.code}
           href={signalsIndex(langInfo.code)}
+          aria-current={lang === langInfo.code ? 'page' : undefined}
           class={[
             'block py-1 px-3 text-xs transition-colors duration-200',
             lang === langInfo.code
@@ -25,6 +26,6 @@ export const LangSelectorCompact = component$(() => {
           {langInfo.nativeName}
         </a>
       ))}
-    </div>
+    </fieldset>
   )
 })
