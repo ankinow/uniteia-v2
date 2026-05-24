@@ -3,7 +3,7 @@ import { getLanguageName, useI18n } from '~/i18n/context'
 import { updateLangCookie } from '~/i18n/set-lang-cookie'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 import { routes } from '~/routing/routes'
-import type { LangSwitcherLogEvent, LangSwitcherProps } from './types'
+import type { LangSwitcherLogEvent, LangSwitcherProps, LangSwitcherSegmentedProps } from './types'
 
 export const LangSwitcher = component$<LangSwitcherProps>(
   ({ class: classList, compact = false }) => {
@@ -202,4 +202,79 @@ export const LangSwitcher = component$<LangSwitcherProps>(
   }
 )
 
-export type { LangSwitcherProps, LangSwitcherLogEvent } from './types'
+// ── LangSwitcherSegmented — WAI-ARIA radio group ─────────────────────
+
+export const LangSwitcherSegmented = component$<LangSwitcherSegmentedProps>(
+  ({ currentLang, onLangChange$, class: classList }) => {
+    const tabs = SUPPORTED_LANGUAGES
+
+    const handleKeyDown = $((e: KeyboardEvent) => {
+      const idx = tabs.findIndex(l => l.code === currentLang.value)
+      let next = idx
+
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault()
+        next = idx < tabs.length - 1 ? idx + 1 : 0
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault()
+        next = idx > 0 ? idx - 1 : tabs.length - 1
+      } else if (e.key === 'Home') {
+        e.preventDefault()
+        next = 0
+      } else if (e.key === 'End') {
+        e.preventDefault()
+        next = tabs.length - 1
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        return
+      }
+
+      if (next !== idx) {
+        onLangChange$(tabs[next].code)
+        setTimeout(() => {
+          const btn = document.querySelector(
+            `[data-lang-segmented="${tabs[next].code}"]`
+          ) as HTMLElement | null
+          btn?.focus()
+        })
+      }
+    })
+
+    return (
+      <fieldset
+        aria-label="Language selector"
+        class={['inline-flex flex-wrap gap-1 border-0 p-0 m-0', classList]}
+        onKeyDown$={handleKeyDown}
+      >
+        {tabs.map(l => (
+          <button
+            key={l.code}
+            // biome-ignore lint/a11y/useSemanticElements: custom-styled radio button
+            type="button"
+            role="radio"
+            aria-checked={currentLang.value === l.code}
+            aria-label={l.nativeName}
+            tabIndex={currentLang.value === l.code ? 0 : -1}
+            data-lang-segmented={l.code}
+            onClick$={() => {
+              if (currentLang.value !== l.code) {
+                onLangChange$(l.code)
+              }
+            }}
+            class={[
+              'min-h-11 min-w-11 px-3 py-2 text-sm uppercase tracking-wider border transition-colors motion-safe:duration-150',
+              'focus:outline-none focus:ring-2 focus:ring-cyan',
+              currentLang.value === l.code
+                ? 'border-cyan/40 text-cyan bg-cyan/10'
+                : 'border-transparent text-bone-muted hover:text-bone hover:border-bone/20',
+            ]}
+          >
+            {l.code}
+          </button>
+        ))}
+      </fieldset>
+    )
+  }
+)
+
+export type { LangSwitcherProps, LangSwitcherLogEvent, LangSwitcherSegmentedProps } from './types'
