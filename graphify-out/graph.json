@@ -1,0 +1,847 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {
+    "description": "UniTeia v2 Knowledge Graph — graphify deep-mode extraction",
+    "project": "uniteia-v2",
+    "locales": 8,
+    "routes": 9,
+    "components": 20,
+    "scripts": 37,
+    "milestones": 3,
+    "generated_at": "2026-05-23T00:00:00Z"
+  },
+  "nodes": [
+    {
+      "id": "qwik-city",
+      "label": "Qwik City 1.19.x",
+      "group": "stack",
+      "weight": 1.0,
+      "description": "SSR/SSG framework with resumability"
+    },
+    {
+      "id": "tailwind-v4",
+      "label": "Tailwind CSS v4 Oxide",
+      "group": "stack",
+      "weight": 0.95,
+      "description": "CSS-first styling engine via @tailwindcss/vite"
+    },
+    {
+      "id": "bun",
+      "label": "Bun 1.3.6",
+      "group": "stack",
+      "weight": 1.0,
+      "description": "Mandatory JS runtime — never npm/yarn/pnpm"
+    },
+    {
+      "id": "biome",
+      "label": "Biome 1.9.4",
+      "group": "stack",
+      "weight": 0.9,
+      "description": "Lint/format — NOT ESLint/Prettier"
+    },
+    {
+      "id": "vitest",
+      "label": "Vitest 4.x",
+      "group": "stack",
+      "weight": 0.8,
+      "description": "Unit test runner — src/**/*.test.ts"
+    },
+    {
+      "id": "playwright",
+      "label": "Playwright 1.60",
+      "group": "stack",
+      "weight": 0.85,
+      "description": "E2E test framework — tests/e2e/*.spec.ts"
+    },
+    {
+      "id": "cloudflare-pages",
+      "label": "Cloudflare Pages",
+      "group": "stack",
+      "weight": 0.95,
+      "description": "Deployment target via Wrangler"
+    },
+    {
+      "id": "typescript",
+      "label": "TypeScript 5.6",
+      "group": "stack",
+      "weight": 0.9,
+      "description": "Language — strict mode, verbatimModuleSyntax"
+    },
+    {
+      "id": "vite",
+      "label": "Vite 7.x",
+      "group": "stack",
+      "weight": 0.9,
+      "description": "Bundler — esbuild minify, es2022 target"
+    },
+    {
+      "id": "wrangler",
+      "label": "Wrangler 4.x",
+      "group": "stack",
+      "weight": 0.8,
+      "description": "Cloudflare Pages tooling"
+    },
+    {
+      "id": "route-lang",
+      "label": "/[lang]/",
+      "group": "routes",
+      "weight": 0.9,
+      "description": "Language landing page with locale routing"
+    },
+    {
+      "id": "route-signals",
+      "label": "/[lang]/signals/",
+      "group": "routes",
+      "weight": 0.9,
+      "description": "Signals (niche) index page"
+    },
+    {
+      "id": "route-niche",
+      "label": "/[lang]/signals/[niche]/",
+      "group": "routes",
+      "weight": 0.85,
+      "description": "Per-niche landing page"
+    },
+    {
+      "id": "route-article",
+      "label": "/[lang]/signals/[niche]/[slug]/",
+      "group": "routes",
+      "weight": 0.85,
+      "description": "Article detail route"
+    },
+    {
+      "id": "route-search",
+      "label": "/[lang]/search/",
+      "group": "routes",
+      "weight": 0.7,
+      "description": "Multilingual search page"
+    },
+    {
+      "id": "route-slug",
+      "label": "/[lang]/[...slug]/",
+      "group": "routes",
+      "weight": 0.8,
+      "description": "Article catch-all route"
+    },
+    {
+      "id": "route-n",
+      "label": "/n/",
+      "group": "routes",
+      "weight": 0.6,
+      "description": "Non-locale fallback"
+    },
+    {
+      "id": "route-catchall",
+      "label": "/[...catchall]/",
+      "group": "routes",
+      "weight": 0.7,
+      "description": "404 catch-all handler"
+    },
+    {
+      "id": "route-opslab",
+      "label": "/ops-lab/",
+      "group": "routes",
+      "weight": 0.4,
+      "description": "Demo API fixtures"
+    },
+    {
+      "id": "comp-onboarding",
+      "label": "OnboardingFlow",
+      "group": "components",
+      "weight": 0.9,
+      "description": "3-step onboarding with DepthCard"
+    },
+    {
+      "id": "comp-cinematic",
+      "label": "CinematicDepth",
+      "group": "components",
+      "weight": 0.95,
+      "description": "2.5D card with WAAPI spring tilt"
+    },
+    {
+      "id": "comp-adaptive-header",
+      "label": "AdaptiveHeader",
+      "group": "components",
+      "weight": 0.85,
+      "description": "SiteHeader2D5 adaptive navigation"
+    },
+    {
+      "id": "comp-site-shell",
+      "label": "SiteShell",
+      "group": "components",
+      "weight": 0.9,
+      "description": "Main site shell layout wrapper"
+    },
+    {
+      "id": "comp-depth-card",
+      "label": "DepthCard",
+      "group": "components",
+      "weight": 0.85,
+      "description": "Base depth card with glassmorphism"
+    },
+    {
+      "id": "comp-niche-card",
+      "label": "NicheCard",
+      "group": "components",
+      "weight": 0.75,
+      "description": "Niche category card component"
+    },
+    {
+      "id": "comp-signal-grid",
+      "label": "SignalGrid",
+      "group": "components",
+      "weight": 0.8,
+      "description": "Grid layout for signal content"
+    },
+    {
+      "id": "comp-search",
+      "label": "Search",
+      "group": "components",
+      "weight": 0.7,
+      "description": "Search component with i18n support"
+    },
+    {
+      "id": "comp-sidebar",
+      "label": "Sidebar",
+      "group": "components",
+      "weight": 0.8,
+      "description": "Navigation sidebar with scroll glow"
+    },
+    {
+      "id": "comp-footer",
+      "label": "Footer",
+      "group": "components",
+      "weight": 0.7,
+      "description": "Site footer component"
+    },
+    {
+      "id": "comp-router-head",
+      "label": "RouterHead",
+      "group": "components",
+      "weight": 0.8,
+      "description": "SEO head manager with hreflang"
+    },
+    {
+      "id": "comp-lang-switcher",
+      "label": "LangSwitcher",
+      "group": "components",
+      "weight": 0.75,
+      "description": "Language switcher (compact variant)"
+    },
+    {
+      "id": "comp-error-boundary",
+      "label": "ErrorBoundary",
+      "group": "components",
+      "weight": 0.7,
+      "description": "Error boundary + 404/500 pages"
+    },
+    {
+      "id": "comp-topic-card",
+      "label": "TopicCard",
+      "group": "components",
+      "weight": 0.65,
+      "description": "Topic card for content browsing"
+    },
+    {
+      "id": "comp-article-frame",
+      "label": "ArticleFrame",
+      "group": "components",
+      "weight": 0.8,
+      "description": "Article body frame renderer"
+    },
+    {
+      "id": "comp-donation",
+      "label": "Donation",
+      "group": "components",
+      "weight": 0.5,
+      "description": "Donation/support component"
+    },
+    {
+      "id": "comp-nav-tree",
+      "label": "NavTree",
+      "group": "components",
+      "weight": 0.7,
+      "description": "Navigation tree component"
+    },
+    {
+      "id": "comp-quality-ring",
+      "label": "QualityRing",
+      "group": "components",
+      "weight": 0.65,
+      "description": "Quality score ring indicator"
+    },
+    {
+      "id": "comp-related-articles",
+      "label": "RelatedArticles",
+      "group": "components",
+      "weight": 0.7,
+      "description": "Related article suggestions"
+    },
+    {
+      "id": "comp-source-ledger",
+      "label": "SourceLedger",
+      "group": "components",
+      "weight": 0.6,
+      "description": "Source attribution ledger"
+    },
+    {
+      "id": "pipeline-niches",
+      "label": "content/niches/*.yaml",
+      "group": "pipeline",
+      "weight": 0.85,
+      "description": "Niche YAML definitions"
+    },
+    {
+      "id": "pipeline-articles",
+      "label": "content/articles/**/index.{lang}.md",
+      "group": "pipeline",
+      "weight": 0.85,
+      "description": "Multilingual article markdown"
+    },
+    {
+      "id": "pipeline-content-graph",
+      "label": "content-graph.generated.ts",
+      "group": "pipeline",
+      "weight": 0.9,
+      "description": "Auto-generated content graph (read-only)"
+    },
+    {
+      "id": "pipeline-content-registry",
+      "label": "content-registry.generated.ts",
+      "group": "pipeline",
+      "weight": 0.8,
+      "description": "Auto-generated content registry"
+    },
+    {
+      "id": "pipeline-search-index",
+      "label": "search-index.generated.ts",
+      "group": "pipeline",
+      "weight": 0.8,
+      "description": "Auto-generated search index"
+    },
+    {
+      "id": "pipeline-compiler",
+      "label": "Content Graph Compiler",
+      "group": "pipeline",
+      "weight": 0.9,
+      "description": "Compile content graph from source"
+    },
+    {
+      "id": "gate-ship-check",
+      "label": "ship:check",
+      "group": "quality",
+      "weight": 0.95,
+      "description": "Full quality gate — 23 sequential steps"
+    },
+    {
+      "id": "gate-lint",
+      "label": "bun run lint",
+      "group": "quality",
+      "weight": 0.9,
+      "description": "Biome static analysis"
+    },
+    {
+      "id": "gate-typecheck",
+      "label": "bun run typecheck",
+      "group": "quality",
+      "weight": 0.9,
+      "description": "tsc --noEmit type checking"
+    },
+    {
+      "id": "gate-bundle-cap",
+      "label": "Bundle Cap 87KB",
+      "group": "quality",
+      "weight": 0.95,
+      "description": "Gzip bundle size budget"
+    },
+    {
+      "id": "gate-locale-symmetry",
+      "label": "8-Locale Symmetry",
+      "group": "quality",
+      "weight": 0.95,
+      "description": "All 8 locales must have parity"
+    },
+    {
+      "id": "gate-visual-regression",
+      "label": "Visual Regression",
+      "group": "quality",
+      "weight": 0.85,
+      "description": "Playwright screenshot diffs"
+    },
+    {
+      "id": "gate-edge-chaos",
+      "label": "Edge Chaos Test",
+      "group": "quality",
+      "weight": 0.7,
+      "description": "Edge-side stress testing"
+    },
+    {
+      "id": "milestone-m012",
+      "label": "M012 Visual Refinement",
+      "group": "milestones",
+      "weight": 0.9,
+      "description": "Merged — Sora Serif, OKLCH tokens, 5 new components, Galaxy AI content"
+    },
+    {
+      "id": "milestone-m013",
+      "label": "M013 Visual Evolution v2",
+      "group": "milestones",
+      "weight": 0.9,
+      "description": "Merged — OnboardingFlow, CinematicDepth, adaptive-header"
+    },
+    {
+      "id": "milestone-m014",
+      "label": "M014 Cleanup & Evolution",
+      "group": "milestones",
+      "weight": 0.85,
+      "description": "Active — Cleanup + Reconciliation + Evolution"
+    },
+    {
+      "id": "locale-en",
+      "label": "English (en)",
+      "group": "locales",
+      "weight": 1.0,
+      "description": "Primary locale"
+    },
+    {
+      "id": "locale-pt",
+      "label": "Portuguese (pt)",
+      "group": "locales",
+      "weight": 0.85,
+      "description": "Portuguese locale"
+    },
+    {
+      "id": "locale-es",
+      "label": "Spanish (es)",
+      "group": "locales",
+      "weight": 0.85,
+      "description": "Spanish locale"
+    },
+    {
+      "id": "locale-fr",
+      "label": "French (fr)",
+      "group": "locales",
+      "weight": 0.85,
+      "description": "French locale"
+    },
+    {
+      "id": "locale-de",
+      "label": "German (de)",
+      "group": "locales",
+      "weight": 0.85,
+      "description": "German locale"
+    },
+    {
+      "id": "locale-it",
+      "label": "Italian (it)",
+      "group": "locales",
+      "weight": 0.85,
+      "description": "Italian locale"
+    },
+    {
+      "id": "locale-ja",
+      "label": "Japanese (ja)",
+      "group": "locales",
+      "weight": 0.85,
+      "description": "Japanese locale"
+    },
+    {
+      "id": "locale-zh",
+      "label": "Chinese (zh)",
+      "group": "locales",
+      "weight": 0.85,
+      "description": "Chinese locale"
+    },
+    {
+      "id": "design-oklch",
+      "label": "OKLCH Wide-Gamut",
+      "group": "design",
+      "weight": 0.95,
+      "description": "CSS-first @theme OKLCH color tokens"
+    },
+    {
+      "id": "font-sora",
+      "label": "Sora Display",
+      "group": "design",
+      "weight": 0.9,
+      "description": "Display serif font family"
+    },
+    {
+      "id": "font-inter",
+      "label": "Inter Variable",
+      "group": "design",
+      "weight": 0.9,
+      "description": "Body sans-serif font family"
+    },
+    {
+      "id": "font-jetbrains",
+      "label": "JetBrains Mono",
+      "group": "design",
+      "weight": 0.85,
+      "description": "Monospace code font family"
+    },
+    {
+      "id": "font-pixel",
+      "label": "Press Start 2P",
+      "group": "design",
+      "weight": 0.6,
+      "description": "Pixel font for JRPG theme"
+    },
+    {
+      "id": "motion-compositor",
+      "label": "Compositor-Only Motion",
+      "group": "design",
+      "weight": 0.9,
+      "description": "transform/opacity only, 120-400ms"
+    },
+    {
+      "id": "dopamine-budget",
+      "label": "Dopamine Budget",
+      "group": "design",
+      "weight": 0.8,
+      "description": "Animation budget constraint system"
+    },
+    {
+      "id": "glassmorphism",
+      "label": "Glassmorphism 2.0",
+      "group": "design",
+      "weight": 0.85,
+      "description": "backdrop-blur glass layers"
+    },
+    {
+      "id": "grain-4k",
+      "label": "Grain 4K Texture",
+      "group": "design",
+      "weight": 0.8,
+      "description": "Film grain overlay texture"
+    },
+    {
+      "id": "neo-realistic",
+      "label": "2.5D Neo-Realistic",
+      "group": "design",
+      "weight": 0.85,
+      "description": "2.5D perspective depth system"
+    },
+    {
+      "id": "concept-resumability",
+      "label": "Qwik Resumability",
+      "group": "concepts",
+      "weight": 0.9,
+      "description": "Lazy hydration — no useClientEffect$"
+    },
+    {
+      "id": "concept-i18n",
+      "label": "i18n Middleware",
+      "group": "concepts",
+      "weight": 0.9,
+      "description": "Locale detection + set-lang cookie + geo-map"
+    },
+    {
+      "id": "concept-hreflang",
+      "label": "hreflang SEO",
+      "group": "concepts",
+      "weight": 0.8,
+      "description": "hreflang annotations for all 8 locales"
+    },
+    {
+      "id": "concept-ship-check",
+      "label": "Ship Check Pipeline",
+      "group": "concepts",
+      "weight": 0.8,
+      "description": "23-step sequential quality pipeline"
+    }
+  ],
+  "edges": [
+    { "source": "qwik-city", "target": "vite", "weight": 0.9, "label": "bundles_with" },
+    { "source": "qwik-city", "target": "bun", "weight": 1.0, "label": "runs_on" },
+    { "source": "tailwind-v4", "target": "vite", "weight": 0.9, "label": "plugin_for" },
+    { "source": "tailwind-v4", "target": "design-oklch", "weight": 0.95, "label": "themed_with" },
+    { "source": "biome", "target": "bun", "weight": 0.9, "label": "runs_via" },
+    { "source": "vitest", "target": "bun", "weight": 0.8, "label": "runs_via" },
+    { "source": "playwright", "target": "bun", "weight": 0.85, "label": "runs_via" },
+    { "source": "cloudflare-pages", "target": "wrangler", "weight": 0.95, "label": "deployed_via" },
+    { "source": "typescript", "target": "qwik-city", "weight": 0.95, "label": "language_for" },
+    { "source": "route-lang", "target": "qwik-city", "weight": 0.9, "label": "routed_by" },
+    { "source": "route-signals", "target": "route-lang", "weight": 0.9, "label": "nested_under" },
+    { "source": "route-niche", "target": "route-signals", "weight": 0.85, "label": "nested_under" },
+    { "source": "route-article", "target": "route-niche", "weight": 0.85, "label": "nested_under" },
+    { "source": "route-search", "target": "route-lang", "weight": 0.8, "label": "nested_under" },
+    { "source": "route-slug", "target": "route-lang", "weight": 0.85, "label": "nested_under" },
+    { "source": "route-n", "target": "qwik-city", "weight": 0.6, "label": "fallback_for" },
+    { "source": "route-catchall", "target": "qwik-city", "weight": 0.7, "label": "handles" },
+    { "source": "comp-site-shell", "target": "route-lang", "weight": 0.9, "label": "wraps" },
+    {
+      "source": "comp-adaptive-header",
+      "target": "comp-site-shell",
+      "weight": 0.85,
+      "label": "part_of"
+    },
+    { "source": "comp-sidebar", "target": "comp-site-shell", "weight": 0.8, "label": "part_of" },
+    { "source": "comp-footer", "target": "comp-site-shell", "weight": 0.7, "label": "part_of" },
+    { "source": "comp-onboarding", "target": "comp-depth-card", "weight": 0.9, "label": "uses" },
+    { "source": "comp-cinematic", "target": "comp-depth-card", "weight": 0.95, "label": "extends" },
+    {
+      "source": "comp-signal-grid",
+      "target": "route-signals",
+      "weight": 0.85,
+      "label": "renders_on"
+    },
+    {
+      "source": "comp-niche-card",
+      "target": "comp-signal-grid",
+      "weight": 0.8,
+      "label": "child_of"
+    },
+    {
+      "source": "comp-article-frame",
+      "target": "route-article",
+      "weight": 0.85,
+      "label": "renders_on"
+    },
+    { "source": "comp-search", "target": "route-search", "weight": 0.8, "label": "renders_on" },
+    {
+      "source": "comp-lang-switcher",
+      "target": "comp-site-shell",
+      "weight": 0.8,
+      "label": "part_of"
+    },
+    { "source": "comp-router-head", "target": "qwik-city", "weight": 0.85, "label": "seo_for" },
+    {
+      "source": "comp-error-boundary",
+      "target": "route-catchall",
+      "weight": 0.8,
+      "label": "handles"
+    },
+    { "source": "comp-nav-tree", "target": "comp-sidebar", "weight": 0.75, "label": "child_of" },
+    {
+      "source": "comp-related-articles",
+      "target": "comp-article-frame",
+      "weight": 0.7,
+      "label": "related_to"
+    },
+    {
+      "source": "pipeline-niches",
+      "target": "pipeline-compiler",
+      "weight": 0.9,
+      "label": "input_to"
+    },
+    {
+      "source": "pipeline-articles",
+      "target": "pipeline-compiler",
+      "weight": 0.9,
+      "label": "input_to"
+    },
+    {
+      "source": "pipeline-compiler",
+      "target": "pipeline-content-graph",
+      "weight": 0.95,
+      "label": "outputs"
+    },
+    {
+      "source": "pipeline-compiler",
+      "target": "pipeline-content-registry",
+      "weight": 0.85,
+      "label": "outputs"
+    },
+    {
+      "source": "pipeline-compiler",
+      "target": "pipeline-search-index",
+      "weight": 0.85,
+      "label": "outputs"
+    },
+    {
+      "source": "pipeline-content-graph",
+      "target": "route-niche",
+      "weight": 0.9,
+      "label": "feeds"
+    },
+    {
+      "source": "pipeline-content-graph",
+      "target": "route-article",
+      "weight": 0.9,
+      "label": "feeds"
+    },
+    {
+      "source": "pipeline-content-graph",
+      "target": "route-search",
+      "weight": 0.85,
+      "label": "feeds"
+    },
+    {
+      "source": "gate-ship-check",
+      "target": "gate-lint",
+      "weight": 1.0,
+      "label": "group_a_includes"
+    },
+    {
+      "source": "gate-ship-check",
+      "target": "gate-typecheck",
+      "weight": 1.0,
+      "label": "group_a_includes"
+    },
+    {
+      "source": "gate-ship-check",
+      "target": "gate-bundle-cap",
+      "weight": 0.95,
+      "label": "group_a_includes"
+    },
+    {
+      "source": "gate-ship-check",
+      "target": "gate-locale-symmetry",
+      "weight": 0.95,
+      "label": "validates"
+    },
+    {
+      "source": "gate-ship-check",
+      "target": "gate-visual-regression",
+      "weight": 0.85,
+      "label": "group_b_includes"
+    },
+    {
+      "source": "gate-ship-check",
+      "target": "gate-edge-chaos",
+      "weight": 0.7,
+      "label": "group_b_includes"
+    },
+    {
+      "source": "gate-bundle-cap",
+      "target": "comp-onboarding",
+      "weight": 0.7,
+      "label": "constrains"
+    },
+    {
+      "source": "gate-bundle-cap",
+      "target": "comp-cinematic",
+      "weight": 0.7,
+      "label": "constrains"
+    },
+    { "source": "milestone-m012", "target": "design-oklch", "weight": 0.9, "label": "introduced" },
+    { "source": "milestone-m012", "target": "font-sora", "weight": 0.85, "label": "introduced" },
+    {
+      "source": "milestone-m013",
+      "target": "comp-onboarding",
+      "weight": 0.95,
+      "label": "introduced"
+    },
+    {
+      "source": "milestone-m013",
+      "target": "comp-cinematic",
+      "weight": 0.95,
+      "label": "introduced"
+    },
+    {
+      "source": "milestone-m013",
+      "target": "comp-adaptive-header",
+      "weight": 0.9,
+      "label": "introduced"
+    },
+    { "source": "milestone-m014", "target": "gate-ship-check", "weight": 0.8, "label": "refines" },
+    { "source": "locale-en", "target": "route-lang", "weight": 1.0, "label": "routed_to" },
+    { "source": "locale-pt", "target": "route-lang", "weight": 0.85, "label": "routed_to" },
+    { "source": "locale-es", "target": "route-lang", "weight": 0.85, "label": "routed_to" },
+    { "source": "locale-fr", "target": "route-lang", "weight": 0.85, "label": "routed_to" },
+    { "source": "locale-de", "target": "route-lang", "weight": 0.85, "label": "routed_to" },
+    { "source": "locale-it", "target": "route-lang", "weight": 0.85, "label": "routed_to" },
+    { "source": "locale-ja", "target": "route-lang", "weight": 0.85, "label": "routed_to" },
+    { "source": "locale-zh", "target": "route-lang", "weight": 0.85, "label": "routed_to" },
+    { "source": "concept-hreflang", "target": "locale-en", "weight": 0.9, "label": "links" },
+    { "source": "concept-hreflang", "target": "locale-pt", "weight": 0.9, "label": "links" },
+    { "source": "concept-hreflang", "target": "locale-es", "weight": 0.9, "label": "links" },
+    { "source": "concept-hreflang", "target": "locale-fr", "weight": 0.9, "label": "links" },
+    { "source": "concept-hreflang", "target": "locale-de", "weight": 0.9, "label": "links" },
+    { "source": "concept-hreflang", "target": "locale-it", "weight": 0.9, "label": "links" },
+    { "source": "concept-hreflang", "target": "locale-ja", "weight": 0.9, "label": "links" },
+    { "source": "concept-hreflang", "target": "locale-zh", "weight": 0.9, "label": "links" },
+    { "source": "design-oklch", "target": "glassmorphism", "weight": 0.85, "label": "colors_for" },
+    {
+      "source": "design-oklch",
+      "target": "comp-depth-card",
+      "weight": 0.85,
+      "label": "colors_for"
+    },
+    { "source": "design-oklch", "target": "comp-cinematic", "weight": 0.85, "label": "colors_for" },
+    { "source": "font-sora", "target": "comp-onboarding", "weight": 0.8, "label": "fonts_for" },
+    { "source": "font-inter", "target": "comp-article-frame", "weight": 0.8, "label": "fonts_for" },
+    {
+      "source": "motion-compositor",
+      "target": "comp-cinematic",
+      "weight": 0.9,
+      "label": "constrains"
+    },
+    {
+      "source": "dopamine-budget",
+      "target": "motion-compositor",
+      "weight": 0.85,
+      "label": "governs"
+    },
+    {
+      "source": "neo-realistic",
+      "target": "comp-cinematic",
+      "weight": 0.9,
+      "label": "aesthetic_for"
+    },
+    { "source": "grain-4k", "target": "comp-cinematic", "weight": 0.85, "label": "texture_for" },
+    { "source": "glassmorphism", "target": "comp-depth-card", "weight": 0.9, "label": "style_for" },
+    { "source": "concept-resumability", "target": "qwik-city", "weight": 0.95, "label": "core_of" },
+    { "source": "concept-i18n", "target": "concept-hreflang", "weight": 0.85, "label": "enables" },
+    {
+      "source": "concept-ship-check",
+      "target": "gate-ship-check",
+      "weight": 0.9,
+      "label": "implements"
+    },
+    { "source": "vitest", "target": "gate-lint", "weight": 0.5, "label": "complements" },
+    {
+      "source": "playwright",
+      "target": "gate-visual-regression",
+      "weight": 0.9,
+      "label": "powers"
+    },
+    { "source": "typescript", "target": "gate-typecheck", "weight": 0.95, "label": "checked_by" },
+    {
+      "source": "gate-locale-symmetry",
+      "target": "pipeline-articles",
+      "weight": 0.85,
+      "label": "validates"
+    },
+    {
+      "source": "font-pixel",
+      "target": "milestone-m012",
+      "weight": 0.6,
+      "label": "introduced_with"
+    },
+    { "source": "route-opslab", "target": "qwik-city", "weight": 0.4, "label": "demo_on" },
+    {
+      "source": "comp-quality-ring",
+      "target": "comp-niche-card",
+      "weight": 0.7,
+      "label": "adorns"
+    },
+    {
+      "source": "comp-source-ledger",
+      "target": "comp-article-frame",
+      "weight": 0.65,
+      "label": "annotates"
+    },
+    { "source": "comp-donation", "target": "comp-footer", "weight": 0.6, "label": "nearby" },
+    {
+      "source": "comp-topic-card",
+      "target": "comp-signal-grid",
+      "weight": 0.7,
+      "label": "variant_of"
+    },
+    { "source": "comp-nav-tree", "target": "route-niche", "weight": 0.7, "label": "navigates" },
+    {
+      "source": "pipeline-content-registry",
+      "target": "comp-site-shell",
+      "weight": 0.7,
+      "label": "feeds"
+    },
+    { "source": "pipeline-search-index", "target": "comp-search", "weight": 0.8, "label": "feeds" },
+    { "source": "wrangler", "target": "cloudflare-pages", "weight": 0.9, "label": "deploys_to" },
+    { "source": "cloudflare-pages", "target": "vite", "weight": 0.9, "label": "builds_with" },
+    { "source": "design-oklch", "target": "font-sora", "weight": 0.7, "label": "harmonizes_with" },
+    { "source": "design-oklch", "target": "font-inter", "weight": 0.7, "label": "harmonizes_with" }
+  ]
+}

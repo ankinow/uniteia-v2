@@ -110,6 +110,24 @@ title: "AI Agents Index"
 
 Hub index.
 `,
+  './content/ai-agents/en/placeholder-entry.md': `---
+title: "Placeholder Entry"
+source: placeholder
+quality_score: 0
+---
+# Placeholder
+Nothing.
+`,
+  './content/ai-agents/en/symmetric-test.md': `---
+title: "Symmetric Test"
+quality_score: 95
+verdict: "trusted"
+canonical_slug: "symmetric-test"
+subjects: ["test"]
+---
+# Symmetric Test
+Content.
+`,
 }
 
 describe('compileContentGraph', () => {
@@ -119,7 +137,7 @@ describe('compileContentGraph', () => {
       locales: ALL_LOCALES,
       defaultLocale: 'en',
     })
-    expect(graph.nodes.length).toBe(9)
+    expect(graph.nodes.length).toBe(10)
     expect(graph.nodes.find(n => n.id === 'en-_index')).toBeUndefined()
     expect(graph.nodes.find(n => n.id === 'pt-_index')).toBeUndefined()
   })
@@ -258,5 +276,35 @@ describe('compileContentGraph', () => {
 
     // Without normalization, a pt-BR keyed node would be silently missed
     expect(graph.nodes.find(n => n.id === 'pt-BR-llm-aggregators-compared')).toBeUndefined()
+  })
+
+  it('excludes nodes with source:placeholder from the graph', () => {
+    const graph = compileContentGraph({
+      registry: LOCALIZED_REGISTRY,
+      locales: ALL_LOCALES,
+      defaultLocale: 'en',
+    })
+    expect(graph.nodes.find(n => n.id === 'en-placeholder-entry')).toBeUndefined()
+  })
+
+  it('marks high-quality asymmetric group as draft with noindex via symmetry gate', () => {
+    const graph = compileContentGraph({
+      registry: LOCALIZED_REGISTRY,
+      locales: ALL_LOCALES,
+      defaultLocale: 'en',
+    })
+    const node = graph.nodes.find(n => n.id === 'en-symmetric-test')
+    expect(node).toBeDefined()
+    expect(node?.visibility).toBe('draft')
+    expect(node?.seo.noindex).toBe(true)
+  })
+
+  it('does not crash with an empty registry', () => {
+    const graph = compileContentGraph({
+      registry: {},
+      locales: ALL_LOCALES,
+      defaultLocale: 'en',
+    })
+    expect(graph.nodes.length).toBe(0)
   })
 })
