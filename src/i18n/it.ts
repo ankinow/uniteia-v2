@@ -4,19 +4,21 @@ import type { TranslationStrings } from './types'
 export const it: TranslationStrings = {
   nav: {
     home: 'Home',
-    about: 'About',
+    about: 'Chi siamo',
     blog: 'Blog',
-    projects: 'Projects',
-    contact: 'Contact',
-    topics: 'Topics',
+    projects: 'Progetti',
+    contact: 'Contatto',
+    topics: 'Argomenti',
+    search: 'Cerca',
+    niches: 'Nicchie',
   },
   footer: {
-    copyright: '© {year} UniTeia. All rights reserved.',
-    madeWith: 'Made with ♥ for decentralized AI',
+    copyright: '© {year} UniTeia. Tutti i diritti riservati.',
+    madeWith: "Fatto con ♥ per l'IA decentralizzata",
     links: {
-      privacy: 'Privacy Policy',
-      terms: 'Terms of Service',
-      source: 'Source Code',
+      privacy: 'Informativa sulla Privacy',
+      terms: 'Termini di Servizio',
+      source: 'Codice Sorgente',
     },
   },
   langSwitcher: {

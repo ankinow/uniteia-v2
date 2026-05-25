@@ -8,6 +8,8 @@ export const es: TranslationStrings = {
     projects: 'Proyectos',
     contact: 'Contacto',
     topics: 'Temas',
+    search: 'Buscar',
+    niches: 'Nichos',
   },
   footer: {
     copyright: '© {year} UniTeia. Todos los derechos reservados.',

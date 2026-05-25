@@ -8,6 +8,8 @@ export const ja: TranslationStrings = {
     projects: 'プロジェクト',
     contact: 'お問い合わせ',
     topics: 'トピック',
+    search: '検索',
+    niches: 'ニッチ',
   },
   footer: {
     copyright: '© {year} UniTeia. 全著作権所有。',

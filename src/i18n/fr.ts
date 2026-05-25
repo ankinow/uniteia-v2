@@ -3,20 +3,22 @@ import type { TranslationStrings } from './types'
 // Using English as a placeholder for the stub
 export const fr: TranslationStrings = {
   nav: {
-    home: 'Home',
-    about: 'About',
+    home: 'Accueil',
+    about: 'À propos',
     blog: 'Blog',
-    projects: 'Projects',
+    projects: 'Projets',
     contact: 'Contact',
-    topics: 'Topics',
+    topics: 'Sujets',
+    search: 'Rechercher',
+    niches: 'Niches',
   },
   footer: {
-    copyright: '© {year} UniTeia. All rights reserved.',
-    madeWith: 'Made with ♥ for decentralized AI',
+    copyright: '© {year} UniTeia. Tous droits réservés.',
+    madeWith: "Fait avec ♥ pour l'IA décentralisée",
     links: {
-      privacy: 'Privacy Policy',
-      terms: 'Terms of Service',
-      source: 'Source Code',
+      privacy: 'Politique de Confidentialité',
+      terms: "Conditions d'Utilisation",
+      source: 'Code Source',
     },
   },
   langSwitcher: {

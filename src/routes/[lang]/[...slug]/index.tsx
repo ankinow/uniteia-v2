@@ -14,6 +14,7 @@ import type { LlmWikiContent } from '~/types/content'
 import { ContentLoaderError } from '~/types/content'
 import { loadContent } from '~/utils/content-loader'
 import { generateArticleSchema } from '~/utils/schema-generators'
+import { extractDescription } from '~/utils/text-utils'
 
 /**
  * Supported language codes for quick lookup
@@ -129,9 +130,11 @@ export default component$(() => {
     return <NotFound />
   }
 
+  const description = extractDescription(content.value.content)
+
   const articleSchema = generateArticleSchema({
     headline: content.value.title,
-    description: content.value.subjects.join(', '),
+    description,
     author: content.value.metadata?.author || 'UniTeia System',
     url: content.value.slug,
     niche: content.value.slug,
@@ -141,13 +144,13 @@ export default component$(() => {
   return (
     <ArticleFrame>
       <JSONLD data={articleSchema} />
-      <AdaptiveHeader title={content.value.title} subtitle={content.value.subjects.join(', ')} />
+      <AdaptiveHeader title={content.value.title} subtitle={description} />
       <FrontmatterSlots
         subjects={content.value.subjects}
         lang={content.value.lang}
         metadata={content.value.metadata}
         labels={{
-          subjectsLabel: content.value.subjects.join(', '),
+          subjectsLabel: getTranslation(content.value.lang).article.subjectsLabel,
           byAuthor: content.value.metadata?.author || 'UniTeia System',
           version: content.value.metadata?.version?.toString() || '',
           readInLang: getTranslation(content.value.lang).article.readInLang,
@@ -183,13 +186,15 @@ export const head: DocumentHead = ({ resolveValue, params }) => {
     }
   }
 
+  const description = extractDescription(content.content)
+
   return {
     title: t.seo.articleTitleTemplate.replace('{title}', content.title),
     meta: [
-      { name: 'description', content: content.subjects.join(', ') },
+      { name: 'description', content: description },
       { name: 'robots', content: 'index, follow' },
       { property: 'og:title', content: content.title },
-      { property: 'og:description', content: content.subjects.join(', ') },
+      { property: 'og:description', content: description },
       { property: 'og:type', content: 'article' },
       { property: 'og:site_name', content: t.seo.siteName },
       { property: 'og:locale', content: content.lang },
@@ -197,7 +202,7 @@ export const head: DocumentHead = ({ resolveValue, params }) => {
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:image', content: 'https://uniteia.com/og-image.png' },
       { name: 'twitter:title', content: content.title },
-      { name: 'twitter:description', content: content.subjects.join(', ') },
+      { name: 'twitter:description', content: description },
     ],
   }
 }

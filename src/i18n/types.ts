@@ -24,6 +24,8 @@ export interface TranslationStrings {
     projects: string
     contact: string
     topics: string
+    search: string
+    niches: string
   }
   footer: {
     copyright: string

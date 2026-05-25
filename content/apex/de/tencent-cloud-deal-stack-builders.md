@@ -36,4 +36,4 @@ metadata:
 
 Tencent Cloud bietet eine Reihe von Produkten und Aktionen, die ideal für unabhängige Builder sind. Mit Lighthouse, CVM und EdgeOne können Sie Websites, APIs, Bots, Dashboards und kleine Apps zu sehr geringen Kosten betreiben.
 
-> **Hinweis:** Preise und Aktionen können sich ändern. Prüfen Sie immer die offizielle Tencent Cloud-Website.
+> **Haftungsausschluss:** Preise und Aktionen können sich ändern. Prüfen Sie immer die offizielle Tencent Cloud-Website.

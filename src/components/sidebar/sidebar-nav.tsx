@@ -1,7 +1,7 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 import type { NavigationItem } from '~/content-graph/projections'
 import { getTranslation, useI18n } from '~/i18n/context'
-import { searchPage, signalsIndex } from '~/routing/routes'
+import { localed, searchPage, signalsIndex } from '~/routing/routes'
 
 export interface SidebarNavProps {
   navigationItems: NavigationItem[]
@@ -29,7 +29,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
     <ul class="space-y-2">
       <li>
         <a
-          href={signalsIndex(lang)}
+          href={localed(lang)}
           class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
           style="text-shadow: none"
           onMouseEnter$={e => {
@@ -75,7 +75,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
             el.style.textShadow = 'none'
           }}
         >
-          Search
+          {t.nav.search}
         </a>
       </li>
       <li>
@@ -98,7 +98,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
             el.style.textShadow = 'none'
           }}
         >
-          Niches {expanded.value ? '▼' : '▶'}
+          {t.nav.niches} {expanded.value ? '▼' : '▶'}
         </button>
         {expanded.value && (
           <ul id="sidebar-niches-list" class="ml-4 mt-2 space-y-1">

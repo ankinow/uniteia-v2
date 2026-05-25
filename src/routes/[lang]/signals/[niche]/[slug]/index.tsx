@@ -16,6 +16,7 @@ import type { LlmWikiContent } from '~/types/content'
 import { ContentLoaderError } from '~/types/content'
 import { loadContent } from '~/utils/content-loader'
 import { generateArticleSchema } from '~/utils/schema-generators'
+import { extractDescription } from '~/utils/text-utils'
 
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
 
@@ -124,9 +125,11 @@ export default component$(() => {
     return <div class="text-bone-muted p-8 text-center">Content not found</div>
   }
 
+  const description = extractDescription(content.value.content)
+
   const articleSchema = generateArticleSchema({
     headline: content.value.title,
-    description: content.value.subjects.join(', '),
+    description,
     author: content.value.metadata?.author || 'UniTeia System',
     url: content.value.slug,
     niche: content.value.slug,
@@ -136,7 +139,7 @@ export default component$(() => {
   return (
     <ArticleFrame>
       <JSONLD data={articleSchema} />
-      <AdaptiveHeader title={content.value.title} subtitle={content.value.subjects.join(', ')} />
+      <AdaptiveHeader title={content.value.title} subtitle={description} />
       <FrontmatterSlots
         subjects={content.value.subjects}
         lang={content.value.lang}
@@ -199,13 +202,15 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
     href: xdefaultUrl(url.origin, niche, slug),
   })
 
+  const description = extractDescription(content.content)
+
   return {
     title: t.seo.articleTitleTemplate.replace('{title}', content.title),
     meta: [
-      { name: 'description', content: content.subjects.join(', ') },
+      { name: 'description', content: description },
       { name: 'robots', content: 'index, follow' },
       { property: 'og:title', content: content.title },
-      { property: 'og:description', content: content.subjects.join(', ') },
+      { property: 'og:description', content: description },
       {
         property: 'og:url',
         content: canonicalUrl(url.origin, `/${lang}/signals/${niche}/${slug}`),
@@ -217,7 +222,7 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:image', content: 'https://uniteia.com/og-image.png' },
       { name: 'twitter:title', content: content.title },
-      { name: 'twitter:description', content: content.subjects.join(', ') },
+      { name: 'twitter:description', content: description },
     ],
     links: [
       { rel: 'canonical', href: canonicalUrl(url.origin, `/${lang}/signals/${niche}/${slug}`) },

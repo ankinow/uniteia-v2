@@ -61,7 +61,7 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
             class="footer-language flex items-center gap-2 text-xs"
             data-testid="footer-language"
           >
-            <HudLabel label="Language" tone="muted" surface="footer" />
+            <HudLabel label={t.langSwitcher.label} tone="muted" surface="footer" />
             <span class="text-bone-muted">{getLanguageName(lang.value)}</span>
           </div>
         </div>

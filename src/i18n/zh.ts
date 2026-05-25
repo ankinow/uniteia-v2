@@ -8,6 +8,8 @@ export const zh: TranslationStrings = {
     projects: '项目',
     contact: '联系我们',
     topics: '主题',
+    search: '搜索',
+    niches: '细分领域',
   },
   footer: {
     copyright: '© {year} UniTeia. 保留所有权利。',
