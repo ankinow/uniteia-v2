@@ -1,6 +1,5 @@
 import { component$ } from '@builder.io/qwik'
 import type { NavigationItem } from '~/content-graph/projections'
-import { useI18n } from '~/i18n/context'
 import { DonationButton } from '../donation'
 import { LangSelectorCompact } from '../lang-switcher/compact'
 import { SidebarNav } from './sidebar-nav'
@@ -10,7 +9,6 @@ export interface SidebarProps {
 }
 
 export const Sidebar = component$<SidebarProps>(({ navigationItems }) => {
-  const { t } = useI18n()
   return (
     <aside
       aria-label="Main navigation"
@@ -24,11 +22,6 @@ export const Sidebar = component$<SidebarProps>(({ navigationItems }) => {
         <div class="text-2xl font-pixel text-cyan tracking-wider">
           <span class="text-cyan">UNI</span>TEIA
         </div>
-      </div>
-
-      {/* Label: Interface Compacta */}
-      <div class="text-xs uppercase tracking-[1px] opacity-60 mb-0 px-4 pt-3">
-        {t.sidebar.interfaceLabel}
       </div>
 
       {/* Navigation */}
