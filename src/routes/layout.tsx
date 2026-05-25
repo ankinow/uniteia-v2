@@ -108,6 +108,7 @@ export default component$(() => {
         <div class="px-4 md:px-8 py-2 border-b border-action/5 bg-void/50 backdrop-blur-sm sticky top-0 z-40">
           <NavTree
             navData={navSignal.value}
+            niches={nichesSignal.value}
             currentLang={lang}
             currentNiche={nicheSignal.value}
             nicheSlugMap={nicheSlugMap}
