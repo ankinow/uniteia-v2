@@ -35,7 +35,7 @@ export const DopamineCard = component$<DopamineCardProps>(
         data-dopamine-route-remaining={budget.routeBudget.remaining}
         data-dopamine-session-remaining={budget.sessionBudget.remaining}
         class={[
-          'group relative flex flex-col gap-3 rounded-lg border border-action/20 bg-void/raised p-4 shadow-d1',
+          'group relative flex flex-col gap-3 rounded-lg border border-action/20 bg-raised p-4 shadow-d1',
           hoverClass,
           'motion-reduce:hover:translate-y-0',
           className,
