@@ -123,7 +123,7 @@
       var src = qs.get('screen');
       var url = qs.get('url');
       var iframe = document.getElementById('screen');
-      if (src && src.startsWith('/')) iframe.src = src;
+      if (src && /^\/[a-zA-Z0-9\-_./]+$/.test(src)) iframe.src = src;
       if (url) document.getElementById('url-text').textContent = url;
     })();
   </script>

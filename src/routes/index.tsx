@@ -44,13 +44,13 @@ export default component$(() => {
         <div class="relative z-[1] max-w-3xl">
           <div class="text-[clamp(2.5rem,6vw,4.5rem)] font-display font-bold leading-[1.1] tracking-tight mb-4">
             <span class="text-bone">Uni</span>
-            <span class="text-cyan">Teia</span>
+            <span class="text-cyan">{'Teia'}</span>
           </div>
           <p class="text-lg md:text-xl text-bone-muted leading-relaxed max-w-2xl mx-auto mb-8">
             Aether OS — a camada de curadoria que transforma ruído em sinal.
             <br />
             <span class="text-sm text-bone/50">
-              8 idiomas · curadoria perene · qualidade em 7 gates
+              {'8 idiomas · curadoria perene · qualidade em 7 gates'}
             </span>
           </p>
           <div class="flex flex-wrap gap-4 justify-center mb-12">
