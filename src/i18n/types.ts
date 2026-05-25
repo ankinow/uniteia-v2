@@ -27,6 +27,9 @@ export interface TranslationStrings {
     search: string
     niches: string
   }
+  sidebar: {
+    interfaceLabel: string
+  }
   footer: {
     copyright: string
     madeWith: string

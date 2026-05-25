@@ -11,6 +11,9 @@ export const ja: TranslationStrings = {
     search: '検索',
     niches: 'ニッチ',
   },
+  sidebar: {
+    interfaceLabel: 'コンパクトインターフェース',
+  },
   footer: {
     copyright: '© {year} UniTeia. 全著作権所有。',
     madeWith: '分散型AIのために♥を込めて作成',

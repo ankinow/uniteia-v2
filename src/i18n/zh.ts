@@ -11,6 +11,9 @@ export const zh: TranslationStrings = {
     search: '搜索',
     niches: '细分领域',
   },
+  sidebar: {
+    interfaceLabel: '紧凑界面',
+  },
   footer: {
     copyright: '© {year} UniTeia. 保留所有权利。',
     madeWith: '为去中心化AI用心打造',

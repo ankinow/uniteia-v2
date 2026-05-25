@@ -11,6 +11,9 @@ export const en: TranslationStrings = {
     search: 'Search',
     niches: 'Niches',
   },
+  sidebar: {
+    interfaceLabel: 'Compact Interface',
+  },
   footer: {
     copyright: '© {year} UniTeia. All rights reserved.',
     madeWith: 'Made with ♥ for decentralized AI',
