@@ -57,9 +57,9 @@ export const DopamineCard = component$<DopamineCardProps>(
             {title}
           </h3>
         </div>
-        <p class="text-sm text-bone/85 leading-relaxed">{description}</p>
+        <p class="text-sm text-bone leading-relaxed">{description}</p>
         <div class="mt-auto flex items-center justify-between pt-2">
-          <span class="ml-auto text-xs text-action/80 group-hover:text-action transition-colors duration-200">
+          <span class="ml-auto text-xs text-action group-hover:text-action-hi transition-colors duration-200">
             {t.dopamineCard.readMore} →
           </span>
         </div>

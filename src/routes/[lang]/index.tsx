@@ -148,7 +148,7 @@ export default component$(() => {
                         <p class="font-semibold text-bone text-base leading-tight">
                           {signal.node.title}
                         </p>
-                        <p class="text-sm text-bone/70 mt-2 line-clamp-2 leading-relaxed">
+                        <p class="text-sm text-bone mt-2 line-clamp-2 leading-relaxed">
                           {signal.node.summary}
                         </p>
                         <div class="flex gap-3 mt-3 text-xs">
@@ -191,7 +191,7 @@ export default component$(() => {
                     <CinematicDepthCard variant="subtle" layer={i % 2}>
                       <div class="p-5">
                         <p class="font-semibold text-bone text-base">{cluster.label}</p>
-                        <p class="text-sm text-bone/70 mt-2">
+                        <p class="text-sm text-bone mt-2">
                           {cluster.articleCount} signal{cluster.articleCount !== 1 ? 's' : ''} ·
                           &empty; {cluster.avgGraphScore.toFixed(0)}
                         </p>
@@ -226,7 +226,7 @@ export default component$(() => {
                         <p class="font-semibold text-bone text-base leading-tight">
                           {stream.node.title}
                         </p>
-                        <p class="text-sm text-bone/70 mt-2 line-clamp-2 leading-relaxed">
+                        <p class="text-sm text-bone mt-2 line-clamp-2 leading-relaxed">
                           {stream.node.summary}
                         </p>
                         <div class="flex gap-2 mt-2">

@@ -20,7 +20,7 @@ export default component$(() => {
   return (
     <div class="max-w-3xl mx-auto px-4 py-12">
       <h1 class="text-3xl font-bold text-bone mb-6">{t.legal.terms.title}</h1>
-      <div class="prose prose-invert max-w-none text-bone/80 leading-relaxed space-y-4">
+      <div class="prose prose-invert max-w-none text-bone leading-relaxed space-y-4">
         <p>{t.legal.terms.body}</p>
       </div>
     </div>

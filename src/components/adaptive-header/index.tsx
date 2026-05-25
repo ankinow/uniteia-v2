@@ -31,7 +31,7 @@ export const AdaptiveHeader = component$<AdaptiveHeaderProps>(props => {
         class={[
           'text-2xl leading-9',
           'md:text-4xl md:leading-11',
-          'lg:text-5xl lg:leading-tight',
+          'lg:text-4xl lg:leading-tight',
           'font-semibold text-bone',
         ]}
       >
