@@ -42,7 +42,7 @@ export const NicheLanding = component$<NicheLandingProps>(
                   {niche.title[lang]}
                 </h1>
               </div>
-              <p class="text-bone-muted text-lg leading-relaxed max-w-2xl">
+              <p class="text-bone/85 text-lg leading-relaxed max-w-2xl">
                 {niche.description[lang]}
               </p>
             </div>

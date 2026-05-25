@@ -357,6 +357,7 @@ h3 {
 
 p {
   max-width: 65ch;
+  text-wrap: pretty;
   margin-bottom: 1.5rem;
 }
 
@@ -413,6 +414,12 @@ a:hover {
 ::selection {
   background-color: var(--color-cyan);
   color: var(--void);
+}
+
+/* ── Image outlines (subtle depth — make-interfaces-feel-better Principle 11) ── */
+img {
+  outline: 1px solid rgba(255, 255, 255, 0.1);
+  outline-offset: -1px;
 }
 
 /* ═══════════════════════════════════════════
@@ -994,6 +1001,21 @@ a:hover {
       transform: none;
       transition: none;
     }
+  }
+}
+
+/* ── Scale on press (tactile feedback — Principle 12) ── */
+.scale-on-press {
+  transition-property: scale;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+.scale-on-press:active {
+  scale: 0.96;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scale-on-press:active {
+    scale: none;
   }
 }
 

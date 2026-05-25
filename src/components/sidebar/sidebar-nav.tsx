@@ -30,7 +30,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
       <li>
         <a
           href={localed(lang)}
-          class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
+          class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none scale-on-press"
           style="text-shadow: none"
           onMouseEnter$={e => {
             const el = e.target as HTMLElement
@@ -47,7 +47,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
       <li>
         <a
           href={signalsIndex(lang)}
-          class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
+          class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none scale-on-press"
           style="text-shadow: none"
           onMouseEnter$={e => {
             const el = e.target as HTMLElement
@@ -64,7 +64,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
       <li>
         <a
           href={searchPage(lang)}
-          class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
+          class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none scale-on-press"
           style="text-shadow: none"
           onMouseEnter$={e => {
             const el = e.target as HTMLElement
@@ -87,7 +87,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
           }}
           aria-expanded={expanded.value}
           aria-controls="sidebar-niches-list"
-          class="pixel-cursor block w-full text-left py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
+          class="pixel-cursor block w-full text-left py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none scale-on-press"
           style="text-shadow: none"
           onMouseEnter$={e => {
             const el = e.target as HTMLElement
@@ -106,7 +106,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
               <li key={item.nicheSlug}>
                 <a
                   href={item.href}
-                  class="block py-1 px-3 text-bone-muted hover:text-cyan text-xs focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
+                  class="block py-1 px-3 text-bone/75 hover:text-cyan text-xs focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
                 >
                   {item.label}
                 </a>

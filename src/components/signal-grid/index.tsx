@@ -96,10 +96,10 @@ const SignalCard = component$<{ signal: SignalGridItem; organic?: boolean }>(
                   border: '1px solid color-mix(in srgb, var(--color-cyan) 15%, transparent)',
                 }}
               >
-                <span class="text-bone-muted">QS</span>
-                {signal.quality_score}
+                <span class="text-bone/80">QS</span>
+                <span class="tabular-nums">{signal.quality_score}</span>
               </span>
-              <div class="flex items-center gap-2 text-xs text-bone-muted">
+              <div class="flex items-center gap-2 text-xs text-bone/75">
                 <span class="font-mono">{signal.verdict}</span>
                 {signal.locales.length > 0 && (
                   <span class="flex items-center gap-1">
@@ -112,7 +112,7 @@ const SignalCard = component$<{ signal: SignalGridItem; organic?: boolean }>(
             <h3 class="font-display text-lg text-bone leading-snug group-hover:text-action transition-colors duration-200 line-clamp-2">
               {signal.title}
             </h3>
-            <p class="text-sm text-bone-muted leading-relaxed line-clamp-2">{signal.summary}</p>
+            <p class="text-sm text-bone leading-relaxed line-clamp-2">{signal.summary}</p>
           </div>
         </CinematicDepthCard>
       </a>

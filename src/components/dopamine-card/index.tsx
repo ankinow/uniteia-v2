@@ -35,7 +35,7 @@ export const DopamineCard = component$<DopamineCardProps>(
         data-dopamine-route-remaining={budget.routeBudget.remaining}
         data-dopamine-session-remaining={budget.sessionBudget.remaining}
         class={[
-          'group relative flex flex-col gap-3 rounded-lg border border-action/20 bg-void/raised p-4',
+          'group relative flex flex-col gap-3 rounded-lg border border-action/20 bg-void/raised p-4 shadow-d1',
           hoverClass,
           'motion-reduce:hover:translate-y-0',
           className,
@@ -57,9 +57,9 @@ export const DopamineCard = component$<DopamineCardProps>(
             {title}
           </h3>
         </div>
-        <p class="text-sm text-bone/70 leading-relaxed">{description}</p>
+        <p class="text-sm text-bone/85 leading-relaxed">{description}</p>
         <div class="mt-auto flex items-center justify-between pt-2">
-          <span class="ml-auto text-xs text-action/60 group-hover:text-action transition-colors duration-200">
+          <span class="ml-auto text-xs text-action/80 group-hover:text-action transition-colors duration-200">
             {t.dopamineCard.readMore} →
           </span>
         </div>
