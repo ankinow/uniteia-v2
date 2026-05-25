@@ -14,5 +14,5 @@ metadata:
 
 # Modelos de Linguagem
 
-LLMs, Transformers e PLN
+Modelos em grande escala que compreendem e geram linguagem humana
 This is a comprehensive knowledge hub for Modelos de Linguagem. We explore autonomous frameworks, tools, and the latest research in this exciting field of artificial intelligence. Our goal is to provide a central repository of information that is easily accessible and always up-to-date for researchers and developers alike.

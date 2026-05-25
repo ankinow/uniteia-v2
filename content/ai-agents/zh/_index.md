@@ -14,5 +14,5 @@ metadata:
 
 # AI 代理
 
-自主 AI 代理和框架
+能够感知、推理和行动以实现目标的自主AI系统
 This is a comprehensive knowledge hub for AI 代理. We explore autonomous frameworks, tools, and the latest research in this exciting field of artificial intelligence. Our goal is to provide a central repository of information that is easily accessible and always up-to-date for researchers and developers alike.

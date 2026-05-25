@@ -21,66 +21,66 @@ metadata:
   author: UniTeia System
   version: 1
 ---
-# Foundation Models Overview
+# 基盤モデル概要
 
-A concise guide to the paradigm shift from task-specific models to general-purpose foundation models — and what it means for developers building on top of them.
+タスク固有モデルから汎用基盤モデルへのパラダイムシフトと、その上で開発を行う開発者にとっての意味を簡潔に解説する。
 
-## What Are Foundation Models?
+## 基盤モデルとは
 
-Foundation models are large neural networks trained on broad data at scale, then adapted (fine-tuned, prompted, or retrieved) to a wide range of downstream tasks. The term, coined by Stanford's HAI Institute in 2021, captures a key insight: a single model architecture can serve as the *foundation* for many applications.
+基盤モデルとは、大規模なデータでスケールして学習された巨大なニューラルネットワークであり、ファインチューニング、プロンプティング、検索などを通じて幅広いダウンストリームタスクに適応される。2021年にスタンフォード大学HAI Instituteが提唱したこの用語は、単一のモデルアーキテクチャが多くのアプリケーションの*基盤*として機能しうるという重要な洞察を捉えている。
 
-The core recipe:
+基本的なレシピ：
 
-1. **Pre-training** — Self-supervised learning on massive corpora (web text, code, images, or multimodal mixtures)
-2. **Alignment** — RLHF, DPO, or constitutional AI to steer behaviour toward helpful, harmless, and honest outputs
-3. **Adaptation** — Fine-tuning, LoRA, retrieval-augmented generation, or in-context learning for specific use-cases
+1. **事前学習** — 大規模コーパス（ウェブテキスト、コード、画像、またはマルチモーダル混合）での自己教師あり学習
+2. **アライメント** — RLHF、DPO、またはConstitutional AIにより、役立ち、無害で、正直な出力へ行動を誘導する
+3. **適応** — 特定のユースケース向けのファインチューニング、LoRA、検索拡張生成、またはインコンテキスト学習
 
-## The Transformer Backbone
+## Transformerの基本構造
 
-Almost every modern foundation model is built on the Transformer architecture introduced by Vaswani et al. in 2017. Its self-attention mechanism allows the model to weigh the relevance of every token in a sequence against every other token — enabling long-range dependencies without recurrence.
+現代のほぼすべての基盤モデルは、2017年にVaswaniらによって導入されたTransformerアーキテクチャ上に構築されている。そのセルフアテンション機構により、モデルはシーケンス内の各トークンの関連性を他のすべてのトークンに対して重み付けでき、再帰を必要とせずに長距離依存関係を実現する。
 
-Key variants:
+主なバリエーション：
 
-- **Encoder-only** (BERT family) — Bidirectional context, ideal for classification and retrieval
-- **Decoder-only** (GPT, LLaMA, Mistral) — Autoregressive generation, dominant for chat and completion
-- **Encoder-decoder** (T5, BART) — Sequence-to-sequence tasks like translation and summarisation
+- **Encoder-only**（BERTファミリー） — 双方向コンテキスト、分類と検索に最適
+- **Decoder-only**（GPT、LLaMA、Mistral） — 自己回帰生成、チャットと補完で主流
+- **Encoder-decoder**（T5、BART） — 翻訳や要約などの系列変換タスク
 
-## Scale Laws and Compute-Optimal Training
+## スケーリング則と計算効率的な学習
 
-The **Chinchilla scaling laws** (Hoffmann et al., 2022) demonstrated that for a given compute budget, model size and training data should scale proportionally. This insight reshaped the field: smaller models trained on more data often outperform larger models trained on less.
+**Chinchillaのスケーリング則**（Hoffmannら、2022）は、与えられた計算予算に対して、モデルサイズと学習データを比例してスケールすべきであることを示した。この洞察は分野を再形成した。すなわち、より少ないデータで学習した大規模モデルよりも、より多くのデータで学習した小規模モデルの方が優れることが多い。
 
-**Practical implication:** A 7B-parameter model trained on 2T tokens can match or exceed a 70B model trained on 200B tokens at the same compute cost.
+**実用的な意味：** 2Tトークンで学習した7Bパラメータのモデルは、同じ計算コストで200Bトークンで学習した70Bモデルに匹敵するか、それを超えることができる。
 
-## Context Windows and Long-Range Understanding
+## コンテキストウィンドウと長距離理解
 
-Early Transformer models operated on 512–2048 token contexts. Modern architectures push this boundary:
+初期のTransformerモデルは512〜2048トークンのコンテキストで動作していた。現代のアーキテクチャはこの限界を押し広げている：
 
-- **Rotary Position Embeddings (RoPE)** — Enable extrapolation beyond training length
-- **ALiBi** — Linear bias attention for length extrapolation
-- **Ring Attention / Block-Sparse** — Distributed attention across devices for 100K+ token contexts
+- **Rotary Position Embeddings（RoPE）** — 学習長を超えた外挿を可能にする
+- **ALiBi** — 線形バイアスアテンションによる長さの外挿
+- **Ring Attention / Block-Sparse** — デバイス間での分散アテンションにより100K+トークンのコンテキストを実現
 
-These techniques unlock use-cases like full-document analysis, multi-file codebase reasoning, and extended conversational memory.
+これらの技術により、全文書分析、複数ファイルにわたるコードベースの推論、拡張会話メモリなどのユースケースが実現する。
 
-## Efficiency Innovations
+## 効率化の革新
 
-Training and serving foundation models is expensive. Key efficiency gains:
+基盤モデルの学習と運用はコストがかかる。主な効率化の進展：
 
-- **Mixture of Experts (MoE)** — Activate only a subset of parameters per token (e.g., Mixtral 8×7B uses 13B active params per forward pass)
-- **Flash Attention** — IO-aware tiled attention that reduces memory reads by 5-10×
-- **Quantisation (GPTQ, AWQ, GGUF)** — 4-bit and 8-bit inference with minimal quality loss
-- **Speculative Decoding** — Draft-then-verify pattern that speeds up autoregressive generation
+- **Mixture of Experts（MoE）** — トークンごとにパラメータのサブセットのみを活性化（例：Mixtral 8×7Bはフォワードパスあたり13Bのアクティブパラメータを使用）
+- **Flash Attention** — IOを考慮したタイル化アテンションによりメモリ読み取りを5〜10倍削減
+- **量子化（GPTQ、AWQ、GGUF）** — 品質低下を最小限に抑えた4ビットおよび8ビット推論
+- **投機的デコード** — ドラフト検証パターンにより自己回帰生成を高速化
 
-## Choosing a Foundation Model
+## 基盤モデルの選び方
 
-Consider these dimensions when selecting a model for a project:
+プロジェクト用のモデルを選択する際は、以下の次元を考慮する：
 
-| Dimension | Trade-off |
+| 次元 | トレードオフ |
 |-----------|-----------|
-| Size vs Speed | Larger models perform better but cost more per token |
-| Open vs Closed | Open weights enable fine-tuning and local deployment; closed APIs offer convenience |
-| Context Length | Longer windows enable richer prompts but increase latency and cost |
-| Specialisation | Domain-specific fine-tunes (code, medical, legal) often outperform generalists in their niche |
+| サイズ vs 速度 | 大規模モデルほど性能は高いが、トークンあたりのコストが増加 |
+| オープン vs クローズド | オープンウェイトはファインチューニングとローカル展開が可能、クローズドAPIは利便性を提供 |
+| コンテキスト長 | 長いウィンドウはよりリッチなプロンプトを可能にするが、レイテンシとコストが増加 |
+| 特化 | ドメイン固有のファインチューン（コード、医療、法律）は、そのニッチにおいて汎用モデルを凌ぐことが多い |
 
-## Looking Ahead
+## 今後の展望
 
-The field is converging on **hybrid architectures** that blend retrieval, tool use, and reasoning within a single inference path. The boundary between "model" and "system" is dissolving — the next generation of foundation models will likely be inseparable from the retrieval, verification, and planning scaffolding around them.
+この分野は、検索、ツール使用、推論を単一の推論パスに統合する**ハイブリッドアーキテクチャ**へと収束しつつある。「モデル」と「システム」の境界は dissolving しており、次世代の基盤モデルは、それを取り巻く検索、検証、計画のための足場から切り離せないものになるだろう。

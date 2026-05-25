@@ -21,66 +21,66 @@ metadata:
   author: UniTeia System
   version: 1
 ---
-# Foundation Models Overview
+# 基础模型概述
 
-A concise guide to the paradigm shift from task-specific models to general-purpose foundation models — and what it means for developers building on top of them.
+一份关于从任务特定模型到通用基础模型范式转变的简明指南，以及这对在其之上构建应用的开发者意味着什么。
 
-## What Are Foundation Models?
+## 什么是基础模型？
 
-Foundation models are large neural networks trained on broad data at scale, then adapted (fine-tuned, prompted, or retrieved) to a wide range of downstream tasks. The term, coined by Stanford's HAI Institute in 2021, captures a key insight: a single model architecture can serve as the *foundation* for many applications.
+基础模型是在大规模广泛数据上训练的大型神经网络，然后通过微调、提示或检索等方式适应各种下游任务。这个术语由斯坦福大学HAI研究所于2021年提出，捕捉了一个关键见解：单一的模型架构可以作为许多应用的*基础*。
 
-The core recipe:
+核心配方：
 
-1. **Pre-training** — Self-supervised learning on massive corpora (web text, code, images, or multimodal mixtures)
-2. **Alignment** — RLHF, DPO, or constitutional AI to steer behaviour toward helpful, harmless, and honest outputs
-3. **Adaptation** — Fine-tuning, LoRA, retrieval-augmented generation, or in-context learning for specific use-cases
+1. **预训练** — 在大型语料库（网页文本、代码、图像或多模态混合）上进行自监督学习
+2. **对齐** — 使用RLHF、DPO或Constitutional AI将行为引导至有用、无害和诚实的输出
+3. **适配** — 针对特定用例进行微调、LoRA、检索增强生成或上下文学习
 
-## The Transformer Backbone
+## Transformer骨干架构
 
-Almost every modern foundation model is built on the Transformer architecture introduced by Vaswani et al. in 2017. Its self-attention mechanism allows the model to weigh the relevance of every token in a sequence against every other token — enabling long-range dependencies without recurrence.
+几乎所有现代基础模型都构建在Vaswani等人于2017年提出的Transformer架构之上。其自注意力机制允许模型衡量序列中每个标记相对于其他所有标记的相关性，从而在不使用循环的情况下实现长距离依赖。
 
-Key variants:
+主要变体：
 
-- **Encoder-only** (BERT family) — Bidirectional context, ideal for classification and retrieval
-- **Decoder-only** (GPT, LLaMA, Mistral) — Autoregressive generation, dominant for chat and completion
-- **Encoder-decoder** (T5, BART) — Sequence-to-sequence tasks like translation and summarisation
+- **纯编码器**（BERT系列） — 双向上下文，适用于分类和检索
+- **纯解码器**（GPT、LLaMA、Mistral） — 自回归生成，在聊天和补全中占主导地位
+- **编码器-解码器**（T5、BART） — 序列到序列任务，如翻译和摘要
 
-## Scale Laws and Compute-Optimal Training
+## 缩放定律与计算最优训练
 
-The **Chinchilla scaling laws** (Hoffmann et al., 2022) demonstrated that for a given compute budget, model size and training data should scale proportionally. This insight reshaped the field: smaller models trained on more data often outperform larger models trained on less.
+**Chinchilla缩放定律**（Hoffmann等人，2022）表明，在给定计算预算下，模型大小和训练数据应按比例缩放。这一见解重塑了该领域：用更多数据训练的小模型通常优于用更少数据训练的大模型。
 
-**Practical implication:** A 7B-parameter model trained on 2T tokens can match or exceed a 70B model trained on 200B tokens at the same compute cost.
+**实际意义：** 在2T标记上训练的7B参数模型，可以在相同计算成本下匹敌或超过在200B标记上训练的70B模型。
 
-## Context Windows and Long-Range Understanding
+## 上下文窗口与长距离理解
 
-Early Transformer models operated on 512–2048 token contexts. Modern architectures push this boundary:
+早期的Transformer模型在512–2048标记的上下文中运行。现代架构正在突破这一界限：
 
-- **Rotary Position Embeddings (RoPE)** — Enable extrapolation beyond training length
-- **ALiBi** — Linear bias attention for length extrapolation
-- **Ring Attention / Block-Sparse** — Distributed attention across devices for 100K+ token contexts
+- **旋转位置编码（RoPE）** — 支持超出训练长度的外推
+- **ALiBi** — 用于长度外推的线性偏置注意力
+- **环形注意力/块稀疏注意力** — 跨设备分布式注意力，支持100K+标记上下文
 
-These techniques unlock use-cases like full-document analysis, multi-file codebase reasoning, and extended conversational memory.
+这些技术解锁了完整文档分析、多文件代码库推理和扩展对话记忆等用例。
 
-## Efficiency Innovations
+## 效率创新
 
-Training and serving foundation models is expensive. Key efficiency gains:
+训练和部署基础模型成本高昂。关键效率提升：
 
-- **Mixture of Experts (MoE)** — Activate only a subset of parameters per token (e.g., Mixtral 8×7B uses 13B active params per forward pass)
-- **Flash Attention** — IO-aware tiled attention that reduces memory reads by 5-10×
-- **Quantisation (GPTQ, AWQ, GGUF)** — 4-bit and 8-bit inference with minimal quality loss
-- **Speculative Decoding** — Draft-then-verify pattern that speeds up autoregressive generation
+- **混合专家模型（MoE）** — 每个标记仅激活部分参数（例如：Mixtral 8×7B每次前向传播使用13B活跃参数）
+- **Flash Attention** — IO感知的分块注意力，将内存读取减少5–10倍
+- **量化（GPTQ、AWQ、GGUF）** — 4位和8位推理，质量损失极小
+- **推测性解码** — 草稿验证模式，加速自回归生成
 
-## Choosing a Foundation Model
+## 如何选择基础模型
 
-Consider these dimensions when selecting a model for a project:
+在为项目选择模型时，请考虑以下维度：
 
-| Dimension | Trade-off |
+| 维度 | 权衡 |
 |-----------|-----------|
-| Size vs Speed | Larger models perform better but cost more per token |
-| Open vs Closed | Open weights enable fine-tuning and local deployment; closed APIs offer convenience |
-| Context Length | Longer windows enable richer prompts but increase latency and cost |
-| Specialisation | Domain-specific fine-tunes (code, medical, legal) often outperform generalists in their niche |
+| 大小 vs 速度 | 较大的模型性能更好，但每个标记的成本更高 |
+| 开放 vs 封闭 | 开放权重支持微调和本地部署；封闭API提供便利性 |
+| 上下文长度 | 更长的窗口允许更丰富的提示，但会增加延迟和成本 |
+| 专业化 | 领域特定的微调模型（代码、医疗、法律）通常在其专业领域胜过通用模型 |
 
-## Looking Ahead
+## 展望未来
 
-The field is converging on **hybrid architectures** that blend retrieval, tool use, and reasoning within a single inference path. The boundary between "model" and "system" is dissolving — the next generation of foundation models will likely be inseparable from the retrieval, verification, and planning scaffolding around them.
+该领域正在向**混合架构**汇聚，将检索、工具使用和推理融合在单一的推理路径中。"模型"与"系统"之间的界限正在消融——下一代基础模型很可能与其周围的检索、验证和规划框架密不可分。

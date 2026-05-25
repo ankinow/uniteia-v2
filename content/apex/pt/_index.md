@@ -14,5 +14,5 @@ metadata:
 
 # UniTeia Apex
 
-Rede Universal de Conhecimento em IA
+Sinais emergentes na fronteira da pesquisa e indústria de IA
 This is a comprehensive knowledge hub for UniTeia Apex. We explore autonomous frameworks, tools, and the latest research in this exciting field of artificial intelligence. Our goal is to provide a central repository of information that is easily accessible and always up-to-date for researchers and developers alike.

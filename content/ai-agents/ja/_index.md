@@ -14,5 +14,5 @@ metadata:
 
 # AIエージェント
 
-自律型AIエージェントとフレームワーク
+目標を達成するために知覚、推論、行動する自律型AIシステム
 This is a comprehensive knowledge hub for AIエージェント. We explore autonomous frameworks, tools, and the latest research in this exciting field of artificial intelligence. Our goal is to provide a central repository of information that is easily accessible and always up-to-date for researchers and developers alike.

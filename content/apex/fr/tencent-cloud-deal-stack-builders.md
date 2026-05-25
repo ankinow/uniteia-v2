@@ -34,6 +34,104 @@ metadata:
 
 ## Qu'est-ce que Tencent Cloud Deal Stack ?
 
-Tencent Cloud propose une gamme de produits et promotions idéaux pour les builders indépendants. Avec Lighthouse, CVM et EdgeOne, vous pouvez héberger des sites, APIs, bots, tableaux de bord et petites applications à moindre coût.
+Tencent Cloud propose une gamme de produits et d'offres promotionnelles idéaux pour les builders indépendants. Avec Lighthouse, CVM et EdgeOne, vous pouvez héberger des sites, APIs, bots, tableaux de bord et petites applications à très faible coût — dans certains cas, gratuitement.
 
-> **Avertissement :** Les prix et promotions sont sujets à modification. Vérifiez toujours le site officiel de Tencent Cloud.
+## Produits Gratuits
+
+Tencent Cloud propose un niveau gratuit avec des produits sélectionnés. Les ressources gratuites incluent :
+
+- **EdgeOne :** Jusqu'à 1M de requêtes/mois avec le plan gratuit
+- **Lighthouse :** Période d'essai sur les configurations de base
+- **CVM :** Offres promotionnelles pour les nouveaux utilisateurs
+
+> ⚠️ **Remarque :** Les produits gratuits peuvent nécessiter une inscription avec carte de crédit. Vérifiez les conditions officielles.
+
+## Lighthouse — La Simplicité qui Marche
+
+Lighthouse est un VPS simplifié, idéal pour ceux qui ne veulent pas gérer d'infrastructure complexe.
+
+**Quand l'utiliser :**
+- Sites statiques ou blogs
+- APIs légères
+- Bots et automatisation
+- Environnements de développement
+- Tableaux de bord personnels
+
+**Avantages :**
+- Spécifications fixes, sans surprises
+- Tableau de bord simplifié
+- Pare-feu et surveillance inclus
+- Moins cher qu'un CVM équivalent
+- Facturation mensuelle ou horaire
+
+## CVM — Pleine Puissance
+
+CVM (Cloud Virtual Machine) est la solution complète pour ceux qui ont besoin d'un contrôle total.
+
+**Quand l'utiliser :**
+- Applications gourmandes en CPU/RAM
+- Kubernetes ou Docker avancé
+- Noyau personnalisé ou réglage réseau
+- Grandes bases de données
+- Environnements nécessitant VPC et groupes de sécurité
+
+**Avantages :**
+- Configuration entièrement personnalisable
+- Instances dédiées, spot et réservées
+- Stockage bloc supplémentaire
+- Facturation à la seconde (minimum 1 heure)
+- Support BYOL
+
+## EdgeOne — CDN + Sécurité
+
+EdgeOne combine CDN avec WAF, protection DDoS et gestion des bots en une seule plateforme.
+
+**Quand l'utiliser :**
+- Accélérer la diffusion mondiale de contenu
+- Protéger les sites contre les attaques
+- Remplacer un CDN + WAF séparés
+- Réduire la latence pour les utilisateurs internationaux
+
+**Avantages :**
+- Niveau gratuit généreux (1M requêtes/mois)
+- Paiement à l'utilisation
+- Réseau périphérique mondial
+- Intégration native avec Lighthouse et CVM
+- Pas de licence complexe
+
+## Comment Combiner les Produits
+
+| Stack | Lighthouse + EdgeOne | CVM + EdgeOne |
+|-------|---------------------|---------------|
+| Idéal pour | Sites, blogs, landing pages | Apps dynamiques, APIs, e-commerce |
+| Performance | Excellente pour le contenu statique | Flexibilité maximale |
+| Coût | Le plus bas | Modéré |
+| Configuration | Minutes | Heures |
+
+## Avant de Payer — Liste de Vérification
+
+1. **Vérifiez la région :** Toutes les offres ne sont pas disponibles dans toutes les régions
+2. **Éligibilité :** Certaines offres sont réservées aux nouveaux utilisateurs
+3. **Validité :** Les promotions expirent — vérifiez la date
+4. **Renouvellement :** Le prix promotionnel peut ne pas s'appliquer au renouvellement
+5. **Coupons :** Lisez les conditions avant d'activer — certains exigent un montant minimum
+6. **Niveau gratuit :** Confirmez si une carte de crédit est requise
+
+## Configuration Recommandée pour les Builders
+
+### Site/Blog
+Lighthouse (de base) + EdgeOne (niveau gratuit)
+
+### API Légère
+Lighthouse (plan moyen) + EdgeOne (niveau gratuit)
+
+### Bot / Bot Discord
+Lighthouse (de base) + EdgeOne (niveau gratuit)
+
+### Tableau de Bord / Analytics
+Lighthouse (plan moyen) + EdgeOne (paiement à l'utilisation)
+
+### Application Complète
+CVM (instance spot) + EdgeOne (paiement à l'utilisation)
+
+> **Avertissement :** Les prix et promotions sont sujets à modification. Vérifiez toujours le site officiel de Tencent Cloud pour obtenir des informations à jour. Ce guide est éducatif et ne remplace pas les conditions officielles.

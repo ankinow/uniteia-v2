@@ -21,66 +21,66 @@ metadata:
   author: UniTeia System
   version: 1
 ---
-# Foundation Models Overview
+# Visión General de los Modelos Fundacionales
 
-A concise guide to the paradigm shift from task-specific models to general-purpose foundation models — and what it means for developers building on top of them.
+Una guía concisa sobre el cambio de paradigma de modelos específicos para tareas a modelos fundacionales de propósito general — y lo que significa para los desarrolladores que construyen sobre ellos.
 
-## What Are Foundation Models?
+## ¿Qué Son los Modelos Fundacionales?
 
-Foundation models are large neural networks trained on broad data at scale, then adapted (fine-tuned, prompted, or retrieved) to a wide range of downstream tasks. The term, coined by Stanford's HAI Institute in 2021, captures a key insight: a single model architecture can serve as the *foundation* for many applications.
+Los modelos fundacionales son grandes redes neuronales entrenadas con datos amplios a escala, luego adaptadas (fine-tuning, prompting o recuperación) para una amplia gama de tareas downstream. El término, acuñado por el HAI Institute de Stanford en 2021, captura una idea clave: una sola arquitectura de modelo puede servir como *fundación* para muchas aplicaciones.
 
-The core recipe:
+La receta principal:
 
-1. **Pre-training** — Self-supervised learning on massive corpora (web text, code, images, or multimodal mixtures)
-2. **Alignment** — RLHF, DPO, or constitutional AI to steer behaviour toward helpful, harmless, and honest outputs
-3. **Adaptation** — Fine-tuning, LoRA, retrieval-augmented generation, or in-context learning for specific use-cases
+1. **Pre-entrenamiento** — Aprendizaje auto-supervisado en corpus masivos (texto web, código, imágenes o mezclas multimodales)
+2. **Alineación** — RLHF, DPO o IA constitucional para orientar el comportamiento hacia salidas útiles, inofensivas y honestas
+3. **Adaptación** — Fine-tuning, LoRA, generación aumentada por recuperación o aprendizaje en contexto para casos de uso específicos
 
-## The Transformer Backbone
+## La Columna Vertebral Transformer
 
-Almost every modern foundation model is built on the Transformer architecture introduced by Vaswani et al. in 2017. Its self-attention mechanism allows the model to weigh the relevance of every token in a sequence against every other token — enabling long-range dependencies without recurrence.
+Casi todos los modelos fundacionales modernos están construidos sobre la arquitectura Transformer introducida por Vaswani et al. en 2017. Su mecanismo de self-attention permite que el modelo pondere la relevancia de cada token en una secuencia contra todos los demás tokens — permitiendo dependencias de largo alcance sin recurrencia.
 
-Key variants:
+Variantes principales:
 
-- **Encoder-only** (BERT family) — Bidirectional context, ideal for classification and retrieval
-- **Decoder-only** (GPT, LLaMA, Mistral) — Autoregressive generation, dominant for chat and completion
-- **Encoder-decoder** (T5, BART) — Sequence-to-sequence tasks like translation and summarisation
+- **Encoder-only** (familia BERT) — Contexto bidireccional, ideal para clasificación y recuperación
+- **Decoder-only** (GPT, LLaMA, Mistral) — Generación autorregresiva, dominante para chat y finalización
+- **Encoder-decoder** (T5, BART) — Tareas secuencia-a-secuencia como traducción y resumen
 
-## Scale Laws and Compute-Optimal Training
+## Leyes de Escala y Entrenamiento Computacionalmente Óptimo
 
-The **Chinchilla scaling laws** (Hoffmann et al., 2022) demonstrated that for a given compute budget, model size and training data should scale proportionally. This insight reshaped the field: smaller models trained on more data often outperform larger models trained on less.
+Las **leyes de escala Chinchilla** (Hoffmann et al., 2022) demostraron que, para un presupuesto computacional dado, el tamaño del modelo y los datos de entrenamiento deben escalar proporcionalmente. Esta idea reformó el campo: modelos más pequeños entrenados con más datos a menudo superan a modelos más grandes entrenados con menos.
 
-**Practical implication:** A 7B-parameter model trained on 2T tokens can match or exceed a 70B model trained on 200B tokens at the same compute cost.
+**Implicación práctica:** Un modelo de 7B parámetros entrenado con 2T tokens puede igualar o superar a un modelo de 70B entrenado con 200B tokens al mismo costo computacional.
 
-## Context Windows and Long-Range Understanding
+## Ventanas de Contexto y Comprensión de Largo Alcance
 
-Early Transformer models operated on 512–2048 token contexts. Modern architectures push this boundary:
+Los primeros modelos Transformer operaban en contextos de 512–2048 tokens. Las arquitecturas modernas expanden este límite:
 
-- **Rotary Position Embeddings (RoPE)** — Enable extrapolation beyond training length
-- **ALiBi** — Linear bias attention for length extrapolation
-- **Ring Attention / Block-Sparse** — Distributed attention across devices for 100K+ token contexts
+- **Rotary Position Embeddings (RoPE)** — Permiten extrapolación más allá de la longitud de entrenamiento
+- **ALiBi** — Atención con sesgo lineal para extrapolación de longitud
+- **Ring Attention / Block-Sparse** — Atención distribuida entre dispositivos para contextos de 100K+ tokens
 
-These techniques unlock use-cases like full-document analysis, multi-file codebase reasoning, and extended conversational memory.
+Estas técnicas habilitan casos de uso como análisis de documentos completos, razonamiento sobre bases de código con múltiples archivos y memoria conversacional extendida.
 
-## Efficiency Innovations
+## Innovaciones en Eficiencia
 
-Training and serving foundation models is expensive. Key efficiency gains:
+Entrenar y servir modelos fundacionales es costoso. Principales ganancias de eficiencia:
 
-- **Mixture of Experts (MoE)** — Activate only a subset of parameters per token (e.g., Mixtral 8×7B uses 13B active params per forward pass)
-- **Flash Attention** — IO-aware tiled attention that reduces memory reads by 5-10×
-- **Quantisation (GPTQ, AWQ, GGUF)** — 4-bit and 8-bit inference with minimal quality loss
-- **Speculative Decoding** — Draft-then-verify pattern that speeds up autoregressive generation
+- **Mixture of Experts (MoE)** — Activa solo un subconjunto de parámetros por token (ej.: Mixtral 8×7B usa 13B parámetros activos por forward pass)
+- **Flash Attention** — Atención en bloques consciente de E/S que reduce lecturas de memoria en 5–10×
+- **Cuantización (GPTQ, AWQ, GGUF)** — Inferencia de 4 y 8 bits con pérdida mínima de calidad
+- **Speculative Decoding** — Patrón borrador-verificación que acelera la generación autorregresiva
 
-## Choosing a Foundation Model
+## Cómo Elegir un Modelo Fundacional
 
-Consider these dimensions when selecting a model for a project:
+Considere estas dimensiones al seleccionar un modelo para un proyecto:
 
-| Dimension | Trade-off |
+| Dimensión | Trade-off |
 |-----------|-----------|
-| Size vs Speed | Larger models perform better but cost more per token |
-| Open vs Closed | Open weights enable fine-tuning and local deployment; closed APIs offer convenience |
-| Context Length | Longer windows enable richer prompts but increase latency and cost |
-| Specialisation | Domain-specific fine-tunes (code, medical, legal) often outperform generalists in their niche |
+| Tamaño vs Velocidad | Modelos más grandes rinden mejor pero cuestan más por token |
+| Abierto vs Cerrado | Pesos abiertos permiten fine-tuning e implementación local; APIs cerradas ofrecen conveniencia |
+| Longitud de Contexto | Ventanas más largas permiten prompts más ricos pero aumentan latencia y costo |
+| Especialización | Fine-tunes específicos de dominio (código, medicina, derecho) a menudo superan a los generalistas en su nicho |
 
-## Looking Ahead
+## Perspectivas Futuras
 
-The field is converging on **hybrid architectures** that blend retrieval, tool use, and reasoning within a single inference path. The boundary between "model" and "system" is dissolving — the next generation of foundation models will likely be inseparable from the retrieval, verification, and planning scaffolding around them.
+El campo está convergiendo hacia **arquitecturas híbridas** que combinan recuperación, uso de herramientas y razonamiento en una sola ruta de inferencia. El límite entre "modelo" y "sistema" se está disolviendo — la próxima generación de modelos fundacionales probablemente será inseparable del andamiaje de recuperación, verificación y planificación que los rodea.
