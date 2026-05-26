@@ -16,6 +16,7 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
         'hud-panel',
         'py-8 px-4 md:px-8',
         'text-sm text-bone-muted',
+        'bg-[oklch(10%_0.01_260)]',
         classList,
       ]}
       data-testid="footer"

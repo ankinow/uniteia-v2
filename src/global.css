@@ -100,6 +100,13 @@
   --pbr-roughness: 0.4;
   --depth-2-5d: 12px;
   --color-glass: oklch(15% 0.02 260 / 0.75);
+  --color-parchment-surface: oklch(93% 0.03 75);
+  --color-parchment-text: oklch(20% 0.02 75);
+  --color-parchment-border: oklch(82% 0.04 75);
+  --color-chrome-surface: oklch(10% 0.01 260);
+  --color-chrome-border: oklch(18% 0.02 260 / 0.5);
+  --radius-parchment: 0.25rem;
+  --shadow-parchment-elevated: 0 12px 40px rgb(0 0 0 / 0.35), 0 2px 8px rgb(0 0 0 / 0.15);
 
   /* ── Depth z-index scale ── */
   --z-surface: 0;
@@ -884,6 +891,28 @@ img {
   .canvas-chrome {
     background-color: var(--color-chrome-surface);
     border-color: var(--color-chrome-border);
+  }
+
+  /* Glass inverted on parchment — light glass, dark text */
+  .canvas-parchment .glass,
+  .canvas-parchment.glass,
+  .canvas-parchment .glass[data-blur="lg"] {
+    --glass-bg: linear-gradient(
+      135deg,
+      color-mix(in srgb, white 12%, transparent),
+      color-mix(in srgb, var(--color-parchment-surface) 80%, transparent)
+    );
+    background: var(--glass-bg);
+    --glass-border: 1px solid color-mix(in srgb, var(--color-parchment-border) 50%, transparent);
+    border: var(--glass-border);
+    color: var(--color-parchment-text);
+    border-color: color-mix(in srgb, var(--color-parchment-border) 50%, transparent);
+  }
+  .canvas-parchment .glass h1,
+  .canvas-parchment .glass h2,
+  .canvas-parchment .glass h3,
+  .canvas-parchment .glass .text-bone {
+    color: var(--color-parchment-text);
   }
 
   /* Parchment-to-chrome transition bridge */

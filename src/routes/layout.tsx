@@ -92,7 +92,7 @@ export default component$(() => {
       <div q:slot="header" class="w-full">
         <nav
           aria-label="Primary navigation"
-          class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-action/10"
+          class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-action/10 bg-[oklch(10%_0.01_260)]"
           data-testid="main-nav"
         >
           <a
@@ -105,7 +105,7 @@ export default component$(() => {
         </nav>
 
         {/* Dynamic Niche Navigation (Auto-derived) */}
-        <div class="px-4 md:px-8 py-2 border-b border-action/5 bg-void/50 backdrop-blur-sm sticky top-0 z-40">
+        <div class="px-4 md:px-8 py-2 border-b border-action/5 bg-[oklch(10%_0.01_260)] sticky top-0 z-40">
           <NavTree
             navData={navSignal.value}
             niches={nichesSignal.value}
