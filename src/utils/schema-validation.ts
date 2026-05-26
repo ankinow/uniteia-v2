@@ -1,4 +1,6 @@
-import matter from 'gray-matter'
+import { load } from 'js-yaml'
+
+const YAML_FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/
 import { validateSlug } from './url-validation'
 
 export interface ValidationIssue {
@@ -333,15 +335,20 @@ export function validateContent(
 export function validateMarkdownFrontmatter(markdown: string, filePath: string): ValidationReport {
   const issues: ValidationIssue[] = []
 
-  let parsed: matter.GrayMatterFile<string>
+  let parsed: { data: Record<string, unknown>; content: string }
   try {
-    parsed = matter(markdown, {
-      engines: {
-        js: () => {
-          throw new Error('JS eval disabled')
-        },
-      },
-    })
+    const match = markdown.match(YAML_FRONTMATTER_RE)
+    if (!match) {
+      return {
+        valid: false,
+        errors: [{ filePath, field: 'frontmatter', message: 'No YAML frontmatter found' }],
+        warnings: [],
+      }
+    }
+    parsed = {
+      data: (load(match[1]) ?? {}) as Record<string, unknown>,
+      content: markdown.slice(match[0].length),
+    }
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
     return {

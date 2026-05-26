@@ -1,4 +1,4 @@
-import matter from 'gray-matter'
+import { dump } from 'js-yaml'
 import { describe, expect, it } from 'vitest'
 import { validateContent, validateMarkdownFrontmatter } from './schema-validation'
 
@@ -17,7 +17,7 @@ function validContent(overrides: Record<string, unknown> = {}): Record<string, u
   }
 }
 
-/** Build valid markdown with frontmatter using gray-matter.stringify for correct YAML */
+/** Build valid markdown with frontmatter using js-yaml for correct YAML */
 function validMarkdown(overrides: Record<string, unknown> = {}): string {
   const frontmatter: Record<string, unknown> = {
     slug: 'solar-system',
@@ -30,7 +30,7 @@ function validMarkdown(overrides: Record<string, unknown> = {}): string {
     ...overrides,
   }
   const body = 'A'.repeat(150)
-  return matter.stringify(body, frontmatter)
+  return `---\n${dump(frontmatter)}---\n${body}`
 }
 
 // ── validateContent ──────────────────────────────────────────────────────

@@ -53,7 +53,6 @@
     "@fontsource/geist-sans": "^5.2.5",
     "@fontsource/jetbrains-mono": "^5.2.8",
     "@uniteia/content-node-contract": "file:../uniteia-mega-factory/packages/content-node-contract",
-    "gray-matter": "^4.0.3",
     "isomorphic-dompurify": "3.14.0",
     "js-yaml": "^4.1.0",
     "marked": "18.0.4",

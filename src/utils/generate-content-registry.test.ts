@@ -4,7 +4,7 @@ import { replaceContentRegistryBlock } from '../../scripts/generate-content-regi
 describe('replaceContentRegistryBlock', () => {
   test('updates an existing inline registry block without requiring the original placeholder', () => {
     const source = [
-      "import matter from 'gray-matter'",
+      "import { load } from 'js-yaml'",
       '',
       '// INLINE CONTENT REGISTRY — auto-generated. Run `bun run generate:content-registry`.',
       'export const contentRegistry: Record<string, string> = JSON.parse(\'{"./content/apex/pt/creator-tools.md":"old"}\')',

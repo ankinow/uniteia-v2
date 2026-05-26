@@ -1,7 +1,9 @@
 import { readFile, readdir } from 'node:fs/promises'
 import { basename, join, relative } from 'node:path'
-import matter from 'gray-matter'
+import { load } from 'js-yaml'
 import { validateSlug } from './url-validation'
+
+const YAML_FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/
 
 export interface SlugCheckIssue {
   kind:
@@ -72,14 +74,17 @@ export async function evaluateSlugCheck(
 
     try {
       const raw = await readFile(filePath, 'utf-8')
-      const parsed = matter(raw, {
-        engines: {
-          js: () => {
-            throw new Error('JS eval disabled')
-          },
-        },
-      })
-      const frontmatterSlug = parsed.data.slug
+      const match = raw.match(YAML_FRONTMATTER_RE)
+      if (!match) {
+        issues.push({
+          kind: 'frontmatter-missing',
+          filePath: relativePath,
+          message: 'No YAML frontmatter found',
+        })
+        return
+      }
+      const parsed = (load(match[1]) as Record<string, unknown>) ?? {}
+      const frontmatterSlug = parsed.slug
 
       if (typeof frontmatterSlug !== 'string' || frontmatterSlug.length === 0) {
         issues.push({

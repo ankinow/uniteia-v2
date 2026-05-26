@@ -1,6 +1,8 @@
 import type { ContentNode as ContractContentNode } from '@uniteia/content-node-contract'
-import matter from 'gray-matter'
+import { load } from 'js-yaml'
 import type { ContentGraph, SerializableContentGraph } from '../contracts/graph'
+
+const YAML_FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/
 import type {
   ContentLocale,
   ContentNode,
@@ -114,8 +116,10 @@ function parseRegistryEntry(
   if (slugWithExt === '_index') return null
 
   const locale = localeStr as ContentLocale
-  const frontmatter = parseFrontmatter(raw)
-  if (!frontmatter) return null
+  const parsed = parseFrontmatter(raw)
+  if (!parsed) return null
+
+  const { data: frontmatter, body } = parsed
 
   const isStub = !raw.trim() || (frontmatter.quality_score === 0 && !frontmatter.verdict)
   if (isStub) return null
@@ -126,7 +130,6 @@ function parseRegistryEntry(
   const subjects = (frontmatter.subjects as string[]) ?? [niche]
   const metadata = frontmatter.metadata as Record<string, unknown> | undefined
   const canonicalSlug = (frontmatter.canonical_slug as string) ?? slugWithExt
-  const body = matter(raw).content
 
   const id = `${locale}-${canonicalSlug}`
 
@@ -213,10 +216,14 @@ function parseRegistryEntry(
   }
 }
 
-function parseFrontmatter(raw: string): Record<string, unknown> | null {
+function parseFrontmatter(raw: string): { data: Record<string, unknown>; body: string } | null {
   try {
-    const parsed = matter(raw)
-    return parsed.data as Record<string, unknown>
+    const match = raw.match(YAML_FRONTMATTER_RE)
+    if (!match) return null
+    return {
+      data: (load(match[1]) ?? {}) as Record<string, unknown>,
+      body: raw.slice(match[0].length),
+    }
   } catch {
     return null
   }

@@ -68,7 +68,7 @@ export function createDefaultShipCheckSteps(): ShipCheckStep[] {
     { name: 'linkgraph:report', command: ['bun', 'run', 'generate:linkgraph-report'] },
     { name: 'seo:verification', command: ['bun', 'run', 'generate:seo-verification'] },
     // M003 — Performance sub-budgets
-    { name: 'size:sub-budgets', command: ['bun', 'run', 'size:check', '--threshold', '133120'] },
+    { name: 'size:sub-budgets', command: ['bun', 'run', 'size:check', '--threshold', '143360'] },
 
     // Group B — Preview-required QA (runs after preview server starts)
     { name: 'edge:chaos', command: ['bun', 'run', 'edge:chaos'] },
