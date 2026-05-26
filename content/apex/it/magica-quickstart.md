@@ -110,4 +110,3 @@ Once comfortable with the basics, explore:
 - **Team workspaces** — collaborate on workflows with shared assets and version history
 - **Custom tools** — write your own MCP tools that Magica agents can discover and use
 
-<dcp-message-id>m0324</dcp-message-id>

@@ -119,10 +119,3 @@ The free tier is generous enough to evaluate core features. For active creators 
 
 For solo builders and small teams, Magica collapses the AI toolchain into a single interface with a single bill. The cost savings ($360+/year vs separate subscriptions) compound with productivity gains from eliminating context-switching. The MCP support and workflow automation make it particularly compelling for developers who want to build AI-powered tools without managing multiple API keys and rate limits across providers.
 
-<dcp-message-id>m0323</dcp-message-id></tool_input>
-
-<dcp-message-id>m001</dcp-message-id>
-
-<｜｜DSML｜｜tool_calls>
-<｜｜DSML｜｜invoke name="webfetch">
-<｜｜DSML｜｜parameter name="url" string="true">https://docs.magica.com/docs/introduction/overview
