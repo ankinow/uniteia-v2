@@ -1,6 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
 import { ArticleRenderer } from '~/components/article-renderer'
+import { CanvasSurface } from '~/components/canvas-surface'
 
 import type { ContentLocale, ContentNode } from '~/content-graph/contracts/node'
 import { getTranslation, useI18n } from '~/i18n/context'
@@ -120,16 +121,18 @@ export default component$(() => {
   }
 
   return (
-    <ArticleRenderer
-      content={content.value}
-      relatedNodes={relatedNodes.value}
-      labels={{
-        subjectsLabel: t.article.subjectsLabel,
-        byAuthor: t.article.byAuthor,
-        version: t.article.version,
-        readInLang: t.article.readInLang,
-      }}
-    />
+    <CanvasSurface tone="parchment">
+      <ArticleRenderer
+        content={content.value}
+        relatedNodes={relatedNodes.value}
+        labels={{
+          subjectsLabel: t.article.subjectsLabel,
+          byAuthor: t.article.byAuthor,
+          version: t.article.version,
+          readInLang: t.article.readInLang,
+        }}
+      />
+    </CanvasSurface>
   )
 })
 
