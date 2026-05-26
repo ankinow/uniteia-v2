@@ -27,7 +27,7 @@ export const ScrollContentCanvas = component$<ScrollContentCanvasProps>(({ class
   return (
     <section
       class={[
-        'scroll-content-root canvas-light ue5-illusion relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k',
+        'scroll-content-root relative overflow-hidden rounded-3xl p-6 md:p-8 bg-[#131820] border border-white/5',
         classList,
       ]}
       style={{
@@ -36,9 +36,7 @@ export const ScrollContentCanvas = component$<ScrollContentCanvasProps>(({ class
       }}
     >
       {/* Paper fiber base layer */}
-      <div class="paper-fiber grain-scroll-aware" />
-      {/* Corkboard micro-dots */}
-      <div class="corkboard-layer" data-intensity="medium" />
+      <div class="grain-4k opacity-30" />
 
       <div class="relative z-[var(--z-raised)]">
         <Slot />

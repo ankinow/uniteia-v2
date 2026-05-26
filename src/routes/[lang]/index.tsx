@@ -129,7 +129,7 @@ export default component$(() => {
         {featuredSignals.length > 0 && (
           <section class="mb-10">
             <h2
-              class="text-xl font-bold font-pixel text-paper-text mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
+              class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
               data-step="1"
             >
               {t.homepage.featuredSignals}
@@ -177,7 +177,7 @@ export default component$(() => {
         {sortedClusters.length > 0 && (
           <section class="mb-10">
             <h2
-              class="text-xl font-bold font-pixel text-paper-text mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
+              class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
               data-step="1"
             >
               {t.homepage.knowledgeClusters}
@@ -213,7 +213,7 @@ export default component$(() => {
         {frontierStreams.length > 0 && (
           <section class="mb-10">
             <h2
-              class="text-xl font-bold font-pixel text-paper-text mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
+              class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
               data-step="1"
             >
               {t.homepage.frontierStreams}
