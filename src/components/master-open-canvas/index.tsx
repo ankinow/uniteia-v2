@@ -18,12 +18,12 @@
  * Tilt: WAAPI Element.animate() spring — compositor-only.
  * Hydration-safe: useVisibleTask$ isolates browser-only pointer events.
  */
-import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
+import { Slot, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 import { DecisionMap, type DecisionNode } from '~/components/lesson/decision-map'
 
 // ── Types ──
 
-export type MasterOpenCanvasVariant = 'subtle' | 'medium' | 'rich'
+export type MasterOpenCanvasVariant = 'subtle' | 'medium' | 'rich' | 'parchment' | 'obsidian'
 
 export interface VariantConfigEntry {
   /** 'none' means the corkboard layer is not rendered */
@@ -38,6 +38,10 @@ export interface VariantConfigEntry {
   tiltMax: number
   /** Whether a translated shadow plane is rendered behind the card */
   shadowPlane: boolean
+  /** Whether this variant is static (no tilt, no WAAPI) */
+  isStatic: boolean
+  /** Zone class: 'parchment' | 'chrome' | 'glass' | null (default glass) */
+  zone: 'parchment' | 'chrome' | 'glass' | null
 }
 
 // ── Variant Config ──
@@ -50,6 +54,8 @@ export const VARIANT_CONFIG: Record<MasterOpenCanvasVariant, VariantConfigEntry>
     grainOpacity: '0.02',
     tiltMax: 3,
     shadowPlane: false,
+    isStatic: false,
+    zone: 'glass',
   },
   medium: {
     corkboardIntensity: 'medium',
@@ -58,6 +64,8 @@ export const VARIANT_CONFIG: Record<MasterOpenCanvasVariant, VariantConfigEntry>
     grainOpacity: '0.04',
     tiltMax: 5,
     shadowPlane: false,
+    isStatic: false,
+    zone: 'glass',
   },
   rich: {
     corkboardIntensity: 'rich',
@@ -66,14 +74,36 @@ export const VARIANT_CONFIG: Record<MasterOpenCanvasVariant, VariantConfigEntry>
     grainOpacity: '0.06',
     tiltMax: 8,
     shadowPlane: true,
+    isStatic: false,
+    zone: 'glass',
+  },
+  parchment: {
+    corkboardIntensity: 'none',
+    paperVisible: false,
+    inkIntensity: 'none',
+    grainOpacity: '0.03',
+    tiltMax: 0,
+    shadowPlane: false,
+    isStatic: true,
+    zone: 'parchment',
+  },
+  obsidian: {
+    corkboardIntensity: 'none',
+    paperVisible: false,
+    inkIntensity: 'none',
+    grainOpacity: '0.01',
+    tiltMax: 0,
+    shadowPlane: false,
+    isStatic: true,
+    zone: 'chrome',
   },
 }
 
 // ── Props ──
 
 export interface MasterOpenCanvasProps {
-  title: string
-  decisionNodes: DecisionNode[]
+  title?: string
+  decisionNodes?: DecisionNode[]
   sketchnoteSpec?: string
   /** Visual intensity tier (default: 'medium') */
   variant?: MasterOpenCanvasVariant
@@ -83,6 +113,8 @@ export interface MasterOpenCanvasProps {
   showStickyNote?: boolean
   /** Renders a cardboard texture layer behind the content */
   showCardboard?: boolean
+  /** Force static mode (overrides variant isStatic — useful for parchment/obsidian) */
+  static?: boolean
 }
 
 // ── Component ──
@@ -96,15 +128,24 @@ export const MasterOpenCanvas = component$<MasterOpenCanvasProps>(
     class: className,
     showStickyNote,
     showCardboard,
+    static: staticOverride,
   }) => {
     const cfg = VARIANT_CONFIG[variant]
+    const isStatic = staticOverride ?? cfg.isStatic
     const tiltX = useSignal(0)
     const tiltY = useSignal(0)
     const cardRef = useSignal<HTMLDivElement>()
 
+    // Zone CSS class
+    const zoneClass =
+      cfg.zone === 'parchment' ? 'canvas-parchment' : cfg.zone === 'chrome' ? 'canvas-chrome' : ''
+
     // WAAPI cursor tilt — browser-only, SSR-safe via useVisibleTask$
+    // Skip entirely for static variants
     // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(({ cleanup }) => {
+      if (isStatic) return
+
       const el = cardRef.value
       if (!el) return
 
@@ -206,7 +247,7 @@ export const MasterOpenCanvas = component$<MasterOpenCanvasProps>(
         {/* Layer 1 — Content card */}
         <div
           ref={cardRef}
-          class="glass depth-surface relative preserve-3d"
+          class={['glass depth-surface relative preserve-3d', zoneClass].filter(Boolean).join(' ')}
           data-blur="lg"
           style={{
             transformStyle: 'preserve-3d',
@@ -236,22 +277,33 @@ export const MasterOpenCanvas = component$<MasterOpenCanvasProps>(
 
           {/* Content */}
           <div class="relative z-[1] p-6 md:p-8">
-            <h1 class="text-4xl font-display text-bone mb-8">{title}</h1>
+            {title && <h1 class="text-4xl font-display text-bone mb-8">{title}</h1>}
 
-            <div
-              class={cfg.inkIntensity !== 'none' ? 'ink-effect' : undefined}
-              {...(cfg.inkIntensity !== 'none'
-                ? { 'data-intensity': cfg.inkIntensity }
-                : undefined)}
-            >
-              <DecisionMap
-                title="Open Canvas Decision Flow"
-                nodes={decisionNodes}
-                variant="sketchnote"
-              />
-            </div>
+            {decisionNodes && decisionNodes.length > 0 && (
+              <div
+                class={cfg.inkIntensity !== 'none' ? 'ink-effect' : undefined}
+                {...(cfg.inkIntensity !== 'none'
+                  ? { 'data-intensity': cfg.inkIntensity }
+                  : undefined)}
+              >
+                {(() => {
+                  // biome-ignore lint/style/noNonNullAssertion: guarded by conditional above
+                  const nodes = decisionNodes!
+                  return (
+                    <DecisionMap
+                      title="Open Canvas Decision Flow"
+                      nodes={nodes}
+                      variant="sketchnote"
+                    />
+                  )
+                })()}
+              </div>
+            )}
 
-            {/* Sketchnote spec placeholder — M012 render-worker hook */}
+            {/* Slot for child content (replaces DecisionMap when using parchment/obsidian) */}
+            <Slot />
+
+            {/* Sketchnote spec — kept as data attr for render-worker hook */}
             {sketchnoteSpec && (
               <div
                 data-sketchnote={sketchnoteSpec}

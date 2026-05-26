@@ -13,7 +13,13 @@ vi.mock('~/components/lesson/decision-map', () => ({
 
 import { type MasterOpenCanvasVariant, VARIANT_CONFIG } from './index'
 
-const ALL_VARIANTS: MasterOpenCanvasVariant[] = ['subtle', 'medium', 'rich']
+const ALL_VARIANTS: MasterOpenCanvasVariant[] = [
+  'subtle',
+  'medium',
+  'rich',
+  'parchment',
+  'obsidian',
+]
 
 const REQUIRED_FIELDS: (keyof (typeof VARIANT_CONFIG)['subtle'])[] = [
   'corkboardIntensity',
@@ -22,6 +28,8 @@ const REQUIRED_FIELDS: (keyof (typeof VARIANT_CONFIG)['subtle'])[] = [
   'grainOpacity',
   'tiltMax',
   'shadowPlane',
+  'isStatic',
+  'zone',
 ]
 
 describe('VARIANT_CONFIG', () => {
@@ -144,6 +152,22 @@ describe('VARIANT_CONFIG', () => {
       expect(r.paperVisible).toBe(true)
       expect(r.inkIntensity).toBe('rich')
       expect(r.shadowPlane).toBe(true)
+    })
+
+    describe('parchment/obsidian static variants', () => {
+      it('parchment is static with zone=parchment', () => {
+        const p = VARIANT_CONFIG.parchment
+        expect(p.isStatic).toBe(true)
+        expect(p.zone).toBe('parchment')
+        expect(p.tiltMax).toBe(0)
+      })
+
+      it('obsidian is static with zone=chrome', () => {
+        const o = VARIANT_CONFIG.obsidian
+        expect(o.isStatic).toBe(true)
+        expect(o.zone).toBe('chrome')
+        expect(o.tiltMax).toBe(0)
+      })
     })
   })
 })

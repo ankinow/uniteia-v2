@@ -1,0 +1,120 @@
+/* AETHER ASSETS: Animations — Lift, Float, Shimmer
+ * Minimal, compositor-only (transform + opacity)
+ * Respects prefers-reduced-motion
+ * Dopamine-budget compliant: < 400ms, no continuous loops
+ */
+
+/* ── Lift on hover (vertical translate + slight scale) ── */
+@keyframes lift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-lift {
+  transition: transform var(--duration-base, 200ms) var(--ease-base, ease), box-shadow
+    var(--duration-base, 200ms) var(--ease-base, ease);
+}
+
+.animate-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-d2, 0 14px 32px rgb(0 0 0 / 0.24));
+}
+
+/* ── Float (gentle idle bob — disabled by default, opt-in) ── */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float {
+  animation: float 4s var(--ease-solar, cubic-bezier(0.2, 0.8, 0.2, 1)) infinite;
+  animation-play-state: paused;
+}
+
+.animate-float[data-animate="true"] {
+  animation-play-state: running;
+}
+
+/* ── Shimmer (label/badge highlight sweep) ── */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    oklch(93% 0.03 75 / 0.4) 45%,
+    oklch(93% 0.03 75 / 0.6) 50%,
+    oklch(93% 0.03 75 / 0.4) 55%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.5s var(--ease-narrative, cubic-bezier(0.25, 0.8, 0.25, 1)) infinite;
+}
+
+/* ── Fade-in entrance ── */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in var(--duration-slow, 350ms)
+    var(--ease-narrative, cubic-bezier(0.25, 0.8, 0.25, 1)) both;
+}
+
+.animate-fade-in[data-delay="1"] {
+  animation-delay: 100ms;
+}
+.animate-fade-in[data-delay="2"] {
+  animation-delay: 200ms;
+}
+.animate-fade-in[data-delay="3"] {
+  animation-delay: 300ms;
+}
+
+/* ── Respects reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .animate-lift,
+  .animate-lift:hover {
+    transform: none;
+    transition: none;
+  }
+
+  .animate-float,
+  .animate-float[data-animate="true"] {
+    animation: none;
+  }
+
+  .animate-shimmer {
+    animation: none;
+    background: none;
+  }
+
+  .animate-fade-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

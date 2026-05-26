@@ -1,0 +1,20 @@
+/* CanvasSurface — Phase 4 Mixed-UI-Zones canvas styles
+ * Progressive enhancement: fallback always works, HTML-in-Canvas adds shaders
+ * Experimental HTML-in-Canvas API properties (layoutsubtree) are applied via JS
+ * to avoid CSS linting issues with experimental properties.
+ */
+
+/* Parchment shader — static noise + warm tint */
+.canvas-surface[data-tone="parchment"] canvas {
+  filter: none;
+}
+
+/* Glass shader — blur + transparency */
+.canvas-surface[data-tone="glass"] canvas {
+  backdrop-filter: blur(16px);
+}
+
+/* Obsidian shader — dark grain */
+.canvas-surface[data-tone="obsidian"] canvas {
+  filter: contrast(1.05) saturate(0.9);
+}

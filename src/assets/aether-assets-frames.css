@@ -1,0 +1,94 @@
+/* AETHER ASSETS: Frames — Polaroid, Tape, Torn Paper
+ * Mixed-UI-Zones visual elements for editorial collage aesthetic
+ * CSS-first, SVG backgrounds, no JS
+ */
+
+/* ── Polaroid frame ── */
+.polaroid-frame {
+  position: relative;
+  padding: 0.75rem 0.75rem 2.5rem;
+  background: oklch(96% 0.02 75);
+  border: 1px solid oklch(82% 0.04 75);
+  box-shadow: 2px 4px 12px rgb(0 0 0 / 0.12);
+  transform: rotate(-2deg);
+  transition: transform var(--duration-base, 200ms) var(--ease-base, ease);
+}
+
+.polaroid-frame:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.polaroid-frame .polaroid-image {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: oklch(90% 0.02 75);
+}
+
+/* ── Tape overlay ── */
+.tape-overlay {
+  position: absolute;
+  top: -0.5rem;
+  width: 5rem;
+  height: 1.25rem;
+  background: oklch(85% 0.04 85 / 0.7);
+  transform: rotate(-3deg);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);
+  z-index: 2;
+}
+
+.tape-overlay-left {
+  left: 1rem;
+  transform: rotate(-3deg);
+}
+
+.tape-overlay-right {
+  right: 1rem;
+  transform: rotate(2deg);
+}
+
+/* ── Torn paper edge (top) ── */
+.torn-edge-top {
+  position: relative;
+}
+
+.torn-edge-top::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='12'%3E%3Cpath d='M0 6 Q 20 0 40 6 T 80 6 T 120 6 T 160 6 T 200 6 T 240 6 T 280 6 T 320 6 T 360 6 T 400 6' fill='none' stroke='oklch(82%25 0.04 75)' stroke-width='1'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 200px 12px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── Washi tape strips (decorative) ── */
+.washi-tape {
+  display: inline-block;
+  padding: 0.125rem 1rem;
+  font-family: var(--font-family-sans);
+  font-size: 0.75rem;
+  color: oklch(20% 0.02 75);
+  background: oklch(88% 0.05 85 / 0.85);
+  border: 1px dashed oklch(75% 0.04 80 / 0.6);
+  transform: rotate(-1.5deg);
+}
+
+/* ── Paperclip (decorative) ── */
+.paperclip {
+  position: absolute;
+  top: -0.5rem;
+  right: 1rem;
+  width: 2rem;
+  height: 1.5rem;
+  border: 2px solid oklch(80% 0.01 200);
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+  transform: rotate(15deg);
+  z-index: 3;
+  pointer-events: none;
+}

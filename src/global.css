@@ -155,6 +155,15 @@
   --color-canvas-glow-indigo: oklch(60% 0.3 265 / 0.35);
   --color-canvas-glow-amber: oklch(72% 0.3 80 / 0.35);
   --color-canvas-glow-teal: oklch(70% 0.28 195 / 0.35);
+
+  /* ── Phase 4: Mixed-UI-Zones — Parchment Canvas vs Dark Chrome ── */
+  --color-parchment-surface: oklch(93% 0.03 75);
+  --color-parchment-border: oklch(82% 0.04 75);
+  --color-chrome-surface: oklch(10% 0.01 260);
+  --color-chrome-border: oklch(18% 0.02 260 / 0.5);
+  --shadow-parchment-elevated: 0 12px 40px rgb(0 0 0 / 0.35), 0 2px 8px rgb(0 0 0 / 0.15);
+  --shadow-parchment-modal: 0 24px 64px rgb(0 0 0 / 0.5);
+  --radius-parchment: 0.25rem;
 }
 
 /* ═══════════════════════════════════════════
@@ -856,10 +865,131 @@ img {
     z-index: 1;
   }
 
+  /* ── Phase 4: Mixed-UI-Zones — Parchment Canvas (light) vs Chrome (dark) ── */
+
+  /* Parchment canvas zone — static, no bg animation, tactile paper */
+  .canvas-parchment {
+    background-color: var(--color-parchment-surface);
+    color: var(--color-canvas-parchment-text);
+    border: 1px solid var(--color-parchment-border);
+    border-radius: var(--radius-parchment);
+    box-shadow: var(--shadow-parchment-elevated);
+    /* micro-texture: static SVG noise overlay */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 128px 128px;
+  }
+
+  /* Chrome zone — dark, minimal, usado em sidebar/header */
+  .canvas-chrome {
+    background-color: var(--color-chrome-surface);
+    border-color: var(--color-chrome-border);
+  }
+
+  /* Parchment-to-chrome transition bridge */
+  .canvas-bridge {
+    background: linear-gradient(
+      to bottom,
+      var(--color-parchment-surface) 0%,
+      color-mix(in srgb, var(--color-parchment-surface) 60%, var(--color-chrome-surface)) 40%,
+      var(--color-chrome-surface) 100%
+    );
+  }
+
   /* ── M012 S08: Cursor stylus (pen tip) ── */
   .cursor-stylus {
     cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpolygon points='2,14 6,4 10,10' fill='%2300e5ff'/%3E%3C/svg%3E")
       6 0, crosshair;
+  }
+
+  /* ── Phase 4: CinematicDepthCard — Glass Light + Inner Glow + Lift ── */
+
+  .cinematic-depth-card {
+    position: relative;
+    isolation: isolate;
+    border-radius: 0.625rem;
+    background: oklch(25% 0.02 260 / 0.3);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid oklch(40% 0.04 260 / 0.3);
+    overflow: hidden;
+    transition: transform var(--duration-base, 200ms) var(--ease-base, ease), box-shadow
+      var(--duration-base, 200ms) var(--ease-base, ease);
+  }
+
+  .cinematic-depth-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgb(0 0 0 / 0.25);
+  }
+
+  .cinematic-depth-card[elevated] {
+    box-shadow: var(--shadow-d2, 0 14px 32px rgb(0 0 0 / 0.24));
+  }
+
+  /* Inner glow border mask */
+  .cinematic-depth-card__border {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+    background: linear-gradient(
+      135deg,
+      oklch(60% 0.2 265 / 0.15) 0%,
+      transparent 40%,
+      oklch(72% 0.165 80 / 0.1) 60%,
+      transparent 100%
+    );
+  }
+
+  /* Bloom — soft radial glow behind content */
+  .cinematic-depth-card__bloom {
+    position: absolute;
+    top: -20%;
+    left: 20%;
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(40px);
+    opacity: 0.3;
+  }
+
+  /* Variant bloom colors */
+  .cinematic-depth-card.logic .cinematic-depth-card__bloom {
+    background: var(--color-aether-indigo-glow, oklch(60% 0.3 265 / 0.35));
+  }
+
+  .cinematic-depth-card.insight .cinematic-depth-card__bloom {
+    background: var(--color-aether-amber-glow, oklch(72% 0.3 80 / 0.35));
+  }
+
+  .cinematic-depth-card.flow .cinematic-depth-card__bloom {
+    background: var(--color-aether-teal-glow, oklch(70% 0.28 195 / 0.35));
+  }
+
+  /* Grain overlay */
+  .cinematic-depth-card__grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23g)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 128px 128px;
+  }
+
+  /* Focus glow */
+  .cinematic-depth-card[data-glow-focus] .cinematic-depth-card__border {
+    background: linear-gradient(
+      135deg,
+      oklch(60% 0.3 265 / 0.25) 0%,
+      transparent 40%,
+      oklch(72% 0.3 80 / 0.15) 60%,
+      transparent 100%
+    );
   }
 
   /* ── M012 S09: Collage-Editorial Variant (CinematicDepthCard) ── */

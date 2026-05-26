@@ -6,6 +6,7 @@ import {
   useLocation,
 } from '@builder.io/qwik-city'
 import { JSONLD } from '~/components/json-ld'
+import { MasterOpenCanvas } from '~/components/master-open-canvas'
 import { NicheLanding } from '~/components/niche-landing'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 import { canonicalUrl, xdefaultUrl } from '~/routing/routes'
@@ -134,12 +135,14 @@ export default component$(() => {
   return (
     <>
       <JSONLD data={websiteSchema} />
-      <NicheLanding
-        niche={data.value.niche}
-        otherNiches={data.value.otherNiches}
-        articles={articles.value}
-        lang={lang}
-      />
+      <MasterOpenCanvas variant="parchment" static={true}>
+        <NicheLanding
+          niche={data.value.niche}
+          otherNiches={data.value.otherNiches}
+          articles={articles.value}
+          lang={lang}
+        />
+      </MasterOpenCanvas>
     </>
   )
 })
