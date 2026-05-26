@@ -127,11 +127,6 @@ export interface TranslationStrings {
     }
     step2: {
       title: string
-      cards: {
-        research: { label: string; desc: string }
-        verify: { label: string; desc: string }
-        structure: { label: string; desc: string }
-      }
     }
     step3: {
       title: string

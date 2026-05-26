@@ -27,7 +27,7 @@ export const ScrollContentCanvas = component$<ScrollContentCanvasProps>(({ class
   return (
     <section
       class={[
-        'scroll-content-root relative overflow-hidden rounded-3xl p-6 md:p-8 bg-[var(--scroll-content-bg,oklch(10%_0.01_260))] border border-white/5',
+        'scroll-content-root relative overflow-hidden rounded-3xl p-6 md:p-8 bg-[#131820] border border-white/5',
         classList,
       ]}
       style={{

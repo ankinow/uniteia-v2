@@ -111,20 +111,6 @@ export const ja: TranslationStrings = {
     },
     step2: {
       title: 'すべてのシグナルは、あなたに届く前に7つの品質ゲートを通過します。',
-      cards: {
-        research: {
-          label: 'Research',
-          desc: 'Raw sources are ingested and scored for trust.',
-        },
-        verify: {
-          label: 'Verify',
-          desc: 'Claims are cross-checked against independent sources.',
-        },
-        structure: {
-          label: 'Structure',
-          desc: 'Content is formatted, localized, and readied for delivery.',
-        },
-      },
     },
     step3: {
       title: '8言語で利用可能。',

@@ -113,20 +113,6 @@ export const it: TranslationStrings = {
     },
     step2: {
       title: 'Ogni segnale attraversa 7 filtri di qualità prima di raggiungerti.',
-      cards: {
-        research: {
-          label: 'Ricerca',
-          desc: 'Le fonti grezze vengono acquisite e valutate per affidabilità.',
-        },
-        verify: {
-          label: 'Verifica',
-          desc: 'Le affermazioni vengono verificate incrociando fonti indipendenti.',
-        },
-        structure: {
-          label: 'Struttura',
-          desc: 'I contenuti vengono formattati, localizzati e preparati per la consegna.',
-        },
-      },
     },
     step3: {
       title: 'Disponibile in 8 lingue.',

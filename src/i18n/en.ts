@@ -111,20 +111,6 @@ export const en: TranslationStrings = {
     },
     step2: {
       title: 'Every signal passes 7 quality gates before reaching you.',
-      cards: {
-        research: {
-          label: 'Research',
-          desc: 'Raw sources are ingested and scored for trust.',
-        },
-        verify: {
-          label: 'Verify',
-          desc: 'Claims are cross-checked against independent sources.',
-        },
-        structure: {
-          label: 'Structure',
-          desc: 'Content is formatted, localized, and readied for delivery.',
-        },
-      },
     },
     step3: {
       title: 'Available in 8 languages.',
