@@ -158,7 +158,16 @@ function main(): void {
     if (existsSync(contentPath)) {
       const rawMdx = readFileSync(contentPath, 'utf-8')
       // Strip any existing frontmatter (shouldn't exist, but safety)
-      const cleanContent = rawMdx.replace(/^---[\s\S]*?---\n*/m, '')
+      const cleanContent = rawMdx.replace(/^---[\s\S]*?---\n*/m, '').trim()
+
+      // Gate: body must have meaningful content (min 100 chars per schema)
+      if (cleanContent.length < 100) {
+        console.log(
+          `  ⚠ SKIP ${NICHE}/${v2Locale}/${slug}.md — body too short (${cleanContent.length} chars, min 100)`
+        )
+        continue
+      }
+
       const title = titleByLang[v2Locale] || slug
 
       // Attempt to get factory-provided ContentNode for metadata

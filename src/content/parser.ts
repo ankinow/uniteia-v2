@@ -5,6 +5,18 @@ export interface ParsedMarkdown {
   body: string
 }
 
+/**
+ * Match YAML frontmatter delimited by `---`.
+ *
+ * Robust: handles optional `\r\n` before closing `---`, and
+ * closing `---` at end of file without trailing newline.
+ *
+ * Examples matched:
+ *   ---\ntitle: Hello\n---\nbody
+ *   ---\r\ntitle: Hello\r\n---\r\nbody
+ *   ---\ntitle: Hello\n---\n\nbody
+ *   ---\ntitle: Hello\n--- (EOF — no newline after closing ---)
+ */
 const YAML_FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/
 
 export function parseFrontmatter(rawContent: string): ParsedMarkdown {
