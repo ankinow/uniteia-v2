@@ -1,5 +1,4 @@
 import { component$ } from '@builder.io/qwik'
-import { AetherCanvasEngine } from '~/components/aether-canvas'
 import { ArticleFrame } from '~/components/article-frame'
 import { ErrorBoundary } from '~/components/error-boundary'
 import { type FrontmatterLabels, FrontmatterSlots } from '~/components/frontmatter-slots'
@@ -66,7 +65,6 @@ export const ArticleRenderer = component$<ArticleRendererProps>(
 
     const contentBlock = (
       <>
-        {content.canvas && <AetherCanvasEngine scene={content.canvas} class="mt-8" />}
         <div
           class="prose prose-invert mt-8 max-w-none text-bone-primary prose-a:text-action hover:prose-a:text-action-hi transition-colors"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: content is pre-validated markdown

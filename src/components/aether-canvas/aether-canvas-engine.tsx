@@ -27,6 +27,12 @@ export const AetherCanvasEngine = component$<AetherCanvasEngineProps>(
     }
 
     const resolved = resolveLayout(scene, containerWidth.value)
+    const hasContentNodes = scene.nodes.some(n => n.type !== 'hero' && n.type !== 'section')
+
+    // If no meaningful visual content, render minimal decorative canvas
+    if (!hasContentNodes) {
+      return <div class="aether-canvas-minimal h-0 overflow-hidden" aria-hidden="true" />
+    }
 
     return (
       <div
