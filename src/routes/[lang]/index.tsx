@@ -1,5 +1,6 @@
 import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
+import { CanvasSurface } from '~/components/canvas-surface'
 import { CinematicDepthCard } from '~/components/cinematic-depth'
 import { JSONLD } from '~/components/json-ld'
 import { MasterOpenCanvas } from '~/components/master-open-canvas'
@@ -125,139 +126,143 @@ export default component$(() => {
         ]}
       />
 
-      <ScrollContentCanvas class="my-8">
-        {featuredSignals.length > 0 && (
-          <section class="mb-10">
-            <h2
-              class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
-              data-step="1"
-            >
-              {t.homepage.featuredSignals}
-            </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featuredSignals.map((signal, i) => (
-                <a
-                  key={signal.node.id}
-                  href={signal.href}
-                  class="block no-underline scroll-reveal"
-                  data-step={String(i + 2)}
-                >
-                  <ScrollDepthCardEnhancer>
-                    <CinematicDepthCard
-                      {...(signal.node.visualStyle ? { visualStyle: signal.node.visualStyle } : {})}
-                      layer={i % 3}
-                    >
-                      <div class="p-5">
-                        <p class="font-semibold text-bone text-base leading-tight">
-                          {signal.node.title}
-                        </p>
-                        <p class="text-sm text-bone mt-2 line-clamp-2 leading-relaxed">
-                          {signal.node.summary}
-                        </p>
-                        <div class="flex gap-3 mt-3 text-xs">
-                          <SignalChip
-                            metric={signal.node.metrics.graphScore}
-                            label={t.signal.qualityLabel}
-                            variant="analyst"
-                            trend={signal.node.metrics.graphScore >= 70 ? 'up' : 'stable'}
-                          />
-                          <span class="text-bone/50 uppercase tracking-wider">
-                            {signal.node.locale}
-                          </span>
+      <CanvasSurface tone="parchment" class="mt-8">
+        <ScrollContentCanvas class="my-8">
+          {featuredSignals.length > 0 && (
+            <section class="mb-10">
+              <h2
+                class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
+                data-step="1"
+              >
+                {t.homepage.featuredSignals}
+              </h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {featuredSignals.map((signal, i) => (
+                  <a
+                    key={signal.node.id}
+                    href={signal.href}
+                    class="block no-underline scroll-reveal"
+                    data-step={String(i + 2)}
+                  >
+                    <ScrollDepthCardEnhancer>
+                      <CinematicDepthCard
+                        {...(signal.node.visualStyle
+                          ? { visualStyle: signal.node.visualStyle }
+                          : {})}
+                        layer={i % 3}
+                      >
+                        <div class="p-5">
+                          <p class="font-semibold text-bone text-base leading-tight">
+                            {signal.node.title}
+                          </p>
+                          <p class="text-sm text-bone mt-2 line-clamp-2 leading-relaxed">
+                            {signal.node.summary}
+                          </p>
+                          <div class="flex gap-3 mt-3 text-xs">
+                            <SignalChip
+                              metric={signal.node.metrics.graphScore}
+                              label={t.signal.qualityLabel}
+                              variant="analyst"
+                              trend={signal.node.metrics.graphScore >= 70 ? 'up' : 'stable'}
+                            />
+                            <span class="text-bone/50 uppercase tracking-wider">
+                              {signal.node.locale}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    </CinematicDepthCard>
-                  </ScrollDepthCardEnhancer>
-                </a>
-              ))}
-            </div>
-          </section>
-        )}
+                      </CinematicDepthCard>
+                    </ScrollDepthCardEnhancer>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
 
-        {sortedClusters.length > 0 && (
-          <section class="mb-10">
-            <h2
-              class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
-              data-step="1"
-            >
-              {t.homepage.knowledgeClusters}
-            </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {sortedClusters.map((cluster, i) => (
-                <a
-                  key={cluster.nicheSlug}
-                  href={cluster.href}
-                  class="block no-underline scroll-reveal"
-                  data-step={String(i + 2)}
-                >
-                  <ScrollDepthCardEnhancer>
-                    <CinematicDepthCard variant="subtle" layer={i % 2}>
-                      <div class="p-5">
-                        <p class="font-semibold text-bone text-base">{cluster.label}</p>
-                        <p class="text-sm text-bone mt-2 tabular-nums">
-                          {t.homepage.signalCount.replace(
-                            '{count}',
-                            cluster.articleCount.toString()
-                          )}{' '}
-                          · &empty; {cluster.avgGraphScore.toFixed(0)}
-                        </p>
-                      </div>
-                    </CinematicDepthCard>
-                  </ScrollDepthCardEnhancer>
-                </a>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {frontierStreams.length > 0 && (
-          <section class="mb-10">
-            <h2
-              class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
-              data-step="1"
-            >
-              {t.homepage.frontierStreams}
-            </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {frontierStreams.map((stream, i) => (
-                <a
-                  key={stream.node.id}
-                  href={stream.href}
-                  class="block no-underline scroll-reveal"
-                  data-step={String(i + 2)}
-                >
-                  <ScrollDepthCardEnhancer>
-                    <CinematicDepthCard variant="card" layer={i % 2}>
-                      <div class="p-5">
-                        <p class="font-semibold text-bone text-base leading-tight">
-                          {stream.node.title}
-                        </p>
-                        <p class="text-sm text-bone mt-2 line-clamp-2 leading-relaxed">
-                          {stream.node.summary}
-                        </p>
-                        <div class="flex gap-2 mt-2">
-                          <SignalChip
-                            metric={stream.node.metrics.freshnessScore}
-                            label={t.signal.freshnessLabel}
-                            variant="curator"
-                            trend={
-                              stream.node.metrics.freshnessScore >= 70
-                                ? 'up'
-                                : stream.node.metrics.freshnessScore >= 40
-                                  ? 'stable'
-                                  : 'down'
-                            }
-                          />
+          {sortedClusters.length > 0 && (
+            <section class="mb-10">
+              <h2
+                class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
+                data-step="1"
+              >
+                {t.homepage.knowledgeClusters}
+              </h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {sortedClusters.map((cluster, i) => (
+                  <a
+                    key={cluster.nicheSlug}
+                    href={cluster.href}
+                    class="block no-underline scroll-reveal"
+                    data-step={String(i + 2)}
+                  >
+                    <ScrollDepthCardEnhancer>
+                      <CinematicDepthCard variant="subtle" layer={i % 2}>
+                        <div class="p-5">
+                          <p class="font-semibold text-bone text-base">{cluster.label}</p>
+                          <p class="text-sm text-bone mt-2 tabular-nums">
+                            {t.homepage.signalCount.replace(
+                              '{count}',
+                              cluster.articleCount.toString()
+                            )}{' '}
+                            · &empty; {cluster.avgGraphScore.toFixed(0)}
+                          </p>
                         </div>
-                      </div>
-                    </CinematicDepthCard>
-                  </ScrollDepthCardEnhancer>
-                </a>
-              ))}
-            </div>
-          </section>
-        )}
-      </ScrollContentCanvas>
+                      </CinematicDepthCard>
+                    </ScrollDepthCardEnhancer>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {frontierStreams.length > 0 && (
+            <section class="mb-10">
+              <h2
+                class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
+                data-step="1"
+              >
+                {t.homepage.frontierStreams}
+              </h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {frontierStreams.map((stream, i) => (
+                  <a
+                    key={stream.node.id}
+                    href={stream.href}
+                    class="block no-underline scroll-reveal"
+                    data-step={String(i + 2)}
+                  >
+                    <ScrollDepthCardEnhancer>
+                      <CinematicDepthCard variant="card" layer={i % 2}>
+                        <div class="p-5">
+                          <p class="font-semibold text-bone text-base leading-tight">
+                            {stream.node.title}
+                          </p>
+                          <p class="text-sm text-bone mt-2 line-clamp-2 leading-relaxed">
+                            {stream.node.summary}
+                          </p>
+                          <div class="flex gap-2 mt-2">
+                            <SignalChip
+                              metric={stream.node.metrics.freshnessScore}
+                              label={t.signal.freshnessLabel}
+                              variant="curator"
+                              trend={
+                                stream.node.metrics.freshnessScore >= 70
+                                  ? 'up'
+                                  : stream.node.metrics.freshnessScore >= 40
+                                    ? 'stable'
+                                    : 'down'
+                              }
+                            />
+                          </div>
+                        </div>
+                      </CinematicDepthCard>
+                    </ScrollDepthCardEnhancer>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+        </ScrollContentCanvas>
+      </CanvasSurface>
 
       {featuredSignals.length === 0 &&
         knowledgeClusters.length === 0 &&
