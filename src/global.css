@@ -896,6 +896,13 @@ img {
     border-style: solid;
   }
 
+  /* Canvas-parchment zone: scroll content gets light parchment bg */
+  .canvas-parchment .scroll-content-root {
+    --scroll-content-bg: var(--color-parchment-surface);
+    border-color: var(--color-parchment-border);
+    color: var(--color-canvas-parchment-text);
+  }
+
   /* Parchment-to-chrome transition bridge */
   .canvas-bridge {
     background: linear-gradient(

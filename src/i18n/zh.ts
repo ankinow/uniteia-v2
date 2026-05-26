@@ -111,6 +111,20 @@ export const zh: TranslationStrings = {
     },
     step2: {
       title: '每个信号在到达您之前都经过7道质量关卡。',
+      cards: {
+        research: {
+          label: 'Research',
+          desc: 'Raw sources are ingested and scored for trust.',
+        },
+        verify: {
+          label: 'Verify',
+          desc: 'Claims are cross-checked against independent sources.',
+        },
+        structure: {
+          label: 'Structure',
+          desc: 'Content is formatted, localized, and readied for delivery.',
+        },
+      },
     },
     step3: {
       title: '支持8种语言。',

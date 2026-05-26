@@ -112,6 +112,20 @@ export const es: TranslationStrings = {
     },
     step2: {
       title: 'Cada señal pasa por 7 compuertas de calidad antes de llegar a ti.',
+      cards: {
+        research: {
+          label: 'Investigación',
+          desc: 'Las fuentes sin procesar se ingieren y se puntúan por su confianza.',
+        },
+        verify: {
+          label: 'Verificación',
+          desc: 'Las afirmaciones se verifican con fuentes independientes.',
+        },
+        structure: {
+          label: 'Estructura',
+          desc: 'El contenido se formatea, localiza y prepara para su entrega.',
+        },
+      },
     },
     step3: {
       title: 'Disponible en 8 idiomas.',

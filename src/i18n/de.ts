@@ -112,6 +112,20 @@ export const de: TranslationStrings = {
     },
     step2: {
       title: 'Jedes Signal durchläuft 7 Qualitätsprüfungen, bevor es Sie erreicht.',
+      cards: {
+        research: {
+          label: 'Recherche',
+          desc: 'Rohe Quellen werden aufgenommen und auf Vertrauenswürdigkeit bewertet.',
+        },
+        verify: {
+          label: 'Überprüfung',
+          desc: 'Behauptungen werden mit unabhängigen Quellen abgeglichen.',
+        },
+        structure: {
+          label: 'Strukturierung',
+          desc: 'Inhalte werden formatiert, lokalisiert und zur Auslieferung vorbereitet.',
+        },
+      },
     },
     step3: {
       title: 'Verfügbar in 8 Sprachen.',
