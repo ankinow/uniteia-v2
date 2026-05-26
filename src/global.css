@@ -886,6 +886,15 @@ img {
     border-color: var(--color-chrome-border);
   }
 
+  /* ⚠ SAFEGUARD: canvas-parchment desativado até Mixed UI Zones estar pronto.
+     Se ativado, .glass herda color: oklch(20%) que some no fundo escuro.
+     Reativar apenas quando glass invertido + parchment bg estiverem operacionais. */
+  .canvas-parchment {
+    color: var(--bone) !important;
+    background-color: transparent !important;
+    border-color: var(--color-parchment-border);
+  }
+
   /* Parchment-to-chrome transition bridge */
   .canvas-bridge {
     background: linear-gradient(

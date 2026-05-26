@@ -121,7 +121,7 @@ export default component$(() => {
   }
 
   return (
-    <CanvasSurface tone="parchment">
+    <CanvasSurface tone="obsidian">
       <ArticleRenderer
         content={content.value}
         relatedNodes={relatedNodes.value}

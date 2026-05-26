@@ -135,7 +135,7 @@ export default component$(() => {
   return (
     <>
       <JSONLD data={websiteSchema} />
-      <MasterOpenCanvas variant="parchment" static={true}>
+      <MasterOpenCanvas static={true}>
         <NicheLanding
           niche={data.value.niche}
           otherNiches={data.value.otherNiches}
