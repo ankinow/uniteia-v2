@@ -67,17 +67,18 @@ canvas:
     - from: magica-integration
       to: advanced
 ---
-# Building MCP Servers with Magica
 
-## What is MCP?
+# Magica で MCP サーバーを構築する
 
-The Model Context Protocol (MCP) is an open standard that lets AI agents discover and interact with external tools, data sources, and services through a standardized interface. Think of it as a USB-C port for AI — one protocol that any MCP-compatible agent can use to connect to any MCP-compatible server.
+## MCP とは
 
-Magica adopted MCP as its primary extension mechanism, meaning any MCP server you build automatically works with Magica's agent system.
+Model Context Protocol (MCP) は、AI エージェントが標準化されたインターフェースを通じて外部のツール、データソース、サービスを発見し操作できるようにするオープンスタンダードです。これは AI における USB-C ポートのようなもので、MCP 互換のエージェントならどのエージェントでも、このプロトコルを使って MCP 互換のサーバーに接続できます。
 
-## Setting Up an MCP Server
+Magica は MCP を主要な拡張メカニズムとして採用しており、あなたが構築する MCP サーバーは自動的に Magica のエージェントシステムで動作します。
 
-Create a new directory and initialize a TypeScript project:
+## MCP サーバーのセットアップ
+
+新しいディレクトリを作成し、TypeScript プロジェクトを初期化します。
 
 ```bash
 mkdir magica-weather-mcp && cd magica-weather-mcp
@@ -85,11 +86,11 @@ npm init -y
 npm install @modelcontextprotocol/sdk zod
 ```
 
-The MCP SDK provides the server framework. Your server exposes tools (actions the agent can take), resources (data the agent can read), and prompts (templates for common tasks).
+MCP SDK はサーバーフレームワークを提供します。サーバーは、ツール（エージェントが実行できるアクション）、リソース（エージェントが読み取れるデータ）、プロンプト（共通タスク用のテンプレート）を公開します。
 
-## Defining Tools
+## ツールの定義
 
-Tools are the most common MCP primitive. Here's a weather tool that Magica agents can call:
+ツールは最も一般的な MCP プリミティブです。以下は Magica エージェントが呼び出せる天気ツールの例です。
 
 ```typescript
 import { Server } from '@modelcontextprotocol/sdk/server/index.js'
@@ -125,20 +126,20 @@ const transport = new StdioServerTransport()
 await server.connect(transport)
 ```
 
-## Connecting to Magica
+## Magica への接続
 
-In your Magica workspace, go to Settings → MCP Servers → Add Server. Provide:
+Magica ワークスペースで、設定 → MCP サーバー → サーバー追加 に進みます。以下の情報を入力します。
 
-- **Name:** A label for your server
-- **Command:** The command to start your server (e.g., `node dist/index.js`)
-- **Arguments:** Any CLI flags your server needs
-- **Environment variables:** API keys, database URLs, etc.
+- **名前:** サーバーのラベル
+- **コマンド:** サーバーを起動するコマンド（例：`node dist/index.js`）
+- **引数:** サーバーが必要とする CLI フラグ
+- **環境変数:** API キー、データベース URL など
 
-Once added, Magica agents can discover and call your tools automatically. When an agent determines it needs data or an action your server provides, it makes the MCP call transparently.
+追加後、Magica エージェントは自動的にツールを発見し呼び出せるようになります。エージェントがサーバーの提供するデータやアクションを必要と判断した場合、透過的に MCP 呼び出しが行われます。
 
-## Resources and Context
+## リソースとコンテキスト
 
-Beyond tools, MCP servers can expose Resources — data that agents can read. Resources use a URI-based addressing scheme:
+ツール以外にも、MCP サーバーはエージェントが読み取れるデータであるリソースを公開できます。リソースは URI ベースのアドレス指定方式を使用します。
 
 ```typescript
 server.setRequestHandler('resources/list', async () => ({
@@ -150,11 +151,11 @@ server.setRequestHandler('resources/list', async () => ({
 }))
 ```
 
-Resources are useful for giving agents access to documentation, schemas, reference data, and configuration files that inform their responses.
+リソースは、エージェントにドキュメント、スキーマ、参照データ、設定ファイルなどを提供して応答を補助するのに便利です。
 
-## Deployment
+## デプロイ
 
-For development, run your MCP server locally with stdio transport. For production, deploy as an HTTP server with SSE transport:
+開発時は stdio トランスポートを使用してローカルで MCP サーバーを実行します。本番環境では、SSE トランスポートを使用して HTTP サーバーとしてデプロイします。
 
 ```typescript
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js'
@@ -171,14 +172,12 @@ app.post('/messages', (req, res) => {
 app.listen(3000)
 ```
 
-## Advanced: Building a Composite MCP Server
+## 応用：複合 MCP サーバーの構築
 
-For complex scenarios, build servers that compose multiple data sources:
+複雑なシナリオでは、複数のデータソースを合成するサーバーを構築します。
 
-- **Database MCP:** Expose SQL queries as tools with schema-aware validation
-- **GitHub MCP:** Combine Issues API, PR API, and Actions API into unified tools
-- **Multi-step agents:** Chain MCP calls where one tool's output becomes another's input
+- **データベース MCP:** SQL クエリをスキーマ認識検証付きのツールとして公開
+- **GitHub MCP:** Issues API、PR API、Actions API を統合ツールに結合
+- **マルチステップエージェント:** あるツールの出力を別のツールの入力として連鎖させる MCP 呼び出し
 
-Magica's agent system handles the orchestration — your MCP server just needs to expose clean, well-documented tools with typed schemas. The platform takes care of retries, error handling, and routing between servers.
-
-<dcp-message-id>m0325</dcp-message-id>
+Magica のエージェントシステムがオーケストレーションを処理します。MCP サーバーは、型付けされたスキーマを持つ、明確で適切に文書化されたツールを公開するだけで十分です。リトライ、エラーハンドリング、サーバー間のルーティングはプラットフォームが行います。

@@ -67,17 +67,18 @@ canvas:
     - from: magica-integration
       to: advanced
 ---
-# Building MCP Servers with Magica
 
-## What is MCP?
+# Construyendo Servidores MCP con Magica
 
-The Model Context Protocol (MCP) is an open standard that lets AI agents discover and interact with external tools, data sources, and services through a standardized interface. Think of it as a USB-C port for AI — one protocol that any MCP-compatible agent can use to connect to any MCP-compatible server.
+## ¿Qué es MCP?
 
-Magica adopted MCP as its primary extension mechanism, meaning any MCP server you build automatically works with Magica's agent system.
+El Protocolo de Contexto de Modelo (MCP) es un estándar abierto que permite a los agentes de IA descubrir e interactuar con herramientas externas, fuentes de datos y servicios a través de una interfaz estandarizada. Piense en él como un puerto USB-C para IA — un protocolo que cualquier agente compatible con MCP puede usar para conectarse a cualquier servidor compatible con MCP.
 
-## Setting Up an MCP Server
+Magica adoptó MCP como su mecanismo principal de extensión, lo que significa que cualquier servidor MCP que construyas funciona automáticamente con el sistema de agentes de Magica.
 
-Create a new directory and initialize a TypeScript project:
+## Configurando un Servidor MCP
+
+Crea un nuevo directorio e inicializa un proyecto TypeScript:
 
 ```bash
 mkdir magica-weather-mcp && cd magica-weather-mcp
@@ -85,11 +86,11 @@ npm init -y
 npm install @modelcontextprotocol/sdk zod
 ```
 
-The MCP SDK provides the server framework. Your server exposes tools (actions the agent can take), resources (data the agent can read), and prompts (templates for common tasks).
+El SDK de MCP proporciona el marco del servidor. Tu servidor expone herramientas (acciones que el agente puede realizar), recursos (datos que el agente puede leer) y prompts (plantillas para tareas comunes).
 
-## Defining Tools
+## Definiendo Herramientas
 
-Tools are the most common MCP primitive. Here's a weather tool that Magica agents can call:
+Las herramientas son la primitiva MCP más común. Aquí hay una herramienta meteorológica que los agentes de Magica pueden llamar:
 
 ```typescript
 import { Server } from '@modelcontextprotocol/sdk/server/index.js'
@@ -125,20 +126,20 @@ const transport = new StdioServerTransport()
 await server.connect(transport)
 ```
 
-## Connecting to Magica
+## Conectando a Magica
 
-In your Magica workspace, go to Settings → MCP Servers → Add Server. Provide:
+En tu espacio de trabajo de Magica, ve a Configuración → Servidores MCP → Añadir Servidor. Proporciona:
 
-- **Name:** A label for your server
-- **Command:** The command to start your server (e.g., `node dist/index.js`)
-- **Arguments:** Any CLI flags your server needs
-- **Environment variables:** API keys, database URLs, etc.
+- **Nombre:** Una etiqueta para tu servidor
+- **Comando:** El comando para iniciar tu servidor (por ejemplo, `node dist/index.js`)
+- **Argumentos:** Cualquier bandera de CLI que tu servidor necesite
+- **Variables de entorno:** Claves de API, URLs de base de datos, etc.
 
-Once added, Magica agents can discover and call your tools automatically. When an agent determines it needs data or an action your server provides, it makes the MCP call transparently.
+Una vez agregado, los agentes de Magica pueden descubrir y llamar a tus herramientas automáticamente. Cuando un agente determina que necesita datos o una acción que tu servidor proporciona, realiza la llamada MCP de manera transparente.
 
-## Resources and Context
+## Recursos y Contexto
 
-Beyond tools, MCP servers can expose Resources — data that agents can read. Resources use a URI-based addressing scheme:
+Más allá de las herramientas, los servidores MCP pueden exponer Recursos — datos que los agentes pueden leer. Los recursos utilizan un esquema de direccionamiento basado en URI:
 
 ```typescript
 server.setRequestHandler('resources/list', async () => ({
@@ -150,11 +151,11 @@ server.setRequestHandler('resources/list', async () => ({
 }))
 ```
 
-Resources are useful for giving agents access to documentation, schemas, reference data, and configuration files that inform their responses.
+Los recursos son útiles para dar a los agentes acceso a documentación, esquemas, datos de referencia y archivos de configuración que informan sus respuestas.
 
-## Deployment
+## Despliegue
 
-For development, run your MCP server locally with stdio transport. For production, deploy as an HTTP server with SSE transport:
+Para desarrollo, ejecuta tu servidor MCP localmente con transporte stdio. Para producción, despliega como un servidor HTTP con transporte SSE:
 
 ```typescript
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js'
@@ -171,14 +172,12 @@ app.post('/messages', (req, res) => {
 app.listen(3000)
 ```
 
-## Advanced: Building a Composite MCP Server
+## Avanzado: Construyendo un Servidor MCP Compuesto
 
-For complex scenarios, build servers that compose multiple data sources:
+Para escenarios complejos, construye servidores que compongan múltiples fuentes de datos:
 
-- **Database MCP:** Expose SQL queries as tools with schema-aware validation
-- **GitHub MCP:** Combine Issues API, PR API, and Actions API into unified tools
-- **Multi-step agents:** Chain MCP calls where one tool's output becomes another's input
+- **Base de datos MCP:** Expone consultas SQL como herramientas con validación consciente del esquema
+- **GitHub MCP:** Combina la API de Issues, la API de PR y la API de Actions en herramientas unificadas
+- **Agentes multipaso:** Encadena llamadas MCP donde la salida de una herramienta se convierte en la entrada de otra
 
-Magica's agent system handles the orchestration — your MCP server just needs to expose clean, well-documented tools with typed schemas. The platform takes care of retries, error handling, and routing between servers.
-
-<dcp-message-id>m0325</dcp-message-id>
+El sistema de agentes de Magica maneja la orquestación — tu servidor MCP solo necesita exponer herramientas limpias, bien documentadas con esquemas tipados. La plataforma se encarga de reintentos, manejo de errores y enrutamiento entre servidores.

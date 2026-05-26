@@ -67,17 +67,18 @@ canvas:
     - from: magica-integration
       to: advanced
 ---
-# Building MCP Servers with Magica
 
-## What is MCP?
+# MCP-Server mit Magica erstellen
 
-The Model Context Protocol (MCP) is an open standard that lets AI agents discover and interact with external tools, data sources, and services through a standardized interface. Think of it as a USB-C port for AI — one protocol that any MCP-compatible agent can use to connect to any MCP-compatible server.
+## Was ist MCP?
 
-Magica adopted MCP as its primary extension mechanism, meaning any MCP server you build automatically works with Magica's agent system.
+Das Model Context Protocol (MCP) ist ein offener Standard, der es KI-Agenten ermöglicht, externe Tools, Datenquellen und Dienste über eine standardisierte Schnittstelle zu entdecken und zu nutzen. Stellen Sie es sich wie einen USB-C-Anschluss für KI vor – ein Protokoll, mit dem jeder MCP-kompatible Agent eine Verbindung zu jedem MCP-kompatiblen Server herstellen kann.
 
-## Setting Up an MCP Server
+Magica hat MCP als seinen primären Erweiterungsmechanismus übernommen, was bedeutet, dass jeder MCP-Server, den Sie erstellen, automatisch mit dem Agentensystem von Magica funktioniert.
 
-Create a new directory and initialize a TypeScript project:
+## Einrichten eines MCP-Servers
+
+Erstellen Sie ein neues Verzeichnis und initialisieren Sie ein TypeScript-Projekt:
 
 ```bash
 mkdir magica-weather-mcp && cd magica-weather-mcp
@@ -85,11 +86,11 @@ npm init -y
 npm install @modelcontextprotocol/sdk zod
 ```
 
-The MCP SDK provides the server framework. Your server exposes tools (actions the agent can take), resources (data the agent can read), and prompts (templates for common tasks).
+Das MCP SDK bietet das Server-Framework. Ihr Server stellt Tools (Aktionen, die der Agent ausführen kann), Ressourcen (Daten, die der Agent lesen kann) und Prompts (Vorlagen für häufige Aufgaben) bereit.
 
-## Defining Tools
+## Definieren von Tools
 
-Tools are the most common MCP primitive. Here's a weather tool that Magica agents can call:
+Tools sind die häufigsten MCP-Primitiven. Hier ist ein Wetter-Tool, das Magica-Agenten aufrufen können:
 
 ```typescript
 import { Server } from '@modelcontextprotocol/sdk/server/index.js'
@@ -125,20 +126,20 @@ const transport = new StdioServerTransport()
 await server.connect(transport)
 ```
 
-## Connecting to Magica
+## Verbinden mit Magica
 
-In your Magica workspace, go to Settings → MCP Servers → Add Server. Provide:
+Gehen Sie in Ihrem Magica-Arbeitsbereich zu Einstellungen → MCP-Server → Server hinzufügen. Geben Sie an:
 
-- **Name:** A label for your server
-- **Command:** The command to start your server (e.g., `node dist/index.js`)
-- **Arguments:** Any CLI flags your server needs
-- **Environment variables:** API keys, database URLs, etc.
+- **Name:** Eine Bezeichnung für Ihren Server
+- **Befehl:** Der Befehl zum Starten Ihres Servers (z.B. `node dist/index.js`)
+- **Argumente:** Alle CLI-Flags, die Ihr Server benötigt
+- **Umgebungsvariablen:** API-Schlüssel, Datenbank-URLs usw.
 
-Once added, Magica agents can discover and call your tools automatically. When an agent determines it needs data or an action your server provides, it makes the MCP call transparently.
+Nach dem Hinzufügen können Magica-Agenten Ihre Tools automatisch erkennen und aufrufen. Wenn ein Agent feststellt, dass er Daten oder eine Aktion benötigt, die Ihr Server bereitstellt, führt er den MCP-Aufruf transparent durch.
 
-## Resources and Context
+## Ressourcen und Kontext
 
-Beyond tools, MCP servers can expose Resources — data that agents can read. Resources use a URI-based addressing scheme:
+Über Tools hinaus können MCP-Server Ressourcen bereitstellen – Daten, die Agenten lesen können. Ressourcen verwenden ein URI-basiertes Adressierungsschema:
 
 ```typescript
 server.setRequestHandler('resources/list', async () => ({
@@ -150,11 +151,11 @@ server.setRequestHandler('resources/list', async () => ({
 }))
 ```
 
-Resources are useful for giving agents access to documentation, schemas, reference data, and configuration files that inform their responses.
+Ressourcen sind nützlich, um Agenten Zugriff auf Dokumentationen, Schemata, Referenzdaten und Konfigurationsdateien zu geben, die ihre Antworten beeinflussen.
 
-## Deployment
+## Bereitstellung
 
-For development, run your MCP server locally with stdio transport. For production, deploy as an HTTP server with SSE transport:
+Für die Entwicklung führen Sie Ihren MCP-Server lokal mit stdio-Transport aus. Für die Produktion stellen Sie ihn als HTTP-Server mit SSE-Transport bereit:
 
 ```typescript
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js'
@@ -171,14 +172,12 @@ app.post('/messages', (req, res) => {
 app.listen(3000)
 ```
 
-## Advanced: Building a Composite MCP Server
+## Fortgeschritten: Erstellen eines zusammengesetzten MCP-Servers
 
-For complex scenarios, build servers that compose multiple data sources:
+Für komplexe Szenarien erstellen Sie Server, die mehrere Datenquellen zusammenfassen:
 
-- **Database MCP:** Expose SQL queries as tools with schema-aware validation
-- **GitHub MCP:** Combine Issues API, PR API, and Actions API into unified tools
-- **Multi-step agents:** Chain MCP calls where one tool's output becomes another's input
+- **Datenbank-MCP:** SQL-Abfragen als Tools mit schemabasierter Validierung bereitstellen
+- **GitHub-MCP:** Issues-API, PR-API und Actions-API zu einheitlichen Tools kombinieren
+- **Mehrschritt-Agenten:** MCP-Aufrufe verketten, bei denen die Ausgabe eines Tools zur Eingabe eines anderen wird
 
-Magica's agent system handles the orchestration — your MCP server just needs to expose clean, well-documented tools with typed schemas. The platform takes care of retries, error handling, and routing between servers.
-
-<dcp-message-id>m0325</dcp-message-id>
+Das Agentensystem von Magica übernimmt die Orchestrierung – Ihr MCP-Server muss lediglich saubere, gut dokumentierte Tools mit typisierten Schemata bereitstellen. Die Plattform kümmert sich um Wiederholungen, Fehlerbehandlung und das Routing zwischen Servern.

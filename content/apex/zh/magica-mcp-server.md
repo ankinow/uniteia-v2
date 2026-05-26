@@ -67,17 +67,18 @@ canvas:
     - from: magica-integration
       to: advanced
 ---
-# Building MCP Servers with Magica
 
-## What is MCP?
+# 使用 Magica 构建 MCP 服务器
 
-The Model Context Protocol (MCP) is an open standard that lets AI agents discover and interact with external tools, data sources, and services through a standardized interface. Think of it as a USB-C port for AI — one protocol that any MCP-compatible agent can use to connect to any MCP-compatible server.
+## 什么是 MCP？
 
-Magica adopted MCP as its primary extension mechanism, meaning any MCP server you build automatically works with Magica's agent system.
+模型上下文协议 (MCP) 是一种开放标准，它允许 AI 智能体通过标准化接口发现并与外部工具、数据源和服务进行交互。可以将其视为 AI 领域的 USB-C 接口——一种协议，任何兼容 MCP 的智能体都可以用它来连接到任何兼容 MCP 的服务器。
 
-## Setting Up an MCP Server
+Magica 采用 MCP 作为其主要扩展机制，这意味着您构建的任何 MCP 服务器都能自动与 Magica 的智能体系统协同工作。
 
-Create a new directory and initialize a TypeScript project:
+## 搭建 MCP 服务器
+
+创建一个新目录并初始化 TypeScript 项目：
 
 ```bash
 mkdir magica-weather-mcp && cd magica-weather-mcp
@@ -85,11 +86,11 @@ npm init -y
 npm install @modelcontextprotocol/sdk zod
 ```
 
-The MCP SDK provides the server framework. Your server exposes tools (actions the agent can take), resources (data the agent can read), and prompts (templates for common tasks).
+MCP SDK 提供了服务器框架。您的服务器可以暴露工具（智能体可执行的操作）、资源（智能体可读取的数据）以及提示词模板（常见任务的模板）。
 
-## Defining Tools
+## 定义工具
 
-Tools are the most common MCP primitive. Here's a weather tool that Magica agents can call:
+工具是 MCP 中最常见的原语。以下是一个可供 Magica 智能体调用的天气工具示例：
 
 ```typescript
 import { Server } from '@modelcontextprotocol/sdk/server/index.js'
@@ -125,20 +126,20 @@ const transport = new StdioServerTransport()
 await server.connect(transport)
 ```
 
-## Connecting to Magica
+## 连接到 Magica
 
-In your Magica workspace, go to Settings → MCP Servers → Add Server. Provide:
+在您的 Magica 工作区中，前往 设置 → MCP 服务器 → 添加服务器。提供以下信息：
 
-- **Name:** A label for your server
-- **Command:** The command to start your server (e.g., `node dist/index.js`)
-- **Arguments:** Any CLI flags your server needs
-- **Environment variables:** API keys, database URLs, etc.
+- **名称：** 为您服务器设置的标签
+- **命令：** 用于启动您服务器的命令（例如 `node dist/index.js`）
+- **参数：** 您服务器所需的任何 CLI 标志
+- **环境变量：** API 密钥、数据库 URL 等。
 
-Once added, Magica agents can discover and call your tools automatically. When an agent determines it needs data or an action your server provides, it makes the MCP call transparently.
+添加完成后，Magica 智能体可以自动发现并调用您的工具。当智能体判定其需要您服务器提供的数据或操作时，它会透明地发起 MCP 调用。
 
-## Resources and Context
+## 资源和上下文
 
-Beyond tools, MCP servers can expose Resources — data that agents can read. Resources use a URI-based addressing scheme:
+除工具外，MCP 服务器还可以暴露资源——即智能体可读取的数据。资源采用基于 URI 的寻址方案：
 
 ```typescript
 server.setRequestHandler('resources/list', async () => ({
@@ -150,11 +151,11 @@ server.setRequestHandler('resources/list', async () => ({
 }))
 ```
 
-Resources are useful for giving agents access to documentation, schemas, reference data, and configuration files that inform their responses.
+资源对于让智能体访问文档、模式、参考数据和配置文件非常有用，这些信息可以为其响应提供依据。
 
-## Deployment
+## 部署
 
-For development, run your MCP server locally with stdio transport. For production, deploy as an HTTP server with SSE transport:
+在开发环境中，使用 stdio 传输在本地运行您的 MCP 服务器。在生产环境中，则将其部署为使用 SSE 传输的 HTTP 服务器：
 
 ```typescript
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js'
@@ -171,14 +172,12 @@ app.post('/messages', (req, res) => {
 app.listen(3000)
 ```
 
-## Advanced: Building a Composite MCP Server
+## 进阶：构建复合型 MCP 服务器
 
-For complex scenarios, build servers that compose multiple data sources:
+对于复杂场景，可以构建组合了多个数据源的服务器：
 
-- **Database MCP:** Expose SQL queries as tools with schema-aware validation
-- **GitHub MCP:** Combine Issues API, PR API, and Actions API into unified tools
-- **Multi-step agents:** Chain MCP calls where one tool's output becomes another's input
+- **数据库 MCP：** 将 SQL 查询作为具有模式感知验证功能的工具暴露
+- **GitHub MCP：** 将 Issues API、PR API 和 Actions API 整合为统一的工具
+- **多步智能体：** 将 MCP 调用串联起来，使一个工具的输出成为另一个工具的输入
 
-Magica's agent system handles the orchestration — your MCP server just needs to expose clean, well-documented tools with typed schemas. The platform takes care of retries, error handling, and routing between servers.
-
-<dcp-message-id>m0325</dcp-message-id>
+Magica 的智能体系统负责编排工作——您的 MCP 服务器只需提供带有类型化模式的、清晰且文档完善的工具即可。该平台会处理重试、错误处理以及服务器之间的路由。

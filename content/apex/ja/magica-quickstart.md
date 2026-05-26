@@ -65,35 +65,36 @@ canvas:
     - from: export
       to: next-steps
 ---
-# Getting Started with Magica
 
-## Create Your Account
+# Magica はじめよう
 
-Visit try.magica.com and sign up for the free tier — no credit card required. The free tier gives you limited access to all major models, enough to evaluate the platform thoroughly before committing.
+## アカウント作成
 
-Once registered, you land on the Magica workspace. The interface has three main zones: the model selector (top), the conversation workspace (center), and the tool drawer (right sidebar with 5,900+ pre-built tools).
+[try.magica.com](http://try.magica.com) にアクセスし、無料プランにサインアップしてください。クレジットカードは不要です。無料プランでは、主要な全モデルを制限付きで利用でき、本格導入前にプラットフォームを十分に評価できます。
 
-## Your First Multi-Model Query
+登録が完了すると、Magica ワークスペースが表示されます。インターフェースは、モデルセレクター（上部）、会話ワークスペース（中央）、ツールドロワー（右サイドバー、5,900 以上のビルド済みツール）の 3 つの主要エリアで構成されています。
 
-Click the model selector at the top and enable 2-3 models — start with GPT-4o, Claude Opus 4, and Gemini 2.5 Pro. Type a question in the input field and hit send. Magica dispatches your query to all selected models simultaneously and displays the responses side-by-side.
+## 初めてのマルチモデルクエリ
 
-This multi-model comparison is Magica's killer feature. You immediately see how each model approaches the same prompt — Claude tends toward thorough analysis, GPT toward practical action, Gemini toward balanced synthesis. Over time, you learn which model to trust for which task type.
+上部のモデルセレクターをクリックし、2～3 個のモデル（まずは GPT-4o、Claude Opus 4、Gemini 2.5 Pro）を有効にします。入力フィールドに質問を入力し、送信ボタンを押します。Magica は選択されたすべてのモデルに同時にクエリを送信し、応答を横並びで表示します。
 
-## Generate Your First Image
+このマルチモデル比較機能こそが Magica のキラーフィーチャーです。各モデルが同じプロンプトにどのようにアプローチするか（Claude は徹底的な分析、GPT は実用的なアクション、Gemini はバランスの取れた統合を重視）を即座に確認できます。使い込むうちに、どのタスクタイプにどのモデルを信頼すべきかがわかるようになります。
 
-Open the tool drawer and switch to the Image tab. Select FLUX 2 Max from the model dropdown. Write a prompt — be descriptive but not over-engineered. Click generate. Within seconds you have four variations to choose from.
+## 初めての画像生成
 
-Use the editing panel to refine: upscale your chosen variant, remove the background, or regenerate specific regions with inpainting. Magica bundles these editing tools into the same interface — no need to open Photoshop or a separate AI editor.
+ツールドロワーを開き、Image タブに切り替えます。モデルドロップダウンから FLUX 2 Max を選択します。プロンプトを記述します。詳細に、しかし過度に作り込まないようにします。「Generate」をクリックします。数秒以内に 4 つのバリエーションが表示され、選択できるようになります。
 
-## Create a Simple Workflow
+編集パネルを使用して調整します。選択したバリアントのアップスケール、背景の削除、またはインペインティングによる特定領域の再生成が可能です。Magica はこれらの編集ツールを同一インターフェースにバンドルしているため、Photoshop や別の AI エディターを開く必要はありません。
 
-Workflows are where Magica transcends a simple chatbot. Click the Workflows tab and select New Workflow. You'll see a visual node editor — drag in a Text Input node, connect it to a Generate Image node (FLUX 2 Max), then to an Upscale node, and finally to an Export node.
+## シンプルなワークフローを作成する
 
-Set the text input to accept a product description. The workflow will: generate a product image from the description → upscale it 2x → export the final PNG. This entire pipeline runs with one click. You can save it as a reusable workflow app and share it with your team.
+ワークフローこそ、Magica が単なるチャットボットを超える所以です。「Workflows」タブをクリックし、「New Workflow」を選択します。ビジュアルノードエディターが表示されます。Text Input ノードをドラッグし、Generate Image ノード（FLUX 2 Max）に接続、次に Upscale ノード、最後に Export ノードへと接続します。
 
-## Export and Integrate
+テキスト入力を製品説明を受け付けるように設定します。ワークフローは以下の処理を実行します。説明文から製品画像を生成 → 2 倍にアップスケール → 最終的な PNG をエクスポート。この一連のパイプラインが 1 クリックで実行されます。再利用可能なワークフローアプリとして保存し、チームと共有することもできます。
 
-Every workflow can be published as an app accessible via API. Go to your workflow, click Publish, and Magica generates an API endpoint with dynamic inputs for your workflow parameters. You can now call it from your own application:
+## エクスポートと統合
+
+すべてのワークフローは、API 経由でアクセス可能なアプリとして公開できます。ワークフローに移動して「Publish」をクリックすると、Magica がワークフローパラメータに対応する動的入力を持つ API エンドポイントを生成します。これで、独自のアプリケーションから呼び出せるようになります：
 
 ```bash
 curl -X POST "https://api.magica.com/v1/workflows/run" \
@@ -102,11 +103,10 @@ curl -X POST "https://api.magica.com/v1/workflows/run" \
   -d '{"inputs": {"description": "A minimalist desk lamp"}, "webhook": "https://your-server.com/webhook"}'
 ```
 
-## Next Steps
+## 次のステップ
 
-Once comfortable with the basics, explore:
-- **MCP Server setup** — connect Magica to your own tools and data sources
-- **Agent memory** — give your workflows persistent context across sessions
-- **Team workspaces** — collaborate on workflows with shared assets and version history
-- **Custom tools** — write your own MCP tools that Magica agents can discover and use
-
+基本に慣れてきたら、以下を試してみてください：
+- **MCP Server のセットアップ** — Magica を独自のツールやデータソースに接続
+- **エージェントメモリ** — ワークフローにセッションを超えた永続的なコンテキストを付与
+- **チームワークスペース** — 共有アセットとバージョン履歴を使用してワークフローを共同編集
+- **カスタムツール** — Magica エージェントが検出・利用できる独自の MCP ツールを作成

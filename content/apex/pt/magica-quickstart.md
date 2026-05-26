@@ -65,35 +65,36 @@ canvas:
     - from: export
       to: next-steps
 ---
-# Getting Started with Magica
 
-## Create Your Account
+# Primeiros Passos com Magica
 
-Visit try.magica.com and sign up for the free tier — no credit card required. The free tier gives you limited access to all major models, enough to evaluate the platform thoroughly before committing.
+## Crie Sua Conta
 
-Once registered, you land on the Magica workspace. The interface has three main zones: the model selector (top), the conversation workspace (center), and the tool drawer (right sidebar with 5,900+ pre-built tools).
+Visite try.magica.com e cadastre-se no nível gratuito — não é necessário cartão de crédito. O nível gratuito oferece acesso limitado a todos os principais modelos, suficiente para avaliar a plataforma completamente antes de se comprometer.
 
-## Your First Multi-Model Query
+Após o registro, você acessa o espaço de trabalho do Magica. A interface tem três zonas principais: o seletor de modelos (topo), o espaço de conversa (centro) e a gaveta de ferramentas (barra lateral direita com mais de 5.900 ferramentas pré-construídas).
 
-Click the model selector at the top and enable 2-3 models — start with GPT-4o, Claude Opus 4, and Gemini 2.5 Pro. Type a question in the input field and hit send. Magica dispatches your query to all selected models simultaneously and displays the responses side-by-side.
+## Sua Primeira Consulta Multimodelo
 
-This multi-model comparison is Magica's killer feature. You immediately see how each model approaches the same prompt — Claude tends toward thorough analysis, GPT toward practical action, Gemini toward balanced synthesis. Over time, you learn which model to trust for which task type.
+Clique no seletor de modelos no topo e habilite 2 a 3 modelos — comece com GPT-4o, Claude Opus 4 e Gemini 2.5 Pro. Digite uma pergunta no campo de entrada e clique em enviar. O Magica envia sua consulta para todos os modelos selecionados simultaneamente e exibe as respostas lado a lado.
 
-## Generate Your First Image
+Essa comparação multimodelo é o recurso matador do Magica. Você vê imediatamente como cada modelo aborda o mesmo prompt — Claude tende a uma análise completa, GPT a uma ação prática, Gemini a uma síntese equilibrada. Com o tempo, você aprende em qual modelo confiar para cada tipo de tarefa.
 
-Open the tool drawer and switch to the Image tab. Select FLUX 2 Max from the model dropdown. Write a prompt — be descriptive but not over-engineered. Click generate. Within seconds you have four variations to choose from.
+## Gere Sua Primeira Imagem
 
-Use the editing panel to refine: upscale your chosen variant, remove the background, or regenerate specific regions with inpainting. Magica bundles these editing tools into the same interface — no need to open Photoshop or a separate AI editor.
+Abra a gaveta de ferramentas e mude para a aba Imagem. Selecione FLUX 2 Max no menu suspenso de modelos. Escreva um prompt — seja descritivo, mas sem exageros. Clique em gerar. Em segundos, você terá quatro variações para escolher.
 
-## Create a Simple Workflow
+Use o painel de edição para refinar: aumente a resolução (upscale) da variante escolhida, remova o fundo ou regenere regiões específicas com inpainting. O Magica reúne essas ferramentas de edição na mesma interface — sem necessidade de abrir o Photoshop ou um editor de IA separado.
 
-Workflows are where Magica transcends a simple chatbot. Click the Workflows tab and select New Workflow. You'll see a visual node editor — drag in a Text Input node, connect it to a Generate Image node (FLUX 2 Max), then to an Upscale node, and finally to an Export node.
+## Crie um Fluxo de Trabalho Simples
 
-Set the text input to accept a product description. The workflow will: generate a product image from the description → upscale it 2x → export the final PNG. This entire pipeline runs with one click. You can save it as a reusable workflow app and share it with your team.
+Os fluxos de trabalho (workflows) são onde o Magica transcende um chatbot simples. Clique na aba Workflows e selecione Novo Workflow. Você verá um editor visual de nós — arraste um nó de Entrada de Texto, conecte-o a um nó Gerar Imagem (FLUX 2 Max), depois a um nó de Redimensionamento (Upscale) e, finalmente, a um nó de Exportação.
 
-## Export and Integrate
+Configure a entrada de texto para aceitar uma descrição de produto. O fluxo de trabalho irá: gerar uma imagem do produto a partir da descrição → redimensioná-la 2x → exportar o PNG final. Todo esse pipeline é executado com um clique. Você pode salvá-lo como um aplicativo de fluxo de trabalho reutilizável e compartilhá-lo com sua equipe.
 
-Every workflow can be published as an app accessible via API. Go to your workflow, click Publish, and Magica generates an API endpoint with dynamic inputs for your workflow parameters. You can now call it from your own application:
+## Exporte e Integre
+
+Todo fluxo de trabalho pode ser publicado como um aplicativo acessível via API. Vá para seu fluxo de trabalho, clique em Publicar, e o Magica gera um endpoint de API com entradas dinâmicas para os parâmetros do seu fluxo de trabalho. Agora você pode chamá-lo a partir do seu próprio aplicativo:
 
 ```bash
 curl -X POST "https://api.magica.com/v1/workflows/run" \
@@ -102,11 +103,10 @@ curl -X POST "https://api.magica.com/v1/workflows/run" \
   -d '{"inputs": {"description": "A minimalist desk lamp"}, "webhook": "https://your-server.com/webhook"}'
 ```
 
-## Next Steps
+## Próximos Passos
 
-Once comfortable with the basics, explore:
-- **MCP Server setup** — connect Magica to your own tools and data sources
-- **Agent memory** — give your workflows persistent context across sessions
-- **Team workspaces** — collaborate on workflows with shared assets and version history
-- **Custom tools** — write your own MCP tools that Magica agents can discover and use
-
+Assim que estiver confortável com o básico, explore:
+- **Configuração do servidor MCP** — conecte o Magica às suas próprias ferramentas e fontes de dados
+- **Memória do agente** — dê aos seus fluxos de trabalho contexto persistente entre sessões
+- **Espaços de trabalho em equipe** — colabore em fluxos de trabalho com ativos compartilhados e histórico de versões
+- **Ferramentas personalizadas** — escreva suas próprias ferramentas MCP que os agentes do Magica podem descobrir e usar

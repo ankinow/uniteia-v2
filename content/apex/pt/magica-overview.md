@@ -76,46 +76,46 @@ canvas:
     - from: pricing
       to: conclusion
 ---
-# Magica: The AI Command Center
 
-## What is Magica?
+# Magica: O Centro de Comando de IA
 
-Magica is an all-in-one AI workspace that aggregates the world's best generative AI models into a single platform with one subscription. For $15/month, you get access to ChatGPT, Claude, Gemini, Mistral, Grok, and dozens of image, video, and audio generation models — eliminating the need for multiple subscriptions and the context-switching tax of jumping between tabs.
+## O que é a Magica?
 
-Originally launched as Galaxy AI, the platform rebranded to Magica to reflect its evolution from a simple utility collection into an autonomous AI agent platform capable of coordinating multi-model workflows, integrating with external tools via MCP, and managing long-running creative pipelines.
+Magica é um espaço de trabalho de IA completo que agrega os melhores modelos de IA generativa do mundo em uma única plataforma com uma assinatura. Por $15/mês, você tem acesso a ChatGPT, Claude, Gemini, Mistral, Grok e dezenas de modelos de geração de imagem, vídeo e áudio — eliminando a necessidade de múltiplas assinaturas e o custo de troca de contexto ao alternar entre abas.
 
-## Models and Capabilities
+Originalmente lançada como Galaxy AI, a plataforma foi renomeada para Magica para refletir sua evolução de uma simples coleção de utilitários para uma plataforma de agentes de IA autônomos, capaz de coordenar fluxos de trabalho multimodelo, integrar-se com ferramentas externas via MCP e gerenciar pipelines criativos de longa duração.
 
-**Large Language Models:** Magica provides unified access to every major LLM — GPT-4o, Claude Opus 4, Gemini 2.5 Pro, Mistral Large, Grok 3, and DeepSeek. The multi-model comparison feature lets you query all models simultaneously and compare outputs side-by-side, making it invaluable for research, content strategy, and output quality assessment.
+## Modelos e Capacidades
 
-**Image Generation:** The platform bundles roughly 15 generation and editing models including FLUX 2 Max, GPT Image 2, Grok Imagine, and Gemini image models. Editing tools cover upscaling, background removal, face swapping, and AI-assisted revisions. For 3D workflows, Meshy V6 integration provides text-to-3D generation.
+**Modelos de Linguagem de Grande Escala:** Magica fornece acesso unificado a todos os principais LLMs — GPT-4o, Claude Opus 4, Gemini 2.5 Pro, Mistral Large, Grok 3 e DeepSeek. O recurso de comparação multimodelo permite consultar todos os modelos simultaneamente e comparar as saídas lado a lado, tornando-o inestimável para pesquisa, estratégia de conteúdo e avaliação de qualidade de saída.
 
-**Video Production:** Magica hosts 35+ video models spanning text-to-video (Sora, Veo 3), image-to-video, reference-based generation, video editing and extension, lipsync, face swap, background removal, and upscaling. This makes it a credible alternative to dedicated video AI tools for most use cases.
+**Geração de Imagens:** A plataforma inclui cerca de 15 modelos de geração e edição, incluindo FLUX 2 Max, GPT Image 2, Grok Imagine e modelos de imagem Gemini. As ferramentas de edição abrangem upscaling, remoção de fundo, troca de rosto e revisões assistidas por IA. Para fluxos de trabalho 3D, a integração com Meshy V6 oferece geração de texto para 3D.
 
-**Audio Tools:** The audio suite includes voice cloning, text-to-speech, audio isolation, stem separation, translation and dubbing, and transcription — covering the full audio production pipeline from raw recording to polished output.
+**Produção de Vídeo:** Magica hospeda mais de 35 modelos de vídeo que abrangem texto para vídeo (Sora, Veo 3), imagem para vídeo, geração baseada em referência, edição e extensão de vídeo, sincronização labial, troca de rosto, remoção de fundo e upscaling. Isso a torna uma alternativa confiável a ferramentas de IA de vídeo dedicadas para a maioria dos casos de uso.
 
-## Workflow Automation & Agents
+**Ferramentas de Áudio:** O conjunto de áudio inclui clonagem de voz, texto para fala, isolamento de áudio, separação de faixas, tradução e dublagem, e transcrição — cobrindo todo o pipeline de produção de áudio, desde a gravação bruta até a saída refinada.
 
-Magica's most powerful feature is its autonomous agent system. You can create multi-step pipelines that chain models together: generate an image with FLUX, edit it with GPT Image 2, add audio narration with ElevenLabs, and export the final video — all in a single automated workflow.
+## Automação de Fluxo de Trabalho e Agentes
 
-The platform stores project files, instructions, memory, and shared assets across sessions, enabling agents that learn and adapt over time. Combined with MCP (Model Context Protocol) support, Magica can connect to external tools, databases, and APIs.
+O recurso mais poderoso da Magica é seu sistema de agentes autônomos. Você pode criar pipelines de várias etapas que encadeiam modelos: gerar uma imagem com FLUX, editá-la com GPT Image 2, adicionar narração em áudio com ElevenLabs e exportar o vídeo final — tudo em um único fluxo de trabalho automatizado.
 
-## Integrations
+A plataforma armazena arquivos de projeto, instruções, memória e ativos compartilhados entre sessões, permitindo agentes que aprendem e se adaptam ao longo do tempo. Combinado com o suporte a MCP (Model Context Protocol), a Magica pode se conectar a ferramentas externas, bancos de dados e APIs.
 
-Magica integrates with hundreds of external services including Gmail, Google Workspace, Slack, GitHub, Notion, Jira, Airtable, Salesforce, YouTube, TikTok, and Instagram. The MCP integration path also allows custom tool creation for developers who need to extend the platform.
+## Integrações
 
-## Pricing
+Magica se integra a centenas de serviços externos, incluindo Gmail, Google Workspace, Slack, GitHub, Notion, Jira, Airtable, Salesforce, YouTube, TikTok e Instagram. O caminho de integração via MCP também permite a criação de ferramentas personalizadas para desenvolvedores que precisam estender a plataforma.
 
-| Plan | Price | Key Features |
-|------|-------|-------------|
-| Free | $0 | Limited access for testing |
-| Monthly | $15/mo | Unlimited everything |
-| Yearly | $8/mo | Billed annually |
-| Lifetime | $399 | One-time payment |
+## Preços
 
-The free tier is generous enough to evaluate core features. For active creators and developers, the $15/month plan replaces $60+ worth of individual subscriptions.
+| Plano | Preço | Principais Recursos |
+|-------|-------|---------------------|
+| Gratuito | $0 | Acesso limitado para teste |
+| Mensal | $15/mês | Tudo ilimitado |
+| Anual | $8/mês | Cobrado anualmente |
+| Vitalício | $399 | Pagamento único |
 
-## Why Magica Matters for Builders
+O nível gratuito é generoso o suficiente para avaliar os recursos principais. Para criadores e desenvolvedores ativos, o plano de $15/mês substitui mais de $60 em assinaturas individuais.
 
-For solo builders and small teams, Magica collapses the AI toolchain into a single interface with a single bill. The cost savings ($360+/year vs separate subscriptions) compound with productivity gains from eliminating context-switching. The MCP support and workflow automation make it particularly compelling for developers who want to build AI-powered tools without managing multiple API keys and rate limits across providers.
+## Por que a Magica é Importante para Criadores
 
+Para criadores individuais e pequenas equipes, Magica consolida a cadeia de ferramentas de IA em uma única interface com uma única fatura. A economia de custos (mais de $360/ano vs assinaturas separadas) se soma aos ganhos de produtividade ao eliminar a troca de contexto. O suporte a MCP e a automação de fluxo de trabalho tornam a plataforma particularmente atraente para desenvolvedores que desejam criar ferramentas baseadas em IA sem gerenciar várias chaves de API e limites de taxa entre provedores.

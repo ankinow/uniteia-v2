@@ -65,35 +65,36 @@ canvas:
     - from: export
       to: next-steps
 ---
-# Getting Started with Magica
 
-## Create Your Account
+# Magica 入门指南
 
-Visit try.magica.com and sign up for the free tier — no credit card required. The free tier gives you limited access to all major models, enough to evaluate the platform thoroughly before committing.
+## 创建账号
 
-Once registered, you land on the Magica workspace. The interface has three main zones: the model selector (top), the conversation workspace (center), and the tool drawer (right sidebar with 5,900+ pre-built tools).
+访问 try.magica.com 并注册免费套餐——无需信用卡。免费套餐让您有限制地使用所有主流模型，足以在正式投入前全面评估该平台。
 
-## Your First Multi-Model Query
+注册完成后，您将进入 Magica 工作区。界面包含三个主要区域：模型选择器（顶部）、对话工作区（中央）和工具抽屉（右侧边栏，内含 5,900 多个预制工具）。
 
-Click the model selector at the top and enable 2-3 models — start with GPT-4o, Claude Opus 4, and Gemini 2.5 Pro. Type a question in the input field and hit send. Magica dispatches your query to all selected models simultaneously and displays the responses side-by-side.
+## 您的首次多模型查询
 
-This multi-model comparison is Magica's killer feature. You immediately see how each model approaches the same prompt — Claude tends toward thorough analysis, GPT toward practical action, Gemini toward balanced synthesis. Over time, you learn which model to trust for which task type.
+点击顶部的模型选择器，启用 2-3 个模型——建议选择 GPT-4o、Claude Opus 4 和 Gemini 2.5 Pro。在输入框中输入问题并点击发送。Magica 会同时将您的查询发送给所有选中的模型，并并排显示回复。
 
-## Generate Your First Image
+这种多模型对比是 Magica 的核心功能。您能立即看到每个模型如何处理同一提示词——Claude 倾向深入分析，GPT 倾向实际可操作，Gemini 倾向平衡综合。随着时间的推移，您会了解针对不同任务类型应该信任哪个模型。
 
-Open the tool drawer and switch to the Image tab. Select FLUX 2 Max from the model dropdown. Write a prompt — be descriptive but not over-engineered. Click generate. Within seconds you have four variations to choose from.
+## 生成您的第一张图像
 
-Use the editing panel to refine: upscale your chosen variant, remove the background, or regenerate specific regions with inpainting. Magica bundles these editing tools into the same interface — no need to open Photoshop or a separate AI editor.
+打开工具抽屉，切换到“图像”选项卡。从模型下拉列表中选择 FLUX 2 Max。编写一段提示词——描述清晰但不要过度设计。点击生成。几秒钟内，您将获得四个可选的变体。
 
-## Create a Simple Workflow
+使用编辑面板进行优化：放大选中的变体、去除背景，或通过修补功能重新生成特定区域。Magica 将这些编辑工具整合到同一界面中——无需再打开 Photoshop 或其他独立的 AI 编辑器。
 
-Workflows are where Magica transcends a simple chatbot. Click the Workflows tab and select New Workflow. You'll see a visual node editor — drag in a Text Input node, connect it to a Generate Image node (FLUX 2 Max), then to an Upscale node, and finally to an Export node.
+## 创建一个简单的工作流
 
-Set the text input to accept a product description. The workflow will: generate a product image from the description → upscale it 2x → export the final PNG. This entire pipeline runs with one click. You can save it as a reusable workflow app and share it with your team.
+工作流是 Magica 超越简单聊天机器人的功能所在。点击“工作流”选项卡，选择“新建工作流”。您将看到一个可视化节点编辑器——拖入一个“文本输入”节点，将其连接到“生成图像”节点（FLUX 2 Max），然后连接到“放大”节点，最后连接到“导出”节点。
 
-## Export and Integrate
+将文本输入设置为接收产品描述。该工作流将：根据描述生成产品图像 → 放大 2 倍 → 导出最终 PNG。整个流程一键运行。您可以将其保存为可重复使用的工作流应用，并与团队分享。
 
-Every workflow can be published as an app accessible via API. Go to your workflow, click Publish, and Magica generates an API endpoint with dynamic inputs for your workflow parameters. You can now call it from your own application:
+## 导出和集成
+
+每个工作流都可以作为应用发布，并通过 API 访问。进入您的工作流，点击“发布”，Magica 会为您的工作流参数生成一个带有动态输入的 API 端点。现在您可以从自己的应用程序中调用它：
 
 ```bash
 curl -X POST "https://api.magica.com/v1/workflows/run" \
@@ -102,11 +103,10 @@ curl -X POST "https://api.magica.com/v1/workflows/run" \
   -d '{"inputs": {"description": "A minimalist desk lamp"}, "webhook": "https://your-server.com/webhook"}'
 ```
 
-## Next Steps
+## 后续步骤
 
-Once comfortable with the basics, explore:
-- **MCP Server setup** — connect Magica to your own tools and data sources
-- **Agent memory** — give your workflows persistent context across sessions
-- **Team workspaces** — collaborate on workflows with shared assets and version history
-- **Custom tools** — write your own MCP tools that Magica agents can discover and use
-
+在掌握基本操作后，进一步探索：
+- **MCP 服务器设置**——将 Magica 连接到您自己的工具和数据源
+- **代理记忆**——为工作流提供跨会话的持久上下文
+- **团队工作区**——通过共享资产和版本历史协作工作流
+- **自定义工具**——编写您自己的 MCP 工具，供 Magica 代理发现和使用
