@@ -5,7 +5,7 @@
 | Metric | Value |
 |--------|-------|
 | Status | ✅ PASSED |
-| Published nodes | 10 |
+| Published nodes | 32 |
 | Hreflang issues | 0 |
 | Translation issues | 0 |
 | Canonical issues | 0 |

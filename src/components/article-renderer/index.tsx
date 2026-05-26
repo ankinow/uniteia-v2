@@ -64,14 +64,15 @@ export const ArticleRenderer = component$<ArticleRendererProps>(
       lang: content.lang,
     })
 
-    const contentBlock = content.canvas ? (
-      <AetherCanvasEngine scene={content.canvas} class="mt-8" />
-    ) : (
-      <div
-        class="prose prose-invert mt-8 max-w-none text-bone-primary prose-a:text-action hover:prose-a:text-action-hi transition-colors"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: content is pre-validated markdown
-        dangerouslySetInnerHTML={content.content}
-      />
+    const contentBlock = (
+      <>
+        {content.canvas && <AetherCanvasEngine scene={content.canvas} class="mt-8" />}
+        <div
+          class="prose prose-invert mt-8 max-w-none text-bone-primary prose-a:text-action hover:prose-a:text-action-hi transition-colors"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: content is pre-validated markdown
+          dangerouslySetInnerHTML={content.content}
+        />
+      </>
     )
 
     const relatedBlock = (
