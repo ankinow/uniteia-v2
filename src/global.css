@@ -896,6 +896,12 @@ img {
     border-style: solid;
   }
 
+  /* Canvas-parchment zone: strip dark bg from scroll-container so parchment shows through */
+  .canvas-parchment .scroll-content-root {
+    background: transparent;
+    border-color: var(--color-parchment-border);
+  }
+
   /* Parchment-to-chrome transition bridge */
   .canvas-bridge {
     background: linear-gradient(

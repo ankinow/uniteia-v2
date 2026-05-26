@@ -90,6 +90,7 @@ export default component$(() => {
           {
             content: (
               <MasterOpenCanvas
+                variant="parchment"
                 title={t.homepage.networkState}
                 decisionNodes={(() => {
                   const clusterNodes = sortedClusters.map(c => ({
