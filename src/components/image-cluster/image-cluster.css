@@ -1,0 +1,183 @@
+/* ImageCluster — Phase 4 polaroid/scatter layout
+ * Reuses aether-assets-frames.css tokens: tape, polaroid, torn-edge
+ * Three layouts: grid, masonry, scatter
+ */
+
+/* ── Base layout ── */
+.image-cluster {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+/* ── Grid (default) ── */
+.image-cluster--grid {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.image-cluster--grid .image-cluster__item {
+  break-inside: avoid;
+}
+
+/* ── Masonry ── */
+.image-cluster--masonry {
+  columns: 2 240px;
+  column-gap: 1rem;
+}
+
+.image-cluster--masonry .image-cluster__item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  display: inline-block;
+  width: 100%;
+}
+
+/* ── Scatter (collage / moodboard) ── */
+.image-cluster--scatter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1.5rem 0;
+  min-height: 300px;
+}
+
+.image-cluster--scatter .image-cluster__item {
+  flex: 0 0 auto;
+  margin: -0.5rem 0.5rem;
+  position: relative;
+}
+
+/* ── Item variants ── */
+
+/* Polaroid — uses existing .polaroid-frame pattern */
+.image-cluster__item--polaroid {
+  position: relative;
+  padding: 0.625rem 0.625rem 2.25rem;
+  background: oklch(96% 0.02 75);
+  border: 1px solid oklch(82% 0.04 75);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1), 0 4px 20px rgb(0 0 0 / 0.06);
+  transition: transform var(--duration-base, 200ms) var(--ease-base, ease), box-shadow
+    var(--duration-base, 200ms) var(--ease-base, ease);
+  max-width: 100%;
+}
+
+.image-cluster__item--polaroid:hover {
+  transform: rotate(0deg) scale(1.03);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.15);
+}
+
+/* Sticker */
+.image-cluster__item--sticker {
+  border-radius: 0.625rem;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+  background: transparent;
+  transition: transform var(--duration-base, 200ms) var(--ease-base, ease);
+}
+
+.image-cluster__item--sticker:hover {
+  transform: scale(1.05);
+}
+
+/* Plain */
+.image-cluster__item--plain {
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+/* ── Image ── */
+.image-cluster__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.image-cluster__img--polaroid {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+/* ── Caption ── */
+.image-cluster__caption {
+  position: absolute;
+  bottom: 0.375rem;
+  left: 0.625rem;
+  right: 0.625rem;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  color: oklch(30% 0.02 75);
+  font-family: var(--font-family-sans);
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Tape overlay ── */
+.image-cluster__tape {
+  position: absolute;
+  width: 4rem;
+  height: 1rem;
+  background: oklch(85% 0.04 85 / 0.65);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.image-cluster__tape[data-position="top-left"] {
+  top: -0.375rem;
+  left: 1rem;
+  transform: rotate(-8deg);
+}
+
+.image-cluster__tape[data-position="top-right"] {
+  top: -0.375rem;
+  right: 1rem;
+  transform: rotate(6deg);
+}
+
+.image-cluster__tape[data-position="bottom-left"] {
+  bottom: -0.375rem;
+  left: 1rem;
+  transform: rotate(5deg);
+}
+
+.image-cluster__tape[data-position="bottom-right"] {
+  bottom: -0.375rem;
+  right: 1rem;
+  transform: rotate(-7deg);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .image-cluster--grid {
+    grid-template-columns: 1fr;
+  }
+
+  .image-cluster--masonry {
+    columns: 1;
+  }
+
+  .image-cluster--scatter {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image-cluster--scatter .image-cluster__item {
+    margin: 0.5rem 0;
+  }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .image-cluster__item {
+    transition: none !important;
+  }
+
+  .image-cluster__item:hover {
+    transform: none !important;
+  }
+}

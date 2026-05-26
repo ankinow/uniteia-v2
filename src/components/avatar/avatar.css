@@ -1,0 +1,11 @@
+/* Avatar — SVG sprite wrapper styles */
+.avatar {
+  display: inline-block;
+  vertical-align: middle;
+  color: var(--color-action, oklch(0.78 0.16 195));
+  flex-shrink: 0;
+}
+
+.avatar use {
+  fill: currentColor;
+}
