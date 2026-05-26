@@ -226,7 +226,6 @@ export const MasterOpenCanvas = component$<MasterOpenCanvasProps>(
         data-testid="master-open-canvas"
         class={[
           'mixed-media-canvas cursor-stylus perspective-dramatic preserve-3d relative',
-          zoneClass,
           className,
         ]
           .filter(Boolean)
@@ -248,7 +247,7 @@ export const MasterOpenCanvas = component$<MasterOpenCanvasProps>(
         {/* Layer 1 — Content card */}
         <div
           ref={cardRef}
-          class={['glass depth-surface relative preserve-3d'].filter(Boolean).join(' ')}
+          class={['glass depth-surface relative preserve-3d', zoneClass].filter(Boolean).join(' ')}
           data-blur="lg"
           style={{
             transformStyle: 'preserve-3d',
