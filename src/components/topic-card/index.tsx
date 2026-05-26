@@ -27,7 +27,7 @@ export const TopicCard = component$<TopicCardProps>(
           <h3 class="font-display text-xl md:text-2xl tracking-[-1px] text-bone mb-4 text-wrap:balance">
             {title}
           </h3>
-          <p class="text-[15.5px] text-zinc-300 leading-relaxed">{summary}</p>
+          <p class="text-sm text-zinc-300 leading-relaxed">{summary}</p>
         </div>
         {/* UE5 volumetric glow edge */}
         <div

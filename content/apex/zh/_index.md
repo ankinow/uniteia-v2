@@ -10,6 +10,16 @@ quality_score: 100
 metadata:
   created_at: "2026-04-28T08:59:36.892Z"
   updated_at: "2026-04-28T08:59:36.892Z"
+canvas:
+  tone: warm-gray
+  layout: neural-branch
+  nodes:
+    - id: hero
+      section: 0
+      type: hero
+    - id: topics
+      section: 1
+      type: grid
 ---
 
 # UniTeia 巅峰

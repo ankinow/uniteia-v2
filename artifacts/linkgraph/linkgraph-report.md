@@ -1,17 +1,17 @@
 # Linkgraph Report
 
-**Generated:** 2026-05-25T15:49:41.396Z
-**Source:** content-graph.generated (2026-05-24T20:33:43.975Z)
-**Nodes:** 24
-**Edges:** 304
+**Generated:** 2026-05-26T02:53:31.668Z
+**Source:** content-graph.generated (2026-05-26T02:36:14.426Z)
+**Nodes:** 32
+**Edges:** 480
 
 ## Edge Kind Distribution
 
 | Edge Kind | Count |
 |-----------|-------|
-| translated-as | 168 |
-| belongs-to-niche | 120 |
-| related-to | 16 |
+| translated-as | 224 |
+| belongs-to-niche | 160 |
+| related-to | 96 |
 
 ## Edge Reciprocity
 
@@ -20,9 +20,9 @@ Kinds marked as *expected asymmetric* are designed to be one-directional; low re
 
 | Edge Kind | Total | Reciprocal | % Reciprocal |
 |-----------|-------|------------|--------------|
-| translated-as | 168 | 168 | 100% |
-| belongs-to-niche | 120 | 60 | 50% (expected) |
-| related-to | 16 | 16 | 100% (expected) |
+| translated-as | 224 | 224 | 100% |
+| belongs-to-niche | 160 | 30 | 19% (expected) |
+| related-to | 96 | 96 | 100% (expected) |
 
 ## Top Linked Nodes (by degree centrality)
 
@@ -30,11 +30,11 @@ Nodes with the highest total degree (inbound + outbound connections):
 
 | Title | Slug | Inbound | Outbound | Total |
 |-------|------|---------|----------|-------|
-| Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | 23 | 13 | 36 |
-| Galaxy AI: Tools and Strategies for Content Creators | `creator-ai-tools` | 23 | 13 | 36 |
-| Tencent Cloud Deal Stack para Creadores | `tencent-cloud-deal-stack-builders` | 23 | 13 | 36 |
-| Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | 23 | 13 | 36 |
-| Galaxy AI: Herramientas y Estrategias para Creadores de Contenido | `creator-ai-tools` | 23 | 13 | 36 |
+| Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | 41 | 15 | 56 |
+| Magica: The AI Command Center | `magica-overview` | 41 | 15 | 56 |
+| Getting Started with Magica | `magica-quickstart` | 41 | 15 | 56 |
+| Building MCP Servers with Magica | `magica-mcp-server` | 41 | 15 | 56 |
+| Tencent Cloud Deal Stack para Creadores | `tencent-cloud-deal-stack-builders` | 41 | 15 | 56 |
 
 > Full node list with individual degree scores: see appendix below.
 
@@ -44,14 +44,8 @@ For each niche, this section reports how many internal edges exist (edges where 
 
 ### apex
 
-- Nodes: 16
-- Internal edges: 208
-- Connected to: *none*
-
-### language-models
-
-- Nodes: 8
-- Internal edges: 96
+- Nodes: 32
+- Internal edges: 480
 - Connected to: *none*
 
 ## Appendix: Full Node List
@@ -59,30 +53,38 @@ For each niche, this section reports how many internal edges exist (edges where 
 | ID | Title | Slug | Locale | Niches |
 |----|-------|------|--------|--------|
 | `en-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | en | `apex` |
-| `en-creator-ai-tools` | Galaxy AI: Tools and Strategies for Content Creators | `creator-ai-tools` | en | `apex` |
+| `en-magica-overview` | Magica: The AI Command Center | `magica-overview` | en | `apex` |
+| `en-magica-quickstart` | Getting Started with Magica | `magica-quickstart` | en | `apex` |
+| `en-magica-mcp-server` | Building MCP Servers with Magica | `magica-mcp-server` | en | `apex` |
 | `es-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack para Creadores | `tencent-cloud-deal-stack-builders` | es | `apex` |
-| `es-creator-ai-tools` | Galaxy AI: Herramientas y Estrategias para Creadores de Contenido | `creator-ai-tools` | es | `apex` |
+| `es-magica-overview` | Magica: El Centro de Comando de IA | `magica-overview` | es | `apex` |
+| `es-magica-quickstart` | Primeros Pasos con Magica | `magica-quickstart` | es | `apex` |
+| `es-magica-mcp-server` | Construyendo Servidores MCP con Magica | `magica-mcp-server` | es | `apex` |
 | `ja-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | ja | `apex` |
-| `ja-creator-ai-tools` | Galaxy AI: コンテンツクリエイターのためのツールと戦略 | `creator-ai-tools` | ja | `apex` |
+| `ja-magica-overview` | Magica: AIコマンドセンター | `magica-overview` | ja | `apex` |
+| `ja-magica-quickstart` | Magica入門 | `magica-quickstart` | ja | `apex` |
+| `ja-magica-mcp-server` | MagicaでMCPサーバーを構築する | `magica-mcp-server` | ja | `apex` |
 | `pt-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack: Cloud Barata para Builders | `tencent-cloud-deal-stack-builders` | pt | `apex` |
-| `pt-creator-ai-tools` | Galaxy AI: Ferramentas e Estratégias para Criadores de Conteúdo | `creator-ai-tools` | pt | `apex` |
+| `pt-magica-overview` | Magica: O Centro de Comando de IA | `magica-overview` | pt | `apex` |
+| `pt-magica-quickstart` | Primeiros Passos com Magica | `magica-quickstart` | pt | `apex` |
+| `pt-magica-mcp-server` | Construindo Servidores MCP com Magica | `magica-mcp-server` | pt | `apex` |
 | `zh-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | zh | `apex` |
-| `zh-creator-ai-tools` | Galaxy AI：内容创作者的工具与策略 | `creator-ai-tools` | zh | `apex` |
+| `zh-magica-overview` | Magica：AI指挥中心 | `magica-overview` | zh | `apex` |
+| `zh-magica-quickstart` | Magica快速入门 | `magica-quickstart` | zh | `apex` |
+| `zh-magica-mcp-server` | 使用Magica构建MCP服务器 | `magica-mcp-server` | zh | `apex` |
 | `de-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack für Entwickler | `tencent-cloud-deal-stack-builders` | de | `apex` |
-| `de-creator-ai-tools` | Galaxy AI: Tools und Strategien für Content Creator | `creator-ai-tools` | de | `apex` |
+| `de-magica-overview` | Magica: Das KI-Kommandozentrum | `magica-overview` | de | `apex` |
+| `de-magica-quickstart` | Erste Schritte mit Magica | `magica-quickstart` | de | `apex` |
+| `de-magica-mcp-server` | MCP-Server mit Magica erstellen | `magica-mcp-server` | de | `apex` |
 | `fr-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack pour Builders | `tencent-cloud-deal-stack-builders` | fr | `apex` |
-| `fr-creator-ai-tools` | Galaxy AI : Outils et Stratégies pour les Créateurs de Contenu | `creator-ai-tools` | fr | `apex` |
+| `fr-magica-overview` | Magica: Le Centre de Commandement IA | `magica-overview` | fr | `apex` |
+| `fr-magica-quickstart` | Premiers Pas avec Magica | `magica-quickstart` | fr | `apex` |
+| `fr-magica-mcp-server` | Construire des Serveurs MCP avec Magica | `magica-mcp-server` | fr | `apex` |
 | `it-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack per Creator | `tencent-cloud-deal-stack-builders` | it | `apex` |
-| `it-creator-ai-tools` | Galaxy AI: Strumenti e Strategie per i Creatori di Contenuti | `creator-ai-tools` | it | `apex` |
-| `en-foundation-models-overview` | Foundation Models Overview | `foundation-models-overview` | en | `language-models` |
-| `es-foundation-models-overview` | Visión General de los Modelos Fundacionales | `foundation-models-overview` | es | `language-models` |
-| `ja-foundation-models-overview` | ファンデーションモデル概要 | `foundation-models-overview` | ja | `language-models` |
-| `pt-foundation-models-overview` | Visão Geral de Modelos Fundacionais | `foundation-models-overview` | pt | `language-models` |
-| `zh-foundation-models-overview` | 基础模型概述 | `foundation-models-overview` | zh | `language-models` |
-| `fr-foundation-models-overview` | Aperçu des Modèles Fondamentaux | `foundation-models-overview` | fr | `language-models` |
-| `de-foundation-models-overview` | Übersicht über Foundation Models | `foundation-models-overview` | de | `language-models` |
-| `it-foundation-models-overview` | Panoramica dei Modelli Fondazionali | `foundation-models-overview` | it | `language-models` |
+| `it-magica-overview` | Magica: Il Centro di Comando AI | `magica-overview` | it | `apex` |
+| `it-magica-quickstart` | Primei Passi con Magica | `magica-quickstart` | it | `apex` |
+| `it-magica-mcp-server` | Costruire Server MCP con Magica | `magica-mcp-server` | it | `apex` |
 
 ---
 
-*Report generated by scripts/generate-linkgraph-report.ts at 2026-05-25T15:49:41.399Z*
+*Report generated by scripts/generate-linkgraph-report.ts at 2026-05-26T02:53:31.674Z*

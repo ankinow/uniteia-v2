@@ -1,0 +1,133 @@
+/* AETHER ASSETS: Core Visual System
+ * Palette extensions, frame variants, connector styles, avatar container, animations
+ */
+
+/* ── Palette: Canvas tone defaults ── */
+:root {
+  --canvas-tone-bg: oklch(10% 0.01 260);
+  --canvas-tone-text: oklch(90% 0.01 75);
+  --canvas-tone-accent: var(--color-action, oklch(0.78 0.16 195));
+  --canvas-tone-surface: oklch(15% 0.02 260 / 0.6);
+  --canvas-tone-border: oklch(25% 0.04 260 / 0.4);
+}
+
+.canvas-tone-parchment {
+  --canvas-tone-bg: oklch(93% 0.03 75);
+  --canvas-tone-text: oklch(20% 0.02 75);
+  --canvas-tone-accent: var(--color-coral, oklch(0.72 0.2 22));
+  --canvas-tone-surface: oklch(85% 0.04 60 / 0.5);
+  --canvas-tone-border: oklch(75% 0.05 65 / 0.5);
+}
+
+.canvas-tone-warm-gray {
+  --canvas-tone-bg: oklch(35% 0.02 60);
+  --canvas-tone-text: oklch(90% 0.01 60);
+  --canvas-tone-accent: var(--color-aether-amber, oklch(0.72 0.165 80));
+  --canvas-tone-surface: oklch(40% 0.02 60 / 0.5);
+  --canvas-tone-border: oklch(45% 0.03 65 / 0.4);
+}
+
+.canvas-tone-obsidian {
+  --canvas-tone-bg: oklch(8% 0.01 260);
+  --canvas-tone-text: oklch(85% 0.02 260);
+  --canvas-tone-accent: var(--color-aether-teal, oklch(0.7 0.16 195));
+  --canvas-tone-surface: oklch(15% 0.02 260 / 0.7);
+  --canvas-tone-border: oklch(22% 0.03 260 / 0.5);
+}
+
+/* ── Frame variants ── */
+.frame-glass {
+  background: color-mix(in srgb, var(--canvas-tone-surface) 80%, transparent);
+  backdrop-filter: blur(var(--backdrop-blur-glass, 12px));
+  border: 1px solid var(--canvas-tone-border);
+  border-radius: 12px;
+}
+
+.frame-parchment {
+  background: var(--canvas-tone-surface);
+  border: 1px solid var(--canvas-tone-border);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.08), 0 1px 2px rgb(0 0 0 / 0.04);
+}
+
+.frame-ink {
+  background: transparent;
+  border: 2px solid var(--canvas-tone-text);
+  border-radius: 4px;
+  filter: url(#ink-bleed);
+}
+
+.frame-neon {
+  background: transparent;
+  border: 1px solid var(--canvas-tone-accent);
+  border-radius: 12px;
+  box-shadow: 0 0 12px var(--canvas-tone-accent), inset 0 0 12px
+    color-mix(in srgb, var(--canvas-tone-accent) 20%, transparent);
+}
+
+/* ── Connector styles ── */
+.connector-solid {
+  stroke: var(--canvas-tone-border);
+  stroke-width: 1.5;
+  fill: none;
+}
+.connector-dashed {
+  stroke: var(--canvas-tone-border);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+  fill: none;
+}
+.connector-glow {
+  stroke: var(--canvas-tone-accent);
+  stroke-width: 2;
+  fill: none;
+  filter: url(#glow-line);
+}
+.connector-ink {
+  stroke: var(--canvas-tone-text);
+  stroke-width: 1.5;
+  fill: none;
+  filter: url(#ink-bleed);
+}
+
+/* ── Avatar containers ── */
+.avatar-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+.avatar-container svg {
+  width: 100%;
+  height: 100%;
+  color: var(--canvas-tone-accent);
+}
+
+/* ── Canvas node transition presets ── */
+.canvas-node-enter {
+  animation: canvas-node-fade-up 0.6s var(--ease-base, cubic-bezier(0.34, 1.56, 0.64, 1)) both;
+}
+.canvas-node-enter-stagger {
+  animation: canvas-node-fade-up 0.6s var(--ease-base, cubic-bezier(0.34, 1.56, 0.64, 1)) both;
+}
+
+@keyframes canvas-node-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes connector-draw {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}

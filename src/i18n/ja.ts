@@ -74,6 +74,7 @@ export const ja: TranslationStrings = {
     qualityLabel: '品質',
     sourceCount: '{count} ソース',
     sources: 'ソース',
+    freshnessLabel: '鮮度',
   },
   search: {
     placeholder: 'トピック、記事を検索...',
@@ -89,6 +90,18 @@ export const ja: TranslationStrings = {
     articleTitleTemplate: '{title} | UniTeia',
     topicsTitle: 'AIトピック',
     topicsDescription: '厳選された人工知能のトピックとニッチのリストをご覧ください。',
+  },
+  homepage: {
+    featuredSignals: '注目のシグナル',
+    knowledgeClusters: '知識クラスター',
+    frontierStreams: 'フロンティアストリーム',
+    signalCount: '{count} シグナル',
+    curatedAcross: '{count} のニッチからキュレーション',
+    noSignals: 'この言語ではまだシグナルは公開されていません。',
+    browseTopics: 'トピックを閲覧',
+    networkState: 'UniTeia ネットワーク状態',
+    signalIntake: 'シグナル摂取',
+    deliveryLayer: '配信レイヤー',
   },
   onboarding: {
     step1: {

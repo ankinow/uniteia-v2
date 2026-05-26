@@ -42,7 +42,7 @@ export default component$(() => {
           class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_30%,rgba(100,220,255,0.06),transparent_70%)] pointer-events-none"
         />
         <div class="relative z-[1] max-w-3xl">
-          <div class="text-[clamp(2.5rem,6vw,4.5rem)] font-display font-bold leading-[1.1] tracking-tight mb-4">
+          <div class="text-4xl font-display font-bold leading-[1.1] tracking-tight mb-4">
             <span class="text-bone">Uni</span>
             <span class="text-cyan">{'Teia'}</span>
           </div>
@@ -56,7 +56,7 @@ export default component$(() => {
           <div class="flex flex-wrap gap-4 justify-center mb-12">
             <a
               href={exploreUrl.value}
-              class="inline-flex items-center gap-2 px-6 py-3 bg-cyan/20 border border-cyan/50 text-cyan hover:bg-cyan/30 transition-colors rounded-none text-sm uppercase tracking-wider font-medium focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
+              class="inline-flex items-center gap-2 px-6 py-3 bg-cyan/20 border border-cyan/50 text-white hover:bg-cyan/30 transition-colors rounded-none text-sm uppercase tracking-wider font-medium focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
             >
               Explorar Tópicos
             </a>

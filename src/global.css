@@ -91,9 +91,9 @@
   --perspective-dramatic: 1000px;
 
   /* ── Spacing scale (M011: fluid clamp typography) ── */
-  --font-size-display-xl: clamp(2.5rem, 8vw, 5rem);
-  --font-size-display-lg: clamp(2rem, 6vw, 3.5rem);
-  --font-size-display-md: clamp(1.5rem, 4vw, 2.5rem);
+  --font-size-display-xl: clamp(2rem, 5vw, 3.5rem);
+  --font-size-display-lg: clamp(1.5rem, 4vw, 2.5rem);
+  --font-size-display-md: clamp(1.25rem, 3vw, 2rem);
 
   /* ── 2026 Visual DNA: Material properties ── */
   --glass-opacity: 0.15;
@@ -140,6 +140,21 @@
   --color-agent-curator-glow: oklch(0.6 0.25 160 / 0.35);
   --color-agent-analyst: oklch(0.65 0.18 15);
   --color-agent-analyst-glow: oklch(0.65 0.3 15 / 0.35);
+
+  /* ── M015: Aether Canvas Engine — visual content canvas ── */
+  --color-canvas-bg: oklch(10% 0.01 260);
+  --color-canvas-text: oklch(90% 0.01 75);
+  --color-canvas-surface: oklch(15% 0.02 260 / 0.6);
+  --color-canvas-border: oklch(25% 0.04 260 / 0.4);
+  --color-canvas-parchment: oklch(93% 0.03 75);
+  --color-canvas-parchment-text: oklch(20% 0.02 75);
+  --color-canvas-warm-gray: oklch(35% 0.02 60);
+  --color-canvas-warm-gray-text: oklch(90% 0.01 60);
+  --color-canvas-obsidian: oklch(8% 0.01 260);
+  --color-canvas-obsidian-text: oklch(85% 0.02 260);
+  --color-canvas-glow-indigo: oklch(60% 0.3 265 / 0.35);
+  --color-canvas-glow-amber: oklch(72% 0.3 80 / 0.35);
+  --color-canvas-glow-teal: oklch(70% 0.28 195 / 0.35);
 }
 
 /* ═══════════════════════════════════════════
@@ -179,7 +194,7 @@
 
   /* Text */
   --bone: #f0e8d8;
-  --bone-muted: #8b949e;
+  --bone-muted: #b8b0a0;
 
   /* Motion */
   --t-fast: 120ms;

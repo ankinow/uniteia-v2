@@ -38,7 +38,7 @@ export const NicheLanding = component$<NicheLandingProps>(
             <div class="p-6 md:p-8">
               <div class="flex items-center gap-4 mb-4">
                 {iconClass && <div class={iconClass} aria-hidden="true" />}
-                <h1 class="text-3xl font-bold text-bone leading-tight font-display">
+                <h1 class="text-2xl font-bold text-bone leading-tight font-display text-wrap:balance">
                   {niche.title[lang]}
                 </h1>
               </div>
@@ -50,12 +50,15 @@ export const NicheLanding = component$<NicheLandingProps>(
         {/* Article list — canvas-light + grain + ue5-illusion (mixed UI: light content) */}
         <ErrorBoundary label="Article Grid">
           <section
-            class="canvas-light ue5-illusion glass relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k"
+            class="relative overflow-hidden rounded-3xl p-6 md:p-8 bg-[#131820] border border-white/5"
             data-blur="lg"
           >
-            <div class="paper-fiber" aria-hidden="true" />
+            <div
+              class="grain-4k absolute inset-0 pointer-events-none opacity-30"
+              aria-hidden="true"
+            />
             <div class="relative z-[var(--z-raised)]">
-              <h2 class="text-2xl font-display tracking-[-1px] text-paper-text mb-6">
+              <h2 class="text-xl md:text-2xl font-display tracking-[-1px] text-bone mb-6">
                 {t.niche.articleCount.replace('{count}', localizedArticles.length.toString())}
               </h2>
               {localizedArticles.length > 0 ? (
@@ -89,13 +92,16 @@ export const NicheLanding = component$<NicheLandingProps>(
         <ErrorBoundary label="Related Niches">
           {otherNiches.length > 0 && (
             <section
-              class="canvas-light ue5-illusion glass relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k"
+              class="relative overflow-hidden rounded-3xl p-6 md:p-8 bg-[#131820] border border-white/5"
               data-blur="lg"
               aria-label={t.niche.allNiches}
             >
-              <div class="paper-fiber" aria-hidden="true" />
+              <div
+                class="grain-4k absolute inset-0 pointer-events-none opacity-30"
+                aria-hidden="true"
+              />
               <div class="relative z-[var(--z-raised)]">
-                <h2 class="text-2xl font-display tracking-[-1px] text-paper-text mb-6">
+                <h2 class="text-xl md:text-2xl font-display tracking-[-1px] text-bone mb-6">
                   {t.niche.allNiches}
                 </h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

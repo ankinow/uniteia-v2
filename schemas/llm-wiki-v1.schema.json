@@ -107,6 +107,69 @@
           "minimum": 1
         }
       }
+    },
+    "canvas": {
+      "type": "object",
+      "description": "SceneGraph definition for Aether Canvas rendering",
+      "required": ["version", "tone", "nodes", "connectors"],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "SceneGraph schema version"
+        },
+        "tone": {
+          "type": "string",
+          "enum": ["obsidian", "parchment", "warm-gray"],
+          "description": "Canvas visual tone"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "section", "x", "y", "width", "height", "type"],
+            "properties": {
+              "id": { "type": "string" },
+              "section": { "type": "string" },
+              "x": { "type": "number" },
+              "y": { "type": "number" },
+              "width": { "type": "number" },
+              "height": { "type": "number" },
+              "type": {
+                "type": "string",
+                "enum": ["card", "hero", "image-cluster", "connector-label"]
+              },
+              "variant": { "type": "string" },
+              "zIndex": { "type": "integer" }
+            }
+          }
+        },
+        "connectors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "from", "to"],
+            "properties": {
+              "id": { "type": "string" },
+              "from": { "type": "string" },
+              "to": { "type": "string" },
+              "type": { "type": "string", "enum": ["solid", "dashed", "glow", "ink"] },
+              "label": { "type": "string" }
+            }
+          }
+        },
+        "style": {
+          "type": "string",
+          "enum": [
+            "constellation",
+            "neural-branch",
+            "timeline-spiral",
+            "editorial-collage",
+            "corkboard-scatter",
+            "masonry-constellation"
+          ]
+        }
+      }
     }
   }
 }

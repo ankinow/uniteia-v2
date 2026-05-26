@@ -2,6 +2,9 @@ import { component$, useVisibleTask$ } from '@builder.io/qwik'
 import { QwikCityProvider, RouterOutlet, ServiceWorkerRegister } from '@builder.io/qwik-city'
 import { RouterHead } from '~/components/router-head'
 import './global.css'
+import '~/assets/uniteia-core.css'
+import '~/assets/aether-assets-glow.css'
+import '~/assets/aether-assets-textures.css'
 
 /**
  * UniTeia Root Component

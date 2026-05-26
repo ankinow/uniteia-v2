@@ -1,11 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
-import { AdaptiveHeader } from '~/components/adaptive-header'
-import { ArticleFrame } from '~/components/article-frame'
+import { ArticleRenderer } from '~/components/article-renderer'
 import { NotFound } from '~/components/error-pages/not-found'
-import { FrontmatterSlots } from '~/components/frontmatter-slots'
-import { JSONLD } from '~/components/json-ld'
-import { RelatedArticles } from '~/components/related-articles'
 import type { ContentLocale, ContentNode } from '~/content-graph/contracts/node'
 import { getTranslation } from '~/i18n/context'
 import type { SupportedLanguage } from '~/i18n/types'
@@ -13,7 +9,6 @@ import { SUPPORTED_LANGUAGES } from '~/i18n/types'
 import type { LlmWikiContent } from '~/types/content'
 import { ContentLoaderError } from '~/types/content'
 import { loadContent } from '~/utils/content-loader'
-import { generateArticleSchema } from '~/utils/schema-generators'
 import { extractDescription } from '~/utils/text-utils'
 
 /**
@@ -130,44 +125,18 @@ export default component$(() => {
     return <NotFound />
   }
 
-  const description = extractDescription(content.value.content)
-
-  const articleSchema = generateArticleSchema({
-    headline: content.value.title,
-    description,
-    author: content.value.metadata?.author || 'UniTeia System',
-    url: content.value.slug,
-    niche: content.value.slug,
-    lang: content.value.lang,
-  })
-
   return (
-    <ArticleFrame>
-      <JSONLD data={articleSchema} />
-      <AdaptiveHeader title={content.value.title} subtitle={description} />
-      <FrontmatterSlots
-        subjects={content.value.subjects}
-        lang={content.value.lang}
-        metadata={content.value.metadata}
-        labels={{
-          subjectsLabel: getTranslation(content.value.lang).article.subjectsLabel,
-          byAuthor: content.value.metadata?.author || 'UniTeia System',
-          version: content.value.metadata?.version?.toString() || '',
-          readInLang: getTranslation(content.value.lang).article.readInLang,
-        }}
-      />
-      <div
-        class="prose prose-invert mt-8 max-w-none text-bone-primary prose-a:text-action hover:prose-a:text-action-hi transition-colors"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: content is pre-validated markdown
-        dangerouslySetInnerHTML={content.value.content}
-      />
-      <div class="mt-12">
-        <RelatedArticles
-          nodes={relatedNodes.value}
-          lang={content.value.lang as SupportedLanguage}
-        />
-      </div>
-    </ArticleFrame>
+    <ArticleRenderer
+      content={content.value}
+      relatedNodes={relatedNodes.value}
+      withErrorBoundary={false}
+      labels={{
+        subjectsLabel: getTranslation(content.value.lang).article.subjectsLabel,
+        byAuthor: getTranslation(content.value.lang).article.byAuthor,
+        version: getTranslation(content.value.lang).article.version,
+        readInLang: getTranslation(content.value.lang).article.readInLang,
+      }}
+    />
   )
 })
 

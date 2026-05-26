@@ -22,17 +22,24 @@ export interface NavTreeProps {
 export const NavTree = component$<NavTreeProps>(
   ({ navData, niches, currentLang, currentNiche, nicheSlugMap }) => {
     const visibleNiches = niches
-      .filter(niche => niche.slug !== 'apex')
       .map(niche => {
-        // Prefer landing page title from content if available
         const nicheData = navData.niches[niche.slug]
-        const landing = nicheData?.articles.find(a => a.slug === '_index' && a.lang === currentLang)
+        const articles = nicheData?.articles ?? []
+        const realArticles = articles.filter(a => a.slug !== '_index')
+        const landing = articles.find(a => a.slug === '_index' && a.lang === currentLang)
         return {
           id: niche.slug,
           title: landing?.title ?? niche.title[currentLang] ?? niche.title.en ?? niche.slug,
           href: nicheIndex(currentLang, nicheSlugMap?.[niche.slug] ?? niche.slug),
           isActive: currentNiche === niche.slug,
+          articleCount: realArticles.length,
         }
+      })
+      .filter(n => n.articleCount > 0)
+      .sort((a, b) => {
+        if (a.id === 'apex') return -1
+        if (b.id === 'apex') return 1
+        return 0
       })
 
     if (visibleNiches.length === 0) {

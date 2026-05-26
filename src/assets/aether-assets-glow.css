@@ -1,0 +1,85 @@
+/* AETHER ASSETS: OKLCH Glow Effects
+ * Gradient mesh, bloom, neon glow, atmospheric haze
+ * Integrates with Tailwind v4 @theme tokens via CSS variables
+ */
+
+/* ── Glow mixes (use as background-image) ── */
+.glow-indigo {
+  background: radial-gradient(
+    ellipse at 30% 20%,
+    var(--color-aether-indigo-glow, oklch(60% 0.3 265 / 0.35)) 0%,
+    transparent 60%
+  );
+}
+.glow-amber {
+  background: radial-gradient(
+    ellipse at 70% 30%,
+    var(--color-aether-amber-glow, oklch(72% 0.3 80 / 0.35)) 0%,
+    transparent 60%
+  );
+}
+.glow-teal {
+  background: radial-gradient(
+    ellipse at 50% 80%,
+    var(--color-aether-teal-glow, oklch(70% 0.28 195 / 0.35)) 0%,
+    transparent 60%
+  );
+}
+.glow-atmospheric {
+  background: radial-gradient(
+    ellipse 120% 80% at 50% 100%,
+    oklch(15% 0.02 260 / 0.6) 0%,
+    oklch(10% 0.01 260 / 0.3) 50%,
+    transparent 100%
+  );
+}
+
+/* ── Text glow ── */
+.text-glow-cyan {
+  text-shadow: 0 0 8px var(--color-action, oklch(0.78 0.16 195)), 0 0 20px
+    color-mix(in srgb, var(--color-action, oklch(0.78 0.16 195)) 50%, transparent);
+}
+.text-glow-coral {
+  text-shadow: 0 0 8px var(--color-coral, oklch(0.72 0.2 22)), 0 0 20px
+    color-mix(in srgb, var(--color-coral, oklch(0.72 0.2 22)) 50%, transparent);
+}
+.text-glow-amber {
+  text-shadow: 0 0 8px var(--color-aether-amber-glow, oklch(72% 0.3 80 / 0.35)), 0 0 20px
+    color-mix(in srgb, var(--color-aether-amber, oklch(0.72 0.165 80)) 30%, transparent);
+}
+
+/* ── Border glow ── */
+.glow-border-cyan {
+  box-shadow: 0 0 6px var(--color-action, oklch(0.78 0.16 195)), inset 0 0 6px
+    color-mix(in srgb, var(--color-action, oklch(0.78 0.16 195)) 30%, transparent);
+}
+.glow-border-indigo {
+  box-shadow: 0 0 6px var(--color-aether-indigo-glow, oklch(60% 0.3 265 / 0.35)), inset 0 0 6px
+    color-mix(in srgb, var(--color-aether-indigo, oklch(0.6 0.2 265)) 30%, transparent);
+}
+
+/* ── Gradient mesh backgrounds ── */
+.gradient-mesh-aether {
+  background: radial-gradient(
+      ellipse 80% 60% at 20% 20%,
+      oklch(60% 0.2 265 / 0.15) 0%,
+      transparent 60%
+    ), radial-gradient(ellipse 60% 80% at 80% 40%, oklch(70% 0.16 195 / 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 80%, oklch(72% 0.165 80 / 0.1) 0%, transparent 50%);
+}
+.gradient-mesh-obsidian {
+  background: radial-gradient(
+      ellipse 80% 60% at 20% 20%,
+      oklch(40% 0.08 260 / 0.25) 0%,
+      transparent 60%
+    ), radial-gradient(ellipse 60% 80% at 80% 40%, oklch(35% 0.06 220 / 0.2) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 80%, oklch(25% 0.04 200 / 0.15) 0%, transparent 50%);
+}
+.gradient-mesh-parchment {
+  background: radial-gradient(
+      ellipse 80% 60% at 20% 20%,
+      oklch(90% 0.03 75 / 0.5) 0%,
+      transparent 60%
+    ), radial-gradient(ellipse 60% 80% at 80% 40%, oklch(85% 0.04 60 / 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 80%, oklch(88% 0.03 80 / 0.3) 0%, transparent 50%);
+}

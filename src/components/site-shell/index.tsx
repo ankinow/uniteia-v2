@@ -1,6 +1,6 @@
 import { $, Slot, component$, useOnDocument } from '@builder.io/qwik'
 import { type RequestHandler, useLocation } from '@builder.io/qwik-city'
-import { SiteHeader2D5 } from '~/components/adaptive-header/SiteHeader2D5'
+import { SiteHeader2D5 } from '~/components/site-header-2d5'
 import { useI18n } from '~/i18n/context'
 import { onLanguageNegotiation } from '~/i18n/middleware'
 import { useDopamineBudgetProvider } from '~/stores/dopamine-budget'

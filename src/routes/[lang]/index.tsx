@@ -39,6 +39,9 @@ export default component$(() => {
   const t = getTranslation(lang)
   const siteName = t.seo.siteName
   const { featuredSignals, knowledgeClusters, frontierStreams } = homepage.value
+  const sortedClusters = [...knowledgeClusters].sort((a, b) =>
+    a.nicheSlug === 'apex' ? -1 : b.nicheSlug === 'apex' ? 1 : 0
+  )
 
   return (
     <div class="space-y-12 p-6 md:p-8 mx-auto max-w-4xl">
@@ -86,22 +89,22 @@ export default component$(() => {
           {
             content: (
               <MasterOpenCanvas
-                title="UniTeia Network State"
+                title={t.homepage.networkState}
                 decisionNodes={(() => {
-                  const clusterNodes = knowledgeClusters.map(c => ({
+                  const clusterNodes = sortedClusters.map(c => ({
                     id: c.nicheSlug,
                     label: c.label,
-                    outcome: `${c.articleCount} signals · Q${c.avgGraphScore.toFixed(0)}`,
+                    outcome: `${t.homepage.signalCount.replace('{count}', c.articleCount.toString())} · Q${c.avgGraphScore.toFixed(0)}`,
                   }))
                   const rootNode = {
                     id: 'signal-intake',
-                    label: 'Signal Intake',
-                    outcome: `${new Set([...featuredSignals, ...frontierStreams].map(s => s.node.id)).size} signals curated across ${clusterNodes.length} niches`,
+                    label: t.homepage.signalIntake,
+                    outcome: `${t.homepage.signalCount.replace('{count}', new Set([...featuredSignals, ...frontierStreams].map(s => s.node.id)).size.toString())} ${t.homepage.curatedAcross.replace('{count}', clusterNodes.length.toString())}`,
                     children: clusterNodes.length > 0 ? clusterNodes : undefined,
                   }
                   const deliveryNode = {
                     id: 'delivery',
-                    label: 'Delivery Layer',
+                    label: t.homepage.deliveryLayer,
                     outcome: `${SUPPORTED_LANGUAGES.length}-locale CF Pages · sitemap · search index`,
                   }
                   return [rootNode, deliveryNode]
@@ -114,7 +117,7 @@ export default component$(() => {
           {
             content: (
               <div class="absolute bottom-12 left-0 right-0 text-center text-sm tracking-[0.3em] uppercase text-bone/25">
-                UniTeia Network State
+                {t.homepage.networkState}
               </div>
             ),
             speed: 1.5,
@@ -126,10 +129,10 @@ export default component$(() => {
         {featuredSignals.length > 0 && (
           <section class="mb-10">
             <h2
-              class="text-xl font-bold font-pixel text-paper-text mb-6 uppercase tracking-wider scroll-reveal"
+              class="text-xl font-bold font-pixel text-paper-text mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
               data-step="1"
             >
-              Featured Signals
+              {t.homepage.featuredSignals}
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {featuredSignals.map((signal, i) => (
@@ -154,7 +157,7 @@ export default component$(() => {
                         <div class="flex gap-3 mt-3 text-xs">
                           <SignalChip
                             metric={signal.node.metrics.graphScore}
-                            label="Quality"
+                            label={t.signal.qualityLabel}
                             variant="analyst"
                             trend={signal.node.metrics.graphScore >= 70 ? 'up' : 'stable'}
                           />
@@ -171,16 +174,16 @@ export default component$(() => {
           </section>
         )}
 
-        {knowledgeClusters.length > 0 && (
+        {sortedClusters.length > 0 && (
           <section class="mb-10">
             <h2
-              class="text-xl font-bold font-pixel text-paper-text mb-6 uppercase tracking-wider scroll-reveal"
+              class="text-xl font-bold font-pixel text-paper-text mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
               data-step="1"
             >
-              Knowledge Clusters
+              {t.homepage.knowledgeClusters}
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {knowledgeClusters.map((cluster, i) => (
+              {sortedClusters.map((cluster, i) => (
                 <a
                   key={cluster.nicheSlug}
                   href={cluster.href}
@@ -191,9 +194,12 @@ export default component$(() => {
                     <CinematicDepthCard variant="subtle" layer={i % 2}>
                       <div class="p-5">
                         <p class="font-semibold text-bone text-base">{cluster.label}</p>
-                        <p class="text-sm text-bone mt-2">
-                          {cluster.articleCount} signal{cluster.articleCount !== 1 ? 's' : ''} ·
-                          &empty; {cluster.avgGraphScore.toFixed(0)}
+                        <p class="text-sm text-bone mt-2 tabular-nums">
+                          {t.homepage.signalCount.replace(
+                            '{count}',
+                            cluster.articleCount.toString()
+                          )}{' '}
+                          · &empty; {cluster.avgGraphScore.toFixed(0)}
                         </p>
                       </div>
                     </CinematicDepthCard>
@@ -207,10 +213,10 @@ export default component$(() => {
         {frontierStreams.length > 0 && (
           <section class="mb-10">
             <h2
-              class="text-xl font-bold font-pixel text-paper-text mb-6 uppercase tracking-wider scroll-reveal"
+              class="text-xl font-bold font-pixel text-paper-text mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
               data-step="1"
             >
-              Frontier Streams
+              {t.homepage.frontierStreams}
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {frontierStreams.map((stream, i) => (
@@ -232,7 +238,7 @@ export default component$(() => {
                         <div class="flex gap-2 mt-2">
                           <SignalChip
                             metric={stream.node.metrics.freshnessScore}
-                            label="Freshness"
+                            label={t.signal.freshnessLabel}
                             variant="curator"
                             trend={
                               stream.node.metrics.freshnessScore >= 70
@@ -257,12 +263,12 @@ export default component$(() => {
         knowledgeClusters.length === 0 &&
         frontierStreams.length === 0 && (
           <section class="text-center py-20">
-            <p class="text-bone-muted text-lg">No signals published yet in this locale.</p>
+            <p class="text-bone-muted text-lg">{t.homepage.noSignals}</p>
             <a
               href={`/${lang}/signals`}
               class="inline-block mt-4 text-cyan hover:text-cyan/80 transition-colors"
             >
-              Browse topics &rarr;
+              {t.homepage.browseTopics} &rarr;
             </a>
           </section>
         )}

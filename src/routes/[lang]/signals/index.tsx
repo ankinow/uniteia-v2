@@ -52,7 +52,7 @@ export default component$(() => {
   return (
     <div class="px-4 py-8" data-testid="niche-index">
       <div class="mb-8 px-4">
-        <h1 class="text-3xl font-bold text-bone font-display">{t.niche.allNiches}</h1>
+        <h1 class="text-2xl font-bold text-bone font-display">{t.niche.allNiches}</h1>
       </div>
 
       {nichesSignal.value.length > 0 ? (

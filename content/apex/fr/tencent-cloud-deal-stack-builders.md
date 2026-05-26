@@ -29,6 +29,53 @@ metadata:
   trustLevel: low
   importedFrom: uniteia-mega-factory
   contentPackage: uniteia-content-package/v1
+canvas:
+  tone: obsidian
+  layout: constellation
+  nodes:
+    - id: intro
+      section: 0
+      type: hero
+    - id: free-products
+      section: 1
+      type: card
+    - id: lighthouse
+      section: 2
+      type: card
+    - id: cvm
+      section: 3
+      type: card
+    - id: edgeone
+      section: 4
+      type: card
+    - id: stack-comparison
+      section: 5
+      type: table
+    - id: checklist
+      section: 6
+      type: list
+    - id: recommended-setup
+      section: 7
+      type: grid
+  connectors:
+    - from: intro
+      to: free-products
+    - from: intro
+      to: lighthouse
+    - from: intro
+      to: cvm
+    - from: intro
+      to: edgeone
+    - from: lighthouse
+      to: stack-comparison
+    - from: cvm
+      to: stack-comparison
+    - from: edgeone
+      to: stack-comparison
+    - from: stack-comparison
+      to: checklist
+    - from: checklist
+      to: recommended-setup
 ---
 # Tencent Cloud Deal Stack: Cloud Abordable pour les Builders
 

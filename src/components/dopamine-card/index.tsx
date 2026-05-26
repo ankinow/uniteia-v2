@@ -23,7 +23,7 @@ export const DopamineCard = component$<DopamineCardProps>(
 
     const hoverClass =
       whisperState.value === 'armed'
-        ? 'hover:-translate-y-[var(--whisper-y,2px)] hover:border-action'
+        ? 'hover:-translate-y-[var(--whisper-y,2px)] hover:border-cyan/30 hover:shadow-[0_8px_32px_rgba(0,210,211,0.12)]'
         : ''
 
     return (
@@ -35,7 +35,7 @@ export const DopamineCard = component$<DopamineCardProps>(
         data-dopamine-route-remaining={budget.routeBudget.remaining}
         data-dopamine-session-remaining={budget.sessionBudget.remaining}
         class={[
-          'group relative flex flex-col gap-3 rounded-lg border border-action/20 bg-raised p-4 shadow-d1',
+          'group relative flex flex-col gap-3 rounded-xl border border-white/15 bg-[#252a33] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.4)]',
           hoverClass,
           'motion-reduce:hover:translate-y-0',
           className,

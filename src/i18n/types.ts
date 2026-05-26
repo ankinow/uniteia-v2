@@ -90,6 +90,7 @@ export interface TranslationStrings {
     qualityLabel: string
     sourceCount: string
     sources: string
+    freshnessLabel: string
   }
   search: {
     placeholder: string
@@ -105,6 +106,18 @@ export interface TranslationStrings {
     articleTitleTemplate: string
     topicsTitle: string
     topicsDescription: string
+  }
+  homepage: {
+    featuredSignals: string
+    knowledgeClusters: string
+    frontierStreams: string
+    signalCount: string
+    curatedAcross: string
+    noSignals: string
+    browseTopics: string
+    networkState: string
+    signalIntake: string
+    deliveryLayer: string
   }
   onboarding: {
     step1: {

@@ -43,6 +43,56 @@ export interface LlmWikiContent {
   quality_score?: number
   /** List of available languages for this article */
   translations?: SupportedLanguage[]
+  /** SceneGraph definition for Aether Canvas rendering */
+  canvas?: CanvasSceneGraph
+}
+
+/**
+ * Canvas tone variant
+ */
+export type CanvasTone = 'obsidian' | 'parchment' | 'warm-gray'
+
+/**
+ * A single canvas node in the SceneGraph
+ */
+export interface CanvasNodeDef {
+  id: string
+  section: string
+  x?: number
+  y?: number
+  width?: number
+  height?: number
+  type: 'card' | 'hero' | 'image-cluster' | 'connector-label'
+  variant?: string
+  zIndex?: number
+}
+
+/**
+ * A connector between two canvas nodes
+ */
+export interface CanvasConnectorDef {
+  id: string
+  from: string
+  to: string
+  type?: 'solid' | 'dashed' | 'glow' | 'ink'
+  label?: string
+}
+
+/**
+ * SceneGraph definition embedded inline in frontmatter
+ */
+export interface CanvasSceneGraph {
+  version: number
+  tone: CanvasTone
+  nodes: CanvasNodeDef[]
+  connectors?: CanvasConnectorDef[]
+  style?:
+    | 'constellation'
+    | 'neural-branch'
+    | 'timeline-spiral'
+    | 'editorial-collage'
+    | 'corkboard-scatter'
+    | 'masonry-constellation'
 }
 
 /**

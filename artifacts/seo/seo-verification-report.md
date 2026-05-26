@@ -1,8 +1,8 @@
 # SEO Verification Report
 
-**Generated:** 2026-05-25T15:49:41.579Z
-**Source:** content-graph.generated (2026-05-24T20:33:43.975Z)
-**Nodes analyzed:** 24
+**Generated:** 2026-05-26T02:53:31.996Z
+**Source:** content-graph.generated (2026-05-26T02:36:14.426Z)
+**Nodes analyzed:** 32
 
 ## Summary
 
@@ -48,37 +48,45 @@ Verifies that each node's canonical URL resolves to the correct node via the rou
 | 21–40 | 0 | █ |
 | 41–60 | 0 | █ |
 | 61–80 | 0 | █ |
-| 81–100 | 24 | ████████████████████████ |
+| 81–100 | 32 | ████████████████████████████████ |
 
 ## Appendix: Per-Node SEO Snapshot
 
 | Node | Locale | Visibility | Lifecycle | Noindex | Priority | Canonical URL | Alternates |
 |------|--------|------------|-----------|---------|----------|---------------|------------|
 | `en-tencent-cloud-deal-stack-builders` | en | published | published | false | 95 | /en/signals/apex/tencent-cloud-deal-stack-builders | es, ja, pt, zh, de, fr, it |
-| `en-creator-ai-tools` | en | published | published | false | 95 | /en/signals/apex/creator-ai-tools | es, ja, pt, zh, de, fr, it |
+| `en-magica-overview` | en | published | published | false | 95 | /en/signals/apex/magica-overview | es, ja, pt, zh, de, fr, it |
+| `en-magica-quickstart` | en | published | published | false | 95 | /en/signals/apex/magica-quickstart | es, ja, pt, zh, de, fr, it |
+| `en-magica-mcp-server` | en | published | published | false | 95 | /en/signals/apex/magica-mcp-server | es, ja, pt, zh, de, fr, it |
 | `es-tencent-cloud-deal-stack-builders` | es | published | published | false | 95 | /es/signals/apex/tencent-cloud-deal-stack-builders | en, ja, pt, zh, de, fr, it |
-| `es-creator-ai-tools` | es | published | published | false | 95 | /es/signals/apex/creator-ai-tools | en, ja, pt, zh, de, fr, it |
+| `es-magica-overview` | es | published | published | false | 95 | /es/signals/apex/magica-overview | en, ja, pt, zh, de, fr, it |
+| `es-magica-quickstart` | es | published | published | false | 95 | /es/signals/apex/magica-quickstart | en, ja, pt, zh, de, fr, it |
+| `es-magica-mcp-server` | es | published | published | false | 95 | /es/signals/apex/magica-mcp-server | en, ja, pt, zh, de, fr, it |
 | `ja-tencent-cloud-deal-stack-builders` | ja | published | published | false | 95 | /ja/signals/apex/tencent-cloud-deal-stack-builders | en, es, pt, zh, de, fr, it |
-| `ja-creator-ai-tools` | ja | published | published | false | 95 | /ja/signals/apex/creator-ai-tools | en, es, pt, zh, de, fr, it |
+| `ja-magica-overview` | ja | published | published | false | 95 | /ja/signals/apex/magica-overview | en, es, pt, zh, de, fr, it |
+| `ja-magica-quickstart` | ja | published | published | false | 95 | /ja/signals/apex/magica-quickstart | en, es, pt, zh, de, fr, it |
+| `ja-magica-mcp-server` | ja | published | published | false | 95 | /ja/signals/apex/magica-mcp-server | en, es, pt, zh, de, fr, it |
 | `pt-tencent-cloud-deal-stack-builders` | pt | published | published | false | 95 | /pt/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, zh, de, fr, it |
-| `pt-creator-ai-tools` | pt | published | published | false | 95 | /pt/signals/apex/creator-ai-tools | en, es, ja, zh, de, fr, it |
+| `pt-magica-overview` | pt | published | published | false | 95 | /pt/signals/apex/magica-overview | en, es, ja, zh, de, fr, it |
+| `pt-magica-quickstart` | pt | published | published | false | 95 | /pt/signals/apex/magica-quickstart | en, es, ja, zh, de, fr, it |
+| `pt-magica-mcp-server` | pt | published | published | false | 95 | /pt/signals/apex/magica-mcp-server | en, es, ja, zh, de, fr, it |
 | `zh-tencent-cloud-deal-stack-builders` | zh | published | published | false | 95 | /zh/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, de, fr, it |
-| `zh-creator-ai-tools` | zh | published | published | false | 95 | /zh/signals/apex/creator-ai-tools | en, es, ja, pt, de, fr, it |
+| `zh-magica-overview` | zh | published | published | false | 95 | /zh/signals/apex/magica-overview | en, es, ja, pt, de, fr, it |
+| `zh-magica-quickstart` | zh | published | published | false | 95 | /zh/signals/apex/magica-quickstart | en, es, ja, pt, de, fr, it |
+| `zh-magica-mcp-server` | zh | published | published | false | 95 | /zh/signals/apex/magica-mcp-server | en, es, ja, pt, de, fr, it |
 | `de-tencent-cloud-deal-stack-builders` | de | published | published | false | 95 | /de/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, zh, fr, it |
-| `de-creator-ai-tools` | de | published | published | false | 95 | /de/signals/apex/creator-ai-tools | en, es, ja, pt, zh, fr, it |
+| `de-magica-overview` | de | published | published | false | 95 | /de/signals/apex/magica-overview | en, es, ja, pt, zh, fr, it |
+| `de-magica-quickstart` | de | published | published | false | 95 | /de/signals/apex/magica-quickstart | en, es, ja, pt, zh, fr, it |
+| `de-magica-mcp-server` | de | published | published | false | 95 | /de/signals/apex/magica-mcp-server | en, es, ja, pt, zh, fr, it |
 | `fr-tencent-cloud-deal-stack-builders` | fr | published | published | false | 95 | /fr/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, zh, de, it |
-| `fr-creator-ai-tools` | fr | published | published | false | 95 | /fr/signals/apex/creator-ai-tools | en, es, ja, pt, zh, de, it |
+| `fr-magica-overview` | fr | published | published | false | 95 | /fr/signals/apex/magica-overview | en, es, ja, pt, zh, de, it |
+| `fr-magica-quickstart` | fr | published | published | false | 95 | /fr/signals/apex/magica-quickstart | en, es, ja, pt, zh, de, it |
+| `fr-magica-mcp-server` | fr | published | published | false | 95 | /fr/signals/apex/magica-mcp-server | en, es, ja, pt, zh, de, it |
 | `it-tencent-cloud-deal-stack-builders` | it | published | published | false | 95 | /it/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, zh, de, fr |
-| `it-creator-ai-tools` | it | published | published | false | 95 | /it/signals/apex/creator-ai-tools | en, es, ja, pt, zh, de, fr |
-| `en-foundation-models-overview` | en | published | published | false | 95 | /en/signals/language-models/foundation-models-overview | es, ja, pt, zh, fr, de, it |
-| `es-foundation-models-overview` | es | published | published | false | 95 | /es/signals/language-models/foundation-models-overview | en, ja, pt, zh, fr, de, it |
-| `ja-foundation-models-overview` | ja | published | published | false | 95 | /ja/signals/language-models/foundation-models-overview | en, es, pt, zh, fr, de, it |
-| `pt-foundation-models-overview` | pt | published | published | false | 95 | /pt/signals/language-models/foundation-models-overview | en, es, ja, zh, fr, de, it |
-| `zh-foundation-models-overview` | zh | published | published | false | 95 | /zh/signals/language-models/foundation-models-overview | en, es, ja, pt, fr, de, it |
-| `fr-foundation-models-overview` | fr | published | published | false | 95 | /fr/signals/language-models/foundation-models-overview | en, es, ja, pt, zh, de, it |
-| `de-foundation-models-overview` | de | published | published | false | 95 | /de/signals/language-models/foundation-models-overview | en, es, ja, pt, zh, fr, it |
-| `it-foundation-models-overview` | it | published | published | false | 95 | /it/signals/language-models/foundation-models-overview | en, es, ja, pt, zh, fr, de |
+| `it-magica-overview` | it | published | published | false | 95 | /it/signals/apex/magica-overview | en, es, ja, pt, zh, de, fr |
+| `it-magica-quickstart` | it | published | published | false | 95 | /it/signals/apex/magica-quickstart | en, es, ja, pt, zh, de, fr |
+| `it-magica-mcp-server` | it | published | published | false | 95 | /it/signals/apex/magica-mcp-server | en, es, ja, pt, zh, de, fr |
 
 ---
 
-*Report generated by scripts/generate-seo-verification.ts at 2026-05-25T15:49:41.580Z*
+*Report generated by scripts/generate-seo-verification.ts at 2026-05-26T02:53:31.996Z*

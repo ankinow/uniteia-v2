@@ -74,6 +74,7 @@ export const zh: TranslationStrings = {
     qualityLabel: '质量',
     sourceCount: '{count} 来源',
     sources: '来源',
+    freshnessLabel: '新鲜度',
   },
   search: {
     placeholder: '搜索主题、文章...',
@@ -89,6 +90,18 @@ export const zh: TranslationStrings = {
     articleTitleTemplate: '{title} | UniTeia',
     topicsTitle: 'AI 主题',
     topicsDescription: '探索我们精选的人工智能主题和领域列表。',
+  },
+  homepage: {
+    featuredSignals: '精选信号',
+    knowledgeClusters: '知识集群',
+    frontierStreams: '前沿流',
+    signalCount: '{count} 个信号',
+    curatedAcross: '从 {count} 个领域精选',
+    noSignals: '此语言尚未发布任何信号。',
+    browseTopics: '浏览主题',
+    networkState: 'UniTeia 网络状态',
+    signalIntake: '信号摄入',
+    deliveryLayer: '交付层',
   },
   onboarding: {
     step1: {

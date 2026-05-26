@@ -34,6 +34,7 @@ const VALID_TOP_LEVEL_KEYS = new Set([
   'quality_score',
   'metadata',
   'contentPackage',
+  'canvas',
 ])
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {

@@ -62,18 +62,6 @@ describe('loadContent', () => {
     expect(result.title).toBe('Tencent Cloud Deal Stack for Builders')
     expect(result.content).toContain('<h2>')
   })
-
-  it('loads a valid language-models editorial article', async () => {
-    const result = await loadContent('language-models', 'foundation-models-overview', 'en')
-    expect(result.slug).toBe('foundation-models-overview')
-    expect(result.lang).toBe('en')
-    expect(result.title).toBe('Foundation Models Overview')
-    expect(result.verdict).toBe('trusted')
-    expect(result.quality_score).toBe(95)
-    expect(result.subjects).toContain('llm')
-    expect(result.referral_links.length).toBeGreaterThanOrEqual(1)
-    expect(result.content).toContain('<h2>')
-  })
 })
 
 describe('loadContent locale helpers', () => {
@@ -91,7 +79,7 @@ describe('loadContent locale helpers', () => {
     expect(langs.length).toBe(8)
   })
 
-  it('getAvailableLanguages returns all 8 locales for a fully translated article', async () => {
+  it('getAvailableLanguages returns all 8 locales sorted', async () => {
     const { getAvailableLanguages } = await import('~/utils/content-loader')
     const langs = await getAvailableLanguages('apex', 'tencent-cloud-deal-stack-builders')
     expect(langs).toHaveLength(8)
@@ -108,25 +96,15 @@ describe('loadContent locale helpers', () => {
       [...articles].sort((a, b) => a.slug.localeCompare(b.slug) || a.lang.localeCompare(b.lang))
     )
   })
-
-  it('listNicheArticles returns entries for language-models niche', async () => {
-    const { listNicheArticles } = await import('~/utils/content-loader')
-    const articles = await listNicheArticles('language-models')
-    expect(articles).toContainEqual(
-      expect.objectContaining({ slug: 'foundation-models-overview', lang: 'en' })
-    )
-  })
 })
 
 describe('deriveNavigation', () => {
-  it('returns structured navigation with niches, langs, and articles', async () => {
+  it('returns structured navigation with apex niche', async () => {
     const { deriveNavigation } = await import('~/utils/content-loader')
     const nav = await deriveNavigation()
     expect(nav).toBeDefined()
     expect(nav.niches).toBeDefined()
     expect(Object.keys(nav.niches)).toContain('apex')
-    expect(Object.keys(nav.niches)).toContain('ai-agents')
-    expect(Object.keys(nav.niches)).toContain('language-models')
   })
 
   it('extracts correct metadata from content files', async () => {

@@ -75,6 +75,7 @@ export const fr: TranslationStrings = {
     qualityLabel: 'Qualité',
     sourceCount: '{count} sources',
     sources: 'sources',
+    freshnessLabel: 'Fraîcheur',
   },
   search: {
     placeholder: 'Rechercher des sujets, articles...',
@@ -91,6 +92,18 @@ export const fr: TranslationStrings = {
     topicsTitle: 'Sujets IA',
     topicsDescription:
       'Explorez notre liste sélectionnée de sujets et de niches en Intelligence Artificielle.',
+  },
+  homepage: {
+    featuredSignals: 'Signaux en Vedette',
+    knowledgeClusters: 'Grappes de Connaissances',
+    frontierStreams: 'Courants de Frontière',
+    signalCount: '{count} signaux',
+    curatedAcross: 'organisés dans {count} niches',
+    noSignals: 'Aucun signal publié dans cette langue.',
+    browseTopics: 'Parcourir les sujets',
+    networkState: 'État du Réseau UniTeia',
+    signalIntake: 'Captation de Signaux',
+    deliveryLayer: 'Couche de Livraison',
   },
   onboarding: {
     step1: {

@@ -75,6 +75,7 @@ export const de: TranslationStrings = {
     qualityLabel: 'Qualität',
     sourceCount: '{count} Quellen',
     sources: 'Quellen',
+    freshnessLabel: 'Aktualität',
   },
   search: {
     placeholder: 'Themen, Artikel suchen...',
@@ -90,6 +91,18 @@ export const de: TranslationStrings = {
     articleTitleTemplate: '{title} | UniTeia',
     topicsTitle: 'KI-Themen',
     topicsDescription: 'Erkunden Sie unsere kuratierte Liste von KI-Themen und Nischen.',
+  },
+  homepage: {
+    featuredSignals: 'Ausgewählte Signale',
+    knowledgeClusters: 'Wissenscluster',
+    frontierStreams: 'Grenzströme',
+    signalCount: '{count} Signale',
+    curatedAcross: 'kuratiert in {count} Nischen',
+    noSignals: 'Noch keine Signale in dieser Sprache veröffentlicht.',
+    browseTopics: 'Themen durchsuchen',
+    networkState: 'UniTeia Netzwerkstatus',
+    signalIntake: 'Signalaufnahme',
+    deliveryLayer: 'Zustellungsebene',
   },
   onboarding: {
     step1: {
