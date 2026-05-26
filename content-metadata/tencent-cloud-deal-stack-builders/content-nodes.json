@@ -1,0 +1,362 @@
+[
+  {
+    "id": "en-tencent-cloud-deal-stack-builders",
+    "locale": "en",
+    "canonicalLocale": "en",
+    "slug": "tencent-cloud-deal-stack-builders",
+    "canonicalSlug": "tencent-cloud-deal-stack-builders",
+    "title": "Tencent Cloud Deal Stack: Cheap Cloud for Builders",
+    "summary": "A practical guide to Tencent Cloud free products, discounted VMs, Lighthouse, CVM, and EdgeOne for independent builders.",
+    "niche": [],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 65,
+    "trustScore": 35,
+    "visibility": "draft",
+    "lifecycle": "generated",
+    "verdict": "caution",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "pt-BR": "pt-BR-tencent-cloud-deal-stack-builders",
+      "es": "es-tencent-cloud-deal-stack-builders",
+      "fr": "fr-tencent-cloud-deal-stack-builders",
+      "de": "de-tencent-cloud-deal-stack-builders",
+      "it": "it-tencent-cloud-deal-stack-builders",
+      "ja": "ja-tencent-cloud-deal-stack-builders",
+      "zh": "zh-tencent-cloud-deal-stack-builders"
+    },
+    "related": [],
+    "seo": {
+      "noindex": true,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-05-17T09:11:50.148Z",
+      "updatedAt": "2026-05-17T09:11:50.148Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "pt-BR-tencent-cloud-deal-stack-builders",
+    "locale": "pt-BR",
+    "canonicalLocale": "pt-BR",
+    "slug": "tencent-cloud-deal-stack-builders",
+    "canonicalSlug": "tencent-cloud-deal-stack-builders",
+    "title": "Tencent Cloud Deal Stack: Cheap Cloud for Builders",
+    "summary": "A practical guide to Tencent Cloud free products, discounted VMs, Lighthouse, CVM, and EdgeOne for independent builders.",
+    "niche": [],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 65,
+    "trustScore": 35,
+    "visibility": "draft",
+    "lifecycle": "generated",
+    "verdict": "caution",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-tencent-cloud-deal-stack-builders",
+      "es": "es-tencent-cloud-deal-stack-builders",
+      "fr": "fr-tencent-cloud-deal-stack-builders",
+      "de": "de-tencent-cloud-deal-stack-builders",
+      "it": "it-tencent-cloud-deal-stack-builders",
+      "ja": "ja-tencent-cloud-deal-stack-builders",
+      "zh": "zh-tencent-cloud-deal-stack-builders"
+    },
+    "related": [],
+    "seo": {
+      "noindex": true,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-05-17T09:11:50.148Z",
+      "updatedAt": "2026-05-17T09:11:50.148Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "es-tencent-cloud-deal-stack-builders",
+    "locale": "es",
+    "canonicalLocale": "es",
+    "slug": "tencent-cloud-deal-stack-builders",
+    "canonicalSlug": "tencent-cloud-deal-stack-builders",
+    "title": "Tencent Cloud Deal Stack: Cloud Barata para Builders",
+    "summary": "Guía práctica de productos gratuitos, VMs con descuento, Lighthouse, CVM y EdgeOne.",
+    "niche": [],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 65,
+    "trustScore": 35,
+    "visibility": "draft",
+    "lifecycle": "generated",
+    "verdict": "caution",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-tencent-cloud-deal-stack-builders",
+      "pt-BR": "pt-BR-tencent-cloud-deal-stack-builders",
+      "fr": "fr-tencent-cloud-deal-stack-builders",
+      "de": "de-tencent-cloud-deal-stack-builders",
+      "it": "it-tencent-cloud-deal-stack-builders",
+      "ja": "ja-tencent-cloud-deal-stack-builders",
+      "zh": "zh-tencent-cloud-deal-stack-builders"
+    },
+    "related": [],
+    "seo": {
+      "noindex": true,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-05-17T09:11:50.148Z",
+      "updatedAt": "2026-05-17T09:11:50.148Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "fr-tencent-cloud-deal-stack-builders",
+    "locale": "fr",
+    "canonicalLocale": "fr",
+    "slug": "tencent-cloud-deal-stack-builders",
+    "canonicalSlug": "tencent-cloud-deal-stack-builders",
+    "title": "Tencent Cloud Deal Stack: Cloud Abordable pour les Builders",
+    "summary": "Guide pratique des produits gratuits, VMs discount, Lighthouse, CVM et EdgeOne.",
+    "niche": [],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 65,
+    "trustScore": 35,
+    "visibility": "draft",
+    "lifecycle": "generated",
+    "verdict": "caution",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-tencent-cloud-deal-stack-builders",
+      "pt-BR": "pt-BR-tencent-cloud-deal-stack-builders",
+      "es": "es-tencent-cloud-deal-stack-builders",
+      "de": "de-tencent-cloud-deal-stack-builders",
+      "it": "it-tencent-cloud-deal-stack-builders",
+      "ja": "ja-tencent-cloud-deal-stack-builders",
+      "zh": "zh-tencent-cloud-deal-stack-builders"
+    },
+    "related": [],
+    "seo": {
+      "noindex": true,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-05-17T09:11:50.148Z",
+      "updatedAt": "2026-05-17T09:11:50.148Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "de-tencent-cloud-deal-stack-builders",
+    "locale": "de",
+    "canonicalLocale": "de",
+    "slug": "tencent-cloud-deal-stack-builders",
+    "canonicalSlug": "tencent-cloud-deal-stack-builders",
+    "title": "Tencent Cloud Deal Stack: Günstige Cloud für Builder",
+    "summary": "Praktischer Leitfaden für kostenlose Produkte, VM-Rabatte, Lighthouse, CVM und EdgeOne.",
+    "niche": [],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 65,
+    "trustScore": 35,
+    "visibility": "draft",
+    "lifecycle": "generated",
+    "verdict": "caution",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-tencent-cloud-deal-stack-builders",
+      "pt-BR": "pt-BR-tencent-cloud-deal-stack-builders",
+      "es": "es-tencent-cloud-deal-stack-builders",
+      "fr": "fr-tencent-cloud-deal-stack-builders",
+      "it": "it-tencent-cloud-deal-stack-builders",
+      "ja": "ja-tencent-cloud-deal-stack-builders",
+      "zh": "zh-tencent-cloud-deal-stack-builders"
+    },
+    "related": [],
+    "seo": {
+      "noindex": true,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-05-17T09:11:50.148Z",
+      "updatedAt": "2026-05-17T09:11:50.148Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "it-tencent-cloud-deal-stack-builders",
+    "locale": "it",
+    "canonicalLocale": "it",
+    "slug": "tencent-cloud-deal-stack-builders",
+    "canonicalSlug": "tencent-cloud-deal-stack-builders",
+    "title": "Tencent Cloud Deal Stack: Cloud Economica per Builder",
+    "summary": "Guida pratica a prodotti gratuiti, VM scontate, Lighthouse, CVM e EdgeOne.",
+    "niche": [],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 65,
+    "trustScore": 35,
+    "visibility": "draft",
+    "lifecycle": "generated",
+    "verdict": "caution",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-tencent-cloud-deal-stack-builders",
+      "pt-BR": "pt-BR-tencent-cloud-deal-stack-builders",
+      "es": "es-tencent-cloud-deal-stack-builders",
+      "fr": "fr-tencent-cloud-deal-stack-builders",
+      "de": "de-tencent-cloud-deal-stack-builders",
+      "ja": "ja-tencent-cloud-deal-stack-builders",
+      "zh": "zh-tencent-cloud-deal-stack-builders"
+    },
+    "related": [],
+    "seo": {
+      "noindex": true,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-05-17T09:11:50.148Z",
+      "updatedAt": "2026-05-17T09:11:50.148Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "ja-tencent-cloud-deal-stack-builders",
+    "locale": "ja",
+    "canonicalLocale": "ja",
+    "slug": "tencent-cloud-deal-stack-builders",
+    "canonicalSlug": "tencent-cloud-deal-stack-builders",
+    "title": "Tencent Cloud Deal Stack: ビルダーのための格安クラウド",
+    "summary": "Tencent Cloudの無料製品、割引VM、Lighthouse、CVM、EdgeOneの実践ガイド。",
+    "niche": [],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 65,
+    "trustScore": 35,
+    "visibility": "draft",
+    "lifecycle": "generated",
+    "verdict": "caution",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-tencent-cloud-deal-stack-builders",
+      "pt-BR": "pt-BR-tencent-cloud-deal-stack-builders",
+      "es": "es-tencent-cloud-deal-stack-builders",
+      "fr": "fr-tencent-cloud-deal-stack-builders",
+      "de": "de-tencent-cloud-deal-stack-builders",
+      "it": "it-tencent-cloud-deal-stack-builders",
+      "zh": "zh-tencent-cloud-deal-stack-builders"
+    },
+    "related": [],
+    "seo": {
+      "noindex": true,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-05-17T09:11:50.148Z",
+      "updatedAt": "2026-05-17T09:11:50.148Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "zh-tencent-cloud-deal-stack-builders",
+    "locale": "zh",
+    "canonicalLocale": "zh",
+    "slug": "tencent-cloud-deal-stack-builders",
+    "canonicalSlug": "tencent-cloud-deal-stack-builders",
+    "title": "Tencent Cloud Deal Stack：面向开发者的低价云服务",
+    "summary": "腾讯云免费产品、折扣VM、Lighthouse、CVM和EdgeOne的实用指南。",
+    "niche": [],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 65,
+    "trustScore": 35,
+    "visibility": "draft",
+    "lifecycle": "generated",
+    "verdict": "caution",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-tencent-cloud-deal-stack-builders",
+      "pt-BR": "pt-BR-tencent-cloud-deal-stack-builders",
+      "es": "es-tencent-cloud-deal-stack-builders",
+      "fr": "fr-tencent-cloud-deal-stack-builders",
+      "de": "de-tencent-cloud-deal-stack-builders",
+      "it": "it-tencent-cloud-deal-stack-builders",
+      "ja": "ja-tencent-cloud-deal-stack-builders"
+    },
+    "related": [],
+    "seo": {
+      "noindex": true,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-05-17T09:11:50.148Z",
+      "updatedAt": "2026-05-17T09:11:50.148Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  }
+]
