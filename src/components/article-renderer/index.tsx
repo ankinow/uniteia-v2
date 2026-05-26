@@ -16,6 +16,8 @@ export interface ArticleRendererProps {
   labels: FrontmatterLabels
   /** Wrap content and related sections in ErrorBoundary (default: true) */
   withErrorBoundary?: boolean
+  /** Optional inline SVGs to render after prose content */
+  svgs?: string[]
 }
 
 const JSONLD = ({ data }: { data: SchemaType }) => {
@@ -51,7 +53,7 @@ const AdaptiveHeader = ({
 )
 
 export const ArticleRenderer = component$<ArticleRendererProps>(
-  ({ content, relatedNodes, labels, withErrorBoundary = true }) => {
+  ({ content, relatedNodes, labels, withErrorBoundary = true, svgs }) => {
     const description = extractDescription(content.content)
 
     const articleSchema: SchemaType = generateArticleSchema({
@@ -73,6 +75,19 @@ export const ArticleRenderer = component$<ArticleRendererProps>(
       </>
     )
 
+    const svgBlock = svgs && svgs.length > 0 && (
+      <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {svgs.map((svg, idx) => (
+          <div
+            key={idx}
+            class="max-w-md rounded-lg border border-action/10 p-2"
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: SVGs are pre-validated
+            dangerouslySetInnerHTML={svg}
+          />
+        ))}
+      </div>
+    )
+
     const relatedBlock = (
       <div class="mt-12">
         <RelatedArticles nodes={relatedNodes} lang={content.lang as SupportedLanguage} />
@@ -92,11 +107,13 @@ export const ArticleRenderer = component$<ArticleRendererProps>(
         {withErrorBoundary ? (
           <>
             <ErrorBoundary label="Article Content">{contentBlock}</ErrorBoundary>
+            {svgBlock}
             <ErrorBoundary label="Related Articles">{relatedBlock}</ErrorBoundary>
           </>
         ) : (
           <>
             {contentBlock}
+            {svgBlock}
             {relatedBlock}
           </>
         )}
