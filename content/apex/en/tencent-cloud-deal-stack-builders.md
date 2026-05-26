@@ -2,10 +2,10 @@
 slug: tencent-cloud-deal-stack-builders
 lang: en
 title: "Tencent Cloud Deal Stack for Builders"
-verdict: trusted
-quality_score: 95
+verdict: caution
+quality_score: 65
 trust_score: 35
-visibility: published
+visibility: draft
 lifecycle: generated
 subjects:
   - cloud
