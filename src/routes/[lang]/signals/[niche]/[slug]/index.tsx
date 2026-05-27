@@ -137,7 +137,7 @@ export const useCollageAssets = routeLoader$<LivingBriefCollageProps | null>(asy
     const fs = await import('node:fs')
     const path = await import('node:path')
     const repoRoot = process.cwd()
-    const jsonPath = path.join(repoRoot, `content/apex/en/assets/collage/${slug}.json`)
+    const jsonPath = path.join(repoRoot, `content/apex/${params.lang}/assets/collage/${slug}.json`)
     if (!fs.existsSync(jsonPath)) return null
     const raw = fs.readFileSync(jsonPath, 'utf-8')
     const pkg = parseCollagePackage(raw)
