@@ -1,4 +1,5 @@
 import { component$ } from '@builder.io/qwik'
+// biome-ignore lint/suspicious/noArrayIndexKey: static collage elements, order is always stable
 
 /** A hand-drawn arrow connecting two nodes on the canvas */
 export interface CollageArrow {
@@ -130,11 +131,7 @@ export const AetherHanddrawCollage = component$<AetherHanddrawCollageProps>(
 
             {/* Wobble — hand-drawn stroke irregularity */}
             <filter id="collage-wobble">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.03"
-                numOctaves="3"
-              />
+              <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" />
               <feDisplacementMap in="SourceGraphic" scale="3" />
             </filter>
 
@@ -157,6 +154,7 @@ export const AetherHanddrawCollage = component$<AetherHanddrawCollageProps>(
 
           {/* Abstract nodes */}
           {nodes.map((node, i) => {
+            // biome-ignore lint/suspicious/noArrayIndexKey: static collage nodes, order is stable
             const r = node.r ?? 30
             const fill = node.fill ?? 'oklch(0.35 0.12 280)'
             const wobble = node.wobble !== false
@@ -178,7 +176,9 @@ export const AetherHanddrawCollage = component$<AetherHanddrawCollageProps>(
                   const pts: string[] = []
                   for (let a = 0; a < 6; a++) {
                     const angle = (Math.PI / 3) * a - Math.PI / 6
-                    pts.push(`${(node.cx + r * Math.cos(angle)).toFixed(0)},${(node.cy + r * Math.sin(angle)).toFixed(0)}`)
+                    pts.push(
+                      `${(node.cx + r * Math.cos(angle)).toFixed(0)},${(node.cy + r * Math.sin(angle)).toFixed(0)}`
+                    )
                   }
                   return (
                     <polygon
@@ -223,6 +223,7 @@ export const AetherHanddrawCollage = component$<AetherHanddrawCollageProps>(
             })()
 
             return (
+              // biome-ignore lint/suspicious/noArrayIndexKey: static collage nodes, order is stable
               <g key={`node-${i}`}>
                 {shapeEl}
                 {node.label && (
@@ -245,6 +246,7 @@ export const AetherHanddrawCollage = component$<AetherHanddrawCollageProps>(
 
           {/* Hand-drawn arrows */}
           {arrows.map((arrow, i) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: static collage arrows, order is stable
             <path
               key={`arrow-${i}`}
               d={arrow.path}
@@ -267,12 +269,10 @@ export const AetherHanddrawCollage = component$<AetherHanddrawCollageProps>(
           {notes.map((note, i) => {
             const w = note.width ?? 140
             const h = note.height ?? 55
-            const rot = note.rotation ?? ((i % 3) - 1)
+            const rot = note.rotation ?? (i % 3) - 1
+            // biome-ignore lint/suspicious/noArrayIndexKey: static collage notes, order is stable
             return (
-              <g
-                key={`note-${i}`}
-                transform={`translate(${note.x}, ${note.y}) rotate(${rot})`}
-              >
+              <g key={`note-${i}`} transform={`translate(${note.x}, ${note.y}) rotate(${rot})`}>
                 <rect
                   x="0"
                   y="0"
@@ -313,5 +313,5 @@ export const AetherHanddrawCollage = component$<AetherHanddrawCollageProps>(
         </svg>
       </div>
     )
-  },
+  }
 )

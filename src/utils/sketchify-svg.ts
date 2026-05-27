@@ -55,10 +55,7 @@ export const DEFAULT_SKETCHIFY_CONFIG: Required<SketchifyConfig> = {
  * @param config - Sketchify configuration
  * @returns New SVG string with hand-drawn aesthetics applied
  */
-export function sketchifySvg(
-  svgString: string,
-  config: Partial<SketchifyConfig> = {}
-): string {
+export function sketchifySvg(svgString: string, config: Partial<SketchifyConfig> = {}): string {
   const cfg = { ...DEFAULT_SKETCHIFY_CONFIG, ...config }
 
   // Create a hidden container to parse the SVG
@@ -78,7 +75,7 @@ export function sketchifySvg(
   }
 
   const viewBox = originalSvg.getAttribute('viewBox') || '0 0 800 500'
-  const [vbX, vbY, vbW, vbH] = viewBox.split(/\s+/).map(Number)
+  const [_vbX, _vbY, vbW, vbH] = viewBox.split(/\s+/).map(Number)
 
   // Create new SVG for sketchy output
   const outputSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
@@ -149,10 +146,10 @@ export function sketchifySvg(
   // Process all <rect> elements
   const rects = originalSvg.querySelectorAll('rect')
   for (const rect of rects) {
-    const x = parseFloat(rect.getAttribute('x') || '0')
-    const y = parseFloat(rect.getAttribute('y') || '0')
-    const w = parseFloat(rect.getAttribute('width') || '0')
-    const h = parseFloat(rect.getAttribute('height') || '0')
+    const x = Number.parseFloat(rect.getAttribute('x') || '0')
+    const y = Number.parseFloat(rect.getAttribute('y') || '0')
+    const w = Number.parseFloat(rect.getAttribute('width') || '0')
+    const h = Number.parseFloat(rect.getAttribute('height') || '0')
     const fill = rect.getAttribute('fill')
     const stroke = rect.getAttribute('stroke')
 
@@ -175,9 +172,9 @@ export function sketchifySvg(
   // Process all <circle> elements
   const circles = originalSvg.querySelectorAll('circle')
   for (const circle of circles) {
-    const cx = parseFloat(circle.getAttribute('cx') || '0')
-    const cy = parseFloat(circle.getAttribute('cy') || '0')
-    const r = parseFloat(circle.getAttribute('r') || '0')
+    const cx = Number.parseFloat(circle.getAttribute('cx') || '0')
+    const cy = Number.parseFloat(circle.getAttribute('cy') || '0')
+    const r = Number.parseFloat(circle.getAttribute('r') || '0')
     const fill = circle.getAttribute('fill')
     const stroke = circle.getAttribute('stroke')
 

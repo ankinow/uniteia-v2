@@ -31,11 +31,10 @@ async function freezeClock(context: BrowserContext) {
           return fixedNow
         }
       }
-
       // biome-ignore lint/suspicious/noExplicitAny: global override
       ;(window as any).Date = FrozenDate
     },
-    { fixedNow: FIXED_NOW },
+    { fixedNow: FIXED_NOW }
   )
 }
 
@@ -57,8 +56,8 @@ test.describe('AetherHanddrawCollage Visual Regression', () => {
     await page.waitForLoadState('networkidle')
     await page.waitForTimeout(500)
 
-    const cssErrors = errors.filter(e =>
-      e.includes('collage') || e.includes('aether') || e.includes('grain'),
+    const cssErrors = errors.filter(
+      e => e.includes('collage') || e.includes('aether') || e.includes('grain')
     )
     expect(cssErrors).toHaveLength(0)
   })
