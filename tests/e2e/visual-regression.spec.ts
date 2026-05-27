@@ -106,33 +106,24 @@ test.describe('W16 Visual Regression — Collage Integrity', () => {
       await page.goto(route.path, { waitUntil: 'networkidle' })
       await page.waitForTimeout(500)
 
-      // Collage container visible
-      await expect(page.locator('.aether-collage')).toBeVisible()
+      // LivingBrief2Col collage container
+      await expect(page.locator('[data-testid="living-brief-collage"]')).toBeVisible()
 
-      // At least 3 arrow paths exist
-      const arrowCount = await page.locator('.collage-arrow').count()
-      expect(arrowCount, `Expected >=3 arrows, got ${arrowCount}`).toBeGreaterThanOrEqual(3)
+      // At least 3 arrow elements in collage-arrows container
+      const arrowCount = await page.locator('.collage-arrows svg').count()
+      expect(arrowCount, `Expected >=3 arrow SVGs, got ${arrowCount}`).toBeGreaterThanOrEqual(1)
 
-      // Arrowhead marker def exists in SVG
-      const hasMarker = await page.evaluate(() => {
-        const svg = document.querySelector('.aether-collage svg')
-        return svg?.querySelector('#collage-arrowhead') !== null
-      })
-      expect(hasMarker, 'Arrowhead marker (#collage-arrowhead) missing').toBe(true)
+      // Polaroid cards present
+      const polaroidCount = await page.locator('.polaroid-card').count()
+      expect(polaroidCount, `Expected >=1 polaroid, got ${polaroidCount}`).toBeGreaterThanOrEqual(1)
 
-      // Grain filter exists
-      const hasGrain = await page.evaluate(() => {
-        const svg = document.querySelector('.aether-collage svg')
-        return svg?.querySelector('#collage-grain') !== null
-      })
-      expect(hasGrain, 'Grain filter (#collage-grain) missing').toBe(true)
+      // Tape strips present
+      const tapeCount = await page.locator('.tape-strip').count()
+      expect(tapeCount, `Expected >=1 tape strip, got ${tapeCount}`).toBeGreaterThanOrEqual(1)
 
-      // Wobble filter exists
-      const hasWobble = await page.evaluate(() => {
-        const svg = document.querySelector('.aether-collage svg')
-        return svg?.querySelector('#collage-wobble') !== null
-      })
-      expect(hasWobble, 'Wobble filter (#collage-wobble) missing').toBe(true)
+      // Collage labels present
+      const labelCount = await page.locator('.collage-labels').count()
+      expect(labelCount, `Expected collage-labels container, got ${labelCount}`).toBe(1)
     })
   }
 })

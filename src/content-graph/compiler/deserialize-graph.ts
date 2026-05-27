@@ -1,14 +1,28 @@
 import type { ContentGraph } from '../contracts/graph'
 import type { ContentNode } from '../contracts/node'
 
+/** Minimal shape for deserialized graph nodes/entries from JSON. */
+interface RawGraphEntry {
+  id?: string
+  nodes?: Array<string | { id: string }>
+  canonicalSlug?: string
+}
+
+interface SerializedGraph {
+  nodes?: Array<ContentNode> | Record<string, ContentNode>
+  groups?: { groups?: Array<RawGraphEntry> } | Record<string, string[]>
+  niches?: Record<string, string[]>
+  indexes?: { byNiche?: Record<string, string[]> }
+  collections?: { byNiche?: Record<string, string[]> }
+}
+
 /**
  * Deserializes a ContentGraph from its serializable representation.
  * Pure function — no markdown parsing, no gray-matter dependency.
  * Separated from compile-content-graph.ts to prevent gray-matter from
  * leaking into runtime bundles.
  */
-// biome-ignore lint/suspicious/noExplicitAny: serialized is dynamic untrusted JSON payload
-export function deserializeGraph(serialized: any): ContentGraph {
+export function deserializeGraph(serialized: SerializedGraph): ContentGraph {
   const nodesMap = new Map<string, ContentNode>()
   const nodesArr: ContentNode[] = []
 
@@ -32,18 +46,22 @@ export function deserializeGraph(serialized: any): ContentGraph {
   const groupsMap = new Map<string, ContentNode[]>()
   const groupsSource = serialized.groups || {}
 
-  if (Array.isArray(groupsSource.groups)) {
-    for (const g of groupsSource.groups) {
+  if (Array.isArray((groupsSource as { groups?: RawGraphEntry[] }).groups)) {
+    for (const g of (groupsSource as { groups: RawGraphEntry[] }).groups) {
       const gNodes = (g.nodes || [])
-        // biome-ignore lint/suspicious/noExplicitAny: nodes list can contain raw IDs or objects
-        .map((n: any) => (typeof n === 'string' ? nodesMap.get(n) : nodesMap.get(n.id)))
+        .map((n: string | { id: string }) =>
+          typeof n === 'string' ? nodesMap.get(n) : nodesMap.get(n.id)
+        )
         .filter(Boolean) as ContentNode[]
-      groupsMap.set(g.canonicalSlug, gNodes)
+      groupsMap.set(g.canonicalSlug ?? '', gNodes)
     }
   } else {
     for (const [key, ids] of Object.entries(groupsSource)) {
       if (Array.isArray(ids)) {
-        groupsMap.set(key, ids.map(id => nodesMap.get(id)).filter(Boolean) as ContentNode[])
+        groupsMap.set(
+          key,
+          ids.map(id => nodesMap.get(id as string)).filter(Boolean) as ContentNode[]
+        )
       }
     }
   }
@@ -56,8 +74,9 @@ export function deserializeGraph(serialized: any): ContentGraph {
       nichesMap.set(
         key,
         ids
-          // biome-ignore lint/suspicious/noExplicitAny: id can be raw string or object wrapper
-          .map(id => (typeof id === 'string' ? nodesMap.get(id) : nodesMap.get((id as any).id)))
+          .map(id =>
+            typeof id === 'string' ? nodesMap.get(id) : nodesMap.get((id as { id: string }).id)
+          )
           .filter(Boolean) as ContentNode[]
       )
     }
