@@ -30,7 +30,7 @@ export const SignalChip = component$<SignalChipProps>(
         data-testid="signal-chip"
       >
         <span class="signal-chip__dot" aria-hidden="true" />
-        <span class="signal-chip__metric">{metric}</span>
+        <span class="signal-chip__metric">{metric}</span>{' '}
         <span class="signal-chip__label">{label}</span>
         <span class="signal-chip__trend" aria-hidden="true">
           {trend === 'up' ? '\u25B2' : trend === 'down' ? '\u25BC' : '\u25A0'}
