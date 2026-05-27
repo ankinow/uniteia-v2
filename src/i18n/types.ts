@@ -10,6 +10,7 @@ export {
   LOCALE_CODES,
   DEFAULT_LOCALE as DEFAULT_LANGUAGE,
   LANGUAGE_COOKIE_NAME,
+  LANGUAGE_COOKIE_MAX_AGE,
   type SupportedLocale as SupportedLanguage,
 } from '../edge/contract.v1'
 

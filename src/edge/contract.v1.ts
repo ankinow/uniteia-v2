@@ -18,6 +18,9 @@ export const DEFAULT_LOCALE: SupportedLocale = 'en'
 
 export const LANGUAGE_COOKIE_NAME = 'uniteia_lang'
 
+/** Max age for the language preference cookie in seconds (1 year). */
+export const LANGUAGE_COOKIE_MAX_AGE = 31536000
+
 // ── Edge Context Headers ──────────────────────────────────────────────
 
 /** Headers injected by the edge into the forwarded request. */
@@ -76,7 +79,7 @@ export function localeRedirect(
       Location: targetPath + search,
       Vary: 'Accept-Language, Cookie',
       'Cache-Control': 'no-store',
-      'Set-Cookie': `${LANGUAGE_COOKIE_NAME}=${locale}; Path=/; Max-Age=31536000; SameSite=Lax; Secure; HttpOnly`,
+      'Set-Cookie': `${LANGUAGE_COOKIE_NAME}=${locale}; Path=/; Max-Age=${LANGUAGE_COOKIE_MAX_AGE}; SameSite=Lax; Secure; HttpOnly`,
     },
   })
 }
