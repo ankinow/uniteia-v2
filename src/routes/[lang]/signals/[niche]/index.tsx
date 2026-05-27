@@ -5,8 +5,9 @@ import {
   routeLoader$,
   useLocation,
 } from '@builder.io/qwik-city'
+import { TrendingSection } from '~/components/homepage-curation'
 import { JSONLD } from '~/components/json-ld'
-import { MasterOpenCanvas } from '~/components/master-open-canvas'
+import { LivingBrief2Col } from '~/components/living-brief'
 import { NicheLanding } from '~/components/niche-landing'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 import { canonicalUrl, xdefaultUrl } from '~/routing/routes'
@@ -135,14 +136,24 @@ export default component$(() => {
   return (
     <>
       <JSONLD data={websiteSchema} />
-      <MasterOpenCanvas static={true}>
+      <LivingBrief2Col
+        hero={{
+          title: data.value.niche.title[lang],
+          subtitle: data.value.niche.description[lang],
+          hashtags: ['signals', data.value.niche.slug, 'ai', 'trending'],
+          variant: 'default',
+        }}
+      >
         <NicheLanding
           niche={data.value.niche}
           otherNiches={data.value.otherNiches}
           articles={articles.value}
           lang={lang}
         />
-      </MasterOpenCanvas>
+        <div class="mt-12 px-4 md:px-8">
+          <TrendingSection articles={articles.value} lang={lang} />
+        </div>
+      </LivingBrief2Col>
     </>
   )
 })
