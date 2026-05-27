@@ -117,9 +117,9 @@ export const ArticleRenderer = component$<ArticleRendererProps>(
         />
         {withErrorBoundary ? (
           <>
-            <ErrorBoundary label="Article Content">{contentBlock}</ErrorBoundary>
+            <ErrorBoundary fallbackMsg="Article Content">{contentBlock}</ErrorBoundary>
             {svgBlock}
-            <ErrorBoundary label="Related Articles">{relatedBlock}</ErrorBoundary>
+            <ErrorBoundary fallbackMsg="Related Articles">{relatedBlock}</ErrorBoundary>
           </>
         ) : (
           <>

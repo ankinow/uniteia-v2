@@ -31,11 +31,63 @@ jobs:
       - name: Type check
         run: bun run typecheck
 
+      - name: Translation key consistency
+        run: bun run vitest run src/i18n/translation-consistency.test.ts
+
       - name: Unit tests
         run: bun run test:unit
 
       - name: Build (SSG)
         run: bun run build
+
+      - name: Verify SSG page count (≥80 pages)
+        run: |
+          PAGE_COUNT=$(find dist -name 'index.html' | wc -l)
+          echo "SSG pages generated: $PAGE_COUNT"
+          if [ "$PAGE_COUNT" -lt 80 ]; then
+            echo "❌ SSG page count too low: $PAGE_COUNT (minimum 80)"
+            exit 1
+          fi
+          echo "✅ SSG page count: $PAGE_COUNT"
+
+      - name: Verify hreflang + og:locale on SSG output
+        run: |
+          # Check that at least one locale page has dynamic og:locale (not hardcoded pt_BR)
+          LOCALES="en pt es fr de it ja zh"
+          FAIL=0
+          for LOC in $LOCALES; do
+            INDEX="dist/$LOC/index.html"
+            if [ ! -f "$INDEX" ]; then
+              echo "⚠️  No index for locale: $LOC"
+              continue
+            fi
+            # Check hreflang tags present
+            if ! grep -q 'hreflang' "$INDEX"; then
+              echo "❌ Missing hreflang in $INDEX"
+              FAIL=1
+            fi
+            # Check og:locale is present (NOT hardcoded)
+            OG_LOCALE=$(grep -oP 'property="og:locale"\s+content="[^"]*"' "$INDEX" | head -1)
+            if [ -z "$OG_LOCALE" ]; then
+              echo "❌ Missing og:locale in $INDEX"
+              FAIL=1
+            fi
+            # Check html lang attribute
+            if ! grep -qP "html[^>]+\blang=\"$LOC\"" "$INDEX"; then
+              echo "❌ Missing or wrong html lang in $INDEX (expected lang=\"$LOC\")"
+              FAIL=1
+            fi
+            # Check skip-to-content
+            if ! grep -q 'skip-to-content' "$INDEX"; then
+              echo "❌ Missing skip-to-content in $INDEX"
+              FAIL=1
+            fi
+          done
+          if [ "$FAIL" -ne 0 ]; then
+            echo "❌ SEO/i18n gates failed"
+            exit 1
+          fi
+          echo "✅ hreflang, og:locale, html lang, skip-to-content: all present"
 
       - name: Upload dist artifact
         uses: actions/upload-artifact@v4

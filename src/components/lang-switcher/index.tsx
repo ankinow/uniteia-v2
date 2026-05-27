@@ -1,5 +1,5 @@
 import { $, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
-import { getLanguageName, useI18n } from '~/i18n/context'
+import { getLanguageName, getTranslation, useI18n } from '~/i18n/context'
 import { updateLangCookie } from '~/i18n/set-lang-cookie'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 import { routes } from '~/routing/routes'
@@ -250,7 +250,7 @@ export const LangSwitcherSegmented = component$<LangSwitcherSegmentedProps>(
 
     return (
       <fieldset
-        aria-label="Language selector"
+        aria-label={getTranslation(currentLang.value).langSwitcher.label}
         class={['inline-flex flex-wrap gap-2 border-0 p-0 m-0', classList]}
         onKeyDown$={handleKeyDown}
       >

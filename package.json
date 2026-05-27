@@ -48,7 +48,8 @@
     "deploy:health": "bun run scripts/deploy-health-check.ts",
     "test:visual": "bun run build && npx playwright test tests/e2e/visual-regression.spec.ts",
     "test:visual:quick": "npx playwright test tests/e2e/visual-regression.spec.ts",
-    "snapshot:update": "npx playwright test tests/e2e/visual-regression.spec.ts --update-snapshots"
+    "snapshot:update": "npx playwright test tests/e2e/visual-regression.spec.ts --update-snapshots",
+    "prepare": "husky"
   },
   "dependencies": {
     "@builder.io/qwik": "^1.19.2",
@@ -78,6 +79,7 @@
     "ajv": "8.20.0",
     "ajv-formats": "^3.0.1",
     "autoprefixer": "^10.5.0",
+    "husky": "^9.1.7",
     "tailwindcss": "^4.3.0",
     "typescript": "~5.9.3",
     "vite": "^7.3.3",

@@ -48,7 +48,7 @@ export const NicheLanding = component$<NicheLandingProps>(
         </DepthSection>
 
         {/* Article list — canvas-light + grain + ue5-illusion (mixed UI: light content) */}
-        <ErrorBoundary label="Article Grid">
+        <ErrorBoundary fallbackMsg="Article Grid">
           <section
             class="relative overflow-hidden rounded-3xl p-6 md:p-8 bg-[#131820] border border-white/5"
             data-blur="lg"
@@ -64,7 +64,7 @@ export const NicheLanding = component$<NicheLandingProps>(
               {localizedArticles.length > 0 ? (
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {localizedArticles.map((article, i) => (
-                    <ErrorBoundary key={article.slug} label="Article Card">
+                    <ErrorBoundary key={article.slug} fallbackMsg="Article Card">
                       <DopamineCard
                         class={i === 0 ? 'md:col-span-2' : ''}
                         title={article.title}
@@ -89,7 +89,7 @@ export const NicheLanding = component$<NicheLandingProps>(
         </ErrorBoundary>
 
         {/* Related niches — canvas-light + grain (mixed UI continuity) */}
-        <ErrorBoundary label="Related Niches">
+        <ErrorBoundary fallbackMsg="Related Niches">
           {otherNiches.length > 0 && (
             <section
               class="relative overflow-hidden rounded-3xl p-6 md:p-8 bg-[#131820] border border-white/5"

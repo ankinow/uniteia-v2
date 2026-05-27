@@ -1,6 +1,9 @@
 import type { ContentLocale } from '~/content-graph/contracts/node'
 import type { RouteContract } from '~/content-graph/contracts/routing'
+import { LOCALE_CODES } from '~/edge/contract.v1'
 import type { SupportedLanguage } from '~/i18n/types'
+
+const LOCALE_SET = new Set<string>(LOCALE_CODES)
 
 /**
  * Lazy accessor for the content graph provider.
@@ -65,7 +68,10 @@ export function alternateUrl(
 }
 
 export function xdefaultUrl(origin: string, niche?: string, slug?: string): string {
-  const path = slug && niche ? `/en/signals/${niche}/${slug}` : '/en/signals'
+  // x-default hreflang should point to the language-agnostic landing page.
+  // When niche+slug are given (article pages), point to the English version
+  // of the same article. Otherwise fall back to the English homepage.
+  const path = slug && niche ? `/en/signals/${niche}/${slug}` : '/en/'
   return new URL(path, origin).href
 }
 
@@ -97,7 +103,9 @@ export class AppRoutes implements RouteContract {
       let localePart = parts[0] ?? 'en'
       let rest = parts.slice(1)
 
-      const isLocale = /^[a-z]{2}(-[A-Z]{2})?$/.test(localePart)
+      // Validate locale using the authoritative LOCALE_CODES set
+      // (not a regex, which would accept any 2-letter code like 'xx' or 'zz')
+      const isLocale = LOCALE_SET.has(localePart)
       if (!isLocale) {
         localePart = 'en'
         rest = parts
@@ -112,6 +120,12 @@ export class AppRoutes implements RouteContract {
         const slug = rest[2] as string
 
         const provider = getGraphProvider()
+        // NOTE: provider can be null if the lazy-load hasn't resolved yet
+        // or if the content graph module failed to load. In that case we
+        // fall through to the generic path reconstruction below, which
+        // preserves the original niche/slug segments — correct fallback
+        // behavior: locale switches still work, just without canonical
+        // slug resolution across languages.
         if (provider) {
           const node = provider.getNode(slug, localePart as ContentLocale)
           if (node) {

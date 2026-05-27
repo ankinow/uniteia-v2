@@ -145,3 +145,45 @@ test.describe('W16 Visual Regression — Console Errors', () => {
     })
   }
 })
+
+test.describe('W16 Visual Regression — Curation Section', () => {
+  test.beforeEach(async ({ context }) => {
+    await freezeClock(context)
+  })
+
+  test('TrendingSection renders on /en/signals/apex', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/en/signals/apex', { waitUntil: 'networkidle' })
+    await page.waitForTimeout(800)
+
+    // Trending section container should be visible
+    const trendingSection = page.locator('.trending-section')
+    await expect(trendingSection).toBeVisible({ timeout: 10000 })
+
+    // At least one RepoCard OR NewsCard should exist
+    // (may be empty if API fails — handle gracefully)
+    const repoCount = await page.locator('.repo-card').count()
+    const newsCount = await page.locator('.news-card').count()
+    const totalCards = repoCount + newsCount
+
+    // Either cards are present OR the section shows a loading/error state
+    if (totalCards > 0) {
+      expect(totalCards, 'Expected at least 1 curation card').toBeGreaterThanOrEqual(1)
+    } else {
+      // API may have failed — check that error state or loading skeleton is shown
+      const hasErrorState = await page.locator('[role="alert"]').count()
+      const hasLoadingState = await page.locator('.animate-pulse').count()
+      expect(
+        hasErrorState + hasLoadingState,
+        'Expected either cards, error state, or loading state'
+      ).toBeGreaterThanOrEqual(1)
+    }
+
+    // Screenshot comparison for visual regression
+    await expect(page).toHaveScreenshot({
+      timeout: 15000,
+      maxDiffPixelRatio: 0.02,
+      fullPage: true,
+    })
+  })
+})

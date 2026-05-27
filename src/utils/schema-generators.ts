@@ -1,4 +1,4 @@
-import type { ArticleSchema, WebSiteSchema } from '~/types/schema-org'
+import type { ArticleSchema, WebPageSchema, WebSiteSchema } from '~/types/schema-org'
 
 /**
  * Generate Article schema
@@ -40,8 +40,46 @@ export function generateArticleSchema(props: {
 }
 
 /**
- * Generate WebSite schema
+ * Generate WebPage schema with inLanguage for locale-specific pages.
+ * Use on article pages to provide structured data about the page itself.
  */
+export function generateWebPageSchema(props: {
+  name: string
+  url: string
+  description?: string
+  lang: string
+  breadcrumb?: Array<{ name: string; item: string }>
+}): WebPageSchema {
+  const result: WebPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: props.name,
+    url: props.url,
+    description: props.description,
+    inLanguage: props.lang,
+    isPartOf: {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'UniTeia',
+      url: 'https://uniteia.com',
+    },
+  }
+
+  if (props.breadcrumb && props.breadcrumb.length > 0) {
+    result.breadcrumb = {
+      '@type': 'BreadcrumbList',
+      itemListElement: props.breadcrumb.map((item, index) => ({
+        '@type': 'ListItem' as const,
+        position: index + 1,
+        name: item.name,
+        item: item.item,
+      })),
+    }
+  }
+
+  return result
+}
+
 export function generateWebSiteSchema(props: {
   name: string
   url: string

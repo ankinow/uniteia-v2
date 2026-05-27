@@ -55,4 +55,26 @@ export interface ImageObjectSchema {
   height?: number
 }
 
-export type SchemaType = ArticleSchema | WebSiteSchema
+export interface WebPageSchema {
+  '@context': 'https://schema.org'
+  '@type': 'WebPage'
+  name: string
+  url: string
+  description?: string | undefined
+  inLanguage?: string | undefined
+  isPartOf?: WebSiteSchema | undefined
+  breadcrumb?: BreadcrumbListSchema | undefined
+  mainEntity?: ArticleSchema | undefined
+}
+
+export interface BreadcrumbListSchema {
+  '@type': 'BreadcrumbList'
+  itemListElement: Array<{
+    '@type': 'ListItem'
+    position: number
+    name: string
+    item: string
+  }>
+}
+
+export type SchemaType = ArticleSchema | WebSiteSchema | WebPageSchema

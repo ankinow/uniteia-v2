@@ -1,6 +1,12 @@
 import { component$ } from '@builder.io/qwik'
-import { type DocumentHead, type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
+import {
+  type DocumentHead,
+  type RequestHandler,
+  routeLoader$,
+  useLocation,
+} from '@builder.io/qwik-city'
 import { ArticleRenderer } from '~/components/article-renderer'
+import { JSONLD } from '~/components/json-ld'
 import { LivingBrief2Col } from '~/components/living-brief'
 import type { LivingBriefCollageProps } from '~/components/living-brief/types'
 import { collagePackageToProps, parseCollagePackage } from '~/utils/collage-importer'
@@ -14,6 +20,7 @@ import type { LlmWikiContent } from '~/types/content'
 import { ContentLoaderError } from '~/types/content'
 import { canvasToCollageProps } from '~/utils/canvas-to-collage'
 import { loadContent } from '~/utils/content-loader'
+import { generateWebPageSchema } from '~/utils/schema-generators'
 import { extractDescription } from '~/utils/text-utils'
 
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
@@ -116,6 +123,7 @@ export const useRelated = routeLoader$<ContentNode[]>(async ({ params }) => {
 
 export const useCollageAssets = routeLoader$<LivingBriefCollageProps | null>(async ({ params }) => {
   const slug = params.slug
+  if (!slug) return null
   // Load collage for any article that has pre-generated assets
   const COLLAGE_SLUGS = new Set([
     'magica-overview',
@@ -144,6 +152,7 @@ export default component$(() => {
   const relatedNodes = useRelated()
   const collageAssets = useCollageAssets()
   const { t } = useI18n()
+  const loc = useLocation()
 
   if (!content.value) {
     return <div class="text-bone-muted p-8 text-center">Content not found</div>
@@ -151,6 +160,16 @@ export default component$(() => {
 
   const canvasData = content.value.canvas
   const collage = canvasData ? canvasToCollageProps(canvasData, { width: 800, height: 500 }) : null
+
+  // JSON-LD WebPage for the current article page (per-locale structured data)
+  const pageUrl = canonicalUrl(loc.url.origin, loc.url.pathname + loc.url.search)
+  const description = extractDescription(content.value.content)
+  const webPageSchema = generateWebPageSchema({
+    name: content.value.title,
+    url: pageUrl,
+    description,
+    lang: content.value.lang,
+  })
 
   const rendererProps = {
     content: content.value,
@@ -174,6 +193,7 @@ export default component$(() => {
       }}
       {...(collageAssets.value ? { collage: collageAssets.value } : {})}
     >
+      <JSONLD data={webPageSchema} />
       <ArticleRenderer {...rendererProps} />
     </LivingBrief2Col>
   )

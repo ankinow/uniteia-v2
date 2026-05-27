@@ -77,6 +77,14 @@ export default component$(() => {
 
   return (
     <SiteShell isApexHost={nicheSignal.value === 'apex'}>
+      {/* Skip to main content — first focusable element, visible on focus only */}
+      <a
+        href="#main-content"
+        class="skip-to-content sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] focus:rounded-sm focus:bg-[oklch(0.72_0.165_80)] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-[oklch(0.08_0.05_280)] focus:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan/50"
+      >
+        Skip to main content
+      </a>
+
       {/* Header - mantido no mobile conforme solicitado */}
       <div q:slot="header" class="w-full">
         <nav
@@ -109,7 +117,7 @@ export default component$(() => {
       <div class="flex-1 flex flex-col min-w-0" data-analog-container>
         {/* M019: Edge data will be wired when homepage projection moves to layout-level routeLoader */}
         <AnalogConnector edges={[]} variant="glow" animated />
-        <div class="site-main flex-1">
+        <div class="site-main flex-1" id="main-content">
           <Slot />
         </div>
 
