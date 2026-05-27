@@ -26,7 +26,7 @@
     "preview:cf": "wrangler pages dev dist --compatibility-date=2026-04-01 --compatibility-flags nodejs_compat --port=8788",
     "preview:multi": "concurrently -k \"bun run build:watch\" \"bun run preview:cf\" \"caddy run --config ./Caddyfile\"",
     "lint": "biome check .",
-    "lint.fix": "biome check --write .",
+    "lint.fix": "biome check --write --unsafe .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:unit": "vitest run",
@@ -45,7 +45,10 @@
     "import:package": "bun run scripts/import-content-package.ts",
     "deploy:code": "bun run scripts/deploy-code.ts",
     "deploy:content": "bun run scripts/deploy-content.ts",
-    "deploy:health": "bun run scripts/deploy-health-check.ts"
+    "deploy:health": "bun run scripts/deploy-health-check.ts",
+    "test:visual": "bun run build && npx playwright test tests/e2e/visual-regression.spec.ts",
+    "test:visual:quick": "npx playwright test tests/e2e/visual-regression.spec.ts",
+    "snapshot:update": "npx playwright test tests/e2e/visual-regression.spec.ts --update-snapshots"
   },
   "dependencies": {
     "@builder.io/qwik": "^1.19.2",
