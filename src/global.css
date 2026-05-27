@@ -1269,3 +1269,99 @@ img {
 .ue5-illusion.rounded-3xl {
   border-radius: 1.5rem;
 }
+
+/* ═══════════════════════════════════════════
+   MOODBOARD AETHER — Polaroid + Collage Effects
+   Zero Image Models Pipeline | ADR-014 Visual Asset Forge
+   ═══════════════════════════════════════════ */
+
+/* ── Polaroid frame base ── */
+.polaroid-frame {
+  background: oklch(0.96 0.005 90);
+  padding: 10px 10px 36px 10px;
+  border: 1px solid oklch(0.88 0.01 90);
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.25),
+    0 8px 24px rgba(0, 0, 0, 0.18);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.35s ease,
+              z-index 0s;
+  position: relative;
+}
+
+/* Polaroid dark variant (Aether OS theme) */
+.polaroid-dark {
+  background: oklch(0.18 0.02 280);
+  border: 1px solid oklch(100% 0 0 / 0.10);
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.5),
+    0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Image inside polaroid */
+.polaroid-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  background: oklch(0.30 0.02 280);
+}
+
+/* Alternate rotations for scattered collage effect */
+.moodboard-aether .polaroid-frame:nth-child(odd) {
+  transform: translateY(-2px);
+}
+
+.moodboard-aether .polaroid-frame:nth-child(3n) {
+  transform: translateY(4px);
+}
+
+/* Hover: lifts the photo up */
+.polaroid-frame:hover {
+  transform: scale(1.06) rotate(0deg) !important;
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.35),
+    0 18px 52px rgba(0, 0, 0, 0.25);
+  z-index: 30;
+}
+
+/* ── Polaroid handwritten caption ── */
+.polaroid-caption {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Caveat', 'Kalam', cursive, sans-serif;
+  font-size: 13px;
+  color: oklch(0.40 0.05 280);
+  transform: rotate(-1deg);
+  line-height: 1.3;
+}
+
+/* ── Moodboard arrow animation ── */
+@keyframes moodboard-draw {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.moodboard-arrow {
+  animation: moodboard-draw 1.2s ease-out forwards;
+}
+
+/* ── Moodboard container responsive ── */
+@media (max-width: 640px) {
+  .moodboard-aether {
+    aspect-ratio: 4 / 5;
+    min-height: 400px;
+  }
+
+  .polaroid-frame {
+    width: 28% !important;
+    max-width: 120px !important;
+  }
+}
