@@ -84,7 +84,6 @@ export const ArticleRenderer = component$<ArticleRendererProps>(
     const svgBlock = svgs && svgs.length > 0 && (
       <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
         {svgs.map((svg, idx) => (
-          // biome-ignore lint/suspicious/noArrayIndexKey: static SVGs, order is stable
           <div
             key={idx}
             class="max-w-md rounded-lg border border-action/10 p-2"

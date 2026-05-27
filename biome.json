@@ -17,7 +17,8 @@
       },
       "suspicious": {
         "noExplicitAny": "error",
-        "noDoubleEquals": "error"
+        "noDoubleEquals": "error",
+        "noArrayIndexKey": "off"
       },
       "style": {
         "noNonNullAssertion": "error",
