@@ -10,8 +10,11 @@ export function resolveDocumentLanguageFromPathname(
   const trimmedPath = pathname.replace(/^\/+/, '')
   const firstSegment = trimmedPath.split('/', 1)[0]
 
-  if (firstSegment && SUPPORTED_LANGUAGE_CODES.has(firstSegment)) {
-    return firstSegment as SupportedLanguage
+  // Handle regional variants: 'pt-BR' → 'pt', 'en-US' → 'en'
+  const baseLang = firstSegment?.split('-')[0]
+
+  if (baseLang && SUPPORTED_LANGUAGE_CODES.has(baseLang)) {
+    return baseLang as SupportedLanguage
   }
 
   return DEFAULT_LANGUAGE

@@ -28,7 +28,9 @@ export const LangSwitcher = component$<LangSwitcherProps>(
       isRedirecting.value = true
       isOpen.value = false
 
-      const currentPath = window.location.pathname + window.location.search + window.location.hash
+      // Normalize pathname — strip accidental double slashes before localized() reconstruction
+      const pathname = window.location.pathname.replace(/\/{2,}/g, '/')
+      const currentPath = pathname + window.location.search + window.location.hash
       const redirectUrl = routes.localized(currentPath, newLang)
       logEvent({ type: 'redirect', to: newLang, redirectUrl })
 
@@ -226,7 +228,10 @@ export const LangSwitcherSegmented = component$<LangSwitcherSegmentedProps>(
         next = tabs.length - 1
       } else if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault()
-        return
+        const langCode = (e.target as HTMLElement)?.getAttribute('data-lang-segmented')
+        if (langCode && langCode !== currentLang.value) {
+          onLangChange$(langCode as SupportedLanguage)
+        }
       }
 
       if (next !== idx) {

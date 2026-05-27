@@ -36,7 +36,7 @@ const translations: Record<SupportedLanguage, TranslationStrings> = {
 export interface I18nContext {
   lang: Signal<SupportedLanguage>
   t: TranslationStrings
-  isFallback: boolean
+  isFallback: Signal<boolean>
 }
 
 /**
@@ -91,12 +91,13 @@ export function useCreateI18nContext(
   initialLang: SupportedLanguage = DEFAULT_LANGUAGE
 ): I18nContext {
   const lang = useSignal<SupportedLanguage>(initialLang)
+  const isFallback = useSignal(initialLang !== DEFAULT_LANGUAGE)
   const t = getTranslation(initialLang)
 
   return {
     lang,
     t,
-    isFallback: initialLang !== DEFAULT_LANGUAGE && !translations[initialLang],
+    isFallback,
   }
 }
 

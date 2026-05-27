@@ -24,7 +24,9 @@ export default component$(() => {
   })
 
   const exploreUrl = useComputed$(() => `/${lang.value}/signals`)
-  const switchUrl = useComputed$(() => `/${lang.value === 'pt' ? 'en' : lang.value}/signals`)
+  // Toggle between site primary (pt) and international default (en);
+  // for any other locale, switch to pt as the hub language.
+  const switchUrl = useComputed$(() => `/${lang.value === 'pt' ? 'en' : 'pt'}/signals`)
 
   const handleLangChange = $((newLang: SupportedLanguage) => {
     lang.value = newLang
@@ -96,7 +98,6 @@ export const head: DocumentHead = {
       content: 'UniTeia — Curadoria de Sinais em Inteligência Artificial',
     },
     { property: 'og:site_name', content: 'UniTeia' },
-    { property: 'og:locale', content: 'pt_BR' },
     { name: 'twitter:card', content: 'summary_large_image' },
     {
       name: 'twitter:title',

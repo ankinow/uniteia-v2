@@ -1,4 +1,4 @@
-import { LOCALE_CODES, type SupportedLocale } from '../edge/contract.v1'
+import { DEFAULT_LOCALE, LOCALE_CODES, type SupportedLocale } from '../edge/contract.v1'
 import { parseAcceptLanguage } from '../edge/parse-accept-language'
 import { countryToLang } from '../i18n/geo-map'
 
@@ -21,7 +21,7 @@ export function chooseNicheFallbackLocale(
 
   // 3. Try Accept-Language fallback
   const preferredLang = parseAcceptLanguage(acceptLanguage)
-  return preferredLang || 'pt' // default to pt for niche fallback if nothing detected
+  return preferredLang || DEFAULT_LOCALE
 }
 
 export function buildNicheLocaleRedirectPath(
