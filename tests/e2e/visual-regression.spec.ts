@@ -109,9 +109,9 @@ test.describe('W16 Visual Regression — Collage Integrity', () => {
       // LivingBrief2Col collage container
       await expect(page.locator('[data-testid="living-brief-collage"]')).toBeVisible()
 
-      // At least 3 arrow elements in collage-arrows container
+      // At least 1 arrow SVG in collage-arrows container
       const arrowCount = await page.locator('.collage-arrows svg').count()
-      expect(arrowCount, `Expected >=3 arrow SVGs, got ${arrowCount}`).toBeGreaterThanOrEqual(1)
+      expect(arrowCount, `Expected >=1 arrow SVG, got ${arrowCount}`).toBeGreaterThanOrEqual(1)
 
       // Polaroid cards present
       const polaroidCount = await page.locator('.polaroid-card').count()
