@@ -137,6 +137,7 @@ export const TrendingSection = component$<TrendingSectionProps>(({ articles, lan
   const data = useSignal<{ repos: TrendingRepo[]; news: NewsItem[] } | null>(null)
   const loading = useSignal(true)
   const error = useSignal<string | null>(null)
+  const empty = useSignal(false)
   const fetchTrigger = useSignal(0)
 
   // eslint-disable-next-line qwik/no-use-visible-task
@@ -145,10 +146,15 @@ export const TrendingSection = component$<TrendingSectionProps>(({ articles, lan
 
     loading.value = true
     error.value = null
+    empty.value = false
 
     try {
       const result = await fetchTrendingData()
       data.value = { repos: result.repos, news: result.news }
+      // If both repos and news are empty, mark as "empty" to show degraded state
+      if (result.repos.length === 0 && result.news.length === 0) {
+        empty.value = true
+      }
     } catch (err: unknown) {
       error.value = err instanceof Error ? err.message : 'Failed to load trending data'
     } finally {
@@ -199,6 +205,32 @@ export const TrendingSection = component$<TrendingSectionProps>(({ articles, lan
         </div>
       )}
 
+      {/* Empty state — API returned successfully but no data (rate-limited) */}
+      {empty.value && !loading.value && (
+        <div
+          class="rounded-sm border border-[oklch(0.55_0.10_60/0.3)] bg-white/5 p-6 text-center"
+          data-testid="trending-empty"
+        >
+          <div class="mb-3 flex items-center justify-center gap-2">
+            <span class="text-lg" aria-hidden="true">
+              🔄
+            </span>
+            <p class="text-sm text-[oklch(0.70_0.10_280)]">
+              Trending unavailable — check back later
+            </p>
+          </div>
+          <button
+            type="button"
+            class="cursor-pointer rounded-sm bg-[oklch(0.72_0.165_80/0.15)] px-5 py-2 text-sm text-[oklch(0.85_0.12_85)] transition-colors hover:bg-[oklch(0.72_0.165_80/0.25)] focus-visible:outline-2 focus-visible:outline-[oklch(0.72_0.165_80/0.6)]"
+            aria-label="Retry loading trending data"
+            onClick$={() => {
+              fetchTrigger.value++
+            }}
+          >
+            🔄 Retry
+          </button>
+        </div>
+      )}
       {/* Error state */}
       {error.value && !loading.value && (
         <div
@@ -226,8 +258,8 @@ export const TrendingSection = component$<TrendingSectionProps>(({ articles, lan
         </div>
       )}
 
-      {/* Content */}
-      {data.value && (
+      {/* Content — only render when we have actual data */}
+      {data.value && !empty.value && (
         <>
           {/* GitHub Trending Repos */}
           <div>
