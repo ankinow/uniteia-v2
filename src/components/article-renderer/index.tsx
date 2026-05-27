@@ -2,7 +2,7 @@ import { component$ } from '@builder.io/qwik'
 import { ArticleFrame } from '~/components/article-frame'
 import { ErrorBoundary } from '~/components/error-boundary'
 import { type FrontmatterLabels, FrontmatterSlots } from '~/components/frontmatter-slots'
-import { MoodboardAether, type MoodboardAetherProps } from '~/components/moodboard-aether'
+import { AetherHanddrawCollage, type AetherHanddrawCollageProps } from '~/components/moodboard-aether'
 import { RelatedArticles } from '~/components/related-articles'
 import type { ContentNode } from '~/content-graph/contracts/node'
 import type { SupportedLanguage } from '~/i18n/types'
@@ -19,8 +19,8 @@ export interface ArticleRendererProps {
   withErrorBoundary?: boolean
   /** Optional inline SVGs to render after prose content */
   svgs?: string[]
-  /** Optional moodboard props — renders Aether hand-drawn collage above content */
-  moodboard?: MoodboardAetherProps
+  /** Optional hand-drawn collage props — renders Aether hand-drawn collage above content */
+  collage?: AetherHanddrawCollageProps
 }
 
 const JSONLD = ({ data }: { data: SchemaType }) => {
@@ -56,7 +56,7 @@ const AdaptiveHeader = ({
 )
 
 export const ArticleRenderer = component$<ArticleRendererProps>(
-  ({ content, relatedNodes, labels, withErrorBoundary = true, svgs, moodboard }) => {
+  ({ content, relatedNodes, labels, withErrorBoundary = true, svgs, collage }) => {
     const description = extractDescription(content.content)
 
     const articleSchema: SchemaType = generateArticleSchema({
@@ -101,9 +101,9 @@ export const ArticleRenderer = component$<ArticleRendererProps>(
       <ArticleFrame>
         <JSONLD data={articleSchema} />
         <AdaptiveHeader title={content.title} subtitle={description} />
-        {moodboard && (
+        {collage && (
           <div class="mt-8 mb-8">
-            <MoodboardAether {...moodboard} />
+            <AetherHanddrawCollage {...collage} />
           </div>
         )}
         <FrontmatterSlots

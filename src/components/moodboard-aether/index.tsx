@@ -1,96 +1,112 @@
 import { component$ } from '@builder.io/qwik'
 
-/** A single polaroid-style frame with optional caption */
-export interface PolaroidFrame {
-  /** Image URL or SVG inline data */
-  src: string
-  /** Alt text for accessibility */
-  alt: string
-  /** Optional handwritten caption below the photo */
-  caption?: string
-  /** Rotation in degrees (-15 to +15) */
-  rotation: number
-  /** Horizontal position as percentage (0-100) */
-  x: number
-  /** Vertical position as percentage (0-100) */
-  y: number
-}
-
-/** A hand-drawn arrow connecting two points on the canvas */
-export interface MoodboardArrow {
+/** A hand-drawn arrow connecting two nodes on the canvas */
+export interface CollageArrow {
   /** SVG path data (e.g., "M 100 200 Q 150 150 250 100") */
   path: string
-  /** Stroke color (OKLCH or hex) */
-  color: string
-  /** Stroke width (default: 2.5) */
+  /** Stroke color (OKLCH or hex). Default: indigo */
+  color?: string
+  /** Stroke width. Default: 2.5 */
   strokeWidth?: number
+  /** Whether to animate the arrow drawing. Default: true */
+  animated?: boolean
 }
 
-/** A sketchy annotation box with text */
-export interface MoodboardNote {
+/** A sketchy annotation box with handwritten text */
+export interface CollageNote {
   /** Horizontal position in pixels */
   x: number
   /** Vertical position in pixels */
   y: number
   /** Annotation text */
   text: string
-  /** Width of the note box (default: 140) */
+  /** Width of the note box. Default: 140 */
   width?: number
-  /** Height of the note box (default: 60) */
+  /** Height of the note box. Default: 55 */
   height?: number
+  /** Rotation in degrees. Default: auto (-2 to +2) */
+  rotation?: number
 }
 
-export interface MoodboardAetherProps {
+/** An abstract shape node (circle, diamond, hexagon) */
+export interface CollageNode {
+  /** Center X position */
+  cx: number
+  /** Center Y position */
+  cy: number
+  /** Radius or size. Default: 30 */
+  r?: number
+  /** Node label (short, 1-3 words) */
+  label?: string
+  /** Shape variant */
+  shape?: 'circle' | 'diamond' | 'hexagon' | 'rounded-rect'
+  /** Fill color */
+  fill?: string
+  /** Whether to apply wobble filter. Default: true */
+  wobble?: boolean
+}
+
+export interface AetherHanddrawCollageProps {
   /** Accessibility title */
   title: string
-  /** Polaroid photo frames to display */
-  frames?: PolaroidFrame[]
-  /** Hand-drawn arrow paths */
-  arrows?: MoodboardArrow[]
+  /** Hand-drawn arrows connecting nodes */
+  arrows?: CollageArrow[]
   /** Annotation notes */
-  notes?: MoodboardNote[]
+  notes?: CollageNote[]
+  /** Abstract shape nodes */
+  nodes?: CollageNode[]
   /** Custom class for the container */
   class?: string
-  /** Canvas width (default: 800) */
+  /** Canvas width. Default: 800 */
   width?: number
-  /** Canvas height (default: 600) */
+  /** Canvas height. Default: 600 */
   height?: number
+  /** Background tone. Default: 'obsidian' */
+  tone?: 'obsidian' | 'parchment' | 'transparent'
 }
 
 /**
- * MoodboardAether — Aether OS Hand-Drawn Moodboard Collage
+ * AetherHanddrawCollage — Pure hand-drawn editorial collage
  *
- * Renders an editorial moodboard in the Aether hand-drawn style:
- * polaroid-style photo frames with rotation, curved hand-drawn arrows,
- * sketchy annotation boxes, and a grain/parchment texture overlay.
+ * Renders abstract knowledge visualizations using:
+ * - Hand-drawn arrows (curved bezier paths with wobble)
+ * - Sketchy annotation boxes (hachure-style rectangles)
+ * - Abstract shape nodes (circles, diamonds, hexagons)
+ * - feTurbulence grain overlay
+ * - Aether OS OKLCH palette (Indigo, Amber, Teal, Parchment, Obsidian)
  *
- * Inspired by the Magica page aesthetic on uniteia.com.
- * Part of the Zero Image Models pipeline — all visuals are SVG + CSS.
+ * Zero raster images. Zero polaroid frames. Pure vector hand-drawn aesthetic.
  *
- * @see ADR-014 Visual Asset Forge (mega-factory)
+ * @see ADR-014 Visual Asset Forge
  */
-export const MoodboardAether = component$<MoodboardAetherProps>(
+export const AetherHanddrawCollage = component$<AetherHanddrawCollageProps>(
   ({
     title,
-    frames = [],
     arrows = [],
     notes = [],
+    nodes = [],
     class: classList,
     width = 800,
     height = 600,
+    tone = 'obsidian',
   }) => {
+    const bgColors: Record<string, string> = {
+      obsidian: 'oklch(0.18 0.02 280)',
+      parchment: 'oklch(0.95 0.01 80)',
+      transparent: 'transparent',
+    }
+
     return (
       <div
         class={[
-          'moodboard-aether relative overflow-hidden rounded-2xl',
-          'bg-[oklch(0.18_0.02_280)] border border-white/5',
+          'aether-collage relative overflow-hidden rounded-2xl',
+          tone === 'obsidian' && 'border border-white/5',
           classList,
         ]}
         style={{ aspectRatio: `${width}/${height}` }}
         role="img"
         aria-label={title}
       >
-        {/* SVG Layer: arrows, notes, grain filters */}
         <svg
           viewBox={`0 0 ${width} ${height}`}
           class="absolute inset-0 w-full h-full"
@@ -98,8 +114,8 @@ export const MoodboardAether = component$<MoodboardAetherProps>(
           preserveAspectRatio="xMidYMid slice"
         >
           <defs>
-            {/* Grain texture filter */}
-            <filter id="moodboard-grain">
+            {/* Grain texture — paper-like noise */}
+            <filter id="collage-grain">
               <feTurbulence
                 type="fractalNoise"
                 baseFrequency="0.75"
@@ -112,8 +128,8 @@ export const MoodboardAether = component$<MoodboardAetherProps>(
               </feComponentTransfer>
             </filter>
 
-            {/* Wobble filter for hand-drawn stroke feel */}
-            <filter id="moodboard-wobble">
+            {/* Wobble — hand-drawn stroke irregularity */}
+            <filter id="collage-wobble">
               <feTurbulence
                 type="fractalNoise"
                 baseFrequency="0.03"
@@ -122,9 +138,9 @@ export const MoodboardAether = component$<MoodboardAetherProps>(
               <feDisplacementMap in="SourceGraphic" scale="3" />
             </filter>
 
-            {/* Arrow marker definition */}
+            {/* Arrowhead marker */}
             <marker
-              id="arrowhead"
+              id="collage-arrowhead"
               viewBox="0 0 10 10"
               refX="9"
               refY="5"
@@ -132,22 +148,100 @@ export const MoodboardAether = component$<MoodboardAetherProps>(
               markerHeight="8"
               orient="auto-start-reverse"
             >
-              <path
-                d="M 0 0 L 10 5 L 0 10 Z"
-                fill="oklch(0.35 0.12 280)"
-              />
+              <path d="M 0 0 L 10 5 L 0 10 Z" fill="oklch(0.55 0.15 270)" />
             </marker>
           </defs>
 
-          {/* Parchment background with grain */}
-          <rect
-            x="0"
-            y="0"
-            width={width}
-            height={height}
-            fill="oklch(0.22 0.02 280)"
-            filter="url(#moodboard-grain)"
-          />
+          {/* Background */}
+          <rect x="0" y="0" width={width} height={height} fill={bgColors[tone]} />
+
+          {/* Abstract nodes */}
+          {nodes.map((node, i) => {
+            const r = node.r ?? 30
+            const fill = node.fill ?? 'oklch(0.35 0.12 280)'
+            const wobble = node.wobble !== false
+
+            const shapeEl = (() => {
+              switch (node.shape ?? 'circle') {
+                case 'diamond':
+                  return (
+                    <polygon
+                      points={`${node.cx},${node.cy - r} ${node.cx + r},${node.cy} ${node.cx},${node.cy + r} ${node.cx - r},${node.cy}`}
+                      fill={fill}
+                      opacity="0.12"
+                      stroke="oklch(0.55 0.15 270)"
+                      stroke-width="1.5"
+                      filter={wobble ? 'url(#collage-wobble)' : undefined}
+                    />
+                  )
+                case 'hexagon': {
+                  const pts: string[] = []
+                  for (let a = 0; a < 6; a++) {
+                    const angle = (Math.PI / 3) * a - Math.PI / 6
+                    pts.push(`${(node.cx + r * Math.cos(angle)).toFixed(0)},${(node.cy + r * Math.sin(angle)).toFixed(0)}`)
+                  }
+                  return (
+                    <polygon
+                      points={pts.join(' ')}
+                      fill={fill}
+                      opacity="0.12"
+                      stroke="oklch(0.55 0.15 270)"
+                      stroke-width="1.5"
+                      filter={wobble ? 'url(#collage-wobble)' : undefined}
+                    />
+                  )
+                }
+                case 'rounded-rect':
+                  return (
+                    <rect
+                      x={node.cx - r}
+                      y={node.cy - r * 0.6}
+                      width={r * 2}
+                      height={r * 1.2}
+                      rx="8"
+                      fill={fill}
+                      opacity="0.12"
+                      stroke="oklch(0.55 0.15 270)"
+                      stroke-width="1.5"
+                      filter={wobble ? 'url(#collage-wobble)' : undefined}
+                    />
+                  )
+                default: // circle
+                  return (
+                    <circle
+                      cx={node.cx}
+                      cy={node.cy}
+                      r={r}
+                      fill={fill}
+                      opacity="0.12"
+                      stroke="oklch(0.55 0.15 270)"
+                      stroke-width="1.5"
+                      filter={wobble ? 'url(#collage-wobble)' : undefined}
+                    />
+                  )
+              }
+            })()
+
+            return (
+              <g key={`node-${i}`}>
+                {shapeEl}
+                {node.label && (
+                  <text
+                    x={node.cx}
+                    y={node.cy + r + 18}
+                    text-anchor="middle"
+                    font-family="system-ui, sans-serif"
+                    font-size="11"
+                    font-weight="500"
+                    fill={tone === 'parchment' ? 'oklch(0.35 0.12 280)' : 'oklch(0.85 0.01 80)'}
+                    opacity="0.7"
+                  >
+                    {node.label}
+                  </text>
+                )}
+              </g>
+            )
+          })}
 
           {/* Hand-drawn arrows */}
           {arrows.map((arrow, i) => (
@@ -155,25 +249,29 @@ export const MoodboardAether = component$<MoodboardAetherProps>(
               key={`arrow-${i}`}
               d={arrow.path}
               fill="none"
-              stroke={arrow.color}
+              stroke={arrow.color ?? 'oklch(0.55 0.15 270)'}
               stroke-width={arrow.strokeWidth ?? 2.5}
               stroke-linecap="round"
               stroke-linejoin="round"
-              marker-end="url(#arrowhead)"
-              filter="url(#moodboard-wobble)"
-              class="moodboard-arrow"
-              style={{ strokeDasharray: '8 3', animationDelay: `${i * 0.15}s` }}
+              marker-end="url(#collage-arrowhead)"
+              filter="url(#collage-wobble)"
+              class={arrow.animated !== false ? 'collage-arrow' : ''}
+              style={{
+                strokeDasharray: arrow.animated !== false ? '8 3' : undefined,
+                animationDelay: `${i * 0.12}s`,
+              }}
             />
           ))}
 
           {/* Annotation notes */}
           {notes.map((note, i) => {
             const w = note.width ?? 140
-            const h = note.height ?? 60
+            const h = note.height ?? 55
+            const rot = note.rotation ?? ((i % 3) - 1)
             return (
               <g
                 key={`note-${i}`}
-                transform={`translate(${note.x}, ${note.y}) rotate(${(i % 3) - 1})`}
+                transform={`translate(${note.x}, ${note.y}) rotate(${rot})`}
               >
                 <rect
                   x="0"
@@ -181,64 +279,39 @@ export const MoodboardAether = component$<MoodboardAetherProps>(
                   width={w}
                   height={h}
                   rx="6"
-                  fill="oklch(0.95 0.01 80 / 0.25)"
+                  fill="oklch(0.95 0.01 80 / 0.15)"
                   stroke="oklch(0.55 0.15 270)"
                   stroke-width="1.5"
-                  filter="url(#moodboard-wobble)"
+                  filter="url(#collage-wobble)"
                 />
                 <text
                   x={w / 2}
                   y={h / 2 + 4}
                   text-anchor="middle"
-                  fill="oklch(0.85 0.01 80)"
-                  font-size="13"
-                  font-family="Caveat, cursive"
+                  font-family="Georgia, serif"
+                  font-size="12"
                   font-style="italic"
+                  fill={tone === 'parchment' ? 'oklch(0.35 0.12 280)' : 'oklch(0.85 0.01 80)'}
                 >
                   {note.text}
                 </text>
               </g>
             )
           })}
+
+          {/* Grain overlay — top layer over everything */}
+          <rect
+            x="0"
+            y="0"
+            width={width}
+            height={height}
+            fill="transparent"
+            filter="url(#collage-grain)"
+            opacity="0.30"
+            style={{ pointerEvents: 'none', mixBlendMode: 'multiply' as const }}
+          />
         </svg>
-
-        {/* Polaroid frames (CSS layer — positioned absolutely) */}
-        {frames.map((frame, i) => (
-          <div
-            key={`frame-${i}`}
-            class="polaroid-frame"
-            style={{
-              position: 'absolute',
-              left: `${frame.x}%`,
-              top: `${frame.y}%`,
-              transform: `rotate(${frame.rotation}deg)`,
-              width: '22%',
-              maxWidth: '180px',
-              zIndex: 10 + i,
-            }}
-          >
-            <div class="polaroid-inner">
-              <img
-                src={frame.src}
-                alt={frame.alt}
-                class="polaroid-image"
-                loading="lazy"
-                width="160"
-                height="120"
-              />
-            </div>
-            {frame.caption && (
-              <span class="polaroid-caption">{frame.caption}</span>
-            )}
-          </div>
-        ))}
-
-        {/* Grain overlay (CSS layer, over everything) */}
-        <div
-          class="grain-4k absolute inset-0 pointer-events-none opacity-30 z-50"
-          aria-hidden="true"
-        />
       </div>
     )
-  }
+  },
 )
