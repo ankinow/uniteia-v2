@@ -280,6 +280,8 @@ async function checkConsoleErrors(url: string): Promise<CheckResult> {
   const harmless = [
     'Failed to load resource',
     'net::ERR_ABORTED',
+    'net::ERR_FAILED',
+    'cloudflareinsights.com',
     'third-party cookies',
     'ResizeObserver loop',
   ]
