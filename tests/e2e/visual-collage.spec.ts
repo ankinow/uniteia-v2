@@ -44,7 +44,7 @@ test.describe('AetherHanddrawCollage Visual Regression', () => {
   })
 
   test('collage CSS styles load without errors', async ({ page }) => {
-    await page.goto('/en/signals')
+    await page.goto('/en/signals/apex/magica-overview')
     await page.waitForLoadState('networkidle')
 
     const errors: string[] = []
@@ -52,8 +52,6 @@ test.describe('AetherHanddrawCollage Visual Regression', () => {
       if (msg.type() === 'error') errors.push(msg.text())
     })
 
-    await page.goto('/en/signals/apex')
-    await page.waitForLoadState('networkidle')
     await page.waitForTimeout(500)
 
     const cssErrors = errors.filter(
@@ -142,5 +140,40 @@ test.describe('AetherHanddrawCollage Visual Regression', () => {
     await page.goto('/en/signals')
     await page.waitForLoadState('networkidle')
     await expect(page.locator('[data-testid="site-shell"]')).toBeVisible()
+  })
+
+  test('article page renders collage SVG with nodes and arrows', async ({ page }) => {
+    await page.goto('/en/signals/apex/magica-overview')
+    await page.waitForLoadState('networkidle')
+
+    await expect(page.locator('.aether-collage')).toBeVisible()
+
+    const arrows = await page.locator('.collage-arrow').count()
+    expect(arrows).toBeGreaterThanOrEqual(3)
+
+    const hasMarker = await page.evaluate(() => {
+      const svg = document.querySelector('.aether-collage svg')
+      return svg?.querySelector('#collage-arrowhead') !== null
+    })
+    expect(hasMarker).toBe(true)
+
+    const hasGrain = await page.evaluate(() => {
+      const svg = document.querySelector('.aether-collage svg')
+      return svg?.querySelector('#collage-grain') !== null
+    })
+    expect(hasGrain).toBe(true)
+  })
+
+  test('article page collage has zero JS console errors', async ({ page }) => {
+    const errors: string[] = []
+    page.on('console', msg => {
+      if (msg.type() === 'error') errors.push(msg.text())
+    })
+
+    await page.goto('/en/signals/apex/magica-overview')
+    await page.waitForLoadState('networkidle')
+    await page.waitForTimeout(500)
+
+    expect(errors).toHaveLength(0)
   })
 })
