@@ -148,7 +148,7 @@ async function checkOgLocale(html: string, url: string): Promise<CheckResult> {
 }
 
 async function checkTitle(html: string, url: string): Promise<CheckResult> {
-  const match = html.match(/<title>([^<]*)<\/title>/)
+  const match = html.match(/<title[^>]*>([^<]*)<\/title>/)
   const title = match ? match[1]?.trim() : ''
   const passed = title.length > 0
   return {
