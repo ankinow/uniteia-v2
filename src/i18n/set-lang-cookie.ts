@@ -1,5 +1,5 @@
 import { server$ } from '@builder.io/qwik-city'
-import { LANGUAGE_COOKIE_NAME, LANGUAGE_COOKIE_MAX_AGE, type SupportedLanguage } from './types'
+import { LANGUAGE_COOKIE_MAX_AGE, LANGUAGE_COOKIE_NAME, type SupportedLanguage } from './types'
 
 /**
  * Server action that sets the uniteia_lang cookie with secure attributes.

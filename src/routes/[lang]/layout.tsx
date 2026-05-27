@@ -1,7 +1,7 @@
 import { Slot, component$ } from '@builder.io/qwik'
 import type { RequestHandler } from '@builder.io/qwik-city'
 import { isValidLocale } from '~/i18n/locale-validation'
-import { LANGUAGE_COOKIE_NAME, LANGUAGE_COOKIE_MAX_AGE } from '~/i18n/types'
+import { LANGUAGE_COOKIE_MAX_AGE, LANGUAGE_COOKIE_NAME } from '~/i18n/types'
 
 /**
  * Locale Validation Middleware for /[lang] routes.

@@ -6,8 +6,8 @@ import { fr } from './fr'
 import { it as itLocale } from './it'
 import { ja } from './ja'
 import { pt } from './pt'
-import { zh } from './zh'
 import type { TranslationStrings } from './types'
+import { zh } from './zh'
 
 type KeyPath = string
 
@@ -34,7 +34,13 @@ const LOCALES = ['pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'] as const
 // Map locale codes to their translation objects
 function getTranslationForLocale(locale: string): TranslationStrings | undefined {
   const map: Record<string, TranslationStrings> = {
-    pt, es, fr, de, it: itLocale, ja, zh,
+    pt,
+    es,
+    fr,
+    de,
+    it: itLocale,
+    ja,
+    zh,
   }
   return map[locale]
 }
@@ -46,9 +52,22 @@ describe('Translation key consistency', () => {
     expect(enKeys.size).toBeGreaterThan(0)
     // Sanity check: known top-level sections must exist
     const sections = [
-      'nav', 'sidebar', 'footer', 'langSwitcher', 'errorPages',
-      'fallbackBanner', 'article', 'niche', 'editorial', 'dopamineCard',
-      'signal', 'search', 'seo', 'homepage', 'onboarding', 'legal',
+      'nav',
+      'sidebar',
+      'footer',
+      'langSwitcher',
+      'errorPages',
+      'fallbackBanner',
+      'article',
+      'niche',
+      'editorial',
+      'dopamineCard',
+      'signal',
+      'search',
+      'seo',
+      'homepage',
+      'onboarding',
+      'legal',
     ]
     for (const section of sections) {
       expect(en).toHaveProperty(section)

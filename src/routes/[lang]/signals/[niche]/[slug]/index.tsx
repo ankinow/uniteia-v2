@@ -116,13 +116,21 @@ export const useRelated = routeLoader$<ContentNode[]>(async ({ params }) => {
 
 export const useCollageAssets = routeLoader$<LivingBriefCollageProps | null>(async ({ params }) => {
   const slug = params.slug
-  if (slug !== 'magica-overview') return null
+  // Load collage for any article that has pre-generated assets
+  const COLLAGE_SLUGS = new Set([
+    'magica-overview',
+    'magica-quickstart',
+    'magica-mcp-server',
+    'tencent-cloud-deal-stack-builders',
+  ])
+  if (!COLLAGE_SLUGS.has(slug)) return null
   try {
     // Read pre-generated collage JSON at build time using fs
     const fs = await import('node:fs')
     const path = await import('node:path')
     const repoRoot = process.cwd()
-    const jsonPath = path.join(repoRoot, 'content/apex/en/assets/collage/magica-overview.json')
+    const jsonPath = path.join(repoRoot, `content/apex/en/assets/collage/${slug}.json`)
+    if (!fs.existsSync(jsonPath)) return null
     const raw = fs.readFileSync(jsonPath, 'utf-8')
     const pkg = parseCollagePackage(raw)
     return pkg ? collagePackageToProps(pkg) : null
