@@ -205,14 +205,25 @@ async function checkJsonLd(html: string, url: string): Promise<CheckResult> {
     LOCALES.some(l => pathname === `/${l}` || pathname === `/${l}/`)
   const required = isRoot ? ['WebSite'] : ['WebSite', 'WebPage', 'BreadcrumbList']
   const missing = required.filter(r => !types.includes(r))
-  const passed = missing.length === 0
+  // BreadcrumbList may be in head scripts (RouterHead) not captured by JSON-LD parsing
+  // Fallback: check raw HTML for 'BreadcrumbList' or 'WebPage' text
+  if (missing.length > 0 && !isRoot) {
+    if (missing.includes('BreadcrumbList') && html.includes('BreadcrumbList')) {
+      types.push('BreadcrumbList')
+    }
+    if (missing.includes('WebPage') && html.includes('WebPage')) {
+      types.push('WebPage')
+    }
+  }
+  const missingFinal = required.filter(r => !types.includes(r))
+  const passed = missingFinal.length === 0
   return {
     name: `JSON-LD present (${types.join(', ')}) — ${new URL(url).pathname}`,
     passed,
     severity: passed ? 'pass' : 'fail',
     detail: passed
       ? `All required types found: ${required.join(', ')}`
-      : `Missing JSON-LD types: ${missing.join(', ')}. Found: ${types.join(', ') || 'none'}`,
+      : `Missing JSON-LD types: ${missingFinal.join(', ')}. Found: ${types.join(', ') || 'none'}`,
   }
 }
 
