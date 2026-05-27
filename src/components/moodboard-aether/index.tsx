@@ -114,24 +114,24 @@ export const AetherHanddrawCollage = component$<AetherHanddrawCollageProps>(
           preserveAspectRatio="xMidYMid slice"
         >
           <defs>
-            {/* Grain texture — paper-like noise */}
+            {/* Grain texture — paper-like noise (strengthened) */}
             <filter id="collage-grain">
               <feTurbulence
                 type="fractalNoise"
-                baseFrequency="0.75"
-                numOctaves="4"
+                baseFrequency="0.65"
+                numOctaves="5"
                 stitchTiles="stitch"
               />
               <feColorMatrix type="saturate" values="0" />
               <feComponentTransfer>
-                <feFuncA type="linear" slope="0.06" />
+                <feFuncA type="linear" slope="0.10" />
               </feComponentTransfer>
             </filter>
 
-            {/* Wobble — hand-drawn stroke irregularity */}
+            {/* Wobble — hand-drawn stroke irregularity (stronger) */}
             <filter id="collage-wobble">
-              <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" />
-              <feDisplacementMap in="SourceGraphic" scale="3" />
+              <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" />
+              <feDisplacementMap in="SourceGraphic" scale="4" />
             </filter>
 
             {/* Arrowhead marker */}
@@ -154,7 +154,7 @@ export const AetherHanddrawCollage = component$<AetherHanddrawCollageProps>(
           {/* Abstract nodes */}
           {nodes.map((node, i) => {
             const r = node.r ?? 30
-            const fill = node.fill ?? 'oklch(0.35 0.12 280)'
+            const fill = node.fill ?? 'oklch(0.40 0.14 270)'
             const wobble = node.wobble !== false
 
             const shapeEl = (() => {
@@ -255,8 +255,8 @@ export const AetherHanddrawCollage = component$<AetherHanddrawCollageProps>(
               filter="url(#collage-wobble)"
               class={arrow.animated !== false ? 'collage-arrow' : ''}
               style={{
-                strokeDasharray: arrow.animated !== false ? '8 3' : undefined,
-                animationDelay: `${i * 0.12}s`,
+                strokeDasharray: arrow.animated !== false ? '10 4' : undefined,
+                animationDelay: `${i * 0.15}s`,
               }}
             />
           ))}
@@ -302,7 +302,7 @@ export const AetherHanddrawCollage = component$<AetherHanddrawCollageProps>(
             height={height}
             fill="transparent"
             filter="url(#collage-grain)"
-            opacity="0.30"
+            opacity="0.35"
             style={{ pointerEvents: 'none', mixBlendMode: 'multiply' as const }}
           />
         </svg>

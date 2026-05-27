@@ -10,6 +10,7 @@ import { SUPPORTED_LANGUAGES } from '~/i18n/types'
 import { canonicalUrl, xdefaultUrl } from '~/routing/routes'
 import type { LlmWikiContent } from '~/types/content'
 import { ContentLoaderError } from '~/types/content'
+import { canvasToCollageProps } from '~/utils/canvas-to-collage'
 import { loadContent } from '~/utils/content-loader'
 import { extractDescription } from '~/utils/text-utils'
 
@@ -120,18 +121,24 @@ export default component$(() => {
     return <div class="text-bone-muted p-8 text-center">Content not found</div>
   }
 
+  const canvasData = content.value.canvas
+  const collage = canvasData ? canvasToCollageProps(canvasData, { width: 800, height: 500 }) : null
+
+  const rendererProps = {
+    content: content.value,
+    relatedNodes: relatedNodes.value,
+    labels: {
+      subjectsLabel: t.article.subjectsLabel,
+      byAuthor: t.article.byAuthor,
+      version: t.article.version,
+      readInLang: t.article.readInLang,
+    },
+    ...(collage ? ({ collage } as const) : {}),
+  }
+
   return (
     <CanvasSurface tone="obsidian">
-      <ArticleRenderer
-        content={content.value}
-        relatedNodes={relatedNodes.value}
-        labels={{
-          subjectsLabel: t.article.subjectsLabel,
-          byAuthor: t.article.byAuthor,
-          version: t.article.version,
-          readInLang: t.article.readInLang,
-        }}
-      />
+      <ArticleRenderer {...rendererProps} />
     </CanvasSurface>
   )
 })
