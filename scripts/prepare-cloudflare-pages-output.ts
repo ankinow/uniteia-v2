@@ -57,9 +57,10 @@ function findHtmlPages(dir: string, basePath: string): void {
 }
 findHtmlPages(distDir, '')
 
+// Only route these dynamic paths through Worker — everything else is static
 const routes = {
   version: 1,
-  include: ['/*'],
+  include: ['/search/*', '/api/*'],
   exclude: [
     '/build/*',
     '/assets/*',
@@ -72,9 +73,29 @@ const routes = {
 }
 writeFileSync(routesPath, JSON.stringify(routes, null, 2))
 
-// Adiciona variantes sem trailing slash ao Set de paths estáticos
-// para que URLs como /pt/signals/apex/tencent-cloud-deal-stack-builders
-// (sem / no final) sejam servidas via ASSETS.fetch em vez de cair no Worker SSR
+// Add no-slash variants to static paths set for ASSETS.fetch fallback
+// Generate no-slash .html files for Cloudflare direct serving
+// CF Pages serves /path/index.html at /path/ but NOT /path (no slash)
+// Copy index.html to parent as slug.html for direct no-slash access
+let noSlashCopies = 0
+for (const path of ssgExcludes) {
+  if (path === '/') continue
+  const dir = join(distDir, path)
+  const indexFile = join(dir, 'index.html')
+  if (existsSync(indexFile)) {
+    const parentDir = join(dir, '..')
+    const slug = path.split('/').filter(Boolean).pop() || 'index'
+    const targetFile = join(parentDir, `${slug}.html`)
+    if (!existsSync(targetFile)) {
+      cpSync(indexFile, targetFile)
+      noSlashCopies++
+    }
+  }
+}
+if (noSlashCopies > 0) {
+  console.log(`  Generated ${noSlashCopies} no-slash .html variants`)
+}
+
 const staticPathsPath = join(distServerDir, '@qwik-city-static-paths.js')
 if (existsSync(staticPathsPath)) {
   const spContent = readFileSync(staticPathsPath, 'utf-8')
@@ -99,5 +120,5 @@ if (existsSync(staticPathsPath)) {
 }
 
 console.log(
-  'Prep done: dist/server/ copied, dist/_worker.js path fixed, Worker handles all locale routes'
+  'Prep done: dist/server/ copied, dist/_worker.js path fixed, Worker handles only search+api'
 )

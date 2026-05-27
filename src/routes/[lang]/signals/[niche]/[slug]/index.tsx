@@ -134,6 +134,7 @@ export const useCollageAssets = routeLoader$<LivingBriefCollageProps | null>(asy
   if (!COLLAGE_SLUGS.has(slug)) return null
   try {
     // Read pre-generated collage JSON at build time using fs
+    // Runs only during SSG (Node.js available), never on CF Workers edge
     const fs = await import('node:fs')
     const path = await import('node:path')
     const repoRoot = process.cwd()
