@@ -1,7 +1,6 @@
 import { component$ } from '@builder.io/qwik'
 import type { NavigationItem } from '~/content-graph/projections'
 import { DonationButton } from '../donation'
-import { LangSelectorCompact } from '../lang-switcher/compact'
 import { SidebarNav } from './sidebar-nav'
 
 export interface SidebarProps {
@@ -34,13 +33,6 @@ export const Sidebar = component$<SidebarProps>(({ navigationItems }) => {
       {/* Donation Button */}
       <div class="px-4">
         <DonationButton />
-      </div>
-
-      <div class="scratch-divider my-4" aria-hidden="true" />
-
-      {/* Language Selector */}
-      <div class="p-4 border-t border-cyan/10">
-        <LangSelectorCompact />
       </div>
     </aside>
   )

@@ -56,7 +56,7 @@ export default component$(() => {
       </div>
 
       {nichesSignal.value.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 px-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 px-4">
           {nichesSignal.value.map((niche, index) => {
             // Organic anti-grid pattern: first niche is hero, then alternate 1-1-2
             const isHero = index === 0

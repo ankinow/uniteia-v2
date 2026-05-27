@@ -66,7 +66,7 @@ export const SignalGrid = component$<SignalGridProps>(
     return (
       <div
         data-testid="signal-grid-tabular"
-        class={['grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6', className]}
+        class={['grid grid-cols-1 sm:grid-cols-2 gap-6', className]}
       >
         {signals.map(signal => (
           <SignalCard key={signal.id} signal={signal} />
