@@ -199,7 +199,10 @@ async function checkJsonLd(html: string, url: string): Promise<CheckResult> {
   const pathname = new URL(url).pathname
   // Root locale pages (/, /en/, /pt/) are the WebSite itself — WebSite is sufficient
   // Content pages (signals, articles) should have WebPage + BreadcrumbList
-  const isRoot = pathname === '/' || pathname === '' || LOCALES.some(l => pathname === `/${l}` || pathname === `/${l}/`)
+  const isRoot =
+    pathname === '/' ||
+    pathname === '' ||
+    LOCALES.some(l => pathname === `/${l}` || pathname === `/${l}/`)
   const required = isRoot ? ['WebSite'] : ['WebSite', 'WebPage', 'BreadcrumbList']
   const missing = required.filter(r => !types.includes(r))
   const passed = missing.length === 0
