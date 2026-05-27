@@ -37,7 +37,7 @@ export const SECURITY_HEADERS: SecurityHeader[] = [
   {
     name: 'Content-Security-Policy',
     value:
-      "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; worker-src 'self'",
+      "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.github.com https://hacker-news.firebaseio.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; worker-src 'self'",
   },
 ]
 

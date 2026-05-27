@@ -65,14 +65,16 @@ export const NicheLanding = component$<NicheLandingProps>(
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {localizedArticles.map((article, i) => (
                     <ErrorBoundary key={article.slug} fallbackMsg="Article Card">
-                      <DopamineCard
-                        class={i === 0 ? 'md:col-span-2' : ''}
-                        title={article.title}
-                        description={article.summary ?? ''}
-                        href={`/${lang}/signals/${niche.slugs[lang]}/${article.slug}`}
-                        lang={lang}
-                        data-testid="article-card"
-                      />
+                      <article aria-label={article.title}>
+                        <DopamineCard
+                          class={i === 0 ? 'md:col-span-2' : ''}
+                          title={article.title}
+                          description={article.summary ?? ''}
+                          href={`/${lang}/signals/${niche.slugs[lang]}/${article.slug}`}
+                          lang={lang}
+                          data-testid="article-card"
+                        />
+                      </article>
                     </ErrorBoundary>
                   ))}
                 </div>

@@ -14,6 +14,7 @@ import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 import { canonicalUrl, xdefaultUrl } from '~/routing/routes'
 import type { NicheArticleEntry } from '~/utils/content-loader'
 import { findNicheBySlug, getNicheSlug, loadNichesConfig } from '~/utils/niche-loader'
+import { generateWebPageSchema } from '~/utils/schema-generators'
 import { generateWebSiteSchema } from '~/utils/schema-generators'
 import type { NicheRouteData } from './types'
 
@@ -126,6 +127,7 @@ export default component$(() => {
   const articles = useNicheArticles()
   const location = useLocation()
   const lang = (location.params.lang as SupportedLanguage) || 'en'
+  const pageTitle = `${data.value.niche.title[lang]} — UniTeia`
 
   const websiteSchema = generateWebSiteSchema({
     name: `${data.value.niche.title[lang]} | UniTeia`,
@@ -134,9 +136,23 @@ export default component$(() => {
     lang,
   })
 
+  const nicheUrl = canonicalUrl(location.url.origin, `/${lang}/signals/${data.value.niche.slug}`)
+  const webPageSchema = generateWebPageSchema({
+    name: pageTitle,
+    url: nicheUrl,
+    description: data.value.niche.description[lang],
+    lang,
+    breadcrumb: [
+      { name: lang.toUpperCase(), item: `${location.url.origin}/${lang}` },
+      { name: 'Signals', item: `${location.url.origin}/${lang}/signals` },
+      { name: data.value.niche.title[lang], item: nicheUrl },
+    ],
+  })
+
   return (
     <>
       <JSONLD data={websiteSchema} />
+      <JSONLD data={webPageSchema} />
       <main>
         <LivingBrief2Col
           hero={{
