@@ -1,0 +1,380 @@
+/**
+ * LIVING BRIEF — 2-Column Collage Aesthetic
+ * Torn-paper, tape, polaroids, hand-drawn arrows, boneco puppets, emoticons
+ * OKLCH wide-gamut · Tailwind v4 compatible
+ */
+
+/* ── 2-Column Layout ── */
+
+.living-brief-2col {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.living-brief-left {
+  position: relative;
+  z-index: 2;
+}
+
+.living-brief-right {
+  position: relative;
+  z-index: 1;
+}
+
+/* Mobile collapse: stack vertical */
+@media (max-width: 767px) {
+  .living-brief-2col {
+    flex-direction: column;
+  }
+  .living-brief-left {
+    min-height: auto;
+  }
+  .living-brief-left .living-brief-hero {
+    min-height: 50vh;
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* ── Left Panel: Hero ── */
+
+.living-brief-hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 3rem;
+  background: linear-gradient(180deg, oklch(0.12 0.04 280) 0%, oklch(0.08 0.05 280) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Magica variant — purple/indigo emphasis */
+.living-brief-hero.magica-hero-variant {
+  background: linear-gradient(
+    180deg,
+    oklch(0.1 0.06 285) 0%,
+    oklch(0.07 0.05 275) 50%,
+    oklch(0.06 0.04 270) 100%
+  );
+}
+
+/* ── Right Panel: Collage ── */
+
+.living-brief-collage {
+  min-height: 100vh;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: color-mix(in oklch, oklch(0.95 0.02 80) 90%, oklch(0.9 0.03 85) 10%);
+}
+
+/* Torn paper edges (CSS only) */
+.torn-edges {
+  /* Top torn edge */
+  background:
+    linear-gradient(135deg, transparent 33%, oklch(0.92 0.02 80) 33%) 0 0 / 20px 4px,
+    linear-gradient(225deg, transparent 33%, oklch(0.92 0.02 80) 33%) 4px 0 / 20px 4px,
+    /* Bottom torn edge */
+    linear-gradient(315deg, transparent 33%, oklch(0.92 0.02 80) 33%) 0 100% / 20px 4px,
+    linear-gradient(45deg, transparent 33%, oklch(0.92 0.02 80) 33%) 4px 100% / 20px 4px;
+  background-repeat: repeat-x;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Subtle corkboard texture */
+.corkboard-subtle {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.4 0.25' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23c)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* ── Polaroid cards ── */
+
+.polaroid-card {
+  background: oklch(0.98 0.01 80 / 0.9);
+  border-radius: 2px;
+  box-shadow: 0 2px 8px oklch(0 0 0 / 0.12), 0 1px 2px oklch(0 0 0 / 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.polaroid-card:hover {
+  box-shadow: 0 4px 16px oklch(0 0 0 / 0.18), 0 2px 4px oklch(0 0 0 / 0.12);
+}
+
+/* ── Hand-drawn arrows ── */
+
+.handdraw-arrow {
+  pointer-events: none;
+}
+
+.handdraw-arrow .arrow-body {
+  stroke: oklch(0.72 0.165 80);
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+}
+
+.handdraw-arrow .arrow-head {
+  stroke: oklch(0.72 0.165 80);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Hover glow for static arrows */
+.handdraw-arrow:not(.arrow-animated):hover .arrow-body,
+.handdraw-arrow:not(.arrow-animated):hover .arrow-head {
+  filter: drop-shadow(0 0 4px oklch(0.72 0.165 80 / 0.5));
+  stroke-width: 3;
+  transition: filter 0.3s ease, stroke-width 0.3s ease;
+}
+
+/* ── Boneco puppets ── */
+
+.boneco-puppet {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.boneco-puppet:hover {
+  transform: scale(1.08);
+}
+
+/* Boneco bounce-in animation (scroll-triggered) */
+.boneco-bounce-in {
+  animation: bonecoBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes bonecoBounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ── Floating gentle animation for emoticons ── */
+
+.animate-float-gentle {
+  animation: floatGentle 4s ease-in-out infinite;
+}
+
+@keyframes floatGentle {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(2deg);
+  }
+}
+
+/* ── Arrow draw animation ── */
+
+.arrow-animated .arrow-body {
+  animation: arrowDrawIn 1.5s ease-out forwards;
+}
+
+@keyframes arrowDrawIn {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.arrow-animated .arrow-head {
+  animation: arrowHeadIn 0.3s 1.2s ease-out both;
+}
+
+@keyframes arrowHeadIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── Tape overlays ── */
+
+.tape-strip {
+  width: 80px;
+  height: 24px;
+  filter: drop-shadow(0 1px 1px oklch(0 0 0 / 0.1));
+}
+
+.tape-overlay {
+  mix-blend-mode: multiply;
+}
+
+/* ── Emoticon badges ── */
+
+.emoticon-badge {
+  filter: drop-shadow(0 2px 4px oklch(0 0 0 / 0.15));
+  user-select: none;
+}
+
+/* ── Teach images ── */
+
+.teach-image {
+  border: 1px solid oklch(0.8 0.02 80 / 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.teach-image:hover {
+  transform: scale(1.03) rotate(1deg);
+  box-shadow: 0 4px 12px oklch(0 0 0 / 0.15);
+}
+
+/* ── Collage text blocks ── */
+
+.collage-text-block {
+  backdrop-filter: blur(4px);
+  border: 1px solid oklch(1 0 0 / 0.15);
+  transition: transform 0.3s ease;
+}
+
+.collage-text-block:hover {
+  transform: scale(1.02);
+}
+
+/* ── Collage sections ── */
+
+.collage-sections {
+  position: relative;
+  min-height: 400px;
+}
+
+/* ── Handwrite font fallback ── */
+
+.font-handwrite {
+  font-family: "Caveat", "Segoe Script", "Comic Sans MS", cursive;
+}
+
+/* ── Labels with paper texture ── */
+
+.collage-labels > div {
+  transition: transform 0.2s ease;
+  max-width: 180px;
+}
+
+.collage-labels > div:hover {
+  transform: scale(1.05) rotate(0deg) !important;
+}
+
+/* ── Connector label with arrow ── */
+
+.arrow-connector {
+  border-left: 2px solid oklch(0.72 0.165 80 / 0.4);
+}
+
+/* ── Motion Canvas: Tape peel on load ── */
+
+.tape-peel {
+  animation: tapePeelIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes tapePeelIn {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+  }
+  60% {
+    clip-path: inset(0 0% 0 0);
+    opacity: 1;
+  }
+  100% {
+    clip-path: inset(0 0% 0 0);
+    opacity: 0.7;
+  }
+}
+
+/* ── Motion Canvas: Boneco bounce on viewport enter ── */
+
+.boneco-visible {
+  animation: bonecoBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ── Motion Canvas: Image float gentle ── */
+
+.image-float {
+  animation: imageFloat 6s ease-in-out infinite;
+}
+
+@keyframes imageFloat {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-8px) rotate(0.5deg);
+  }
+  66% {
+    transform: translateY(-3px) rotate(-0.3deg);
+  }
+}
+
+/* ── Responsive: mobile collage ── */
+
+@media (max-width: 767px) {
+  .living-brief-collage {
+    min-height: auto;
+  }
+
+  .polaroid-card {
+    position: relative !important;
+    margin-bottom: 1rem;
+  }
+
+  .collage-labels > div {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    margin-bottom: 0.5rem;
+    max-width: 100%;
+  }
+
+  .boneco-wrapper {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    display: inline-block;
+    margin: 0.5rem;
+  }
+
+  .collage-emoticons .emoticon-badge {
+    display: inline-block;
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    margin: 0.25rem;
+  }
+}
+
+/* ── Motion Canvas compatibility ── */
+
+@media (prefers-reduced-motion: reduce) {
+  .boneco-bounce-in {
+    animation: none;
+    opacity: 1;
+  }
+
+  .arrow-animated .arrow-body {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .arrow-animated .arrow-head {
+    animation: none;
+    opacity: 1;
+  }
+
+  .animate-float-gentle {
+    animation: none;
+  }
+}

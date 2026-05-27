@@ -4,10 +4,7 @@ import { AnalogConnector } from '~/components/analog-connector'
 import { Footer } from '~/components/footer'
 import { LangSwitcher } from '~/components/lang-switcher'
 import { NavTree } from '~/components/nav-tree'
-import { SidebarScrollGlow } from '~/components/scroll-driven'
-import { Sidebar } from '~/components/sidebar'
 import { SiteShell } from '~/components/site-shell'
-import { getPublicNavigation } from '~/content-graph/projections'
 import { getTranslation, useProvideI18n } from '~/i18n/context'
 import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 import { signalsIndex } from '~/routing/routes'
@@ -49,19 +46,11 @@ export const useNavigation = routeLoader$<NavigationData>(async () => {
   return await deriveNavigation()
 })
 
-export const useSidebarNavigation = routeLoader$(async ({ headers }) => {
-  const lang = (headers.get('x-negotiated-lang') as SupportedLanguage) ?? DEFAULT_LANGUAGE
-  const { contentGraphProvider } = await import('~/content-graph.generated')
-  const niches = await loadNichesConfig()
-  return getPublicNavigation(contentGraphProvider, niches, lang)
-})
-
 export default component$(() => {
   const langSignal = useLanguage()
   const nichesSignal = useNiches()
   const nicheSignal = useNiche()
   const navSignal = useNavigation()
-  const sidebarNavSignal = useSidebarNavigation()
   const lang = langSignal.value
   const topicsOpen = useSignal(false)
 
@@ -116,27 +105,17 @@ export default component$(() => {
         </div>
       </div>
 
-      {/* Layout de duas colunas */}
-      <div class="flex min-h-screen">
-        {/* Sidebar - JRPG Style (apenas desktop) */}
-        <aside class="hidden md:block w-64 flex-shrink-0">
-          <SidebarScrollGlow>
-            <Sidebar navigationItems={sidebarNavSignal.value} />
-          </SidebarScrollGlow>
-        </aside>
-
-        {/* Main Content */}
-        <div class="flex-1 flex flex-col min-w-0" data-analog-container>
-          {/* M019: Edge data will be wired when homepage projection moves to layout-level routeLoader */}
-          <AnalogConnector edges={[]} variant="glow" animated />
-          <div class="site-main flex-1">
-            <Slot />
-          </div>
-
-          <footer class="site-footer" data-testid="site-footer">
-            <Footer />
-          </footer>
+      {/* Main Content — sidebar banida (2-col Living Brief layout nos children) */}
+      <div class="flex-1 flex flex-col min-w-0" data-analog-container>
+        {/* M019: Edge data will be wired when homepage projection moves to layout-level routeLoader */}
+        <AnalogConnector edges={[]} variant="glow" animated />
+        <div class="site-main flex-1">
+          <Slot />
         </div>
+
+        <footer class="site-footer" data-testid="site-footer">
+          <Footer />
+        </footer>
       </div>
     </SiteShell>
   )

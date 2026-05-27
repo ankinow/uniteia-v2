@@ -5,6 +5,7 @@ import './global.css'
 import '~/assets/uniteia-core.css'
 import '~/assets/aether-assets-glow.css'
 import '~/assets/aether-assets-textures.css'
+import '~/assets/living-brief.css'
 
 /**
  * UniTeia Root Component

@@ -20,6 +20,9 @@
         "noDoubleEquals": "error",
         "noArrayIndexKey": "off"
       },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
       "style": {
         "noNonNullAssertion": "error",
         "useImportType": "error"

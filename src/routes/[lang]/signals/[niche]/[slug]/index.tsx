@@ -1,7 +1,9 @@
 import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
 import { ArticleRenderer } from '~/components/article-renderer'
-import { CanvasSurface } from '~/components/canvas-surface'
+import { LivingBrief2Col } from '~/components/living-brief'
+import type { LivingBriefCollageProps } from '~/components/living-brief/types'
+import { collagePackageToProps, parseCollagePackage } from '~/utils/collage-importer'
 
 import type { ContentLocale, ContentNode } from '~/content-graph/contracts/node'
 import { getTranslation, useI18n } from '~/i18n/context'
@@ -112,9 +114,27 @@ export const useRelated = routeLoader$<ContentNode[]>(async ({ params }) => {
     .slice(0, 4)
 })
 
+export const useCollageAssets = routeLoader$<LivingBriefCollageProps | null>(async ({ params }) => {
+  const slug = params.slug
+  if (slug !== 'magica-overview') return null
+  try {
+    // Read pre-generated collage JSON at build time using fs
+    const fs = await import('node:fs')
+    const path = await import('node:path')
+    const repoRoot = process.cwd()
+    const jsonPath = path.join(repoRoot, 'content/apex/en/assets/collage/magica-overview.json')
+    const raw = fs.readFileSync(jsonPath, 'utf-8')
+    const pkg = parseCollagePackage(raw)
+    return pkg ? collagePackageToProps(pkg) : null
+  } catch {
+    return null
+  }
+})
+
 export default component$(() => {
   const content = useArticle()
   const relatedNodes = useRelated()
+  const collageAssets = useCollageAssets()
   const { t } = useI18n()
 
   if (!content.value) {
@@ -137,9 +157,17 @@ export default component$(() => {
   }
 
   return (
-    <CanvasSurface tone="obsidian">
+    <LivingBrief2Col
+      hero={{
+        title: content.value.title,
+        subtitle: extractDescription(content.value.content),
+        hashtags: content.value.subjects,
+        variant: content.value.slug === 'magica-overview' ? 'magica' : 'default',
+      }}
+      {...(collageAssets.value ? { collage: collageAssets.value } : {})}
+    >
       <ArticleRenderer {...rendererProps} />
-    </CanvasSurface>
+    </LivingBrief2Col>
   )
 })
 
