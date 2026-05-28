@@ -246,6 +246,11 @@
   --z-floating: 30; /* overlays, tooltips, dropdown panels */
   --z-overlay: 50; /* modals, skip-links */
 
+  /* Tooltip styles */
+  --tooltip-bg: oklch(0.15 0.02 280);
+  --tooltip-text: oklch(0.95 0.01 80);
+  --tooltip-font: 'JetBrains Mono', monospace;
+
   /* Paper */
   --paper-bg: #e8ddc8;
   --paper-text: #2c2416;
@@ -1301,5 +1306,40 @@ img {
 @media (prefers-reduced-motion: reduce) {
   .collage-arrow {
     animation: none;
+  }
+}
+
+/* ── ∅ Tooltip ── */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  background: var(--tooltip-bg);
+  color: var(--tooltip-text);
+  font-family: var(--tooltip-font);
+  font-size: 11px;
+  line-height: 1.4;
+  white-space: nowrap;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: var(--z-floating);
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-tooltip]::after {
+    transition: none;
   }
 }

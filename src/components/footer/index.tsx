@@ -31,6 +31,14 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
           <div class="footer-tagline text-center" data-testid="footer-tagline">
             <p class="text-bone-muted">{t.footer.madeWith}</p>
           </div>
+          <div class="text-center text-xs">
+            <a
+              href="/aether-os"
+              class="font-mono text-bone-muted/50 hover:text-action/60 transition-colors duration-200"
+            >
+              built with <span class="text-action/40">PA∞</span>
+            </a>
+          </div>
           <nav
             aria-label="Footer links"
             class="footer-links flex flex-wrap gap-4 justify-center md:justify-end glass-light px-3 py-2"

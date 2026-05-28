@@ -204,7 +204,14 @@ export default component$(() => {
                               '{count}',
                               cluster.articleCount.toString()
                             )}{' '}
-                            · &empty; {cluster.avgGraphScore.toFixed(0)}
+                            ·{' '}
+                            <span
+                              aria-label={`Signal Origin Score ${cluster.avgGraphScore.toFixed(0)} — Aether Gate 7/7`}
+                              data-tooltip="Signal Origin Score — the vacuum where the signal emerges"
+                              class="cursor-help"
+                            >
+                              &empty; {cluster.avgGraphScore.toFixed(0)}
+                            </span>
                           </p>
                         </div>
                       </CinematicDepthCard>
