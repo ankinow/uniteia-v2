@@ -27,6 +27,7 @@
     "preview:multi": "concurrently -k \"bun run build:watch\" \"bun run preview:cf\" \"caddy run --config ./Caddyfile\"",
     "lint": "biome check .",
     "lint.fix": "biome check --write --unsafe .",
+    "validate:i18n": "vitest run src/i18n/translation-consistency.test.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:unit": "vitest run",

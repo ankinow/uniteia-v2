@@ -56,6 +56,7 @@ export function createDefaultShipCheckSteps(): ShipCheckStep[] {
   return [
     // Group A — Static analysis
     { name: 'lint', command: ['bun', 'run', 'lint'] },
+    { name: 'validate:i18n', command: ['bun', 'run', 'validate:i18n'] },
     { name: 'typecheck', command: ['bun', 'run', 'typecheck'] },
     { name: 'test:unit', command: ['bun', 'run', 'test:unit'] },
     { name: 'build', command: ['bun', 'run', 'build'] },
