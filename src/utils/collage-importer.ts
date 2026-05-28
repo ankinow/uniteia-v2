@@ -14,6 +14,16 @@ import type {
   LivingBriefCollageProps,
 } from '~/components/living-brief/types'
 
+/** Simple hash from string for deterministic positioning */
+function idHash(id: string): number {
+  let hash = 0
+  for (let i = 0; i < id.length; i++) {
+    hash = (hash << 5) - hash + id.charCodeAt(i)
+    hash |= 0
+  }
+  return Math.abs(hash)
+}
+
 /**
  * Raw asset from mega-factory content-package-v1 export.
  * This is the contract format.
@@ -54,8 +64,8 @@ export function collagePackageToProps(pkg: RawCollagePackage): LivingBriefCollag
     collage.arrows = pkg.arrows.map(
       (a, idx): CollageArrow => ({
         id: a.id,
-        from: { x: 30 + idx * 10, y: 40 + idx * 15 },
-        to: { x: 60 + idx * 5, y: 30 + idx * 10 },
+        from: { x: 10 + idx * 5, y: 15 + idx * 8 },
+        to: { x: 25 + idx * 4, y: 10 + idx * 5 },
         label: a.caption.slice(0, 30),
         animated: true,
         variant: 'perfect-freehand',
@@ -70,9 +80,9 @@ export function collagePackageToProps(pkg: RawCollagePackage): LivingBriefCollag
       (b, idx): BonecoItem => ({
         id: b.id,
         emotion: idx === 0 ? 'teaching' : idx === 1 ? 'happy' : 'thinking',
-        x: 15 + idx * 25,
-        y: 30 + idx * 12,
-        scale: 1,
+        x: 65,
+        y: 55 + idx * 8,
+        scale: 1.4,
         bubble: b.caption.slice(0, 40),
         pointing: idx % 2 === 0 ? 'right' : 'left',
       })
@@ -97,7 +107,7 @@ export function collagePackageToProps(pkg: RawCollagePackage): LivingBriefCollag
     collage.polaroids = pkg.teachImages.map((t, idx) => ({
       id: t.id,
       label: t.caption.slice(0, 30),
-      rotate: (idx % 2 === 0 ? 2 : -2) + Math.random() * 2,
+      rotate: (idx % 2 === 0 ? 2 : -2) + ((idHash(t.id) % 3) - 1),
       width: 160,
     }))
   }
@@ -108,9 +118,9 @@ export function collagePackageToProps(pkg: RawCollagePackage): LivingBriefCollag
       ...pkg.arrows.slice(0, 3).map((a, idx) => ({
         id: `label-arrow-${idx}`,
         text: a.caption.slice(0, 25),
-        x: 50 + idx * 10,
-        y: 20 + idx * 15,
-        rotate: -2 + idx * 2,
+        x: 55 + idx * 12,
+        y: 12 + idx * 18,
+        rotate: -1 + idx * 1.5,
         variant: 'handwrite' as const,
         arrow: (idx % 2 === 0 ? 'right' : 'left') as 'right' | 'left',
         color: 'oklch(0.25 0.03 280)',
@@ -118,9 +128,9 @@ export function collagePackageToProps(pkg: RawCollagePackage): LivingBriefCollag
       ...pkg.teachImages.slice(0, 2).map((t, idx) => ({
         id: `label-teach-${idx}`,
         text: (t.caption || t.altText).slice(0, 25),
-        x: 20 + idx * 40,
-        y: 60 + idx * 10,
-        rotate: 1 + idx * 3,
+        x: 10 + idx * 50,
+        y: 42 + idx * 5,
+        rotate: 0 + idx * 2,
         variant: 'typewrite' as const,
         arrow: 'none' as const,
         color: 'oklch(0.30 0.04 270)',
