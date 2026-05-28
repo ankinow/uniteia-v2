@@ -52,7 +52,29 @@ function buildMagicaOverviewLayout(
       gridArea: 'evidence1',
       title: m?.evidence?.title ?? 'Workflow Visualization',
       image: {
-        src: m?.evidence?.image ?? '/og-image.png',
+        src: "data:image/svg+xml," + encodeURIComponent(
+          `<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="200" fill="#f8f8f8" rx="4"/>
+            <text x="200" y="25" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#666">Magica Workflow Builder</text>
+            <rect x="20" y="40" width="100" height="50" rx="6" fill="#3b82f6" opacity="0.9"/>
+            <text x="70" y="68" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#fff" font-weight="bold">INPUT</text>
+            <path d="M120,65 L170,65" stroke="#111" stroke-width="2"/>
+            <polygon points="170,60 178,65 170,70" fill="#111"/>
+            <rect x="175" y="40" width="140" height="50" rx="6" fill="#10b981" opacity="0.9"/>
+            <text x="245" y="58" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#fff" font-weight="bold">AI PROCESSING</text>
+            <text x="245" y="74" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#fff" opacity="0.8">Node-based prompt chaining</text>
+            <path d="M315,65 L355,65" stroke="#111" stroke-width="2"/>
+            <polygon points="355,60 363,65 355,70" fill="#111"/>
+            <rect x="360" y="40" width="25" height="50" rx="6" fill="#f59e0b" opacity="0.9"/>
+            <text x="372" y="68" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#fff" font-weight="bold">→</text>
+            <rect x="60" y="110" width="100" height="40" rx="4" fill="#8b5cf6" opacity="0.1" stroke="#8b5cf6" stroke-width="1"/>
+            <text x="110" y="134" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#8b5cf6">84 quality score</text>
+            <rect x="220" y="110" width="100" height="40" rx="4" fill="#ec4899" opacity="0.1" stroke="#ec4899" stroke-width="1"/>
+            <text x="270" y="134" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#ec4899">8 languages</text>
+            <line x1="110" y1="150" x2="270" y2="150" stroke="#ddd" stroke-width="0.5"/>
+            <text x="200" y="175" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#999">Prompt → Model Router → Output</text>
+          </svg>`
+        ),
         alt: m?.evidence?.alt ?? 'Screenshot of Magica workflow builder',
       },
       arrowTo: ['diagram-arch'],
