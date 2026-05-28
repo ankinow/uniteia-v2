@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik'
+import { component$, useVisibleTask$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
 import { CanvasSurface } from '~/components/canvas-surface'
 import { CinematicDepthCard } from '~/components/cinematic-depth'
@@ -11,12 +11,14 @@ import {
   ScrollHeroOrganism,
 } from '~/components/scroll-driven'
 import { SignalChip } from '~/components/signal-chip'
+import { NoiseCanvas } from '~/components/storyboard-grid/noise-canvas'
 import { getHomepageProjection } from '~/content-graph/projections'
 import type { HomepageProjection } from '~/content-graph/projections'
 import { getTranslation } from '~/i18n/context'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 
 import { loadNichesConfig } from '~/utils/niche-loader'
+import { startAmbientDrone } from '~/utils/aether-sound'
 
 export const onStaticGenerate = () => {
   return {
@@ -43,6 +45,12 @@ export default component$(() => {
   const sortedClusters = [...knowledgeClusters].sort((a, b) =>
     a.nicheSlug === 'apex' ? -1 : b.nicheSlug === 'apex' ? 1 : 0
   )
+
+  // Start ambient drone on homepage mount
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
+    startAmbientDrone()
+  })
 
   return (
     <div class="space-y-12 p-6 md:p-8 mx-auto max-w-4xl">
@@ -76,6 +84,10 @@ export default component$(() => {
               <div class="absolute inset-0 bg-gradient-to-b from-void via-void/60 to-void" />
             ),
             speed: 0.15,
+          },
+          {
+            content: <NoiseCanvas class="opacity-[0.08]" />,
+            speed: 0.4,
           },
           {
             content: (

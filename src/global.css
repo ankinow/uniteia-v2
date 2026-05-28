@@ -20,9 +20,9 @@
   --color-mid: #21262d;
   --color-raised: #30363d;
 
-  /* ── Semantic · Cyan (action) ── */
-  --color-action: oklch(0.78 0.16 195);
-  --color-action-hi: oklch(0.85 0.16 195);
+  /* ── Coral Identity (action) ── */
+  --color-action: oklch(0.72 0.22 22);
+  --color-action-hi: oklch(0.78 0.24 22);
 
   /* ── Semantic · Verified ── */
   --color-verified: oklch(0.79 0.18 145);
@@ -45,8 +45,8 @@
   /* ── M011: Visual DNA — OKLCH wide-gamut Coral + Cyan brand ── */
   --color-coral: oklch(0.72 0.2 22);
   --color-coral-hi: oklch(0.8 0.22 22);
-  --color-cyan: oklch(0.78 0.16 195);
-  --color-cyan-hi: oklch(0.85 0.16 195);
+  --color-cyan: oklch(0.75 0.18 200);
+  --color-cyan-hi: oklch(0.82 0.20 200);
 
   /* ── 2026 Super Prompt: Semantic signals ── */
   --color-acid: oklch(0.72 0.2 120);
