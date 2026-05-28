@@ -81,9 +81,9 @@ canvas:
 
 ## Was ist Magica?
 
-Magica ist ein All-in-One-KI-Arbeitsbereich, der die weltweit besten generativen KI-Modelle auf einer einzigen Plattform mit einem Abonnement vereint. Für 15 $/Monat erhältst du Zugriff auf ChatGPT, Claude, Gemini, Mistral, Grok und Dutzende von Bild-, Video- und Audiogenerierungsmodellen – wodurch die Notwendigkeit mehrerer Abonnements und die Kontextwechselkosten durch das Hin- und Herspringen zwischen Tabs entfallen.
+Magica ist ein All-in-One-KI-Arbeitsbereich, der die weltweit besten generativen KI-Modelle auf einer einzigen Plattform mit einem Abonnement vereint. Für 15 $/Monat erhältst du Zugriff auf [ChatGPT](https://openai.com), [Claude](https://anthropic.com), Gemini, Mistral, Grok und Dutzende von Bild-, Video- und Audiogenerierungsmodellen – wodurch die Notwendigkeit mehrerer Abonnements und die Kontextwechselkosten durch das Hin- und Herspringen zwischen Tabs entfallen.
 
-Ursprünglich als Galaxy AI gestartet, hat sich die Plattform zu Magica umbenannt, um ihre Entwicklung von einer einfachen Sammlung von Hilfsprogrammen zu einer autonomen KI-Agentenplattform widerzuspiegeln, die in der Lage ist, Multi-Modell-Workflows zu koordinieren, sich über MCP in externe Tools zu integrieren und langlaufende kreative Pipelines zu verwalten.
+Ursprünglich als [Galaxy AI](https://www.samsung.com/galaxy-ai) gestartet, hat sich die Plattform zu Magica umbenannt, um ihre Entwicklung von einer einfachen Sammlung von Hilfsprogrammen zu einer autonomen KI-Agentenplattform widerzuspiegeln, die in der Lage ist, Multi-Modell-Workflows zu koordinieren, sich über MCP in externe Tools zu integrieren und langlaufende kreative Pipelines zu verwalten.
 
 ## Modelle und Fähigkeiten
 

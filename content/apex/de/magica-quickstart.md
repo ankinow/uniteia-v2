@@ -76,7 +76,7 @@ Nach der Registrierung landen Sie im Magica-Workspace. Die Benutzeroberfläche b
 
 ## Ihre erste Multi-Modell-Abfrage
 
-Klicken Sie oben auf die Modellauswahl und aktivieren Sie 2-3 Modelle – beginnen Sie mit GPT-4o, Claude Opus 4 und Gemini 2.5 Pro. Geben Sie eine Frage in das Eingabefeld ein und drücken Sie Senden. Magica sendet Ihre Abfrage gleichzeitig an alle ausgewählten Modelle und zeigt die Antworten nebeneinander an.
+Klicken Sie oben auf die Modellauswahl und aktivieren Sie 2-3 Modelle – beginnen Sie mit [GPT-4o](https://openai.com), [Claude Opus 4](https://anthropic.com) und Gemini 2.5 Pro. Geben Sie eine Frage in das Eingabefeld ein und drücken Sie Senden. Magica sendet Ihre Abfrage gleichzeitig an alle ausgewählten Modelle und zeigt die Antworten nebeneinander an.
 
 Dieser Multi-Modell-Vergleich ist Magicas Killer-Feature. Sie sehen sofort, wie jedes Modell an denselben Prompt herangeht – Claude tendiert zu gründlicher Analyse, GPT zu praktischem Handeln, Gemini zu ausgewogener Synthese. Mit der Zeit lernen Sie, welchem Modell Sie für welche Aufgabenart vertrauen können.
 

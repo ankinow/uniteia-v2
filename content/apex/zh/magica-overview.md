@@ -81,9 +81,9 @@ canvas:
 
 ## Magica是什么？
 
-Magica是一个一体化AI工作空间，将世界上最好的生成式AI模型汇聚到单一平台，只需一次订阅。每月$15，您可以访问ChatGPT、Claude、Gemini、Mistral、Grok以及数十种图像、视频和音频生成模型——消除了多个订阅和在不同标签页之间切换的上下文切换成本。
+Magica是一个一体化AI工作空间，将世界上最好的生成式AI模型汇聚到单一平台，只需一次订阅。每月$15，您可以访问[ChatGPT](https://openai.com)、[Claude](https://anthropic.com)、Gemini、Mistral、Grok以及数十种图像、视频和音频生成模型——消除了多个订阅和在不同标签页之间切换的上下文切换成本。
 
-该平台最初以Galaxy AI的名称推出，后更名为Magica，以反映其从简单的工具集合演变为能够协调多模型工作流、通过MCP集成外部工具、并管理长时间运行的创意管线的自主AI代理平台。
+该平台最初以[Galaxy AI](https://www.samsung.com/galaxy-ai)的名称推出，后更名为Magica，以反映其从简单的工具集合演变为能够协调多模型工作流、通过MCP集成外部工具、并管理长时间运行的创意管线的自主AI代理平台。
 
 ## 模型与能力
 

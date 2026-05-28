@@ -81,7 +81,7 @@ canvas:
 
 ## O que é a Tencent Cloud Deal Stack?
 
-A Tencent Cloud oferece um conjunto de produtos e promoções ideais para builders independentes. Com Lighthouse, CVM e EdgeOne, é possível subir sites, APIs, bots, dashboards e pequenos apps gastando muito pouco — e em alguns casos, nada.
+A [Tencent Cloud](https://tencentcloud.com) oferece um conjunto de produtos e promoções ideais para builders independentes. Com Lighthouse, CVM e EdgeOne, é possível subir sites, APIs, bots, dashboards e pequenos apps gastando muito pouco — e em alguns casos, nada.
 
 ## Produtos Gratuitos
 

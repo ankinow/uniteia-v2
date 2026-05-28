@@ -72,9 +72,9 @@ canvas:
 
 ## Qu'est-ce que MCP ?
 
-Le Model Context Protocol (MCP) est un standard ouvert qui permet aux agents IA de découvrir et d'interagir avec des outils externes, des sources de données et des services via une interface standardisée. Considérez-le comme un port USB-C pour l'IA — un protocole que tout agent compatible MCP peut utiliser pour se connecter à n'importe quel serveur compatible MCP.
+Le [Model Context Protocol](https://modelcontextprotocol.io) (MCP) est un standard ouvert qui permet aux agents IA de découvrir et d'interagir avec des outils externes, des sources de données et des services via une interface standardisée. Considérez-le comme un port USB-C pour l'IA — un protocole que tout agent compatible MCP peut utiliser pour se connecter à n'importe quel serveur compatible MCP.
 
-Magica a adopté MCP comme mécanisme d'extension principal, ce qui signifie que tout serveur MCP que vous construisez fonctionne automatiquement avec le système d'agents de Magica.
+Magica a adopté MCP, initialement développé par [Anthropic](https://anthropic.com), comme mécanisme d'extension principal, ce qui signifie que tout serveur MCP que vous construisez fonctionne automatiquement avec le système d'agents de Magica.
 
 ## Configuration d'un serveur MCP
 
@@ -155,7 +155,7 @@ Les ressources sont utiles pour donner aux agents un accès à la documentation,
 
 ## Déploiement
 
-Pour le développement, exécutez votre serveur MCP localement avec le transport stdio. Pour la production, déployez-le en tant que serveur HTTP avec le transport SSE :
+Pour le développement, exécutez votre serveur MCP localement avec le transport stdio. Pour la production, déployez-le en tant que serveur HTTP avec le transport SSE ou via [Cloudflare Pages](https://pages.cloudflare.com) pour une approche serverless :
 
 ```typescript
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js'
@@ -180,4 +180,4 @@ Pour des scénarios complexes, construisez des serveurs qui composent plusieurs 
 - **GitHub MCP :** Combinez l'API Issues, l'API PR et l'API Actions en outils unifiés
 - **Agents multi-étapes :** Enchaînez les appels MCP où la sortie d'un outil devient l'entrée d'un autre
 
-Le système d'agents de Magica gère l'orchestration — votre serveur MCP a juste besoin d'exposer des outils propres et bien documentés avec des schémas typés. La plateforme s'occupe des tentatives, de la gestion des erreurs et du routage entre les serveurs.
+Le système d'agents de Magica gère l'orchestration — votre serveur MCP a juste besoin d'exposer des outils propres et bien documentés avec des schémas typés, en suivant les principes du [PAIR Guidebook](https://pair.withgoogle.com/guidebook) de Google sur la collaboration humain-IA. La plateforme s'occupe des tentatives, de la gestion des erreurs et du routage entre les serveurs.

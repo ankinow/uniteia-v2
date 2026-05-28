@@ -75,7 +75,7 @@ Once registered, you land on the Magica workspace. The interface has three main 
 
 ## Your First Multi-Model Query
 
-Click the model selector at the top and enable 2-3 models — start with GPT-4o, Claude Opus 4, and Gemini 2.5 Pro. Type a question in the input field and hit send. Magica dispatches your query to all selected models simultaneously and displays the responses side-by-side.
+Click the model selector at the top and enable 2-3 models — start with [GPT-4o](https://openai.com), [Claude Opus 4](https://anthropic.com), and Gemini 2.5 Pro. Type a question in the input field and hit send. Magica dispatches your query to all selected models simultaneously and displays the responses side-by-side.
 
 This multi-model comparison is Magica's killer feature. You immediately see how each model approaches the same prompt — Claude tends toward thorough analysis, GPT toward practical action, Gemini toward balanced synthesis. Over time, you learn which model to trust for which task type.
 
@@ -89,11 +89,11 @@ Use the editing panel to refine: upscale your chosen variant, remove the backgro
 
 Workflows are where Magica transcends a simple chatbot. Click the Workflows tab and select New Workflow. You'll see a visual node editor — drag in a Text Input node, connect it to a Generate Image node (FLUX 2 Max), then to an Upscale node, and finally to an Export node.
 
-Set the text input to accept a product description. The workflow will: generate a product image from the description → upscale it 2x → export the final PNG. This entire pipeline runs with one click. You can save it as a reusable workflow app and share it with your team.
+Set the text input to accept a product description. The workflow will: generate a product image from the description → upscale it 2x → export the final PNG. This entire pipeline runs with one click. You can save it as a reusable workflow app and share it with your team. The same autonomous pipeline approach powers systems like [Figure sorting 250,000 packages](https://www.hokanews.com/2026/05/figures-humanoid-robot-sorted-250000.html) in warehouse operations.
 
 ## Export and Integrate
 
-Every workflow can be published as an app accessible via API. Go to your workflow, click Publish, and Magica generates an API endpoint with dynamic inputs for your workflow parameters. You can now call it from your own application:
+Every workflow can be published as an app accessible via API, and you can deploy the frontend on [Cloudflare Pages](https://pages.cloudflare.com). Go to your workflow, click Publish, and Magica generates an API endpoint with dynamic inputs for your workflow parameters. You can now call it from your own application:
 
 ```bash
 curl -X POST "https://api.magica.com/v1/workflows/run" \

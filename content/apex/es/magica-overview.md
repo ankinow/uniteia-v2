@@ -81,9 +81,9 @@ canvas:
 
 ## ¿Qué es Magica?
 
-Magica es un espacio de trabajo de IA todo en uno que agrega los mejores modelos de IA generativa del mundo en una sola plataforma con una sola suscripción. Por $15/mes, obtienes acceso a ChatGPT, Claude, Gemini, Mistral, Grok y docenas de modelos de generación de imágenes, video y audio, eliminando la necesidad de múltiples suscripciones y el costo de cambiar de contexto al saltar entre pestañas.
+Magica es un espacio de trabajo de IA todo en uno que agrega los mejores modelos de IA generativa del mundo en una sola plataforma con una sola suscripción. Por $15/mes, obtienes acceso a [ChatGPT](https://openai.com), [Claude](https://anthropic.com), Gemini, Mistral, Grok y docenas de modelos de generación de imágenes, video y audio, eliminando la necesidad de múltiples suscripciones y el costo de cambiar de contexto al saltar entre pestañas.
 
-Originalmente lanzado como Galaxy AI, la plataforma cambió su nombre a Magica para reflejar su evolución de una simple colección de utilidades a una plataforma de agentes de IA autónoma capaz de coordinar flujos de trabajo multimodelo, integrarse con herramientas externas a través de MCP y gestionar tuberías creativas de larga duración.
+Originalmente lanzado como [Galaxy AI](https://www.samsung.com/galaxy-ai), la plataforma cambió su nombre a Magica para reflejar su evolución de una simple colección de utilidades a una plataforma de agentes de IA autónoma capaz de coordinar flujos de trabajo multimodelo, integrarse con herramientas externas a través de MCP y gestionar tuberías creativas de larga duración.
 
 ## Modelos y Capacidades
 

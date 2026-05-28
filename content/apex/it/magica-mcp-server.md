@@ -72,9 +72,9 @@ canvas:
 
 ## Cos'è MCP?
 
-Il Model Context Protocol (MCP) è uno standard aperto che consente agli agenti AI di scoprire e interagire con strumenti esterni, fonti di dati e servizi attraverso un'interfaccia standardizzata. Pensalo come una porta USB-C per l'IA — un protocollo che qualsiasi agente compatibile con MCP può usare per connettersi a qualsiasi server compatibile con MCP.
+Il [Model Context Protocol](https://modelcontextprotocol.io) (MCP) è uno standard aperto che consente agli agenti AI di scoprire e interagire con strumenti esterni, fonti di dati e servizi attraverso un'interfaccia standardizzata. Pensalo come una porta USB-C per l'IA — un protocollo che qualsiasi agente compatibile con MCP può usare per connettersi a qualsiasi server compatibile con MCP.
 
-Magica ha adottato MCP come meccanismo di estensione principale, il che significa che qualsiasi server MCP che costruisci funziona automaticamente con il sistema agente di Magica.
+Magica ha adottato MCP, originariamente sviluppato da [Anthropic](https://anthropic.com), come meccanismo di estensione principale, il che significa che qualsiasi server MCP che costruisci funziona automaticamente con il sistema agente di Magica.
 
 ## Impostazione di un server MCP
 
@@ -155,7 +155,7 @@ Le risorse sono utili per dare agli agenti accesso a documentazione, schemi, dat
 
 ## Distribuzione
 
-Per lo sviluppo, esegui il tuo server MCP localmente con trasporto stdio. Per la produzione, distribuiscilo come server HTTP con trasporto SSE:
+Per lo sviluppo, esegui il tuo server MCP localmente con trasporto stdio. Per la produzione, distribuiscilo come server HTTP con trasporto SSE o tramite [Cloudflare Pages](https://pages.cloudflare.com) per un approccio serverless:
 
 ```typescript
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js'
@@ -180,4 +180,4 @@ Per scenari complessi, costruisci server che compongono più fonti di dati:
 - **GitHub MCP:** Combina Issues API, PR API e Actions API in strumenti unificati
 - **Agenti multi-passaggio:** Collega chiamate MCP dove l'output di uno strumento diventa l'input di un altro
 
-Il sistema agente di Magica gestisce l'orchestrazione — il tuo server MCP deve solo esporre strumenti puliti, ben documentati con schemi tipizzati. La piattaforma si occupa di tentativi, gestione degli errori e instradamento tra server.
+Il sistema agente di Magica gestisce l'orchestrazione — il tuo server MCP deve solo esporre strumenti puliti, ben documentati con schemi tipizzati, seguendo i principi del [PAIR Guidebook](https://pair.withgoogle.com/guidebook) di Google sulla collaborazione uomo-IA. La piattaforma si occupa di tentativi, gestione degli errori e instradamento tra server.

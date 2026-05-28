@@ -81,7 +81,7 @@ canvas:
 
 ## 什么是Tencent Cloud Deal Stack？
 
-腾讯云提供一系列适合独立开发者的产品和促销活动。通过Lighthouse、CVM和EdgeOne，您可以以极低的成本托管网站、API、机器人、仪表盘和小型应用——在某些情况下甚至可以免费使用。
+[腾讯云](https://tencentcloud.com)提供一系列适合独立开发者的产品和促销活动。通过Lighthouse、CVM和EdgeOne，您可以以极低的成本托管网站、API、机器人、仪表盘和小型应用——在某些情况下甚至可以免费使用。
 
 ## 免费产品
 

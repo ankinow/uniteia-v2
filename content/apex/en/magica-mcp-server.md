@@ -71,9 +71,9 @@ canvas:
 
 ## What is MCP?
 
-The Model Context Protocol (MCP) is an open standard that lets AI agents discover and interact with external tools, data sources, and services through a standardized interface. Think of it as a USB-C port for AI — one protocol that any MCP-compatible agent can use to connect to any MCP-compatible server.
+The [Model Context Protocol](https://modelcontextprotocol.io) (MCP) is an open standard that lets AI agents discover and interact with external tools, data sources, and services through a standardized interface. Think of it as a USB-C port for AI — one protocol that any MCP-compatible agent can use to connect to any MCP-compatible server.
 
-Magica adopted MCP as its primary extension mechanism, meaning any MCP server you build automatically works with Magica's agent system.
+Magica adopted MCP, originally developed by [Anthropic](https://anthropic.com), as its primary extension mechanism, meaning any MCP server you build automatically works with Magica's agent system.
 
 ## Setting Up an MCP Server
 
@@ -154,7 +154,7 @@ Resources are useful for giving agents access to documentation, schemas, referen
 
 ## Deployment
 
-For development, run your MCP server locally with stdio transport. For production, deploy as an HTTP server with SSE transport:
+For development, run your MCP server locally with stdio transport. For production, deploy as an HTTP server with SSE transport or via [Cloudflare Pages](https://pages.cloudflare.com) for a serverless approach:
 
 ```typescript
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js'
@@ -179,6 +179,6 @@ For complex scenarios, build servers that compose multiple data sources:
 - **GitHub MCP:** Combine Issues API, PR API, and Actions API into unified tools
 - **Multi-step agents:** Chain MCP calls where one tool's output becomes another's input
 
-Magica's agent system handles the orchestration — your MCP server just needs to expose clean, well-documented tools with typed schemas. The platform takes care of retries, error handling, and routing between servers.
+Magica's agent system handles the orchestration — your MCP server just needs to expose clean, well-documented tools with typed schemas, following principles from Google's [PAIR Guidebook](https://pair.withgoogle.com/guidebook) on human-AI collaboration. The platform takes care of retries, error handling, and routing between servers.
 
 <dcp-message-id>m0325</dcp-message-id>

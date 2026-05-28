@@ -72,9 +72,9 @@ canvas:
 
 ## MCP とは
 
-Model Context Protocol (MCP) は、AI エージェントが標準化されたインターフェースを通じて外部のツール、データソース、サービスを発見し操作できるようにするオープンスタンダードです。これは AI における USB-C ポートのようなもので、MCP 互換のエージェントならどのエージェントでも、このプロトコルを使って MCP 互換のサーバーに接続できます。
+[Model Context Protocol](https://modelcontextprotocol.io) (MCP) は、AI エージェントが標準化されたインターフェースを通じて外部のツール、データソース、サービスを発見し操作できるようにするオープンスタンダードです。これは AI における USB-C ポートのようなもので、MCP 互換のエージェントならどのエージェントでも、このプロトコルを使って MCP 互換のサーバーに接続できます。
 
-Magica は MCP を主要な拡張メカニズムとして採用しており、あなたが構築する MCP サーバーは自動的に Magica のエージェントシステムで動作します。
+Magica は MCP を、もともと [Anthropic](https://anthropic.com) によって開発された主要な拡張メカニズムとして採用しており、あなたが構築する MCP サーバーは自動的に Magica のエージェントシステムで動作します。
 
 ## MCP サーバーのセットアップ
 
@@ -155,7 +155,7 @@ server.setRequestHandler('resources/list', async () => ({
 
 ## デプロイ
 
-開発時は stdio トランスポートを使用してローカルで MCP サーバーを実行します。本番環境では、SSE トランスポートを使用して HTTP サーバーとしてデプロイします。
+開発時は stdio トランスポートを使用してローカルで MCP サーバーを実行します。本番環境では、SSE トランスポートを使用して HTTP サーバーとして、または [Cloudflare Pages](https://pages.cloudflare.com) を使用したサーバーレスアプローチでデプロイします。
 
 ```typescript
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js'
@@ -180,4 +180,4 @@ app.listen(3000)
 - **GitHub MCP:** Issues API、PR API、Actions API を統合ツールに結合
 - **マルチステップエージェント:** あるツールの出力を別のツールの入力として連鎖させる MCP 呼び出し
 
-Magica のエージェントシステムがオーケストレーションを処理します。MCP サーバーは、型付けされたスキーマを持つ、明確で適切に文書化されたツールを公開するだけで十分です。リトライ、エラーハンドリング、サーバー間のルーティングはプラットフォームが行います。
+Magica のエージェントシステムがオーケストレーションを処理します。MCP サーバーは、型付けされたスキーマを持つ、明確で適切に文書化されたツールを公開するだけで十分です。Google の [PAIR Guidebook](https://pair.withgoogle.com/guidebook) にある人間とAIの協働原則に従います。リトライ、エラーハンドリング、サーバー間のルーティングはプラットフォームが行います。

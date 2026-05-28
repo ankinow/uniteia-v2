@@ -76,7 +76,7 @@ Una vez registrado, llegas al espacio de trabajo de Magica. La interfaz tiene tr
 
 ## Tu primera consulta multimodelo
 
-Haz clic en el selector de modelos en la parte superior y habilita 2 o 3 modelos. Empieza con GPT-4o, Claude Opus 4 y Gemini 2.5 Pro. Escribe una pregunta en el campo de entrada y presiona enviar. Magica envía tu consulta a todos los modelos seleccionados simultáneamente y muestra las respuestas una al lado de la otra.
+Haz clic en el selector de modelos en la parte superior y habilita 2 o 3 modelos. Empieza con [GPT-4o](https://openai.com), [Claude Opus 4](https://anthropic.com) y Gemini 2.5 Pro. Escribe una pregunta en el campo de entrada y presiona enviar. Magica envía tu consulta a todos los modelos seleccionados simultáneamente y muestra las respuestas una al lado de la otra.
 
 Esta comparación de múltiples modelos es la función estrella de Magica. Inmediatamente ves cómo cada modelo aborda el mismo prompt: Claude tiende a un análisis exhaustivo, GPT a la acción práctica, Gemini a una síntesis equilibrada. Con el tiempo, aprendes en qué modelo confiar para cada tipo de tarea.
 

@@ -81,7 +81,7 @@ canvas:
 
 ## What is the Tencent Cloud Deal Stack?
 
-Tencent Cloud offers a range of products and promotions ideal for independent builders. With Lighthouse, CVM, and EdgeOne, you can host sites, APIs, bots, dashboards, and small apps spending very little — in some cases, nothing.
+[Tencent Cloud](https://tencentcloud.com) offers a range of products and promotions ideal for independent builders. With Lighthouse, CVM, and EdgeOne, you can host sites, APIs, bots, dashboards, and small apps spending very little — in some cases, nothing.
 
 ## Free Products
 
@@ -131,7 +131,7 @@ CVM (Cloud Virtual Machine) is the complete solution for those needing full cont
 
 ## EdgeOne — CDN + Security
 
-EdgeOne combines CDN with WAF, DDoS protection, and bot management in one platform.
+EdgeOne combines CDN with WAF, DDoS protection, and bot management in one platform. As automation enters physical spaces — from [Figure 02 handling packages at BMW](https://arstechnica.com/ai/2026/05/the-internet-cant-stop-watching-figure-ais-humanoid-robots-handling-packages/) to broader industrial deployment — reliable edge infrastructure becomes critical.
 
 **When to use:**
 - Accelerate global content delivery
@@ -156,6 +156,8 @@ EdgeOne combines CDN with WAF, DDoS protection, and bot management in one platfo
 | Setup | Minutes | Hours |
 
 ## Before You Pay — Checklist
+
+The cloud infrastructure landscape is evolving rapidly alongside advancements in robotics and edge AI — the [Humanoid Robotics 2026 market report](https://kraneshares.com/humanoid-robotics-in-2026-the-race-from-pilot-to-platform/) tracks how platforms like [Unitree](https://www.unitree.com) are pushing the need for low-latency cloud services. Before you start paying:
 
 1. **Check region:** Not all promos are available in all regions
 2. **Eligibility:** Some offers are new users only

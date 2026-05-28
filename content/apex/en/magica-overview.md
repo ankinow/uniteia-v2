@@ -80,9 +80,9 @@ canvas:
 
 ## What is Magica?
 
-Magica is an all-in-one AI workspace that aggregates the world's best generative AI models into a single platform with one subscription. For $15/month, you get access to ChatGPT, Claude, Gemini, Mistral, Grok, and dozens of image, video, and audio generation models — eliminating the need for multiple subscriptions and the context-switching tax of jumping between tabs.
+Magica is an all-in-one AI workspace that aggregates the world's best generative AI models into a single platform with one subscription. For $15/month, you get access to [ChatGPT](https://openai.com), [Claude](https://anthropic.com), Gemini, Mistral, Grok, and dozens of image, video, and audio generation models — eliminating the need for multiple subscriptions and the context-switching tax of jumping between tabs.
 
-Originally launched as Galaxy AI, the platform rebranded to Magica to reflect its evolution from a simple utility collection into an autonomous AI agent platform capable of coordinating multi-model workflows, integrating with external tools via MCP, and managing long-running creative pipelines.
+Originally launched as [Samsung Galaxy AI](https://www.samsung.com/galaxy-ai), the platform rebranded to Magica to reflect its evolution from a simple utility collection into an autonomous AI agent platform capable of coordinating multi-model workflows, integrating with external tools via MCP, and managing long-running creative pipelines.
 
 ## Models and Capabilities
 
@@ -96,7 +96,7 @@ Originally launched as Galaxy AI, the platform rebranded to Magica to reflect it
 
 ## Workflow Automation & Agents
 
-Magica's most powerful feature is its autonomous agent system. You can create multi-step pipelines that chain models together: generate an image with FLUX, edit it with GPT Image 2, add audio narration with ElevenLabs, and export the final video — all in a single automated workflow.
+Magica's most powerful feature is its autonomous agent system. You can create multi-step pipelines that chain models together: generate an image with FLUX, edit it with GPT Image 2, add audio narration with ElevenLabs, and export the final video — all in a single automated workflow. This mirrors how [Figure AI](https://figure.ai) uses Helix AI to coordinate complex sequences in humanoid robotics.
 
 The platform stores project files, instructions, memory, and shared assets across sessions, enabling agents that learn and adapt over time. Combined with MCP (Model Context Protocol) support, Magica can connect to external tools, databases, and APIs.
 
@@ -117,5 +117,5 @@ The free tier is generous enough to evaluate core features. For active creators 
 
 ## Why Magica Matters for Builders
 
-For solo builders and small teams, Magica collapses the AI toolchain into a single interface with a single bill. The cost savings ($360+/year vs separate subscriptions) compound with productivity gains from eliminating context-switching. The MCP support and workflow automation make it particularly compelling for developers who want to build AI-powered tools without managing multiple API keys and rate limits across providers.
+For solo builders and small teams, Magica collapses the AI toolchain into a single interface with a single bill. The cost savings ($360+/year vs separate subscriptions) compound with productivity gains from eliminating context-switching. The MCP support and workflow automation make it particularly compelling for developers who want to build AI-powered tools without managing multiple API keys and rate limits across providers. For structuring creative AI workflows, teams can apply the [KJ Method](https://www.kj-method.org/) for organizing ideas generated across models.
 
