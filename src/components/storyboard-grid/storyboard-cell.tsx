@@ -1,9 +1,11 @@
 import { component$ } from '@builder.io/qwik'
 import type { ResolvedCell } from './types'
+import { NoiseCanvas } from './noise-canvas'
 
 /**
  * StoryboardCell — individual editorial cell
  * Renders content based on variant type with consistent editorial styling.
+ * Enhanced with noise canvas for insight cells and ripple for CTA cells.
  */
 export const StoryboardCell = component$<{ cell: ResolvedCell }>(({ cell }) => {
   const variantClass = `storyboard-cell--${cell.variant}`
@@ -15,9 +17,10 @@ export const StoryboardCell = component$<{ cell: ResolvedCell }>(({ cell }) => {
       data-cell-id={cell.id}
       data-variant={cell.variant}
     >
-      {/* ── Insight cell ── */}
+      {/* ── Insight cell (with noise→signal canvas) ── */}
       {cell.variant === 'insight' && (
         <>
+          <NoiseCanvas />
           {cell.title && <h3 class="storyboard-cell__title">{cell.title}</h3>}
           {cell.body && <p class="storyboard-cell__body">{cell.body}</p>}
         </>

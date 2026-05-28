@@ -22,6 +22,80 @@
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
 }
 
+/* ── Noise canvas overlay ── */
+.noise-canvas {
+  z-index: 0;
+  mix-blend-mode: overlay;
+}
+.storyboard-cell--insight .storyboard-cell__title,
+.storyboard-cell--insight .storyboard-cell__body {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Scroll-triggered reveal ── */
+.storyboard-cell {
+  animation: cellReveal 0.6s ease-out both;
+}
+.storyboard-cell:nth-child(1) { animation-delay: 0.05s; }
+.storyboard-cell:nth-child(2) { animation-delay: 0.15s; }
+.storyboard-cell:nth-child(3) { animation-delay: 0.25s; }
+.storyboard-cell:nth-child(4) { animation-delay: 0.35s; }
+
+@keyframes cellReveal {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .storyboard-cell {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* ── CTA ripple effect ── */
+.storyboard-cell__cta--primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.storyboard-cell__cta--primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.3) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.storyboard-cell__cta--primary:hover::after {
+  opacity: 1;
+}
+
+.storyboard-cell__cta--primary:active::after {
+  opacity: 0;
+  transition: opacity 0s;
+}
+
+/* ── CTA pulse animation on entrance ── */
+.storyboard-cell--cta .storyboard-cell__cta {
+  animation: ctaPulse 2s ease-in-out 0.8s both;
+}
+
+@keyframes ctaPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .storyboard-cell--cta .storyboard-cell__cta {
+    animation: none;
+  }
+}
+
 /* ── Grid ── */
 .storyboard-grid {
   display: grid;
@@ -46,9 +120,11 @@
   box-shadow: 6px 6px 0px #111111;
 }
 
-/* ── Variant color tops ── */
+/* ── Cell variant: insight with noise canvas ── */
 .storyboard-cell--insight {
   border-top: 4px solid #3b82f6;
+  position: relative;
+  overflow: hidden;
 }
 .storyboard-cell--evidence {
   border-top: 4px solid #10b981;
