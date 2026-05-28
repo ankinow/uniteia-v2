@@ -11,6 +11,7 @@ import {
   ScrollHeroOrganism,
 } from '~/components/scroll-driven'
 import { SignalChip } from '~/components/signal-chip'
+import { ClusterIcon, nicheToIcon } from '~/components/icon-set/icon-set'
 import { NoiseCanvas } from '~/components/storyboard-grid/noise-canvas'
 import { getHomepageProjection } from '~/content-graph/projections'
 import type { HomepageProjection } from '~/content-graph/projections'
@@ -211,7 +212,10 @@ export default component$(() => {
                     <ScrollDepthCardEnhancer>
                       <CinematicDepthCard variant="subtle" layer={i % 2}>
                         <div class="p-5">
-                          <p class="font-semibold text-bone text-base">{cluster.label}</p>
+                          <div class="flex items-center gap-2 mb-2">
+                            <ClusterIcon name={nicheToIcon(cluster.nicheSlug)} size={20} />
+                            <p class="font-semibold text-bone text-base">{cluster.label}</p>
+                          </div>
                           <p class="text-sm text-bone mt-2 tabular-nums">
                             {t.homepage.signalCount.replace(
                               '{count}',
