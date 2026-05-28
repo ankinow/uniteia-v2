@@ -70,7 +70,7 @@ canvas:
 
 ## Crea il tuo account
 
-Visita try.magica.com e registrati per il livello gratuito — non è richiesta una carta di credito. Il livello gratuito ti dà accesso limitato a tutti i modelli principali, sufficiente per valutare la piattaforma a fondo prima di impegnarti.
+Visita [try.magica.com/clique-serio](https://try.magica.com/clique-serio) e registrati per il livello gratuito — non è richiesta una carta di credito. Usa il codice promozionale **GXZMYCP** sulla [pagina dei premi](https://try.magica.com/redeem) per ottenere **10M di crediti bonus** (perfetto per video, podcast e voce). Il livello gratuito ti dà accesso limitato a tutti i modelli principali, sufficiente per valutare la piattaforma a fondo prima di impegnarti.
 
 Una volta registrato, atterri nello spazio di lavoro di Magica. L'interfaccia ha tre zone principali: il selettore del modello (in alto), lo spazio di lavoro della conversazione (al centro) e il cassetto degli strumenti (barra laterale destra con oltre 5.900 strumenti predefiniti).
 

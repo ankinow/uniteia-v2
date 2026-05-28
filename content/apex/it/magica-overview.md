@@ -114,7 +114,7 @@ Magica si integra con centinaia di servizi esterni tra cui Gmail, Google Workspa
 | Annuale | $8/mese | Fatturato annualmente |
 | Vita | $399 | Pagamento una tantum |
 
-Il livello gratuito è abbastanza generoso per valutare le funzionalità principali. Per creatori e sviluppatori attivi, il piano a $15/mese sostituisce abbonamenti individuali per un valore di oltre $60.
+Il livello gratuito è abbastanza generoso per valutare le funzionalità principali. I nuovi utenti che si iscrivono tramite [try.magica.com/clique-serio](https://try.magica.com/clique-serio) e riscattano il codice **GXZMYCP** sulla [pagina dei premi](https://try.magica.com/redeem) sbloccano **10M di crediti bonus** — ideale per video, podcast, generazione vocale e flussi di lavoro pesanti con immagini. Per creatori e sviluppatori attivi, il piano a $15/mese sostituisce abbonamenti individuali per un valore di oltre $60.
 
 ## Perché Magica è Importante per i Costruttori
 

@@ -70,7 +70,7 @@ canvas:
 
 ## Crea tu cuenta
 
-Visita try.magica.com y regístrate en el plan gratuito; no se requiere tarjeta de crédito. El plan gratuito te da acceso limitado a todos los modelos principales, suficiente para evaluar la plataforma a fondo antes de comprometerte.
+Visita [try.magica.com/clique-serio](https://try.magica.com/clique-serio) y regístrate en el plan gratuito; no se requiere tarjeta de crédito. Usa el código promocional **GXZMYCP** en la [página de recompensas](https://try.magica.com/redeem) para obtener **10M de créditos extra** (perfecto para videos, podcasts y voz). El plan gratuito te da acceso limitado a todos los modelos principales, suficiente para evaluar la plataforma a fondo antes de comprometerte.
 
 Una vez registrado, llegas al espacio de trabajo de Magica. La interfaz tiene tres zonas principales: el selector de modelos (arriba), el espacio de conversación (centro) y el cajón de herramientas (barra lateral derecha con más de 5900 herramientas preconstruidas).
 

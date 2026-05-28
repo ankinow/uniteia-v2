@@ -70,7 +70,7 @@ canvas:
 
 ## Ihr Konto erstellen
 
-Besuchen Sie try.magica.com und melden Sie sich für die kostenlose Stufe an – keine Kreditkarte erforderlich. Die kostenlose Stufe gewährt Ihnen eingeschränkten Zugang zu allen wichtigen Modellen, was ausreicht, um die Plattform gründlich zu testen, bevor Sie sich festlegen.
+Besuchen Sie [try.magica.com/clique-serio](https://try.magica.com/clique-serio) und melden Sie sich für die kostenlose Stufe an – keine Kreditkarte erforderlich. Verwenden Sie den Aktionscode **GXZMYCP** auf der [Belohnungsseite](https://try.magica.com/redeem), um **10M Bonus-Credits** zu erhalten (perfekt für Videos, Podcasts und Sprachinhalte). Die kostenlose Stufe gewährt Ihnen eingeschränkten Zugang zu allen wichtigen Modellen, was ausreicht, um die Plattform gründlich zu testen, bevor Sie sich festlegen.
 
 Nach der Registrierung landen Sie im Magica-Workspace. Die Benutzeroberfläche besteht aus drei Hauptbereichen: der Modellauswahl (oben), dem Konversationsarbeitsbereich (Mitte) und der Tool-Schublade (rechte Seitenleiste mit über 5,900+ vorgefertigten Tools).
 

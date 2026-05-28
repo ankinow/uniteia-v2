@@ -114,7 +114,7 @@ Magica与数百个外部服务集成，包括Gmail、Google Workspace、Slack、
 | 年度 | $8/月 | 按年计费 |
 | 终身 | $399 | 一次性支付 |
 
-免费版足够慷慨，可用来评估核心功能。对于活跃的创作者和开发者，$15/月的方案取代了价值$60以上的独立订阅。
+免费版足够慷慨，可用来评估核心功能。通过 [try.magica.com/clique-serio](https://try.magica.com/clique-serio) 注册的新用户，在[奖励页面](https://try.magica.com/redeem) 兑换代码 **GXZMYCP**，即可解锁 **10M奖励积分** ——非常适合视频、播客、语音生成和大量图像工作流。对于活跃的创作者和开发者，$15/月的方案取代了价值$60以上的独立订阅。
 
 ## 为何Magica对构建者重要
 

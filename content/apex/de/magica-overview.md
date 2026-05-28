@@ -114,7 +114,7 @@ Magica integriert sich in Hunderte von externen Diensten, darunter Gmail, Google
 | Jährlich | 8 $/Monat | Jährlich abgerechnet |
 | Lebenslang | 399 $ | Einmalzahlung |
 
-Der kostenlose Tarif ist großzügig genug, um die Kernfunktionen zu testen. Für aktive Kreative und Entwickler ersetzt der 15 $-Plan Abonnements im Wert von über 60 $.
+Der kostenlose Tarif ist großzügig genug, um die Kernfunktionen zu testen. Neue Nutzer, die sich über [try.magica.com/clique-serio](https://try.magica.com/clique-serio) anmelden und den Code **GXZMYCP** auf der [Belohnungsseite](https://try.magica.com/redeem) einlösen, erhalten **10M Bonus-Credits** — ideal für Videos, Podcasts, Sprachgenerierung und umfangreiche Bild-Workflows. Für aktive Kreative und Entwickler ersetzt der 15 $-Plan Abonnements im Wert von über 60 $.
 
 ## Warum Magica für Entwickler wichtig ist
 

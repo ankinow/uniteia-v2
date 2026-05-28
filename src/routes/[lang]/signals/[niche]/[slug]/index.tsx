@@ -195,11 +195,16 @@ export default component$(() => {
           {
             label: content.value.lang === 'pt' ? 'VISITAR MAGICA' : 'VISIT MAGICA',
             variant: 'primary',
-            href: 'https://try.magica.com',
+            href: 'https://try.magica.com/clique-serio',
+          },
+          {
+            label: content.value.lang === 'pt' ? 'CÓDIGO PROMO: GXZMYCP' : 'PROMO CODE: GXZMYCP',
+            variant: 'secondary',
+            href: 'https://try.magica.com/redeem',
           },
           {
             label: content.value.lang === 'pt' ? 'SAIBA MAIS' : 'LEARN MORE',
-            variant: 'secondary',
+            variant: 'ghost',
             href: '/signals/apex/magica-quickstart',
           },
         ],

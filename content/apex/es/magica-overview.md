@@ -114,7 +114,7 @@ Magica se integra con cientos de servicios externos, incluyendo Gmail, Google Wo
 | Anual | $8/mes | Facturado anualmente |
 | De por vida | $399 | Pago único |
 
-El nivel gratuito es lo suficientemente generoso para evaluar las funciones principales. Para creadores y desarrolladores activos, el plan de $15/mes reemplaza más de $60 en suscripciones individuales.
+El nivel gratuito es lo suficientemente generoso para evaluar las funciones principales. Los nuevos usuarios que se registren a través de [try.magica.com/clique-serio](https://try.magica.com/clique-serio) y canjeen el código **GXZMYCP** en la [página de recompensas](https://try.magica.com/redeem) desbloquean **10M de créditos extra** — ideal para videos, podcasts, generación de voz y flujos de trabajo intensivos en imágenes. Para creadores y desarrolladores activos, el plan de $15/mes reemplaza más de $60 en suscripciones individuales.
 
 ## Por qué Magica es importante para los desarrolladores
 
