@@ -22,7 +22,7 @@ import type {
 /** Extract first meaningful <text> content from an SVG string */
 function extractSvgText(svg: string): string | null {
   const m = svg.match(/<text[^>]*>([^<]+)<\/text>/)
-  return m ? m[1]?.trim() : null
+  return m ? (m[1]?.trim() ?? null) : null
 }
 
 /** Extract all <text> contents from an SVG as a single string */

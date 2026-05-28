@@ -9,7 +9,9 @@ import { ArticleRenderer } from '~/components/article-renderer'
 import { JSONLD } from '~/components/json-ld'
 import { LivingBrief2Col } from '~/components/living-brief'
 import type { LivingBriefCollageProps } from '~/components/living-brief/types'
+import { StoryboardGrid } from '~/components/storyboard-grid'
 import { collagePackageToProps, parseCollagePackage } from '~/utils/collage-importer'
+import { getStoryboardLayout } from '~/utils/storyboard-resolver'
 
 import type { ContentLocale, ContentNode } from '~/content-graph/contracts/node'
 import { getTranslation, useI18n } from '~/i18n/context'
@@ -184,36 +186,47 @@ export default component$(() => {
     ...(collage ? ({ collage } as const) : {}),
   }
 
+  // Check for StoryboardGrid layout
+  const storyboardLayout = content.value.slug
+    ? getStoryboardLayout(content.value.slug, content.value.lang, t)
+    : null
+
   return (
-    <LivingBrief2Col
-      hero={{
-        title: content.value.title,
-        subtitle: extractDescription(content.value.content),
-        hashtags: content.value.subjects,
-        variant: content.value.slug === 'magica-overview' ? 'magica' : 'default',
-        buttons: [
-          {
-            label: content.value.lang === 'pt' ? 'VISITAR MAGICA' : 'VISIT MAGICA',
-            variant: 'primary',
-            href: 'https://try.magica.com/clique-serio',
-          },
-          {
-            label: content.value.lang === 'pt' ? 'CÓDIGO PROMO: GXZMYCP' : 'PROMO CODE: GXZMYCP',
-            variant: 'secondary',
-            href: 'https://try.magica.com/redeem',
-          },
-          {
-            label: content.value.lang === 'pt' ? 'SAIBA MAIS' : 'LEARN MORE',
-            variant: 'ghost',
-            href: '/signals/apex/magica-quickstart',
-          },
-        ],
-      }}
-      {...(collageAssets.value ? { collage: collageAssets.value } : {})}
-    >
-      <JSONLD data={webPageSchema} />
-      <ArticleRenderer {...rendererProps} />
-    </LivingBrief2Col>
+    <>
+      {storyboardLayout ? (
+        <StoryboardGrid layout={storyboardLayout} />
+      ) : (
+        <LivingBrief2Col
+          hero={{
+            title: content.value.title,
+            subtitle: extractDescription(content.value.content),
+            hashtags: content.value.subjects,
+            variant: content.value.slug === 'magica-overview' ? 'magica' : 'default',
+            buttons: [
+              {
+                label: content.value.lang === 'pt' ? 'VISITAR MAGICA' : 'VISIT MAGICA',
+                variant: 'primary',
+                href: 'https://try.magica.com/clique-serio',
+              },
+              {
+                label: content.value.lang === 'pt' ? 'CÓDIGO PROMO: GXZMYCP' : 'PROMO CODE: GXZMYCP',
+                variant: 'secondary',
+                href: 'https://try.magica.com/redeem',
+              },
+              {
+                label: content.value.lang === 'pt' ? 'SAIBA MAIS' : 'LEARN MORE',
+                variant: 'ghost',
+                href: '/signals/apex/magica-quickstart',
+              },
+            ],
+          }}
+          {...(collageAssets.value ? { collage: collageAssets.value } : {})}
+        >
+          <JSONLD data={webPageSchema} />
+          <ArticleRenderer {...rendererProps} />
+        </LivingBrief2Col>
+      )}
+    </>
   )
 })
 

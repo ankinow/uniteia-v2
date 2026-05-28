@@ -1,0 +1,261 @@
+/* ══════════════════════════════════════════════════════════════
+   storyboard-grid.css — Editorial CSS Grid Layout
+   RISOGRAPH / MIT TECH REVIEW aesthetic
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Wrapper (textured background) ── */
+.storyboard-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  padding: 2rem;
+}
+
+/* ── Grain overlay ── */
+.storyboard-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
+}
+
+/* ── Grid ── */
+.storyboard-grid {
+  display: grid;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Cell base — editorial card ── */
+.storyboard-cell {
+  background: #ffffff;
+  border: 1px solid #e2e2e2;
+  box-shadow: 4px 4px 0px #111111;
+  padding: 1.5rem;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 120px;
+}
+
+.storyboard-cell:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #111111;
+}
+
+/* ── Variant color tops ── */
+.storyboard-cell--insight {
+  border-top: 4px solid #3b82f6;
+}
+.storyboard-cell--evidence {
+  border-top: 4px solid #10b981;
+}
+.storyboard-cell--cta {
+  border-top: 4px solid #f59e0b;
+  text-align: center;
+}
+.storyboard-cell--metric {
+  border-top: 4px solid #8b5cf6;
+}
+.storyboard-cell--diagram {
+  border-top: 4px solid #06b6d4;
+}
+.storyboard-cell--quote {
+  border-top: 4px solid #ec4899;
+}
+
+/* ── Typography ── */
+.storyboard-cell__title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: #111111;
+  margin: 0 0 0.75rem 0;
+}
+
+.storyboard-cell__body,
+.storyboard-cell__list-item,
+.storyboard-cell__quote-text {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(0.875rem, 1.2vw, 1rem);
+  line-height: 1.6;
+  color: #444444;
+  margin: 0;
+}
+
+.storyboard-cell__body + .storyboard-cell__body {
+  margin-top: 0.5rem;
+}
+
+/* ── List ── */
+.storyboard-cell__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.storyboard-cell__list-item {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.storyboard-cell__list-item::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #3b82f6;
+  font-weight: 700;
+}
+
+/* ── Image ── */
+.storyboard-cell__figure {
+  margin: 0 0 0.75rem 0;
+}
+
+.storyboard-cell__image {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  border: 1px solid #e2e2e2;
+}
+
+/* ── CTA ── */
+.storyboard-cell__cta-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.storyboard-cell__cta {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.storyboard-cell__cta--primary {
+  background: #111111;
+  color: #ffffff;
+  box-shadow: 3px 3px 0px #3b82f6;
+}
+
+.storyboard-cell__cta--primary:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px #3b82f6;
+}
+
+.storyboard-cell__cta--secondary {
+  background: transparent;
+  color: #111111;
+  border: 2px solid #111111;
+  box-shadow: 3px 3px 0px #111111;
+}
+
+.storyboard-cell__cta--secondary:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px #111111;
+}
+
+/* ── Metric ── */
+.storyboard-cell__metric-wrapper {
+  text-align: center;
+}
+
+.storyboard-cell__metric-value {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: #111111;
+  line-height: 1;
+}
+
+.storyboard-cell__metric-label {
+  font-size: clamp(0.75rem, 1vw, 0.875rem);
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+
+.storyboard-cell__metric-delta {
+  font-size: clamp(0.75rem, 1vw, 0.875rem);
+  color: #10b981;
+  margin-top: 0.25rem;
+}
+
+/* ── Quote ── */
+.storyboard-cell__quote {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.storyboard-cell__quote-text {
+  font-style: italic;
+  font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+  color: #222222;
+}
+
+.storyboard-cell__quote-source {
+  font-size: clamp(0.75rem, 1vw, 0.875rem);
+  color: #888888;
+  margin-top: 0.5rem;
+}
+
+/* ── Arrow indicator (small arrow at bottom-right of cells that connect) ── */
+.storyboard-cell__arrow-indicator {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  color: #111111;
+  opacity: 0.4;
+}
+
+/* ── SVG arrows layer ── */
+.storyboard-arrows {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.storyboard-arrows path {
+  stroke: #1a1a1a;
+  stroke-width: 2;
+  fill: none;
+}
+
+/* ── Responsive: collapse to single column on mobile ── */
+@media (max-width: 768px) {
+  .storyboard-wrapper {
+    padding: 1rem;
+  }
+
+  .storyboard-grid {
+    grid-template-columns: 1fr !important;
+    grid-template-areas: none !important;
+  }
+
+  .storyboard-grid > * {
+    grid-area: auto !important;
+  }
+
+  .storyboard-arrows {
+    display: none;
+  }
+}
