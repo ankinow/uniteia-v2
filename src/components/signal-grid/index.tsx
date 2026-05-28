@@ -3,10 +3,15 @@ import { CinematicDepthCard } from '~/components/cinematic-depth/CinematicDepthC
 import type { SignalGridItem, SignalGridProps } from './types'
 
 const getQualityBadgeColor = (score: number): string => {
-  if (score >= 90) return 'var(--color-acid)'
-  if (score >= 70) return 'var(--color-gold)'
-  if (score >= 40) return 'var(--color-caution)'
-  return 'var(--color-unsafe)'
+  // OKLCH hue interpolation — evolves from warm (low) to cool (high)
+  // Score 0 = red (hue 25), Score 100 = cyan (hue 200)
+  const hue = 25 + (score / 100) * 175
+  return `oklch(0.65 0.15 ${hue})`
+}
+
+const getQualityBadgeBg = (score: number): string => {
+  const hue = 25 + (score / 100) * 175
+  return `oklch(0.65 0.15 ${hue} / 0.1)`
 }
 
 const SPANS = [
@@ -92,7 +97,7 @@ const SignalCard = component$<{ signal: SignalGridItem; organic?: boolean }>(
                 class="inline-flex items-center gap-1 text-xs font-mono font-semibold px-2 py-0.5 rounded"
                 style={{
                   color: getQualityBadgeColor(signal.quality_score),
-                  backgroundColor: 'color-mix(in srgb, var(--color-void) 80%, transparent)',
+                  backgroundColor: getQualityBadgeBg(signal.quality_score),
                   border: '1px solid color-mix(in srgb, var(--color-cyan) 15%, transparent)',
                 }}
               >

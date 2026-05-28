@@ -1,14 +1,16 @@
-import { component$ } from '@builder.io/qwik'
+import { component$, $ } from '@builder.io/qwik'
 import type { ResolvedCell } from './types'
 import { NoiseCanvas } from './noise-canvas'
+import { playCtaClick } from '~/utils/aether-sound'
 
 /**
  * StoryboardCell — individual editorial cell
  * Renders content based on variant type with consistent editorial styling.
- * Enhanced with noise canvas for insight cells and ripple for CTA cells.
+ * Enhanced with noise canvas for insight cells and WebAudio CTA click.
  */
 export const StoryboardCell = component$<{ cell: ResolvedCell }>(({ cell }) => {
   const variantClass = `storyboard-cell--${cell.variant}`
+  const handleCtaClick = $(playCtaClick)
 
   return (
     <article
@@ -71,6 +73,7 @@ export const StoryboardCell = component$<{ cell: ResolvedCell }>(({ cell }) => {
               class={`storyboard-cell__cta storyboard-cell__cta--${cell.cta.variant}`}
               target="_blank"
               rel="noopener noreferrer"
+              onClick$={handleCtaClick}
             >
               {cell.cta.label}
             </a>
