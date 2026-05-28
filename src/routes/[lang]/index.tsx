@@ -154,7 +154,7 @@ export default component$(() => {
                   <a
                     key={signal.node.id}
                     href={signal.href}
-                    class="block no-underline scroll-reveal"
+                    class="block no-underline scroll-reveal group"
                     data-step={String(i + 2)}
                   >
                     <ScrollDepthCardEnhancer>
@@ -163,9 +163,10 @@ export default component$(() => {
                           ? { visualStyle: signal.node.visualStyle }
                           : {})}
                         layer={i % 3}
+                        class="transition-all duration-200 group-hover:-translate-y-0.5 group-hover:shadow-xl group-hover:shadow-action/10"
                       >
                         <div class="p-5">
-                          <p class="font-semibold text-bone text-base leading-tight">
+                          <p class="font-semibold text-bone text-base leading-tight group-hover:text-action transition-colors duration-200">
                             {signal.node.title}
                           </p>
                           <p class="text-sm text-bone mt-2 line-clamp-2 leading-relaxed">

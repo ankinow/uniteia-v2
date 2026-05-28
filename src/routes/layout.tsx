@@ -53,6 +53,15 @@ export default component$(() => {
   const navSignal = useNavigation()
   const lang = langSignal.value
   const topicsOpen = useSignal(false)
+  const isDronePlaying = useSignal(true)
+  const toggleDrone = $(() => {
+    isDronePlaying.value = !isDronePlaying.value
+    if (isDronePlaying.value) {
+      import('~/utils/aether-sound').then(m => m.startAmbientDrone())
+    } else {
+      import('~/utils/aether-sound').then(m => m.stopAmbientDrone())
+    }
+  })
 
   useProvideI18n(lang)
 
@@ -99,6 +108,15 @@ export default component$(() => {
             {t.nav.topics}
           </a>
           <LangSwitcher />
+          {/* Sound toggle */}
+          <button
+            type="button"
+            class="ml-2 text-bone-muted hover:text-action transition-colors text-sm px-2 py-1"
+            aria-label={isDronePlaying.value ? 'Mute ambient sound' : 'Enable ambient sound'}
+            onClick$={toggleDrone}
+          >
+            {isDronePlaying.value ? '🔊' : '🔇'}
+          </button>
         </nav>
 
         {/* Dynamic Niche Navigation (Auto-derived) */}
