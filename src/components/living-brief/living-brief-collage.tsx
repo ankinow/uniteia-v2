@@ -272,7 +272,7 @@ export const LivingBriefCollage = component$<LivingBriefCollageProps>(
                   style={{
                     ...polaroidStyle(p),
                     transitionDelay: `${idx * 150}ms`,
-                    zIndex: polaroids.length - idx,
+                    zIndex: Math.max(1, polaroids.length - idx), // Clamped between 1 and N
                   }}
                 >
                   {p.src ? (
@@ -314,8 +314,9 @@ export const LivingBriefCollage = component$<LivingBriefCollageProps>(
                   style={{
                     left: `${label.x}%`,
                     top: `${label.y}%`,
-                    transform: `rotate(${label.rotate ?? Math.random() * 4 - 2}deg)`,
+                    transform: `rotate(${label.rotate ?? (idHash(label.id) % 4) - 2}deg)`,
                     color: label.color || 'oklch(0.25 0.03 280)',
+                    zIndex: 2, // Above tape (1), below polaroids (3)
                   }}
                 >
                   {label.text}
@@ -331,7 +332,7 @@ export const LivingBriefCollage = component$<LivingBriefCollageProps>(
 
           {/* SVG Arrows (perfect-freehand style) */}
           {arrows && arrows.length > 0 && (
-            <div class="collage-arrows absolute inset-0 pointer-events-none">
+            <div class="collage-arrows absolute inset-0 pointer-events-none" style={{ zIndex: 4 }}>
               {arrows.map(arrow => (
                 <div key={arrow.id} dangerouslySetInnerHTML={arrowSvg(arrow)} />
               ))}
@@ -349,7 +350,8 @@ export const LivingBriefCollage = component$<LivingBriefCollageProps>(
                     left: `${boneco.x}%`,
                     top: `${boneco.y}%`,
                     transform: `scale(${boneco.scale ?? 1})`,
-                    animationDelay: `${Math.random() * 0.5}s`,
+                    animationDelay: `${(idHash(boneco.id) % 500) / 1000}s`,
+                    zIndex: 3, // Above polaroids, below arrows
                   }}
                 >
                   <div dangerouslySetInnerHTML={bonecoSvg(boneco)} />
