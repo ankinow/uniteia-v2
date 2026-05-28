@@ -282,6 +282,11 @@ export const LivingBriefCollage = component$<LivingBriefCollageProps>(
                       class="w-full h-24 object-cover rounded-sm"
                       loading="lazy"
                     />
+                  ) : p.svgContent ? (
+                    <div
+                      class="w-full h-24 overflow-hidden rounded-sm flex items-center justify-center"
+                      dangerouslySetInnerHTML={p.svgContent}
+                    />
                   ) : (
                     <div class="w-full h-24 bg-gradient-to-br from-[oklch(0.85_0.08_85)] to-[oklch(0.75_0.12_75)] rounded-sm flex items-center justify-center text-2xl">
                       {p.label?.[0] || '📷'}

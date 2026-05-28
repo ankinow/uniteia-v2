@@ -50,6 +50,8 @@ export interface LivingBriefCollageProps {
 export interface PolaroidItem {
   id: string
   src?: string
+  /** Inline SVG content to render instead of first-letter fallback */
+  svgContent?: string
   label?: string
   /** Rotation in degrees */
   rotate?: number

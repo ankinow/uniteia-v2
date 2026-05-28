@@ -7,10 +7,10 @@
  * so that articles can render generated arrows, bonecos, emoticons,
  * and teach-images in the 2-column Living Brief layout.
  *
- * v2 — Gravity Groups layout:
- * Zone 1 (workflow):  top-left ~10-35% — teachImage[0] + arrows + labels
- * Zone 2 (ai-brain):  center ~40-65%   — bonecos + emoticons clustered
- * Zone 3 (output):    right-bottom      — remaining teachImages + arrows
+ * v3 — SVG-text labels + polaroid SVG rendering:
+ * - Extracts labels from SVG <text> elements (instead of placeholder captions)
+ * - Passes SVG content to polaroids for real rendering (not first-letter fallback)
+ * - Gravity Groups positioning (3 anchors: workflow, ai-brain, output)
  */
 
 import type {
@@ -18,6 +18,24 @@ import type {
   CollageArrow,
   LivingBriefCollageProps,
 } from '~/components/living-brief/types'
+
+/** Extract first meaningful <text> content from an SVG string */
+function extractSvgText(svg: string): string | null {
+  const m = svg.match(/<text[^>]*>([^<]+)<\/text>/)
+  return m ? m[1]?.trim() : null
+}
+
+/** Extract all <text> contents from an SVG as a single string */
+function extractAllSvgTexts(svg: string): string {
+  const texts: string[] = []
+  const re = /<text[^>]*>([^<]+)<\/text>/g
+  let m: RegExpMatchArray | null
+  while ((m = re.exec(svg)) !== null) {
+    const t = m[1]?.trim()
+    if (t) texts.push(t)
+  }
+  return texts.join(' · ')
+}
 
 /** Simple hash from string for deterministic positioning */
 function idHash(id: string): number {
@@ -81,18 +99,16 @@ function getAnchor(idx: number): GravityAnchor {
  * Transform a RawCollagePackage into LivingBriefCollageProps
  * ready to pass to the LivingBriefCollage component.
  *
- * Uses gravity-group positioning:
- * - teachImages distributes across 3 zones (anchor proximity)
- * - bonecos cluster around ai-brain anchor
- * - arrows connect elements within/across zones
- * - labels sit near their referenced elements
- * - emoticons scatter decoratively around zones
+ * v3 changes:
+ * - Arrow labels extracted from SVG <text> (not placeholder captions "Arrow 1")
+ * - Polaroids include svgContent from teachImages (renders real SVG, not first-letter)
+ * - Gravity group positioning (3 anchors)
  */
 export function collagePackageToProps(pkg: RawCollagePackage): LivingBriefCollageProps {
   const collage: LivingBriefCollageProps = {}
 
   // ── Transform teach-images → polaroids ──
-  // Distribute across gravity zones
+  // Distribute across gravity zones, include SVG content for real rendering
   if (pkg.teachImages.length > 0) {
     collage.polaroids = pkg.teachImages.map((t, idx) => {
       const zone = getAnchor(idx)
@@ -100,9 +116,12 @@ export function collagePackageToProps(pkg: RawCollagePackage): LivingBriefCollag
       const offsetX = (h % 15) - 7 // -7 to +7%
       const offsetY = ((h >> 4) % 12) - 6 // -6 to +6%
       const width = idx === 0 ? 185 : idx < 3 ? 160 : 140
+      // Use secondary SVG text as label (skip first which is often an emoji)
+      const svgLabel = extractSvgText(t.svg) || t.caption
       return {
         id: t.id,
-        label: t.caption.slice(0, 30),
+        svgContent: t.svg, // Pass full SVG for real rendering
+        label: svgLabel.slice(0, 30),
         rotate: (idx % 2 === 0 ? 3 : -3) + ((h % 5) - 2),
         offsetX: Math.round(zone.x + offsetX),
         offsetY: Math.round(zone.y + offsetY - 10),
@@ -113,6 +132,7 @@ export function collagePackageToProps(pkg: RawCollagePackage): LivingBriefCollag
 
   // ── Transform arrows ──
   // Connect elements within zones or chain between zones
+  // Use SVG text content as label, not placeholder caption "Arrow 1"
   if (pkg.arrows.length > 0) {
     collage.arrows = pkg.arrows.map((a, idx): CollageArrow => {
       const srcZone = getAnchor(idx)
@@ -121,11 +141,13 @@ export function collagePackageToProps(pkg: RawCollagePackage): LivingBriefCollag
       const fromY = srcZone.y - 5 + (h % 10)
       const toX = dstZone.x - 10 + ((h >> 4) % 15)
       const toY = dstZone.y - 8 + ((h >> 6) % 12)
+      // Extract real label from SVG text, fall back to altText, NEVER use caption (which is "Arrow 1")
+      const svgLabel = extractSvgText(a.svg) || a.altText.replace(/^Hand-drawn arrow:\s*/i, '')
       return {
         id: a.id,
         from: { x: srcZone.x + 8, y: fromY },
         to: { x: toX, y: toY },
-        label: a.caption.slice(0, 25),
+        label: svgLabel.slice(0, 25),
         animated: true,
         variant: 'perfect-freehand',
         color: 'oklch(0.72 0.165 80)',
@@ -174,9 +196,10 @@ export function collagePackageToProps(pkg: RawCollagePackage): LivingBriefCollag
   if (pkg.arrows.length > 0 || pkg.teachImages.length > 0) {
     const teachLabels = pkg.teachImages.slice(0, 3).map((t, idx) => {
       const zone = getAnchor(idx)
+      const svgLabel = extractSvgText(t.svg) || t.caption
       return {
         id: `label-teach-${idx}`,
-        text: (t.caption || t.altText).slice(0, 25),
+        text: svgLabel.slice(0, 25),
         x: Math.round(zone.x - 8),
         y: Math.round(zone.y + 12),
         rotate: -1 + idx * 1.5,
@@ -193,9 +216,10 @@ export function collagePackageToProps(pkg: RawCollagePackage): LivingBriefCollag
 
     const arrowLabels = pkg.arrows.slice(0, 3).map((a, idx) => {
       const zone = getAnchor(idx)
+      const svgLabel = extractSvgText(a.svg) || a.altText.replace(/^Hand-drawn arrow:\s*/i, '')
       return {
         id: `label-arrow-${idx}`,
-        text: a.caption.slice(0, 25),
+        text: svgLabel.slice(0, 25),
         x: Math.round(zone.x + 15 + idx * 5),
         y: Math.round(zone.y - 12 - idx * 3),
         rotate: 0 + idx * 2,
