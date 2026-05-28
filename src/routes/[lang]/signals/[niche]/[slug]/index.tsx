@@ -191,6 +191,18 @@ export default component$(() => {
         subtitle: extractDescription(content.value.content),
         hashtags: content.value.subjects,
         variant: content.value.slug === 'magica-overview' ? 'magica' : 'default',
+        buttons: [
+          {
+            label: content.value.lang === 'pt' ? 'VISITAR MAGICA' : 'VISIT MAGICA',
+            variant: 'primary',
+            href: 'https://try.magica.com',
+          },
+          {
+            label: content.value.lang === 'pt' ? 'SAIBA MAIS' : 'LEARN MORE',
+            variant: 'secondary',
+            href: '/signals/apex/magica-quickstart',
+          },
+        ],
       }}
       {...(collageAssets.value ? { collage: collageAssets.value } : {})}
     >

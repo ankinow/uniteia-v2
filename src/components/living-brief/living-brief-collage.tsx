@@ -32,11 +32,22 @@ const TAPE_SVG: Record<TapeVariant, string> = {
   washi: `<svg viewBox="0 0 80 24" class="tape-strip"><rect x="0" y="0" width="80" height="24" rx="2" fill="oklch(0.70 0.12 30 / 0.4)" stroke="oklch(0.65 0.10 25 / 0.3)" stroke-width="0.5"/><circle cx="20" cy="12" r="2" fill="oklch(0.80 0.08 60 / 0.3)"/><circle cx="60" cy="12" r="2" fill="oklch(0.80 0.08 60 / 0.3)"/></svg>`,
 }
 
+// Simple hash from string — deterministic positioning
+function idHash(id: string): number {
+  let hash = 0
+  for (let i = 0; i < id.length; i++) {
+    hash = (hash << 5) - hash + id.charCodeAt(i)
+    hash |= 0 // Convert to 32bit integer
+  }
+  return Math.abs(hash)
+}
+
 function polaroidStyle(item: PolaroidItem): Record<string, string> {
+  const h = idHash(item.id ?? item.label ?? '')
   return {
-    transform: `rotate(${item.rotate ?? Math.random() * 6 - 3}deg)`,
-    marginLeft: `${item.offsetX ?? Math.random() * 20 - 10}px`,
-    marginTop: `${item.offsetY ?? Math.random() * 15 - 7}px`,
+    transform: `rotate(${item.rotate ?? (h % 6) - 3}deg)`,
+    marginLeft: `${item.offsetX ?? (h % 20) - 10}px`,
+    marginTop: `${item.offsetY ?? ((h >> 4) % 15) - 7}px`,
     width: `${item.width ?? 160}px`,
   }
 }
