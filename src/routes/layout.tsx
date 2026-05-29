@@ -1,5 +1,6 @@
 import { $, Slot, component$, useOnWindow, useSignal } from '@builder.io/qwik'
 import { type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
+import { AgentStatus } from '~/components/agent-status'
 import { AnalogConnector } from '~/components/analog-connector'
 import { Footer } from '~/components/footer'
 import { LangSwitcher } from '~/components/lang-switcher'
@@ -108,6 +109,8 @@ export default component$(() => {
             {t.nav.topics}
           </a>
           <LangSwitcher />
+          {/* Agent status indicator */}
+          <AgentStatus state="idle" size="sm" compact class="ml-auto mr-2" />
           {/* Sound toggle */}
           <button
             type="button"
