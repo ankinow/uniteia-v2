@@ -69,6 +69,12 @@ export interface TranslationStrings {
     byAuthor: string
     version: string
     readInLang: string
+    magica: {
+      insight: { title: string; body: string }
+      evidence: { title: string; alt: string }
+      architecture: { title: string; point1: string; point2: string; point3: string }
+      cta: { title: string; body: string; button: string }
+    }
   }
   niche: {
     topicsLabel: string

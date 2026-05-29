@@ -53,6 +53,27 @@ export const de: TranslationStrings = {
     byAuthor: 'von {author}',
     version: 'v{version}',
     readInLang: 'Auf {lang} lesen',
+    magica: {
+      insight: {
+        title: 'Magica: Das KI-Kommandozentrum',
+        body: 'Magica vereint Prompt-Engineering, Modell-Routing und Evaluierung in einer einzigen Oberfläche.',
+      },
+      evidence: {
+        title: 'Workflow-Visualisierung',
+        alt: 'Screenshot des Magica-Workflow-Builders',
+      },
+      architecture: {
+        title: 'Architektur',
+        point1: 'Knotenbasiertes Prompt-Chaining',
+        point2: 'Multi-Modell-Fallback-Routing',
+        point3: 'Echtzeit-Latenz-Telemetrie',
+      },
+      cta: {
+        title: 'Loslegen',
+        body: 'Testen Sie Magica kostenlos — keine Kreditkarte erforderlich.',
+        button: 'Magica besuchen',
+      },
+    },
   },
   niche: {
     topicsLabel: 'Themen',

@@ -52,6 +52,27 @@ export const zh: TranslationStrings = {
     byAuthor: '作者：{author}',
     version: 'v{version}',
     readInLang: '以{lang}阅读',
+    magica: {
+      insight: {
+        title: 'Magica：AI指挥中心',
+        body: 'Magica 将提示工程、模型路由和评估统一在单一界面中。',
+      },
+      evidence: {
+        title: '工作流可视化',
+        alt: 'Magica 工作流构建器截图',
+      },
+      architecture: {
+        title: '架构',
+        point1: '基于节点的提示链',
+        point2: '多模型故障转移路由',
+        point3: '实时延迟遥测',
+      },
+      cta: {
+        title: '开始构建',
+        body: '免费试用 Magica — 无需信用卡。',
+        button: '访问 Magica',
+      },
+    },
   },
   niche: {
     topicsLabel: '主题',

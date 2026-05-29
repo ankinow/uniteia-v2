@@ -52,6 +52,27 @@ export const ja: TranslationStrings = {
     byAuthor: '{author} 著',
     version: 'v{version}',
     readInLang: '{lang}で読む',
+    magica: {
+      insight: {
+        title: 'Magica: AIコマンドセンター',
+        body: 'Magicaは、プロンプトエンジニアリング、モデルルーティング、評価を単一のインターフェースに統合します。',
+      },
+      evidence: {
+        title: 'ワークフロー可視化',
+        alt: 'Magicaワークフロービルダーのスクリーンショット',
+      },
+      architecture: {
+        title: 'アーキテクチャ',
+        point1: 'ノードベースのプロンプトチェーン',
+        point2: 'マルチモデルフォールバックルーティング',
+        point3: 'リアルタイムレイテンシーテレメトリー',
+      },
+      cta: {
+        title: '構築を始める',
+        body: 'Magicaを無料でお試しください — クレジットカードは不要です。',
+        button: 'Magicaを見る',
+      },
+    },
   },
   niche: {
     topicsLabel: 'トピック',

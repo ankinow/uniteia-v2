@@ -53,6 +53,27 @@ export const fr: TranslationStrings = {
     byAuthor: 'par {author}',
     version: 'v{version}',
     readInLang: 'Lire en {lang}',
+    magica: {
+      insight: {
+        title: 'Magica : Le Centre de Commandement IA',
+        body: "Magica unifie l'ingénierie de prompts, le routage de modèles et l'évaluation dans une seule interface.",
+      },
+      evidence: {
+        title: 'Visualisation de Flux de Travail',
+        alt: "Capture d'écran du constructeur de flux de travail Magica",
+      },
+      architecture: {
+        title: 'Architecture',
+        point1: 'Enchaînement de prompts par nœuds',
+        point2: 'Routage de secours multi-modèle',
+        point3: 'Télémétrie de latence en temps réel',
+      },
+      cta: {
+        title: 'Commencer à Construire',
+        body: 'Essayez Magica gratuitement — aucune carte de crédit requise.',
+        button: 'Visiter Magica',
+      },
+    },
   },
   niche: {
     topicsLabel: 'Sujets',

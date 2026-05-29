@@ -53,6 +53,27 @@ export const it: TranslationStrings = {
     byAuthor: 'di {author}',
     version: 'v{version}',
     readInLang: 'Leggi in {lang}',
+    magica: {
+      insight: {
+        title: 'Magica: Il Centro di Comando AI',
+        body: "Magica unifica ingegneria dei prompt, routing dei modelli e valutazione in un'unica interfaccia.",
+      },
+      evidence: {
+        title: 'Visualizzazione del Flusso di Lavoro',
+        alt: 'Schermata del costruttore di flussi di lavoro Magica',
+      },
+      architecture: {
+        title: 'Architettura',
+        point1: 'Concatenamento di prompt basato su nodi',
+        point2: 'Routing di fallback multi-modello',
+        point3: 'Telemetria di latenza in tempo reale',
+      },
+      cta: {
+        title: 'Inizia a Costruire',
+        body: 'Prova Magica gratuitamente — senza carta di credito.',
+        button: 'Visita Magica',
+      },
+    },
   },
   niche: {
     topicsLabel: 'Argomenti',

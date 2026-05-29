@@ -13,6 +13,7 @@ interface SitemapEntry {
 async function generate() {
   const origin = process.env.DOMAIN || 'https://uniteia.com'
   const distDir = join(process.cwd(), 'dist')
+  const today = new Date().toISOString().split('T')[0]
 
   console.log(`📍 Generating SEO files for ${origin}...`)
 
@@ -29,26 +30,66 @@ async function generate() {
       })
     }
 
+    // Collect unique niches from all nodes
+    const allNiches = new Set<string>()
+    for (const node of contentGraphData.nodes) {
+      for (const n of node.niche) {
+        allNiches.add(n)
+      }
+    }
+
     const entries: string[] = []
+    // Root — priority 0.9
     entries.push(
       `  <url>
     <loc>${origin}/</loc>
+    <lastmod>${today}</lastmod>
     <changefreq>daily</changefreq>
-    <priority>1.0</priority>
+    <priority>0.9</priority>
   </url>`
     )
 
+    // Language index pages — priority 0.8
     for (const l of SUPPORTED_LANGUAGES) {
       entries.push(
         `  <url>
     <loc>${origin}/${l.code}/signals</loc>
+    <lastmod>${today}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>`
       )
     }
 
-    // Build sitemap entries from graph data
+    // Niche listing pages — priority 0.6
+    for (const l of SUPPORTED_LANGUAGES) {
+      for (const niche of allNiches) {
+        entries.push(
+          `  <url>
+    <loc>${origin}/${l.code}/signals/${niche}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>`
+        )
+      }
+    }
+
+    // Legal pages (privacy, terms) — priority 0.3
+    for (const l of SUPPORTED_LANGUAGES) {
+      for (const legalSlug of ['privacy', 'terms']) {
+        entries.push(
+          `  <url>
+    <loc>${origin}/${l.code}/${legalSlug}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>`
+        )
+      }
+    }
+
+    // Build sitemap entries from graph data — articles, priority 0.8
     for (const nodeId of contentGraphData.indexes.sitemapEligible) {
       const idx = contentGraphData.indexes.byId[nodeId]
       if (idx === undefined) continue
@@ -80,7 +121,7 @@ async function generate() {
         `  <url>
     <loc>${loc}</loc>
 ${lastmod}    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
 ${hreflangLines.join('\n')}
   </url>`
       )

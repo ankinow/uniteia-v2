@@ -52,6 +52,27 @@ export const pt: TranslationStrings = {
     byAuthor: 'por {author}',
     version: 'v{version}',
     readInLang: 'Ler em {lang}',
+    magica: {
+      insight: {
+        title: 'Magica: O Centro de Comando de IA',
+        body: 'Magica unifica engenharia de prompt, roteamento de modelos e avaliação em uma única interface.',
+      },
+      evidence: {
+        title: 'Visualização de Fluxo de Trabalho',
+        alt: 'Captura de tela do construtor de fluxo de trabalho da Magica',
+      },
+      architecture: {
+        title: 'Arquitetura',
+        point1: 'Encadeamento de prompts baseado em nós',
+        point2: 'Roteamento de fallback multi-modelo',
+        point3: 'Telemetria de latência em tempo real',
+      },
+      cta: {
+        title: 'Comece a Construir',
+        body: 'Experimente Magica gratuitamente — sem cartão de crédito.',
+        button: 'Visitar Magica',
+      },
+    },
   },
   niche: {
     topicsLabel: 'Tópicos',
@@ -140,7 +161,7 @@ export const pt: TranslationStrings = {
     mcpTooltip: 'Servidor MCP Conectado · 7 ferramentas ativas',
   },
   generativeHero: {
-    curating: 'Curando {niche} hoje',
+    curating: 'Curadoria de {niche} hoje',
     topNiches: 'Principais Nichos',
   },
   legal: {

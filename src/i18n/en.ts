@@ -52,6 +52,27 @@ export const en: TranslationStrings = {
     byAuthor: 'by {author}',
     version: 'v{version}',
     readInLang: 'Read in {lang}',
+    magica: {
+      insight: {
+        title: 'Magica: The AI Command Center',
+        body: 'Magica unifies prompt engineering, model routing, and evaluation in a single interface.',
+      },
+      evidence: {
+        title: 'Workflow Visualization',
+        alt: 'Screenshot of Magica workflow builder',
+      },
+      architecture: {
+        title: 'Architecture',
+        point1: 'Node-based prompt chaining',
+        point2: 'Multi-model fallback routing',
+        point3: 'Real-time latency telemetry',
+      },
+      cta: {
+        title: 'Start Building',
+        body: 'Try Magica free — no credit card required.',
+        button: 'Visit Magica',
+      },
+    },
   },
   niche: {
     topicsLabel: 'Topics',

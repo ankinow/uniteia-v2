@@ -110,6 +110,42 @@ describe('Translation key consistency', () => {
   }
 })
 
+describe('StoryboardGrid i18n key integrity', () => {
+  const ARTICLE_MAGICA_KEYS = [
+    'article.magica.insight.title',
+    'article.magica.insight.body',
+    'article.magica.evidence.title',
+    'article.magica.architecture.title',
+    'article.magica.architecture.point1',
+    'article.magica.architecture.point2',
+    'article.magica.architecture.point3',
+    'article.magica.cta.title',
+    'article.magica.cta.body',
+    'article.magica.cta.button',
+  ]
+
+  for (const locale of ['en', ...LOCALES] as const) {
+    const translation = locale === 'en' ? en : getTranslationForLocale(locale)
+    if (!translation) throw new Error(`Translation not found: ${locale}`)
+
+    describe(`${locale}: article.magica`, () => {
+      for (const key of ARTICLE_MAGICA_KEYS) {
+        test(`${key} exists and is non-empty`, () => {
+          expect(hasKey(translation, key)).toBe(true)
+          const value = getNestedValue(translation, key)
+          expect(value).toBeTruthy()
+          expect(typeof value).toBe('string')
+          expect((value as string).length).toBeGreaterThan(0)
+          // Ensure no hardcoded English fallback leaked in non-EN locales
+          if (locale !== 'en') {
+            expect((value as string)).not.toMatch(/^Magica: The/)
+          }
+        })
+      }
+    })
+  }
+})
+
 /**
  * Check if a nested key path exists in an object.
  * Supports dot-notation paths like 'nav.home' or 'errorPages.404.title'.
@@ -127,4 +163,22 @@ function hasKey(obj: unknown, path: string): boolean {
     current = (current as Record<string, unknown>)[part]
   }
   return true
+}
+
+/**
+ * Get a nested value from an object using dot notation.
+ */
+function getNestedValue(obj: unknown, path: string): unknown {
+  const parts = path.split('.')
+  let current: unknown = obj
+  for (const part of parts) {
+    if (current === null || current === undefined || typeof current !== 'object') {
+      return undefined
+    }
+    if (!(part in (current as Record<string, unknown>))) {
+      return undefined
+    }
+    current = (current as Record<string, unknown>)[part]
+  }
+  return current
 }

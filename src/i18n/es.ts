@@ -52,6 +52,27 @@ export const es: TranslationStrings = {
     byAuthor: 'por {author}',
     version: 'v{version}',
     readInLang: 'Leer en {lang}',
+    magica: {
+      insight: {
+        title: 'Magica: El Centro de Comando de IA',
+        body: 'Magica unifica la ingeniería de prompts, el enrutamiento de modelos y la evaluación en una sola interfaz.',
+      },
+      evidence: {
+        title: 'Visualización de Flujo de Trabajo',
+        alt: 'Captura de pantalla del constructor de flujo de trabajo de Magica',
+      },
+      architecture: {
+        title: 'Arquitectura',
+        point1: 'Encadenamiento de prompts basado en nodos',
+        point2: 'Enrutamiento de respaldo multi-modelo',
+        point3: 'Telemetría de latencia en tiempo real',
+      },
+      cta: {
+        title: 'Empezar a Construir',
+        body: 'Prueba Magica gratis — sin necesidad de tarjeta de crédito.',
+        button: 'Visitar Magica',
+      },
+    },
   },
   niche: {
     topicsLabel: 'Temas',
