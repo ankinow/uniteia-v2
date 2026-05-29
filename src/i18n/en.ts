@@ -133,6 +133,10 @@ export const en: TranslationStrings = {
     },
     mcpTooltip: 'MCP Server Connected · 7 tools active',
   },
+  generativeHero: {
+    curating: 'Curating {niche} signals today',
+    topNiches: 'Top Niches',
+  },
   legal: {
     privacy: {
       title: 'Privacy Policy',

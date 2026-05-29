@@ -144,6 +144,10 @@ export const it: TranslationStrings = {
     },
     mcpTooltip: 'Server MCP Connesso · 7 strumenti attivi',
   },
+  generativeHero: {
+    curating: 'Curando {niche} oggi',
+    topNiches: 'Principali Nicchie',
+  },
   legal: {
     privacy: {
       title: 'Informativa sulla Privacy',

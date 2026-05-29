@@ -4,6 +4,7 @@ import { CanvasSurface } from '~/components/canvas-surface'
 import { CinematicDepthCard } from '~/components/cinematic-depth'
 import { BioOrganicOverlay } from '~/components/bio-organic-overlay'
 import { DepthTilt } from '~/components/depth-tilt'
+import { GenerativeHero } from '~/components/generative-hero'
 import { ClusterIcon, nicheToIcon } from '~/components/icon-set/icon-set'
 import { JSONLD } from '~/components/json-ld'
 import { MasterOpenCanvas } from '~/components/master-open-canvas'
@@ -147,6 +148,13 @@ export default component$(() => {
             speed: 1.5,
           },
         ]}
+      />
+
+      {/* 027.3: GenerativeHero — context-aware adaptive hero */}
+      <GenerativeHero
+        clusters={sortedClusters}
+        lang={lang}
+        t={{ curating: t.generativeHero.curating, topNiches: t.generativeHero.topNiches }}
       />
 
       <CanvasSurface tone="parchment" class="mt-8">

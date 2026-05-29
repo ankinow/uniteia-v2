@@ -139,6 +139,10 @@ export const pt: TranslationStrings = {
     },
     mcpTooltip: 'Servidor MCP Conectado · 7 ferramentas ativas',
   },
+  generativeHero: {
+    curating: 'Curando {niche} hoje',
+    topNiches: 'Principais Nichos',
+  },
   legal: {
     privacy: {
       title: 'Política de Privacidade',

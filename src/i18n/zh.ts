@@ -133,6 +133,10 @@ export const zh: TranslationStrings = {
     },
     mcpTooltip: 'MCP服务器已连接 · 7个活跃工具',
   },
+  generativeHero: {
+    curating: '正在策展 {niche} 信号',
+    topNiches: '热门领域',
+  },
   legal: {
     privacy: {
       title: '隐私政策',

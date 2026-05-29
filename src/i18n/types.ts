@@ -149,6 +149,10 @@ export interface TranslationStrings {
     }
     mcpTooltip: string
   }
+  generativeHero: {
+    curating: string
+    topNiches: string
+  }
   legal: {
     privacy: {
       title: string

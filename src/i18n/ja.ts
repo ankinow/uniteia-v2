@@ -136,6 +136,10 @@ export const ja: TranslationStrings = {
     },
     mcpTooltip: 'MCPサーバー接続済み · 7つのツールがアクティブ',
   },
+  generativeHero: {
+    curating: '{niche}のシグナルをキュレーション',
+    topNiches: 'トップニッチ',
+  },
   legal: {
     privacy: {
       title: 'プライバシーポリシー',
