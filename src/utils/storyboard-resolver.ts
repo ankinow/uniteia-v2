@@ -7,9 +7,9 @@
  * a ResolvedLayout with text already resolved via getTranslation().
  */
 
+import type { ResolvedCell, ResolvedLayout } from '~/components/storyboard-grid/types'
 import type { SupportedLanguage } from '~/i18n/types'
 import type { TranslationStrings } from '~/i18n/types'
-import type { ResolvedCell, ResolvedLayout } from '~/components/storyboard-grid/types'
 
 /**
  * Maps from article slug to StoryboardLayout definition.
@@ -52,7 +52,7 @@ function buildMagicaOverviewLayout(
       gridArea: 'evidence1',
       title: m?.evidence?.title ?? 'Workflow Visualization',
       image: {
-        src: "data:image/svg+xml," + encodeURIComponent(
+        src: `data:image/svg+xml,${encodeURIComponent(
           `<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
             <rect width="400" height="200" fill="#f8f8f8" rx="4"/>
             <text x="200" y="25" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#666">Magica Workflow Builder</text>
@@ -74,7 +74,7 @@ function buildMagicaOverviewLayout(
             <line x1="110" y1="150" x2="270" y2="150" stroke="#ddd" stroke-width="0.5"/>
             <text x="200" y="175" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#999">Prompt → Model Router → Output</text>
           </svg>`
-        ),
+        )}`,
         alt: m?.evidence?.alt ?? 'Screenshot of Magica workflow builder',
       },
       arrowTo: ['diagram-arch'],

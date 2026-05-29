@@ -1,7 +1,7 @@
-import { component$, $ } from '@builder.io/qwik'
-import type { ResolvedCell } from './types'
-import { NoiseCanvas } from './noise-canvas'
+import { $, component$ } from '@builder.io/qwik'
 import { playCtaClick } from '~/utils/aether-sound'
+import { NoiseCanvas } from './noise-canvas'
+import type { ResolvedCell } from './types'
 
 /**
  * StoryboardCell — individual editorial cell

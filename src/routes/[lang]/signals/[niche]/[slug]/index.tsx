@@ -209,7 +209,8 @@ export default component$(() => {
                 href: 'https://try.magica.com/clique-serio',
               },
               {
-                label: content.value.lang === 'pt' ? 'CÓDIGO PROMO: GXZMYCP' : 'PROMO CODE: GXZMYCP',
+                label:
+                  content.value.lang === 'pt' ? 'CÓDIGO PROMO: GXZMYCP' : 'PROMO CODE: GXZMYCP',
                 variant: 'secondary',
                 href: 'https://try.magica.com/redeem',
               },

@@ -51,15 +51,16 @@ export const OnboardingFlow = component$<OnboardingFlowProps>(({ locale, siteNam
           {t.onboarding.step2.cards.map((step, i) => {
             const tones = ['action', 'verified', 'curation'] as const
             return (
-            <DepthCard key={step.label} depth="raised" depth2d5="front">
-              <div class="p-5">
-                <span class="hud-label-base mb-3 block" data-tone={tones[i]}>
-                  {step.label}
-                </span>
-                <p class="text-sm text-bone/80 leading-relaxed">{step.desc}</p>
-              </div>
-            </DepthCard>
-          )})}
+              <DepthCard key={step.label} depth="raised" depth2d5="front">
+                <div class="p-5">
+                  <span class="hud-label-base mb-3 block" data-tone={tones[i]}>
+                    {step.label}
+                  </span>
+                  <p class="text-sm text-bone/80 leading-relaxed">{step.desc}</p>
+                </div>
+              </DepthCard>
+            )
+          })}
         </div>
       </div>
 

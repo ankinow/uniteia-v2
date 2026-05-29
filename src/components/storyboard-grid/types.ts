@@ -11,13 +11,7 @@
  *   quote     — blockquote + attribution
  */
 
-export type CellVariant =
-  | 'insight'
-  | 'evidence'
-  | 'diagram'
-  | 'cta'
-  | 'metric'
-  | 'quote'
+export type CellVariant = 'insight' | 'evidence' | 'diagram' | 'cta' | 'metric' | 'quote'
 
 export interface StoryboardCell {
   id: string

@@ -67,19 +67,22 @@ export default component$(() => {
       <section class="mb-12">
         <h2 class="text-xl font-semibold mb-4">8 Locales · 127+ Keys · 100% Coverage</h2>
         <p class="text-sm text-bone-muted mb-4">
-          Every translation file is validated against the canonical English source.
-          Missing keys, extra keys, and count mismatches fail the build.
-          Pre-commit hook + ship:check enforce consistency across{' '}
-          {['EN', 'PT', 'ES', 'FR', 'DE', 'IT', 'JA', 'ZH'].join(' · ')}.
+          Every translation file is validated against the canonical English source. Missing keys,
+          extra keys, and count mismatches fail the build. Pre-commit hook + ship:check enforce
+          consistency across {['EN', 'PT', 'ES', 'FR', 'DE', 'IT', 'JA', 'ZH'].join(' · ')}.
         </p>
       </section>
 
       {/* Footer badge */}
       <footer class="border-t border-action/10 pt-6 mt-12 text-center">
         <p class="text-xs text-bone-muted">
-          Built with{' '}
-          <span class="font-mono text-action/80">PA∞ v0.14</span> ·{' '}
-          <a href="https://github.com/ankinow/uniteia-v2" target="_blank" rel="noopener noreferrer" class="underline hover:text-action transition-colors">
+          Built with <span class="font-mono text-action/80">PA∞ v0.14</span> ·{' '}
+          <a
+            href="https://github.com/ankinow/uniteia-v2"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="underline hover:text-action transition-colors"
+          >
             Source
           </a>
         </p>
@@ -91,6 +94,10 @@ export default component$(() => {
 export const head: DocumentHead = {
   title: 'Aether OS PA∞ | UniTeia',
   meta: [
-    { name: 'description', content: 'The autonomous pipeline that builds and curates UniTeia — 7 quality gates, 8 locales, 100% i18n coverage.' },
+    {
+      name: 'description',
+      content:
+        'The autonomous pipeline that builds and curates UniTeia — 7 quality gates, 8 locales, 100% i18n coverage.',
+    },
   ],
 }

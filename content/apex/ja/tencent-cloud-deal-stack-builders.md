@@ -1,7 +1,7 @@
 ---
 slug: tencent-cloud-deal-stack-builders
 lang: ja
-title: "Tencent Cloud Deal Stack for Builders"
+title: "ビルダーのためのTencent Cloudディールスタック"
 verdict: trusted
 quality_score: 95
 subjects:

@@ -1,0 +1,1647 @@
+{
+  "components": [
+    {
+      "name": "AetherAmbient",
+      "path": "src/components/aether-ambient/",
+      "category": "effects",
+      "description": "",
+      "props": {
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "string"
+        },
+        "mode": {
+          "name": "mode",
+          "required": false,
+          "type": "AmbientMode"
+        },
+        "opacity": {
+          "name": "opacity",
+          "required": false,
+          "type": "number"
+        },
+        "blendMode": {
+          "name": "blendMode",
+          "required": false,
+          "type": "'overlay' | 'multiply' | 'screen' | 'normal'"
+        },
+        "density": {
+          "name": "density",
+          "required": false,
+          "type": "number // 0.0–1.0, controls noise density"
+        },
+        "speed": {
+          "name": "speed",
+          "required": false,
+          "type": "number // animation speed multiplier"
+        },
+        "color": {
+          "name": "color",
+          "required": false,
+          "type": "string // optional tint, e.g. 'oklch(60% 0.2 265)'"
+        },
+        "grainSize": {
+          "name": "grainSize",
+          "required": false,
+          "type": "number // pixel block size (1=sharp, 4=chunky)"
+        }
+      },
+      "variants": [],
+      "exports": ["AetherAmbient", "AetherAmbientProps", "AmbientMode"]
+    },
+    {
+      "name": "AetherCanvas",
+      "path": "src/components/aether-canvas/",
+      "category": "effects",
+      "description": "",
+      "props": {},
+      "variants": [],
+      "exports": ["AetherCanvasEngine", "CanvasConnector", "CanvasNode"]
+    },
+    {
+      "name": "AetherHanddrawCollage",
+      "path": "src/components/moodboard-aether/",
+      "category": "effects",
+      "description": "A hand-drawn arrow connecting two nodes on the canvas",
+      "props": {
+        "title": {
+          "name": "title",
+          "required": true,
+          "type": "string",
+          "description": "Accessibility title"
+        },
+        "arrows": {
+          "name": "arrows",
+          "required": false,
+          "type": "CollageArrow[]",
+          "description": "Hand-drawn arrows connecting nodes"
+        },
+        "notes": {
+          "name": "notes",
+          "required": false,
+          "type": "CollageNote[]",
+          "description": "Annotation notes"
+        },
+        "nodes": {
+          "name": "nodes",
+          "required": false,
+          "type": "CollageNode[]",
+          "description": "Abstract shape nodes"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "string",
+          "description": "Custom class for the container"
+        },
+        "width": {
+          "name": "width",
+          "required": false,
+          "type": "number",
+          "description": "Canvas width"
+        },
+        "height": {
+          "name": "height",
+          "required": false,
+          "type": "number",
+          "description": "Canvas height"
+        },
+        "tone": {
+          "name": "tone",
+          "required": false,
+          "type": "'obsidian' | 'parchment' | 'transparent'",
+          "description": "Background tone"
+        }
+      },
+      "variants": [],
+      "exports": [
+        "AetherHanddrawCollage",
+        "AetherHanddrawCollageProps",
+        "CollageArrow",
+        "CollageNode",
+        "CollageNote"
+      ]
+    },
+    {
+      "name": "AgentStatus",
+      "path": "src/components/agent-status/",
+      "category": "general",
+      "description": "",
+      "props": {
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "string"
+        },
+        "state": {
+          "name": "state",
+          "required": false,
+          "type": "AgentState"
+        },
+        "label": {
+          "name": "label",
+          "required": false,
+          "type": "string // explicit override — overrides i18n"
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "type": "'sm' | 'md' | 'lg'"
+        },
+        "accent": {
+          "name": "accent",
+          "required": false,
+          "type": "string // CSS color override"
+        },
+        "compact": {
+          "name": "compact",
+          "required": false,
+          "type": "boolean // hide label, show icon only"
+        },
+        "t": {
+          "name": "t",
+          "required": false,
+          "type": "{"
+        },
+        "status": {
+          "name": "status",
+          "required": true,
+          "type": "Record<AgentState, string>"
+        },
+        "mcpTooltip": {
+          "name": "mcpTooltip",
+          "required": false,
+          "type": "string"
+        }
+      },
+      "variants": [],
+      "exports": ["AgentState", "AgentStatus", "AgentStatusProps"]
+    },
+    {
+      "name": "AnalogConnector",
+      "path": "src/components/analog-connector/",
+      "category": "general",
+      "description": "",
+      "props": {
+        "edges": {
+          "name": "edges",
+          "required": true,
+          "type": "ConnectorEdge[]"
+        },
+        "containerRef": {
+          "name": "containerRef",
+          "required": false,
+          "type": "string"
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "type": "ConnectorVariant"
+        },
+        "animated": {
+          "name": "animated",
+          "required": false,
+          "type": "boolean"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList"
+        },
+        "coordOverrides": {
+          "name": "coordOverrides",
+          "required": false,
+          "type": "ConnectorCoord[]"
+        }
+      },
+      "variants": ["solid", "dashed", "dotted", "glow"],
+      "exports": [
+        "ALL_VARIANTS",
+        "AnalogConnector",
+        "AnalogConnectorProps",
+        "ConnectorCoord",
+        "ConnectorEdge",
+        "ConnectorVariant",
+        "buildBezier"
+      ]
+    },
+    {
+      "name": "ArticleFrame",
+      "path": "src/components/article-frame/",
+      "category": "content",
+      "description": "ArticleFrame component props Wraps article content in a prose-styled container with dark theme surface",
+      "props": {
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "string",
+          "description": "Optional CSS class for additional styling"
+        },
+        "kindleMode": {
+          "name": "kindleMode",
+          "required": false,
+          "type": "boolean"
+        },
+        "dopamineCard": {
+          "name": "dopamineCard",
+          "required": false,
+          "type": "{"
+        },
+        "title": {
+          "name": "title",
+          "required": true,
+          "type": "string"
+        },
+        "description": {
+          "name": "description",
+          "required": true,
+          "type": "string"
+        },
+        "href": {
+          "name": "href",
+          "required": true,
+          "type": "string"
+        },
+        "score": {
+          "name": "score",
+          "required": false,
+          "type": "number"
+        },
+        "verdict": {
+          "name": "verdict",
+          "required": false,
+          "type": "VerdictLevel"
+        },
+        "sourceCount": {
+          "name": "sourceCount",
+          "required": false,
+          "type": "number"
+        },
+        "icon": {
+          "name": "icon",
+          "required": false,
+          "type": "string"
+        },
+        "lang": {
+          "name": "lang",
+          "required": true,
+          "type": "SupportedLanguage"
+        }
+      },
+      "variants": [],
+      "exports": ["ArticleFrame", "ArticleFrameLogEvent", "ArticleFrameProps"]
+    },
+    {
+      "name": "ArticleRenderer",
+      "path": "src/components/article-renderer/",
+      "category": "content",
+      "description": "Wrap content and related sections in ErrorBoundary (default: true)",
+      "props": {
+        "content": {
+          "name": "content",
+          "required": true,
+          "type": "LlmWikiContent"
+        },
+        "relatedNodes": {
+          "name": "relatedNodes",
+          "required": true,
+          "type": "ContentNode[]"
+        },
+        "labels": {
+          "name": "labels",
+          "required": true,
+          "type": "FrontmatterLabels"
+        },
+        "withErrorBoundary": {
+          "name": "withErrorBoundary",
+          "required": false,
+          "type": "boolean",
+          "description": "Wrap content and related sections in ErrorBoundary (default: true)"
+        },
+        "svgs": {
+          "name": "svgs",
+          "required": false,
+          "type": "string[]",
+          "description": "Optional inline SVGs to render after prose content"
+        },
+        "collage": {
+          "name": "collage",
+          "required": false,
+          "type": "AetherHanddrawCollageProps",
+          "description": "Optional hand-drawn collage props — renders Aether hand-drawn collage above content"
+        }
+      },
+      "variants": [],
+      "exports": ["ArticleRenderer", "ArticleRendererProps"]
+    },
+    {
+      "name": "Avatar",
+      "path": "src/components/avatar/",
+      "category": "media",
+      "description": "Avatar — SVG sprite icon wrapper Uses united-avatars.svg sprite (loaded in root component)",
+      "props": {
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "type": "AvatarVariant"
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "type": "'sm' | 'md' | 'lg' | 'xl'"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList"
+        },
+        "label": {
+          "name": "label",
+          "required": false,
+          "type": "string"
+        }
+      },
+      "variants": [],
+      "exports": ["Avatar", "AvatarProps", "AvatarVariant"]
+    },
+    {
+      "name": "BioOrganicOverlay",
+      "path": "src/components/bio-organic-overlay/",
+      "category": "overlay",
+      "description": "",
+      "props": {
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "string"
+        },
+        "opacity": {
+          "name": "opacity",
+          "required": false,
+          "type": "number"
+        },
+        "branchCount": {
+          "name": "branchCount",
+          "required": false,
+          "type": "number"
+        },
+        "growthSpeed": {
+          "name": "growthSpeed",
+          "required": false,
+          "type": "number"
+        },
+        "color": {
+          "name": "color",
+          "required": false,
+          "type": "string"
+        }
+      },
+      "variants": [],
+      "exports": ["BioOrganicOverlay", "BioOrganicOverlayProps"]
+    },
+    {
+      "name": "CanvasSurface",
+      "path": "src/components/canvas-surface/",
+      "category": "effects",
+      "description": "CanvasSurface — HTML-in-Canvas progressive enhancement wrapper (Phase 4) Chrome Origin Trial API (Google I/O 2026): drawElementImage + layoutsubtree Feature-detect at runtime, fall back to MasterOpenCanvas parchment",
+      "props": {
+        "tone": {
+          "name": "tone",
+          "required": false,
+          "type": "CanvasSurfaceTone"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "string"
+        }
+      },
+      "variants": [],
+      "exports": ["CanvasSurface", "CanvasSurfaceProps", "CanvasSurfaceTone"]
+    },
+    {
+      "name": "CinematicDepth",
+      "path": "src/components/cinematic-depth/",
+      "category": "effects",
+      "description": "",
+      "props": {},
+      "variants": [],
+      "exports": ["CinematicDepthCard", "DepthCard"]
+    },
+    {
+      "name": "CinematicDepthCard",
+      "path": "src/components/cinematic-depth-card/",
+      "category": "card",
+      "description": "",
+      "props": {
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "type": "CinematicDepthCardVariant"
+        },
+        "glowOnFocus": {
+          "name": "glowOnFocus",
+          "required": false,
+          "type": "boolean"
+        },
+        "elevated": {
+          "name": "elevated",
+          "required": false,
+          "type": "boolean"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "string"
+        }
+      },
+      "variants": ["logic", "insight", "flow"],
+      "exports": [
+        "ALL_VARIANTS",
+        "CinematicDepthCard",
+        "CinematicDepthCardProps",
+        "CinematicDepthCardVariant"
+      ]
+    },
+    {
+      "name": "ClusterIcon",
+      "path": "src/components/icon-set/",
+      "category": "card",
+      "description": "icon-set.tsx — 8 Knowledge Cluster icons with neon glow Coral (#ff2a6d) + cyan (#05d9e8) palette SVG inline, bundle-safe (<1KB each)",
+      "props": {},
+      "variants": [],
+      "exports": ["ClusterIcon", "nicheToIcon"]
+    },
+    {
+      "name": "DecisionMap",
+      "path": "src/components/lesson/",
+      "category": "general",
+      "description": "DecisionMap — Sketchnote-style decision flow for articles and homepage",
+      "props": {
+        "title": {
+          "name": "title",
+          "required": true,
+          "type": "string"
+        },
+        "nodes": {
+          "name": "nodes",
+          "required": true,
+          "type": "DecisionNode[]"
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "type": "'sketchnote' | 'signal' | 'minimal'"
+        }
+      },
+      "variants": [],
+      "exports": ["DecisionMap", "DecisionMapProps", "DecisionNode"]
+    },
+    {
+      "name": "DecisionMap",
+      "path": "src/components/decision-map/",
+      "category": "general",
+      "description": "",
+      "props": {
+        "nodes": {
+          "name": "nodes",
+          "required": true,
+          "type": "DecisionNode[]"
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "type": "DecisionMapVariant"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList"
+        }
+      },
+      "variants": [],
+      "exports": ["DecisionMap", "DecisionMapProps", "DecisionMapVariant", "DecisionNode"]
+    },
+    {
+      "name": "DepthCard",
+      "path": "src/components/depth-card/",
+      "category": "card",
+      "description": "Maps the new DepthVariant values to the legacy data-depth attribute so existing CSS selectors (.depth-surface[data-depth=\"front/mid/back\"]) still work.",
+      "props": {},
+      "variants": [],
+      "exports": ["DepthCard"]
+    },
+    {
+      "name": "DepthSection",
+      "path": "src/components/depth-section/",
+      "category": "effects",
+      "description": "Maps the new DepthVariant values to the legacy data-depth attribute so existing CSS selectors (.depth-surface[data-depth=\"front/mid/back\"]) still work.",
+      "props": {},
+      "variants": [],
+      "exports": ["DepthSection"]
+    },
+    {
+      "name": "DepthTilt",
+      "path": "src/components/depth-tilt/",
+      "category": "effects",
+      "description": "",
+      "props": {
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "string"
+        },
+        "maxTilt": {
+          "name": "maxTilt",
+          "required": false,
+          "type": "number // max rotation angle (deg), default 8"
+        },
+        "perspective": {
+          "name": "perspective",
+          "required": false,
+          "type": "number // CSS perspective (px), default 1000"
+        },
+        "scale": {
+          "name": "scale",
+          "required": false,
+          "type": "number // scale on hover, default 1.01"
+        },
+        "glare": {
+          "name": "glare",
+          "required": false,
+          "type": "boolean // show glare highlight, default true"
+        },
+        "speed": {
+          "name": "speed",
+          "required": false,
+          "type": "number // transition speed (ms), default 300"
+        },
+        "triggerMode": {
+          "name": "triggerMode",
+          "required": false,
+          "type": "'hover' | 'always' | 'motion'"
+        }
+      },
+      "variants": [],
+      "exports": ["DepthTilt", "DepthTiltProps"]
+    },
+    {
+      "name": "DonationButton",
+      "path": "src/components/donation/",
+      "category": "data-display",
+      "description": "",
+      "props": {},
+      "variants": [],
+      "exports": ["DonationButton"]
+    },
+    {
+      "name": "DopamineCard",
+      "path": "src/components/dopamine-card/",
+      "category": "card",
+      "description": "",
+      "props": {
+        "title": {
+          "name": "title",
+          "required": true,
+          "type": "string",
+          "description": "Card title"
+        },
+        "description": {
+          "name": "description",
+          "required": true,
+          "type": "string",
+          "description": "Card description"
+        },
+        "href": {
+          "name": "href",
+          "required": true,
+          "type": "string",
+          "description": "Link destination"
+        },
+        "score": {
+          "name": "score",
+          "required": false,
+          "type": "number",
+          "description": "Optional quality score 0-100"
+        },
+        "verdict": {
+          "name": "verdict",
+          "required": false,
+          "type": "VerdictLevel",
+          "description": "Optional verdict level (shows SignalBar if provided)"
+        },
+        "sourceCount": {
+          "name": "sourceCount",
+          "required": false,
+          "type": "number",
+          "description": "Optional source count"
+        },
+        "icon": {
+          "name": "icon",
+          "required": false,
+          "type": "string",
+          "description": "Optional Lucide icon name"
+        },
+        "lang": {
+          "name": "lang",
+          "required": true,
+          "type": "SupportedLanguage",
+          "description": "Current language for i18n"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList",
+          "description": "Optional CSS class"
+        }
+      },
+      "variants": [],
+      "exports": ["DopamineCard", "DopamineCardProps"]
+    },
+    {
+      "name": "EditorialVerdict",
+      "path": "src/components/editorial-verdict/",
+      "category": "trust-indicator",
+      "description": "EditorialVerdict — Editorial trust indicator Displays a verdict level badge (trusted/caution/flagged) with locale-aware labels",
+      "props": {
+        "verdict": {
+          "name": "verdict",
+          "required": true,
+          "type": "VerdictLevel",
+          "description": "The editorial verdict level"
+        },
+        "lang": {
+          "name": "lang",
+          "required": true,
+          "type": "SupportedLanguage",
+          "description": "Current language for i18n"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList",
+          "description": "Optional CSS class"
+        }
+      },
+      "variants": [],
+      "exports": ["EditorialVerdict", "EditorialVerdictProps", "VerdictLevel"]
+    },
+    {
+      "name": "ErrorBoundary",
+      "path": "src/components/error-boundary/",
+      "category": "error-handling",
+      "description": "ErrorBoundary — Client-side error isolation for Qwik components",
+      "props": {
+        "fallbackMsg": {
+          "name": "fallbackMsg",
+          "required": false,
+          "type": "string",
+          "description": "Message shown in the fallback UI"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "string",
+          "description": "Optional CSS class for the fallback wrapper"
+        }
+      },
+      "variants": [],
+      "exports": ["ErrorBoundary", "ErrorBoundaryProps"]
+    },
+    {
+      "name": "FallbackBanner",
+      "path": "src/components/fallback-banner/",
+      "category": "error-handling",
+      "description": "FallbackBanner — shown when content is displayed in a language different from the user's requested locale because the article isn't available in their preferred language",
+      "props": {},
+      "variants": [],
+      "exports": ["FallbackBanner"]
+    },
+    {
+      "name": "Footer",
+      "path": "src/components/footer/",
+      "category": "layout",
+      "description": "Footer component props",
+      "props": {
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList",
+          "description": "Additional CSS classes"
+        }
+      },
+      "variants": [],
+      "exports": ["Footer", "FooterLink", "FooterProps"]
+    },
+    {
+      "name": "FrontmatterSlots",
+      "path": "src/components/frontmatter-slots/",
+      "category": "general",
+      "description": "FrontmatterSlots component props Renders article metadata: subjects as tag pills, timestamps in monospace, and language indicator",
+      "props": {
+        "subjects": {
+          "name": "subjects",
+          "required": true,
+          "type": "string[]",
+          "description": "Subject tags for categorization (1-10 items per schema)"
+        },
+        "lang": {
+          "name": "lang",
+          "required": true,
+          "type": "string",
+          "description": "ISO 639-1 language code"
+        },
+        "metadata": {
+          "name": "metadata",
+          "required": false,
+          "type": "ArticleMetadataSlots | undefined",
+          "description": "Article metadata timestamps and author info"
+        },
+        "labels": {
+          "name": "labels",
+          "required": false,
+          "type": "FrontmatterLabels | undefined",
+          "description": "i18n labels for display strings"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "string",
+          "description": "Optional CSS class for additional styling"
+        }
+      },
+      "variants": [],
+      "exports": [
+        "ArticleMetadataSlots",
+        "FrontmatterLabels",
+        "FrontmatterSlots",
+        "FrontmatterSlotsProps"
+      ]
+    },
+    {
+      "name": "GenerativeHero",
+      "path": "src/components/generative-hero/",
+      "category": "content",
+      "description": "",
+      "props": {
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "string"
+        },
+        "clusters": {
+          "name": "clusters",
+          "required": true,
+          "type": "KnowledgeCluster[]"
+        },
+        "lang": {
+          "name": "lang",
+          "required": true,
+          "type": "SupportedLanguage"
+        },
+        "t": {
+          "name": "t",
+          "required": true,
+          "type": "{"
+        },
+        "curating": {
+          "name": "curating",
+          "required": true,
+          "type": "string     // \"Curating {niche} signals today\""
+        },
+        "topNiches": {
+          "name": "topNiches",
+          "required": true,
+          "type": "string    // \"Top Niches\""
+        }
+      },
+      "variants": [],
+      "exports": ["GenerativeHero", "GenerativeHeroProps"]
+    },
+    {
+      "name": "HudLabel",
+      "path": "src/components/hud-label/",
+      "category": "data-display",
+      "description": "",
+      "props": {
+        "label": {
+          "name": "label",
+          "required": true,
+          "type": "string"
+        },
+        "tone": {
+          "name": "tone",
+          "required": false,
+          "type": "HudLabelTone"
+        },
+        "surface": {
+          "name": "surface",
+          "required": false,
+          "type": "string"
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "type": "HudLabelSize"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList"
+        }
+      },
+      "variants": [],
+      "exports": ["HudLabel", "HudLabelProps", "HudLabelSize", "HudLabelTone"]
+    },
+    {
+      "name": "ImageCluster",
+      "path": "src/components/image-cluster/",
+      "category": "card",
+      "description": "ImageCluster — Phase 4 Aether OS visual content cluster Polaroid-style image clusters with tape overlays, rotation jitter, and 3 layout variants (grid, masonry, scatter)",
+      "props": {
+        "items": {
+          "name": "items",
+          "required": true,
+          "type": "ImageClusterItem[]"
+        },
+        "layout": {
+          "name": "layout",
+          "required": false,
+          "type": "ClusterLayout"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList"
+        }
+      },
+      "variants": [],
+      "exports": [
+        "ClusterLayout",
+        "ImageCluster",
+        "ImageClusterItem",
+        "ImageClusterProps",
+        "ImageVariant",
+        "TapePosition"
+      ]
+    },
+    {
+      "name": "JSONLD",
+      "path": "src/components/json-ld.tsx",
+      "category": "seo",
+      "description": "JSON-LD Structured Data Component Renders schema.org structured data as a script tag",
+      "props": {
+        "data": {
+          "name": "data",
+          "required": true,
+          "type": "SchemaType"
+        }
+      },
+      "variants": [],
+      "exports": ["JSONLDProps", "JSONLD"]
+    },
+    {
+      "name": "KindlePlayground",
+      "path": "src/components/kindle-playground/",
+      "category": "interactive",
+      "description": "",
+      "props": {
+        "title": {
+          "name": "title",
+          "required": true,
+          "type": "string"
+        },
+        "content": {
+          "name": "content",
+          "required": true,
+          "type": "string"
+        },
+        "progress": {
+          "name": "progress",
+          "required": false,
+          "type": "number"
+        },
+        "font": {
+          "name": "font",
+          "required": false,
+          "type": "KindleFont"
+        },
+        "fontSize": {
+          "name": "fontSize",
+          "required": false,
+          "type": "KindleFontSize"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList"
+        }
+      },
+      "variants": [],
+      "exports": ["KindleFont", "KindleFontSize", "KindlePlayground", "KindlePlaygroundProps"]
+    },
+    {
+      "name": "LangSwitcherSegmented",
+      "path": "src/components/lang-switcher/",
+      "category": "general",
+      "description": "LangSwitcherSegmented component props",
+      "props": {
+        "currentLang": {
+          "name": "currentLang",
+          "required": true,
+          "type": "Signal<SupportedLanguage>"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList"
+        }
+      },
+      "variants": [],
+      "exports": [
+        "LangSwitcher",
+        "LangSwitcherLogEvent",
+        "LangSwitcherProps",
+        "LangSwitcherSegmented",
+        "LangSwitcherSegmentedProps",
+        "LanguageOption"
+      ]
+    },
+    {
+      "name": "LivingBrief2Col",
+      "path": "src/components/living-brief/",
+      "category": "general",
+      "description": "LivingBrief2Col — Types 2-column Living Brief layout: - Left 35%: Dark hero panel (glowing title, desc, hashtags, CTA) - Right 65%: Parchment torn-paper collage (tape, polaroids, arrows, bonecos, labels)",
+      "props": {
+        "title": {
+          "name": "title",
+          "required": true,
+          "type": "string",
+          "description": "Glowing title (yellow/gold gradient)"
+        },
+        "subtitle": {
+          "name": "subtitle",
+          "required": false,
+          "type": "string | undefined",
+          "description": "Subtitle/description (purple/violet tone)"
+        },
+        "hashtags": {
+          "name": "hashtags",
+          "required": false,
+          "type": "string[] | undefined",
+          "description": "Hashtag labels"
+        },
+        "buttons": {
+          "name": "buttons",
+          "required": false,
+          "type": "LivingBriefButton[] | undefined",
+          "description": "CTA buttons"
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "type": "'default' | 'magica' | undefined",
+          "description": "Background variant"
+        }
+      },
+      "variants": [],
+      "exports": [
+        "BonecoItem",
+        "CollageArrow",
+        "CollageLabel",
+        "CollageSection",
+        "LivingBrief2Col",
+        "LivingBrief2ColProps",
+        "LivingBriefButton",
+        "LivingBriefCollage",
+        "LivingBriefCollageProps",
+        "LivingBriefHero",
+        "LivingBriefHeroProps",
+        "PolaroidItem",
+        "TapeVariant"
+      ]
+    },
+    {
+      "name": "MasterOpenCanvas",
+      "path": "src/components/master-open-canvas/",
+      "category": "effects",
+      "description": "MasterOpenCanvas v2026.05 — M012 bleeding-edge interactive canvas",
+      "props": {
+        "title": {
+          "name": "title",
+          "required": false,
+          "type": "string"
+        },
+        "decisionNodes": {
+          "name": "decisionNodes",
+          "required": false,
+          "type": "DecisionNode[]"
+        },
+        "sketchnoteSpec": {
+          "name": "sketchnoteSpec",
+          "required": false,
+          "type": "string"
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "type": "MasterOpenCanvasVariant",
+          "description": "Visual intensity tier (default: 'medium')"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "string",
+          "description": "Additional CSS classes"
+        },
+        "showStickyNote": {
+          "name": "showStickyNote",
+          "required": false,
+          "type": "boolean",
+          "description": "Renders a sticky note overlay (yellow, rotated, hand-drawn border)"
+        },
+        "showCardboard": {
+          "name": "showCardboard",
+          "required": false,
+          "type": "boolean",
+          "description": "Renders a cardboard texture layer behind the content"
+        },
+        "static": {
+          "name": "static",
+          "required": false,
+          "type": "boolean",
+          "description": "Force static mode (overrides variant isStatic — useful for parchment/obsidian)"
+        }
+      },
+      "variants": [],
+      "exports": [
+        "MasterOpenCanvas",
+        "MasterOpenCanvasProps",
+        "MasterOpenCanvasVariant",
+        "VARIANT_CONFIG",
+        "VariantConfigEntry"
+      ]
+    },
+    {
+      "name": "NavTree",
+      "path": "src/components/nav-tree/",
+      "category": "layout",
+      "description": "NavTree - Dynamically derived navigation component Shows all configured niches (from niches.yaml) regardless of whether they have content in the current language",
+      "props": {
+        "navData": {
+          "name": "navData",
+          "required": true,
+          "type": "NavigationData"
+        },
+        "niches": {
+          "name": "niches",
+          "required": true,
+          "type": "NicheConfig[]"
+        },
+        "currentLang": {
+          "name": "currentLang",
+          "required": true,
+          "type": "SupportedLanguage"
+        },
+        "currentNiche": {
+          "name": "currentNiche",
+          "required": true,
+          "type": "string"
+        },
+        "nicheSlugMap": {
+          "name": "nicheSlugMap",
+          "required": false,
+          "type": "Record<string, string>"
+        }
+      },
+      "variants": [],
+      "exports": ["NavTree", "NavTreeProps"]
+    },
+    {
+      "name": "NicheCard",
+      "path": "src/components/niche-card/",
+      "category": "card",
+      "description": "NicheCard component props Renders a single niche as a clickable card with icon, title, and description",
+      "props": {
+        "niche": {
+          "name": "niche",
+          "required": true,
+          "type": "NicheConfig",
+          "description": "The niche configuration to render"
+        },
+        "lang": {
+          "name": "lang",
+          "required": true,
+          "type": "SupportedLanguage",
+          "description": "Current language for localized display"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList",
+          "description": "Optional CSS class for additional styling"
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "type": "NicheCardSize",
+          "description": "Card size variant — controls padding, title size, and visual prominence"
+        }
+      },
+      "variants": [],
+      "exports": ["NicheCard", "NicheCardProps", "NicheCardSize"]
+    },
+    {
+      "name": "NicheLanding",
+      "path": "src/components/niche-landing/",
+      "category": "curation",
+      "description": "NicheLanding component props Renders the full niche landing page: header, description, article placeholder, and related niches grid",
+      "props": {
+        "niche": {
+          "name": "niche",
+          "required": true,
+          "type": "NicheConfig",
+          "description": "The niche to display on the landing page"
+        },
+        "otherNiches": {
+          "name": "otherNiches",
+          "required": true,
+          "type": "NicheConfig[]",
+          "description": "Other niches to show in the related-content grid"
+        },
+        "articles": {
+          "name": "articles",
+          "required": true,
+          "type": "NicheArticleEntry[]",
+          "description": "Articles for this niche"
+        },
+        "lang": {
+          "name": "lang",
+          "required": true,
+          "type": "SupportedLanguage",
+          "description": "Current language for localized display"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList",
+          "description": "Optional CSS class for additional styling"
+        }
+      },
+      "variants": [],
+      "exports": ["NicheLanding", "NicheLandingProps"]
+    },
+    {
+      "name": "NotFound",
+      "path": "src/components/error-pages/",
+      "category": "general",
+      "description": "404 Not Found Error Page Component Follows JRPG-brutalist aesthetic: - Minimal animation (respects prefers-reduced-motion) - SolarLanso dark-first color palette - Clear error message with navigation back to home - Multilingual support (en/pt/es/ja/zh)",
+      "props": {},
+      "variants": [],
+      "exports": ["NotFound", "ServerError"]
+    },
+    {
+      "name": "OnboardingFlow",
+      "path": "src/components/onboarding-flow/",
+      "category": "interactive",
+      "description": "",
+      "props": {
+        "locale": {
+          "name": "locale",
+          "required": true,
+          "type": "SupportedLanguage"
+        },
+        "siteName": {
+          "name": "siteName",
+          "required": false,
+          "type": "string"
+        }
+      },
+      "variants": [],
+      "exports": ["OnboardingFlow", "OnboardingFlowProps"]
+    },
+    {
+      "name": "QualityRing",
+      "path": "src/components/quality-ring/",
+      "category": "trust-indicator",
+      "description": "",
+      "props": {
+        "score": {
+          "name": "score",
+          "required": true,
+          "type": "number"
+        },
+        "size": {
+          "name": "size",
+          "required": false,
+          "type": "number"
+        },
+        "strokeWidth": {
+          "name": "strokeWidth",
+          "required": false,
+          "type": "number"
+        },
+        "label": {
+          "name": "label",
+          "required": false,
+          "type": "string"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList"
+        },
+        "publishedAt": {
+          "name": "publishedAt",
+          "required": false,
+          "type": "string"
+        }
+      },
+      "variants": [],
+      "exports": ["QualityRing", "QualityRingProps"]
+    },
+    {
+      "name": "RelatedArticles",
+      "path": "src/components/related-articles/",
+      "category": "content",
+      "description": "",
+      "props": {
+        "nodes": {
+          "name": "nodes",
+          "required": true,
+          "type": "ContentNode[]"
+        },
+        "lang": {
+          "name": "lang",
+          "required": true,
+          "type": "SupportedLanguage"
+        },
+        "label": {
+          "name": "label",
+          "required": false,
+          "type": "string"
+        }
+      },
+      "variants": [],
+      "exports": ["RelatedArticles", "RelatedArticlesProps"]
+    },
+    {
+      "name": "RouterHead",
+      "path": "src/components/router-head/",
+      "category": "seo",
+      "description": "BCP47 locale tag mapping for og:locale and hreflang",
+      "props": {},
+      "variants": [],
+      "exports": ["RouterHead"]
+    },
+    {
+      "name": "ScratchDivider",
+      "path": "src/components/scratch-divider/",
+      "category": "general",
+      "description": "",
+      "props": {
+        "tone": {
+          "name": "tone",
+          "required": false,
+          "type": "HudLabelTone"
+        },
+        "surface": {
+          "name": "surface",
+          "required": false,
+          "type": "string"
+        },
+        "orientation": {
+          "name": "orientation",
+          "required": false,
+          "type": "'horizontal' | 'vertical'"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList"
+        }
+      },
+      "variants": [],
+      "exports": ["ScratchDivider", "ScratchDividerProps"]
+    },
+    {
+      "name": "ScrollDriven",
+      "path": "src/components/scroll-driven/",
+      "category": "effects",
+      "description": "",
+      "props": {},
+      "variants": [],
+      "exports": [
+        "ScrollContentCanvas",
+        "ScrollDepthCardEnhancer",
+        "ScrollHeroOrganism",
+        "SidebarScrollGlow",
+        "useScrollObserver"
+      ]
+    },
+    {
+      "name": "ScrollReveal",
+      "path": "src/components/scroll-reveal/",
+      "category": "effects",
+      "description": "",
+      "props": {
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "string"
+        },
+        "direction": {
+          "name": "direction",
+          "required": false,
+          "type": "StaggerDirection"
+        },
+        "threshold": {
+          "name": "threshold",
+          "required": false,
+          "type": "number"
+        },
+        "rootMargin": {
+          "name": "rootMargin",
+          "required": false,
+          "type": "string"
+        },
+        "staggerDelay": {
+          "name": "staggerDelay",
+          "required": false,
+          "type": "number // ms between each child reveal, default 100"
+        },
+        "duration": {
+          "name": "duration",
+          "required": false,
+          "type": "number // transition duration ms, default 500"
+        },
+        "once": {
+          "name": "once",
+          "required": false,
+          "type": "boolean // only animate once, default true"
+        },
+        "as": {
+          "name": "as",
+          "required": false,
+          "type": "'div' | 'section' | 'article' | 'ul' | 'ol'"
+        }
+      },
+      "variants": [],
+      "exports": ["ScrollReveal", "ScrollRevealProps", "StaggerDirection"]
+    },
+    {
+      "name": "SearchResults",
+      "path": "src/components/search/",
+      "category": "navigation",
+      "description": "",
+      "props": {},
+      "variants": [],
+      "exports": ["SearchResults"]
+    },
+    {
+      "name": "Sidebar",
+      "path": "src/components/sidebar/",
+      "category": "layout",
+      "description": "",
+      "props": {
+        "navigationItems": {
+          "name": "navigationItems",
+          "required": true,
+          "type": "NavigationItem[]"
+        }
+      },
+      "variants": [],
+      "exports": ["Sidebar", "SidebarProps"]
+    },
+    {
+      "name": "SignalChip",
+      "path": "src/components/signal-chip/",
+      "category": "data-display",
+      "description": "",
+      "props": {
+        "metric": {
+          "name": "metric",
+          "required": true,
+          "type": "number"
+        },
+        "label": {
+          "name": "label",
+          "required": true,
+          "type": "string"
+        },
+        "trend": {
+          "name": "trend",
+          "required": false,
+          "type": "SignalTrend"
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "type": "SignalChipVariant"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList"
+        }
+      },
+      "variants": ["moderator", "researcher", "writer", "curator", "analyst"],
+      "exports": [
+        "ALL_TRENDS",
+        "ALL_VARIANTS",
+        "SignalChip",
+        "SignalChipProps",
+        "SignalChipVariant",
+        "SignalTrend"
+      ]
+    },
+    {
+      "name": "SignalGrid",
+      "path": "src/components/signal-grid/",
+      "category": "card",
+      "description": "",
+      "props": {
+        "signals": {
+          "name": "signals",
+          "required": true,
+          "type": "SignalGridItem[]"
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "type": "SignalGridVariant"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList"
+        }
+      },
+      "variants": [],
+      "exports": ["SignalGrid", "SignalGridItem", "SignalGridProps", "SignalGridVariant"]
+    },
+    {
+      "name": "SiteHeader2D5",
+      "path": "src/components/site-header-2d5/",
+      "category": "layout",
+      "description": "",
+      "props": {},
+      "variants": [],
+      "exports": ["SiteHeader2D5"]
+    },
+    {
+      "name": "SiteShell",
+      "path": "src/components/site-shell/",
+      "category": "layout",
+      "description": "SiteShell component props Wraps the entire application with consistent layout structure",
+      "props": {
+        "children": {
+          "name": "children",
+          "required": false,
+          "type": "unknown",
+          "description": "Main content slot"
+        },
+        "isApexHost": {
+          "name": "isApexHost",
+          "required": true,
+          "type": "boolean",
+          "description": "Whether the current host is the apex shell host"
+        }
+      },
+      "variants": [],
+      "exports": ["SiteShell", "SiteShellLogEvent", "SiteShellProps", "onRequest"]
+    },
+    {
+      "name": "SketchNote",
+      "path": "src/components/sketch-note/",
+      "category": "interactive",
+      "description": "",
+      "props": {
+        "title": {
+          "name": "title",
+          "required": true,
+          "type": "string"
+        },
+        "content": {
+          "name": "content",
+          "required": true,
+          "type": "string"
+        },
+        "icon": {
+          "name": "icon",
+          "required": false,
+          "type": "string"
+        },
+        "variant": {
+          "name": "variant",
+          "required": false,
+          "type": "SketchNoteVariant"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "ClassList"
+        }
+      },
+      "variants": [],
+      "exports": ["SketchNote", "SketchNoteProps", "SketchNoteVariant"]
+    },
+    {
+      "name": "SourceLedger",
+      "path": "src/components/source-ledger/",
+      "category": "general",
+      "description": "SourceLedger component props Renders external referral links with SEO-safe rel attributes",
+      "props": {
+        "referralLinks": {
+          "name": "referralLinks",
+          "required": true,
+          "type": "ReferralLinkSlot[]",
+          "description": "External referral links (max 5 per article per schema)"
+        },
+        "sourcesLabel": {
+          "name": "sourcesLabel",
+          "required": false,
+          "type": "string | undefined",
+          "description": "i18n label for the sources heading"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "string",
+          "description": "Optional CSS class for additional styling"
+        }
+      },
+      "variants": [],
+      "exports": ["ReferralLinkSlot", "SourceLedger", "SourceLedgerProps"]
+    },
+    {
+      "name": "StoryboardGrid",
+      "path": "src/components/storyboard-grid/",
+      "category": "card",
+      "description": "StoryboardGrid — Editorial CSS Grid layout Replaces the Living Brief collage with indexable, accessible, responsive HTML",
+      "props": {},
+      "variants": ["insight", "evidence", "diagram", "cta", "metric", "quote"],
+      "exports": [
+        "CellVariant",
+        "ResolvedCell",
+        "ResolvedLayout",
+        "StoryboardCell",
+        "StoryboardGrid",
+        "StoryboardLayout"
+      ]
+    },
+    {
+      "name": "TopicCard",
+      "path": "src/components/topic-card/",
+      "category": "card",
+      "description": "TopicCard — UE5 Illusion + Glass 2.5D + Tactile Depth Σ LOAD refinement: mixed UI directive (light canvas content + dark compact interfaces)",
+      "props": {
+        "title": {
+          "name": "title",
+          "required": true,
+          "type": "string"
+        },
+        "summary": {
+          "name": "summary",
+          "required": true,
+          "type": "string"
+        },
+        "href": {
+          "name": "href",
+          "required": false,
+          "type": "string"
+        },
+        "class": {
+          "name": "class",
+          "required": false,
+          "type": "string"
+        }
+      },
+      "variants": [],
+      "exports": ["TopicCard", "TopicCardProps"]
+    },
+    {
+      "name": "TrendingSection",
+      "path": "src/components/homepage-curation/",
+      "category": "general",
+      "description": "HomepageCuration — Dynamic content components for niche landing page GitHub trending repos + HackerNews top stories + random article picker Rendered with Living Brief collage aesthetic",
+      "props": {
+        "articles": {
+          "name": "articles",
+          "required": true,
+          "type": "NicheArticleEntry[]"
+        },
+        "lang": {
+          "name": "lang",
+          "required": true,
+          "type": "SupportedLanguage"
+        }
+      },
+      "variants": [],
+      "exports": ["NewsCard", "RepoCard", "TrendingSection", "TrendingSectionProps"]
+    }
+  ],
+  "generatedAt": "2026-05-29T19:17:55.013Z",
+  "totalComponents": 55
+}

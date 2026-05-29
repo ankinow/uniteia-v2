@@ -89,7 +89,8 @@ export const NoiseCanvas = component$<NoiseCanvasProps>(({ class: classList }) =
         ctx.lineWidth = 2
         ctx.beginPath()
         for (let x = 0; x < W; x++) {
-          const y = H / 2 + Math.sin(x * 0.04 + phase * 3) * 15 * t + Math.sin(x * 0.01 + phase) * 10 * t
+          const y =
+            H / 2 + Math.sin(x * 0.04 + phase * 3) * 15 * t + Math.sin(x * 0.01 + phase) * 10 * t
           x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
         }
         ctx.stroke()
@@ -99,7 +100,10 @@ export const NoiseCanvas = component$<NoiseCanvasProps>(({ class: classList }) =
         ctx.lineWidth = 1
         ctx.beginPath()
         for (let x = 0; x < W; x++) {
-          const y = H / 2 + Math.cos(x * 0.06 + phase * 5) * 8 * t + Math.sin(x * 0.02 + phase * 0.5) * 5 * t
+          const y =
+            H / 2 +
+            Math.cos(x * 0.06 + phase * 5) * 8 * t +
+            Math.sin(x * 0.02 + phase * 0.5) * 5 * t
           x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
         }
         ctx.stroke()
@@ -120,7 +124,6 @@ export const NoiseCanvas = component$<NoiseCanvasProps>(({ class: classList }) =
     <canvas
       ref={canvasRef}
       class={['noise-canvas absolute inset-0 w-full h-full pointer-events-none', classList]}
-      aria-hidden="true"
     />
   )
 })

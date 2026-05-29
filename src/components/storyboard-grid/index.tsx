@@ -12,8 +12,8 @@
  */
 
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
-import type { ResolvedLayout } from './types'
 import { StoryboardCell } from './storyboard-cell'
+import type { ResolvedLayout } from './types'
 import './storyboard-grid.css'
 
 /**
@@ -60,8 +60,7 @@ export const StoryboardGrid = component$<{ layout: ResolvedLayout }>(({ layout }
     ? { backgroundImage: `url(${layout.texture})` }
     : {
         background: '#faf9f6',
-        backgroundImage:
-          'radial-gradient(circle at 20% 50%, rgba(0,0,0,0.02) 0%, transparent 50%)',
+        backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(0,0,0,0.02) 0%, transparent 50%)',
       }
 
   // eslint-disable-next-line qwik/no-use-visible-task

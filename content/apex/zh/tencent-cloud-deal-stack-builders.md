@@ -1,7 +1,7 @@
 ---
 slug: tencent-cloud-deal-stack-builders
 lang: zh
-title: "Tencent Cloud Deal Stack for Builders"
+title: "面向开发者的腾讯云交易堆栈"
 verdict: trusted
 quality_score: 95
 subjects:

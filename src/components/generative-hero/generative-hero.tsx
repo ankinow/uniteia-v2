@@ -23,8 +23,8 @@ export interface GenerativeHeroProps {
   clusters: KnowledgeCluster[]
   lang: SupportedLanguage
   t: {
-    curating: string     // "Curating {niche} signals today"
-    topNiches: string    // "Top Niches"
+    curating: string // "Curating {niche} signals today"
+    topNiches: string // "Top Niches"
   }
 }
 
@@ -43,7 +43,7 @@ function getNicheColorDim(nicheSlug: string): string {
   return `oklch(${c.l}% ${c.c} ${c.h})`
 }
 
-export const GenerativeHero = component$<GenerativeHeroProps>((props) => {
+export const GenerativeHero = component$<GenerativeHeroProps>(props => {
   const { class: classList, clusters, t } = props
 
   // Determine top niche by article count
@@ -65,7 +65,10 @@ export const GenerativeHero = component$<GenerativeHeroProps>((props) => {
       }}
     >
       {/* Grain overlay */}
-      <div class="grain-4k absolute inset-0 pointer-events-none z-0 opacity-20" aria-hidden="true" />
+      <div
+        class="grain-4k absolute inset-0 pointer-events-none z-0 opacity-20"
+        aria-hidden="true"
+      />
 
       <div class="relative z-10">
         {topNiche ? (
@@ -77,7 +80,7 @@ export const GenerativeHero = component$<GenerativeHeroProps>((props) => {
               {t.curating.replace('{niche}', topNiche.label)}
             </h1>
             <div class="flex flex-wrap gap-2 mt-4">
-              {sorted.slice(0, 3).map((cluster) => (
+              {sorted.slice(0, 3).map(cluster => (
                 <a
                   key={cluster.nicheSlug}
                   href={cluster.href}
@@ -99,9 +102,7 @@ export const GenerativeHero = component$<GenerativeHeroProps>((props) => {
             </div>
           </>
         ) : (
-          <p class="text-bone-muted font-mono text-sm uppercase tracking-wider">
-            {t.topNiches}
-          </p>
+          <p class="text-bone-muted font-mono text-sm uppercase tracking-wider">{t.topNiches}</p>
         )}
       </div>
     </div>

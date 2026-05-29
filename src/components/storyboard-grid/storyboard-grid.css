@@ -37,14 +37,28 @@
 .storyboard-cell {
   animation: cellReveal 0.6s ease-out both;
 }
-.storyboard-cell:nth-child(1) { animation-delay: 0.05s; }
-.storyboard-cell:nth-child(2) { animation-delay: 0.15s; }
-.storyboard-cell:nth-child(3) { animation-delay: 0.25s; }
-.storyboard-cell:nth-child(4) { animation-delay: 0.35s; }
+.storyboard-cell:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.storyboard-cell:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.storyboard-cell:nth-child(3) {
+  animation-delay: 0.25s;
+}
+.storyboard-cell:nth-child(4) {
+  animation-delay: 0.35s;
+}
 
 @keyframes cellReveal {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -61,10 +75,10 @@
 }
 
 .storyboard-cell__cta--primary::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.3) 0%, transparent 60%);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -85,9 +99,15 @@
 }
 
 @keyframes ctaPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -145,7 +165,7 @@
 
 /* ── Typography ── */
 .storyboard-cell__title {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-weight: 800;
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   letter-spacing: -0.02em;
@@ -157,7 +177,7 @@
 .storyboard-cell__body,
 .storyboard-cell__list-item,
 .storyboard-cell__quote-text {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: clamp(0.875rem, 1.2vw, 1rem);
   line-height: 1.6;
   color: #444444;
@@ -182,7 +202,7 @@
 }
 
 .storyboard-cell__list-item::before {
-  content: '→';
+  content: "→";
   position: absolute;
   left: 0;
   color: #3b82f6;
@@ -213,7 +233,7 @@
 .storyboard-cell__cta {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-weight: 700;
   font-size: 0.875rem;
   text-decoration: none;
