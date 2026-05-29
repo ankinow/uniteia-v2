@@ -2,6 +2,7 @@ import { component$, useVisibleTask$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
 import { CanvasSurface } from '~/components/canvas-surface'
 import { CinematicDepthCard } from '~/components/cinematic-depth'
+import { DepthTilt } from '~/components/depth-tilt'
 import { ClusterIcon, nicheToIcon } from '~/components/icon-set/icon-set'
 import { JSONLD } from '~/components/json-ld'
 import { MasterOpenCanvas } from '~/components/master-open-canvas'
@@ -11,6 +12,7 @@ import {
   ScrollDepthCardEnhancer,
   ScrollHeroOrganism,
 } from '~/components/scroll-driven'
+import { ScrollReveal } from '~/components/scroll-reveal'
 import { SignalChip } from '~/components/signal-chip'
 import { NoiseCanvas } from '~/components/storyboard-grid/noise-canvas'
 import { getHomepageProjection } from '~/content-graph/projections'
@@ -143,148 +145,154 @@ export default component$(() => {
       <CanvasSurface tone="parchment" class="mt-8">
         <ScrollContentCanvas class="my-8">
           {featuredSignals.length > 0 && (
-            <section class="mb-10">
-              <h2
-                class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
-                data-step="1"
-              >
-                {t.homepage.featuredSignals}
-              </h2>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {featuredSignals.map((signal, i) => (
-                  <a
-                    key={signal.node.id}
-                    href={signal.href}
-                    class="block no-underline scroll-reveal group"
-                    data-step={String(i + 2)}
-                  >
-                    <ScrollDepthCardEnhancer>
-                      <CinematicDepthCard
-                        {...(signal.node.visualStyle
-                          ? { visualStyle: signal.node.visualStyle }
-                          : {})}
-                        layer={i % 3}
-                        class="transition-all duration-200 group-hover:-translate-y-0.5 group-hover:shadow-xl group-hover:shadow-action/10"
+            <ScrollReveal direction="up" staggerDelay={80} once>
+              <section class="mb-10">
+                <h2
+                  class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
+                  data-step="1"
+                >
+                  {t.homepage.featuredSignals}
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {featuredSignals.map((signal, i) => (
+                    <DepthTilt key={signal.node.id} maxTilt={5} scale={1.005} glare={false} speed={350}>
+                      <a
+                        href={signal.href}
+                        class="block no-underline group"
                       >
-                        <div class="p-5">
-                          <p class="font-semibold text-bone text-base leading-tight group-hover:text-action transition-colors duration-200">
-                            {signal.node.title}
-                          </p>
-                          <p class="text-sm text-bone mt-2 line-clamp-2 leading-relaxed">
-                            {signal.node.summary}
-                          </p>
-                          <div class="flex gap-3 mt-3 text-xs">
-                            <SignalChip
-                              metric={signal.node.metrics.graphScore}
-                              label={t.signal.qualityLabel}
-                              variant="analyst"
-                              trend={signal.node.metrics.graphScore >= 70 ? 'up' : 'stable'}
-                            />
-                            <span class="text-bone/50 uppercase tracking-wider">
-                              {signal.node.locale}
-                            </span>
-                          </div>
-                        </div>
-                      </CinematicDepthCard>
-                    </ScrollDepthCardEnhancer>
-                  </a>
-                ))}
-              </div>
-            </section>
+                        <ScrollDepthCardEnhancer>
+                          <CinematicDepthCard
+                            {...(signal.node.visualStyle
+                              ? { visualStyle: signal.node.visualStyle }
+                              : {})}
+                            layer={i % 3}
+                            class="transition-all duration-200 group-hover:-translate-y-0.5 group-hover:shadow-xl group-hover:shadow-action/10"
+                          >
+                            <div class="p-5">
+                              <p class="font-semibold text-bone text-base leading-tight group-hover:text-action transition-colors duration-200">
+                                {signal.node.title}
+                              </p>
+                              <p class="text-sm text-bone mt-2 line-clamp-2 leading-relaxed">
+                                {signal.node.summary}
+                              </p>
+                              <div class="flex gap-3 mt-3 text-xs">
+                                <SignalChip
+                                  metric={signal.node.metrics.graphScore}
+                                  label={t.signal.qualityLabel}
+                                  variant="analyst"
+                                  trend={signal.node.metrics.graphScore >= 70 ? 'up' : 'stable'}
+                                />
+                                <span class="text-bone/50 uppercase tracking-wider">
+                                  {signal.node.locale}
+                                </span>
+                              </div>
+                            </div>
+                          </CinematicDepthCard>
+                        </ScrollDepthCardEnhancer>
+                      </a>
+                    </DepthTilt>
+                  ))}
+                </div>
+              </section>
+            </ScrollReveal>
           )}
 
           {sortedClusters.length > 0 && (
-            <section class="mb-10">
-              <h2
-                class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
-                data-step="1"
-              >
-                {t.homepage.knowledgeClusters}
-              </h2>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {sortedClusters.map((cluster, i) => (
-                  <a
-                    key={cluster.nicheSlug}
-                    href={cluster.href}
-                    class="block no-underline scroll-reveal"
-                    data-step={String(i + 2)}
-                  >
-                    <ScrollDepthCardEnhancer>
-                      <CinematicDepthCard variant="subtle" layer={i % 2}>
-                        <div class="p-5">
-                          <div class="flex items-center gap-2 mb-2">
-                            <ClusterIcon name={nicheToIcon(cluster.nicheSlug)} size={20} />
-                            <p class="font-semibold text-bone text-base">{cluster.label}</p>
-                          </div>
-                          <p class="text-sm text-bone mt-2 tabular-nums">
-                            {t.homepage.signalCount.replace(
-                              '{count}',
-                              cluster.articleCount.toString()
-                            )}{' '}
-                            ·{' '}
-                            <span
-                              aria-label={`Signal Origin Score ${cluster.avgGraphScore.toFixed(0)} — Aether Gate 7/7`}
-                              data-tooltip="Signal Origin Score — the vacuum where the signal emerges"
-                              class="cursor-help"
-                            >
-                              &empty; {cluster.avgGraphScore.toFixed(0)}
-                            </span>
-                          </p>
-                        </div>
-                      </CinematicDepthCard>
-                    </ScrollDepthCardEnhancer>
-                  </a>
-                ))}
-              </div>
-            </section>
+            <ScrollReveal direction="up" staggerDelay={80} once>
+              <section class="mb-10">
+                <h2
+                  class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
+                  data-step="1"
+                >
+                  {t.homepage.knowledgeClusters}
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {sortedClusters.map((cluster, i) => (
+                    <DepthTilt key={cluster.nicheSlug} maxTilt={5} scale={1.005} glare={false} speed={350}>
+                      <a
+                        href={cluster.href}
+                        class="block no-underline"
+                      >
+                        <ScrollDepthCardEnhancer>
+                          <CinematicDepthCard variant="subtle" layer={i % 2}>
+                            <div class="p-5">
+                              <div class="flex items-center gap-2 mb-2">
+                                <ClusterIcon name={nicheToIcon(cluster.nicheSlug)} size={20} />
+                                <p class="font-semibold text-bone text-base">{cluster.label}</p>
+                              </div>
+                              <p class="text-sm text-bone mt-2 tabular-nums">
+                                {t.homepage.signalCount.replace(
+                                  '{count}',
+                                  cluster.articleCount.toString()
+                                )}{' '}
+                                ·{' '}
+                                <span
+                                  aria-label={`Signal Origin Score ${cluster.avgGraphScore.toFixed(0)} — Aether Gate 7/7`}
+                                  data-tooltip="Signal Origin Score — the vacuum where the signal emerges"
+                                  class="cursor-help"
+                                >
+                                  &empty; {cluster.avgGraphScore.toFixed(0)}
+                                </span>
+                              </p>
+                            </div>
+                          </CinematicDepthCard>
+                        </ScrollDepthCardEnhancer>
+                      </a>
+                    </DepthTilt>
+                  ))}
+                </div>
+              </section>
+            </ScrollReveal>
           )}
 
           {frontierStreams.length > 0 && (
-            <section class="mb-10">
-              <h2
-                class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
-                data-step="1"
-              >
-                {t.homepage.frontierStreams}
-              </h2>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {frontierStreams.map((stream, i) => (
-                  <a
-                    key={stream.node.id}
-                    href={stream.href}
-                    class="block no-underline scroll-reveal"
-                    data-step={String(i + 2)}
-                  >
-                    <ScrollDepthCardEnhancer>
-                      <CinematicDepthCard variant="card" layer={i % 2}>
-                        <div class="p-5">
-                          <p class="font-semibold text-bone text-base leading-tight">
-                            {stream.node.title}
-                          </p>
-                          <p class="text-sm text-bone mt-2 line-clamp-2 leading-relaxed">
-                            {stream.node.summary}
-                          </p>
-                          <div class="flex gap-2 mt-2">
-                            <SignalChip
-                              metric={stream.node.metrics.freshnessScore}
-                              label={t.signal.freshnessLabel}
-                              variant="curator"
-                              trend={
-                                stream.node.metrics.freshnessScore >= 70
-                                  ? 'up'
-                                  : stream.node.metrics.freshnessScore >= 40
-                                    ? 'stable'
-                                    : 'down'
-                              }
-                            />
-                          </div>
-                        </div>
-                      </CinematicDepthCard>
-                    </ScrollDepthCardEnhancer>
-                  </a>
-                ))}
-              </div>
-            </section>
+            <ScrollReveal direction="up" staggerDelay={80} once>
+              <section class="mb-10">
+                <h2
+                  class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
+                  data-step="1"
+                >
+                  {t.homepage.frontierStreams}
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {frontierStreams.map((stream, i) => (
+                    <DepthTilt key={stream.node.id} maxTilt={5} scale={1.005} glare={false} speed={350}>
+                      <a
+                        href={stream.href}
+                        class="block no-underline"
+                      >
+                        <ScrollDepthCardEnhancer>
+                          <CinematicDepthCard variant="card" layer={i % 2}>
+                            <div class="p-5">
+                              <p class="font-semibold text-bone text-base leading-tight">
+                                {stream.node.title}
+                              </p>
+                              <p class="text-sm text-bone mt-2 line-clamp-2 leading-relaxed">
+                                {stream.node.summary}
+                              </p>
+                              <div class="flex gap-2 mt-2">
+                                <SignalChip
+                                  metric={stream.node.metrics.freshnessScore}
+                                  label={t.signal.freshnessLabel}
+                                  variant="curator"
+                                  trend={
+                                    stream.node.metrics.freshnessScore >= 70
+                                      ? 'up'
+                                      : stream.node.metrics.freshnessScore >= 40
+                                        ? 'stable'
+                                        : 'down'
+                                  }
+                                />
+                              </div>
+                            </div>
+                          </CinematicDepthCard>
+                        </ScrollDepthCardEnhancer>
+                      </a>
+                    </DepthTilt>
+                  ))}
+                </div>
+              </section>
+            </ScrollReveal>
           )}
         </ScrollContentCanvas>
       </CanvasSurface>
