@@ -100,7 +100,7 @@ async function checkHreflang(html: string, url: string): Promise<CheckResult> {
       detail: 'Missing hreflang tags',
     }
   }
-  const locales = matches.map(m => m.replace('hreflang="', '').replace('"', ''))
+  const locales = matches.map(m => m.replace('hreflang="', '').replaceAll('"', ''))
   const hasXDefault = locales.includes('x-default')
   // Count unique non-x-default locales
   const uniqueLocales = [...new Set(locales.filter(l => l !== 'x-default'))]
@@ -176,23 +176,24 @@ async function checkJsonLd(html: string, url: string): Promise<CheckResult> {
 
   const types: string[] = []
   for (const script of jsonldMatches) {
-    const contentMatch = script.match(/<script[^>]*>([\s\S]*?)<\/script>/)
-    if (contentMatch) {
-      try {
-        // biome-ignore lint/style/noNonNullAssertion: contentMatch[1] guaranteed by contentMatch check
-        const parsed = JSON.parse(contentMatch[1]!)
-        if (parsed['@type']) {
-          types.push(parsed['@type'])
-        }
-        // Handle @graph arrays
-        if (parsed['@graph']) {
-          for (const item of parsed['@graph']) {
-            if (item['@type']) types.push(item['@type'])
-          }
-        }
-      } catch {
-        // not valid JSON — skip
+    // Extract JSON content between <script> and </script> using string operations (no regex)
+    const openTagEnd = script.indexOf('>') + 1
+    const closeTagStart = script.lastIndexOf('</')
+    const raw = closeTagStart > openTagEnd ? script.slice(openTagEnd, closeTagStart) : ''
+    if (!raw) continue
+    try {
+      const parsed = JSON.parse(raw)
+      if (parsed['@type']) {
+        types.push(parsed['@type'])
       }
+      // Handle @graph arrays
+      if (parsed['@graph']) {
+        for (const item of parsed['@graph']) {
+          if (item['@type']) types.push(item['@type'])
+        }
+      }
+    } catch {
+      // not valid JSON — skip
     }
   }
 

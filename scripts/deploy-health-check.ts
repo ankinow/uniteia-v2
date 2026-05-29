@@ -57,7 +57,7 @@ function extractHreflang(html: string): HreflangInfo {
   if (!matches || matches.length === 0) {
     return { present: false, count: 0, locales: [] }
   }
-  const locales = matches.map(m => m.replace('hreflang="', '').replace('"', ''))
+  const locales = matches.map(m => m.replace('hreflang="', '').replaceAll('"', ''))
   return { present: true, count: locales.length, locales }
 }
 

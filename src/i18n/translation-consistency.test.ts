@@ -138,7 +138,7 @@ describe('StoryboardGrid i18n key integrity', () => {
           expect((value as string).length).toBeGreaterThan(0)
           // Ensure no hardcoded English fallback leaked in non-EN locales
           if (locale !== 'en') {
-            expect((value as string)).not.toMatch(/^Magica: The/)
+            expect(value as string).not.toMatch(/^Magica: The/)
           }
         })
       }

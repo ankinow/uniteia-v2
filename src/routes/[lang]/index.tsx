@@ -1,8 +1,8 @@
 import { component$, useVisibleTask$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
+import { BioOrganicOverlay } from '~/components/bio-organic-overlay'
 import { CanvasSurface } from '~/components/canvas-surface'
 import { CinematicDepthCard } from '~/components/cinematic-depth'
-import { BioOrganicOverlay } from '~/components/bio-organic-overlay'
 import { DepthTilt } from '~/components/depth-tilt'
 import { GenerativeHero } from '~/components/generative-hero'
 import { ClusterIcon, nicheToIcon } from '~/components/icon-set/icon-set'
@@ -101,9 +101,7 @@ export default component$(() => {
             speed: 0.3,
           },
           {
-            content: (
-              <BioOrganicOverlay opacity={0.12} branchCount={3} growthSpeed={0.8} />
-            ),
+            content: <BioOrganicOverlay opacity={0.12} branchCount={3} growthSpeed={0.8} />,
             speed: 0.5,
           },
           {
@@ -170,11 +168,14 @@ export default component$(() => {
                 </h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {featuredSignals.map((signal, i) => (
-                    <DepthTilt key={signal.node.id} maxTilt={5} scale={1.005} glare={false} speed={350}>
-                      <a
-                        href={signal.href}
-                        class="block no-underline group"
-                      >
+                    <DepthTilt
+                      key={signal.node.id}
+                      maxTilt={5}
+                      scale={1.005}
+                      glare={false}
+                      speed={350}
+                    >
+                      <a href={signal.href} class="block no-underline group">
                         <ScrollDepthCardEnhancer>
                           <CinematicDepthCard
                             {...(signal.node.visualStyle
@@ -223,11 +224,14 @@ export default component$(() => {
                 </h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {sortedClusters.map((cluster, i) => (
-                    <DepthTilt key={cluster.nicheSlug} maxTilt={5} scale={1.005} glare={false} speed={350}>
-                      <a
-                        href={cluster.href}
-                        class="block no-underline"
-                      >
+                    <DepthTilt
+                      key={cluster.nicheSlug}
+                      maxTilt={5}
+                      scale={1.005}
+                      glare={false}
+                      speed={350}
+                    >
+                      <a href={cluster.href} class="block no-underline">
                         <ScrollDepthCardEnhancer>
                           <CinematicDepthCard variant="subtle" layer={i % 2}>
                             <div class="p-5">
@@ -271,11 +275,14 @@ export default component$(() => {
                 </h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {frontierStreams.map((stream, i) => (
-                    <DepthTilt key={stream.node.id} maxTilt={5} scale={1.005} glare={false} speed={350}>
-                      <a
-                        href={stream.href}
-                        class="block no-underline"
-                      >
+                    <DepthTilt
+                      key={stream.node.id}
+                      maxTilt={5}
+                      scale={1.005}
+                      glare={false}
+                      speed={350}
+                    >
+                      <a href={stream.href} class="block no-underline">
                         <ScrollDepthCardEnhancer>
                           <CinematicDepthCard variant="card" layer={i % 2}>
                             <div class="p-5">
