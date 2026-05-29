@@ -110,7 +110,12 @@ export const zh: TranslationStrings = {
       desc: '{siteName} 每天摄入数千个来源，提取重要的信息。让您无需亲力亲为。',
     },
     step2: {
-      title: '每个信号在到达您之前都经过7道质量关卡。',
+      title: '每个信号在到达你之前都会经过7道质量关卡。',
+      cards: [
+        { label: '研究', desc: '原始来源被摄取并根据可信度评分。' },
+        { label: '验证', desc: '声明与独立来源进行交叉验证。' },
+        { label: '结构化', desc: '内容被格式化、本地化并准备好交付。' },
+      ],
     },
     step3: {
       title: '支持8种语言。',

@@ -111,7 +111,12 @@ export const de: TranslationStrings = {
       desc: '{siteName} nimmt täglich Tausende von Quellen auf und extrahiert, was zählt. Damit Sie es nicht tun müssen.',
     },
     step2: {
-      title: 'Jedes Signal durchläuft 7 Qualitätsprüfungen, bevor es Sie erreicht.',
+      title: 'Jedes Signal durchläuft 7 Qualitätsgates, bevor es dich erreicht.',
+      cards: [
+        { label: 'Recherche', desc: 'Rohquellen werden aufgenommen und nach Vertrauenswürdigkeit bewertet.' },
+        { label: 'Verifikation', desc: 'Behauptungen werden anhand unabhängiger Quellen überprüft.' },
+        { label: 'Strukturierung', desc: 'Inhalte werden formatiert, lokalisiert und für die Auslieferung vorbereitet.' },
+      ],
     },
     step3: {
       title: 'Verfügbar in 8 Sprachen.',

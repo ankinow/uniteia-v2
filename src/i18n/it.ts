@@ -112,7 +112,12 @@ export const it: TranslationStrings = {
       desc: '{siteName} assimila migliaia di fonti ogni giorno, estraendo ciò che conta. Così tu non devi farlo.',
     },
     step2: {
-      title: 'Ogni segnale attraversa 7 filtri di qualità prima di raggiungerti.',
+      title: 'Ogni segnale passa attraverso 7 gate di qualità prima di raggiungerti.',
+      cards: [
+        { label: 'Ricerca', desc: 'Le fonti grezze vengono ingerite e valutate per l\'affidabilità.' },
+        { label: 'Verifica', desc: 'Le affermazioni vengono verificate incrociando fonti indipendenti.' },
+        { label: 'Strutturazione', desc: 'Il contenuto viene formattato, localizzato e reso pronto per la consegna.' },
+      ],
     },
     step3: {
       title: 'Disponibile in 8 lingue.',

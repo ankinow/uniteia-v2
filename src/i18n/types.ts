@@ -128,6 +128,10 @@ export interface TranslationStrings {
     }
     step2: {
       title: string
+      cards: Array<{
+        label: string
+        desc: string
+      }>
     }
     step3: {
       title: string

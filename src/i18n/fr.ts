@@ -113,6 +113,11 @@ export const fr: TranslationStrings = {
     },
     step2: {
       title: 'Chaque signal traverse 7 barrières de qualité avant de vous atteindre.',
+      cards: [
+        { label: 'Recherche', desc: 'Les sources brutes sont ingérées et notées selon leur fiabilité.' },
+        { label: 'Vérification', desc: 'Les affirmations sont recoupées avec des sources indépendantes.' },
+        { label: 'Structuration', desc: 'Le contenu est formaté, localisé et préparé pour la livraison.' },
+      ],
     },
     step3: {
       title: 'Disponible en 8 langues.',

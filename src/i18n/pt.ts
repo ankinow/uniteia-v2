@@ -111,6 +111,11 @@ export const pt: TranslationStrings = {
     },
     step2: {
       title: 'Cada sinal passa por 7 gates de qualidade antes de chegar até você.',
+      cards: [
+        { label: 'Pesquisa', desc: 'Fontes brutas são ingeridas e pontuadas quanto à confiança.' },
+        { label: 'Verificação', desc: 'Alegações são verificadas cruzadamente contra fontes independentes.' },
+        { label: 'Estruturação', desc: 'Conteúdo é formatado, localizado e preparado para entrega.' },
+      ],
     },
     step3: {
       title: 'Disponível em 8 idiomas.',
