@@ -8,6 +8,8 @@
     "/robots.txt",
     "/favicon.ico",
     "/favicon.svg",
-    "/q-manifest.json"
+    "/q-manifest.json",
+    "/entity-graph.json",
+    "/entity-graph.stats.json"
   ]
 }
