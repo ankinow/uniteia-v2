@@ -1,5 +1,6 @@
-/* AETHER ASSETS: OKLCH Glow Effects
- * Gradient mesh, bloom, neon glow, atmospheric haze
+/* AETHER ASSETS: OKLCH Glow Effects — v2.0 Advanced Ambient
+ * Gradient mesh, bloom, neon glow, atmospheric haze,
+ * ambient pulse, emotional glow transitions
  * Integrates with Tailwind v4 @theme tokens via CSS variables
  */
 
@@ -82,4 +83,117 @@
       transparent 60%
     ), radial-gradient(ellipse 60% 80% at 80% 40%, oklch(85% 0.04 60 / 0.4) 0%, transparent 60%),
     radial-gradient(ellipse 70% 50% at 50% 80%, oklch(88% 0.03 80 / 0.3) 0%, transparent 50%);
+}
+
+/* ═══════════════════════════════════════════════
+   v2.0: ADVANCED AMBIENT GLOW
+   ═══════════════════════════════════════════════ */
+
+/* ── Ambient pulse glow (breathing radial for backgrounds) ── */
+.glow-ambient-pulse {
+  background: radial-gradient(
+      ellipse 60% 40% at 50% 30%,
+      var(--color-aether-indigo-glow, oklch(60% 0.3 265 / 0.35)) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 40% 30% at 70% 70%,
+      var(--color-aether-amber-glow, oklch(72% 0.3 80 / 0.35)) 0%,
+      transparent 50%
+    );
+  transition: opacity 2s ease;
+}
+
+/* ── Emotional glow (gradient shift for mood signaling) ── */
+.glow-emotional {
+  background: linear-gradient(
+    135deg,
+    oklch(60% 0.2 265 / 0.2) 0%,
+    oklch(70% 0.16 195 / 0.15) 50%,
+    oklch(72% 0.165 80 / 0.1) 100%
+  );
+  background-size: 200% 200%;
+}
+
+.glow-emotional[data-mood="calm"] {
+  background: linear-gradient(135deg, oklch(55% 0.15 240 / 0.2) 0%, oklch(50% 0.1 210 / 0.15) 100%);
+}
+
+.glow-emotional[data-mood="energy"] {
+  background: linear-gradient(135deg, oklch(65% 0.2 20 / 0.25) 0%, oklch(60% 0.2 50 / 0.15) 100%);
+}
+
+.glow-emotional[data-mood="focus"] {
+  background: linear-gradient(135deg, oklch(60% 0.2 200 / 0.25) 0%, oklch(55% 0.12 280 / 0.15) 100%);
+}
+
+/* ── Glow bloom (concentric radial rings) ── */
+.glow-bloom {
+  background: radial-gradient(circle 30% at 30% 20%, oklch(60% 0.3 265 / 0.15) 0%, transparent 70%),
+    radial-gradient(circle 25% at 70% 30%, oklch(72% 0.3 80 / 0.12) 0%, transparent 60%),
+    radial-gradient(circle 20% at 50% 80%, oklch(70% 0.28 195 / 0.1) 0%, transparent 50%);
+}
+
+/* ── Edge emissive (light bleeding at surface edges) ── */
+.glow-edge-emissive {
+  position: relative;
+}
+
+.glow-edge-emissive::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+      ellipse 100% 8% at 50% 0%,
+      var(--color-cyan, oklch(0.75 0.18 200)) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 100% 6% at 50% 100%,
+      var(--color-coral, oklch(0.72 0.22 22)) 0%,
+      transparent 100%
+    );
+  opacity: 0.06;
+}
+
+/* ── Hover glow intensify ── */
+.glow-hover {
+  transition: box-shadow var(--duration-base, 200ms) var(--ease-base, ease), background
+    var(--duration-base, 200ms) var(--ease-base, ease);
+}
+
+.glow-hover:hover {
+  box-shadow: 0 0 12px var(--color-cyan, oklch(0.75 0.18 200)), 0 0 30px
+    color-mix(in srgb, var(--color-cyan, oklch(0.75 0.18 200)) 30%, transparent);
+}
+
+/* ── Agent intent glow (colored by agent type) ── */
+.glow-agent[data-agent="moderator"] {
+  box-shadow: 0 0 8px var(--color-agent-moderator-glow, oklch(0.65 0.3 280 / 0.35));
+}
+.glow-agent[data-agent="researcher"] {
+  box-shadow: 0 0 8px var(--color-agent-researcher-glow, oklch(0.65 0.3 220 / 0.35));
+}
+.glow-agent[data-agent="writer"] {
+  box-shadow: 0 0 8px var(--color-agent-writer-glow, oklch(0.7 0.3 80 / 0.35));
+}
+.glow-agent[data-agent="curator"] {
+  box-shadow: 0 0 8px var(--color-agent-curator-glow, oklch(0.6 0.25 160 / 0.35));
+}
+.glow-agent[data-agent="analyst"] {
+  box-shadow: 0 0 8px var(--color-agent-analyst-glow, oklch(0.65 0.3 15 / 0.35));
+}
+
+/* ── Light ray (directional volumetric) ── */
+.glow-light-ray {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    transparent 40%,
+    transparent 60%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  pointer-events: none;
+  mix-blend-mode: overlay;
 }

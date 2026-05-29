@@ -1,5 +1,6 @@
 import { $, Slot, component$, useOnDocument } from '@builder.io/qwik'
 import { type RequestHandler, useLocation } from '@builder.io/qwik-city'
+import { AetherAmbient } from '~/components/aether-ambient'
 import { SiteHeader2D5 } from '~/components/site-header-2d5'
 import { useI18n } from '~/i18n/context'
 import { onLanguageNegotiation } from '~/i18n/middleware'
@@ -57,6 +58,17 @@ export const SiteShell = component$<SiteShellProps>(({ isApexHost }) => {
       data-testid="site-shell"
     >
       <SvgFilters />
+
+      {/* v2.0: Aether Ambient — animated Canvas2D grain overlay (depth + motion) */}
+      <AetherAmbient
+        mode="grain"
+        opacity={0.03}
+        blendMode="overlay"
+        grainSize={3}
+        density={0.7}
+        speed={0.5}
+      />
+
       {/* M011 S02: Tactile Warmth — grain 4K + paper fiber overlays */}
       <div
         class="grain-4k fixed inset-0 pointer-events-none z-[var(--z-surface)]"

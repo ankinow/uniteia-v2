@@ -46,7 +46,7 @@
   --color-coral: oklch(0.72 0.2 22);
   --color-coral-hi: oklch(0.8 0.22 22);
   --color-cyan: oklch(0.75 0.18 200);
-  --color-cyan-hi: oklch(0.82 0.20 200);
+  --color-cyan-hi: oklch(0.82 0.2 200);
 
   /* ── 2026 Super Prompt: Semantic signals ── */
   --color-acid: oklch(0.72 0.2 120);
@@ -140,6 +140,14 @@
   --color-agent-curator-glow: oklch(0.6 0.25 160 / 0.35);
   --color-agent-analyst: oklch(0.65 0.18 15);
   --color-agent-analyst-glow: oklch(0.65 0.3 15 / 0.35);
+
+  /* ── v2.0: Depth animation tokens ── */
+  --ease-depth: cubic-bezier(0.3, 1.2, 0.5, 1);
+  --ease-emotional: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --duration-tilt: 200ms;
+  --duration-reveal: 500ms;
+  --duration-breath: 3s;
+  --depth-tilt-perspective: 1000px;
 
   /* ── M015: Aether Canvas Engine — visual content canvas ── */
   --color-canvas-bg: oklch(10% 0.01 260);
@@ -249,7 +257,7 @@
   /* Tooltip styles */
   --tooltip-bg: oklch(0.15 0.02 280);
   --tooltip-text: oklch(0.95 0.01 80);
-  --tooltip-font: 'JetBrains Mono', monospace;
+  --tooltip-font: "JetBrains Mono", monospace;
 
   /* Paper */
   --paper-bg: #e8ddc8;
@@ -274,6 +282,31 @@
   --glass-backdrop: blur(16px) saturate(140%);
   --glass-inner-glow: inset 0 0 24px var(--card-accent);
   --ease-bloom: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* ═══ v2.0: ADVANCED DEPTH & TEXTURE ═══ */
+  --depth-tilt-max: 8deg;
+  --depth-tilt-perspective: 1000px;
+  --depth-scroll-reveal-duration: 500ms;
+  --depth-scroll-stagger: 100ms;
+
+  --glow-ambient-speed: 3s;
+  --glow-breath-opacity-min: 0.15;
+  --glow-breath-opacity-max: 0.35;
+
+  --grain-animated-opacity: 0.03;
+  --grain-static-opacity: 0.06;
+  --grain-size: 3px;
+
+  --texture-vignette-opacity: 0.3;
+  --texture-chromatic-strength: 0.08;
+  --texture-dither-opacity: 0.03;
+
+  --ease-depth: cubic-bezier(0.3, 1.2, 0.5, 1);
+  --ease-emotional: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  --duration-tilt: 200ms;
+  --duration-reveal: 500ms;
+  --duration-breath: 3s;
 }
 
 /* ═══════════════════════════════════════════

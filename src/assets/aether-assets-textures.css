@@ -1,6 +1,8 @@
-/* AETHER ASSETS: Textures (SVG data URIs)
- * Parchment, fiber, grain, stain, coffee — as base64 inline
- * Composited via background-image layers
+/* AETHER ASSETS: Textures (SVG data URIs) — v2.0 Advanced Depth
+ * Parchment, fiber, grain, stain, coffee, vignette, chromatic aberration,
+ * dithering, atmospheric fog, depth map overlay
+ * Composited via background-image layers + CSS filters
+ * Bundle-safe: all inline SVG data-URIs, zero external images
  */
 
 /* ── Parchment texture ── */
@@ -32,4 +34,158 @@
       oklch(40% 0.08 45 / 0.06) 0%,
       transparent 60%
     ), radial-gradient(ellipse 20% 15% at 68% 32%, oklch(40% 0.08 45 / 0.03) 0%, transparent 50%);
+}
+
+/* ═══════════════════════════════════════════════
+   v2.0: ADVANCED DEPTH TEXTURES
+   ═══════════════════════════════════════════════ */
+
+/* ── Vignette (lens shadow) ── */
+.bg-vignette {
+  background: radial-gradient(ellipse 80% 75% at 50% 50%, transparent 50%, rgba(0, 0, 0, 0.4) 100%);
+  pointer-events: none;
+}
+
+.bg-vignette-subtle {
+  background: radial-gradient(ellipse 80% 75% at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.2) 100%);
+  pointer-events: none;
+}
+
+/* ── Chromatic aberration (simulated via box-shadow offset RGB) ── */
+.chromatic-aberration {
+  position: relative;
+}
+
+.chromatic-aberration::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: 0.5px 0 0 rgba(255, 0, 0, 0.08), -0.5px 0 0 rgba(0, 100, 255, 0.08);
+  z-index: 0;
+}
+
+/* ── Dithering overlay (retro pixel texture signal) ── */
+.bg-dither {
+  background-image: repeating-conic-gradient(rgba(255, 255, 255, 0.03) 0% 25%, transparent 0% 50%) 0
+    0 / 2px 2px, repeating-conic-gradient(rgba(0, 0, 0, 0.02) 0% 25%, transparent 0% 50%) 1px 1px /
+    2px 2px;
+  pointer-events: none;
+}
+
+.bg-dither-light {
+  background-image: repeating-conic-gradient(rgba(0, 0, 0, 0.02) 0% 25%, transparent 0% 50%) 0 0 /
+    3px 3px;
+  pointer-events: none;
+}
+
+/* ── Atmospheric fog depth layer ── */
+.bg-atmospheric {
+  background: radial-gradient(
+      ellipse 120% 60% at 50% 0%,
+      rgba(120, 180, 255, 0.04) 0%,
+      transparent 60%
+    ), radial-gradient(ellipse 80% 40% at 50% 100%, rgba(80, 160, 220, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ── Depth map overlay (darkness at edges, light at center) ── */
+.bg-depth-overlay {
+  background: radial-gradient(
+    ellipse 85% 80% at 50% 50%,
+    transparent 30%,
+    rgba(0, 0, 0, 0.15) 80%,
+    rgba(0, 0, 0, 0.25) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── Emissive edge glow (subtle light at card edges) ── */
+.bg-edge-glow {
+  background: radial-gradient(
+      ellipse 70% 10% at 50% 0%,
+      var(--color-cyan, oklch(0.75 0.18 200)) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 70% 10% at 50% 100%,
+      var(--color-coral, oklch(0.72 0.22 22)) 0%,
+      transparent 100%
+    );
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+/* ── Scanline overlay (JRPG aesthetic, enhanced) ── */
+.scanlines-enhanced {
+  background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      rgba(0, 0, 0, 0.03) 1px,
+      rgba(0, 0, 0, 0.03) 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.01) 3px,
+      rgba(0, 0, 0, 0.01) 4px
+    );
+  pointer-events: none;
+}
+
+/* ── Watercolor bleed (organic edge diffusion) ── */
+.bg-watercolor {
+  position: relative;
+}
+
+.bg-watercolor::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  pointer-events: none;
+  background: radial-gradient(
+      ellipse 50% 30% at 10% 20%,
+      rgba(80, 140, 200, 0.04) 0%,
+      transparent 70%
+    ), radial-gradient(ellipse 40% 50% at 90% 80%, rgba(220, 140, 80, 0.03) 0%, transparent 70%);
+  filter: blur(6px);
+  z-index: -1;
+}
+
+/* ── Glass specular highlight (PBR fake) ── */
+.bg-specular {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    transparent 30%,
+    transparent 70%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── Frosted glass multi-layer (enhanced glassmorphism) ── */
+.glass-frosted {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--raised, #30363d) 20%, transparent),
+    color-mix(in srgb, var(--void, #0d1117) 50%, transparent)
+  );
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0
+    -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.glass-frosted::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+  border-radius: inherit;
 }
