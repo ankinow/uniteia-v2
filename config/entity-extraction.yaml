@@ -1,0 +1,238 @@
+# config/entity-extraction.yaml
+# NeMo DataDesigner pipeline config — Entity extraction from UniTeia articles
+#
+# Usage:
+#   pip install nemo-microservices
+#   export NEMO_MICROSERVICES_BASE_URL="https://nemo.api.nvidia.com"
+#   export NVIDIA_API_KEY="nvapi-..."
+#   python3 -m nemo_microservices.beta.data_designer run --config config/entity-extraction.yaml
+#
+# Output: entity-graph.v1 compatible JSON (src/graph/types.ts schema)
+#
+# Pipeline stages:
+#   1. SeedDatasetColumn — load article frontmatter as seed
+#   2. LLMStructuredColumn — extract entities (articles, products, brands, categories)
+#   3. LLMStructuredColumn — extract relationships (edges)
+#   4. ExpressionColumn — normalize IDs, build indexes
+#   5. ValidationColumn — schema compliance check
+#   6. EmbeddingColumn — generate vector embeddings for future GraphRAG queries
+
+version: "1.0"
+name: "uniteia-entity-extraction"
+
+model_configs:
+  - alias: extract-entities
+    model: nvidia/nemotron-4-340b-instruct
+    provider: nvidia
+    inference_parameters:
+      temperature: 0.1        # Low temp = consistent extraction
+      top_p: 0.9
+      max_tokens: 4096
+      extra_body:
+        chat_template_kwargs:
+          enable_thinking: false
+
+  - alias: extract-edges
+    model: nvidia/nemotron-4-340b-instruct
+    provider: nvidia
+    inference_parameters:
+      temperature: 0.2
+      top_p: 0.9
+      max_tokens: 2048
+
+  - alias: embed-entities
+    model: nvidia/nv-embed-qa-4
+    provider: nvidia
+    inference_parameters:
+      temperature: 0.0
+      max_tokens: 1024
+      extra_body:
+        input_type: "passage"
+
+columns:
+  # ── Stage 1: Seed from existing article frontmatter ──
+  - name: article_source
+    type: seed-dataset
+    source: "./content/apex/**/*.md"
+    format: frontmatter
+    parser: |
+      Extract YAML frontmatter from markdown files.
+      Fields: slug, lang, title, verdict, quality_score, subjects[], referral_links[], metadata{created_at, updated_at}.
+
+  # ── Stage 2: Normalize frontmatter into structured entity fields ──
+  - name: article_id
+    type: expression
+    expr: "{{ article_source.lang }}-{{ article_source.slug }}"
+
+  - name: article_title
+    type: expression
+    expr: "{{ article_source.title }}"
+
+  - name: article_locale
+    type: expression
+    expr: "{{ article_source.lang }}"
+
+  - name: article_verdict
+    type: expression
+    expr: "{{ article_source.verdict | default('caution') }}"
+
+  - name: article_quality_score
+    type: expression
+    expr: "{{ article_source.quality_score | default(50) }}"
+
+  - name: article_updated_at
+    type: expression
+    expr: "{{ article_source.metadata.updated_at | default(now()) }}"
+
+  # ── Stage 3: LLM-extracted structured entities ──
+  - name: extracted_categories
+    type: llm-structured
+    model_alias: extract-entities
+    drop: true
+    prompt: |
+      You are analyzing a technology article. Extract the subject categories.
+
+      Article title: {{ article_title }}
+      Raw subjects: {{ article_source.subjects | join(', ') }}
+
+      For each subject, determine:
+      1. Normalized category name (e.g., "ai-platform" → "AI Platform")
+      2. Category type: product_category | technology | concept | tool
+
+      Focus on technology/AI categories only.
+    output_format:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: "slugified id: category-{name}"
+              name:
+                type: string
+                description: "Display name"
+              type:
+                type: string
+                enum: [product_category, technology, concept, tool]
+      required: [categories]
+
+  # ── Stage 3b: Extract products from referral_links ──
+  - name: extracted_products
+    type: llm-structured
+    model_alias: extract-entities
+    drop: true
+    prompt: |
+      Extract product/brand entities from this article's referral links.
+
+      Article: {{ article_title }}
+      Referral links:
+      {% for link in article_source.referral_links %}
+      - {{ link.title }} ({{ link.url }})
+      {% endfor %}
+
+      For each link:
+      1. Determine if it's a product, brand, documentation, or spec
+      2. Extract name, URL, and type
+      3. Skip documentation/specification links (they're not products)
+
+      Output structured entities only for PRODUCTS and BRANDS.
+    output_format:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: "product-{slugified-name}"
+              name:
+                type: string
+              url:
+                type: string
+              type:
+                type: string
+                enum: [product, brand]
+      required: [products]
+
+  # ── Stage 4: Build edges between entities ──
+  - name: extracted_edges
+    type: llm-structured
+    model_alias: extract-edges
+    prompt: |
+      Given an article and its extracted entities, define the relationships.
+
+      Article: {{ article_title }} (ID: {{ article_id }})
+      Categories: {{ extracted_categories.categories | map(attribute='name') | join(', ') }}
+      Products: {{ extracted_products.products | map(attribute='name') | join(', ') }}
+
+      Create edges:
+      1. Article → Category (kind: belongs_to)
+      2. Article → Product/Brand (kind: mentions)
+      3. Article → Product (kind: has_affiliate if it's a referral/trial link)
+
+      Also identify if any products compete with each other.
+    output_format:
+      type: object
+      properties:
+        edges:
+          type: array
+          items:
+            type: object
+            properties:
+              source:
+                type: string
+              target:
+                type: string
+              kind:
+                type: string
+                enum: [belongs_to, mentions, has_affiliate, competes_with]
+              weight:
+                type: number
+              reason:
+                type: string
+      required: [edges]
+
+  # ── Stage 5: Generate vector embeddings ──
+  - name: entity_embedding
+    type: embedding
+    model_alias: embed-entities
+    input_column: article_title
+    drop: false
+
+  # ── Stage 6: Validation ──
+  - name: schema_validation
+    type: validation
+    target_columns:
+      - article_id
+      - article_title
+      - extracted_edges
+    rules:
+      - field: article_id
+        check: matches_pattern
+        pattern: "^[a-z]{2}-[a-z0-9-]+$"
+      - field: article_title
+        check: not_empty
+      - field: extracted_edges.edges
+        check: min_length
+        min: 1
+        error: "Article must have at least 1 edge"
+
+output:
+  format: json
+  path: "./entity-graph-generated.json"
+  schema: entity-graph.v1
+  include_columns:
+    - article_id
+    - article_title
+    - article_locale
+    - article_quality_score
+    - article_verdict
+    - extracted_categories
+    - extracted_products
+    - extracted_edges
+    - entity_embedding
