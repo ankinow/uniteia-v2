@@ -1,7 +1,7 @@
 ---
 slug: magica-quickstart
 lang: it
-title: "Primei Passi con Magica"
+title: "Primi Passi con Magica"
 verdict: trusted
 quality_score: 95
 subjects:

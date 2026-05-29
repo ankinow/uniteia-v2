@@ -29,11 +29,20 @@ export default component$(() => {
   const switchUrl = useComputed$(() => `/${lang.value === 'pt' ? 'en' : 'pt'}/signals`)
 
   const handleLangChange = $((newLang: SupportedLanguage) => {
-    lang.value = newLang
-    updateLangCookie(newLang)
-    if (typeof window !== 'undefined') {
-      window.history.replaceState(null, '', `/${newLang}`)
-    }
+    // Guard: skip if already active — avoids redundant navigation
+    if (newLang === lang.value) return
+
+    // Preserve query string and hash fragment for tracking deep-links
+    const search = typeof window !== 'undefined' ? window.location.search : ''
+    const hash = typeof window !== 'undefined' ? window.location.hash : ''
+
+    updateLangCookie(newLang).finally(() => {
+      if (typeof window !== 'undefined') {
+        // Explicit trailing slash on the locale segment for
+        // consistent URL hierarchy: / → /pt/ → /en/
+        window.location.href = `/${newLang}/${search}${hash}`
+      }
+    })
   })
 
   return (

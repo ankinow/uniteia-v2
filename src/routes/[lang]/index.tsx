@@ -2,6 +2,7 @@ import { component$, useVisibleTask$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
 import { CanvasSurface } from '~/components/canvas-surface'
 import { CinematicDepthCard } from '~/components/cinematic-depth'
+import { ClusterIcon, nicheToIcon } from '~/components/icon-set/icon-set'
 import { JSONLD } from '~/components/json-ld'
 import { MasterOpenCanvas } from '~/components/master-open-canvas'
 import { OnboardingFlow } from '~/components/onboarding-flow'
@@ -11,15 +12,14 @@ import {
   ScrollHeroOrganism,
 } from '~/components/scroll-driven'
 import { SignalChip } from '~/components/signal-chip'
-import { ClusterIcon, nicheToIcon } from '~/components/icon-set/icon-set'
 import { NoiseCanvas } from '~/components/storyboard-grid/noise-canvas'
 import { getHomepageProjection } from '~/content-graph/projections'
 import type { HomepageProjection } from '~/content-graph/projections'
 import { getTranslation } from '~/i18n/context'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 
-import { loadNichesConfig } from '~/utils/niche-loader'
 import { startAmbientDrone } from '~/utils/aether-sound'
+import { loadNichesConfig } from '~/utils/niche-loader'
 
 export const onStaticGenerate = () => {
   return {
