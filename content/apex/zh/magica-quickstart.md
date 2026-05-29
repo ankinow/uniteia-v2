@@ -1,7 +1,7 @@
 ---
 slug: magica-quickstart
 lang: zh
-title: "Magica快速入门"
+title: "Magica 快速入门"
 verdict: trusted
 quality_score: 95
 subjects:

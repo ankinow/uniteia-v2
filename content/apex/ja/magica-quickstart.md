@@ -1,7 +1,7 @@
 ---
 slug: magica-quickstart
 lang: ja
-title: "Magica入門"
+title: "Magica 入門"
 verdict: trusted
 quality_score: 95
 subjects:

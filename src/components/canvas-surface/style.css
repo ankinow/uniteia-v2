@@ -4,6 +4,13 @@
  * to avoid CSS linting issues with experimental properties.
  */
 
+/* ── Parchment tone: invert bone tokens for legibility ── */
+.canvas-surface[data-tone="parchment"] {
+  --color-bone: var(--color-canvas-parchment-text);
+  --color-bone-primary: var(--color-canvas-parchment-text);
+  --color-bone-muted: oklch(40% 0.03 75);
+}
+
 /* Parchment shader — static noise + warm tint */
 .canvas-surface[data-tone="parchment"] canvas {
   filter: none;
