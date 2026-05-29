@@ -940,6 +940,23 @@ img {
     border-color: var(--color-parchment-border);
   }
 
+  /* Canvas-parchment zone: fix text contrast — override bone (light) to parchment-text (dark)
+     within dark-bg containers that become transparent inside parchment */
+  .canvas-parchment .scroll-content-root h2,
+  .canvas-parchment .scroll-content-root h3,
+  .canvas-parchment .scroll-content-root .text-bone,
+  .canvas-parchment .scroll-content-root .font-bold {
+    color: var(--color-canvas-parchment-text, oklch(20% 0.02 75));
+  }
+
+  .canvas-parchment .scroll-content-root p {
+    color: color-mix(in srgb, var(--color-canvas-parchment-text, oklch(20% 0.02 75)) 85%, transparent);
+  }
+
+  .canvas-parchment .scroll-content-root .text-bone-muted {
+    color: color-mix(in srgb, var(--color-canvas-parchment-text, oklch(20% 0.02 75)) 55%, transparent);
+  }
+
   /* Parchment-to-chrome transition bridge */
   .canvas-bridge {
     background: linear-gradient(
