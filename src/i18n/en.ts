@@ -123,6 +123,16 @@ export const en: TranslationStrings = {
       badge: '8 voices',
     },
   },
+  agent: {
+    status: {
+      idle: 'Aether OS · Idle',
+      thinking: 'Aether OS · Thinking',
+      processing: 'Aether OS · Processing',
+      complete: 'Aether OS · Complete',
+      error: 'Aether OS · Error',
+    },
+    mcpTooltip: 'MCP Server Connected · 7 tools active',
+  },
   legal: {
     privacy: {
       title: 'Privacy Policy',

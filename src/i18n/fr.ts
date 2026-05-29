@@ -114,9 +114,18 @@ export const fr: TranslationStrings = {
     step2: {
       title: 'Chaque signal traverse 7 barrières de qualité avant de vous atteindre.',
       cards: [
-        { label: 'Recherche', desc: 'Les sources brutes sont ingérées et notées selon leur fiabilité.' },
-        { label: 'Vérification', desc: 'Les affirmations sont recoupées avec des sources indépendantes.' },
-        { label: 'Structuration', desc: 'Le contenu est formaté, localisé et préparé pour la livraison.' },
+        {
+          label: 'Recherche',
+          desc: 'Les sources brutes sont ingérées et notées selon leur fiabilité.',
+        },
+        {
+          label: 'Vérification',
+          desc: 'Les affirmations sont recoupées avec des sources indépendantes.',
+        },
+        {
+          label: 'Structuration',
+          desc: 'Le contenu est formaté, localisé et préparé pour la livraison.',
+        },
       ],
     },
     step3: {
@@ -124,6 +133,16 @@ export const fr: TranslationStrings = {
       desc: "Seulement l'essentiel. Dans votre langue, selon vos termes.",
       badge: '8 voix',
     },
+  },
+  agent: {
+    status: {
+      idle: 'Aether OS · Inactif',
+      thinking: 'Aether OS · Réflexion',
+      processing: 'Aether OS · Traitement',
+      complete: 'Aether OS · Terminé',
+      error: 'Aether OS · Erreur',
+    },
+    mcpTooltip: 'Serveur MCP Connecté · 7 outils actifs',
   },
   legal: {
     privacy: {

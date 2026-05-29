@@ -139,6 +139,16 @@ export interface TranslationStrings {
       badge: string
     }
   }
+  agent: {
+    status: {
+      idle: string
+      thinking: string
+      processing: string
+      complete: string
+      error: string
+    }
+    mcpTooltip: string
+  }
   legal: {
     privacy: {
       title: string

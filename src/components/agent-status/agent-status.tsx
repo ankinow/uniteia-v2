@@ -10,6 +10,7 @@
  *
  * Accessible with aria-live="polite" for screen readers.
  * Bundle-safe: pure CSS + inline SVG, zero dependencies.
+ * Supports i18n via optional `t` prop (agent.status.{idle|thinking|processing|complete|error}).
  */
 
 import { component$ } from '@builder.io/qwik'
@@ -19,10 +20,14 @@ export type AgentState = 'idle' | 'thinking' | 'processing' | 'complete' | 'erro
 export interface AgentStatusProps {
   class?: string
   state?: AgentState
-  label?: string
+  label?: string // explicit override — overrides i18n
   size?: 'sm' | 'md' | 'lg'
   accent?: string // CSS color override
   compact?: boolean // hide label, show icon only
+  t?: {
+    status: Record<AgentState, string>
+    mcpTooltip?: string
+  }
 }
 
 const StateDots = ({ count = 3 }: { count?: number }) => (
@@ -57,14 +62,14 @@ const WarningIcon = () => (
 )
 
 export const AgentStatus = component$<AgentStatusProps>(props => {
-  const { class: classList, state = 'idle', label, size = 'md', accent, compact = false } = props
+  const { class: classList, state = 'idle', label, size = 'md', accent, compact = false, t } = props
 
-  const stateLabels: Record<AgentState, string> = {
-    idle: 'Aguardando',
-    thinking: 'Pensando',
-    processing: 'Processando',
-    complete: 'Concluído',
-    error: 'Erro',
+  const fallbackLabels: Record<AgentState, string> = {
+    idle: 'Aether OS · Idle',
+    thinking: 'Aether OS · Thinking',
+    processing: 'Aether OS · Processing',
+    complete: 'Aether OS · Complete',
+    error: 'Aether OS · Error',
   }
 
   const stateColors: Record<AgentState, string> = {
@@ -82,7 +87,8 @@ export const AgentStatus = component$<AgentStatusProps>(props => {
   }
 
   const color = accent || stateColors[state]
-  const displayLabel = label ?? stateLabels[state]
+  const displayLabel = label ?? (t?.status?.[state] || fallbackLabels[state])
+  const mcpTip = t?.mcpTooltip || 'MCP Server Connected · 7 tools active'
 
   return (
     <output
@@ -90,6 +96,7 @@ export const AgentStatus = component$<AgentStatusProps>(props => {
       style={{ color }}
       aria-live="polite"
       aria-label={displayLabel}
+      data-tooltip={mcpTip}
     >
       {/* Icon */}
       {state === 'idle' && <PulseDot />}

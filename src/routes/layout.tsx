@@ -110,7 +110,7 @@ export default component$(() => {
           </a>
           <LangSwitcher />
           {/* Agent status indicator */}
-          <AgentStatus state="idle" size="sm" compact class="ml-auto mr-2" />
+          <AgentStatus state="idle" size="sm" compact class="ml-auto mr-2" t={t.agent} />
           {/* Sound toggle */}
           <button
             type="button"

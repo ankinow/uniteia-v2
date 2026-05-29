@@ -113,9 +113,18 @@ export const de: TranslationStrings = {
     step2: {
       title: 'Jedes Signal durchläuft 7 Qualitätsgates, bevor es dich erreicht.',
       cards: [
-        { label: 'Recherche', desc: 'Rohquellen werden aufgenommen und nach Vertrauenswürdigkeit bewertet.' },
-        { label: 'Verifikation', desc: 'Behauptungen werden anhand unabhängiger Quellen überprüft.' },
-        { label: 'Strukturierung', desc: 'Inhalte werden formatiert, lokalisiert und für die Auslieferung vorbereitet.' },
+        {
+          label: 'Recherche',
+          desc: 'Rohquellen werden aufgenommen und nach Vertrauenswürdigkeit bewertet.',
+        },
+        {
+          label: 'Verifikation',
+          desc: 'Behauptungen werden anhand unabhängiger Quellen überprüft.',
+        },
+        {
+          label: 'Strukturierung',
+          desc: 'Inhalte werden formatiert, lokalisiert und für die Auslieferung vorbereitet.',
+        },
       ],
     },
     step3: {
@@ -123,6 +132,16 @@ export const de: TranslationStrings = {
       desc: 'Nur was zählt. In Ihrer Sprache, zu Ihren Bedingungen.',
       badge: '8 Stimmen',
     },
+  },
+  agent: {
+    status: {
+      idle: 'Aether OS · Leerlauf',
+      thinking: 'Aether OS · Denken',
+      processing: 'Aether OS · Verarbeitung',
+      complete: 'Aether OS · Abgeschlossen',
+      error: 'Aether OS · Fehler',
+    },
+    mcpTooltip: 'MCP-Server verbunden · 7 aktive Werkzeuge',
   },
   legal: {
     privacy: {

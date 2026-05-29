@@ -123,6 +123,16 @@ export const zh: TranslationStrings = {
       badge: '8种声音',
     },
   },
+  agent: {
+    status: {
+      idle: 'Aether OS · 空闲',
+      thinking: 'Aether OS · 思考中',
+      processing: 'Aether OS · 处理中',
+      complete: 'Aether OS · 完成',
+      error: 'Aether OS · 错误',
+    },
+    mcpTooltip: 'MCP服务器已连接 · 7个活跃工具',
+  },
   legal: {
     privacy: {
       title: '隐私政策',

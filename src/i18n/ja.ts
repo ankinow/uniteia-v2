@@ -114,7 +114,10 @@ export const ja: TranslationStrings = {
       cards: [
         { label: 'リサーチ', desc: '生のソースが取り込まれ、信頼性がスコアリングされます。' },
         { label: '検証', desc: '主張が独立したソースと照合されます。' },
-        { label: '構造化', desc: 'コンテンツがフォーマット、ローカライズされ、配信準備が整えられます。' },
+        {
+          label: '構造化',
+          desc: 'コンテンツがフォーマット、ローカライズされ、配信準備が整えられます。',
+        },
       ],
     },
     step3: {
@@ -122,6 +125,16 @@ export const ja: TranslationStrings = {
       desc: '重要なものだけを。あなたの言語で、あなたの条件で。',
       badge: '8つの声',
     },
+  },
+  agent: {
+    status: {
+      idle: 'Aether OS · 待機中',
+      thinking: 'Aether OS · 思考中',
+      processing: 'Aether OS · 処理中',
+      complete: 'Aether OS · 完了',
+      error: 'Aether OS · エラー',
+    },
+    mcpTooltip: 'MCPサーバー接続済み · 7つのツールがアクティブ',
   },
   legal: {
     privacy: {

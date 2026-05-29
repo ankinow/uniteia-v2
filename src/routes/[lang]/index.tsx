@@ -2,6 +2,7 @@ import { component$, useVisibleTask$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
 import { CanvasSurface } from '~/components/canvas-surface'
 import { CinematicDepthCard } from '~/components/cinematic-depth'
+import { BioOrganicOverlay } from '~/components/bio-organic-overlay'
 import { DepthTilt } from '~/components/depth-tilt'
 import { ClusterIcon, nicheToIcon } from '~/components/icon-set/icon-set'
 import { JSONLD } from '~/components/json-ld'
@@ -94,9 +95,15 @@ export default component$(() => {
           },
           {
             content: (
-              <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(100,220,255,0.05),transparent_70%)]" />
+              <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(100,220,255,0.05),transparent_70%)] bg-dither" />
             ),
             speed: 0.3,
+          },
+          {
+            content: (
+              <BioOrganicOverlay opacity={0.12} branchCount={3} growthSpeed={0.8} />
+            ),
+            speed: 0.5,
           },
           {
             content: <div class="absolute inset-0 grain-4k opacity-25" />,

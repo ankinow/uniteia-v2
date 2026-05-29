@@ -114,9 +114,18 @@ export const it: TranslationStrings = {
     step2: {
       title: 'Ogni segnale passa attraverso 7 gate di qualità prima di raggiungerti.',
       cards: [
-        { label: 'Ricerca', desc: 'Le fonti grezze vengono ingerite e valutate per l\'affidabilità.' },
-        { label: 'Verifica', desc: 'Le affermazioni vengono verificate incrociando fonti indipendenti.' },
-        { label: 'Strutturazione', desc: 'Il contenuto viene formattato, localizzato e reso pronto per la consegna.' },
+        {
+          label: 'Ricerca',
+          desc: "Le fonti grezze vengono ingerite e valutate per l'affidabilità.",
+        },
+        {
+          label: 'Verifica',
+          desc: 'Le affermazioni vengono verificate incrociando fonti indipendenti.',
+        },
+        {
+          label: 'Strutturazione',
+          desc: 'Il contenuto viene formattato, localizzato e reso pronto per la consegna.',
+        },
       ],
     },
     step3: {
@@ -124,6 +133,16 @@ export const it: TranslationStrings = {
       desc: 'Solo ciò che conta. Nella tua lingua, alle tue condizioni.',
       badge: '8 voci',
     },
+  },
+  agent: {
+    status: {
+      idle: 'Aether OS · Inattivo',
+      thinking: 'Aether OS · Pensando',
+      processing: 'Aether OS · Elaborazione',
+      complete: 'Aether OS · Completato',
+      error: 'Aether OS · Errore',
+    },
+    mcpTooltip: 'Server MCP Connesso · 7 strumenti attivi',
   },
   legal: {
     privacy: {
