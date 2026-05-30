@@ -17,6 +17,7 @@ import {
 import { ScrollReveal } from '~/components/scroll-reveal'
 import { SignalChip } from '~/components/signal-chip'
 import { NoiseCanvas } from '~/components/storyboard-grid/noise-canvas'
+import { VisualExplainer } from '~/components/visual-explainer'
 import { getHomepageProjection } from '~/content-graph/projections'
 import type { HomepageProjection } from '~/content-graph/projections'
 import { getTranslation } from '~/i18n/context'
@@ -318,6 +319,19 @@ export default component$(() => {
           )}
         </ScrollContentCanvas>
       </CanvasSurface>
+
+      {/* PLANO-055: VisualExplainer — live-drawn North Star architecture */}
+      <section class="my-16">
+        <ScrollReveal direction="up" once>
+          <h2 class="text-2xl font-bold font-pixel text-bone mb-2 uppercase tracking-wider text-center">
+            North Star Architecture
+          </h2>
+          <p class="text-sm text-bone/40 text-center mb-8 max-w-lg mx-auto">
+            6 layers · 6 agents · live-drawn on scroll
+          </p>
+          <VisualExplainer class="max-w-2xl mx-auto" />
+        </ScrollReveal>
+      </section>
 
       {featuredSignals.length === 0 &&
         knowledgeClusters.length === 0 &&
