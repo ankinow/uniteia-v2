@@ -1,0 +1,37 @@
+{
+  "ts": "2026-05-30T04:44:37.063374+00:00",
+  "schema": "p4-observation.v1",
+  "l2": {
+    "status": "ok",
+    "count": 112,
+    "eval_d9_avg": 67.4,
+    "eval_d9_min": 30,
+    "eval_d9_max": 95,
+    "promoted_l3": 16,
+    "open": 96,
+    "domains": {
+      "ops": 59,
+      "pipeline": 16,
+      "data": 2,
+      "agent": 5,
+      "content": 14,
+      "infra": 9,
+      "ui": 7
+    }
+  },
+  "l3": {
+    "count": 28,
+    "actionable": 0
+  },
+  "graph": {
+    "total": 217,
+    "findings": 127
+  },
+  "metrics": {
+    "disk_pct": 57.2,
+    "disk_free_gb": 47.5,
+    "commits": 390,
+    "dirty_files": 10
+  },
+  "p4_score": 76.1
+}

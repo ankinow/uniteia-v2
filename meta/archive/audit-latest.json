@@ -1,0 +1,28 @@
+{
+  "ts": "2026-05-30T04:44:37.254306+00:00",
+  "schema": "p4-audit.v1",
+  "checks": [
+    {
+      "check": "PRM",
+      "passed": true,
+      "detail": "112/112 valid, 112 in-range, 112 with domain",
+      "score": 100.0
+    },
+    {
+      "check": "tool_integrity",
+      "passed": true,
+      "detail": "all ok"
+    },
+    {
+      "check": "adversarial",
+      "passed": true,
+      "detail": "no issues found"
+    },
+    {
+      "check": "constitutional",
+      "passed": false,
+      "detail": "avg eval_d9 (67.4) < 90% threshold"
+    }
+  ],
+  "verdict": "reject"
+}
