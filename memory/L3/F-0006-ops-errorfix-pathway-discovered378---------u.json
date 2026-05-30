@@ -1,0 +1,15 @@
+{
+  "id": "W-0006",
+  "title": "Error→fix pathway discovered\"\n378:       - \"User corrected approach (learn from ",
+  "domain": "ops",
+  "content": "Error→fix pathway discovered\"\n378:       - \"User corrected approach (learn from correction)\"\n379:       - \"Non-trivial workflow pattern detected\"\n380:     output: \"@~/",
+  "actionability": "reference",
+  "cross_refs": [
+    "ops"
+  ],
+  "source_findings": [
+    "F-0006"
+  ],
+  "eval_d9_promotion": 90,
+  "promoted_at": "2026-05-30T04:47:31.406262+00:00"
+}

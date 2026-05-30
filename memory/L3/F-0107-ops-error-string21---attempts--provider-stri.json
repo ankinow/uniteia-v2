@@ -1,5 +1,5 @@
 {
-  "id": "W-0105",
+  "id": "W-0107",
   "title": "error?: string;\n21:   attempts: { provider: string; model: string; error?: strin",
   "domain": "ops",
   "content": "error?: string;\n21:   attempts: { provider: string; model: string; error?: string }[];\n22: }\n23: \n24: export class ProviderRouter {\n25:   private providers: ProviderEndpoint[];\n26: \n27:   constructor(providers?: ProviderEndpoint[]) {\n28:     this",
@@ -8,8 +8,8 @@
     "ops"
   ],
   "source_findings": [
-    "F-0105"
+    "F-0107"
   ],
   "eval_d9_promotion": 85,
-  "promoted_at": "2026-05-30T04:44:40.764032+00:00"
+  "promoted_at": "2026-05-30T04:47:31.412374+00:00"
 }

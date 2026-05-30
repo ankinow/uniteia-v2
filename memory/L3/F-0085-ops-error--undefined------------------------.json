@@ -1,0 +1,15 @@
+{
+  "id": "W-0085",
+  "title": "error = undefined\n             }}\n-            class=\"mt-3 text-xs text-coral ho",
+  "domain": "ops",
+  "content": "error = undefined\n             }}\n-            class=\"mt-3 text-xs text-coral hover:text-coral/80 underline underline-offset-2 transition-colors\"\n+            class=\"mt-3 text-xs text-coral hover:text-coral/80 underline underline-offset-2 transition-colors focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none\"\n           >\n             Try again\n           </button>\ndiff --git a/src/components/error-pages/not-found",
+  "actionability": "reference",
+  "cross_refs": [
+    "ops"
+  ],
+  "source_findings": [
+    "F-0085"
+  ],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-05-30T04:47:31.411445+00:00"
+}

@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "P2 Memory Tiers — L0–L4 Schema Lock",
+  "description": "Formal contract for all memory operations. Every write must match one of these 5 schemas.",
+  "version": "1.0.0",
+  "definitions": {
+    "L0_session_trace": {
+      "description": "Ephemeral session trace — single-turn record. Not persisted across sessions.",
+      "type": "object",
+      "required": ["timestamp", "agent", "action", "input_truncated", "output_truncated"],
+      "properties": {
+        "timestamp": {"type": "string", "format": "date-time", "description": "ISO-8601 UTC"},
+        "agent": {"type": "string", "pattern": "^[a-z0-9_-]+$", "description": "Agent name"},
+        "session_id": {"type": "string", "description": "Hermes session hash"},
+        "action": {"type": "string", "enum": ["read", "write", "execute", "search", "delegate", "unknown"]},
+        "input_truncated": {"type": "string", "maxLength": 1000, "description": "First 1000 chars of user input"},
+        "output_truncated": {"type": "string", "maxLength": 1000, "description": "First 1000 chars of response"},
+        "tools_called": {"type": "array", "items": {"type": "string"}, "description": "List of tool names used"},
+        "tokens_used": {"type": "integer", "minimum": 0},
+        "eval_d9_dimensions": {
+          "type": "object",
+          "properties": {
+            "perf": {"type": "number", "minimum": 0, "maximum": 100},
+            "read": {"type": "number", "minimum": 0, "maximum": 100},
+            "edge": {"type": "number", "minimum": 0, "maximum": 100},
+            "bias": {"type": "number", "minimum": 0, "maximum": 100},
+            "artifact": {"type": "number", "minimum": 0, "maximum": 100},
+            "mps": {"type": "number", "minimum": 0, "maximum": 100},
+            "feasib": {"type": "number", "minimum": 0, "maximum": 100},
+            "safety": {"type": "number", "minimum": 0, "maximum": 100},
+            "cost": {"type": "number", "minimum": 0, "maximum": 100}
+          }
+        },
+        "stash_refs": {"type": "array", "items": {"type": "string"}, "description": "Git stash or commit refs touched"}
+      }
+    },
+    "L1_daily_entry": {
+      "description": "Daily log entry — persisted to memory/L1/YYYY-MM-DD.json. One file per day.",
+      "type": "object",
+      "required": ["date", "entries"],
+      "properties": {
+        "date": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["timestamp", "action", "summary"],
+            "properties": {
+              "timestamp": {"type": "string", "format": "date-time"},
+              "action": {"type": "string", "description": "What was done"},
+              "summary": {"type": "string", "maxLength": 2000, "description": "Concise action summary"},
+              "files_changed": {"type": "array", "items": {"type": "string"}},
+              "commits": {"type": "array", "items": {"type": "string"}},
+              "eval_d9_avg": {"type": "number", "minimum": 0, "maximum": 100},
+              "stash_refs": {"type": "array", "items": {"type": "string"}},
+              "findings_count": {"type": "integer", "minimum": 0},
+              "disk_before": {"type": "string", "description": "df -h % before"},
+              "disk_after": {"type": "string", "description": "df -h % after"}
+            }
+          }
+        }
+      }
+    },
+    "L2_finding": {
+      "description": "Consolidated finding in memory/L2/. Queryable via GraphRAG index.",
+      "type": "object",
+      "required": ["id", "timestamp", "domain", "content", "eval_d9"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^F-\\d{4}$", "description": "Unique finding ID"},
+        "timestamp": {"type": "string", "format": "date-time"},
+        "domain": {"type": "string", "enum": ["infra", "content", "ui", "pipeline", "agent", "design", "data", "ops", "security"]},
+        "source": {"type": "string", "description": "Origin: daily log, session, PLANO, audit"},
+        "content": {"type": "string", "maxLength": 5000, "description": "The finding itself"},
+        "eval_d9": {"type": "number", "minimum": 0, "maximum": 100, "description": "Confidence/quality score"},
+        "status": {"type": "string", "enum": ["open", "in_progress", "resolved", "cold_storage", "promoted_L3", "promoted_L4"]},
+        "deps_satisfied": {"type": "boolean", "default": false},
+        "age_days": {"type": "integer", "minimum": 0},
+        "tags": {"type": "array", "items": {"type": "string"}},
+        "stash_refs": {"type": "array", "items": {"type": "string"}},
+        "promoted_to": {"type": "string", "description": "L3 or L4 path if promoted"}
+      }
+    },
+    "L3_wiki_entry": {
+      "description": "Actionable wiki entry — promoted from L2 when eval_d9 > 0.85 and deps satisfied.",
+      "type": "object",
+      "required": ["id", "title", "domain", "content", "actionability"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^W-\\d{4}$"},
+        "title": {"type": "string", "maxLength": 200},
+        "domain": {"type": "string"},
+        "content": {"type": "string", "maxLength": 10000},
+        "actionability": {"type": "string", "enum": ["actionable", "reference", "archived"]},
+        "cross_refs": {"type": "array", "items": {"type": "string"}},
+        "source_findings": {"type": "array", "items": {"type": "string"}},
+        "eval_d9_promotion": {"type": "number", "minimum": 0, "maximum": 100}
+      }
+    },
+    "L4_meta_entry": {
+      "description": "Cold storage for paradigm-level findings. Compressed archive.",
+      "type": "object",
+      "required": ["id", "timestamp", "paradigm", "compressed"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^M-\\d{4}$"},
+        "timestamp": {"type": "string", "format": "date-time"},
+        "paradigm": {"type": "string", "description": "Cognitive category"},
+        "compressed": {"type": "boolean", "default": true},
+        "original_findings": {"type": "array", "items": {"type": "string"}, "description": "F-IDs that fed this"},
+        "size_bytes": {"type": "integer", "minimum": 0},
+        "archive_path": {"type": "string"}
+      }
+    }
+  },
+  "anyOf": [
+    {"$ref": "#/definitions/L0_session_trace"},
+    {"$ref": "#/definitions/L1_daily_entry"},
+    {"$ref": "#/definitions/L2_finding"},
+    {"$ref": "#/definitions/L3_wiki_entry"},
+    {"$ref": "#/definitions/L4_meta_entry"}
+  ]
+}

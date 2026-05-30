@@ -1,0 +1,15 @@
+{
+  "id": "W-0064",
+  "title": "errors, mobile view\n\n---\n\nShould I proceed? If approved, I'll start with P0 (ver",
+  "domain": "infra",
+  "content": "errors, mobile view\n\n---\n\nShould I proceed? If approved, I'll start with P0 (verify deploy) immediately",
+  "actionability": "reference",
+  "cross_refs": [
+    "infra"
+  ],
+  "source_findings": [
+    "F-0064"
+  ],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-05-30T04:47:31.409524+00:00"
+}

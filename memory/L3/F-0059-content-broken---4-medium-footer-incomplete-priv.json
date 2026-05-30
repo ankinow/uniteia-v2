@@ -1,0 +1,15 @@
+{
+  "id": "W-0059",
+  "title": "broken)\n- 🟡 4 medium: Footer incomplete, /privacy redirect, sitemap formatting, ",
+  "domain": "content",
+  "content": "broken)\n- 🟡 4 medium: Footer incomplete, /privacy redirect, sitemap formatting, mis-niched article\n- 🟢 2 low: Console errors, mobile view\n\n**What's already merged to `main`:**\n- BUG-001 fix (6 files, 188+ lines) — LangSwitcherSegmented with ARIA radio group\n- BUG-001 was pushed to `origin/main` at commit `6baf2ef`\n\n**Key question — has BUG-001 actually been deployed?** The audit says \"BUG-001 NÃO FOI DEPLOYADO\" and the live site still shows `enptesfrdeitjazh`",
+  "actionability": "reference",
+  "cross_refs": [
+    "content"
+  ],
+  "source_findings": [
+    "F-0059"
+  ],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-05-30T04:47:31.408982+00:00"
+}
