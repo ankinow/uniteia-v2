@@ -39,11 +39,11 @@ SEED_CSV_PATH = REPO_ROOT / "training" / "user_seed.csv"
 CONFIG_PATH = REPO_ROOT / "training" / "scout-config.yaml"
 
 NVIDIA_API_KEY = os.environ.get("NVIDIA_API_KEY", "")
-NIM_BASE_URL = "https://api.nvcf.nvidia.com/v2/nvcf/pexec/functions"
+NIM_BASE_URL = "https://integrate.api.nvidia.com/v1"
 
 # Default NIM function IDs (Nemotron-4 340B Instruct)
-NIM_DISCOVERY_FN = "nvidia/nemotron-4-340b-instruct"
-NIM_EXTRACT_FN = "nvidia/nemotron-4-340b-instruct"
+NIM_DISCOVERY_FN = "nvidia/llama-3.1-nemotron-nano-8b-v1"
+NIM_EXTRACT_FN = "nvidia/llama-3.1-nemotron-nano-8b-v1"
 
 DEFAULT_COUNT = 1000
 SEED_WEIGHTS = {
@@ -205,8 +205,12 @@ def nim_chat_completion(
         "max_tokens": max_tokens,
     }
 
-    url = f"{NIM_BASE_URL}/{model}/v1/chat/completions"
-    resp = requests.post(url, headers=headers, json=payload, timeout=30)
+    url = f"{NIM_BASE_URL}/chat/completions"
+    resp = requests.post(url, headers=headers, json=payload, timeout=120)
+    if resp.status_code == 408 or resp.status_code == 429 or resp.status_code == 502:
+        # Rate limit / timeout retry
+        time.sleep(5)
+        resp = requests.post(url, headers=headers, json=payload, timeout=120)
     resp.raise_for_status()
     data = resp.json()
     return data["choices"][0]["message"]["content"].strip()
