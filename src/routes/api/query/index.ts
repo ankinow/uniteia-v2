@@ -83,37 +83,29 @@ function hashEmbed(text: string, dims: number): number[] {
   return vec
 }
 
-async function loadGraph(req: Request): Promise<EntityGraph | null> {
+async function loadGraph(req: Request, platform?: any): Promise<EntityGraph | null> {
   if (entityGraph) return entityGraph
 
   try {
-    // Cloudflare Pages Workers: fetch static assets via env.ASSETS
-    const assets = (req as any).env?.ASSETS
-    if (assets) {
-      const resp = await assets.fetch(new URL('/entity-graph.json', req.url))
-      if (resp.ok) {
-        entityGraph = await resp.json()
-        return entityGraph
-      }
+    // Cloudflare Pages Workers: fetch static assets
+    const url = new URL('/entity-graph.json', req.url).toString()
+    const resp = await fetch(url)
+    if (!resp.ok) {
+      console.error('[QueryEngine] fetch /entity-graph.json failed:', resp.status)
+      return null
     }
-    // Fallback: relative fetch
-    const resp = await fetch(new URL('/entity-graph.json', req.url).toString())
-    if (!resp.ok) return null
     entityGraph = await resp.json()
     return entityGraph
-  } catch {
+  } catch (e) {
+    console.error('[QueryEngine] loadGraph error:', e)
     return null
   }
 }
 
-async function loadEmbeddings(req: Request): Promise<EmbeddingIndex | null> {
+async function loadEmbeddings(req: Request, platform?: any): Promise<EmbeddingIndex | null> {
   try {
-    const assets = (req as any).env?.ASSETS
-    if (assets) {
-      const resp = await assets.fetch(new URL('/entity-embeddings.json', req.url))
-      if (resp.ok) return await resp.json()
-    }
-    const resp = await fetch(new URL('/entity-embeddings.json', req.url).toString())
+    const url = new URL('/entity-embeddings.json', req.url).toString()
+    const resp = await fetch(url)
     if (!resp.ok) return null
     return await resp.json()
   } catch {
@@ -130,7 +122,7 @@ interface SearchResult {
   score: number
 }
 
-export const onGet: RequestHandler = async ({ query, json, status, request }) => {
+export const onGet: RequestHandler = async ({ query, json, status, request, platform }) => {
   const q = query.get('q')?.trim()
   const k = Math.min(Number.parseInt(query.get('k') ?? '10', 10) || 10, 50)
   const locale = query.get('locale') ?? ''
@@ -140,13 +132,13 @@ export const onGet: RequestHandler = async ({ query, json, status, request }) =>
     return
   }
 
-  const graph = await loadGraph(request)
+  const graph = await loadGraph(request, platform as any)
   if (!graph || !graph.nodes?.length) {
     json(503, { error: 'Entity graph not loaded' })
     return
   }
 
-  const embeddings = await loadEmbeddings(request)
+  const embeddings = await loadEmbeddings(request, platform as any)
   const queryVec = hashEmbed(q, embeddings?.dimensions ?? 1024)
 
   // Score each node by cosine similarity
