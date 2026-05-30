@@ -45,10 +45,19 @@ NVIDIA_API_KEY = os.environ.get("NVIDIA_API_KEY", "")
 NIM_BASE_URL = "https://integrate.api.nvidia.com/v1"
 NIM_MODEL = "nvidia/llama-3.1-nemotron-nano-8b-v1"
 
-DEFAULT_COUNT = 1000
-NIM_TIMEOUT = 60     # seconds per call
-NIM_COOLDOWN = 3     # seconds between calls (free tier rate limit)
+DEFAULT_COUNT = 500
+NIM_TIMEOUT = 60
+NIM_COOLDOWN = 3
 MAX_RETRIES = 2
+
+# ── TaC-C: reasoning model compressor (PLANO-064 LANE-1) ────────
+# arXiv 2605.28713: reasoning models are natural context compressors
+# When --use-tac-c is set, use a local reasoning model to compress
+# raw L1 traces into structured L2 findings instead of heuristic parsing.
+# Falls back to heuristic if model unavailable.
+
+TACC_ENABLED = False  # Default: heuristic mode
+TACC_MODEL = "local"  # Qwen3/Llama-3.1 local — requires model download
 
 SEED_WEIGHTS = {
     "single_entity": 0.40,

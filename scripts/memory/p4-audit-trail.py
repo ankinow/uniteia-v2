@@ -7,6 +7,50 @@ import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
+# ── GVU Convergence Checking (PLANO-064 LANE-5) ────────────────
+
+SCORE_HISTORY_FILE = Path(__file__).resolve().parent.parent.parent / "meta" / "archive" / "p4-score-history.json"
+VARIANCE_THRESHOLD = 0.05
+DIVERGENCE_THRESHOLD = -5
+
+
+def load_score_history() -> list[float]:
+    if not SCORE_HISTORY_FILE.exists():
+        return []
+    try:
+        data = json.loads(SCORE_HISTORY_FILE.read_text())
+        return data.get("scores", [])
+    except (json.JSONDecodeError, OSError):
+        return []
+
+
+def save_score_history(scores: list[float]):
+    SCORE_HISTORY_FILE.parent.mkdir(parents=True, exist_ok=True)
+    SCORE_HISTORY_FILE.write_text(json.dumps({
+        "schema": "p4-score-history.v1",
+        "scores": scores[-20:],
+        "last_updated": datetime.now(timezone.utc).isoformat(),
+    }, indent=2))
+
+
+def gvu_convergence_check(scores: list[float]) -> dict:
+    """GVU convergence check. Detects plateau or divergence."""
+    result = {"current_score": scores[-1] if scores else 0, "converged": False, "diverged": False}
+    if len(scores) < 3:
+        result["status"] = "insufficient_data"
+        return result
+    recent = scores[-3:]
+    mean = sum(recent) / len(recent)
+    variance = sum((s - mean) ** 2 for s in recent) / len(recent)
+    result["variance"] = round(variance, 2)
+    result["converged"] = variance < VARIANCE_THRESHOLD
+    if len(scores) >= 2:
+        drift = scores[-1] - scores[-2]
+        result["drift"] = round(drift, 2)
+        result["diverged"] = drift < DIVERGENCE_THRESHOLD
+    result["status"] = "DIVERGED" if result["diverged"] else "CONVERGED" if result["converged"] else "cycling"
+    return result
+
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 MEMORY_DIR = REPO_ROOT / "memory"
 SCRIPTS_DIR = REPO_ROOT / "scripts" / "memory"
@@ -235,6 +279,22 @@ def main():
         print(f"  L2: {l2.get('count', 0)} findings, avg eval_d9={l2.get('eval_d9_avg', 0)}")
         print(f"  L3: {l3.get('count', 0)} wiki entries")
         print(f"  Graph: {graph.get('findings', 0)} finding nodes")
+
+    # GVU convergence check (LANE-5)
+    score_history = load_score_history()
+    current_avg = scores["_avg"]
+    score_history.append(current_avg)
+    save_score_history(score_history)
+    gvu = gvu_convergence_check(score_history)
+    print(f"\n🔬 GVU Convergence (LANE-5):")
+    print(f"  Score history (last {len(score_history)}): {[round(s,1) for s in score_history[-5:]]}")
+    print(f"  Status: {gvu['status']}")
+    if gvu.get("diverged"):
+        print(f"  ⚠ DIVERGENCE: drift={gvu.get('drift')}pts — rollback recommended")
+    elif gvu.get("converged"):
+        print(f"  ✅ CONVERGED: variance={gvu.get('variance')} < threshold={VARIANCE_THRESHOLD}")
+    else:
+        print(f"  ⟳ Cycling: variance={gvu.get('variance', 'N/A')}")
 
     # Final gate
     if scores["_avg"] >= 80:
