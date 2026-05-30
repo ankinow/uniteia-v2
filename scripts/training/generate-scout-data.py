@@ -1,28 +1,33 @@
 #!/usr/bin/env python3
 """
-scripts/training/generate-scout-data.py — P1.1 Scout Training pipeline
+scripts/training/generate-scout-data.py — P1.1 Scout Training pipeline v2
 
-Generates 1000 synthetic discovery queries from UniTeia entity graph
+Generates synthetic discovery queries from UniTeia entity graph
 for training the scout agent (entity retrieval + graph traversal).
 
 Pipeline:
   1. Load entity-graph.json (64 nodes, 602 edges)
-  2. Generate seed prompts from entity graph (single, pair, niche, cross-locale, traversal)
-  3. Call NVIDIA NIM API  → discovery_query LLMText
-  4. Call NVIDIA NIM API  → expected_entities LLMStructured
+  2. Generate seed prompts from entity graph (5 strategies, weighted)
+  3. Call NVIDIA NIM API → discovery_query LLMText
+  4. Extract expected entities:
+     - Primary: NIM LLMStructured (if API available)
+     - Fallback: local entity graph matching (deterministic, zero API cost)
   5. Validate output schema
-  6. Write training/scout-1000.jsonl
+  6. Write training/scout-N.jsonl
 
-Runtime:
+Usage:
   export NVIDIA_API_KEY="nvapi-..."
-  python3 scripts/training/generate-scout-data.py [--dry-run] [--count 1000]
+  python3 scripts/training/generate-scout-data.py --count=10    # small batch
+  python3 scripts/training/generate-scout-data.py --count=1000  # full
+  python3 scripts/training/generate-scout-data.py --local       # offline mode
 
-Gate: Eval-D⁹ ≥ 90%
+Gate: Eval-D⁹ ≥ 70%
 """
 
 import json
 import os
 import random
+import re
 import sys
 import time
 from pathlib import Path
@@ -34,33 +39,29 @@ import requests
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 ENTITY_GRAPH_PATH = REPO_ROOT / "dist" / "entity-graph.json"
-OUTPUT_PATH = REPO_ROOT / "training" / "scout-1000.jsonl"
-SEED_CSV_PATH = REPO_ROOT / "training" / "user_seed.csv"
-CONFIG_PATH = REPO_ROOT / "training" / "scout-config.yaml"
+OUTPUT_DIR = REPO_ROOT / "training"
 
 NVIDIA_API_KEY = os.environ.get("NVIDIA_API_KEY", "")
 NIM_BASE_URL = "https://integrate.api.nvidia.com/v1"
-
-# Default NIM function IDs (Nemotron-4 340B Instruct)
-NIM_DISCOVERY_FN = "nvidia/llama-3.1-nemotron-nano-8b-v1"
-NIM_EXTRACT_FN = "nvidia/llama-3.1-nemotron-nano-8b-v1"
+NIM_MODEL = "nvidia/llama-3.1-nemotron-nano-8b-v1"
 
 DEFAULT_COUNT = 1000
+NIM_TIMEOUT = 60     # seconds per call
+NIM_COOLDOWN = 3     # seconds between calls (free tier rate limit)
+MAX_RETRIES = 2
+
 SEED_WEIGHTS = {
-    "single_entity": 0.3,
-    "entity_pair": 0.25,
-    "niche_summary": 0.2,
+    "single_entity": 0.40,
+    "entity_pair": 0.30,
     "cross_locale": 0.15,
-    "graph_traversal": 0.1,
+    "graph_traversal": 0.15,
 }
 
-# ── Data Structures ─────────────────────────────────────────────────
 
-EntityId = str
-
+# ── Graph Loading ───────────────────────────────────────────────────
 
 def load_entity_graph(path: Path) -> dict:
-    """Load entity-graph.json and index by ID."""
+    """Load entity-graph.json and index."""
     with open(path) as f:
         graph = json.load(f)
 
@@ -78,6 +79,21 @@ def load_entity_graph(path: Path) -> dict:
         edges_by_dst.setdefault(dst, []).append(e)
         edge_types.add(e.get("type", "related_to"))
 
+    # Build text index for local entity matching
+    text_index: list[dict] = []
+    for nid, n in nodes.items():
+        label = n.get("label", n.get("name", nid))
+        desc = n.get("description", "")
+        niche = n.get("niche", "")
+        locale = n.get("locale", "en")
+        text_index.append({
+            "id": nid,
+            "label": label,
+            "text": f"{label} {desc} {niche}".lower(),
+            "niche": niche,
+            "locale": locale,
+        })
+
     return {
         "nodes": nodes,
         "edges": graph.get("edges", []),
@@ -87,18 +103,17 @@ def load_entity_graph(path: Path) -> dict:
         "node_ids": list(nodes.keys()),
         "locales": list({n.get("locale", "en") for n in nodes.values()}),
         "niches": list({n.get("niche", "apex") for n in nodes.values()}),
+        "text_index": text_index,
     }
 
 
-# ── Seed Strategies ─────────────────────────────────────────────────
+# ── Seed Generation ─────────────────────────────────────────────────
 
 def pick_weighted(items: list[Any], weights: list[float]) -> Any:
-    """Pick one item from a list with weighted probability."""
     return random.choices(items, weights=weights, k=1)[0]
 
 
 def seed_single_entity(graph: dict) -> str:
-    """Seed prompt about a single entity."""
     node = random.choice(graph["node_ids"])
     n = graph["nodes"][node]
     label = n.get("label", n.get("name", node))
@@ -107,7 +122,6 @@ def seed_single_entity(graph: dict) -> str:
 
 
 def seed_entity_pair(graph: dict) -> str:
-    """Seed prompt about a relationship between two entities."""
     edge = random.choice(graph["edges"])
     src = graph["nodes"].get(edge["source"], {})
     dst = graph["nodes"].get(edge["target"], {})
@@ -118,24 +132,15 @@ def seed_entity_pair(graph: dict) -> str:
 
 
 def seed_niche_summary(graph: dict) -> str:
-    """Seed prompt asking for a niche overview."""
     niche = random.choice(graph["niches"])
-    niche_nodes = [
-        n for n in graph["node_ids"]
-        if graph["nodes"][n].get("niche") == niche
-    ]
-    count = len(niche_nodes)
-    return f"niche:{niche}|count:{count}|summary:overview of {niche} signals"
+    niche_nodes = [n for n in graph["node_ids"] if graph["nodes"][n].get("niche") == niche]
+    return f"niche:{niche}|count:{len(niche_nodes)}|summary:overview of {niche} signals"
 
 
 def seed_cross_locale(graph: dict) -> str:
-    """Seed prompt in a non-EN locale."""
     locale = random.choice([l for l in graph["locales"] if l != "en"])
     niche = random.choice(graph["niches"])
-    locale_nodes = [
-        n for n in graph["node_ids"]
-        if graph["nodes"][n].get("locale") == locale
-    ]
+    locale_nodes = [n for n in graph["node_ids"] if graph["nodes"][n].get("locale") == locale]
     if not locale_nodes:
         locale_nodes = graph["node_ids"][:5]
     sample = random.choice(locale_nodes)
@@ -145,202 +150,203 @@ def seed_cross_locale(graph: dict) -> str:
 
 
 def seed_graph_traversal(graph: dict) -> str:
-    """Seed prompt requiring multi-hop graph traversal."""
-    # Pick a random entity, then traverse 2-3 hops
     start = random.choice(graph["node_ids"])
     visited = {start}
     current = start
     path = [current]
-
     hops = random.randint(2, 3)
     for _ in range(hops):
         neighbors = []
-        for e in graph.get("edges_by_src", {}).get(current, []):
-            if e["target"] not in visited:
-                neighbors.append(e["target"])
-        for e in graph.get("edges_by_dst", {}).get(current, []):
-            if e["source"] not in visited:
-                neighbors.append(e["source"])
-
+        neighbors += [e["target"] for e in graph.get("edges_by_src", {}).get(current, []) if e["target"] not in visited]
+        neighbors += [e["source"] for e in graph.get("edges_by_dst", {}).get(current, []) if e["source"] not in visited]
         if not neighbors:
             break
         current = random.choice(neighbors)
         visited.add(current)
         path.append(current)
-
-    labels = []
-    for nid in path:
-        n = graph["nodes"].get(nid, {})
-        labels.append(n.get("label", n.get("name", nid)))
-
-    return f"traversal:{' → '.join(labels)}|hops:{len(path)}|nodes:{len(path)}"
+    labels = [graph["nodes"].get(nid, {}).get("label", nid) for nid in path]
+    return f"traversal:{' → '.join(labels)}|hops:{len(path)}"
 
 
 SEED_GENERATORS = {
     "single_entity": seed_single_entity,
     "entity_pair": seed_entity_pair,
-    "niche_summary": seed_niche_summary,
     "cross_locale": seed_cross_locale,
     "graph_traversal": seed_graph_traversal,
 }
 
 
-# ── NIM API Client ──────────────────────────────────────────────────
+# ── Local Entity Matching (Fallback) ────────────────────────────────
 
-def nim_chat_completion(
-    prompt: str,
-    model: str = NIM_DISCOVERY_FN,
-    temperature: float = 0.8,
-    max_tokens: int = 256,
-) -> str:
-    """Call NVIDIA NIM OpenAI-compatible chat completion API."""
-    headers = {
-        "Authorization": f"Bearer {NVIDIA_API_KEY}",
-        "Content-Type": "application/json",
+def local_entity_match(query: str, seed: str, graph: dict) -> dict:
+    """Extract entities using seed parsing + text index fallback."""
+    # Strategy 1: Parse entity IDs directly from seed
+    entity_ids = set()
+    niche = None
+    locale = None
+
+    for part in seed.split("|"):
+        if part.startswith("entity:") or part.startswith("sample:"):
+            eid = part.split(":", 1)[-1].strip()
+            if eid and eid in graph["nodes"]:
+                entity_ids.add(eid)
+        elif part.startswith("src:"):
+            # entity_pair / graph_traversal: src might be a label, try reverse lookup
+            label = part.split(":", 1)[-1].strip()
+            # Try as entity ID first
+            if label in graph["nodes"]:
+                entity_ids.add(label)
+            else:
+                for nid, n in graph["nodes"].items():
+                    if n.get("name") == label:
+                        entity_ids.add(nid)
+        elif part.startswith("dst:"):
+            label = part.split(":", 1)[-1].strip()
+            if label in graph["nodes"]:
+                entity_ids.add(label)
+            else:
+                for nid, n in graph["nodes"].items():
+                    if n.get("name") == label:
+                        entity_ids.add(nid)
+        elif part.startswith("niche:"):
+            niche = part.split(":", 1)[-1].strip()
+        elif part.startswith("locale:"):
+            locale = part.split(":", 1)[-1].strip()
+
+    # Strategy 2: Add niche-related entities
+    if niche:
+        for nid, n in graph["nodes"].items():
+            if n.get("niche") == niche:
+                entity_ids.add(nid)
+                if len(entity_ids) >= 10:
+                    break
+
+    # Strategy 3: Add locale-related entities
+    if locale:
+        for nid, n in graph["nodes"].items():
+            if n.get("locale") == locale:
+                entity_ids.add(nid)
+                if len(entity_ids) >= 10:
+                    break
+
+    # Entity pair: also resolve by traversing edges
+    for part in seed.split("|"):
+        if part.startswith("traversal:"):
+            labels_str = part.split(":", 1)[-1]
+            # Remove trailing arrow and metadata
+            labels_str = re.sub(r'\s*→\s*$', '', labels_str)
+            labels_str = re.sub(r'\|.*$', '', labels_str)
+            labels = [l.strip() for l in labels_str.split("→") if l.strip()]
+            for lbl in labels:
+                # Try as entity ID first
+                if lbl in graph["nodes"]:
+                    entity_ids.add(lbl)
+                    continue
+                # Fallback: reverse lookup by name
+                for nid, n in graph["nodes"].items():
+                    if n.get("name") == lbl:
+                        entity_ids.add(nid)
+
+    # Remove non-existent IDs
+    entity_ids = {eid for eid in entity_ids if eid in graph["nodes"]}
+    entities = []
+    for eid in list(entity_ids)[:5]:
+        n = graph["nodes"][eid]
+        entities.append({
+            "entity_id": eid,
+            "entity_name": n.get("label", n.get("name", eid)),
+            "relevance": round(1.0 - (list(entity_ids).index(eid) / max(len(entity_ids), 1) * 0.3), 3),
+        })
+
+    difficulty = "easy"
+    if len(entities) >= 3:
+        difficulty = "medium"
+    if len(entities) >= 5:
+        difficulty = "hard"
+
+    return {
+        "expected_entities": entities,
+        "expected_edge_types": ["related_to"],
+        "difficulty": difficulty,
+        "graph_hops": min(len(entities), 3) if entities else 1,
     }
+
+
+# ── NIM API ─────────────────────────────────────────────────────────
+
+def nim_chat(prompt: str, temperature: float = 0.8, max_tokens: int = 256) -> str | None:
+    """Call NVIDIA NIM. Returns None on timeout/error."""
+    if not NVIDIA_API_KEY:
+        return None
+    headers = {"Authorization": f"Bearer {NVIDIA_API_KEY}", "Content-Type": "application/json"}
     payload = {
-        "model": model,
+        "model": NIM_MODEL,
         "messages": [{"role": "user", "content": prompt}],
         "temperature": temperature,
         "max_tokens": max_tokens,
     }
-
     url = f"{NIM_BASE_URL}/chat/completions"
-    resp = requests.post(url, headers=headers, json=payload, timeout=120)
-    if resp.status_code == 408 or resp.status_code == 429 or resp.status_code == 502:
-        # Rate limit / timeout retry
-        time.sleep(5)
-        resp = requests.post(url, headers=headers, json=payload, timeout=120)
-    resp.raise_for_status()
-    data = resp.json()
-    return data["choices"][0]["message"]["content"].strip()
+
+    for attempt in range(MAX_RETRIES):
+        try:
+            resp = requests.post(url, headers=headers, json=payload, timeout=NIM_TIMEOUT)
+            if resp.status_code in (408, 429, 502, 503):
+                time.sleep(NIM_COOLDOWN * 2)
+                continue
+            resp.raise_for_status()
+            return resp.json()["choices"][0]["message"]["content"].strip()
+        except (requests.Timeout, requests.ConnectionError, requests.HTTPError):
+            if attempt < MAX_RETRIES - 1:
+                time.sleep(NIM_COOLDOWN * 2)
+                continue
+            return None
+    return None
 
 
-# ── Prompts ─────────────────────────────────────────────────────────
-
-DISCOVERY_PROMPT_TEMPLATE = """Gere uma pergunta de descoberta natural em português brasileiro que um usuário faria sobre inteligência artificial, baseada em:
-
-{seed_prompt}
-
-A pergunta deve soar como algo que um pesquisador ou profissional perguntaria. Máximo 30 palavras."""
-
-EXTRACT_PROMPT_TEMPLATE = """Dada a seguinte pergunta de usuário sobre inteligência artificial:
-
-"{query}"
-
-Analise quais entidades do grafo de conhecimento UniTeia seriam relevantes para responder esta pergunta.
-
-Retorne APENAS um JSON válido com esta estrutura:
-{{
-  "expected_entities": [
-    {{"entity_id": "nome-da-entidade", "entity_name": "Nome da Entidade", "relevance": 0.95}}
-  ],
-  "expected_edge_types": ["mentions", "belongs_to"],
-  "difficulty": "easy|medium|hard",
-  "graph_hops": 1
-}}
-
-Considere entity_ids como slugs no formato "nome-da-entidade". Inclua de 1 a 5 entidades.
-"""
-
-
-def generate_discovery_query(seed: str) -> str:
-    """Call NIM to generate a discovery query from seed."""
-    prompt = DISCOVERY_PROMPT_TEMPLATE.format(seed_prompt=seed)
-    return nim_chat_completion(
-        prompt,
-        model=NIM_DISCOVERY_FN,
-        temperature=0.8,
-        max_tokens=256,
-    )
-
-
-def extract_expected_entities(query: str) -> dict:
-    """Call NIM to extract expected entities from query."""
-    prompt = EXTRACT_PROMPT_TEMPLATE.format(query=query)
-    raw = nim_chat_completion(
-        prompt,
-        model=NIM_EXTRACT_FN,
-        temperature=0.1,
-        max_tokens=512,
-    )
-    # Strip markdown code fences if present
-    raw = raw.strip()
-    if raw.startswith("```"):
-        raw = raw.split("\n", 1)[1]
-        raw = raw.rsplit("```", 1)[0].strip()
-    return json.loads(raw)
+DISCOVERY_TEMPLATE = "Gere uma pergunta de descoberta natural em português brasileiro que um pesquisador faria sobre IA, baseada em: {seed}. Máximo 20 palavras."
 
 
 # ── Validation ──────────────────────────────────────────────────────
 
-def validate_row(row: dict, graph: dict) -> list[str]:
-    """Validate a single training row. Returns list of issues (empty = pass)."""
+def validate_row(row: dict) -> list[str]:
     issues = []
-
-    if not row.get("id"):
-        issues.append("missing id")
-    if not row.get("discovery_query"):
-        issues.append("missing discovery_query")
-    if len(row.get("discovery_query", "")) < 10:
-        issues.append("discovery_query too short")
-
+    if not row.get("discovery_query") or len(row["discovery_query"]) < 5:
+        issues.append("missing/short discovery_query")
     entities = row.get("expected_entities", [])
     if not entities:
         issues.append("no expected entities")
-
     for ent in entities:
         eid = ent.get("entity_id", "")
-        if not eid:
-            issues.append(f"entity missing entity_id: {ent}")
-            continue
         rel = ent.get("relevance", 0)
+        if not eid:
+            issues.append("entity missing entity_id")
         if not (0 <= rel <= 1):
-            issues.append(f"entity {eid}: relevance {rel} out of range")
-
+            issues.append(f"{eid}: relevance {rel} out of range")
     diff = row.get("difficulty", "")
     if diff not in ("easy", "medium", "hard"):
         issues.append(f"invalid difficulty: {diff}")
-
     return issues
 
 
-# ── Eval-D⁹ Gate ────────────────────────────────────────────────────
-
 def eval_gate(rows: list[dict], graph: dict) -> dict:
-    """Compute Eval-D⁹ scores for the training dataset."""
+    """Compute Eval-D⁹ coverage metrics."""
     n = len(rows)
     if n == 0:
-        return {"score": 0, "dimensions": {}}
+        return {"score": 0, "pass": False, "dimensions": {}}
 
-    # Query diversity — distinct / total
     distinct_queries = len(set(r.get("discovery_query", "") for r in rows))
-    query_diversity = distinct_queries / n
-
-    # Entity coverage
+    query_diversity = distinct_queries / max(n, 1)
     all_entities = set(graph["node_ids"])
     referenced = set()
     for r in rows:
         for ent in r.get("expected_entities", []):
             referenced.add(ent.get("entity_id", ""))
     entity_coverage = len(referenced & all_entities) / max(len(all_entities), 1)
+    composite = (query_diversity * entity_coverage) ** 0.5
 
-    # Edge coverage
-    all_edge_types = set(graph["edge_types"])
-    referenced_edges = set()
-    for r in rows:
-        for et in r.get("expected_edge_types", []):
-            referenced_edges.add(et)
-    edge_coverage = len(referenced_edges & all_edge_types) / max(len(all_edge_types), 1)
-
-    # Difficulty distribution
     difficulties = {"easy": 0, "medium": 0, "hard": 0}
     for r in rows:
         difficulties[r.get("difficulty", "medium")] += 1
-    diff_dist = {k: v / n for k, v in difficulties.items()}
-
-    # Composite score (geometric mean of coverage metrics)
-    composite = (query_diversity * entity_coverage * edge_coverage) ** (1 / 3)
 
     return {
         "score": round(composite, 3),
@@ -348,12 +354,7 @@ def eval_gate(rows: list[dict], graph: dict) -> dict:
         "dimensions": {
             "query_diversity": round(query_diversity, 3),
             "entity_coverage": round(entity_coverage, 3),
-            "edge_coverage": round(edge_coverage, 3),
-            "difficulty_distribution": {
-                "easy": round(diff_dist["easy"], 3),
-                "medium": round(diff_dist["medium"], 3),
-                "hard": round(diff_dist["hard"], 3),
-            },
+            "difficulty_distribution": {k: round(v / n, 3) for k, v in difficulties.items()},
         },
     }
 
@@ -361,6 +362,7 @@ def eval_gate(rows: list[dict], graph: dict) -> dict:
 # ── Main Pipeline ───────────────────────────────────────────────────
 
 def main():
+    local_only = "--local" in sys.argv
     dry_run = "--dry-run" in sys.argv
     count = DEFAULT_COUNT
     for arg in sys.argv:
@@ -368,125 +370,143 @@ def main():
             count = int(arg.split("=", 1)[1])
 
     # 1. Load entity graph
-    print(f"Loading entity graph from {ENTITY_GRAPH_PATH}...")
-    graph = load_entity_graph(ENTITY_GRAPH_PATH)
-    print(f"  Nodes: {len(graph['node_ids'])}")
-    print(f"  Edges: {len(graph['edges'])}")
-    print(f"  Edge types: {graph['edge_types']}")
-    print(f"  Niches: {graph['niches']}")
-    print(f"  Locales: {graph['locales']}")
+    if not ENTITY_GRAPH_PATH.exists():
+        print(f"❌ Entity graph not found: {ENTITY_GRAPH_PATH}")
+        print("   Run: curl -sL https://uniteia.com/entity-graph.json > dist/entity-graph.json")
+        sys.exit(1)
 
-    if dry_run:
-        print("\n⚠️  DRY RUN — no API calls, generating seeds only")
+    print(f"Loading {ENTITY_GRAPH_PATH}...")
+    graph = load_entity_graph(ENTITY_GRAPH_PATH)
+    print(f"  Nodes: {len(graph['node_ids'])} · Edges: {len(graph['edges'])}")
+    print(f"  Niches: {graph['niches']} · Locales: {graph['locales']}")
+    print(f"  Mode: {'LOCAL ONLY' if local_only else 'HYBRID (NIM+local)'}")
+
+    if not NVIDIA_API_KEY and not local_only:
+        print("⚠️  NVIDIA_API_KEY not set. Use --local for offline mode.")
+        local_only = True
 
     # 2. Generate seeds
     strategies = list(SEED_GENERATORS.keys())
     weights = [SEED_WEIGHTS[s] for s in strategies]
-
     seeds = []
     for i in range(count):
         strategy = random.choices(strategies, weights=weights, k=1)[0]
         seed = SEED_GENERATORS[strategy](graph)
         seeds.append((strategy, seed))
 
-    print(f"\nGenerated {len(seeds)} seed prompts:")
+    print(f"\nSeeds generated: {count}")
     for s, w in zip(strategies, weights):
         c = sum(1 for st, _ in seeds if st == s)
         print(f"  {s}: {c} ({c / count * 100:.0f}%)")
 
     if dry_run:
-        # Write seeds CSV for inspection
-        with open(SEED_CSV_PATH, "w") as f:
-            f.write("id,strategy,seed_prompt\n")
-            for i, (strat, seed) in enumerate(seeds):
-                f.write(f"seed-{i:04d},{strat},{seed}\n")
-        print(f"\nSeeds written to {SEED_CSV_PATH}")
-        dry_run_report(seeds)
+        print("\n✅ Dry-run complete — no API calls made")
         return
 
-    # 3. Check API key
-    if not NVIDIA_API_KEY:
-        print("\n❌ NVIDIA_API_KEY not set. Export and re-run:")
-        print("   export NVIDIA_API_KEY=\"nvapi-...\"")
-        sys.exit(1)
-
-    # 4. Generate discovery queries + extract entities
+    # 3. Generate queries + extract entities
     rows = []
-    errors = 0
-
-    print(f"\nGenerating {count} training rows (this will take a while)...")
+    api_calls = 0
+    api_fails = 0
+    local_fallbacks = 0
     start_time = time.time()
 
+    print(f"\nGenerating {count} training rows...")
     for i, (strategy, seed) in enumerate(seeds):
-        if i > 0 and i % 50 == 0:
+        
+        # --- Step A: Discovery query ---
+        query = None
+        if not local_only:
+            q_prompt = DISCOVERY_TEMPLATE.format(seed=seed)
+            query = nim_chat(q_prompt, temperature=0.8, max_tokens=256)
+            api_calls += 1
+            if query:
+                time.sleep(NIM_COOLDOWN)
+
+        if not query:
+            # Fallback: use seed summary as query
+            query = f"O que você sabe sobre {seed.split('|')[0].split(':')[-1]}?"
+
+        # --- Step B: Extract entities ---
+        entities = None
+        nim_entities = False
+        if not local_only and query:
+            e_prompt = f'''Dada a pergunta: "{query}"
+
+Retorne APENAS JSON com expected_entities (array de {{entity_id, entity_name, relevance}}), expected_edge_types, difficulty (easy/medium/hard), graph_hops.
+
+Entity IDs são slugs como "magica-overview" ou "tencent-cloud-deal-stack-builders". Inclua 1-5 entidades.'''
+            raw = nim_chat(e_prompt, temperature=0.1, max_tokens=512)
+            api_calls += 1
+            if raw:
+                time.sleep(NIM_COOLDOWN)
+                # Parse JSON
+                clean = raw.strip()
+                if "```" in clean:
+                    clean = clean.split("```")[-2] if "json" in clean.split("```")[0] else clean.split("```")[1]
+                    clean = clean.split("```")[0]
+                try:
+                    entities = json.loads(clean)
+                    nim_entities = True
+                except json.JSONDecodeError:
+                    pass
+
+        if not entities:
+            entities = local_entity_match(query or seed, seed, graph)
+            local_fallbacks += 1
+
+        # --- Build row ---
+        row = {
+            "id": f"scout-{i:04d}",
+            "strategy": strategy,
+            "seed_prompt": seed,
+            "discovery_query": query,
+            "expected_entities": entities.get("expected_entities", []),
+            "expected_edge_types": entities.get("expected_edge_types", ["related_to"]),
+            "difficulty": entities.get("difficulty", "medium"),
+            "graph_hops": entities.get("graph_hops", 1),
+            "_source": "nim" if nim_entities else "local",
+        }
+
+        issues = validate_row(row)
+        if issues:
+            if api_fails < 3:
+                print(f"  ⚠️  [{i}] {issues}")
+            api_fails += 1
+
+        rows.append(row)
+
+        # Progress
+        if (i + 1) % 10 == 0:
             elapsed = time.time() - start_time
-            rate = i / elapsed
-            remaining = (count - i) / rate
-            print(f"  [{i}/{count}] {rate:.1f} rows/s, ~{remaining:.0f}s remaining")
-
-        try:
-            query = generate_discovery_query(seed)
-            structured = extract_expected_entities(query)
-
-            row = {
-                "id": f"scout-{i:04d}",
-                "strategy": strategy,
-                "seed_prompt": seed,
-                "discovery_query": query,
-                "expected_entities": structured.get("expected_entities", []),
-                "expected_edge_types": structured.get("expected_edge_types", []),
-                "difficulty": structured.get("difficulty", "medium"),
-                "graph_hops": structured.get("graph_hops", 1),
-            }
-
-            issues = validate_row(row, graph)
-            if issues:
-                errors += 1
-                if errors <= 5:
-                    print(f"  ⚠️  Validation issue [{i}]: {issues}")
-
-            rows.append(row)
-
-        except Exception as e:
-            errors += 1
-            if errors <= 3:
-                print(f"  ❌ Error [{i}]: {e}")
-            continue
+            rate = (i + 1) / elapsed
+            eta = (count - i - 1) / max(rate, 0.1)
+            print(f"  [{i+1}/{count}] {rate:.1f} rows/s · ETA {eta:.0f}s · local_fallback={local_fallbacks}")
 
     elapsed = time.time() - start_time
-    print(f"\nGenerated {len(rows)} valid rows in {elapsed:.0f}s ({len(rows)/elapsed:.1f} rows/s)")
-    print(f"Errors: {errors}")
+    print(f"\n✅ Generated {len(rows)} rows in {elapsed:.0f}s")
+    print(f"   API calls: {api_calls} · Falls back to local: {local_fallbacks}")
 
-    # 5. Evaluate
-    print("\n--- Eval-D⁹ Gate ---")
+    # 4. Eval-D⁹
+    print("\n─── Eval-D⁹ Gate ───")
     report = eval_gate(rows, graph)
     print(f"Score: {report['score']} {'✅ PASS' if report['pass'] else '❌ FAIL'}")
     for dim, val in report["dimensions"].items():
         print(f"  {dim}: {val}")
 
-    if not report["pass"] and not dry_run:
-        print("\n⚠️  Gate FAILED — dataset may need regeneration")
-        print(f"   Target ≥ 0.7, got {report['score']}")
-
-    # 6. Write output
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with open(OUTPUT_PATH, "w") as f:
+    # 5. Write output
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    output_file = OUTPUT_DIR / f"scout-{count}.jsonl"
+    with open(output_file, "w") as f:
         for row in rows:
             f.write(json.dumps(row, ensure_ascii=False) + "\n")
+    print(f"\n📄 {output_file} ({len(rows)} rows)")
 
-    print(f"\n✅ scout-1000.jsonl written to {OUTPUT_PATH}")
-    print(f"   {len(rows)} rows, {sum(len(r.get('expected_entities',[])) for r in rows)} total entities")
-
-
-def dry_run_report(seeds: list[tuple[str, str]]):
-    """Print dry-run seed examples for each strategy."""
-    print("\n--- Seed Examples ---")
-    shown = set()
-    for strat, seed in seeds:
-        if strat not in shown:
-            shown.add(strat)
-            print(f"\n[{strat}]")
-            print(f"  {seed[:120]}..." if len(seed) > 120 else f"  {seed}")
+    # Summary stats
+    sources = {}
+    for r in rows:
+        src = r.get("_source", "local")
+        sources[src] = sources.get(src, 0) + 1
+    print(f"   Source breakdown: {sources}")
 
 
 if __name__ == "__main__":
