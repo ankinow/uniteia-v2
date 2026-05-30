@@ -1,0 +1,15 @@
+{
+  "id": "W-0099",
+  "title": "errors: ValidationError[] | null } {\n19:   const errors: ValidationError[] = [];",
+  "domain": "ops",
+  "content": "errors: ValidationError[] | null } {\n19:   const errors: ValidationError[] = [];\n20: \n21:   if (!isObject(data)) {\n22:     return { valid: false, errors: [{ keyword: \"type\", params: { type: \"object\" }, message: \"must be object\", instancePath: \"\" }] };\n23:   }\n24: \n25:   const required = (schema",
+  "actionability": "reference",
+  "cross_refs": [
+    "ops"
+  ],
+  "source_findings": [
+    "F-0099"
+  ],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-05-30T04:37:50.137378+00:00"
+}

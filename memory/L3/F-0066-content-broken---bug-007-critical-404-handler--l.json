@@ -1,0 +1,15 @@
+{
+  "id": "W-0066",
+  "title": "broken):**\n- ⚠️ BUG-007 (Critical): 404 handler — locale-prefixed 404s work corr",
+  "domain": "content",
+  "content": "broken):**\n- ⚠️ BUG-007 (Critical): 404 handler — locale-prefixed 404s work correctly (`/en/nonexistent-article` shows \"404 - Page Not Found | UniTeia\"), BUT root-level non-locale paths still error with \"Language X is not supported\"\n\n**STILL BROKEN:**\n- ❌ GAP-002 (Low): `/privacy` without locale redirect — same root issue, shows \"Language 'privacy' is not supported\"\n\n**NEW FINDING:**\n- ❌ Root-level catch-all: `/404`, `/privacy`, `/nonexistent-page` all fail with language negotiation error\n\nThe r",
+  "actionability": "reference",
+  "cross_refs": [
+    "content"
+  ],
+  "source_findings": [
+    "F-0066"
+  ],
+  "eval_d9_promotion": 95,
+  "promoted_at": "2026-05-30T04:36:22.610085+00:00"
+}

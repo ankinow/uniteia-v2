@@ -1,0 +1,2135 @@
+{
+  "schema": "L2_finding",
+  "generated": "2026-05-30T04:37:50.138611+00:00",
+  "total": 112,
+  "findings": [
+    {
+      "id": "F-0001",
+      "timestamp": "2026-05-30T04:37:50.011316+00:00",
+      "domain": "ops",
+      "source": "session-ses_1943.md",
+      "content": "problem, provide more context and re-dispatch with the same model\n2",
+      "eval_d9": 65,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0002",
+      "timestamp": "2026-05-30T04:37:50.011977+00:00",
+      "domain": "ops",
+      "source": "session-ses_1943.md",
+      "content": "error diagnosed\n**Failures**: File conflicts → resolve, retry | Permission errors → check perms, retry | Verification fail → rollback, return to BUILD | Rollback fails → **CRITICAL** → user intervention\n\n---\n\n### DOCS\n\n**In**: APPLY succeeded + user approved code | **Out**: Task docs, MB updates | **Exit**: All docs complete\n\n**CRITICAL**: Only enter after user approved code changes (from APPROVAL state)\n\n**Create**:\n1",
+      "eval_d9": 95,
+      "status": "promoted_L3",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0003",
+      "timestamp": "2026-05-30T04:37:50.012106+00:00",
+      "domain": "pipeline",
+      "source": "session-ses_1943.md",
+      "content": "problem or represent the same idea without any structural link (no import, no call, no citation), add a `semantically_similar_to` edge marked INFERRED with a confidence_score reflecting how similar they are (0",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "pipeline"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0004",
+      "timestamp": "2026-05-30T04:37:50.012188+00:00",
+      "domain": "ops",
+      "source": "session-ses_1943.md",
+      "content": "Falhar em qualquer uma → rejeitar",
+      "eval_d9": 50,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0005",
+      "timestamp": "2026-05-30T04:37:50.012227+00:00",
+      "domain": "ops",
+      "source": "session-ses_1943.md",
+      "content": "error_patterns[]\\\"\\n    strategy_library:\\n      track: \\\"Proven strategies per task type\\\"\\n      store: \\\"@soul",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0006",
+      "timestamp": "2026-05-30T04:37:50.012276+00:00",
+      "domain": "pipeline",
+      "source": "session-ses_1943.md",
+      "content": "Error: 'id'\n\n```\n\n---\n\n## Assistant (Build · DeepSeek V4 Flash · 5",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "pipeline"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0007",
+      "timestamp": "2026-05-30T04:37:50.012314+00:00",
+      "domain": "ops",
+      "source": "session-ses_1943.md",
+      "content": "error_patterns[]\n  4",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0008",
+      "timestamp": "2026-05-30T04:37:50.012343+00:00",
+      "domain": "ops",
+      "source": "session-ses_1943.md",
+      "content": "error: {e}')\\n    print('[]')\\n\\\" 2>&1\",\n  \"timeout\": 120000,\n  \"description\": \"Step 2",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0009",
+      "timestamp": "2026-05-30T04:37:50.012387+00:00",
+      "domain": "data",
+      "source": "session-ses_1943.md",
+      "content": "ERROR: Graph is empty')\\n    sys",
+      "eval_d9": 50,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "data"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0010",
+      "timestamp": "2026-05-30T04:37:50.012421+00:00",
+      "domain": "ops",
+      "source": "session-ses_1943.md",
+      "content": "problem_clarity:\\n    description: \\\"O problema está claramente definido?\\\"\\n    weight: 0",
+      "eval_d9": 65,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0011",
+      "timestamp": "2026-05-30T04:37:50.012475+00:00",
+      "domain": "ops",
+      "source": "session-ses_1943.md",
+      "content": "Error→fix pathway discovered\"\n378:       - \"User corrected approach (learn from correction)\"\n379:       - \"Non-trivial workflow pattern detected\"\n380:     output: \"@~/",
+      "eval_d9": 90,
+      "status": "promoted_L3",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0012",
+      "timestamp": "2026-05-30T04:37:50.012523+00:00",
+      "domain": "pipeline",
+      "source": "session-ses_1943.md",
+      "content": "errors, follows auth patterns)\n- ✅ Linter clean\n- ✅ Documentation plan: Will create `tasks/2025-10/251025_task-name",
+      "eval_d9": 80,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "pipeline"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0013",
+      "timestamp": "2026-05-30T04:37:50.012586+00:00",
+      "domain": "ops",
+      "source": "session-ses_1943.md",
+      "content": "problem_clarity:    \\\"O problema está claramente definido?\\\"\\n    solution_quality:   \\\"A solução propõe a resposta correta e completa?\\\"\\n    logical_flow:       \\\"O raciocínio segue uma sequência lógica sem saltos?\\\"\\n    evidence_use:       \\\"As afirmações são suportadas por evidências?\\\"\\n    alternative_view:   \\\"Alternativas foram consideradas e descartadas com razão?\\\"\\n    self_correction:    \\\"Erros foram identificados e corrigidos durante o processo?\\\"\\n    completeness:       \\\"A resp",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0014",
+      "timestamp": "2026-05-30T04:37:50.012774+00:00",
+      "domain": "ops",
+      "source": "session-ses_1943.md",
+      "content": "errors handled\n    [6330",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0015",
+      "timestamp": "2026-05-30T04:37:50.012802+00:00",
+      "domain": "ops",
+      "source": "session-ses_1943.md",
+      "content": "problematic changes\n3",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0016",
+      "timestamp": "2026-05-30T04:37:50.012824+00:00",
+      "domain": "agent",
+      "source": "session-ses_1943.md",
+      "content": "error_patterns\"\n291:       - \"Update MEMORY",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "agent"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0017",
+      "timestamp": "2026-05-30T04:37:50.012876+00:00",
+      "domain": "ops",
+      "source": "session-ses_1943.md",
+      "content": "Error→Diagnose→Fix→Retry)\n    │   ├─ ConsensusVote(multi_path → select_best)\n    │   └─ PoT(generate_code_to_validate_reasoning)\n    ├─ EvalDim9D(Perf⊕Read⊕Edge⊕Bias⊕Artifact⊕MPS⊕Feasib⊕Safe⊕Cost)\n    ├─ AutoResearch(Karpathy_Loop: hypothesize→experiment→log)\n    └─ AgentOps(Guardrails⊕Monitor⊕Audit⊕SelfHeal)\n\n  _execution_protocol:  # ∀ task T\n    steps:\n      1: \"DECOMPOSE — Break T into sub-intents (CHI)\"\n      2: \"BRANCH — Explore 2-5 parallel paths (MA-ToT)\"\n      3: \"ACT — Tool-calls first",
+      "eval_d9": 95,
+      "status": "promoted_L3",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0018",
+      "timestamp": "2026-05-30T04:37:50.013043+00:00",
+      "domain": "pipeline",
+      "source": "session-ses_1943.md",
+      "content": "errors (warnings OK with justification), coverage meets threshold, build succeeds\n**Exit (CONDITIONAL)**: Tests fail with documented waiver OR user grants waiver\n\n**Failures**: Tests fail → synthesize minimal patch, return to BUILD | Lint errors → fix, retry | Build fails → diagnose, return to BUILD\n\n**Retry Protocol**:\n- 1st fail: Analyze output, minimal fix, re-test\n- 2nd fail: Re-analyze approach, check environment, fix, re-test\n- 3rd fail: **STALL DETECTED** → request user input or agent swa",
+      "eval_d9": 85,
+      "status": "promoted_L3",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "pipeline"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0019",
+      "timestamp": "2026-05-30T04:37:50.013196+00:00",
+      "domain": "pipeline",
+      "source": "session-ses_1943.md",
+      "content": "Error: 'id'\n\n```\n\n---\n\n## Assistant (Build · DeepSeek V4 Flash · 7",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "pipeline"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0020",
+      "timestamp": "2026-05-30T04:37:50.013236+00:00",
+      "domain": "ops",
+      "source": "session-ses_1943.md",
+      "content": "error_patterns[], cem_history[]\n          L5_RELATIONSHIPS",
+      "eval_d9": 65,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 2,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "40e125893eaa38522dc1c586a11cb63775b81c0d",
+        "48eb4413c4f24157aa5fc3cb7b7ea74a",
+        "d4cce8f04235ae818685069f2a0deefcef4c2f"
+      ]
+    },
+    {
+      "id": "F-0021",
+      "timestamp": "2026-05-30T04:37:50.013275+00:00",
+      "domain": "ops",
+      "source": "session-ses_19ed.md",
+      "content": "error: Command failed: bun run ship:check\n signal: null,\n status: 1,\n output: [ null, null, null ],\n    pid: 74263,\n stdout: null,\n stderr: null,\n\n      at genericNodeError (node:child_process:998:13)\n      at checkExecSyncError (node:child_process:458:27)\n      at execSync (node:child_process:278:31)\n      at run (/home/lermf/uniteia-v2/scripts/deploy-code",
+      "eval_d9": 85,
+      "status": "promoted_L3",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0022",
+      "timestamp": "2026-05-30T04:37:50.013353+00:00",
+      "domain": "agent",
+      "source": "session-ses_19ed.md",
+      "content": "Error('JS eval disabled') } }` — this disables the eval path",
+      "eval_d9": 65,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "agent"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0023",
+      "timestamp": "2026-05-30T04:37:50.013388+00:00",
+      "domain": "agent",
+      "source": "session-ses_19ed.md",
+      "content": "Error:**\n```\nThe write tool was called with invalid arguments: SchemaError(Missing key\n  at [\"filePath\"])",
+      "eval_d9": 70,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "agent"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0024",
+      "timestamp": "2026-05-30T04:37:50.013422+00:00",
+      "domain": "content",
+      "source": "session-ses_19ed.md",
+      "content": "Error('JS eval disabled') } } })`\n- Returns `{ data, content }`\n\nUsage in `src/utils/schema-validation",
+      "eval_d9": 70,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "content"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0025",
+      "timestamp": "2026-05-30T04:37:50.013454+00:00",
+      "domain": "infra",
+      "source": "session-ses_19ed.md",
+      "content": "problems\u001b[0m [direct-eval]\n\n    server/q-tSzAgAKi",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "infra"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0026",
+      "timestamp": "2026-05-30T04:37:50.013494+00:00",
+      "domain": "ops",
+      "source": "session-ses_19ed.md",
+      "content": "error: script \"size:check\" exited with code 1\n❌ ship-check stopped at size:check",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0027",
+      "timestamp": "2026-05-30T04:37:50.013529+00:00",
+      "domain": "content",
+      "source": "session-ses_19ed.md",
+      "content": "error(s),new Response(String(s||\"Error\"),{status:500,headers:{\"Content-Type\":\"text/plain; charset=utf-8\",\"X-Error\":\"cloudflare-pages\"}})}}return n}const Dt=Pt({render:Ie,qwikCityPlan:ve,manifest:Ue}),Ut=Dt;export{Ut as fetch,Dt as onRequest};\n\n```\n\n---\n\n## Assistant (Plan · DeepSeek V4 Pro · 27",
+      "eval_d9": 85,
+      "status": "promoted_L3",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "content"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0028",
+      "timestamp": "2026-05-30T04:37:50.013626+00:00",
+      "domain": "ops",
+      "source": "session-ses_19ed.md",
+      "content": "error              Continue running other scripts when one fails (with --parallel/--sequential)\n      --watch                         Automatically restart the process on file change\n      --hot                           Enable auto reload in the Bun runtime, test runner, or bundler\n      --no-clear-screen               Disable clearing the terminal screen on reload when --hot or --watch is enabled\n      --smol                          Use less memory, but run garbage collection more often\n  -r,",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0029",
+      "timestamp": "2026-05-30T04:37:50.013776+00:00",
+      "domain": "ops",
+      "source": "session-ses_19ed.md",
+      "content": "Error(\"Rewrite does not support absolute urls\");return f",
+      "eval_d9": 65,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0030",
+      "timestamp": "2026-05-30T04:37:50.013806+00:00",
+      "domain": "agent",
+      "source": "session-ses_19ed.md",
+      "content": "Error('JS eval disabled')\n79:           },\n80:         },\n81:       })\n82:       const frontmatterSlug = parsed",
+      "eval_d9": 80,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "agent"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0031",
+      "timestamp": "2026-05-30T04:37:50.013837+00:00",
+      "domain": "content",
+      "source": "session-ses_19ed.md",
+      "content": "ErrorBoundary=false)\n- `/home/lermf/uniteia-v2/src/components/article-renderer/index",
+      "eval_d9": 65,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "content"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0032",
+      "timestamp": "2026-05-30T04:37:50.013876+00:00",
+      "domain": "ops",
+      "source": "session-ses_19ed.md",
+      "content": "error) {\n63:     const message = error instanceof Error ? error",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0033",
+      "timestamp": "2026-05-30T04:37:50.013904+00:00",
+      "domain": "agent",
+      "source": "session-ses_19ed.md",
+      "content": "Error('JS eval disabled')\n342:         },\n343:       },\n344:     })\n345:   } catch (error) {\n346:     const message = error instanceof Error ? error",
+      "eval_d9": 80,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "agent"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0034",
+      "timestamp": "2026-05-30T04:37:50.013944+00:00",
+      "domain": "pipeline",
+      "source": "session-ses_19ed.md",
+      "content": "problem? The eval in gray-matter is used for parsing frontmatter at build time, not at client runtime",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "pipeline"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0035",
+      "timestamp": "2026-05-30T04:37:50.013983+00:00",
+      "domain": "content",
+      "source": "session-ses_19ed.md",
+      "content": "Error } from '~/types/content'\\nimport { loadContent } from '~/utils/content-loader'\\n\\nlet warmupDone = false\\nbeforeAll(async () => {\\n  if (!warmupDone) {\\n    warmupDone = true\\n    try {\\n      await loadContent('apex', 'tencent-cloud-deal-stack-builders', 'en')\\n    } catch {}\\n  }\\n}, 60_000)\\n\\ndescribe('loadContent', () => {\\n  it('loads a valid English article and returns typed LlmWikiContent', async () => {\\n    const result = await loadContent('apex', 'tencent-cloud-deal-stack-builde",
+      "eval_d9": 85,
+      "status": "promoted_L3",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "content"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0036",
+      "timestamp": "2026-05-30T04:37:50.014089+00:00",
+      "domain": "infra",
+      "source": "session-ses_19ed.md",
+      "content": "error: script \"deploy:code\" exited with code 1\n\n```\n\n---\n\n## Assistant (Build · DeepSeek V4 Flash · 4",
+      "eval_d9": 80,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "infra"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0037",
+      "timestamp": "2026-05-30T04:37:50.014131+00:00",
+      "domain": "ops",
+      "source": "session-ses_19ed.md",
+      "content": "Error\"))),await o",
+      "eval_d9": 40,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0038",
+      "timestamp": "2026-05-30T04:37:50.014158+00:00",
+      "domain": "ops",
+      "source": "session-ses_19ed.md",
+      "content": "error) {\"\n}\n```\n\n**Output:**\n```\nEdit applied successfully",
+      "eval_d9": 65,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0039",
+      "timestamp": "2026-05-30T04:37:50.014192+00:00",
+      "domain": "ops",
+      "source": "session-ses_19ed.md",
+      "content": "error)\n347:     return {\n348:       valid: false,\n349:       errors: [\n\n(Showing lines 330-349 of 414",
+      "eval_d9": 80,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0040",
+      "timestamp": "2026-05-30T04:37:50.014232+00:00",
+      "domain": "ops",
+      "source": "session-ses_19ed.md",
+      "content": "error(500,\"Invalid request\")}}function yt(e){const t=V(e),{basePathname:n,originalUrl:r,sharedMap:i}=e,{pathname:a,search:s}=r,o=i",
+      "eval_d9": 80,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 3,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "20260524",
+        "5610dd3",
+        "48c0c2e98d37"
+      ]
+    },
+    {
+      "id": "F-0041",
+      "timestamp": "2026-05-30T04:37:50.014271+00:00",
+      "domain": "pipeline",
+      "source": "session-ses_1a02.md",
+      "content": "problem per PR\n- Test on at least one harness and report results in the environment table\n- Describe the problem you solved, not just what you changed\n\n</system-reminder>\n```\n\n**Tool: read**\n\n**Input:**\n```json\n{\n  \"filePath\": \"/home/lermf/",
+      "eval_d9": 65,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "pipeline"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0042",
+      "timestamp": "2026-05-30T04:37:50.014349+00:00",
+      "domain": "infra",
+      "source": "session-ses_1a02.md",
+      "content": "Problemas CRÍTICOS (Deploy Blockers)\nTable\n#\tProblema\tSeveridade\tOnde\n1\tNiche Landing Pages QUEBRADAS\t🔴 Alta\t/fr/signals/apex/ só mostra \"Skip to main content\" + título (sem cards, sem tópicos)",
+      "eval_d9": 70,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "infra"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0043",
+      "timestamp": "2026-05-30T04:37:50.014422+00:00",
+      "domain": "ui",
+      "source": "session-ses_1a02.md",
+      "content": "Problema identificado no CSS de produção:\ncss\nCopy\n\n/* CSS servido em produção (assets/BF9kNXci-style",
+      "eval_d9": 70,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "ui"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0044",
+      "timestamp": "2026-05-30T04:37:50.014464+00:00",
+      "domain": "content",
+      "source": "session-ses_1a02.md",
+      "content": "error(404, `Niche not found: ${nicheSlug}`)\n39:   }\n40: \n41:   const localeSlug = getNicheSlug(niche, lang as SupportedLanguage)\n42:   if (localeSlug !== nicheSlug) {\n43:     throw event",
+      "eval_d9": 80,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "content"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0045",
+      "timestamp": "2026-05-30T04:37:50.014506+00:00",
+      "domain": "pipeline",
+      "source": "session-ses_1a02.md",
+      "content": "error: script \"lint",
+      "eval_d9": 40,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "pipeline"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0046",
+      "timestamp": "2026-05-30T04:37:50.014526+00:00",
+      "domain": "ui",
+      "source": "session-ses_1a02.md",
+      "content": "BROKEN** - FR/JA/ZH niche landing pages don't render correctly\n2",
+      "eval_d9": 65,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "ui"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0047",
+      "timestamp": "2026-05-30T04:37:50.014562+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a02.md",
+      "content": "broken (FR/JA/ZH)\n3",
+      "eval_d9": 40,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0048",
+      "timestamp": "2026-05-30T04:37:50.014597+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a02.md",
+      "content": "errors were emitted while applying fixes",
+      "eval_d9": 50,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0049",
+      "timestamp": "2026-05-30T04:37:50.014630+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a02.md",
+      "content": "not working",
+      "eval_d9": 30,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0050",
+      "timestamp": "2026-05-30T04:37:50.014647+00:00",
+      "domain": "content",
+      "source": "session-ses_1a02.md",
+      "content": "Problema\n/fr/signals/apex/\tFR\tApenas \"Skip to main content\" + título",
+      "eval_d9": 55,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "content"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0051",
+      "timestamp": "2026-05-30T04:37:50.014686+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a02.md",
+      "content": "not working as expected",
+      "eval_d9": 50,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0052",
+      "timestamp": "2026-05-30T04:37:50.014708+00:00",
+      "domain": "ui",
+      "source": "session-ses_1a02.md",
+      "content": "Problemas de CSS - O CSS de produção parece ter os custom properties mas as classes text-display-xl, text-display-md, etc",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "ui"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0053",
+      "timestamp": "2026-05-30T04:37:50.014760+00:00",
+      "domain": "ui",
+      "source": "session-ses_1a02.md",
+      "content": "problema principal no screenshot era o **DopamineCard com fundo transparente**:\n\n```tsx\n// ANTES (inválido — gera ZERO CSS):\nbg-void/raised\n\n// DEPOIS:\nbg-raised  // #30363d — fundo sólido escuro\n```\n\nA classe `bg-void/raised` é **inválida no Tailwind** — `raised` não é um modificador de opacidade numérico",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "ui"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0054",
+      "timestamp": "2026-05-30T04:37:50.014848+00:00",
+      "domain": "content",
+      "source": "session-ses_1a02.md",
+      "content": "Error:**\n```\nFile not found: /home/lermf/uniteia-v2/content/niches/niches",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "content"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0055",
+      "timestamp": "2026-05-30T04:37:50.014876+00:00",
+      "domain": "content",
+      "source": "session-ses_1a02.md",
+      "content": "Problem:** Missing content dirs, untranslated boilerplate, empty niches",
+      "eval_d9": 55,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "content"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0056",
+      "timestamp": "2026-05-30T04:37:50.014909+00:00",
+      "domain": "ui",
+      "source": "session-ses_1a02.md",
+      "content": "problemas de \"gap\" e \"visual\", além de verificar se todos os idiomas e conteúdos estão corretos",
+      "eval_d9": 55,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "ui"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0057",
+      "timestamp": "2026-05-30T04:37:50.014947+00:00",
+      "domain": "infra",
+      "source": "session-ses_1a02.md",
+      "content": "error-pages/server-error",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "infra"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0058",
+      "timestamp": "2026-05-30T04:37:50.014974+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a02.md",
+      "content": "problem - it's English everywhere",
+      "eval_d9": 50,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0059",
+      "timestamp": "2026-05-30T04:37:50.015002+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a02.md",
+      "content": "error-pages/not-found",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0060",
+      "timestamp": "2026-05-30T04:37:50.015043+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a02.md",
+      "content": "Problemas de conteúdo:\n        Na homepage ES: \"Modelos de Lenguaje→ 1 signals · Q83\" - \"signals\" não está traduzido para espanhol\n        Na homepage FR: \"Modèles de Langage→ 1 signals · Q83\" - \"signals\" não traduzido\n        Na homepage DE: \"Sprachmodelle→ 1 signals · Q83\" - \"signals\" não traduzido\n        Na homepage IT: \"Modelli Linguistici→ 1 signals · Q83\" - \"signals\" não traduzido\n        Na homepage JA: \"言語モデル→ 1 signals · Q83\" - \"signals\" não traduzido\n        Na homepage ZH: \"语言模型→ 1 s",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 4,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "00d2d366",
+        "edb20080",
+        "f0e8d8bf"
+      ]
+    },
+    {
+      "id": "F-0061",
+      "timestamp": "2026-05-30T04:37:50.015223+00:00",
+      "domain": "pipeline",
+      "source": "session-ses_1a4f.md",
+      "content": "error: script \"lint\" exited with code 1\n214: \n215: ```\n216: \n217: ---\n218: \n219: ## Assistant (Build · DeepSeek V4 Flash · 4",
+      "eval_d9": 80,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "pipeline"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0062",
+      "timestamp": "2026-05-30T04:37:50.015268+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a4f.md",
+      "content": "error }) => {\\n  const lang = params",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0063",
+      "timestamp": "2026-05-30T04:37:50.015300+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a4f.md",
+      "content": "error (note only)  \n- Assuming JS-only behavior works for no-JS users\n\n**EXPECTED OUTPUT ARTIFACT**  \nSingle",
+      "eval_d9": 70,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0064",
+      "timestamp": "2026-05-30T04:37:50.015344+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a4f.md",
+      "content": "problem domain",
+      "eval_d9": 30,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0065",
+      "timestamp": "2026-05-30T04:37:50.015359+00:00",
+      "domain": "infra",
+      "source": "session-ses_1a4f.md",
+      "content": "problems\u001b[0m [direct-eval]\n\n    server/q-DiZMGP3I",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "infra"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0066",
+      "timestamp": "2026-05-30T04:37:50.015392+00:00",
+      "domain": "infra",
+      "source": "session-ses_1a4f.md",
+      "content": "broken-link post-Phase4 deploy (BUG-001 lang-switcher-segmented + BUG-002 privacy/terms + BUG-003 search SSR + BUG-004 frontmatter dedup + BUG-005 focus-visible + BUG-006 contrast + M019 AnalogConnector/SignalChip)",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "infra"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0067",
+      "timestamp": "2026-05-30T04:37:50.015455+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a4f.md",
+      "content": "error if missing/invalid)",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0068",
+      "timestamp": "2026-05-30T04:37:50.015482+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a4f.md",
+      "content": "error | Security vulnerability\n\n**Rollback Protocol**:\n1",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0069",
+      "timestamp": "2026-05-30T04:37:50.015512+00:00",
+      "domain": "ui",
+      "source": "session-ses_1a4f.md",
+      "content": "Problem:** Accidentally delete work\n1467: - **Fix:** Require typed \"discard\" confirmation\n1468: \n1469: ## Red Flags\n1470: \n1471: **Never:**\n1472: - Proceed with failing tests\n1473: - Merge without verifying tests on result\n1474: - Delete work without confirmation\n1475: - Force-push without explicit request\n1476: - Remove a worktree before confirming merge success\n1477: - Clean up worktrees you didn't create (provenance check)\n1478: - Run `git worktree remove` from inside the worktree\n1479: \n1480",
+      "eval_d9": 85,
+      "status": "promoted_L3",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ui"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0070",
+      "timestamp": "2026-05-30T04:37:50.015678+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a4f.md",
+      "content": "error(404, `Language \\\"${lang ?? 'unknown'}\\\" is not supported",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0071",
+      "timestamp": "2026-05-30T04:37:50.015709+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a4f.md",
+      "content": "problem\": \"UniTeia",
+      "eval_d9": 30,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0072",
+      "timestamp": "2026-05-30T04:37:50.015728+00:00",
+      "domain": "content",
+      "source": "session-ses_1a4f.md",
+      "content": "error(\n          `[content-loader] ${err",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "content"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0073",
+      "timestamp": "2026-05-30T04:37:50.015755+00:00",
+      "domain": "pipeline",
+      "source": "session-ses_1a4f.md",
+      "content": "error: script \"lint\" exited with code 1\n617: \n618: ```\n619: \n620: ---\n621: \n622: ## Assistant (Build · DeepSeek V4 Flash · 4",
+      "eval_d9": 80,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "pipeline"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0074",
+      "timestamp": "2026-05-30T04:37:50.015801+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a4f.md",
+      "content": "error says \"Language 'nonexistent-page-xyz' is not supported",
+      "eval_d9": 65,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0075",
+      "timestamp": "2026-05-30T04:37:50.015837+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a4f.md",
+      "content": "problem is that `[lang]` is a PARAMETERIZED route that matches ANY single first path segment",
+      "eval_d9": 55,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0076",
+      "timestamp": "2026-05-30T04:37:50.015879+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a4f.md",
+      "content": "error message in the codebase",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0077",
+      "timestamp": "2026-05-30T04:37:50.015911+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a4f.md",
+      "content": "error TS2345: Argument of type 'Buffer<ArrayBufferLike>' is not assignable to parameter of type 'BodyInit | null | undefined'",
+      "eval_d9": 80,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "7d0fa10a",
+        "3946e8d",
+        "53cf0d5"
+      ]
+    },
+    {
+      "id": "F-0078",
+      "timestamp": "2026-05-30T04:37:50.015943+00:00",
+      "domain": "infra",
+      "source": "session-ses_1a60.md",
+      "content": "error: Script not found \"deploy\"\n\n```\n\n---\n\n## Assistant (Build · DeepSeek V4 Flash · 2",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "infra"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0079",
+      "timestamp": "2026-05-30T04:37:50.015986+00:00",
+      "domain": "pipeline",
+      "source": "session-ses_1a60.md",
+      "content": "Problem:** Merge broken code, create failing PR\n1443: - **Fix:** Always verify tests before offering options\n1444: \n1445: **Open-ended questions**\n1446: - **Problem:** \"What should I do next?\" is ambiguous\n1447: - **Fix:** Present exactly 4 structured options (or 3 for detached HEAD)\n1448: \n1449: **Cleaning up worktree for Option 2**\n1450: - **Problem:** Remove worktree user needs for PR iteration\n1451: - **Fix:** Only cleanup for Options 1 and 4\n1452: \n1453: **Deleting branch before removing wo",
+      "eval_d9": 85,
+      "status": "promoted_L3",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "pipeline"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0080",
+      "timestamp": "2026-05-30T04:37:50.016165+00:00",
+      "domain": "data",
+      "source": "session-ses_1a60.md",
+      "content": "errors at runtime unless you enable the \"nodejs_compat\" compatibility flag",
+      "eval_d9": 55,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "data"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0081",
+      "timestamp": "2026-05-30T04:37:50.016204+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a60.md",
+      "content": "problematic\") |\n| `/home/lermf/uniteia-v2/UNITEIA-V2-FULL-REPORT",
+      "eval_d9": 65,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0082",
+      "timestamp": "2026-05-30T04:37:50.016247+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a60.md",
+      "content": "error in our new code — `noUncheckedIndexedAccess` makes `tabs[next]` potentially `undefined`",
+      "eval_d9": 65,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0083",
+      "timestamp": "2026-05-30T04:37:50.016293+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a60.md",
+      "content": "broken links | **ACTIVE BUG** |\n| 2 | `/home/lermf/uniteia-v2/src/routing/routes",
+      "eval_d9": 65,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0084",
+      "timestamp": "2026-05-30T04:37:50.016323+00:00",
+      "domain": "content",
+      "source": "session-ses_1a60.md",
+      "content": "ErrorBoundary label=\"Article Grid\">\n54:           <section\n55:             class=\"canvas-light ue5-illusion glass relative overflow-hidden rounded-3xl p-6 md:p-8 grain-4k\"\n56:             data-blur=\"lg\"\n57:           >\n58:             <div class=\"paper-fiber\" aria-hidden=\"true\" />\n59:             <div class=\"relative z-[var(--z-raised)]\">\n60:               <h2 class=\"text-2xl font-display tracking-[-1px] text-paper-text mb-6\">\n61:                 {t",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "content"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0085",
+      "timestamp": "2026-05-30T04:37:50.016426+00:00",
+      "domain": "infra",
+      "source": "session-ses_1a60.md",
+      "content": "problems\u001b[0m [direct-eval]\n\n    server/q-qjlhvYK5",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "infra"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0086",
+      "timestamp": "2026-05-30T04:37:50.016463+00:00",
+      "domain": "pipeline",
+      "source": "session-ses_1a60.md",
+      "content": "error handling\" / \"add validation\" / \"handle edge cases\"\n- \"Write tests for the above\" (without actual test code)\n- \"Similar to Task N\" (repeat the code — the engineer may be reading tasks out of order)\n- Steps that describe what to do without showing how (code blocks required for code steps)\n- References to types, functions, or methods not defined in any task\n\n## Remember\n- Exact file paths always\n- Complete code in every step — if a step changes code, show the code\n- Exact commands with expect",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "pipeline"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0087",
+      "timestamp": "2026-05-30T04:37:50.016630+00:00",
+      "domain": "content",
+      "source": "session-ses_1a60.md",
+      "content": "ErrorContent = component$(() => {\n       {/* Navigation back to home */}\n       <a\n         href=\"/\"\n-        class=\"error-home-link inline-flex items-center gap-2 px-6 py-3 bg-action text-void font-semibold rounded-lg hover:bg-action/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-action focus:ring-offset-2 focus:ring-offset-void\"\n+        class=\"error-home-link inline-flex items-center gap-2 px-6 py-3 bg-action text-void font-semibold rounded-lg hover:bg-action/90 ",
+      "eval_d9": 85,
+      "status": "promoted_L3",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "content"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0088",
+      "timestamp": "2026-05-30T04:37:50.016777+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a60.md",
+      "content": "error only)",
+      "eval_d9": 40,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0089",
+      "timestamp": "2026-05-30T04:37:50.016805+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a60.md",
+      "content": "error TS2532: Object is possibly 'undefined'",
+      "eval_d9": 70,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0090",
+      "timestamp": "2026-05-30T04:37:50.016840+00:00",
+      "domain": "ops",
+      "source": "session-ses_1a60.md",
+      "content": "error: Your local changes to the following files would be overwritten by checkout:\n1618: \tsrc/components/lang-switcher/index",
+      "eval_d9": 80,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0091",
+      "timestamp": "2026-05-30T04:37:50.016877+00:00",
+      "domain": "content",
+      "source": "session-ses_1a60.md",
+      "content": "ErrorBoundary } from '~/components/error-boundary'\n6: import { useI18n } from '~/i18n/context'\n7: import { nicheIndex } from '~/routing/routes'\n8: import { getLucideIconClass } from '~/utils/icon-classes'\n9: import { getNicheSlug } from '~/utils/niche-loader'\n10: import type { NicheLandingProps } from '",
+      "eval_d9": 85,
+      "status": "promoted_L3",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "content"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0092",
+      "timestamp": "2026-05-30T04:37:50.016935+00:00",
+      "domain": "content",
+      "source": "session-ses_1a60.md",
+      "content": "ErrorBoundary key={article",
+      "eval_d9": 50,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "content"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0093",
+      "timestamp": "2026-05-30T04:37:50.016965+00:00",
+      "domain": "pipeline",
+      "source": "session-ses_1a60.md",
+      "content": "quebrados em todos os 8 idiomas30 min2BUG-003: Search Input FallbackAdiciona campo input para no-JS45 min3BUG-004: \"Read in EN EN\" DuplicaçãoFix renderização condicional idioma ativo15 min4BUG-005: Focus Visible MissingAdiciona :focus-visible com ring-2 ring-cyan20 min5BUG-006: Contraste NeutromórficoAjusta para WCAG 3:1 mínimo30 min6M019: CerebralCard + AnalogConnector + SignalChipIntegra componentes Phase 4 no SiteShell2-3h7Deploy productionDeploy CF Pages com BUG-0015 min\n\nRecomendação: Execu",
+      "eval_d9": 90,
+      "status": "promoted_L3",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "pipeline"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0094",
+      "timestamp": "2026-05-30T04:37:50.017101+00:00",
+      "domain": "pipeline",
+      "source": "session-ses_1a60.md",
+      "content": "errors, typecheck clean (except pre-existing), all tests pass\n\n- [ ] **Step 2: CodeQL re-scan**\n\nVerify no new alerts introduced",
+      "eval_d9": 70,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "pipeline"
+      ],
+      "stash_refs": [
+        "c6c7ac0",
+        "3946e8d",
+        "a5d610f"
+      ]
+    },
+    {
+      "id": "F-0095",
+      "timestamp": "2026-05-30T04:37:50.017144+00:00",
+      "domain": "content",
+      "source": "session-ses_1b53.md",
+      "content": "errors : null };\n96: }\n\n(End of file - total 96 lines)\n</content>\n```\n\n**Tool: read**\n\n**Input:**\n```json\n{\n  \"filePath\": \"/home/lermf/uniteia-mega-factory/packages/engine/schemas/validator",
+      "eval_d9": 70,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "content"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0096",
+      "timestamp": "2026-05-30T04:37:50.017203+00:00",
+      "domain": "ops",
+      "source": "session-ses_1b53.md",
+      "content": "Error(\"rate limit\");\n34:       return \"ok-data\";\n35:     });\n36:     expect(result",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0097",
+      "timestamp": "2026-05-30T04:37:50.017241+00:00",
+      "domain": "ops",
+      "source": "session-ses_1b53.md",
+      "content": "errors with missingProperty\\\", () => {\\n    const result = validateCore({ spec: \\\"core/1\\\" });\\n    expect(result",
+      "eval_d9": 70,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0098",
+      "timestamp": "2026-05-30T04:37:50.017288+00:00",
+      "domain": "ops",
+      "source": "session-ses_1b53.md",
+      "content": "Error(\"always fails\");\n45:     });\n46:     expect(result",
+      "eval_d9": 75,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0099",
+      "timestamp": "2026-05-30T04:37:50.017327+00:00",
+      "domain": "ops",
+      "source": "session-ses_1b53.md",
+      "content": "errors: ValidationError[] | null } {\n19:   const errors: ValidationError[] = [];\n20: \n21:   if (!isObject(data)) {\n22:     return { valid: false, errors: [{ keyword: \"type\", params: { type: \"object\" }, message: \"must be object\", instancePath: \"\" }] };\n23:   }\n24: \n25:   const required = (schema",
+      "eval_d9": 85,
+      "status": "promoted_L3",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0100",
+      "timestamp": "2026-05-30T04:37:50.017401+00:00",
+      "domain": "ops",
+      "source": "session-ses_1b53.md",
+      "content": "error says TypeError: {} is not iterable",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0101",
+      "timestamp": "2026-05-30T04:37:50.017422+00:00",
+      "domain": "infra",
+      "source": "session-ses_1b53.md",
+      "content": "problems\u001b[0m [direct-eval]\n\n    server/q-C9orpu-4",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "infra"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0102",
+      "timestamp": "2026-05-30T04:37:50.017451+00:00",
+      "domain": "ui",
+      "source": "session-ses_1b53.md",
+      "content": "error TS2741: Property '\"visual-template\"' is missing in type '{ template: string; style: string; block: string; prompt: string; diagram: string; image: string; icon: string; }' but required in type 'Record<AssetKind, string>'",
+      "eval_d9": 85,
+      "status": "promoted_L3",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ui"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0103",
+      "timestamp": "2026-05-30T04:37:50.017508+00:00",
+      "domain": "ops",
+      "source": "session-ses_1b53.md",
+      "content": "problems_solved: [\"slow manual math\", \"errors in calculations\", \"complex problem solving\"],\n12:   target_audience: [\"students\"],\n13:   sources: [\n14:     { title: \"Math Source\", url: \"https://example",
+      "eval_d9": 70,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0104",
+      "timestamp": "2026-05-30T04:37:50.017570+00:00",
+      "domain": "ops",
+      "source": "session-ses_1b53.md",
+      "content": "errors on the 3 edited files",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0105",
+      "timestamp": "2026-05-30T04:37:50.017605+00:00",
+      "domain": "ops",
+      "source": "session-ses_1b53.md",
+      "content": "errors returned",
+      "eval_d9": 30,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0106",
+      "timestamp": "2026-05-30T04:37:50.017626+00:00",
+      "domain": "pipeline",
+      "source": "session-ses_1b53.md",
+      "content": "problem of importing the manifest at build time (the manifest IS the build output)",
+      "eval_d9": 55,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "pipeline"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0107",
+      "timestamp": "2026-05-30T04:37:50.017667+00:00",
+      "domain": "ops",
+      "source": "session-ses_1b53.md",
+      "content": "error message at line 40:14:\n35 |",
+      "eval_d9": 70,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0108",
+      "timestamp": "2026-05-30T04:37:50.017697+00:00",
+      "domain": "ops",
+      "source": "session-ses_1b53.md",
+      "content": "problems_solved\", 3);\n58:   checkStringArray(\"target_audience\", 1);\n59: \n60:   if (d",
+      "eval_d9": 65,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0109",
+      "timestamp": "2026-05-30T04:37:50.017739+00:00",
+      "domain": "ops",
+      "source": "session-ses_1b53.md",
+      "content": "error, fix, re-run until it passes or a real blocker requires user input",
+      "eval_d9": 90,
+      "status": "promoted_L3",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0110",
+      "timestamp": "2026-05-30T04:37:50.017774+00:00",
+      "domain": "ops",
+      "source": "session-ses_1b53.md",
+      "content": "errors : null };\\n}\"\n}\n```\n\n**Output:**\n```\nEdit applied successfully",
+      "eval_d9": 55,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0111",
+      "timestamp": "2026-05-30T04:37:50.017806+00:00",
+      "domain": "pipeline",
+      "source": "session-ses_1b53.md",
+      "content": "error handling? The pipeline task's quality",
+      "eval_d9": 60,
+      "status": "open",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "pipeline"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    },
+    {
+      "id": "F-0112",
+      "timestamp": "2026-05-30T04:37:50.017845+00:00",
+      "domain": "ops",
+      "source": "session-ses_1b53.md",
+      "content": "errors, null, 2));\\n\\\" 2>&1\",\n  \"description\": \"Debug validator errors\",\n  \"timeout\": 10000\n}\n```\n\n**Output:**\n```\n[\n  {\n    \"keyword\": \"pattern\",\n    \"params\": {\n      \"pattern\": \"^[A-Z_]+$\"\n    },\n    \"message\": \"apiKeyEnv must be UPPER_SNAKE_CASE\",\n    \"instancePath\": \"/providers/0/apiKeyEnv\"\n  },\n  {\n    \"keyword\": \"pattern\",\n    \"params\": {\n      \"pattern\": \"^[A-Z_]+$\"\n    },\n    \"message\": \"apiKeyEnv must be UPPER_SNAKE_CASE\",\n    \"instancePath\": \"/providers/1/apiKeyEnv\"\n  },\n  {\n    \"keyw",
+      "eval_d9": 85,
+      "status": "promoted_L3",
+      "deps_satisfied": false,
+      "age_days": 5,
+      "tags": [
+        "ops"
+      ],
+      "stash_refs": [
+        "9502ba08e198",
+        "3946e8d",
+        "d2ba45e"
+      ]
+    }
+  ]
+}
