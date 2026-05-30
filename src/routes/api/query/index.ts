@@ -102,12 +102,26 @@ async function loadGraph(req: Request, platform?: any): Promise<EntityGraph | nu
   }
 }
 
-async function loadEmbeddings(req: Request, platform?: any): Promise<EmbeddingIndex | null> {
+async function loadEmbeddings(req: Request, platform?: any): Promise<Record<string, number[]> | null> {
   try {
     const url = new URL('/entity-embeddings.json', req.url).toString()
     const resp = await fetch(url)
     if (!resp.ok) return null
-    return await resp.json()
+    const data = await resp.json()
+    // File is a flat map: { "entity-id": [0.1, 0.2, ...], ... }
+    // Or wrapped: { "embeddings": { ... }, "dimensions": 1024 }
+    if (data && typeof data === 'object' && !Array.isArray(data)) {
+      // Check if wrapped
+      if (data.embeddings && typeof data.embeddings === 'object') {
+        return data.embeddings
+      }
+      // Flat map — all values are arrays
+      const firstVal = Object.values(data)[0]
+      if (firstVal && Array.isArray(firstVal)) {
+        return data as Record<string, number[]>
+      }
+    }
+    return null
   } catch {
     return null
   }
@@ -139,7 +153,15 @@ export const onGet: RequestHandler = async ({ query, json, status, request, plat
   }
 
   const embeddings = await loadEmbeddings(request, platform as any)
-  const queryVec = hashEmbed(q, embeddings?.dimensions ?? 1024)
+
+  // Get dimensions from first vector or default to 1024
+  let dims = 1024
+  const firstEmbedding = embeddings ? Object.values(embeddings)[0] : undefined
+  if (firstEmbedding && Array.isArray(firstEmbedding) && firstEmbedding.length > 0) {
+    dims = firstEmbedding.length
+  }
+
+  const queryVec = hashEmbed(q, dims)
 
   // Score each node by cosine similarity
   const results: SearchResult[] = []
@@ -151,8 +173,9 @@ export const onGet: RequestHandler = async ({ query, json, status, request, plat
     let score = 0
 
     // Semantic score
-    if (embeddings?.embeddings?.[node.id]) {
-      score = cosineSimilarity(queryVec, embeddings.embeddings[node.id])
+    const nodeEmbedding = embeddings ? embeddings[node.id] : undefined
+    if (nodeEmbedding) {
+      score = cosineSimilarity(queryVec, nodeEmbedding)
     } else {
       // Fallback: keyword matching
       const nameLower = (node.name ?? '').toLowerCase()

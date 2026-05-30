@@ -10,6 +10,8 @@
     "/favicon.svg",
     "/q-manifest.json",
     "/entity-graph.json",
-    "/entity-graph.stats.json"
+    "/entity-graph.stats.json",
+    "/entity-embeddings.json",
+    "/entity-embeddings.meta.json"
   ]
 }
