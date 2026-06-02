@@ -86,6 +86,25 @@ export interface TranslationStrings {
       languages: string
       outputLabel: string
     }
+    canvaMagicaProduction: {
+      magicaWorkflowBuilder: string
+      unifiedPromptEngineering: string
+      magicaCommandCenter: string
+      magicaDescription: string
+      aiProcessing: string
+      nodeBasedPromptChaining: string
+      architecture: string
+      multiModelFallback: string
+      startBuilding: string
+      tryMagicaFree: string
+      visitMagica: string
+      qualityScore: string
+      languages: string
+      workflowVisualization: string
+      keyMetrics: string
+      workflowSteps: string
+      poweredBy: string
+    }
   }
   niche: {
     topicsLabel: string
