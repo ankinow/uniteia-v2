@@ -6,6 +6,7 @@ import {
   useLocation,
 } from '@builder.io/qwik-city'
 import { ArticleRenderer } from '~/components/article-renderer'
+import { CanvaMagicaOverview } from '~/components/canva/CanvaMagicaOverview'
 import { JSONLD } from '~/components/json-ld'
 import { LivingBrief2Col } from '~/components/living-brief'
 import type { LivingBriefCollageProps } from '~/components/living-brief/types'
@@ -193,7 +194,17 @@ export default component$(() => {
 
   return (
     <>
-      {storyboardLayout ? (
+      {storyboardLayout && content.value.slug === 'magica-overview' ? (
+        <>
+          <CanvaMagicaOverview
+            qualityScore={84}
+            languages={8}
+            features={['nodeBasedPromptChaining', 'multiModelFallback', 'realTimeLatencyTelemetry']}
+          />
+          <JSONLD data={webPageSchema} />
+          <ArticleRenderer {...rendererProps} />
+        </>
+      ) : storyboardLayout ? (
         <StoryboardGrid layout={storyboardLayout} />
       ) : (
         <LivingBrief2Col

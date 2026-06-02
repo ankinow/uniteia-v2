@@ -33,7 +33,7 @@ module.exports = {
     assert: {
       assertions: {
         // Categories (dev thresholds — production targets higher)
-        'categories:performance': ['warn', { minScore: 0.50 }],
+        'categories:performance': ['warn', { minScore: 0.5 }],
         'categories:accessibility': ['error', { minScore: 1.0 }],
         'categories:best-practices': ['error', { minScore: 0.95 }],
         'categories:seo': ['error', { minScore: 1.0 }],
@@ -50,8 +50,8 @@ module.exports = {
         'meta-description': ['error', { minScore: 1 }],
 
         // SEO — MUST pass
-        'hreflang': ['error', { minScore: 1 }],
-        'canonical': ['error', { minScore: 1 }],
+        hreflang: ['error', { minScore: 1 }],
+        canonical: ['error', { minScore: 1 }],
         'crawlable-links': ['error', { minScore: 1 }],
         'is-crawlable': ['error', { minScore: 1 }],
         'link-text': ['warn', { minScore: 1 }],

@@ -8,14 +8,9 @@
  * Integrates with existing i18n system via useCanvaI18n() hook.
  * All text is localized across 8 languages (en/pt/es/fr/de/it/ja/zh).
  */
-import {
-  component$,
-  useSignal,
-  useVisibleTask$,
-  useStylesScoped$,
-} from '@builder.io/qwik'
+import { component$, useSignal, useStylesScoped$, useVisibleTask$ } from '@builder.io/qwik'
 import { useLocation } from '@builder.io/qwik-city'
-import { useCanvaI18n } from '~/hooks/useCanvaI18n'
+import { useCanvaMagicaT } from '~/hooks/useCanvaI18n'
 import styles from './canva.module.css?inline'
 
 interface CanvaCard {
@@ -39,7 +34,7 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
     const lang = loc.params.lang || 'en'
     useStylesScoped$(styles)
 
-    const { t } = useCanvaI18n()
+    const t = useCanvaMagicaT(lang)
     const isVisible = useSignal(false)
     const hoveredCard = useSignal<number | null>(null)
 
@@ -55,32 +50,29 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
     const cards: CanvaCard[] = [
       {
         id: 'command-center',
-        title: t('magicaCommandCenter'),
-        description: t('magicaDescription'),
+        title: t.magicaCommandCenter,
+        description: t.magicaDescription,
         icon: '⚡',
         material: 'carbon-glass',
       },
       {
         id: 'ai-processing',
-        title: t('aiProcessing'),
-        description:
-          features.length > 0
-            ? features.join(' • ')
-            : t('nodeBasedPromptChaining'),
+        title: t.aiProcessing,
+        description: features.length > 0 ? features.join(' • ') : t.nodeBasedPromptChaining,
         icon: '🧠',
         material: 'frosted-glass',
       },
       {
         id: 'architecture',
-        title: t('architecture'),
-        description: t('multiModelFallback'),
+        title: t.architecture,
+        description: t.multiModelFallback,
         icon: '🏗️',
         material: 'torn-paper',
       },
       {
         id: 'start-building',
-        title: t('startBuilding'),
-        description: t('tryMagicaFree'),
+        title: t.startBuilding,
+        description: t.tryMagicaFree,
         icon: '🚀',
         material: 'chrome-cyan-gold',
         isCta: true,
@@ -90,7 +82,7 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
     return (
       <section
         class={`canva-container ${isVisible.value ? 'visible' : ''}`}
-        aria-label={t('workflowVisualization')}
+        aria-label={t.workflowVisualization}
         data-lang={lang}
       >
         {/* Ambient background orbs */}
@@ -101,19 +93,19 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
 
         {/* Header */}
         <header class="canva-header">
-          <h1 class="canva-title">{t('magicaWorkflowBuilder')}</h1>
-          <p class="canva-subtitle">{t('unifiedPromptEngineering')}</p>
+          <h1 class="canva-title">{t.magicaWorkflowBuilder}</h1>
+          <p class="canva-subtitle">{t.unifiedPromptEngineering}</p>
         </header>
 
         {/* Stats bar */}
-        <div class="stats-bar" role="region" aria-label={t('keyMetrics')}>
+        <div class="stats-bar" role="region" aria-label={t.keyMetrics}>
           <div class="stat-pill" style={{ '--stagger-delay': '0ms' }}>
             <span class="stat-value">{qualityScore}</span>
-            <span class="stat-label">{t('qualityScore')}</span>
+            <span class="stat-label">{t.qualityScore}</span>
           </div>
           <div class="stat-pill" style={{ '--stagger-delay': '150ms' }}>
             <span class="stat-value">{languages}</span>
-            <span class="stat-label">{t('languages')}</span>
+            <span class="stat-label">{t.languages}</span>
           </div>
         </div>
 
@@ -126,26 +118,13 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
             aria-hidden="true"
           >
             <defs>
-              <linearGradient
-                id="pathGradient"
-                x1="0%"
-                y1="0%"
-                x2="100%"
-                y2="100%"
-              >
+              <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.8" />
                 <stop offset="50%" stop-color="#8b5cf6" stop-opacity="0.6" />
-                <stop
-                  offset="100%"
-                  stop-color="#f59e0b"
-                  stop-opacity="0.8"
-                />
+                <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.8" />
               </linearGradient>
               <filter id="glow">
-                <feGaussianBlur
-                  stdDeviation="3"
-                  result="coloredBlur"
-                />
+                <feGaussianBlur stdDeviation="3" result="coloredBlur" />
                 <feMerge>
                   <feMergeNode in="coloredBlur" />
                   <feMergeNode in="SourceGraphic" />
@@ -207,8 +186,6 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
               onMouseLeave$={() => (hoveredCard.value = null)}
               onFocusIn$={() => (hoveredCard.value = i)}
               onFocusOut$={() => (hoveredCard.value = null)}
-              tabIndex={0}
-              role="article"
               aria-label={`${card.title}: ${card.description}`}
             >
               <div class="card-glow" aria-hidden="true" />
@@ -222,14 +199,10 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
                   <a
                     href="https://try.magica.com/clique-serio"
                     class="cta-button"
-                    aria-label={t('visitMagica')}
+                    aria-label={t.visitMagica}
                   >
-                    {t('visitMagica')}
-                    <svg
-                      class="cta-arrow"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
+                    {t.visitMagica}
+                    <svg class="cta-arrow" viewBox="0 0 24 24" aria-hidden="true">
                       <path
                         d="M5 12h14M12 5l7 7-7 7"
                         stroke="currentColor"
@@ -247,13 +220,9 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
         </div>
 
         {/* Mobile: linear flow */}
-        <div class="mobile-flow" role="main" aria-label={t('workflowSteps')}>
+        <div class="mobile-flow" role="main" aria-label={t.workflowSteps}>
           {cards.map((card, i) => (
-            <div
-              key={card.id}
-              class="mobile-step"
-              style={{ '--stagger-delay': `${i * 100}ms` }}
-            >
+            <div key={card.id} class="mobile-step" style={{ '--stagger-delay': `${i * 100}ms` }}>
               <div class={`mobile-dot material-${card.material}`} />
               <div class="mobile-card">
                 <h3>{card.title}</h3>
@@ -262,9 +231,9 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
                   <a
                     href="https://try.magica.com/clique-serio"
                     class="mobile-cta"
-                    aria-label={t('visitMagica')}
+                    aria-label={t.visitMagica}
                   >
-                    {t('visitMagica')} →
+                    {t.visitMagica} →
                   </a>
                 )}
               </div>
@@ -276,9 +245,7 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
         {/* Footer */}
         <footer class="canva-footer">
           <p>
-            {t('poweredBy')}{' '}
-            <span class="brand">UniTeia</span> ×{' '}
-            <span class="brand">Hermes</span>
+            {t.poweredBy} <span class="brand">UniTeia</span> × <span class="brand">Hermes</span>
           </p>
         </footer>
       </section>
