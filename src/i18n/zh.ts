@@ -73,6 +73,17 @@ export const zh: TranslationStrings = {
         button: '访问 Magica',
       },
     },
+    canvaMagica: {
+      workflowTitle: 'Magica工作流构建器',
+      inputLabel: '输入',
+      aiProcessing: {
+        title: 'AI处理',
+        subtitle: '基于节点的提示链',
+      },
+      qualityScore: '84质量评分',
+      languages: '8种语言',
+      outputLabel: '提示 → 模型路由器 → 输出',
+    },
   },
   niche: {
     topicsLabel: '主题',

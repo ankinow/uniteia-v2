@@ -74,6 +74,17 @@ export const it: TranslationStrings = {
         button: 'Visita Magica',
       },
     },
+    canvaMagica: {
+      workflowTitle: 'Costruttore di Flussi di Lavoro Magica',
+      inputLabel: 'INPUT',
+      aiProcessing: {
+        title: 'ELABORAZIONE AI',
+        subtitle: 'Concatenamento di prompt basato su nodi',
+      },
+      qualityScore: '84 punteggio di qualità',
+      languages: '8 lingue',
+      outputLabel: 'Prompt → Router di Modelli → Output',
+    },
   },
   niche: {
     topicsLabel: 'Argomenti',

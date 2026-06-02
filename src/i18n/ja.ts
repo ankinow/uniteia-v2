@@ -73,6 +73,17 @@ export const ja: TranslationStrings = {
         button: 'Magicaを見る',
       },
     },
+    canvaMagica: {
+      workflowTitle: 'Magicaワークフロービルダー',
+      inputLabel: '入力',
+      aiProcessing: {
+        title: 'AI処理',
+        subtitle: 'ノードベースのプロンプトチェーン',
+      },
+      qualityScore: '84品質スコア',
+      languages: '8言語',
+      outputLabel: 'プロンプト → モデルルーター → 出力',
+    },
   },
   niche: {
     topicsLabel: 'トピック',

@@ -74,6 +74,17 @@ export const de: TranslationStrings = {
         button: 'Magica besuchen',
       },
     },
+    canvaMagica: {
+      workflowTitle: 'Magica-Workflow-Builder',
+      inputLabel: 'EINGABE',
+      aiProcessing: {
+        title: 'KI-VERARBEITUNG',
+        subtitle: 'Knotenbasiertes Prompt-Chaining',
+      },
+      qualityScore: '84 Qualitätsbewertung',
+      languages: '8 Sprachen',
+      outputLabel: 'Prompt → Modell-Router → Ausgabe',
+    },
   },
   niche: {
     topicsLabel: 'Themen',

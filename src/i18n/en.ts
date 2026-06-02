@@ -73,6 +73,17 @@ export const en: TranslationStrings = {
         button: 'Visit Magica',
       },
     },
+    canvaMagica: {
+      workflowTitle: 'Magica Workflow Builder',
+      inputLabel: 'INPUT',
+      aiProcessing: {
+        title: 'AI PROCESSING',
+        subtitle: 'Node-based prompt chaining',
+      },
+      qualityScore: '84 quality score',
+      languages: '8 languages',
+      outputLabel: 'Prompt → Model Router → Output',
+    },
   },
   niche: {
     topicsLabel: 'Topics',

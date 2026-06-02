@@ -73,6 +73,17 @@ export const es: TranslationStrings = {
         button: 'Visitar Magica',
       },
     },
+    canvaMagica: {
+      workflowTitle: 'Constructor de Flujo de Trabajo Magica',
+      inputLabel: 'ENTRADA',
+      aiProcessing: {
+        title: 'PROCESAMIENTO DE IA',
+        subtitle: 'Encadenamiento de prompts basado en nodos',
+      },
+      qualityScore: '84 puntos de calidad',
+      languages: '8 idiomas',
+      outputLabel: 'Prompt → Enrutador de Modelos → Salida',
+    },
   },
   niche: {
     topicsLabel: 'Temas',

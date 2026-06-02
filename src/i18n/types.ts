@@ -75,6 +75,17 @@ export interface TranslationStrings {
       architecture: { title: string; point1: string; point2: string; point3: string }
       cta: { title: string; body: string; button: string }
     }
+    canvaMagica: {
+      workflowTitle: string
+      inputLabel: string
+      aiProcessing: {
+        title: string
+        subtitle: string
+      }
+      qualityScore: string
+      languages: string
+      outputLabel: string
+    }
   }
   niche: {
     topicsLabel: string
