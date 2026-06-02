@@ -9,6 +9,7 @@
 @plugin "@tailwindcss/typography";
 @plugin "@iconify/tailwind4";
 @import "./assets/components-utilities.css";
+@import "./assets/uniteia-tokens.css";
 
 /* ═══════════════════════════════════════════
    DESIGN TOKENS — CSS-first @theme (Oxide)

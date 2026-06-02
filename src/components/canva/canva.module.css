@@ -5,29 +5,18 @@
 
 /* ─── Design Tokens ─── */
 .canva-container {
-  --carbon-glass-bg: rgba(15, 14, 13, 0.85);
-  --carbon-glass-border: rgba(59, 130, 246, 0.3);
-  --carbon-glass-blur: 24px;
+  --chrome-cyan: var(--accent-cyan, #00d4aa);
+  --chrome-gold: var(--accent-gold, #ffd700);
+  --chrome-gradient: var(--material-chrome-gradient, linear-gradient(135deg, var(--chrome-cyan), var(--chrome-gold)));
 
-  --frosted-glass-bg: rgba(242, 240, 233, 0.7);
-  --frosted-glass-border: rgba(139, 92, 246, 0.2);
-  --frosted-glass-blur: 12px;
-
-  --torn-paper-bg: #e8ddc8;
-  --torn-paper-border: #d4c4a8;
-
-  --chrome-cyan: #00d4aa;
-  --chrome-gold: #ffd700;
-  --chrome-gradient: linear-gradient(135deg, var(--chrome-cyan), var(--chrome-gold));
-
-  --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-smooth: var(--ease-smooth, cubic-bezier(0.4, 0, 0.2, 1));
+  --transition-bounce: var(--ease-bounce, cubic-bezier(0.68, -0.55, 0.265, 1.55));
 
   position: relative;
   width: 100%;
   min-height: 100vh;
   padding: 2rem 1rem;
-  background: #f2f0e9;
+  background: var(--color-bg-primary, #f2f0e9);
   overflow-x: hidden;
   contain: layout style paint;
 }
@@ -110,7 +99,7 @@
 
 .canva-subtitle {
   font-size: clamp(0.875rem, 1.5vw, 1.125rem);
-  color: #6b7280;
+  color: var(--color-text-secondary, #6b7280);
   margin: 0 auto;
   max-width: 600px;
 }
@@ -320,31 +309,31 @@
 
 /* ─── Materials ─── */
 .material-carbon-glass {
-  background: var(--carbon-glass-bg);
-  backdrop-filter: blur(var(--carbon-glass-blur));
-  -webkit-backdrop-filter: blur(var(--carbon-glass-blur));
-  color: #f2f0e9;
+  background: var(--material-carbon-bg, rgba(15, 14, 13, 0.85));
+  backdrop-filter: blur(var(--material-carbon-blur, 24px));
+  -webkit-backdrop-filter: blur(var(--material-carbon-blur, 24px));
+  color: var(--color-text-inverse, #f2f0e9);
 }
 
 .material-carbon-glass .card-title {
-  color: #f2f0e9;
+  color: var(--color-text-inverse, #f2f0e9);
 }
 
 .material-carbon-glass .card-description {
-  color: rgba(242, 240, 233, 0.8);
+  color: var(--color-text-muted, rgba(242, 240, 233, 0.8));
 }
 
 .material-frosted-glass {
-  background: var(--frosted-glass-bg);
-  backdrop-filter: blur(var(--frosted-glass-blur));
-  -webkit-backdrop-filter: blur(var(--frosted-glass-blur));
-  color: #0f0e0d;
+  background: var(--material-frosted-bg, rgba(242, 240, 233, 0.7));
+  backdrop-filter: blur(var(--material-frosted-blur, 12px));
+  -webkit-backdrop-filter: blur(var(--material-frosted-blur, 12px));
+  color: var(--color-text-primary, #0f0e0d);
 }
 
 .material-torn-paper {
-  background: var(--torn-paper-bg);
+  background: var(--material-paper-bg, #e8ddc8);
   color: #3d3425;
-  border-radius: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: var(--material-paper-radius, 0.5rem 2rem 0.5rem 2rem);
 }
 
 .material-torn-paper .card-title {
@@ -352,14 +341,14 @@
 }
 
 .material-chrome-cyan-gold {
-  background: var(--chrome-gradient);
-  color: #0f0e0d;
-  box-shadow: 0 4px 15px rgba(0, 212, 170, 0.3);
+  background: var(--material-chrome-gradient, linear-gradient(135deg, var(--accent-cyan, #00d4aa), var(--accent-gold, #ffd700)));
+  color: var(--color-text-primary, #0f0e0d);
+  box-shadow: var(--material-chrome-shadow, 0 4px 15px rgba(0, 212, 170, 0.3));
 }
 
 .material-chrome-cyan-gold .card-title,
 .material-chrome-cyan-gold .card-description {
-  color: #0f0e0d;
+  color: var(--color-text-primary, #0f0e0d);
 }
 
 /* ─── CTA Button ─── */
@@ -389,7 +378,7 @@
 }
 
 .cta-button:focus-visible {
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 0 3px var(--color-accent-subtle, rgba(59, 130, 246, 0.5));
 }
 
 .cta-arrow {
@@ -433,19 +422,19 @@
 }
 
 .mobile-dot.material-carbon-glass {
-  background: var(--carbon-glass-bg);
-  border: 2px solid var(--carbon-glass-border);
+  background: var(--material-carbon-bg, rgba(15, 14, 13, 0.85));
+  border: 2px solid var(--material-carbon-border, rgba(59, 130, 246, 0.3));
 }
 .mobile-dot.material-frosted-glass {
-  background: var(--frosted-glass-bg);
-  border: 2px solid var(--frosted-glass-border);
+  background: var(--material-frosted-bg, rgba(242, 240, 233, 0.7));
+  border: 2px solid var(--material-frosted-border, rgba(139, 92, 246, 0.2));
 }
 .mobile-dot.material-torn-paper {
-  background: var(--torn-paper-bg);
-  border: 2px solid var(--torn-paper-border);
+  background: var(--material-paper-bg, #e8ddc8);
+  border: 2px solid var(--material-paper-border, #d4c4a8);
 }
 .mobile-dot.material-chrome-cyan-gold {
-  background: var(--chrome-gradient);
+  background: var(--material-chrome-gradient, linear-gradient(135deg, var(--accent-cyan, #00d4aa), var(--accent-gold, #ffd700)));
 }
 
 .mobile-connector {
