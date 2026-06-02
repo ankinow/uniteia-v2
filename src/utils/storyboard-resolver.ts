@@ -14,9 +14,17 @@ import type { ResolvedCell, ResolvedLayout } from '~/components/storyboard-grid/
 import type { SupportedLanguage } from '~/i18n/types'
 import type { TranslationStrings } from '~/i18n/types'
 
+/** Type-safe access to the magica article i18n block */
+type MagicaI18n = TranslationStrings['article']['magica'] & TranslationStrings['article']['canvaMagica']
+type MagicaProductionI18n = TranslationStrings['article']['canvaMagicaProduction']
+
 function esc(str: string): string {
   // Escape XML special chars for safe SVG embedding
-  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
 }
 
 function buildWorkflowSvg(
@@ -79,8 +87,8 @@ function buildMagicaOverviewLayout(
   t: TranslationStrings
 ): ResolvedLayout {
   // Type-safe access to magica article keys — defined in i18n files
-  const m = (t as any).article?.magica
-  const cv = (t as any).article?.canvaMagica
+  const m: Partial<MagicaI18n> = t.article?.magica ?? {}
+  const cv: Partial<MagicaProductionI18n> = t.article?.canvaMagicaProduction ?? {}
 
   const workflowSvg = buildWorkflowSvg(
     cv?.workflowTitle ?? 'Magica Workflow Builder',

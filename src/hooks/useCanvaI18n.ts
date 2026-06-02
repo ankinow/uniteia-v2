@@ -8,26 +8,20 @@
 import { getTranslation } from '~/i18n/context'
 import type { CanvaMagicaI18n } from '~/types/canva'
 import type { SupportedLanguage } from '~/i18n/types'
+import type { TranslationStrings } from '~/i18n/types'
 
 export type CanvaMagicaT = Record<keyof CanvaMagicaI18n, string>
 
-/**
- * Pre-resolve all canvaMagicaProduction i18n keys for SSG/SSR safety.
- * Returns a flat Record<string,string> — works in SSG without Qwik context.
- *
- * Usage:
- *   const t = useCanvaMagicaT(lang)
- *   t.magicaWorkflowBuilder // → "Magica Workflow Builder"
- */
+/** Type-safe access to canvaMagicaProduction from TranslationStrings */
+type CanvaProductionT = TranslationStrings['article']['canvaMagicaProduction']
+
 export function useCanvaMagicaT(lang: string): CanvaMagicaT {
   const all = getTranslation(lang as SupportedLanguage)
-  // canvaMagicaProduction is nested under article in TranslationStrings
-  const ns = (all as any).article?.canvaMagicaProduction as Record<string, string> | undefined
+  const ns: Partial<CanvaProductionT> | undefined = all.article?.canvaMagicaProduction
   if (!ns) {
-    // Fallback: return key names if namespace missing
     return new Proxy({} as CanvaMagicaT, {
       get: (_, key) => key as string,
     })
   }
-  return ns as CanvaMagicaT
+  return ns as unknown as CanvaMagicaT
 }
