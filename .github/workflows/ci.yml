@@ -40,7 +40,7 @@ jobs:
         run: bun run test:unit
 
       - name: Build (SSG)
-        run: bun run build
+        run: npx qwik build
 
       - name: Verify SSG page count (≥80 pages)
         run: |
@@ -120,8 +120,8 @@ jobs:
 
       - name: Run Playwright visual tests
         run: |
-          bun run build
-          npx playwright test tests/e2e/visual-regression.spec.ts tests/e2e/visual-collage.spec.ts tests/e2e/m014-visual-regression.spec.ts --reporter=html,json
+          npx qwik build
+          npx playwright test tests/e2e/canva-visual.spec.ts --reporter=html,json
 
       - name: Check visual regression flag
         if: failure()
