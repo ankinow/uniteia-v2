@@ -69,8 +69,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@cloudflare/workers-types": "4.20260524.1",
-    "@iconify-json/lucide": "1.2.109",
+    "@cloudflare/workers-types": "4.20260528.1",
+    "@iconify-json/lucide": "1.2.110",
     "@iconify/tailwind": "^1.2.0",
     "@iconify/tailwind4": "^1.2.3",
     "@playwright/test": "1.60.0",
