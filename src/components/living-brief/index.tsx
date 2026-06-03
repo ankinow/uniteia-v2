@@ -30,6 +30,7 @@
 
 import { Slot, component$ } from '@builder.io/qwik'
 import { LivingBriefCollage } from './living-brief-collage'
+import { LivingBriefHero } from './living-brief-hero'
 import type { LivingBrief2ColProps } from './types'
 
 export const LivingBrief2Col = component$<LivingBrief2ColProps>(
@@ -38,13 +39,25 @@ export const LivingBrief2Col = component$<LivingBrief2ColProps>(
       <div
         class={[
           'living-brief-2col',
-          'flex flex-col w-full',
+          'flex flex-col md:flex-row',
+          'min-h-screen w-full',
           className,
         ].join(' ')}
         data-testid="living-brief-2col"
       >
-        {/* Single column — full width */}
-        <div class="w-full living-brief-full">
+        {/* Left Panel — Hero (35% desktop, full-width mobile) */}
+        <div class="w-full md:w-[35%] flex-shrink-0 living-brief-left">
+          <LivingBriefHero
+            title={hero.title}
+            subtitle={hero.subtitle}
+            hashtags={hero.hashtags}
+            buttons={hero.buttons}
+            variant={hero.variant}
+          />
+        </div>
+
+        {/* Right Panel — Collage (65% desktop, full-width mobile) */}
+        <div class="w-full md:w-[65%] flex-1 living-brief-right">
           {collage ? (
             <LivingBriefCollage
               polaroids={collage.polaroids}
