@@ -13,7 +13,7 @@ export const it: TranslationStrings = {
     niches: 'Nicchie',
     breadcrumb: {
       label: 'Sei qui:',
-      signals: 'Segnali',
+      signals: 'Insights',
     },
   },
   sidebar: {
@@ -106,7 +106,7 @@ export const it: TranslationStrings = {
         title: 'ELABORAZIONE AI',
         subtitle: 'Concatenamento di prompt basato su nodi',
       },
-      qualityScore: '84 punteggio di qualità',
+      qualityScore: '',
       languages: '8 lingue',
       outputLabel: 'Prompt → Router di Modelli → Output',
     },
@@ -122,17 +122,17 @@ export const it: TranslationStrings = {
     trusted: 'Affidabile',
     caution: 'Attenzione',
     flagged: 'Segnalato',
-    qualityScore: 'Punteggio di Qualità',
+    qualityScore: '',
     editorialQuality: 'Qualità Editoriale',
   },
   dopamineCard: {
     readMore: 'Leggi di più',
   },
   signal: {
-    qualityLabel: 'Qualità',
+    qualityLabel: '',
     sourceCount: '{count} fonti',
     sources: 'fonti',
-    freshnessLabel: 'Attualità',
+    freshnessLabel: '',
   },
   search: {
     placeholder: 'Cerca argomenti, articoli...',
@@ -144,32 +144,32 @@ export const it: TranslationStrings = {
     searchDescription: 'Cerca articoli e argomenti su UniTeia',
   },
   seo: {
-    siteName: 'UniTeia',
-    articleTitleTemplate: '{title} | UniTeia',
+    siteName: 'UniTeia OS',
+    articleTitleTemplate: '{title} | UniTeia OS',
     topicsTitle: 'Argomenti IA',
     topicsDescription:
       'Esplora la nostra lista curata di argomenti e nicchie di Intelligenza Artificiale.',
   },
   homepage: {
-    featuredSignals: 'Segnali in Evidenza',
-    knowledgeClusters: 'Cluster di Conoscenza',
-    frontierStreams: 'Correnti di Frontiera',
-    signalCount: '{count} segnali',
+    featuredSignals: 'Insights in Evidenza',
+    knowledgeClusters: 'Cluster',
+    frontierStreams: 'Frontiera',
+    signalCount: '{count} insights',
     curatedAcross: 'curati in {count} nicchie',
-    noSignals: 'Nessun segnale pubblicato ancora in questa lingua.',
+    noSignals: 'Nessun insight pubblicato',
     browseTopics: 'Sfoglia argomenti',
     networkState: 'Stato della Rete UniTeia',
-    signalIntake: 'Captazione Segnali',
+    signalIntake: 'Assunzione Insights',
     deliveryLayer: 'Livello di Consegna',
   },
   onboarding: {
     step1: {
       title: 'Il mondo è rumoroso.',
-      subtitle: 'Noi filtriamo il segnale.',
+      subtitle: "Noi filtriamo l'insight.",
       desc: '{siteName} assimila migliaia di fonti ogni giorno, estraendo ciò che conta. Così tu non devi farlo.',
     },
     step2: {
-      title: 'Ogni segnale passa attraverso 7 gate di qualità prima di raggiungerti.',
+      title: 'Ogni insight passa attraverso 7 filtri di qualità prima di raggiungerti.',
       cards: [
         {
           label: 'Ricerca',
@@ -202,7 +202,7 @@ export const it: TranslationStrings = {
     mcpTooltip: 'Server MCP Connesso · 7 strumenti attivi',
   },
   generativeHero: {
-    curating: 'Curando {niche} oggi',
+    curating: '{niche} insights oggi',
     topNiches: 'Principali Nicchie',
   },
   legal: {

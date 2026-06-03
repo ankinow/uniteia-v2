@@ -12,7 +12,7 @@ export const en: TranslationStrings = {
     niches: 'Niches',
     breadcrumb: {
       label: 'You are here:',
-      signals: 'Signals',
+      signals: 'Insights',
     },
   },
   sidebar: {
@@ -105,7 +105,7 @@ export const en: TranslationStrings = {
         title: 'AI PROCESSING',
         subtitle: 'Node-based prompt chaining',
       },
-      qualityScore: '84 quality score',
+      qualityScore: '',
       languages: '8 languages',
       outputLabel: 'Prompt → Model Router → Output',
     },
@@ -121,17 +121,17 @@ export const en: TranslationStrings = {
     trusted: 'Trusted',
     caution: 'Caution',
     flagged: 'Flagged',
-    qualityScore: 'Quality Score',
+    qualityScore: '',
     editorialQuality: 'Editorial Quality',
   },
   dopamineCard: {
     readMore: 'Read more',
   },
   signal: {
-    qualityLabel: 'Quality',
+    qualityLabel: '',
     sourceCount: '{count} sources',
     sources: 'sources',
-    freshnessLabel: 'Freshness',
+    freshnessLabel: '',
   },
   search: {
     placeholder: 'Search topics, articles...',
@@ -143,21 +143,21 @@ export const en: TranslationStrings = {
     searchDescription: 'Search UniTeia topics and articles',
   },
   seo: {
-    siteName: 'UniTeia',
-    articleTitleTemplate: '{title} | UniTeia',
+    siteName: 'UniTeia OS',
+    articleTitleTemplate: '{title} | UniTeia OS',
     topicsTitle: 'AI Topics',
     topicsDescription: 'Explore our curated list of Artificial Intelligence topics and niches.',
   },
   homepage: {
-    featuredSignals: 'Featured Signals',
-    knowledgeClusters: 'Knowledge Clusters',
-    frontierStreams: 'Frontier Streams',
-    signalCount: '{count} signals',
+    featuredSignals: 'Featured Insights',
+    knowledgeClusters: 'Clusters',
+    frontierStreams: 'Fronteira',
+    signalCount: '{count} insights',
     curatedAcross: 'curated across {count} niches',
-    noSignals: 'No signals published yet in this locale.',
+    noSignals: 'No insights published yet in this locale.',
     browseTopics: 'Browse topics',
     networkState: 'UniTeia Network State',
-    signalIntake: 'Signal Intake',
+    signalIntake: 'Insight Intake',
     deliveryLayer: 'Delivery Layer',
   },
   onboarding: {
@@ -167,7 +167,7 @@ export const en: TranslationStrings = {
       desc: "{siteName} ingests thousands of sources daily, extracting what matters. So you don't have to.",
     },
     step2: {
-      title: 'Every signal passes 7 quality gates before reaching you.',
+      title: 'Every insight passes 7 filters before reaching you.',
       cards: [
         { label: 'Research', desc: 'Raw sources are ingested and scored for trust.' },
         { label: 'Verify', desc: 'Claims are cross-checked against independent sources.' },
@@ -191,7 +191,7 @@ export const en: TranslationStrings = {
     mcpTooltip: 'MCP Server Connected · 7 tools active',
   },
   generativeHero: {
-    curating: 'Curating {niche} signals today',
+    curating: '{niche} insights today',
     topNiches: 'Top Niches',
   },
   legal: {

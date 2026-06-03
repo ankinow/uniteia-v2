@@ -12,7 +12,7 @@ export const ja: TranslationStrings = {
     niches: 'ニッチ',
     breadcrumb: {
       label: '現在位置:',
-      signals: 'シグナル',
+      signals: 'Insights',
     },
   },
   sidebar: {
@@ -105,7 +105,7 @@ export const ja: TranslationStrings = {
         title: 'AI処理',
         subtitle: 'ノードベースのプロンプトチェーン',
       },
-      qualityScore: '84品質スコア',
+      qualityScore: '',
       languages: '8言語',
       outputLabel: 'プロンプト → モデルルーター → 出力',
     },
@@ -121,17 +121,17 @@ export const ja: TranslationStrings = {
     trusted: '信頼済み',
     caution: '注意',
     flagged: '要注意',
-    qualityScore: '品質スコア',
+    qualityScore: '',
     editorialQuality: '編集品質',
   },
   dopamineCard: {
     readMore: '続きを読む',
   },
   signal: {
-    qualityLabel: '品質',
+    qualityLabel: '',
     sourceCount: '{count} ソース',
     sources: 'ソース',
-    freshnessLabel: '鮮度',
+    freshnessLabel: '',
   },
   search: {
     placeholder: 'トピック、記事を検索...',
@@ -143,31 +143,31 @@ export const ja: TranslationStrings = {
     searchDescription: 'UniTeiaの記事やトピックを検索',
   },
   seo: {
-    siteName: 'UniTeia',
-    articleTitleTemplate: '{title} | UniTeia',
+    siteName: 'UniTeia OS',
+    articleTitleTemplate: '{title} | UniTeia OS',
     topicsTitle: 'AIトピック',
     topicsDescription: '厳選された人工知能のトピックとニッチのリストをご覧ください。',
   },
   homepage: {
-    featuredSignals: '注目のシグナル',
-    knowledgeClusters: '知識クラスター',
-    frontierStreams: 'フロンティアストリーム',
-    signalCount: '{count} シグナル',
+    featuredSignals: '注目のInsights',
+    knowledgeClusters: 'クラスター',
+    frontierStreams: 'フロンティア',
+    signalCount: '{count} insights',
     curatedAcross: '{count} のニッチからキュレーション',
-    noSignals: 'この言語ではまだシグナルは公開されていません。',
+    noSignals: 'Insightsはまだ公開されていません',
     browseTopics: 'トピックを閲覧',
     networkState: 'UniTeia ネットワーク状態',
-    signalIntake: 'シグナル摂取',
+    signalIntake: 'Insights収集',
     deliveryLayer: '配信レイヤー',
   },
   onboarding: {
     step1: {
       title: '世界はノイズにあふれています。',
-      subtitle: '私たちはシグナルを濾過します。',
+      subtitle: '私たちはインサイトを濾過します。',
       desc: '{siteName}は毎日何千ものソースを取り込み、重要なものを抽出します。あなたがする必要はありません。',
     },
     step2: {
-      title: 'すべてのシグナルは、あなたの元に届く前に7つの品質ゲートを通過します。',
+      title: '7フィルター',
       cards: [
         { label: 'リサーチ', desc: '生のソースが取り込まれ、信頼性がスコアリングされます。' },
         { label: '検証', desc: '主張が独立したソースと照合されます。' },
@@ -194,7 +194,7 @@ export const ja: TranslationStrings = {
     mcpTooltip: 'MCPサーバー接続済み · 7つのツールがアクティブ',
   },
   generativeHero: {
-    curating: '{niche}のシグナルをキュレーション',
+    curating: '{niche} insights',
     topNiches: 'トップニッチ',
   },
   legal: {

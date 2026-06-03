@@ -1,7 +1,7 @@
 /**
  * UNITEIA · VISUAL DNA RENAISSANCE v2.0
  * Tailwind v4 Oxide · CSS-first @theme · OKLCH wide-gamut
- * Aesthetic: Editorial Collage + Signal Grid V3 + 2.5D Neo-Realistic
+ * Aesthetic: JRPG + Anime + Whiteboard Technical
  * Warm tactile: grain 4K + paper fiber + glassmorphism 2.0
  */
 
@@ -17,14 +17,17 @@
 
 @theme {
   /* ── Surfaces ── */
-  --color-void: #0d1117;
-  --color-deep: #161b22;
+  --color-void: #0f0f1a;
+  --color-deep: #0f0f1a;
   --color-mid: #21262d;
   --color-raised: #30363d;
 
   /* ── Coral Identity (action) ── */
-  --color-action: oklch(0.72 0.22 22);
+  --color-action: #5b8def;
   --color-action-hi: oklch(0.78 0.24 22);
+  --color-aether: #5b8def;
+  --color-cristal: #00e5ff;
+  --color-pergaminho: #f4efe6;
 
   /* ── Semantic · Verified ── */
   --color-verified: oklch(0.79 0.18 145);
@@ -58,12 +61,11 @@
   --color-unsafe: oklch(0.65 0.2 30);
 
   /* ── Typography ── */
-  --font-family-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+  --font-family-sans: "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
-  --font-family-display: "Sora", ui-serif, Georgia, serif;
+  --font-family-display: "Dela Gothic One", ui-serif, Georgia, serif;
   --font-family-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas,
     "Liberation Mono", monospace;
-  --font-family-pixel: "Press Start 2P", cursive;
 
   /* ── Motion ── */
   --transition-duration-fast: 120ms;
@@ -193,21 +195,14 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "Press Start 2P";
-  src: url("/fonts/press-start-2p.woff2") format("woff2");
-  font-weight: 400;
-  font-display: swap;
-}
-
 /* ═══════════════════════════════════════════
    CSS CUSTOM PROPERTIES (consumed by utilities)
    ═══════════════════════════════════════════ */
 
 :root {
   /* Surfaces */
-  --void: #0d1117;
-  --deep: #161b22;
+  --void: #0f0f1a;
+  --deep: #0f0f1a;
   --mid: #21262d;
   --raised: #30363d;
 
@@ -267,9 +262,9 @@
   --paper-border: 1px solid #c4b99e;
 
   /* Typography */
-  --font-display: "Sora", ui-serif, Georgia, serif;
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
+  --font-display: "Dela Gothic One", ui-serif, Georgia, serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas,
     "Liberation Mono", monospace;
 

@@ -12,7 +12,7 @@ export const pt: TranslationStrings = {
     niches: 'Nichos',
     breadcrumb: {
       label: 'Você está aqui:',
-      signals: 'Sinais',
+      signals: 'Insights',
     },
   },
   sidebar: {
@@ -121,17 +121,14 @@ export const pt: TranslationStrings = {
     trusted: 'Confiável',
     caution: 'Cautela',
     flagged: 'Sinalizado',
-    qualityScore: 'Pontuação de Qualidade',
     editorialQuality: 'Qualidade Editorial',
   },
   dopamineCard: {
     readMore: 'Leia mais',
   },
   signal: {
-    qualityLabel: 'Qualidade',
     sourceCount: '{count} fontes',
     sources: 'fontes',
-    freshnessLabel: 'Atualidade',
   },
   search: {
     placeholder: 'Buscar temas, artigos...',
@@ -143,31 +140,31 @@ export const pt: TranslationStrings = {
     searchDescription: 'Buscar artigos e temas na UniTeia',
   },
   seo: {
-    siteName: 'UniTeia',
-    articleTitleTemplate: '{title} | UniTeia',
+    siteName: 'UniTeia OS',
+    articleTitleTemplate: '{title} | UniTeia OS',
     topicsTitle: 'Tópicos de IA',
     topicsDescription: 'Explore nossa curadoria de tópicos e nichos de Inteligência Artificial.',
   },
   homepage: {
-    featuredSignals: 'Sinais em Destaque',
-    knowledgeClusters: 'Clusters de Conhecimento',
-    frontierStreams: 'Correntes de Fronteira',
-    signalCount: '{count} sinais',
+    featuredSignals: 'Insights em Destaque',
+    knowledgeClusters: 'Clusters',
+    frontierStreams: 'Fronteira',
+    signalCount: '{count} insights',
     curatedAcross: 'curados em {count} nichos',
-    noSignals: 'Nenhum sinal publicado ainda neste idioma.',
+    noSignals: 'Nenhum insight publicado ainda neste idioma.',
     browseTopics: 'Explorar tópicos',
     networkState: 'Estado da Rede UniTeia',
-    signalIntake: 'Captação de Sinais',
+    signalIntake: 'Captação de Insights',
     deliveryLayer: 'Camada de Entrega',
   },
   onboarding: {
     step1: {
       title: 'O mundo é barulhento.',
-      subtitle: 'Nós filtramos o sinal.',
+      subtitle: 'Nós filtramos o insight.',
       desc: '{siteName} ingere milhares de fontes diariamente, extraindo o que importa. Para que você não precise.',
     },
     step2: {
-      title: 'Cada sinal passa por 7 gates de qualidade antes de chegar até você.',
+      title: 'Cada insight passa por 7 filtros de qualidade antes de chegar até você.',
       cards: [
         { label: 'Pesquisa', desc: 'Fontes brutas são ingeridas e pontuadas quanto à confiança.' },
         {
@@ -197,7 +194,7 @@ export const pt: TranslationStrings = {
     mcpTooltip: 'Servidor MCP Conectado · 7 ferramentas ativas',
   },
   generativeHero: {
-    curating: 'Curadoria de {niche} hoje',
+    curating: '{niche} hoje',
     topNiches: 'Principais Nichos',
   },
   legal: {

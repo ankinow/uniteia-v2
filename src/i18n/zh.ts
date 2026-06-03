@@ -12,7 +12,7 @@ export const zh: TranslationStrings = {
     niches: '细分领域',
     breadcrumb: {
       label: '当前位置:',
-      signals: '信号',
+      signals: 'Insights',
     },
   },
   sidebar: {
@@ -103,7 +103,7 @@ export const zh: TranslationStrings = {
         title: 'AI处理',
         subtitle: '基于节点的提示链',
       },
-      qualityScore: '84质量评分',
+      qualityScore: '',
       languages: '8种语言',
       outputLabel: '提示 → 模型路由器 → 输出',
     },
@@ -119,17 +119,17 @@ export const zh: TranslationStrings = {
     trusted: '可信',
     caution: '注意',
     flagged: '已标记',
-    qualityScore: '质量评分',
+    qualityScore: '',
     editorialQuality: '编辑质量',
   },
   dopamineCard: {
     readMore: '阅读更多',
   },
   signal: {
-    qualityLabel: '质量',
+    qualityLabel: '',
     sourceCount: '{count} 来源',
     sources: '来源',
-    freshnessLabel: '新鲜度',
+    freshnessLabel: '',
   },
   search: {
     placeholder: '搜索主题、文章...',
@@ -141,31 +141,31 @@ export const zh: TranslationStrings = {
     searchDescription: '搜索 UniTeia 的文章和主题',
   },
   seo: {
-    siteName: 'UniTeia',
-    articleTitleTemplate: '{title} | UniTeia',
+    siteName: 'UniTeia OS',
+    articleTitleTemplate: '{title} | UniTeia OS',
     topicsTitle: 'AI 主题',
     topicsDescription: '探索我们精选的人工智能主题和领域列表。',
   },
   homepage: {
-    featuredSignals: '精选信号',
-    knowledgeClusters: '知识集群',
-    frontierStreams: '前沿流',
-    signalCount: '{count} 个信号',
+    featuredSignals: '精选Insights',
+    knowledgeClusters: '集群',
+    frontierStreams: '前沿',
+    signalCount: '{count} insights',
     curatedAcross: '从 {count} 个领域精选',
-    noSignals: '此语言尚未发布任何信号。',
+    noSignals: '暂无Insights',
     browseTopics: '浏览主题',
     networkState: 'UniTeia 网络状态',
-    signalIntake: '信号摄入',
+    signalIntake: 'Insights摄入',
     deliveryLayer: '交付层',
   },
   onboarding: {
     step1: {
       title: '世界充满噪音。',
-      subtitle: '我们过滤信号。',
+      subtitle: '我们过滤insight。',
       desc: '{siteName} 每天摄入数千个来源，提取重要的信息。让您无需亲力亲为。',
     },
     step2: {
-      title: '每个信号在到达你之前都会经过7道质量关卡。',
+      title: '每个insight在到达你之前都会经过7过滤器。',
       cards: [
         { label: '研究', desc: '原始来源被摄取并根据可信度评分。' },
         { label: '验证', desc: '声明与独立来源进行交叉验证。' },
@@ -189,7 +189,7 @@ export const zh: TranslationStrings = {
     mcpTooltip: 'MCP服务器已连接 · 7个活跃工具',
   },
   generativeHero: {
-    curating: '正在策展 {niche} 信号',
+    curating: '{niche} insights',
     topNiches: '热门领域',
   },
   legal: {

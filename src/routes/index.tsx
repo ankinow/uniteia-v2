@@ -9,6 +9,16 @@ export const onGet: RequestHandler = event => {
   onLanguageNegotiation(event)
 }
 
+// ghost notes — marginalia, opacity-25, select-none
+// "we don't want other signals. we want mirrors." — Stanisław Lem, Solaris
+// "the difference between the almost right filter and the right filter..." — Twain (adapted)
+// "a man gotta have a code. a filter gotta have a cutoff." — Omar Little (adapted)
+// "time is a flat circle. noise is a flat line." — Rust Cohle (adapted)
+// "when you have eliminated the noise..." — Holmes (adapted)
+// "the street finds its own uses" — Gibson
+// "read the data. don't narrate it." — Caeiro (adapted)
+// "404. so it goes." — Vonnegut
+
 export default component$(() => {
   const lang = useSignal<SupportedLanguage>('en')
   const mounted = useSignal(false)
@@ -24,97 +34,166 @@ export default component$(() => {
   })
 
   const exploreUrl = useComputed$(() => `/${lang.value}/signals`)
-  // Toggle between site primary (pt) and international default (en);
-  // for any other locale, switch to pt as the hub language.
   const switchUrl = useComputed$(() => `/${lang.value === 'pt' ? 'en' : 'pt'}/signals`)
 
   const handleLangChange = $((newLang: SupportedLanguage) => {
-    // Guard: skip if already active — avoids redundant navigation
     if (newLang === lang.value) return
-
-    // Preserve query string and hash fragment for tracking deep-links
     const search = typeof window !== 'undefined' ? window.location.search : ''
     const hash = typeof window !== 'undefined' ? window.location.hash : ''
-
     updateLangCookie(newLang).finally(() => {
       if (typeof window !== 'undefined') {
-        // Explicit trailing slash on the locale segment for
-        // consistent URL hierarchy: / → /pt/ → /en/
         window.location.href = `/${newLang}/${search}${hash}`
       }
     })
   })
 
   return (
-    <div class="min-h-screen flex flex-col">
-      <section class="flex-1 flex flex-col items-center justify-center px-6 py-24 text-center relative">
-        <div
-          aria-hidden="true"
-          class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_30%,rgba(100,220,255,0.06),transparent_70%)] pointer-events-none"
-        />
-        <div class="relative z-[1] max-w-3xl">
-          <div class="text-4xl font-display font-bold leading-[1.1] tracking-tight mb-4">
-            <span class="text-bone">Uni</span>
-            <span class="text-cyan">{'Teia'}</span>
-          </div>
-          <p class="text-lg md:text-xl text-bone-muted leading-relaxed max-w-2xl mx-auto mb-8">
-            Aether OS — a camada de curadoria que transforma ruído em sinal.
-            <br />
-            <span class="text-sm text-bone/50">
-              {'8 idiomas · curadoria perene · qualidade em 7 gates'}
-            </span>
-          </p>
-          <div class="flex flex-wrap gap-4 justify-center mb-12">
-            <a
-              href={exploreUrl.value}
-              class="inline-flex items-center gap-2 px-6 py-3 bg-cyan/20 border border-cyan/50 text-white hover:bg-cyan/30 transition-colors rounded-none text-sm uppercase tracking-wider font-medium focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
+    <div class="min-h-screen flex flex-col bg-[#FAFAFA]">
+      {/* ghost note: bottom-right */}
+      <span
+        class="fixed bottom-4 right-4 text-[10px] font-mono text-gray-300 opacity-25 select-none pointer-events-none z-50"
+        aria-hidden="true"
+      >
+        {'// when you have eliminated the noise...'}
+      </span>
+      {/* ghost note: top-left */}
+      <span
+        class="fixed top-4 left-4 text-[10px] font-mono text-gray-300 opacity-25 select-none pointer-events-none z-50 rotate-180"
+        aria-hidden="true"
+      >
+        {'// we don\'t want other signals. we want mirrors.'}
+      </span>
+
+      <section class="flex-1 flex flex-col items-center justify-center px-6 py-24 relative">
+        <div class="w-full max-w-4xl mx-auto">
+          {/* grid background — exposed, CAD-like */}
+          <svg
+            aria-hidden="true"
+            class="absolute inset-0 w-full h-full pointer-events-none opacity-[0.03]"
+          >
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#000" stroke-width="0.5" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+
+          {/* ghost note: bottom-left */}
+          <span
+            class="fixed bottom-4 left-4 text-[10px] font-mono text-gray-300 opacity-25 select-none pointer-events-none z-50"
+            aria-hidden="true"
+          >
+            {'// a man gotta have a code. a filter gotta have a cutoff.'}
+          </span>
+
+          <div class="relative z-[1] flex flex-col items-start gap-6 max-w-2xl">
+            {/* hero block — §4.8 */}
+            <div class="flex flex-col items-start gap-2">
+              <h1 class="font-mono text-2xl md:text-4xl text-gray-900 tracking-tight font-medium">
+                UniTeia <span class="text-cyan-600">OS</span>
+              </h1>
+              <p class="font-mono text-sm text-gray-500 max-w-xl">
+                8 langs · 7-stage pipeline · no metaphors
+              </p>
+            </div>
+
+            {/* SVG system architecture diagram — §5.2 */}
+            <svg
+              width="600"
+              height="200"
+              viewBox="0 0 600 200"
+              role="img"
+              aria-label="UniTeia OS pipeline: raw → gate_1 → ... → signal"
+              class="w-full h-auto opacity-80 max-w-xl"
             >
-              Explorar Tópicos
-            </a>
-            <a
-              href={switchUrl.value}
-              class="inline-flex items-center gap-2 px-6 py-3 border border-bone/20 text-bone-muted hover:text-bone hover:border-bone/40 transition-colors rounded-none text-sm uppercase tracking-wider focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
-            >
-              {lang.value === 'pt' ? 'Switch to English' : 'Switch Language'}
-            </a>
-          </div>
-          <div class="flex flex-wrap gap-3 justify-center">
-            <LangSwitcherSegmented currentLang={lang} onLangChange$={handleLangChange} />
+              <title>UniTeia OS pipeline diagram</title>
+              <rect x="20" y="80" width="80" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="1" class="text-gray-400" />
+              <text x="60" y="105" text-anchor="middle" class="text-[10px] font-mono fill-gray-500">raw</text>
+
+              <line x1="100" y1="100" x2="140" y2="100" stroke="currentColor" stroke-width="1" class="text-gray-300" />
+
+              <rect x="140" y="80" width="80" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="1" class="text-gray-400" />
+              <text x="180" y="105" text-anchor="middle" class="text-[10px] font-mono fill-gray-500">gate_1</text>
+
+              <line x1="220" y1="100" x2="260" y2="100" stroke="currentColor" stroke-width="1" class="text-gray-300" />
+
+              <rect x="260" y="80" width="80" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="1" class="text-gray-400" />
+              <text x="300" y="105" text-anchor="middle" class="text-[10px] font-mono fill-gray-500">...</text>
+
+              <line x1="340" y1="100" x2="380" y2="100" stroke="currentColor" stroke-width="1" class="text-gray-300" stroke-dasharray="4 2" />
+
+              <rect x="380" y="80" width="80" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="1" class="text-cyan-600" />
+              <text x="420" y="105" text-anchor="middle" class="text-[10px] font-mono fill-cyan-700">signal</text>
+
+              {/* marginalia — ghost notes within SVG */}
+              <text x="580" y="20" text-anchor="end" class="text-[8px] font-mono fill-gray-300 opacity-50">{'// we don\'t want other worlds'}</text>
+              <text x="580" y="190" text-anchor="end" class="text-[8px] font-mono fill-gray-300 opacity-50">{'// when you have eliminated the noise...'}</text>
+            </svg>
+
+            {/* CTA links — minimal, structural */}
+            <div class="flex flex-wrap gap-3 pt-2">
+              <a
+                href={exploreUrl.value}
+                class="inline-flex items-center px-4 py-2 font-mono text-sm text-gray-900 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:outline-none"
+              >
+                /explore
+              </a>
+              <a
+                href={switchUrl.value}
+                class="inline-flex items-center px-4 py-2 font-mono text-sm text-gray-500 border border-gray-200 hover:border-gray-300 hover:text-gray-700 transition-colors focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:outline-none"
+              >
+                /lang:{lang.value === 'pt' ? 'en' : 'pt'}
+              </a>
+            </div>
+
+            {/* language switcher — inline */}
+            <div class="pt-4">
+              <LangSwitcherSegmented currentLang={lang} onLangChange$={handleLangChange} />
+            </div>
           </div>
         </div>
       </section>
+
+      {/* ghost note: data-attributes for DevTools */}
+      <div
+        data-architect="gibson"
+        data-note="the street finds its own uses"
+        data-pipeline="v7"
+        data-altruism="free-public-infrastructure"
+        class="hidden"
+      />
     </div>
   )
 })
 
 export const head: DocumentHead = {
-  title: 'UniTeia — Curadoria de Sinais em Inteligência Artificial',
+  title: 'UniTeia OS',
   meta: [
     {
       name: 'description',
-      content:
-        'Aether OS — a camada de curadoria que transforma ruído em sinal. 8 idiomas · curadoria perene · qualidade em 7 gates.',
+      content: 'Aether OS. Signal filtering system. 8 languages. 7-stage pipeline.',
     },
     {
       property: 'og:description',
-      content: 'Aether OS — a camada de curadoria que transforma ruído em sinal.',
+      content: 'Aether OS. Signal filtering system.',
     },
     { property: 'og:image', content: 'https://uniteia.com/og-image.png' },
     { property: 'og:type', content: 'website' },
     { property: 'og:url', content: 'https://uniteia.com/' },
     {
       property: 'og:title',
-      content: 'UniTeia — Curadoria de Sinais em Inteligência Artificial',
+      content: 'UniTeia OS',
     },
-    { property: 'og:site_name', content: 'UniTeia' },
+    { property: 'og:site_name', content: 'UniTeia OS' },
     { name: 'twitter:card', content: 'summary_large_image' },
     {
       name: 'twitter:title',
-      content: 'UniTeia — Curadoria de Sinais em Inteligência Artificial',
+      content: 'UniTeia OS',
     },
     {
       name: 'twitter:description',
-      content: 'Aether OS — a camada de curadoria que transforma ruído em sinal. 8 idiomas.',
+      content: 'Aether OS. 8 languages.',
     },
     { name: 'robots', content: 'index, follow' },
   ],
