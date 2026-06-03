@@ -10,6 +10,10 @@ export const pt: TranslationStrings = {
     topics: 'Tópicos',
     search: 'Buscar',
     niches: 'Nichos',
+    breadcrumb: {
+      label: 'Você está aqui:',
+      signals: 'Sinais',
+    },
   },
   sidebar: {
     interfaceLabel: 'Interface Compacta',
@@ -75,9 +79,11 @@ export const pt: TranslationStrings = {
     },
     canvaMagicaProduction: {
       magicaWorkflowBuilder: 'Construtor de Fluxo de Trabalho Magica',
-      unifiedPromptEngineering: 'Engenharia de prompts, roteamento de modelos e avaliação unificados em uma interface',
+      unifiedPromptEngineering:
+        'Engenharia de prompts, roteamento de modelos e avaliação unificados em uma interface',
       magicaCommandCenter: 'Magica: O Centro de Comando de IA',
-      magicaDescription: 'Magica unifica engenharia de prompts, roteamento de modelos e avaliação em uma interface',
+      magicaDescription:
+        'Magica unifica engenharia de prompts, roteamento de modelos e avaliação em uma interface',
       aiProcessing: 'Processamento de IA',
       nodeBasedPromptChaining: 'Encadeamento de prompts baseado em nós',
       architecture: 'Arquitetura',
@@ -90,7 +96,7 @@ export const pt: TranslationStrings = {
       workflowVisualization: 'Visualização do Fluxo de Trabalho',
       keyMetrics: 'Métricas Principais',
       workflowSteps: 'Etapas do Fluxo',
-      poweredBy: 'Desenvolvido por'
+      poweredBy: 'Desenvolvido por',
     },
     canvaMagica: {
       workflowTitle: 'Construtor de Fluxo de Trabalho Magica',

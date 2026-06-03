@@ -11,6 +11,10 @@ export const fr: TranslationStrings = {
     topics: 'Sujets',
     search: 'Rechercher',
     niches: 'Niches',
+    breadcrumb: {
+      label: 'Vous êtes ici:',
+      signals: 'Signaux',
+    },
   },
   sidebar: {
     interfaceLabel: 'Interface Compacte',
@@ -76,9 +80,11 @@ export const fr: TranslationStrings = {
     },
     canvaMagicaProduction: {
       magicaWorkflowBuilder: 'Constructeur de Flux de Travail Magica',
-      unifiedPromptEngineering: 'Ingénierie de prompts, routage de modèles et évaluation unifiés dans une interface',
+      unifiedPromptEngineering:
+        'Ingénierie de prompts, routage de modèles et évaluation unifiés dans une interface',
       magicaCommandCenter: 'Magica : Le Centre de Commande IA',
-      magicaDescription: "Magica unifie l'ingénierie de prompts, le routage de modèles et l'évaluation dans une interface",
+      magicaDescription:
+        "Magica unifie l'ingénierie de prompts, le routage de modèles et l'évaluation dans une interface",
       aiProcessing: 'Traitement IA',
       nodeBasedPromptChaining: 'Chaînage de prompts par nœuds',
       architecture: 'Architecture',
@@ -91,14 +97,14 @@ export const fr: TranslationStrings = {
       workflowVisualization: 'Visualisation du Flux de Travail',
       keyMetrics: 'Métriques Clés',
       workflowSteps: 'Étapes du Flux',
-      poweredBy: 'Propulsé par'
+      poweredBy: 'Propulsé par',
     },
     canvaMagica: {
       workflowTitle: 'Constructeur de Flux de Travail Magica',
       inputLabel: 'ENTRÉE',
       aiProcessing: {
         title: 'TRAITEMENT IA',
-        subtitle: "Enchaînement de prompts par nœuds",
+        subtitle: 'Enchaînement de prompts par nœuds',
       },
       qualityScore: '84 score de qualité',
       languages: '8 langues',

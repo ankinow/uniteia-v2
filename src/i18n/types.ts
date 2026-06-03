@@ -27,6 +27,10 @@ export interface TranslationStrings {
     topics: string
     search: string
     niches: string
+    breadcrumb: {
+      label: string
+      signals: string
+    }
   }
   sidebar: {
     interfaceLabel: string

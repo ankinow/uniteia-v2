@@ -5,6 +5,7 @@ import {
   routeLoader$,
   useLocation,
 } from '@builder.io/qwik-city'
+import { Breadcrumb } from '~/components/breadcrumb'
 import { ErrorBoundary } from '~/components/error-boundary'
 import { TrendingSection } from '~/components/homepage-curation'
 import { JSONLD } from '~/components/json-ld'
@@ -154,6 +155,9 @@ export default component$(() => {
       <JSONLD data={websiteSchema} />
       <JSONLD data={webPageSchema} />
       <main>
+        <div class="px-4 pt-6 pb-2 w-full max-w-6xl mx-auto">
+          <Breadcrumb />
+        </div>
         <LivingBrief2Col
           hero={{
             title: data.value.niche.title[lang],

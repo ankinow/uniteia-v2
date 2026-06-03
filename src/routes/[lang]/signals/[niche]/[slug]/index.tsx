@@ -6,6 +6,7 @@ import {
   useLocation,
 } from '@builder.io/qwik-city'
 import { ArticleRenderer } from '~/components/article-renderer'
+import { Breadcrumb } from '~/components/breadcrumb'
 import { CanvaMagicaOverview } from '~/components/canva/CanvaMagicaOverview'
 import { JSONLD } from '~/components/json-ld'
 import { LivingBrief2Col } from '~/components/living-brief'
@@ -201,11 +202,19 @@ export default component$(() => {
             languages={8}
             features={['nodeBasedPromptChaining', 'multiModelFallback', 'realTimeLatencyTelemetry']}
           />
+          <div class="px-4 pt-6 pb-2 w-full max-w-6xl mx-auto">
+            <Breadcrumb />
+          </div>
           <JSONLD data={webPageSchema} />
           <ArticleRenderer {...rendererProps} />
         </>
       ) : storyboardLayout ? (
-        <StoryboardGrid layout={storyboardLayout} />
+        <>
+          <div class="px-4 pt-6 pb-2 w-full max-w-6xl mx-auto">
+            <Breadcrumb />
+          </div>
+          <StoryboardGrid layout={storyboardLayout} />
+        </>
       ) : (
         <LivingBrief2Col
           hero={{

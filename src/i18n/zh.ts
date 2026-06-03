@@ -10,6 +10,10 @@ export const zh: TranslationStrings = {
     topics: '主题',
     search: '搜索',
     niches: '细分领域',
+    breadcrumb: {
+      label: '当前位置:',
+      signals: '信号',
+    },
   },
   sidebar: {
     interfaceLabel: '紧凑界面',
@@ -90,7 +94,7 @@ export const zh: TranslationStrings = {
       workflowVisualization: '工作流可视化',
       keyMetrics: '关键指标',
       workflowSteps: '工作流步骤',
-      poweredBy: '技术支持'
+      poweredBy: '技术支持',
     },
     canvaMagica: {
       workflowTitle: 'Magica工作流构建器',

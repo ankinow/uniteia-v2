@@ -1,0 +1,28 @@
+{
+  "round": 13,
+  "current": "R13: Breadcrumb component (Schema.org + visible) — ALL routes",
+  "backlog": [
+    {"id": "R13", "priority": "P0", "impact": "SEO+A11y", "effort": "M", "status": "completed"},
+    {"id": "R14", "priority": "P0", "impact": "Navigation", "effort": "M", "status": "pending"},
+    {"id": "R15", "priority": "P0", "impact": "Performance", "effort": "M", "status": "pending"},
+    {"id": "R16", "priority": "P1", "impact": "INP", "effort": "H", "status": "pending"},
+    {"id": "R17", "priority": "P1", "impact": "Quality", "effort": "M", "status": "pending"},
+    {"id": "R18", "priority": "P1", "impact": "Security", "effort": "H", "status": "pending"},
+    {"id": "R19", "priority": "P2", "impact": "A11y", "effort": "H", "status": "pending"},
+    {"id": "R20", "priority": "P2", "impact": "Observability", "effort": "H", "status": "pending"}
+  ],
+  "metrics": {
+    "ssg_pages": 83,
+    "build_time_s": 4.3,
+    "i18n_tests": "102/102",
+    "playwright_tests": "13/13",
+    "bundle_chunks_flagged": 0,
+    "bundle_total_kb": 935.8,
+    "ts_errors": 71,
+    "as_any_casts": 0,
+    "visual_baselines": 3,
+    "last_commit": "8926b47"
+  },
+  "plateau_counter": 0,
+  "last_updated": "2026-06-02T22:30:00Z"
+}

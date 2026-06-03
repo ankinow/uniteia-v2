@@ -1,5 +1,6 @@
 import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
+import { Breadcrumb } from '~/components/breadcrumb'
 import { NicheCard } from '~/components/niche-card'
 import { ScrollDepthCardEnhancer } from '~/components/scroll-driven'
 import { useI18n } from '~/i18n/context'
@@ -51,6 +52,9 @@ export default component$(() => {
 
   return (
     <div class="px-4 py-8" data-testid="niche-index">
+      <div class="px-4 pb-4">
+        <Breadcrumb />
+      </div>
       <div class="mb-8 px-4">
         <h1 class="text-2xl font-bold text-bone font-display">{t.niche.allNiches}</h1>
       </div>

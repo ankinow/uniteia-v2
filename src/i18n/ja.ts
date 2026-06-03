@@ -10,6 +10,10 @@ export const ja: TranslationStrings = {
     topics: 'トピック',
     search: '検索',
     niches: 'ニッチ',
+    breadcrumb: {
+      label: '現在位置:',
+      signals: 'シグナル',
+    },
   },
   sidebar: {
     interfaceLabel: 'コンパクトインターフェース',
@@ -75,9 +79,11 @@ export const ja: TranslationStrings = {
     },
     canvaMagicaProduction: {
       magicaWorkflowBuilder: 'Magicaワークフロービルダー',
-      unifiedPromptEngineering: '統合プロンプトエンジニアリング、モデルルーティング、評価を単一インターフェースで',
+      unifiedPromptEngineering:
+        '統合プロンプトエンジニアリング、モデルルーティング、評価を単一インターフェースで',
       magicaCommandCenter: 'Magica：AIコマンドセンター',
-      magicaDescription: 'Magicaはプロンプトエンジニアリング、モデルルーティング、評価を単一インターフェースで統合',
+      magicaDescription:
+        'Magicaはプロンプトエンジニアリング、モデルルーティング、評価を単一インターフェースで統合',
       aiProcessing: 'AI処理',
       nodeBasedPromptChaining: 'ノードベースのプロンプトチェイニング',
       architecture: 'アーキテクチャ',
@@ -90,7 +96,7 @@ export const ja: TranslationStrings = {
       workflowVisualization: 'ワークフロー可視化',
       keyMetrics: '主要指標',
       workflowSteps: 'ワークフローステップ',
-      poweredBy: '提供'
+      poweredBy: '提供',
     },
     canvaMagica: {
       workflowTitle: 'Magicaワークフロービルダー',
