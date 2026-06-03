@@ -200,7 +200,6 @@ export default component$(() => {
           <CanvaMagicaOverview
             qualityScore={84}
             languages={8}
-            features={['nodeBasedPromptChaining', 'multiModelFallback', 'realTimeLatencyTelemetry']}
           />
           <div class="px-4 pt-6 pb-2 w-full max-w-6xl mx-auto">
             <Breadcrumb />
@@ -298,15 +297,32 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
       { property: 'og:type', content: 'article' },
       { property: 'og:site_name', content: t.seo.siteName },
       { property: 'og:locale', content: content.lang },
-      { property: 'og:image', content: 'https://uniteia.com/og-image.png' },
+      { property: 'og:image', content: 'https://uniteia.com/assets/flux/magica-overview/workflow-ui.jpg' },
       { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:image', content: 'https://uniteia.com/og-image.png' },
+      { name: 'twitter:image', content: 'https://uniteia.com/assets/flux/magica-overview/workflow-ui.jpg' },
       { name: 'twitter:title', content: content.title },
       { name: 'twitter:description', content: description },
     ],
     links: [
       { rel: 'canonical', href: canonicalUrl(url.origin, `/${lang}/signals/${niche}/${slug}`) },
       ...alternateLinks,
+    ],
+    scripts: [
+      {
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: content.title,
+          description: description,
+          image: 'https://uniteia.com/assets/flux/magica-overview/workflow-ui.jpg',
+          datePublished: content.date ?? new Date().toISOString().split('T')[0],
+          author: { '@type': 'Organization', name: 'UniTeia' },
+          publisher: { '@type': 'Organization', name: 'UniTeia', logo: { '@type': 'ImageObject', url: 'https://uniteia.com/logo.png' }},
+          mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl(url.origin, `/${lang}/signals/${niche}/${slug}`) },
+          inLanguage: content.lang,
+        }),
+      },
     ],
   }
 }

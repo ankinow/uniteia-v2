@@ -1,161 +1,161 @@
 /**
  * storyboard-resolver.ts
  * Resolves article content into StoryboardGrid layouts.
- * Uses i18n keys for text — no HTML hardcoding.
- *
- * Each article slug maps to a layout builder function that returns
- * a ResolvedLayout with text already resolved via getTranslation().
- *
- * PLANO-074: SVG workflow diagram now uses i18n keys for all text
- * labels across 8 languages (en, pt, es, fr, de, it, ja, zh).
+ * Textless whiteboard FLUX images — same image serves all 8 languages.
+ * 
+ * PLANO-083: 4 articles mapped, each with 4 whiteboard cells.
  */
 
 import type { ResolvedCell, ResolvedLayout } from '~/components/storyboard-grid/types'
 import type { SupportedLanguage } from '~/i18n/types'
 import type { TranslationStrings } from '~/i18n/types'
 
-/** Type-safe access to the magica article i18n block */
-type MagicaI18n = TranslationStrings['article']['magica'] & TranslationStrings['article']['canvaMagica']
-type MagicaProductionI18n = TranslationStrings['article']['canvaMagicaProduction']
+const WHITEBOARD = '/assets/whiteboard/articles'
 
-function esc(str: string): string {
-  // Escape XML special chars for safe SVG embedding
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-}
-
-function buildWorkflowSvg(
-  workflowTitle: string,
-  inputLabel: string,
-  aiTitle: string,
-  aiSubtitle: string,
-  qualityScore: string,
-  languages: string,
-  outputLabel: string,
+type ArticleMeta = {
+  slug: string
+  title: string
+  body: string
+  evidenceTitle: string
+  listItems: string[]
+  ctaTitle: string
+  ctaBody: string
+  ctaLabel: string
+  ctaHref: string
   alt: string
-): { src: string; alt: string } {
-  return {
-    src: `data:image/svg+xml,${encodeURIComponent(
-      `<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(alt)}">
-        <rect width="400" height="200" fill="#f8f8f8" rx="4"/>
-        <text x="200" y="25" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#666">${esc(workflowTitle)}</text>
-        <rect x="20" y="40" width="100" height="50" rx="6" fill="#3b82f6" opacity="0.9"/>
-        <text x="70" y="68" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#fff" font-weight="bold">${esc(inputLabel)}</text>
-        <path d="M120,65 L170,65" stroke="#111" stroke-width="2"/>
-        <polygon points="170,60 178,65 170,70" fill="#111"/>
-        <rect x="175" y="40" width="140" height="50" rx="6" fill="#10b981" opacity="0.9"/>
-        <text x="245" y="58" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#fff" font-weight="bold">${esc(aiTitle)}</text>
-        <text x="245" y="74" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#fff" opacity="0.8">${esc(aiSubtitle)}</text>
-        <path d="M315,65 L355,65" stroke="#111" stroke-width="2"/>
-        <polygon points="355,60 363,65 355,70" fill="#111"/>
-        <rect x="360" y="40" width="25" height="50" rx="6" fill="#f59e0b" opacity="0.9"/>
-        <text x="372" y="68" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#fff" font-weight="bold">→</text>
-        <rect x="60" y="110" width="100" height="40" rx="4" fill="#8b5cf6" opacity="0.1" stroke="#8b5cf6" stroke-width="1"/>
-        <text x="110" y="134" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#8b5cf6">${esc(qualityScore)}</text>
-        <rect x="220" y="110" width="100" height="40" rx="4" fill="#ec4899" opacity="0.1" stroke="#ec4899" stroke-width="1"/>
-        <text x="270" y="134" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#ec4899">${esc(languages)}</text>
-        <line x1="110" y1="150" x2="270" y2="150" stroke="#ddd" stroke-width="0.5"/>
-        <text x="200" y="175" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#999">${esc(outputLabel)}</text>
-      </svg>`
-    )}`,
-    alt,
-  }
 }
 
-/**
- * Maps from article slug to StoryboardLayout definition.
- * Returns null for articles that should use the legacy collage.
- */
-export function getStoryboardLayout(
-  slug: string,
-  lang: SupportedLanguage,
-  t: TranslationStrings
-): ResolvedLayout | null {
-  switch (slug) {
-    case 'magica-overview':
-      return buildMagicaOverviewLayout(lang, t)
-    default:
-      return null
-  }
+const ARTICLE_METAS: Record<string, ArticleMeta> = {
+  'magica-overview': {
+    slug: 'magica-overview',
+    title: 'Magica: The AI Command Center',
+    body: 'Magica unifies prompt engineering, model routing, and evaluation in a single interface.',
+    evidenceTitle: 'Workflow Visualization',
+    listItems: [
+      'Node-based prompt chaining',
+      'Multi-model fallback routing',
+      'Real-time latency telemetry',
+    ],
+    ctaTitle: 'Start Building',
+    ctaBody: 'Try Magica free — no credit card required.',
+    ctaLabel: 'Visit Magica',
+    ctaHref: 'https://try.magica.com/clique-serio',
+    alt: 'Magica AI Command Center workflow diagram',
+  },
+  'magica-quickstart': {
+    slug: 'magica-quickstart',
+    title: 'Getting Started with Magica',
+    body: 'Set up your Magica account, generate an API key, and make your first AI model call in minutes.',
+    evidenceTitle: 'Setup Flow',
+    listItems: [
+      'Create account and verify email',
+      'Generate API key from dashboard',
+      'Choose your AI model provider',
+      'Make your first API call',
+    ],
+    ctaTitle: 'Start Now',
+    ctaBody: 'Free tier available — no credit card required.',
+    ctaLabel: 'Get Started',
+    ctaHref: 'https://try.magica.com/clique-serio',
+    alt: 'Magica quickstart setup flow diagram',
+  },
+  'magica-mcp-server': {
+    slug: 'magica-mcp-server',
+    title: 'Building MCP Servers with Magica',
+    body: 'Create Model Context Protocol servers that let AI agents discover and interact with external tools and data sources.',
+    evidenceTitle: 'MCP Architecture',
+    listItems: [
+      'MCP transport layer (stdio/SSE)',
+      'Tool definition and registration',
+      'Agent integration and discovery',
+      'Security and sandboxing',
+    ],
+    ctaTitle: 'Build with MCP',
+    ctaBody: 'Start building MCP servers with Magica today.',
+    ctaLabel: 'MCP Docs',
+    ctaHref: 'https://modelcontextprotocol.io',
+    alt: 'MCP server architecture diagram',
+  },
+  'tencent-cloud-deal-stack-builders': {
+    slug: 'tencent-cloud-deal-stack-builders',
+    title: 'Tencent Cloud Deal Stack for Builders',
+    body: 'Deploy your applications on Tencent Cloud with Lighthouse, CVM, and EdgeOne at competitive prices.',
+    evidenceTitle: 'Cloud Stack Overview',
+    listItems: [
+      'Lighthouse: Simple VPS hosting',
+      'CVM: Full cloud compute power',
+      'EdgeOne: Global CDN acceleration',
+      'Cost-effective for indie builders',
+    ],
+    ctaTitle: 'Deploy Now',
+    ctaBody: 'Check current Tencent Cloud promotions and deals.',
+    ctaLabel: 'View Deals',
+    ctaHref: 'https://tencentcloud.com',
+    alt: 'Tencent Cloud architecture diagram',
+  },
 }
 
-function buildMagicaOverviewLayout(
-  _lang: SupportedLanguage,
-  t: TranslationStrings
-): ResolvedLayout {
-  // Type-safe access to magica article keys — defined in i18n files
-  const m: Partial<MagicaI18n> = t.article?.magica ?? {}
-  const cv: Partial<MagicaProductionI18n> = t.article?.canvaMagicaProduction ?? {}
-
-  const workflowSvg = buildWorkflowSvg(
-    cv?.workflowTitle ?? 'Magica Workflow Builder',
-    cv?.inputLabel ?? 'INPUT',
-    cv?.aiProcessing?.title ?? 'AI PROCESSING',
-    cv?.aiProcessing?.subtitle ?? 'Node-based prompt chaining',
-    cv?.qualityScore ?? '84 quality score',
-    cv?.languages ?? '8 languages',
-    cv?.outputLabel ?? 'Prompt → Model Router → Output',
-    m?.evidence?.alt ?? 'Screenshot of Magica workflow builder'
-  )
-
-  const cells: ResolvedCell[] = [
+function buildCells(meta: ArticleMeta): ResolvedCell[] {
+  return [
     {
-      id: 'insight-workflow',
+      id: 'insight',
       variant: 'insight',
       gridArea: 'insight1',
-      title: m?.insight?.title ?? 'Magica: The AI Command Center',
-      body:
-        m?.insight?.body ??
-        'Magica unifies prompt engineering, model routing, and evaluation in a single interface.',
-      arrowTo: ['evidence-workflow'],
+      title: meta.title,
+      body: meta.body,
+      arrowTo: ['evidence'],
     },
     {
-      id: 'evidence-workflow',
+      id: 'evidence',
       variant: 'evidence',
       gridArea: 'evidence1',
-      title: m?.evidence?.title ?? 'Workflow Visualization',
-      image: workflowSvg,
-      arrowTo: ['diagram-arch'],
+      title: meta.evidenceTitle,
+      image: {
+        src: `${WHITEBOARD}/${meta.slug}/hero-insight.webp`,
+        alt: meta.alt,
+      },
+      arrowTo: ['diagram'],
     },
     {
-      id: 'diagram-arch',
+      id: 'diagram',
       variant: 'diagram',
       gridArea: 'diagram1',
-      title: m?.architecture?.title ?? 'Architecture',
-      list: [
-        m?.architecture?.point1 ?? 'Node-based prompt chaining',
-        m?.architecture?.point2 ?? 'Multi-model fallback routing',
-        m?.architecture?.point3 ?? 'Real-time latency telemetry',
-      ],
-      arrowTo: ['cta-start'],
+      title: 'Architecture',
+      list: meta.listItems,
+      arrowTo: ['cta'],
     },
     {
-      id: 'cta-start',
+      id: 'cta',
       variant: 'cta',
       gridArea: 'cta1',
-      title: m?.cta?.title ?? 'Start Building',
-      body: m?.cta?.body ?? 'Try Magica free — no credit card required.',
+      title: meta.ctaTitle,
+      body: meta.ctaBody,
       cta: {
-        label: m?.cta?.button ?? 'Visit Magica',
-        href: 'https://try.magica.com/clique-serio',
+        label: meta.ctaLabel,
+        href: meta.ctaHref,
         variant: 'primary',
       },
     },
   ]
+}
+
+export function getStoryboardLayout(
+  slug: string,
+  _lang: SupportedLanguage,
+  _t: TranslationStrings
+): ResolvedLayout | null {
+  const meta = ARTICLE_METAS[slug]
+  if (!meta) return null
 
   return {
     version: '2.0',
     gridTemplate: '"insight1 evidence1 evidence1" "diagram1 diagram1 cta1"',
     gridColumns: '1fr 1fr 1fr',
     gridRows: 'auto auto',
-    cells,
+    cells: buildCells(meta),
   }
 }
 
-/** Check if a slug has a storyboard layout defined */
 export function hasStoryboardLayout(slug: string): boolean {
-  return slug === 'magica-overview'
+  return slug in ARTICLE_METAS
 }
