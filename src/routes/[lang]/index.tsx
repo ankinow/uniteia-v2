@@ -1,5 +1,6 @@
 import { component$, useVisibleTask$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
+import { BentoCell, BentoGrid } from '~/components/bento-grid'
 import { BioOrganicOverlay } from '~/components/bio-organic-overlay'
 import { CanvasSurface } from '~/components/canvas-surface'
 import { CinematicDepthCard } from '~/components/cinematic-depth'
@@ -299,6 +300,68 @@ export default component$(() => {
           )}
         </ScrollContentCanvas>
       </CanvasSurface>
+
+      {/* M014-S6: BentoGrid — R28 design island showcase + P3 accents */}
+      <section class="my-16" aria-label="Knowledge Architecture Bento">
+        <ScrollReveal direction="up" once>
+          <h2 class="text-2xl font-bold font-pixel text-bone mb-2 uppercase tracking-wider text-center">
+            Knowledge Architecture
+          </h2>
+          <p class="text-sm text-bone/40 text-center mb-8 max-w-lg mx-auto">
+            <span class="accent-glow text-neon-cyan">{featuredSignals.length}</span> signals
+            · <span class="text-neon-amber">{sortedClusters.length}</span> clusters
+            · <span class="text-neon-rose">{frontierStreams.length}</span> frontiers
+            · Qwik islands + P3 wide-gamut
+          </p>
+          <BentoGrid minCellWidth="240px" cellHeight="160px" gap="0.75rem" class="max-w-4xl mx-auto">
+            <BentoCell size="featured" as="article" class="border-neon">
+              <div class="flex flex-col h-full justify-between">
+                <p class="text-xs uppercase tracking-[0.3em] text-bone/50 font-mono">
+                  {t.homepage.featuredSignals}
+                </p>
+                <p class="text-5xl font-bold text-neon-cyan accent-glow tabular-nums">
+                  {featuredSignals.length}
+                </p>
+                <p class="text-sm text-bone/70">curated signals from the noise</p>
+              </div>
+            </BentoCell>
+            <BentoCell as="article">
+              <div class="flex flex-col h-full justify-between">
+                <p class="text-xs uppercase tracking-[0.3em] text-bone/50 font-mono">
+                  {t.homepage.knowledgeClusters}
+                </p>
+                <p class="text-4xl font-bold text-neon-amber tabular-nums">
+                  {sortedClusters.length}
+                </p>
+                <p class="text-sm text-bone/70">distinct niches</p>
+              </div>
+            </BentoCell>
+            <BentoCell as="article">
+              <div class="flex flex-col h-full justify-between">
+                <p class="text-xs uppercase tracking-[0.3em] text-bone/50 font-mono">
+                  {t.homepage.frontierStreams}
+                </p>
+                <p class="text-4xl font-bold text-neon-rose tabular-nums">
+                  {frontierStreams.length}
+                </p>
+                <p class="text-sm text-bone/70">emerging frontiers</p>
+              </div>
+            </BentoCell>
+            <BentoCell size="wide" as="article" class="border-neon">
+              <div class="flex flex-col h-full justify-center">
+                <p class="text-xs uppercase tracking-[0.3em] text-bone/50 font-mono mb-2">
+                  SOTA 2026 · P3 Bioluminescence
+                </p>
+                <p class="text-sm text-bone/80 leading-relaxed">
+                  Display P3 wide-gamut neon accents render in living color on compatible
+                  monitors. Falls back to sRGB tones automatically. This card itself
+                  demonstrates the <code class="text-neon-acid">.border-neon</code> glow.
+                </p>
+              </div>
+            </BentoCell>
+          </BentoGrid>
+        </ScrollReveal>
+      </section>
 
       {/* PLANO-055: VisualExplainer — live-drawn North Star architecture */}
       <section class="my-16">

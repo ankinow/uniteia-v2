@@ -13,6 +13,13 @@
 @import "./assets/p3-accents.css";
 
 /* ═══════════════════════════════════════════
+   LAYER HIERARCHY — explicit cascade order
+   (lower index = lower priority, overridden by higher)
+   Tailwind v4 Oxide layers take precedence
+   ═══════════════════════════════════════════ */
+@layer theme, design-tokens, p3-accents, reset, base, components, bento-grid, utilities, overrides;
+
+/* ═══════════════════════════════════════════
    DESIGN TOKENS — CSS-first @theme (Oxide)
    ═══════════════════════════════════════════ */
 

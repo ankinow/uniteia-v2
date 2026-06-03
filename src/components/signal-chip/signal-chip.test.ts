@@ -4,6 +4,7 @@ vi.mock('@builder.io/qwik', () => ({
   component$: <T>(fn: T) => fn,
   useSignal: <T>(val: T) => ({ value: val }),
   useVisibleTask$: (_fn: unknown) => {},
+  useStylesScoped$: (_styles: string) => {},
 }))
 
 import {

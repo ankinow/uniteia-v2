@@ -1,4 +1,5 @@
-import { type ClassList, component$ } from '@builder.io/qwik'
+import { type ClassList, component$, useStylesScoped$ } from '@builder.io/qwik'
+import styles from './signal-chip.module.css?inline'
 
 export type SignalChipVariant = 'moderator' | 'researcher' | 'writer' | 'curator' | 'analyst'
 export type SignalTrend = 'up' | 'down' | 'stable'
@@ -43,24 +44,33 @@ export function qualityScoreToBand(score: number): QualityBand {
   return 'low'
 }
 
+/**
+ * SignalChip — Qwik ISLAND (static, 0 bytes JS)
+ *
+ * Migration R28: useStylesScoped$ + data-* attribute selectors
+ * replaces global BEM classes (.signal-chip--*).
+ * True island: server-render only, no client JS.
+ */
 export const SignalChip = component$<SignalChipProps>(
   ({ metric, label, locale, trend = 'stable', variant = 'moderator', qualityScore, class: className }) => {
+    useStylesScoped$(styles)
+
     const band = qualityScore !== undefined ? qualityScoreToBand(qualityScore) : undefined
     const hue = qualityScore !== undefined ? qualityScoreToHue(qualityScore) : undefined
     return (
       <span
         aria-label={`${metric} ${label}${locale ? `, ${locale}` : ''}`}
-        class={['signal-chip', `signal-chip--${variant}`, band ? `signal-chip--score-${band}` : null, className]}
+        class={['root', band ? `root--score-${band}` : null, className]}
         data-variant={variant}
         data-trend={trend}
         data-quality-band={band}
         data-testid="signal-chip"
         style={hue ? { borderLeftColor: hue } : undefined}
       >
-        <span class="signal-chip__dot" aria-hidden="true" />
-        <span class="signal-chip__metric">{metric}</span>
-        <span class="signal-chip__label">{`\u00A0${label}`}</span>
-        <span class="signal-chip__trend" aria-hidden="true">
+        <span class="dot" aria-hidden="true" />
+        <span class="metric">{metric}</span>
+        <span class="label">{`\u00A0${label}`}</span>
+        <span class="trend" aria-hidden="true">
           {trend === 'up' ? '\u25B2' : trend === 'down' ? '\u25BC' : '\u25A0'}
         </span>
       </span>
