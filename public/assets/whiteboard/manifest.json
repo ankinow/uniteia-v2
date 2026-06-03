@@ -4,8 +4,5 @@
   "ok": 200,
   "err": 0,
   "skip": 0,
-  "styles": [
-    "white",
-    "chalk"
-  ]
+  "styles": ["white", "chalk"]
 }

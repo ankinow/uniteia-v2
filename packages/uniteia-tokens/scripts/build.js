@@ -3,8 +3,8 @@
  * build.js — @hermes/uniteia-tokens build script
  * PLANO-076: Extracts CSS custom properties → JSON → YAML → .d.ts
  */
-const fs = require('fs')
-const path = require('path')
+const fs = require('node:fs')
+const path = require('node:path')
 const yaml = require('yaml')
 
 const cssPath = path.join(__dirname, '..', 'tokens.css')
@@ -28,9 +28,7 @@ fs.writeFileSync(path.join(distDir, 'tokens.yaml'), yaml.stringify(tokens))
 fs.copyFileSync(cssPath, path.join(distDir, 'tokens.css'))
 
 // Generate TypeScript declarations
-const tsLines = Object.keys(tokens).map(
-  n => `  export const ${n.replace(/-/g, '_')}: string`
-)
+const tsLines = Object.keys(tokens).map(n => `  export const ${n.replace(/-/g, '_')}: string`)
 fs.writeFileSync(
   path.join(distDir, 'tokens.d.ts'),
   `declare module '@hermes/uniteia-tokens' {\n${tsLines.join(';\n')};\n}\n`
@@ -39,12 +37,32 @@ fs.writeFileSync(
 // Write a summary
 const summary = {
   totalTokens: Object.keys(tokens).length,
-  primitive: Object.keys(tokens).filter(k => !k.includes('-bg-') && !k.includes('-text-') && !k.includes('-border-') && !k.includes('-accent-') && !k.startsWith('material-') && !k.startsWith('card-') && !k.startsWith('button-') && !k.startsWith('input-') && !k.startsWith('heading-') && !k.startsWith('body-')).length,
-  semantic: Object.keys(tokens).filter(k => k.startsWith('color-') || k.startsWith('material-')).length,
-  component: Object.keys(tokens).filter(k => k.startsWith('card-') || k.startsWith('button-') || k.startsWith('input-') || k.startsWith('heading-') || k.startsWith('body-')).length,
+  primitive: Object.keys(tokens).filter(
+    k =>
+      !k.includes('-bg-') &&
+      !k.includes('-text-') &&
+      !k.includes('-border-') &&
+      !k.includes('-accent-') &&
+      !k.startsWith('material-') &&
+      !k.startsWith('card-') &&
+      !k.startsWith('button-') &&
+      !k.startsWith('input-') &&
+      !k.startsWith('heading-') &&
+      !k.startsWith('body-')
+  ).length,
+  semantic: Object.keys(tokens).filter(k => k.startsWith('color-') || k.startsWith('material-'))
+    .length,
+  component: Object.keys(tokens).filter(
+    k =>
+      k.startsWith('card-') ||
+      k.startsWith('button-') ||
+      k.startsWith('input-') ||
+      k.startsWith('heading-') ||
+      k.startsWith('body-')
+  ).length,
 }
 
-console.log(`✓ @hermes/uniteia-tokens built`)
+console.log('✓ @hermes/uniteia-tokens built')
 console.log(`  ${summary.totalTokens} total tokens`)
 console.log(`  ${summary.primitive} primitive`)
 console.log(`  ${summary.semantic} semantic`)

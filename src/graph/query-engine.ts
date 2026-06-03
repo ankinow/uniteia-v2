@@ -16,8 +16,8 @@
  *   const expanded = engine.expand("en-magica-overview", { depth: 1 })
  */
 
-import type { Entity, EntityGraph, Edge, EntityType } from './types'
 import { existsSync, readFileSync } from 'node:fs'
+import type { Edge, Entity, EntityGraph, EntityType } from './types'
 
 // ═══════════════════════════════════════════════════
 // Types
@@ -114,7 +114,7 @@ export class LocalEmbeddingProvider implements EmbeddingProvider {
   private hashToken(token: string): number {
     let hash = 5381
     for (let i = 0; i < token.length; i++) {
-      hash = ((hash << 5) + hash) + token.charCodeAt(i)
+      hash = (hash << 5) + hash + token.charCodeAt(i)
       hash = hash & hash // Convert to 32-bit int
     }
     return Math.abs(hash)
@@ -366,7 +366,9 @@ export class QueryEngine {
       if (nameMatch || descMatch || typeMatch) {
         // Boost: exact name match = 0.95, partial = 0.7, description = 0.5
         const score = nameMatch
-          ? (node.name.toLowerCase() === queryLower ? 0.95 : 0.7)
+          ? node.name.toLowerCase() === queryLower
+            ? 0.95
+            : 0.7
           : descMatch
             ? 0.5
             : 0.3
@@ -547,10 +549,7 @@ export function loadEntityGraph(path: string): EntityGraph {
  * Create a query engine from a JSON file path.
  * Convenience function for scripts and demos.
  */
-export function createEngineFromFile(
-  path: string,
-  provider?: EmbeddingProvider
-): QueryEngine {
+export function createEngineFromFile(path: string, provider?: EmbeddingProvider): QueryEngine {
   const graph = loadEntityGraph(path)
   return new QueryEngine(graph, provider)
 }

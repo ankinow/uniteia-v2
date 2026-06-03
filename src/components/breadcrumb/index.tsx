@@ -41,18 +41,19 @@ export const Breadcrumb = component$(() => {
   }
 
   // Build JSON-LD structured data
-  const breadcrumbJsonLd = crumbs.length > 0
-    ? {
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: crumbs.map((crumb, idx) => ({
-          '@type': 'ListItem',
-          position: idx + 1,
-          name: crumb.label,
-          ...(crumb.href ? { item: `${loc.url.origin}${crumb.href}` } : {}),
-        })),
-      }
-    : null
+  const breadcrumbJsonLd =
+    crumbs.length > 0
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: crumbs.map((crumb, idx) => ({
+            '@type': 'ListItem',
+            position: idx + 1,
+            name: crumb.label,
+            ...(crumb.href ? { item: `${loc.url.origin}${crumb.href}` } : {}),
+          })),
+        }
+      : null
 
   if (crumbs.length <= 1) return null // only home — no breadcrumb needed
 

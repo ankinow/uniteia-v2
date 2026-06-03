@@ -23,13 +23,12 @@ interface CanvaCard {
 }
 
 interface CanvaMagicaProps {
-  qualityScore?: number
   languages?: number
   features?: string[]
 }
 
 export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
-  ({ qualityScore = 84, languages = 8, features = [] }) => {
+  ({ languages = 8, features = [] }) => {
     const loc = useLocation()
     const lang = loc.params.lang || 'en'
     useStylesScoped$(styles)
@@ -99,10 +98,6 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
 
         {/* Stats bar */}
         <div class="stats-bar" role="region" aria-label={t.keyMetrics}>
-          <div class="stat-pill" style={{ '--stagger-delay': '0ms' }}>
-            <span class="stat-value">{qualityScore}</span>
-            <span class="stat-label">{t.qualityScore}</span>
-          </div>
           <div class="stat-pill" style={{ '--stagger-delay': '150ms' }}>
             <span class="stat-value">{languages}</span>
             <span class="stat-label">{t.languages}</span>

@@ -195,19 +195,7 @@ export default component$(() => {
 
   return (
     <>
-      {storyboardLayout && content.value.slug === 'magica-overview' ? (
-        <>
-          <CanvaMagicaOverview
-            qualityScore={84}
-            languages={8}
-          />
-          <div class="px-4 pt-6 pb-2 w-full max-w-6xl mx-auto">
-            <Breadcrumb />
-          </div>
-          <JSONLD data={webPageSchema} />
-          <ArticleRenderer {...rendererProps} />
-        </>
-      ) : storyboardLayout ? (
+      {storyboardLayout ? (
         <>
           <div class="px-4 pt-6 pb-2 w-full max-w-6xl mx-auto">
             <Breadcrumb />
@@ -297,9 +285,15 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
       { property: 'og:type', content: 'article' },
       { property: 'og:site_name', content: t.seo.siteName },
       { property: 'og:locale', content: content.lang },
-      { property: 'og:image', content: 'https://uniteia.com/assets/flux/magica-overview/workflow-ui.jpg' },
+      {
+        property: 'og:image',
+        content: 'https://uniteia.com/assets/flux/magica-overview/workflow-ui.jpg',
+      },
       { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:image', content: 'https://uniteia.com/assets/flux/magica-overview/workflow-ui.jpg' },
+      {
+        name: 'twitter:image',
+        content: 'https://uniteia.com/assets/flux/magica-overview/workflow-ui.jpg',
+      },
       { name: 'twitter:title', content: content.title },
       { name: 'twitter:description', content: description },
     ],
@@ -318,8 +312,15 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
           image: 'https://uniteia.com/assets/flux/magica-overview/workflow-ui.jpg',
           datePublished: content.date ?? new Date().toISOString().split('T')[0],
           author: { '@type': 'Organization', name: 'UniTeia' },
-          publisher: { '@type': 'Organization', name: 'UniTeia', logo: { '@type': 'ImageObject', url: 'https://uniteia.com/logo.png' }},
-          mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl(url.origin, `/${lang}/signals/${niche}/${slug}`) },
+          publisher: {
+            '@type': 'Organization',
+            name: 'UniTeia',
+            logo: { '@type': 'ImageObject', url: 'https://uniteia.com/logo.png' },
+          },
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': canonicalUrl(url.origin, `/${lang}/signals/${niche}/${slug}`),
+          },
           inLanguage: content.lang,
         }),
       },

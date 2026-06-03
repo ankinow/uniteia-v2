@@ -6,9 +6,9 @@
  * Returns a Record of all translated strings, not a function.
  */
 import { getTranslation } from '~/i18n/context'
-import type { CanvaMagicaI18n } from '~/types/canva'
 import type { SupportedLanguage } from '~/i18n/types'
 import type { TranslationStrings } from '~/i18n/types'
+import type { CanvaMagicaI18n } from '~/types/canva'
 
 export type CanvaMagicaT = Record<keyof CanvaMagicaI18n, string>
 

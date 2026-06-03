@@ -87,7 +87,6 @@ export default component$(() => {
 
   return (
     <SiteShell isApexHost={nicheSignal.value === 'apex'}>
-
       {/* Header - mantido no mobile conforme solicitado */}
       <div q:slot="header" class="w-full">
         <nav

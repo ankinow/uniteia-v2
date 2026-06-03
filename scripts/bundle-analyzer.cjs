@@ -7,11 +7,14 @@
  *   node scripts/bundle-analyzer.js
  *   node scripts/bundle-analyzer.js --budget=500
  */
-const fs = require('fs')
-const path = require('path')
+const fs = require('node:fs')
+const path = require('node:path')
 
 const DIST = path.join(__dirname, '..', 'dist')
-const BUDGET_KB = parseInt(process.argv.find(a => a.startsWith('--budget='))?.split('=')[1] || '500', 10)
+const BUDGET_KB = Number.parseInt(
+  process.argv.find(a => a.startsWith('--budget='))?.split('=')[1] || '500',
+  10
+)
 
 function walk(dir) {
   const entries = []
@@ -27,10 +30,10 @@ const files = fs.existsSync(DIST) ? walk(DIST) : []
 let total = 0
 let flagged = 0
 
-console.log(`╔═══════════════════════════════════════════════════════════╗`)
-console.log(`║  BUNDLE ANALYSIS — Qwik SSG Dist                         ║`)
+console.log('╔═══════════════════════════════════════════════════════════╗')
+console.log('║  BUNDLE ANALYSIS — Qwik SSG Dist                         ║')
 console.log(`║  Budget: ${BUDGET_KB}KB per chunk                              ║`)
-console.log(`╚═══════════════════════════════════════════════════════════╝`)
+console.log('╚═══════════════════════════════════════════════════════════╝')
 
 for (const f of files.sort((a, b) => fs.statSync(b).size - fs.statSync(a).size)) {
   const size = fs.statSync(f).size
@@ -47,7 +50,7 @@ console.log(`
 Total JS+CSS: ${(total / 1024).toFixed(1)}KB`)
 console.log(`Chunks over ${BUDGET_KB}KB: ${flagged}`)
 if (flagged > 0) {
-  console.log(`\n⚠️  Consider dynamic import() or manualChunks for flagged entries.`)
+  console.log('\n⚠️  Consider dynamic import() or manualChunks for flagged entries.')
   process.exit(1)
 }
 console.log('\n✅ All chunks within budget.')

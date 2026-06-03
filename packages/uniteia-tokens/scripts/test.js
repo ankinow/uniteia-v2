@@ -3,8 +3,8 @@
  * test.js — Token verification tests
  * PLANO-076: Validates all required tokens, no duplicates, valid syntax
  */
-const fs = require('fs')
-const path = require('path')
+const fs = require('node:fs')
+const path = require('node:path')
 
 const tokensJson = JSON.parse(
   fs.readFileSync(path.join(__dirname, '..', 'dist', 'tokens.json'), 'utf8')
@@ -24,17 +24,38 @@ function assert(condition, msg) {
 
 // 1. All required primitive tokens exist
 const requiredPrimitives = [
-  'solar-0', 'solar-5', 'solar-10', 'solar-20',
-  'solar-40', 'solar-50', 'solar-60', 'solar-70',
-  'solar-80', 'solar-90', 'solar-100',
-  'accent-blue-500', 'accent-green-500', 'accent-red-500',
-  'accent-cyan', 'accent-gold',
-  'font-sans', 'font-jp', 'font-sc',
-  'space-1', 'space-5', 'space-10',
-  'radius-sm', 'radius-md', 'radius-lg',
-  'shadow-sm', 'shadow-md', 'shadow-lg',
-  'ease-smooth', 'ease-bounce',
-  'duration-fast', 'duration-base',
+  'solar-0',
+  'solar-5',
+  'solar-10',
+  'solar-20',
+  'solar-40',
+  'solar-50',
+  'solar-60',
+  'solar-70',
+  'solar-80',
+  'solar-90',
+  'solar-100',
+  'accent-blue-500',
+  'accent-green-500',
+  'accent-red-500',
+  'accent-cyan',
+  'accent-gold',
+  'font-sans',
+  'font-jp',
+  'font-sc',
+  'space-1',
+  'space-5',
+  'space-10',
+  'radius-sm',
+  'radius-md',
+  'radius-lg',
+  'shadow-sm',
+  'shadow-md',
+  'shadow-lg',
+  'ease-smooth',
+  'ease-bounce',
+  'duration-fast',
+  'duration-base',
 ]
 
 for (const token of requiredPrimitives) {
@@ -43,8 +64,11 @@ for (const token of requiredPrimitives) {
 
 // 2. Required semantic tokens
 const requiredSemantic = [
-  'color-bg-primary', 'color-text-primary',
-  'color-accent', 'color-success', 'color-error',
+  'color-bg-primary',
+  'color-text-primary',
+  'color-accent',
+  'color-success',
+  'color-error',
 ]
 
 for (const token of requiredSemantic) {
@@ -53,8 +77,10 @@ for (const token of requiredSemantic) {
 
 // 3. Required material tokens
 const requiredMaterials = [
-  'material-carbon-bg', 'material-frosted-bg',
-  'material-paper-bg', 'material-chrome-gradient',
+  'material-carbon-bg',
+  'material-frosted-bg',
+  'material-paper-bg',
+  'material-chrome-gradient',
 ]
 
 for (const token of requiredMaterials) {
@@ -73,8 +99,8 @@ for (const name of names) {
 
 // 6. Color values valid format
 const colorPattern = /^(#[0-9a-fA-F]{3,8}|rgba?\(|hsla?\(|hsl\()/
-const colorTokens = names.filter(n =>
-  n.includes('color') || n.includes('accent') || n.includes('solar') || n.includes('material')
+const colorTokens = names.filter(
+  n => n.includes('color') || n.includes('accent') || n.includes('solar') || n.includes('material')
 )
 for (const name of colorTokens) {
   const val = tokensJson[name]
@@ -85,9 +111,13 @@ for (const name of colorTokens) {
 }
 
 // 7. Component tokens
-const componentTokens = names.filter(n =>
-  n.startsWith('card-') || n.startsWith('button-') ||
-  n.startsWith('input-') || n.startsWith('heading-') || n.startsWith('body-')
+const componentTokens = names.filter(
+  n =>
+    n.startsWith('card-') ||
+    n.startsWith('button-') ||
+    n.startsWith('input-') ||
+    n.startsWith('heading-') ||
+    n.startsWith('body-')
 )
 assert(componentTokens.length >= 8, `too few component tokens: ${componentTokens.length}`)
 

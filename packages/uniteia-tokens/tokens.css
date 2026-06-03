@@ -10,17 +10,17 @@
 /* ═══ PRIMITIVE TOKENS ═══ */
 :root {
   /* ── Color Primitives — SolarLanso Neutral Scale ── */
-  --solar-0:   #000000;
-  --solar-5:   #0f0e0d;
-  --solar-10:  #1a1918;
-  --solar-20:  #2d2c2b;
-  --solar-30:  #4b4a49;
-  --solar-40:  #6b7280;
-  --solar-50:  #9ca3af;
-  --solar-60:  #d1d5db;
-  --solar-70:  #e5e7eb;
-  --solar-80:  #f2f0e9;
-  --solar-90:  #fafaf9;
+  --solar-0: #000000;
+  --solar-5: #0f0e0d;
+  --solar-10: #1a1918;
+  --solar-20: #2d2c2b;
+  --solar-30: #4b4a49;
+  --solar-40: #6b7280;
+  --solar-50: #9ca3af;
+  --solar-60: #d1d5db;
+  --solar-70: #e5e7eb;
+  --solar-80: #f2f0e9;
+  --solar-90: #fafaf9;
   --solar-100: #ffffff;
 
   /* ── Accent Primitives ── */
@@ -34,27 +34,27 @@
   --accent-red-500: #ef4444;
   --accent-purple-400: #a78bfa;
   --accent-purple-500: #8b5cf6;
-  --accent-cyan:     #00d4aa;
-  --accent-gold:     #ffd700;
+  --accent-cyan: #00d4aa;
+  --accent-gold: #ffd700;
 
   /* ── Typography Primitives ── */
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-jp: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-  --font-sc: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-jp: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font-sc: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
 
   /* ── Spacing Primitives (8px base = 0.5rem) ── */
-  --space-0:  0;
-  --space-1:  0.125rem;   /* 2px  */
-  --space-2:  0.25rem;    /* 4px  */
-  --space-3:  0.5rem;     /* 8px  */
-  --space-4:  0.75rem;    /* 12px */
-  --space-5:  1rem;       /* 16px */
-  --space-6:  1.5rem;     /* 24px */
-  --space-7:  2rem;       /* 32px */
-  --space-8:  3rem;       /* 48px */
-  --space-9:  4rem;       /* 64px */
-  --space-10: 6rem;       /* 96px */
+  --space-0: 0;
+  --space-1: 0.125rem; /* 2px  */
+  --space-2: 0.25rem; /* 4px  */
+  --space-3: 0.5rem; /* 8px  */
+  --space-4: 0.75rem; /* 12px */
+  --space-5: 1rem; /* 16px */
+  --space-6: 1.5rem; /* 24px */
+  --space-7: 2rem; /* 32px */
+  --space-8: 3rem; /* 48px */
+  --space-9: 4rem; /* 64px */
+  --space-10: 6rem; /* 96px */
 
   /* ── Fluid Spacing ── */
   --space-fluid-sm: clamp(0.5rem, 1vw, 1rem);
@@ -63,10 +63,10 @@
 
   /* ── Radius Primitives ── */
   --radius-none: 0;
-  --radius-sm: 0.25rem;   /* 4px  */
-  --radius-md: 0.5rem;    /* 8px  */
-  --radius-lg: 1rem;      /* 16px */
-  --radius-xl: 1.5rem;    /* 24px */
+  --radius-sm: 0.25rem; /* 4px  */
+  --radius-md: 0.5rem; /* 8px  */
+  --radius-lg: 1rem; /* 16px */
+  --radius-xl: 1.5rem; /* 24px */
   --radius-pill: 9999px;
 
   /* ── Shadow Primitives ── */
@@ -108,86 +108,86 @@
 [data-theme="light"],
 :root {
   /* Backgrounds */
-  --color-bg-primary:    var(--solar-80);   /* #f2f0e9 */
-  --color-bg-secondary:  var(--solar-90);   /* #fafaf9 */
-  --color-bg-tertiary:   var(--solar-70);   /* #e5e7eb */
-  --color-bg-inverse:    var(--solar-5);    /* #0f0e0d */
+  --color-bg-primary: var(--solar-80); /* #f2f0e9 */
+  --color-bg-secondary: var(--solar-90); /* #fafaf9 */
+  --color-bg-tertiary: var(--solar-70); /* #e5e7eb */
+  --color-bg-inverse: var(--solar-5); /* #0f0e0d */
 
   /* Text */
-  --color-text-primary:   var(--solar-5);   /* #0f0e0d */
-  --color-text-secondary: var(--solar-40);  /* #6b7280 */
-  --color-text-muted:     var(--solar-50);  /* #9ca3af */
-  --color-text-inverse:   var(--solar-80);  /* #f2f0e9 */
+  --color-text-primary: var(--solar-5); /* #0f0e0d */
+  --color-text-secondary: var(--solar-40); /* #6b7280 */
+  --color-text-muted: var(--solar-50); /* #9ca3af */
+  --color-text-inverse: var(--solar-80); /* #f2f0e9 */
 
   /* Borders */
-  --color-border:         var(--solar-60);  /* #d1d5db */
-  --color-border-subtle:  var(--solar-70);  /* #e5e7eb */
+  --color-border: var(--solar-60); /* #d1d5db */
+  --color-border-subtle: var(--solar-70); /* #e5e7eb */
 
   /* Accent */
-  --color-accent:       var(--accent-blue-500);
+  --color-accent: var(--accent-blue-500);
   --color-accent-hover: var(--accent-blue-600);
   --color-accent-subtle: rgb(59 130 246 / 0.1);
 
   /* Semantic colors */
   --color-success: var(--accent-green-500);
-  --color-error:   var(--accent-red-500);
+  --color-error: var(--accent-red-500);
   --color-warning: var(--accent-gold);
 }
 
 [data-theme="dark"] {
-  --color-bg-primary:    var(--solar-5);    /* #0f0e0d */
-  --color-bg-secondary:  var(--solar-10);   /* #1a1918 */
-  --color-bg-tertiary:   var(--solar-20);   /* #2d2c2b */
-  --color-bg-inverse:    var(--solar-80);   /* #f2f0e9 */
+  --color-bg-primary: var(--solar-5); /* #0f0e0d */
+  --color-bg-secondary: var(--solar-10); /* #1a1918 */
+  --color-bg-tertiary: var(--solar-20); /* #2d2c2b */
+  --color-bg-inverse: var(--solar-80); /* #f2f0e9 */
 
-  --color-text-primary:   var(--solar-80);  /* #f2f0e9 */
-  --color-text-secondary: var(--solar-50);  /* #9ca3af */
-  --color-text-muted:     var(--solar-40);  /* #6b7280 */
-  --color-text-inverse:   var(--solar-5);   /* #0f0e0d */
+  --color-text-primary: var(--solar-80); /* #f2f0e9 */
+  --color-text-secondary: var(--solar-50); /* #9ca3af */
+  --color-text-muted: var(--solar-40); /* #6b7280 */
+  --color-text-inverse: var(--solar-5); /* #0f0e0d */
 
-  --color-border:        var(--solar-30);   /* #4b4a49 */
-  --color-border-subtle: var(--solar-20);   /* #2d2c2b */
+  --color-border: var(--solar-30); /* #4b4a49 */
+  --color-border-subtle: var(--solar-20); /* #2d2c2b */
 
-  --color-accent:       var(--accent-blue-400);
+  --color-accent: var(--accent-blue-400);
   --color-accent-hover: var(--accent-blue-500);
   --color-accent-subtle: rgb(96 165 250 / 0.15);
 }
 
 /* ═══ MATERIAL TOKENS (UniTeia-specific, opt-in) ═══ */
 [data-materials="enabled"] {
-  --material-carbon-bg:     rgb(15 14 13 / 0.85);
+  --material-carbon-bg: rgb(15 14 13 / 0.85);
   --material-carbon-border: rgb(59 130 246 / 0.3);
-  --material-carbon-blur:   var(--blur-lg);
+  --material-carbon-blur: var(--blur-lg);
 
-  --material-frosted-bg:     rgb(242 240 233 / 0.7);
+  --material-frosted-bg: rgb(242 240 233 / 0.7);
   --material-frosted-border: rgb(139 92 246 / 0.2);
-  --material-frosted-blur:   var(--blur-md);
+  --material-frosted-blur: var(--blur-md);
 
-  --material-paper-bg:     #e8ddc8;
+  --material-paper-bg: #e8ddc8;
   --material-paper-border: #d4c4a8;
   --material-paper-radius: var(--radius-md) var(--radius-xl) var(--radius-md) var(--radius-xl);
 
   --material-chrome-gradient: linear-gradient(135deg, var(--accent-cyan), var(--accent-gold));
-  --material-chrome-shadow:   var(--shadow-glow-cyan);
+  --material-chrome-shadow: var(--shadow-glow-cyan);
 }
 
 /* ═══ COMPONENT TOKENS (shared across projects) ═══ */
 [data-components="shared"] {
-  --card-padding:    var(--space-5);
-  --card-radius:     var(--radius-lg);
-  --card-shadow:     var(--shadow-md);
+  --card-padding: var(--space-5);
+  --card-radius: var(--radius-lg);
+  --card-shadow: var(--shadow-md);
   --card-shadow-hover: var(--shadow-lg);
 
-  --button-padding:      var(--space-3) var(--space-5);
-  --button-radius:       var(--radius-md);
-  --button-font-weight:  600;
+  --button-padding: var(--space-3) var(--space-5);
+  --button-radius: var(--radius-md);
+  --button-font-weight: 600;
 
   --input-padding: var(--space-3) var(--space-4);
-  --input-radius:  var(--radius-md);
-  --input-border:  1px solid var(--color-border);
+  --input-radius: var(--radius-md);
+  --input-border: 1px solid var(--color-border);
 
-  --heading-line-height:      1.2;
-  --heading-letter-spacing:   -0.02em;
-  --body-line-height:         1.6;
-  --body-line-height-cjk:     1.8;
+  --heading-line-height: 1.2;
+  --heading-letter-spacing: -0.02em;
+  --body-line-height: 1.6;
+  --body-line-height-cjk: 1.8;
 }

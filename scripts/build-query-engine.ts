@@ -17,13 +17,13 @@
  * Pipeline position: runs after generate:entity-graph
  */
 
-import { writeFileSync, existsSync, mkdirSync } from 'node:fs'
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import {
   LocalEmbeddingProvider,
   NvidiaNimEmbeddingProvider,
-  loadEntityGraph,
   QueryEngine,
+  loadEntityGraph,
 } from '../src/graph/query-engine'
 
 function getArg(key: string, fallback: string): string {
@@ -56,9 +56,7 @@ async function main(): Promise<void> {
 
   // Phase 2: Choose embedding provider
   const hasNvidiaKey = !!process.env.NVIDIA_API_KEY
-  const provider = hasNvidiaKey
-    ? new NvidiaNimEmbeddingProvider()
-    : new LocalEmbeddingProvider()
+  const provider = hasNvidiaKey ? new NvidiaNimEmbeddingProvider() : new LocalEmbeddingProvider()
 
   console.log(` Provider: ${provider.name} (${provider.dimensions}d)`)
 
@@ -99,11 +97,15 @@ async function main(): Promise<void> {
   const elapsed = ((performance.now() - start) / 1000).toFixed(2)
 
   // Phase 5: Quick sanity — query a known entity
-  const enArticle = graph.nodes.find(n => n.id === 'en-magica-overview' || n.id === 'en-magica-quickstart')
+  const enArticle = graph.nodes.find(
+    n => n.id === 'en-magica-overview' || n.id === 'en-magica-quickstart'
+  )
   if (enArticle) {
     const emb = embeddings.get(enArticle.id)
     if (emb) {
-      console.log(` Sample embedding: ${enArticle.id} → [${emb.slice(0, 3).map(v => v.toFixed(4))}...] (${emb.length}d)`)
+      console.log(
+        ` Sample embedding: ${enArticle.id} → [${emb.slice(0, 3).map(v => v.toFixed(4))}...] (${emb.length}d)`
+      )
     }
   }
 

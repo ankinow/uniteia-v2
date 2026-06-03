@@ -120,6 +120,7 @@ export const pt: TranslationStrings = {
     verdictLabel: 'Veredito',
     trusted: 'Confiável',
     caution: 'Cautela',
+    qualityScore: 'Pontuação de Qualidade',
     flagged: 'Sinalizado',
     editorialQuality: 'Qualidade Editorial',
   },
@@ -127,8 +128,10 @@ export const pt: TranslationStrings = {
     readMore: 'Leia mais',
   },
   signal: {
+    qualityLabel: 'Qualidade',
     sourceCount: '{count} fontes',
     sources: 'fontes',
+    freshnessLabel: 'Atualizado',
   },
   search: {
     placeholder: 'Buscar temas, artigos...',

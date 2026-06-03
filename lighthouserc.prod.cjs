@@ -27,7 +27,7 @@ module.exports = {
     },
     assert: {
       assertions: {
-        'categories:performance': ['error', { minScore: 0.90 }],
+        'categories:performance': ['error', { minScore: 0.9 }],
         'categories:accessibility': ['error', { minScore: 1.0 }],
         'categories:best-practices': ['error', { minScore: 1.0 }],
         'categories:seo': ['error', { minScore: 1.0 }],
@@ -39,8 +39,8 @@ module.exports = {
         'image-alt': ['error', { minScore: 1 }],
         'document-title': ['error', { minScore: 1 }],
         'meta-description': ['error', { minScore: 1 }],
-        'hreflang': ['error', { minScore: 1 }],
-        'canonical': ['error', { minScore: 1 }],
+        hreflang: ['error', { minScore: 1 }],
+        canonical: ['error', { minScore: 1 }],
         'crawlable-links': ['error', { minScore: 1 }],
         'is-crawlable': ['error', { minScore: 1 }],
         'render-blocking-resources': ['warn', { maxLength: 1 }],

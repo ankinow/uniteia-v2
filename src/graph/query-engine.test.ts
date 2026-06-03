@@ -3,17 +3,17 @@
  * Coverage target: ≥80%
  */
 
-import { describe, expect, it, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import {
-  QueryEngine,
   LocalEmbeddingProvider,
   NvidiaNimEmbeddingProvider,
+  QueryEngine,
   cosineSimilarity,
-  meanVector,
-  loadEntityGraph,
   createEngineFromFile,
+  loadEntityGraph,
+  meanVector,
 } from './query-engine'
-import type { EntityGraph, Entity, Edge } from './types'
+import type { Edge, Entity, EntityGraph } from './types'
 
 // ── Fixtures ──
 
@@ -79,7 +79,12 @@ const MOCK_EDGES: Edge[] = [
   { source: 'en-magica-overview', target: 'category-magica', kind: 'belongs_to', weight: 1.0 },
   { source: 'en-magica-overview', target: 'product-magica', kind: 'mentions', weight: 0.8 },
   { source: 'pt-magica-overview', target: 'category-magica', kind: 'belongs_to', weight: 1.0 },
-  { source: 'en-magica-overview', target: 'pt-magica-overview', kind: 'translated_as', weight: 1.0 },
+  {
+    source: 'en-magica-overview',
+    target: 'pt-magica-overview',
+    kind: 'translated_as',
+    weight: 1.0,
+  },
   { source: 'product-magica', target: 'brand-tencent-cloud', kind: 'competes_with', weight: 0.5 },
   { source: 'en-magica-overview', target: 'brand-tencent-cloud', kind: 'mentions', weight: 0.3 },
 ]
@@ -131,7 +136,7 @@ describe('cosineSimilarity', () => {
   })
 
   it('returns ~0.7 for 45-degree vectors', () => {
-    expect(cosineSimilarity([1, 0], [1, 1])).toBeCloseTo(0.707, 2)
+    expect(cosineSimilarity([1, 0], [1, 1])).toBeCloseTo(Math.SQRT1_2, 2)
   })
 
   it('returns 0 for mismatched dimensions', () => {
@@ -145,7 +150,10 @@ describe('cosineSimilarity', () => {
 
 describe('meanVector', () => {
   it('computes mean of multiple vectors', () => {
-    const result = meanVector([[1, 2], [3, 4]])
+    const result = meanVector([
+      [1, 2],
+      [3, 4],
+    ])
     expect(result).toEqual([2, 3])
   })
 

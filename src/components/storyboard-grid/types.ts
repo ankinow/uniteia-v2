@@ -24,6 +24,8 @@ export interface StoryboardCell {
   cta?: { label: string; href: string; variant: 'primary' | 'secondary' }
   metric?: { value: string; label: string; delta?: string }
   quote?: { text: string; source: string }
+  /** SVG diagram component key (resolved at render time). One of: magica-arch | quickstart-flow | mcp-arch | tencent-stack */
+  diagram?: 'magica-arch' | 'quickstart-flow' | 'mcp-arch' | 'tencent-stack'
   /** Cells this cell's arrow points TO (SVG arrow drawn between grid areas) */
   arrowTo?: string[]
 }
@@ -60,5 +62,6 @@ export interface ResolvedCell {
   cta?: { label: string; href: string; variant: 'primary' | 'secondary' }
   metric?: { value: string; label: string; delta?: string }
   quote?: { text: string; source: string }
+  diagram?: 'magica-arch' | 'quickstart-flow' | 'mcp-arch' | 'tencent-stack'
   arrowTo?: string[]
 }

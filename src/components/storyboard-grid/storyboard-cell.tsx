@@ -1,5 +1,11 @@
 import { $, component$ } from '@builder.io/qwik'
 import { playCtaClick } from '~/utils/aether-sound'
+import {
+  MagicaCommandCenterDiagram,
+  McpArchitectureDiagram,
+  QuickstartFlowDiagram,
+  TencentStackDiagram,
+} from '~/components/canva/diagrams'
 import { NoiseCanvas } from './noise-canvas'
 import type { ResolvedCell } from './types'
 
@@ -46,10 +52,18 @@ export const StoryboardCell = component$<{ cell: ResolvedCell }>(({ cell }) => {
         </>
       )}
 
-      {/* ── Diagram cell (list of features) ── */}
+      {/* ── Diagram cell (list of features OR inline SOTA SVG) ── */}
       {cell.variant === 'diagram' && (
         <>
           {cell.title && <h3 class="storyboard-cell__title">{cell.title}</h3>}
+          {cell.diagram && (
+            <div class="storyboard-cell__diagram-svg my-3">
+              {cell.diagram === 'magica-arch' && <MagicaCommandCenterDiagram />}
+              {cell.diagram === 'quickstart-flow' && <QuickstartFlowDiagram />}
+              {cell.diagram === 'mcp-arch' && <McpArchitectureDiagram />}
+              {cell.diagram === 'tencent-stack' && <TencentStackDiagram />}
+            </div>
+          )}
           {cell.list && cell.list.length > 0 && (
             <ul class="storyboard-cell__list">
               {cell.list.map((item, idx) => (
