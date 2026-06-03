@@ -6,6 +6,7 @@ export type SignalTrend = 'up' | 'down' | 'stable'
 export interface SignalChipProps {
   metric: number
   label: string
+  locale?: string
   trend?: SignalTrend
   variant?: SignalChipVariant
   class?: ClassList
@@ -21,9 +22,10 @@ export const ALL_VARIANTS: SignalChipVariant[] = [
 export const ALL_TRENDS: SignalTrend[] = ['up', 'down', 'stable']
 
 export const SignalChip = component$<SignalChipProps>(
-  ({ metric, label, trend = 'stable', variant = 'moderator', class: className }) => {
+  ({ metric, label, locale, trend = 'stable', variant = 'moderator', class: className }) => {
     return (
       <span
+        aria-label={`${metric} ${label}${locale ? `, ${locale}` : ''}`}
         class={['signal-chip', `signal-chip--${variant}`, className]}
         data-variant={variant}
         data-trend={trend}
