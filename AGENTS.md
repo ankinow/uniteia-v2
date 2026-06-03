@@ -268,3 +268,23 @@ R&D lab for regional AI experiments. Validates low-cost inference strategies bef
 ## Vibe Coding Prohibition
 
 This ecosystem uses **Spec-Driven Development**. All changes must reference a milestone (M012-M014) and a task hash. No "vibe coding" — every modification is traceable to a specification.
+
+## Hygiene
+
+Automated dead-code and lint maintenance. Baseline scanned R26 (2026-06-03).
+
+- `bunx knip --reporter compact` — find unused files, exports, deps (JSON report at `artifacts/hygiene/knip-report.json`)
+- `bun run lint` — Biome check (8 pre-existing warnings)
+- `bun run lint.fix` — Biome auto-format
+
+**Knip tuning**: `knip.json` at root — ignores Qwik `$()` wrappers, Vite dynamic `import()`, generated files.
+False positives expected: `useVisibleTask$`, `$()` closures, CF Pages Worker functions.
+
+## Knowledge Graph
+
+Cross-repo graph bridge via graphify (R21 ACTIVE in factory).
+
+- Factory publishes `.factory/graphify/graph.json` → consumes inferred semantic edges
+- Bridge: `bun run import:graphify` (R27) — merges graphify nodes into content-graph compiler
+- God nodes, surprising connections, community detection
+- Status: factory-side active (nightly cron 4AM UTC). v2-side pending (R27).
