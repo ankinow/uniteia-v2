@@ -200,6 +200,7 @@ export default component$(() => {
           <div class="px-4 pt-6 pb-2 w-full max-w-6xl mx-auto">
             <Breadcrumb />
           </div>
+          <JSONLD data={webPageSchema} />
           <StoryboardGrid layout={storyboardLayout} />
         </>
       ) : (
