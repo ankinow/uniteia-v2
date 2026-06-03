@@ -1,0 +1,23 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "src/entry.ssr.tsx",
+    "src/entry.cloudflare-pages.tsx",
+    "functions/[[route]].ts"
+  ],
+  "project": ["src/**/*.{ts,tsx}"],
+  "ignore": [
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "src/content-graph.generated.ts",
+    "src/content-registry.generated.ts",
+    "src/search-index.generated.ts",
+    "src/component-metadata.generated.json"
+  ],
+  "ignoreDependencies": [
+    "@builder.io/qwik",
+    "@builder.io/qwik-city",
+    "bun-types",
+    "perfect-freehand"
+  ]
+}
