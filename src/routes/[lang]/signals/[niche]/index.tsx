@@ -159,6 +159,7 @@ export default component$(() => {
           <Breadcrumb />
         </div>
         <LivingBrief2Col
+          singleCol
           hero={{
             title: data.value.niche.title[lang],
             subtitle: data.value.niche.description[lang],

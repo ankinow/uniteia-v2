@@ -126,4 +126,6 @@ export interface LivingBrief2ColProps {
   class?: string
   /** Show signature tape at top of collage */
   showSignatureTape?: boolean
+  /** Single column layout (default: false = 2 columns) */
+  singleCol?: boolean
 }
