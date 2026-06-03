@@ -1,0 +1,107 @@
+/**
+ * BentoGrid + BentoCell — SOTA 2026 modular grid layout
+ *
+ * Design intent:
+ * - CSS Grid with auto-fit → no media queries for cell count
+ * - Container queries for cell span collapse on narrow contexts
+ * - Border-glow hover (no box-shadow, no gradients per design system)
+ * - Compositor-only transitions (transform, opacity, border-color)
+ *
+ * Custom properties consumed:
+ *   --bento-min-w  minimum cell width (default 280px)
+ *   --bento-cell-h base row height (default 200px)
+ *   --bento-gap    grid gap (default 1rem)
+ */
+
+@layer bento-grid {
+  .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--bento-min-w, 280px), 1fr));
+    grid-auto-rows: var(--bento-cell-h, 200px);
+    gap: var(--bento-gap, 1rem);
+    container-type: inline-size;
+    width: 100%;
+  }
+
+  .cell {
+    position: relative;
+    overflow: hidden;
+    background: oklch(20% 0.02 260 / 0.6);
+    border: 1px solid oklch(30% 0.03 260 / 0.4);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition:
+      transform var(--duration-base, 200ms) var(--ease-micro, ease-out),
+      border-color var(--duration-base, 200ms) var(--ease-micro, ease-out);
+  }
+
+  /* Border-glow on hover (no box-shadow per design system) */
+  .cell::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      var(--color-cyan, oklch(75% 0.18 200)),
+      transparent 60%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--duration-base, 200ms) var(--ease-micro, ease-out);
+    pointer-events: none;
+  }
+
+  .cell:hover {
+    transform: translateY(-2px);
+    border-color: oklch(50% 0.05 260 / 0.6);
+  }
+
+  .cell:hover::before {
+    opacity: 1;
+  }
+
+  /* ── Size variants ── */
+  .wide {
+    grid-column: span 2;
+  }
+
+  .tall {
+    grid-row: span 2;
+  }
+
+  .featured {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  /* ── Container query: collapse on narrow viewports ── */
+  @container (max-width: 600px) {
+    .wide,
+    .featured {
+      grid-column: span 1;
+    }
+
+    .tall,
+    .featured {
+      grid-row: span 1;
+    }
+  }
+
+  /* ── Reduced motion fallback ── */
+  @media (prefers-reduced-motion: reduce) {
+    .cell,
+    .cell::before {
+      transition: none;
+    }
+
+    .cell:hover {
+      transform: none;
+    }
+  }
+}

@@ -10,6 +10,7 @@
 @plugin "@iconify/tailwind4";
 @import "./assets/components-utilities.css";
 @import "./assets/uniteia-tokens.css";
+@import "./assets/p3-accents.css";
 
 /* ═══════════════════════════════════════════
    DESIGN TOKENS — CSS-first @theme (Oxide)

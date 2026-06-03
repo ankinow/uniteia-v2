@@ -1,0 +1,73 @@
+/**
+ * P3 Wide-Gamut Accents — UniTeia OS
+ *
+ * Only visible on displays that support Display P3 (~75% of 2026 hardware).
+ * Falls back gracefully to sRGB tones via the sRGB media query.
+ *
+ * Inspired by:
+ * - https://webkit.org/blog/10079/css-color-4/
+ * - https://developer.chrome.com/blog/css-color-spaces/
+ *
+ * Layer: p3-accents (lowest priority, used as accent overlay)
+ *
+ * Activation:
+ * @media (color-gamut: p3) → swap --neon-* tokens with wider chromaticity
+ */
+
+@layer p3-accents {
+  @media (color-gamut: p3) {
+    :root {
+      --neon-cyan: oklch(80% 0.25 200);
+      --neon-amber: oklch(78% 0.22 80);
+      --neon-rose: oklch(75% 0.24 25);
+      --neon-acid: oklch(82% 0.27 145);
+      --bioluminescence: oklch(85% 0.2 160);
+    }
+
+    .accent-glow {
+      text-shadow:
+        0 0 10px var(--neon-cyan),
+        0 0 20px var(--neon-cyan),
+        0 0 40px oklch(80% 0.25 200 / 0.5);
+    }
+
+    .border-neon {
+      border-color: var(--neon-cyan);
+      box-shadow:
+        0 0 8px var(--neon-cyan),
+        inset 0 0 4px var(--neon-cyan);
+    }
+
+    .text-neon-cyan {
+      color: var(--neon-cyan);
+    }
+
+    .text-neon-amber {
+      color: var(--neon-amber);
+    }
+
+    .text-neon-rose {
+      color: var(--neon-rose);
+    }
+  }
+
+  /* ── sRGB fallback (default for non-P3 displays) ── */
+  @media not (color-gamut: p3) {
+    :root {
+      --neon-cyan: oklch(75% 0.18 200);
+      --neon-amber: oklch(72% 0.165 80);
+      --neon-rose: oklch(68% 0.18 25);
+      --neon-acid: oklch(72% 0.2 145);
+      --bioluminescence: oklch(78% 0.18 160);
+    }
+  }
+
+  /* ── Respect motion preferences ── */
+  @media (prefers-reduced-motion: reduce) {
+    .accent-glow,
+    .border-neon {
+      text-shadow: none;
+      box-shadow: none;
+    }
+  }
+}
