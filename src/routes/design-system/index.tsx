@@ -13,6 +13,7 @@ import type { DocumentHead } from '@builder.io/qwik-city'
 
 import { AgentStatus } from '~/components/agent-status'
 import { Avatar } from '~/components/avatar'
+import { BentoCell, BentoGrid } from '~/components/bento-grid'
 import { CanvasSurface } from '~/components/canvas-surface'
 import {
   ALL_VARIANTS as CINEMATIC_VARIANTS,
@@ -1011,6 +1012,65 @@ export default component$(() => {
               </div>
             ))}
           </div>
+        </ComponentSection>
+
+        {/* ── 18. BentoGrid + BentoCell (R28 island showcase) ── */}
+        <ComponentSection
+          title="BentoGrid + BentoCell"
+          description="Modular CSS Grid layout (SOTA 2026) with size variants — featured (2x2), wide (2x1), tall (1x2), default (1x1). Container queries collapse wide/featured to single column on narrow viewports. 0KB JS — purely structural."
+          props={[
+            {
+              name: 'minCellWidth',
+              type: 'string',
+              default: "'280px'",
+              description: 'Minimum cell width (auto-fit)',
+            },
+            {
+              name: 'cellHeight',
+              type: 'string',
+              default: "'200px'",
+              description: 'Grid auto-rows height',
+            },
+            {
+              name: 'gap',
+              type: 'string',
+              default: "'1rem'",
+              description: 'Grid gap',
+            },
+            {
+              name: 'class',
+              type: 'ClassList',
+              default: '—',
+              description: 'Additional CSS classes',
+            },
+          ]}
+        >
+          <BentoGrid minCellWidth="180px" cellHeight="120px" gap="0.75rem" class="my-4">
+            <BentoCell size="featured" class="bg-cyan/5 border border-cyan/30 p-3 text-xs font-mono text-cyan">
+              Featured (2x2)
+            </BentoCell>
+            <BentoCell size="wide" class="bg-action/5 border border-action/20 p-3 text-xs font-mono text-action">
+              Wide (2x1)
+            </BentoCell>
+            <BentoCell class="bg-curation/5 border border-curation/20 p-3 text-xs font-mono text-bone">
+              Default
+            </BentoCell>
+            <BentoCell class="bg-verified/5 border border-verified/20 p-3 text-xs font-mono text-bone">
+              Default
+            </BentoCell>
+            <BentoCell size="tall" class="bg-void border border-action/10 p-3 text-xs font-mono text-bone">
+              Tall (1x2)
+            </BentoCell>
+            <BentoCell class="bg-raised p-3 text-xs font-mono text-bone-muted">
+              Default
+            </BentoCell>
+          </BentoGrid>
+          <p class="text-xs font-mono text-bone-muted mt-3">
+            Cells render in <code class="text-cyan">grid-auto-flow: dense</code> order. Border-glow hover uses{' '}
+            <code class="text-cyan">linear-gradient + mask-composite</code> (no box-shadow per design system).
+            P3 wide-gamut accents (<code class="text-cyan">.accent-glow</code>,{' '}
+            <code class="text-cyan">.border-neon</code>) auto-activate on capable displays.
+          </p>
         </ComponentSection>
 
         {/* ── Footer ── */}
