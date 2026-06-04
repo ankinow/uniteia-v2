@@ -70,8 +70,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@cloudflare/workers-types": "4.20260528.1",
-    "@iconify-json/lucide": "1.2.110",
+    "@cloudflare/workers-types": "4.20260604.1",
+    "@iconify-json/lucide": "1.2.111",
     "@iconify/tailwind": "^1.2.0",
     "@iconify/tailwind4": "^1.2.3",
     "@playwright/test": "1.60.0",
@@ -89,7 +89,7 @@
     "typescript": "~5.9.3",
     "vite": "^7.3.3",
     "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "4.1.7",
+    "vitest": "4.1.8",
     "wrangler": "^4.93.0"
   },
   "engines": {
