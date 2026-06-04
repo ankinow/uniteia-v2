@@ -203,49 +203,6 @@ export interface TranslationStrings {
       body: string
     }
   }
-  canva: {
-    hero: {
-      title: string
-      subtitle: string
-      cta: string
-    }
-    concept: {
-      central: string
-      satellite: {
-        1: string
-        2: string
-      }
-    }
-    code: {
-      step: {
-        1: { title: string; body: string }
-        2: { title: string }
-      }
-    }
-    compare: {
-      option: {
-        a: string
-        b: string
-      }
-      decision: {
-        yes: string
-        no: string
-      }
-    }
-    timeline: {
-      milestone: {
-        1: string
-        2: string
-      }
-    }
-    summary: {
-      takeaway: {
-        1: string
-        2: string
-      }
-      nextstep: string
-    }
-  }
 }
 
 // ── Language Info (UI-facing metadata) ────────────────────────────────

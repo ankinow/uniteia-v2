@@ -7,15 +7,11 @@
  * Diagrams teach advanced SOTA concepts (router fallback, MCP 4-layer, Tencent cost ladder).
  */
 
-import type { ShapeRef } from '~/components/canva/ShapeCanvas'
 import type { ResolvedCell, ResolvedLayout } from '~/components/storyboard-grid/types'
 import type { SupportedLanguage } from '~/i18n/types'
 import type { TranslationStrings } from '~/i18n/types'
 
 const WHITEBOARD = '/assets/whiteboard/articles'
-
-/** Scene template that drives CanvaComposition's titleKey + default layout */
-export type CanvaSceneType = 'hero' | 'concept' | 'code' | 'comparison' | 'timeline' | 'summary'
 
 type ArticleMeta = {
   slug: string
@@ -31,14 +27,6 @@ type ArticleMeta = {
   ctaLabel: string
   ctaHref: string
   alt: string
-  /**
-   * Optional Canva composition refs (pitfall 96: ShapeCanvas pattern).
-   * When present, route renders <CanvaComposition> ABOVE the StoryboardGrid.
-   * Coords use viewBox 0-1200 × 0-800.
-   */
-  canvaShapeRefs?: ShapeRef[]
-  /** Scene template key for CanvaComposition (defaults to 'hero' if refs present) */
-  canvaSceneType?: CanvaSceneType
 }
 
 const ARTICLE_METAS: Record<string, ArticleMeta> = {
@@ -54,70 +42,12 @@ const ARTICLE_METAS: Record<string, ArticleMeta> = {
       'Auto-retry with exponential backoff and circuit breaker',
     ],
     diagram: 'magica-arch',
-    metric: {
-      value: '40%',
-      label: 'avg cost reduction vs single-provider',
-      delta: '↓ from baseline',
-    },
+    metric: { value: '40%', label: 'avg cost reduction vs single-provider', delta: '↓ from baseline' },
     ctaTitle: 'Start Building',
     ctaBody: 'Try Magica free — no credit card required.',
     ctaLabel: 'Visit Magica',
     ctaHref: 'https://try.magica.com/clique-serio',
     alt: 'Magica AI Command Center workflow diagram',
-    // Pilot article — 5 shapes composing a hero scene in viewBox 1200×800
-    canvaSceneType: 'hero',
-    canvaShapeRefs: [
-      // Top-left: manga-corner anchor (manga-3d volumetric)
-      {
-        shapeId: 'panel-manga-corner',
-        style: 'manga-3d',
-        mood: 'volumetric',
-        x: 40,
-        y: 40,
-        w: 480,
-        h: 360,
-      },
-      // Center-right: stack-vertical with concept mood (manga-chalk)
-      {
-        shapeId: 'panel-stack-vertical',
-        style: 'manga-chalk',
-        mood: 'concept',
-        x: 560,
-        y: 40,
-        w: 600,
-        h: 360,
-      },
-      // Mid-left: spotlight panel highlighting a metric
-      {
-        shapeId: 'panel-spotlight',
-        style: 'manga-comic',
-        mood: 'panel',
-        x: 40,
-        y: 420,
-        w: 720,
-        h: 340,
-      },
-      // Mid-right: asymmetric floating accent
-      {
-        shapeId: 'panel-asymmetric',
-        style: 'manga-ink',
-        mood: 'atmosphere',
-        x: 780,
-        y: 420,
-        w: 380,
-        h: 200,
-      },
-      // Bottom-right: floating panel for the CTA
-      {
-        shapeId: 'panel-floating',
-        style: 'manga-marker',
-        mood: 'editorial',
-        x: 780,
-        y: 640,
-        w: 380,
-        h: 120,
-      },
-    ],
   },
   'magica-quickstart': {
     slug: 'magica-quickstart',
@@ -250,20 +180,4 @@ export function getStoryboardLayout(
 
 export function hasStoryboardLayout(slug: string): boolean {
   return slug in ARTICLE_METAS
-}
-
-/**
- * Resolve Canva composition refs (pitfall 96 — ShapeCanvas pattern) for a slug.
- * Returns null when the article has no canvaShapeRefs declared.
- * Server-side safe — pure data lookup, no DOM/fetch.
- */
-export function getCanvaComposition(
-  slug: string
-): { refs: ShapeRef[]; sceneType: CanvaSceneType } | null {
-  const meta = ARTICLE_METAS[slug]
-  if (!meta?.canvaShapeRefs?.length) return null
-  return {
-    refs: meta.canvaShapeRefs,
-    sceneType: meta.canvaSceneType ?? 'hero',
-  }
 }
