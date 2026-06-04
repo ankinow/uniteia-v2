@@ -1,0 +1,563 @@
+/**
+ * Sketchnote — Hand-drawn kawaii style template
+ *
+ * Layout: 5 cards with hand-drawn aesthetic, post-it accents, robot mascot,
+ * numbered circles. Background is off-white/cream with dark borders. All text
+ * is supplied via i18n keys (separate layer, never baked in).
+ *
+ * Color palette (SOTA sketchnote 2026):
+ *   - background paper: oklch(96% 0.02 80)        (off-white cream)
+ *   - text primary:    oklch(20% 0.04 270)       (dark ink)
+ *   - text secondary:  oklch(45% 0.03 270)       (muted ink)
+ *   - post-it yellow:  oklch(88% 0.13 85)        (warm yellow)
+ *   - washi tape blue: oklch(75% 0.12 230)       (light blue)
+ *   - accent cyan:     oklch(72% 0.16 200)       (UniTeia cyan)
+ *   - accent amber:    oklch(72% 0.165 80)       (UniTeia amber)
+ *   - accent green:    oklch(70% 0.18 145)       (success green)
+ *   - accent rose:     oklch(65% 0.20 22)        (warning rose)
+ *
+ * Typography:
+ *   - Display/handwriting: Caveat, Kalam, cursive
+ *   - Body sans: system-ui, Inter, sans-serif
+ *   - Code mono: ui-monospace, monospace
+ */
+
+.sk-root {
+  --paper:        oklch(96% 0.02 80);
+  --paper-edge:   oklch(88% 0.02 80);
+  --ink:          oklch(20% 0.04 270);
+  --ink-muted:    oklch(45% 0.03 270);
+  --postit:       oklch(88% 0.13 85);
+  --postit-edge:  oklch(75% 0.10 80);
+  --tape:         oklch(75% 0.12 230);
+  --tape-edge:    oklch(60% 0.10 230);
+  --cyan:         oklch(72% 0.16 200);
+  --amber:        oklch(72% 0.165 80);
+  --green:        oklch(70% 0.18 145);
+  --rose:         oklch(65% 0.20 22);
+  --handwriting:  'Caveat', 'Kalam', cursive;
+  --sans:         system-ui, 'Inter', -apple-system, sans-serif;
+  --mono:         ui-monospace, 'JetBrains Mono', 'Cascadia Code', monospace;
+}
+
+.sk-root {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  border: 2px solid var(--paper-edge);
+  border-radius: 4px;
+  padding: 1.5rem 1.5rem 2rem;
+  position: relative;
+  /* Hand-drawn texture: very subtle paper grain via SVG */
+  background-image:
+    radial-gradient(circle at 1px 1px, oklch(20% 0.04 270 / 0.04) 1px, transparent 0);
+  background-size: 12px 12px;
+}
+
+/* Header: logo + title + post-it + mascot */
+.sk-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: start;
+}
+
+.sk-header__main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sk-header__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.05em;
+}
+
+.sk-header__title {
+  font-family: var(--handwriting);
+  font-size: 2.25rem;
+  line-height: 1.1;
+  margin: 0;
+  font-weight: 700;
+}
+
+.sk-header__title em {
+  color: var(--cyan);
+  font-style: normal;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.sk-header__subtitle {
+  font-family: var(--handwriting);
+  font-size: 1.25rem;
+  color: var(--ink-muted);
+  margin: 0;
+}
+
+.sk-header__postit {
+  background: var(--postit);
+  border: 1px solid var(--postit-edge);
+  padding: 0.75rem 1rem;
+  font-family: var(--handwriting);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  transform: rotate(-2deg);
+  position: relative;
+  box-shadow: 2px 2px 0 oklch(20% 0.04 270 / 0.1);
+  max-width: 14rem;
+  /* Tape strip on top */
+  align-self: start;
+}
+
+.sk-header__postit::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 1rem;
+  width: 60px;
+  height: 16px;
+  background: var(--tape);
+  border: 1px solid var(--tape-edge);
+  transform: rotate(-3deg);
+  opacity: 0.7;
+}
+
+.sk-header__mascot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.sk-header__mascot-bubble {
+  background: white;
+  border: 1.5px solid var(--ink);
+  border-radius: 18px;
+  padding: 0.4rem 0.75rem;
+  font-family: var(--handwriting);
+  font-size: 1rem;
+  position: relative;
+  white-space: nowrap;
+  max-width: 10rem;
+}
+
+.sk-header__mascot-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid white;
+}
+
+/* Body: cards laid out in a 2-col grid (or single col on mobile) */
+.sk-body {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .sk-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Numbered circle (1, 2, 3, 4, 5...) */
+.sk-card {
+  background: white;
+  border: 1.5px solid var(--ink);
+  border-radius: 6px;
+  padding: 1rem 1rem 1.25rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sk-card--full {
+  grid-column: 1 / -1;
+}
+
+.sk-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sk-card__num {
+  width: 28px;
+  height: 28px;
+  background: var(--cyan);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  font-family: var(--sans);
+}
+
+.sk-card--amber .sk-card__num { background: var(--amber); }
+.sk-card--green .sk-card__num { background: var(--green); }
+.sk-card--rose .sk-card__num   { background: var(--rose); }
+
+.sk-card__icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--ink);
+}
+
+.sk-card__kind {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+}
+
+.sk-card__title {
+  font-family: var(--handwriting);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--cyan);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.sk-card--amber .sk-card__title { color: var(--amber); }
+.sk-card--green .sk-card__title { color: var(--green); }
+.sk-card--rose .sk-card__title   { color: var(--rose); }
+
+.sk-card__body {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.sk-card__postit {
+  background: var(--postit);
+  border: 1px solid var(--postit-edge);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--handwriting);
+  font-size: 0.95rem;
+  font-weight: 600;
+  align-self: flex-start;
+  transform: rotate(-1deg);
+  position: relative;
+}
+
+.sk-card__postit::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 0.5rem;
+  width: 40px;
+  height: 12px;
+  background: var(--tape);
+  border: 1px solid var(--tape-edge);
+  opacity: 0.6;
+  transform: rotate(-5deg);
+}
+
+.sk-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sk-card__list-item {
+  display: flex;
+  align-items: start;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.sk-card__list-item::before {
+  content: '•';
+  color: var(--cyan);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.sk-card__flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.sk-card__flow-item {
+  background: oklch(96% 0.02 200);
+  border: 1px solid oklch(85% 0.04 200);
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.sk-card__flow-arrow {
+  color: var(--green);
+  font-weight: 700;
+}
+
+/* Use / Don't use dual list */
+.sk-card__use-dont {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.sk-card__use-dont-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.sk-card__use-dont-header {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.sk-card__use-dont-header--use {
+  color: var(--green);
+}
+
+.sk-card__use-dont-header--dont {
+  color: var(--rose);
+}
+
+.sk-card__use-dont-item {
+  font-size: 0.85rem;
+  line-height: 1.35;
+  display: flex;
+  align-items: start;
+  gap: 0.35rem;
+}
+
+/* Code block */
+.sk-card__code {
+  background: oklch(18% 0.03 270);
+  color: oklch(92% 0.02 80);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.sk-card__code-comment {
+  color: oklch(70% 0.05 145);
+  font-style: italic;
+}
+
+.sk-card__command {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: oklch(20% 0.03 270);
+  color: oklch(92% 0.02 80);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+}
+
+.sk-card__command-prompt {
+  color: var(--green);
+  font-weight: 700;
+}
+
+/* Tip box (red/rose) */
+.sk-card__tip {
+  background: oklch(95% 0.04 30);
+  border-left: 3px solid var(--rose);
+  padding: 0.6rem 0.8rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-top: 0.5rem;
+}
+
+.sk-card__tip-header {
+  font-weight: 700;
+  color: var(--rose);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+/* Upgrade ideas (3 mini cards) */
+.sk-card__upgrade-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .sk-card__upgrade-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sk-card__upgrade-mini {
+  background: oklch(94% 0.04 85);
+  border: 1px solid var(--postit-edge);
+  border-radius: 4px;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.sk-card__upgrade-mini:nth-child(2) {
+  background: oklch(94% 0.04 200);
+  border-color: oklch(85% 0.06 200);
+}
+
+.sk-card__upgrade-mini-name {
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 0.2rem;
+}
+
+.sk-card__upgrade-mini-desc {
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: var(--ink-muted);
+}
+
+/* Footer: CTA + tags + credit */
+.sk-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1.5px dashed var(--paper-edge);
+}
+
+.sk-footer__cta {
+  background: var(--cyan);
+  color: white;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: 0.6rem 1.5rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.sk-footer__cta--green { background: var(--green); }
+
+.sk-footer__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+.sk-footer__tag {
+  background: white;
+  border: 1px solid var(--paper-edge);
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+}
+
+.sk-footer__tag--sep {
+  color: var(--cyan);
+}
+
+.sk-footer__credit {
+  font-family: var(--handwriting);
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--postit);
+  border: 1px solid var(--postit-edge);
+  padding: 0.4rem 0.8rem;
+  position: relative;
+  transform: rotate(-1deg);
+}
+
+.sk-footer__credit::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  right: 1rem;
+  width: 30px;
+  height: 10px;
+  background: var(--tape);
+  border: 1px solid var(--tape-edge);
+  opacity: 0.6;
+  transform: rotate(3deg);
+}
+
+.sk-footer__level {
+  background: white;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Sparkles decoration */
+.sk-sparkles {
+  position: absolute;
+  pointer-events: none;
+  font-size: 0.85rem;
+  opacity: 0.5;
+}
+
+.sk-sparkles--tl { top: 0.5rem; right: 0.5rem; }
+.sk-sparkles--br { bottom: 0.5rem; left: 0.5rem; }
+
+/* Use dark mode override for dark sites (UniTeia-v2 = void bg) */
+:global(.dark) .sk-root {
+  --paper: oklch(98% 0.01 80);
+  /* Keep paper light even in dark mode — template is the bright spot */
+}

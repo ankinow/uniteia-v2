@@ -203,6 +203,121 @@ export interface TranslationStrings {
       body: string
     }
   }
+  sketchnote: {
+    template01: {
+      title: string
+      subtitle: string
+      postIt: string
+      mascotBubble: string
+      steps: {
+        hook: { kind: string; title: string; body: string }
+        mistake: { kind: string; title: string; body: string; postIt: string }
+        analogy: {
+          kind: string
+          title: string
+          body: string
+          items: string[]
+          agentLabel: string
+        }
+        diagram: { kind: string; title: string; body: string; flow: string[] }
+        example: { kind: string; title: string; body: string; caption: string }
+        use: {
+          kind: string
+          title: string
+          useHeader: string
+          useItems: string[]
+          dontHeader: string
+          dontItems: string[]
+        }
+        pitfalls: {
+          kind: string
+          title: string
+          items: string[]
+          tipHeader: string
+          tip: string
+        }
+        nextStep: {
+          kind: string
+          title: string
+          items: string[]
+          closingNote: string
+        }
+      }
+      tags: { visualLogic: string; devFriendly: string; practicalByDesign: string }
+      level: string
+      footer: string
+    }
+    template02: {
+      title: string
+      subtitle: string
+      postIt: string
+      mascotBubble: string
+      steps: {
+        result: { kind: string; title: string; body: string; caption: string }
+        install: {
+          kind: string
+          title: string
+          body: string
+          command: string
+          output: string
+        }
+        code: { kind: string; title: string; body: string; caption: string }
+        howItWorks: {
+          kind: string
+          title: string
+          body: string
+          flow: string[]
+          caption: string
+        }
+        upgrade: {
+          kind: string
+          title: string
+          body: string
+          items: { name: string; desc: string }[]
+          caption: string
+        }
+      }
+      cta: string
+      tags: { visualLogic: string; devFriendly: string; practicalByDesign: string }
+      footer: string
+    }
+    template03: {
+      title: string
+      subtitle: string
+      postIt: string
+      mascotBubble: string
+      panels: {
+        question: {
+          kind: string
+          title: string
+          subtitle: string
+          tipTitle: string
+          tip: string
+        }
+        options: {
+          kind: string
+          title: string
+          options: { name: string; desc: string }[]
+        }
+        decision: {
+          kind: string
+          title: string
+          subtitle: string
+          rules: { question: string; yesTo: string }[]
+          bottomNote: string
+        }
+        summary: {
+          kind: string
+          title: string
+          options: { name: string; verdict: string }[]
+          closingNote: string
+        }
+      }
+      cta: string
+      tags: { visualLogic: string; devFriendly: string; practicalByDesign: string }
+      footer: string
+    }
+  }
 }
 
 // ── Language Info (UI-facing metadata) ────────────────────────────────
