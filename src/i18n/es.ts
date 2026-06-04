@@ -211,4 +211,52 @@ export const es: TranslationStrings = {
       body: 'Términos de Servicio. Al usar UniTeia, usted acepta estos términos. El contenido proporcionado es solo para fines informativos y no constituye asesoramiento profesional. Nos reservamos el derecho de modificar estos términos en cualquier momento.',
     },
   },
+  canva: {
+    hero: {
+      title: 'Diseña a la velocidad del pensamiento',
+      subtitle: 'Un lienzo visual para flujos editoriales con IA',
+      cta: 'Empezar a explorar',
+    },
+    concept: {
+      central: 'Un lienzo, muchas formas — componible por intención',
+      satellite: {
+        1: 'Arrastra, suelta y reconecta nodos sin salir de la página',
+        2: 'Cada cambio se refleja en 8 idiomas simultáneamente',
+      },
+    },
+    code: {
+      step: {
+        1: {
+          title: 'Definir el prompt',
+          body: 'Empieza con una intención en lenguaje natural. El lienzo la convierte en nodos estructurados.',
+        },
+        2: {
+          title: 'Conectar el enrutador de modelos',
+        },
+      },
+    },
+    compare: {
+      option: {
+        a: 'Herramienta de diseño estática',
+        b: 'UniTeia Canva',
+      },
+      decision: {
+        yes: 'Encaja con nuestro pipeline editorial',
+        no: 'Herramienta equivocada para flujos IA multilingües',
+      },
+    },
+    timeline: {
+      milestone: {
+        1: '2026 T1 — Canva Magica alfa privado',
+        2: '2026 T3 — Lanzamiento público con paridad en 8 idiomas',
+      },
+    },
+    summary: {
+      takeaway: {
+        1: 'Un lienzo que habla todos los idiomas en los que publicas',
+        2: 'Composición visual sin renunciar a datos estructurados',
+      },
+      nextstep: 'Abre el lienzo, coloca tu primera forma y publica en 8 idiomas',
+    },
+  },
 }

@@ -215,4 +215,52 @@ export const it: TranslationStrings = {
       body: 'Termini di Servizio. Utilizzando UniTeia, accetti questi termini. Il contenuto fornito è solo a scopo informativo e non costituisce consulenza professionale. Ci riserviamo il diritto di modificare questi termini in qualsiasi momento.',
     },
   },
+  canva: {
+    hero: {
+      title: 'Progetta alla velocità del pensiero',
+      subtitle: 'Una tela visiva per flussi editoriali con IA',
+      cta: 'Inizia a esplorare',
+    },
+    concept: {
+      central: 'Una tela, molte forme — componibile per intenzione',
+      satellite: {
+        1: 'Trascina, rilascia e ricollega i nodi senza uscire dalla pagina',
+        2: 'Ogni modifica si riflette in 8 lingue contemporaneamente',
+      },
+    },
+    code: {
+      step: {
+        1: {
+          title: 'Definisci il prompt',
+          body: "Inizia con un'intenzione in linguaggio naturale. La tela la trasforma in nodi strutturati.",
+        },
+        2: {
+          title: 'Collega il router dei modelli',
+        },
+      },
+    },
+    compare: {
+      option: {
+        a: 'Strumento di design statico',
+        b: 'UniTeia Canva',
+      },
+      decision: {
+        yes: 'Adatto al nostro pipeline editoriale',
+        no: 'Strumento sbagliato per flussi IA multilingue',
+      },
+    },
+    timeline: {
+      milestone: {
+        1: '2026 T1 — Canva Magica alpha privato',
+        2: '2026 T3 — Lancio pubblico con parità in 8 lingue',
+      },
+    },
+    summary: {
+      takeaway: {
+        1: "Un'unica tela che parla tutte le lingue in cui pubblichi",
+        2: 'Composizione visiva senza rinunciare ai dati strutturati',
+      },
+      nextstep: 'Apri la tela, posiziona la tua prima forma e pubblica in 8 lingue',
+    },
+  },
 }

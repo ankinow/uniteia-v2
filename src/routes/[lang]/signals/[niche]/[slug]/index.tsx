@@ -7,13 +7,14 @@ import {
 } from '@builder.io/qwik-city'
 import { ArticleRenderer } from '~/components/article-renderer'
 import { Breadcrumb } from '~/components/breadcrumb'
-import { CanvaMagicaOverview } from '~/components/canva/CanvaMagicaOverview'
+import type { ShapeRef } from '~/components/canva/ShapeCanvas'
 import { JSONLD } from '~/components/json-ld'
 import { LivingBrief2Col } from '~/components/living-brief'
 import type { LivingBriefCollageProps } from '~/components/living-brief/types'
 import { StoryboardGrid } from '~/components/storyboard-grid'
 import { collagePackageToProps, parseCollagePackage } from '~/utils/collage-importer'
-import { getStoryboardLayout } from '~/utils/storyboard-resolver'
+import { getCanvaComposition, getStoryboardLayout } from '~/utils/storyboard-resolver'
+import type { CanvaSceneType } from '~/utils/storyboard-resolver'
 
 import type { ContentLocale, ContentNode } from '~/content-graph/contracts/node'
 import { getTranslation, useI18n } from '~/i18n/context'
@@ -150,6 +151,22 @@ export const useCollageAssets = routeLoader$<LivingBriefCollageProps | null>(asy
   } catch {
     return null
   }
+})
+
+/**
+ * Server-side resolver for Canva composition refs (pitfall 96: ShapeCanvas pattern).
+ * Returns null when the article has no canvaShapeRefs declared — keeps SSG
+ * output identical for non-canva articles (no extra HTML, no regression).
+ * Resolved at SSG time so the SVG ships fully baked (pitfall 95: no client
+ * useVisibleTask$ fetch on this route).
+ */
+export const useCanvaComposition = routeLoader$<{
+  refs: ShapeRef[]
+  sceneType: CanvaSceneType
+} | null>(async ({ params }) => {
+  const slug = params.slug
+  if (!slug) return null
+  return getCanvaComposition(slug)
 })
 
 export default component$(() => {
