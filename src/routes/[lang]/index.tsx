@@ -1,29 +1,14 @@
-import { component$, useVisibleTask$ } from '@builder.io/qwik'
+import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
-import { BentoCell, BentoGrid } from '~/components/bento-grid'
-import { BioOrganicOverlay } from '~/components/bio-organic-overlay'
-import { CanvasSurface } from '~/components/canvas-surface'
 import { CinematicDepthCard } from '~/components/cinematic-depth'
-import { DepthTilt } from '~/components/depth-tilt'
 import { GenerativeHero } from '~/components/generative-hero'
 import { ClusterIcon, nicheToIcon } from '~/components/icon-set/icon-set'
 import { JSONLD } from '~/components/json-ld'
-import { MasterOpenCanvas } from '~/components/master-open-canvas'
-import { OnboardingFlow } from '~/components/onboarding-flow'
-import {
-  ScrollContentCanvas,
-  ScrollDepthCardEnhancer,
-  ScrollHeroOrganism,
-} from '~/components/scroll-driven'
-import { ScrollReveal } from '~/components/scroll-reveal'
-import { NoiseCanvas } from '~/components/storyboard-grid/noise-canvas'
-import { VisualExplainer } from '~/components/visual-explainer'
 import { getHomepageProjection } from '~/content-graph/projections'
 import type { HomepageProjection } from '~/content-graph/projections'
 import { getTranslation } from '~/i18n/context'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 
-import { startAmbientDrone } from '~/utils/aether-sound'
 import { loadNichesConfig } from '~/utils/niche-loader'
 
 export const onStaticGenerate = () => {
@@ -48,11 +33,15 @@ export default component$(() => {
   const t = getTranslation(lang)
   const siteName = t.seo.siteName
   const { featuredSignals, knowledgeClusters, frontierStreams } = homepage.value
-  const sortedClusters = [...knowledgeClusters].sort((a, b) =>
-    a.nicheSlug === 'apex' ? -1 : b.nicheSlug === 'apex' ? 1 : 0
-  )
 
-  // Pluralization helper: picks singular key when count === 1
+  // APEX-first: apex articles pinned to top, then rest by score
+  const sortedClusters = [...knowledgeClusters].sort((a, b) => {
+    if (a.nicheSlug === 'apex') return -1
+    if (b.nicheSlug === 'apex') return 1
+    return b.avgGraphScore - a.avgGraphScore
+  })
+
+  // Pluralization helper
   const p = (key: 'signalCount' | 'curatedAcross', count: number): string => {
     if (count === 1)
       return (
@@ -62,14 +51,8 @@ export default component$(() => {
     return t.homepage[key].replace('{count}', count.toString())
   }
 
-  // Start ambient drone on homepage mount
-  // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
-    startAmbientDrone()
-  })
-
   return (
-    <div class="space-y-12 p-6 md:p-8 mx-auto max-w-4xl">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 py-8 md:py-12">
       {/* JSON-LD: WebSite + Organization + SearchAction */}
       <JSONLD
         data={{
@@ -91,313 +74,130 @@ export default component$(() => {
           },
         }}
       />
-      <OnboardingFlow locale={lang} siteName={siteName} />
-      {/* M012 S07: ScrollHeroOrganism — 5-layer parallax hero */}
-      <ScrollHeroOrganism
-        layers={[
-          {
-            content: (
-              <div class="absolute inset-0 bg-gradient-to-b from-void via-void/60 to-void" />
-            ),
-            speed: 0.15,
-          },
-          {
-            content: <NoiseCanvas class="opacity-[0.08]" />,
-            speed: 0.4,
-          },
-          {
-            content: (
-              <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(100,220,255,0.05),transparent_70%)] bg-dither" />
-            ),
-            speed: 0.3,
-          },
-          {
-            content: <BioOrganicOverlay opacity={0.12} branchCount={3} growthSpeed={0.8} />,
-            speed: 0.5,
-          },
-          {
-            content: <div class="absolute inset-0 grain-4k opacity-25" />,
-            speed: 0.6,
-          },
-          {
-            content: (
-              <MasterOpenCanvas
-                variant="parchment"
-                title={t.homepage.networkState}
-                decisionNodes={(() => {
-                  const clusterNodes = sortedClusters.map(c => ({
-                    id: c.nicheSlug,
-                    label: c.label,
-                    outcome: `${p('signalCount', c.articleCount)} · Q${c.avgGraphScore.toFixed(0)}`,
-                  }))
-                  const rootNode = {
-                    id: 'signal-intake',
-                    label: t.homepage.signalIntake,
-                    outcome: `${p('signalCount', new Set([...featuredSignals, ...frontierStreams].map(s => s.node.id)).size)} ${p('curatedAcross', clusterNodes.length)}`,
-                    children: clusterNodes.length > 0 ? clusterNodes : undefined,
-                  }
-                  const deliveryNode = {
-                    id: 'delivery',
-                    label: t.homepage.deliveryLayer,
-                    outcome: `${SUPPORTED_LANGUAGES.length}-locale CF Pages · sitemap · search index`,
-                  }
-                  return [rootNode, deliveryNode]
-                })()}
-                class="mb-4"
-              />
-            ),
-            speed: 1.0,
-          },
-          {
-            content: (
-              <div class="absolute bottom-12 left-0 right-0 text-center text-sm tracking-[0.3em] uppercase text-bone/25">
-                {t.homepage.networkState}
-              </div>
-            ),
-            speed: 1.5,
-          },
-        ]}
-      />
 
-      {/* 027.3: GenerativeHero — context-aware adaptive hero */}
+      {/* Hero — clean, direct, context-aware */}
       <GenerativeHero clusters={sortedClusters} lang={lang} t={t.generativeHero} />
 
-      <CanvasSurface tone="parchment" class="mt-8">
-        <ScrollContentCanvas class="my-8">
-          {featuredSignals.length > 0 && (
-            <ScrollReveal direction="up" staggerDelay={80} once>
-              <section class="mb-10">
-                <h2
-                  class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
-                  data-step="1"
-                >
-                  {t.homepage.featuredSignals}
-                </h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {featuredSignals.map((signal, i) => (
-                    <DepthTilt
-                      key={signal.node.id}
-                      maxTilt={5}
-                      scale={1.005}
-                      glare={false}
-                      speed={350}
-                    >
-                      <a href={signal.href} class="block no-underline group">
-                        <ScrollDepthCardEnhancer>
-                          <CinematicDepthCard
-                            {...(signal.node.visualStyle
-                              ? { visualStyle: signal.node.visualStyle }
-                              : {})}
-                            layer={i % 3}
-                            class="transition-all duration-200 group-hover:-translate-y-0.5 group-hover:shadow-xl group-hover:shadow-action/10"
-                          >
-                            <div class="p-5">
-                              <p class="font-semibold text-bone text-base leading-tight group-hover:text-action transition-colors duration-200">
-                                {signal.node.title}
-                              </p>
-                              <p class="text-sm text-bone mt-2 line-clamp-2 leading-relaxed">
-                                {signal.node.summary}
-                              </p>
-                              <div class="flex gap-3 mt-3 text-xs">
-                                <span class="text-aether/70 uppercase tracking-wider">
-                                  {signal.node.locale}
-                                </span>
-                              </div>
-                            </div>
-                          </CinematicDepthCard>
-                        </ScrollDepthCardEnhancer>
-                      </a>
-                    </DepthTilt>
-                  ))}
-                </div>
-              </section>
-            </ScrollReveal>
-          )}
-
-          {sortedClusters.length > 0 && (
-            <ScrollReveal direction="up" staggerDelay={80} once>
-              <section class="mb-10">
-                <h2
-                  class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
-                  data-step="1"
-                >
-                  {t.homepage.knowledgeClusters}
-                </h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {sortedClusters.map((cluster, i) => (
-                    <DepthTilt
-                      key={cluster.nicheSlug}
-                      maxTilt={5}
-                      scale={1.005}
-                      glare={false}
-                      speed={350}
-                    >
-                      <a href={cluster.href} class="block no-underline">
-                        <ScrollDepthCardEnhancer>
-                          <CinematicDepthCard variant="subtle" layer={i % 2}>
-                            <div class="p-5">
-                              <div class="flex items-center gap-2 mb-2">
-                                <ClusterIcon name={nicheToIcon(cluster.nicheSlug)} size={20} />
-                                <p class="font-semibold text-bone text-base">{cluster.label}</p>
-                              </div>
-                              <p class="text-sm text-bone mt-2 tabular-nums">
-                                {p('signalCount', cluster.articleCount)} ·{' '}
-                                <span
-                                  aria-label={`Signal Origin Score ${cluster.avgGraphScore.toFixed(0)} — Aether Gate 7/7`}
-                                  data-tooltip="Signal Origin Score — the vacuum where the signal emerges"
-                                  class="cursor-help"
-                                >
-                                  &empty; {cluster.avgGraphScore.toFixed(0)}
-                                </span>
-                              </p>
-                            </div>
-                          </CinematicDepthCard>
-                        </ScrollDepthCardEnhancer>
-                      </a>
-                    </DepthTilt>
-                  ))}
-                </div>
-              </section>
-            </ScrollReveal>
-          )}
-
-          {frontierStreams.length > 0 && (
-            <ScrollReveal direction="up" staggerDelay={80} once>
-              <section class="mb-10">
-                <h2
-                  class="text-xl font-bold font-pixel text-bone mb-6 uppercase tracking-wider scroll-reveal text-wrap:balance"
-                  data-step="1"
-                >
-                  {t.homepage.frontierStreams}
-                </h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {frontierStreams.map((stream, i) => (
-                    <DepthTilt
-                      key={stream.node.id}
-                      maxTilt={5}
-                      scale={1.005}
-                      glare={false}
-                      speed={350}
-                    >
-                      <a href={stream.href} class="block no-underline">
-                        <ScrollDepthCardEnhancer>
-                          <CinematicDepthCard variant="card" layer={i % 2}>
-                            <div class="p-5">
-                              <p class="font-semibold text-bone text-base leading-tight">
-                                {stream.node.title}
-                              </p>
-                              <p class="text-sm text-bone mt-2 line-clamp-2 leading-relaxed">
-                                {stream.node.summary}
-                              </p>
-                              <div class="flex gap-2 mt-2" />
-                            </div>
-                          </CinematicDepthCard>
-                        </ScrollDepthCardEnhancer>
-                      </a>
-                    </DepthTilt>
-                  ))}
-                </div>
-              </section>
-            </ScrollReveal>
-          )}
-        </ScrollContentCanvas>
-      </CanvasSurface>
-
-      {/* M014-S6: BentoGrid — R28 design island showcase + P3 accents */}
-      <section class="my-16" aria-label="Knowledge Architecture Bento">
-        <ScrollReveal direction="up" once>
-          <h2 class="text-2xl font-bold font-pixel text-bone mb-2 uppercase tracking-wider text-center">
-            Knowledge Architecture
+      {/* APEX: featured signals — the real content */}
+      {featuredSignals.length > 0 && (
+        <section class="mt-14" aria-label={t.homepage.featuredSignals}>
+          <h2 class="text-xs uppercase tracking-[0.3em] text-bone/40 font-mono mb-5">
+            {t.homepage.featuredSignals}
+            <span class="ml-2 text-neon-cyan tabular-nums">{featuredSignals.length}</span>
           </h2>
-          <p class="text-sm text-bone/40 text-center mb-8 max-w-lg mx-auto">
-            <span class="accent-glow text-neon-cyan">{featuredSignals.length}</span>{' '}
-            {featuredSignals.length === 1 ? 'signal' : 'signals'} ·{' '}
-            <span class="text-neon-amber">{sortedClusters.length}</span>{' '}
-            {sortedClusters.length === 1 ? 'cluster' : 'clusters'} ·{' '}
-            <span class="text-neon-rose">{frontierStreams.length}</span>{' '}
-            {frontierStreams.length === 1 ? 'frontier' : 'frontiers'} · {t.homepage.bentoTagline}
-          </p>
-          <BentoGrid
-            minCellWidth="240px"
-            cellHeight="160px"
-            gap="0.75rem"
-            class="max-w-4xl mx-auto"
-          >
-            <BentoCell size="featured" as="article" class="border-neon">
-              <div class="flex flex-col h-full justify-between">
-                <p class="text-xs uppercase tracking-[0.3em] text-bone/50 font-mono">
-                  {t.homepage.featuredSignals}
-                </p>
-                <p class="text-5xl font-bold text-neon-cyan accent-glow tabular-nums">
-                  {featuredSignals.length}
-                </p>
-                <p class="text-sm text-bone/70">curated signals from the noise</p>
-              </div>
-            </BentoCell>
-            <BentoCell as="article">
-              <div class="flex flex-col h-full justify-between">
-                <p class="text-xs uppercase tracking-[0.3em] text-bone/50 font-mono">
-                  {t.homepage.knowledgeClusters}
-                </p>
-                <p class="text-4xl font-bold text-neon-amber tabular-nums">
-                  {sortedClusters.length}
-                </p>
-                <p class="text-sm text-bone/70">distinct niches</p>
-              </div>
-            </BentoCell>
-            <BentoCell as="article">
-              <div class="flex flex-col h-full justify-between">
-                <p class="text-xs uppercase tracking-[0.3em] text-bone/50 font-mono">
-                  {t.homepage.frontierStreams}
-                </p>
-                <p class="text-4xl font-bold text-neon-rose tabular-nums">
-                  {frontierStreams.length}
-                </p>
-                <p class="text-sm text-bone/70">emerging frontiers</p>
-              </div>
-            </BentoCell>
-            <BentoCell size="wide" as="article" class="border-neon">
-              <div class="flex flex-col h-full justify-center">
-                <p class="text-xs uppercase tracking-[0.3em] text-bone/50 font-mono mb-2">
-                  SOTA 2026 · P3 Bioluminescence
-                </p>
-                <p class="text-sm text-bone/80 leading-relaxed">
-                  Display P3 wide-gamut neon accents render in living color on compatible monitors.
-                  Falls back to sRGB tones automatically. This card itself demonstrates the{' '}
-                  <code class="text-neon-acid">.border-neon</code> glow.
-                </p>
-              </div>
-            </BentoCell>
-          </BentoGrid>
-        </ScrollReveal>
-      </section>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {featuredSignals.map(signal => (
+              <a
+                key={signal.node.id}
+                href={signal.href}
+                class="block no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan rounded-xl"
+              >
+                <CinematicDepthCard
+                  {...(signal.node.visualStyle ? { visualStyle: signal.node.visualStyle } : {})}
+                  class="transition-all duration-200 group-hover:-translate-y-0.5 group-hover:shadow-xl group-hover:shadow-neon-cyan/5"
+                >
+                  <div class="p-5">
+                    <p class="font-semibold text-bone text-base leading-tight group-hover:text-neon-cyan transition-colors duration-200">
+                      {signal.node.title}
+                    </p>
+                    <p class="text-sm text-bone/60 mt-1.5 line-clamp-2 leading-relaxed">
+                      {signal.node.summary}
+                    </p>
+                    <div class="flex items-center gap-3 mt-3">
+                      <span class="text-xs text-bone/40 uppercase tracking-wider font-mono">
+                        {signal.node.locale}
+                      </span>
+                      {signal.node.qualityScore != null && (
+                        <span class="text-xs text-neon-amber font-mono tabular-nums">
+                          ∅{signal.node.qualityScore.toFixed(0)}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </CinematicDepthCard>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
 
-      {/* PLANO-055: VisualExplainer — live-drawn North Star architecture */}
-      <section class="my-16">
-        <ScrollReveal direction="up" once>
-          <h2 class="text-2xl font-bold font-pixel text-bone mb-2 uppercase tracking-wider text-center">
-            North Star Architecture
+      {/* Clusters: niche pills — compact navigation */}
+      {sortedClusters.length > 0 && (
+        <section class="mt-12" aria-label={t.homepage.knowledgeClusters}>
+          <h2 class="text-xs uppercase tracking-[0.3em] text-bone/40 font-mono mb-4">
+            {t.homepage.knowledgeClusters}
           </h2>
-          <p class="text-sm text-bone/40 text-center mb-8 max-w-lg mx-auto">
-            6 layers · 6 agents · live-drawn on scroll
-          </p>
-          <VisualExplainer class="max-w-2xl mx-auto" />
-        </ScrollReveal>
-      </section>
+          <div class="flex flex-wrap gap-2.5">
+            {sortedClusters.map(cluster => (
+              <a
+                key={cluster.nicheSlug}
+                href={cluster.href}
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-bone/10 bg-deep hover:bg-mid hover:border-neon-cyan/30 transition-all duration-150 no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan"
+              >
+                <ClusterIcon name={nicheToIcon(cluster.nicheSlug)} size={16} />
+                <span class="text-sm text-bone group-hover:text-bone transition-colors">
+                  {cluster.label}
+                </span>
+                <span class="text-xs text-bone/40 font-mono tabular-nums ml-1">
+                  {cluster.articleCount}
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
 
+      {/* Frontier streams: compact list */}
+      {frontierStreams.length > 0 && (
+        <section class="mt-12" aria-label={t.homepage.frontierStreams}>
+          <h2 class="text-xs uppercase tracking-[0.3em] text-bone/40 font-mono mb-4">
+            {t.homepage.frontierStreams}
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {frontierStreams.map(stream => (
+              <a
+                key={stream.node.id}
+                href={stream.href}
+                class="block no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-rose rounded-lg"
+              >
+                <CinematicDepthCard
+                  variant="card"
+                  class="hover:border-neon-rose/20 transition-colors"
+                >
+                  <div class="p-4">
+                    <p class="font-medium text-bone text-sm leading-tight group-hover:text-neon-rose transition-colors">
+                      {stream.node.title}
+                    </p>
+                    <p class="text-xs text-bone/50 mt-1 line-clamp-2">{stream.node.summary}</p>
+                  </div>
+                </CinematicDepthCard>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Empty state */}
       {featuredSignals.length === 0 &&
         knowledgeClusters.length === 0 &&
         frontierStreams.length === 0 && (
-          <section class="text-center py-20">
-            <p class="text-bone-muted text-lg">{t.homepage.noSignals}</p>
+          <section class="text-center py-24">
+            <p class="text-bone/50 text-lg font-display">{t.homepage.noSignals}</p>
             <a
               href={`/${lang}/signals`}
-              class="inline-block mt-4 text-cyan hover:text-cyan/80 transition-colors"
+              class="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full border border-neon-cyan/20 text-neon-cyan hover:bg-neon-cyan/5 transition-all duration-200 no-underline"
             >
-              {t.homepage.browseTopics} &rarr;
+              {t.homepage.browseTopics} →
             </a>
           </section>
         )}
+
+      {/* Footer whisper — locale + deploy info, minimal */}
+      <footer class="mt-20 pt-8 border-t border-bone/5 text-center">
+        <p class="text-xs text-bone/25 font-mono">
+          {siteName} · {lang} · {SUPPORTED_LANGUAGES.length} locales · CF Pages
+        </p>
+      </footer>
     </div>
   )
 })

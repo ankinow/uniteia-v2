@@ -1,7 +1,7 @@
 ---
 slug: magica-mcp-server
 lang: zh
-title: "使用Magica构建MCP服务器"
+title: "使用 Magica 构建MCP服务器"
 verdict: trusted
 quality_score: 95
 subjects:
