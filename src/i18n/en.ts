@@ -197,6 +197,7 @@ export const en: TranslationStrings = {
     topNiches: 'Top Niches',
     apexBadge: 'APEX · Live',
     headline: 'Frontier signals from {count} tracks',
+    headlineOne: 'Frontier signals from 1 track',
     tracksLabel: 'active tracks',
     tracksLabelOne: 'active track',
   },

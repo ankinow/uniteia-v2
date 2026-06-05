@@ -203,6 +203,7 @@ export const pt: TranslationStrings = {
     topNiches: 'Principais Nichos',
     apexBadge: 'APEX · Ao Vivo',
     headline: 'Sinais de fronteira de {count} canais',
+    headlineOne: 'Sinal de fronteira de 1 canal',
     tracksLabel: 'canais ativos',
     tracksLabelOne: 'canal ativo',
   },

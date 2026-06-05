@@ -208,6 +208,7 @@ export const it: TranslationStrings = {
     topNiches: 'Principali Nicchie',
     apexBadge: 'APEX · Live',
     headline: 'Segnali di frontiera da {count} canali',
+    headlineOne: 'Segnale di frontiera da 1 canale',
     tracksLabel: 'canali attivi',
     tracksLabelOne: 'canale attivo',
   },

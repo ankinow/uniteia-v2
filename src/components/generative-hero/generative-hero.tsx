@@ -30,6 +30,7 @@ export interface GenerativeHeroProps {
   t: {
     apexBadge: string // e.g. "APEX · Live"
     headline: string // e.g. "Frontier signals from {count} tracks"
+    headlineOne: string // e.g. "Frontier signals from 1 track"
     tracksLabel: string // e.g. "Active tracks"
     tracksLabelOne: string // e.g. "Active track"
     curating?: string // e.g. "Curating"
@@ -132,7 +133,9 @@ export const GenerativeHero = component$<GenerativeHeroProps>(props => {
               </span>
             </div>
             <h1 class="text-2xl md:text-4xl font-display text-bone leading-tight text-wrap:balance">
-              {t.headline.replace('{count}', String(activeTracks))}
+              {activeTracks === 1
+                ? t.headlineOne
+                : t.headline.replace('{count}', String(activeTracks))}
             </h1>
             <p class="text-sm text-bone-muted mt-2 font-mono">
               {apex.label} · {totalArticles}{' '}

@@ -196,6 +196,7 @@ export interface TranslationStrings {
     topNiches: string
     apexBadge: string
     headline: string
+    headlineOne: string
     tracksLabel: string
     tracksLabelOne: string
   }
