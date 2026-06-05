@@ -198,6 +198,9 @@ export default component$(() => {
         <>
           <div class="px-4 pt-6 pb-2 w-full max-w-6xl mx-auto">
             <Breadcrumb />
+            <h1 class="text-2xl md:text-3xl font-bold font-display tracking-tight text-bone mt-6 mb-4">
+              {content.value.title}
+            </h1>
           </div>
           <JSONLD data={webPageSchema} />
           <StoryboardGrid layout={storyboardLayout} />

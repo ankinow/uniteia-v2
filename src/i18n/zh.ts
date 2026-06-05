@@ -36,7 +36,7 @@ export const zh: TranslationStrings = {
     '404': {
       title: '页面未找到',
       message: '您访问的页面不存在或已被移动。',
-      backHome: '返回首页',
+      backHome: '返回顶点',
     },
     '500': {
       title: '服务器错误',

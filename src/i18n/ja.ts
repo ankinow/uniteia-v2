@@ -36,7 +36,7 @@ export const ja: TranslationStrings = {
     '404': {
       title: 'ページが見つかりません',
       message: 'お探しのページは存在しないか、移動しました。',
-      backHome: 'ホームに戻る',
+      backHome: 'アペックスに戻る',
     },
     '500': {
       title: 'サーバーエラー',

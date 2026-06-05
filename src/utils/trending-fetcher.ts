@@ -120,9 +120,18 @@ export async function fetchTrendingRepos(): Promise<TrendingRepo[]> {
       })
     )
 
-    setCache('github-repos', repos)
-    setCache('github-repos-fallback', repos) // persistent fallback
-    return repos
+    // Dedup by fullName (canonical slug/name equivalent) or ID
+    const repoSeen = new Set<string>()
+    const dedupedRepos = repos.filter(repo => {
+      const key = `${repo.id}-${repo.fullName.toLowerCase()}`
+      if (repoSeen.has(key)) return false
+      repoSeen.add(key)
+      return true
+    })
+
+    setCache('github-repos', dedupedRepos)
+    setCache('github-repos-fallback', dedupedRepos) // persistent fallback
+    return dedupedRepos
   } catch (err) {
     console.warn('[trending] GitHub API failed:', err)
     return getCache<TrendingRepo[]>('github-repos-fallback') || []
@@ -167,11 +176,23 @@ export async function fetchTopNews(): Promise<NewsItem[]> {
       }
     }
 
-    // Sort by score and take top 10
-    const sorted = items.sort((a, b) => b.score - a.score).slice(0, 10)
-    setCache('hn-news', sorted)
-    setCache('hn-news-fallback', sorted)
-    return sorted
+    // Sort by score
+    const sorted = items.sort((a, b) => b.score - a.score)
+
+    // Dedup by id or URL
+    const newsSeen = new Set<string>()
+    const dedupedNews = sorted
+      .filter(item => {
+        const key = `${item.id}-${item.url || ''}`
+        if (newsSeen.has(key)) return false
+        newsSeen.add(key)
+        return true
+      })
+      .slice(0, 10)
+
+    setCache('hn-news', dedupedNews)
+    setCache('hn-news-fallback', dedupedNews)
+    return dedupedNews
   } catch (err) {
     console.warn('[trending] HN API failed:', err)
     return getCache<NewsItem[]>('hn-news-fallback') || []

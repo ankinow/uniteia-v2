@@ -1,6 +1,7 @@
 import { component$, useSignal } from '@builder.io/qwik'
 import { HudLabel } from '~/components/hud-label'
 import { ScratchDivider } from '~/components/scratch-divider'
+import { UpsilonSigil } from '~/components/upsilon-sigil'
 import { getLanguageName, useI18n } from '~/i18n/context'
 import { staticPage } from '~/routing/routes'
 import type { FooterProps } from './types'
@@ -31,7 +32,14 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
           <div class="footer-tagline text-center" data-testid="footer-tagline">
             <p class="text-bone-muted">{t.footer.madeWith}</p>
           </div>
-          <div class="text-center text-xs">
+          <div class="text-center text-xs flex items-center justify-center gap-1.5">
+            <UpsilonSigil
+              size={16}
+              variant="ring"
+              animated={true}
+              color="var(--color-bone-muted)"
+              class="opacity-40 hover:opacity-100 transition-opacity"
+            />
             <a
               href="/aether-os"
               class="font-mono text-bone-muted/50 hover:text-action/60 transition-colors duration-200"

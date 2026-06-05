@@ -26,21 +26,29 @@ export const ALL_TRENDS: SignalTrend[] = ['up', 'down', 'stable']
 export const ALL_QUALITY_BANDS: QualityBand[] = ['high', 'mid', 'low']
 
 /**
- * Map a quality score (0-100) to an OKLCH hue.
- * - 95-100 → cyan-400 (hue 200) — SOTA tier
- * - 90-94  → amber-400 (hue 80) — solid
- * - <90    → rose-400 (hue 25) — needs work
- * Smooth interpolation per rapid-dev pitfall 21: avoids hard threshold jumps.
+ * Map a quality score (0-100) to an OKLCH hue variant of base accents (#0070f3 / #f5a623).
+ * - 95-100 → vibrant (high chroma)
+ * - 80-94  → muted/pastel (lower chroma, higher lightness)
+ * - <80    → very muted
+ * Cool variants (moderator, researcher, curator) use blue (hue 260).
+ * Warm variants (writer, analyst) use amber (hue 73).
  */
-export function qualityScoreToHue(score: number): string {
-  if (score >= 95) return 'oklch(75% 0.18 200)'
-  if (score >= 90) return 'oklch(72% 0.165 80)'
-  return 'oklch(68% 0.18 25)'
+export function qualityScoreToHue(score: number, variant: SignalChipVariant = 'moderator'): string {
+  const isWarm = variant === 'writer' || variant === 'analyst'
+  const hue = isWarm ? 73 : 260
+
+  if (score >= 95) {
+    return isWarm ? 'oklch(76% 0.20 73)' : 'oklch(60% 0.25 260)'
+  } else if (score >= 80) {
+    return isWarm ? 'oklch(88% 0.09 73)' : 'oklch(85% 0.08 260)'
+  } else {
+    return isWarm ? 'oklch(94% 0.03 73)' : 'oklch(92% 0.03 260)'
+  }
 }
 
 export function qualityScoreToBand(score: number): QualityBand {
   if (score >= 95) return 'high'
-  if (score >= 90) return 'mid'
+  if (score >= 80) return 'mid'
   return 'low'
 }
 
@@ -64,7 +72,7 @@ export const SignalChip = component$<SignalChipProps>(
     useStylesScoped$(styles)
 
     const band = qualityScore !== undefined ? qualityScoreToBand(qualityScore) : undefined
-    const hue = qualityScore !== undefined ? qualityScoreToHue(qualityScore) : undefined
+    const hue = qualityScore !== undefined ? qualityScoreToHue(qualityScore, variant) : undefined
     const languageNames: Record<string, string> = {
       en: 'English',
       pt: 'Português',
@@ -100,7 +108,15 @@ export const SignalChip = component$<SignalChipProps>(
         data-trend={trend}
         data-quality-band={band}
         data-testid="signal-chip"
-        style={hue ? { borderLeftColor: hue } : undefined}
+        style={
+          hue
+            ? ({
+                '--chip-accent': hue,
+                '--chip-glow': hue.replace(')', ' / 0.35)'),
+                borderLeftColor: hue,
+              } as any)
+            : undefined
+        }
       >
         <span class="dot" aria-hidden="true" />
         <span class="metric">{metric}</span>

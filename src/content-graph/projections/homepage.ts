@@ -66,7 +66,10 @@ export function getHomepageProjection(
     })
   }
 
+  const featuredIds = new Set(featuredSignals.map(f => f.node.id))
+
   const frontierStreams: FrontierStream[] = [...publicNodes]
+    .filter(node => !featuredIds.has(node.id))
     .sort((a, b) => b.metrics.freshnessScore - a.metrics.freshnessScore)
     .slice(0, 5)
     .map(node => ({ node, href: node.routes.canonical }))

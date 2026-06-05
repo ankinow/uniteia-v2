@@ -37,7 +37,7 @@ export const it: TranslationStrings = {
     '404': {
       title: 'Pagina non trovata',
       message: 'La pagina che stai cercando non esiste o è stata spostata.',
-      backHome: 'Torna alla home',
+      backHome: "Torna all'Apex",
     },
     '500': {
       title: 'Errore del server',

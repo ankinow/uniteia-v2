@@ -36,7 +36,7 @@ export const es: TranslationStrings = {
     '404': {
       title: 'Página No Encontrada',
       message: 'La página que buscas no existe o ha sido movida.',
-      backHome: 'Volver al Inicio',
+      backHome: 'Volver al Ápice',
     },
     '500': {
       title: 'Error del Servidor',
