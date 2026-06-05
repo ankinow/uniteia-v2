@@ -35,9 +35,9 @@ test.describe('Canva Magica — Visual Integrity', () => {
     // Qwik SSR wraps text in <!--t=ID-->text<!----> markers
     // Strip those markers AND script tags (Qwik serialization)
     const cleaned = html
-      .replace(/<script[^>]*>.*?<\/script>/gs, '')
-      .replace(/<!--t=[a-z0-9]+-->/g, '')
-      .replace(/<!---->/g, '')
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
+      .replace(/<!--\s*t\s*=\s*[a-z0-9_-]+\s*-->/gi, '')
+      .replace(/<!--\s*-->/g, '')
     const rawKeys = ['magicaWorkflowBuilder', 'unifiedPromptEngineering', 'magicaCommandCenter']
     for (const key of rawKeys) {
       expect(cleaned).not.toContain(key)
