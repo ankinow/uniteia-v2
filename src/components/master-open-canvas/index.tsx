@@ -278,7 +278,7 @@ export const MasterOpenCanvas = component$<MasterOpenCanvasProps>(
 
           {/* Content */}
           <div class="relative z-[1] p-6 md:p-8">
-            {title && <h1 class="text-4xl font-display text-bone mb-8">{title}</h1>}
+            {title && <h2 class="text-4xl font-display text-bone mb-8">{title}</h2>}
 
             {decisionNodes && decisionNodes.length > 0 && (
               <div
