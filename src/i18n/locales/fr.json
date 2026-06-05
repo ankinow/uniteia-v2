@@ -1,0 +1,96 @@
+{
+  "template_01": {
+    "meta": { "id": "practical-visual-explainer", "version": "1.0.0" },
+    "title": "MCP pour Développeurs",
+    "subtitle": "Guide visuel du Model Context Protocol",
+    "postIt": "Pourquoi MCP importe pour votre stack",
+    "mascotBubble": "Connectons vos outils ! 🔌",
+    "steps": {
+      "step_1": {
+        "kind": "Accroche",
+        "title": "Le Problème",
+        "body": "Les LLMs sont intelligents mais isolés. Ils n'accèdent pas à votre code, docs ou APIs sans intégrations sur mesure."
+      },
+      "step_2": {
+        "kind": "Erreur Courante",
+        "title": "Intégrations Sur Mesure N'Escaladent Pas",
+        "body": "Connecteurs one-off pour chaque outil créent un enfer de maintenance. Chaque changement d'API casse votre pipeline.",
+        "postIt": "N=outils × M=LLMs = chaos"
+      },
+      "step_3": {
+        "kind": "Analogie",
+        "title": "MCP = Adaptateur Universel",
+        "body": "Comme USB-C pour l'IA. Un protocole connecte tout LLM à tout outil. Standardisez une fois, connectez partout.",
+        "agentLabel": "Agent MCP",
+        "items": [
+          "Resources: lire fichiers, docs, BD",
+          "Tools: exécuter code, appeler APIs",
+          "Prompts: templates workflow réutilisables"
+        ]
+      },
+      "step_4": {
+        "kind": "Diagramme",
+        "title": "Flux d'Architecture",
+        "body": "Client → MCP Server → Vos Outils",
+        "flow": ["IDE / Chat", "MCP Client", "MCP Server", "GitHub / FS / BD / API"]
+      },
+      "step_5": {
+        "kind": "Exemple",
+        "title": "Serveur Minimal",
+        "body": "30 lignes = serveur MCP fonctionnel exposant votre filesystem.",
+        "caption": "transport stdio, zéro dep hors SDK"
+      },
+      "step_6": {
+        "kind": "Utiliser / Ne Pas",
+        "title": "Quand Utiliser MCP",
+        "useHeader": "UTILISEZ MCP",
+        "dontHeader": "ÉVITEZ MCP",
+        "useItems": [
+          "Multiples clients LLM",
+          "Accès partagé aux tools",
+          "Collaboration équipe",
+          "Maintenance long terme"
+        ],
+        "dontItems": [
+          "Scripts one-off",
+          "Utilisateur unique, tool unique",
+          "Expériences jetables",
+          "Pas d'exposition de tools"
+        ]
+      },
+      "step_7": {
+        "kind": "Pièges",
+        "title": "Pièges Communs",
+        "tipHeader": "Astuce Pro",
+        "tip": "Commencez par transport stdio. Passez à HTTP/SSE seulement si accès distant nécessaire.",
+        "items": [
+          "Over-engineering auth pour tools locaux",
+          "Ignorer pagination resources",
+          "Hardcoder schemas tools",
+          "Omettre error handling tools"
+        ]
+      },
+      "step_8": {
+        "kind": "Prochaines Étapes",
+        "title": "Votre Démarrage en 5 Min",
+        "closingNote": "MCP transforme votre toolbox en playground LLM. 🎮",
+        "items": [
+          "Choisissez un outil utilisé quotidiennement",
+          "Écrivez serveur MCP pour lui (30 min)",
+          "Connectez à Cursor / Claude / VS Code",
+          "Partagez avec l'équipe",
+          "Construisez le suivant"
+        ]
+      }
+    },
+    "arrows": { "hook_to_mistake": "→", "mistake_to_analogy": "mène à" },
+    "ui": { "cta": "Construisez votre premier serveur", "badge_prefix": "Étape" },
+    "tags": {
+      "visualLogic": "Modèle mental adaptateur universel",
+      "devFriendly": "stdio d'abord, HTTP après",
+      "practicalByDesign": "serveur initial 30 lignes"
+    },
+    "level": "Débutant → Intermédiaire",
+    "footer": "UniTeia / ConteiXeia · try.magica.com/clique-serio"
+  }
+}

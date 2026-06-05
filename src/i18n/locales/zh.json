@@ -1,0 +1,81 @@
+{
+  "template_01": {
+    "meta": { "id": "practical-visual-explainer", "version": "1.0.0" },
+    "title": "面向开发者的MCP",
+    "subtitle": "Model Context Protocol 视觉指南",
+    "postIt": "MCP对你的技术栈为何重要",
+    "mascotBubble": "连接你的工具！ 🔌",
+    "steps": {
+      "step_1": {
+        "kind": "钩子",
+        "title": "问题所在",
+        "body": "LLM虽聪明但孤立。无自定义集成无法访问你的代码、文档或API。"
+      },
+      "step_2": {
+        "kind": "常见错误",
+        "title": "自定义集成难以扩展",
+        "body": "为每个工具构建一次性连接器会造成维护噩梦。每次API变更都会破坏管道。",
+        "postIt": "N=工具 × M=LLM = 混乱"
+      },
+      "step_3": {
+        "kind": "类比",
+        "title": "MCP = 通用适配器",
+        "body": "AI界的USB-C。一个协议连接任意LLM到任意工具。一次标准化，到处连接。",
+        "agentLabel": "MCP智能体",
+        "items": [
+          "Resources: 读取文件、文档、数据库",
+          "Tools: 执行代码、调用API",
+          "Prompts: 可复用工作流模板"
+        ]
+      },
+      "step_4": {
+        "kind": "架构图",
+        "title": "架构流程",
+        "body": "Client → MCP Server → 你的工具",
+        "flow": ["IDE / 聊天", "MCP Client", "MCP Server", "GitHub / FS / DB / API"]
+      },
+      "step_5": {
+        "kind": "示例",
+        "title": "最小服务器",
+        "body": "30行 = 暴露你文件系统的可用MCP服务器。",
+        "caption": "stdio传输，除SDK外零依赖"
+      },
+      "step_6": {
+        "kind": "使用 / 不用",
+        "title": "何时使用MCP",
+        "useHeader": "使用MCP",
+        "dontHeader": "跳过MCP",
+        "useItems": ["多个LLM客户端", "工具共享访问", "团队协作", "长期维护"],
+        "dontItems": ["一次性脚本", "单用户单工具", "一次性实验", "无需暴露工具"]
+      },
+      "step_7": {
+        "kind": "陷阱",
+        "title": "常见陷阱",
+        "tipHeader": "专业提示",
+        "tip": "从stdio传输开始。仅当需要远程访问时升级到HTTP/SSE。",
+        "items": ["本地工具过度设计认证", "忽略资源分页", "硬编码工具Schema", "工具中缺少错误处理"]
+      },
+      "step_8": {
+        "kind": "后续步骤",
+        "title": "5分钟快速上手",
+        "closingNote": "MCP让你的工具箱变成LLM游乐场。 🎮",
+        "items": [
+          "选一个每天用的工具",
+          "为它写MCP服务器 (30分钟)",
+          "连接到Cursor / Claude / VS Code",
+          "与团队分享",
+          "构建下一个"
+        ]
+      }
+    },
+    "arrows": { "hook_to_mistake": "→", "mistake_to_analogy": "导致" },
+    "ui": { "cta": "构建你的第一个服务器", "badge_prefix": "步骤" },
+    "tags": {
+      "visualLogic": "通用适配器心智模型",
+      "devFriendly": "stdio优先，HTTP其次",
+      "practicalByDesign": "启动服务器30行"
+    },
+    "level": "初学者 → 进阶",
+    "footer": "UniTeia / ConteiXeia · try.magica.com/clique-serio"
+  }
+}

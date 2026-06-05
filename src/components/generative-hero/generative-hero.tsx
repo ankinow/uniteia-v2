@@ -30,7 +30,6 @@ export interface GenerativeHeroProps {
 
 const NICHE_HUES: Record<string, { h: number; c: number; l: number }> = {
   apex: { h: 200, c: 0.18, l: 75 },
-  'prompt-engineering': { h: 80, c: 0.165, l: 72 },
 }
 
 function getNicheColor(nicheSlug: string): string {

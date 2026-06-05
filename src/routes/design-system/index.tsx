@@ -58,26 +58,18 @@ const DopamineCardDemo = component$<{ title: string; description: string }>(
 const GenerativeHeroDemo = component$(() => {
   const mockClusters = [
     { nicheSlug: 'apex', label: 'Apex Signal', href: '/en/signals/apex', articleCount: 24 },
-    {
-      nicheSlug: 'prompt-engineering',
-      label: 'Prompt Engineering',
-      href: '/en/signals/prompt-engineering',
-      articleCount: 18,
-    },
     { nicheSlug: 'ai-agents', label: 'AI Agents', href: '/en/signals/ai-agents', articleCount: 12 },
   ]
   const topNiche = mockClusters[0]!
   const getNicheColor = (slug: string) => {
     const hues: Record<string, string> = {
       apex: 'oklch(75% 0.18 200)',
-      'prompt-engineering': 'oklch(72% 0.165 80)',
     }
     return hues[slug] ?? 'oklch(60% 0.2 265)'
   }
   const getNicheColorDim = (slug: string) => {
     const hues: Record<string, string> = {
       apex: 'oklch(45% 0.15 200)',
-      'prompt-engineering': 'oklch(45% 0.13 80)',
     }
     return hues[slug] ?? 'oklch(45% 0.15 265)'
   }
@@ -1046,10 +1038,16 @@ export default component$(() => {
           ]}
         >
           <BentoGrid minCellWidth="180px" cellHeight="120px" gap="0.75rem" class="my-4">
-            <BentoCell size="featured" class="bg-cyan/5 border border-cyan/30 p-3 text-xs font-mono text-cyan">
+            <BentoCell
+              size="featured"
+              class="bg-cyan/5 border border-cyan/30 p-3 text-xs font-mono text-cyan"
+            >
               Featured (2x2)
             </BentoCell>
-            <BentoCell size="wide" class="bg-action/5 border border-action/20 p-3 text-xs font-mono text-action">
+            <BentoCell
+              size="wide"
+              class="bg-action/5 border border-action/20 p-3 text-xs font-mono text-action"
+            >
               Wide (2x1)
             </BentoCell>
             <BentoCell class="bg-curation/5 border border-curation/20 p-3 text-xs font-mono text-bone">
@@ -1058,18 +1056,20 @@ export default component$(() => {
             <BentoCell class="bg-verified/5 border border-verified/20 p-3 text-xs font-mono text-bone">
               Default
             </BentoCell>
-            <BentoCell size="tall" class="bg-void border border-action/10 p-3 text-xs font-mono text-bone">
+            <BentoCell
+              size="tall"
+              class="bg-void border border-action/10 p-3 text-xs font-mono text-bone"
+            >
               Tall (1x2)
             </BentoCell>
-            <BentoCell class="bg-raised p-3 text-xs font-mono text-bone-muted">
-              Default
-            </BentoCell>
+            <BentoCell class="bg-raised p-3 text-xs font-mono text-bone-muted">Default</BentoCell>
           </BentoGrid>
           <p class="text-xs font-mono text-bone-muted mt-3">
-            Cells render in <code class="text-cyan">grid-auto-flow: dense</code> order. Border-glow hover uses{' '}
-            <code class="text-cyan">linear-gradient + mask-composite</code> (no box-shadow per design system).
-            P3 wide-gamut accents (<code class="text-cyan">.accent-glow</code>,{' '}
-            <code class="text-cyan">.border-neon</code>) auto-activate on capable displays.
+            Cells render in <code class="text-cyan">grid-auto-flow: dense</code> order. Border-glow
+            hover uses <code class="text-cyan">linear-gradient + mask-composite</code> (no
+            box-shadow per design system). P3 wide-gamut accents (
+            <code class="text-cyan">.accent-glow</code>, <code class="text-cyan">.border-neon</code>
+            ) auto-activate on capable displays.
           </p>
         </ComponentSection>
 

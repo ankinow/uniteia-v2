@@ -8,7 +8,6 @@ import { component$ } from '@builder.io/qwik'
 
 export type ClusterIcon =
   | 'apex'
-  | 'prompt-engineering'
   | 'mcp'
   | 'magica'
   | 'quickstart'
@@ -57,12 +56,6 @@ const ICONS: Record<string, any> = {
       <path d="M12 14v6M8 20h8" />
     </>
   ),
-  'prompt-engineering': (
-    <>
-      <path d="M3 12c0-3 2-6 4-6s4 3 4 6c0 3 2 6 4 6s4-3 4-6" />
-      <circle cx="12" cy="12" r="2" />
-    </>
-  ),
   mcp: (
     <>
       <circle cx="6" cy="6" r="2" />
@@ -108,7 +101,6 @@ const ICONS: Record<string, any> = {
 export function nicheToIcon(slug: string): ClusterIcon {
   const map: Record<string, ClusterIcon> = {
     apex: 'apex',
-    'prompt-engineering': 'prompt-engineering',
     mcp: 'mcp',
     magica: 'magica',
     'magica-quickstart': 'quickstart',

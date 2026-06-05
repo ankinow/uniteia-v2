@@ -1,0 +1,96 @@
+{
+  "template_01": {
+    "meta": { "id": "practical-visual-explainer", "version": "1.0.0" },
+    "title": "開発者のためのMCP",
+    "subtitle": "Model Context Protocol 視覚ガイド",
+    "postIt": "MCPがあなたのスタックに重要な理由",
+    "mascotBubble": "ツールを繋ぎましょう！ 🔌",
+    "steps": {
+      "step_1": {
+        "kind": "フック",
+        "title": "問題点",
+        "body": "LLMは賢いが孤立している。カスタム統合なしではコード、ドキュメント、APIにアクセスできない。"
+      },
+      "step_2": {
+        "kind": "よくある失敗",
+        "title": "カスタム統合はスケールしない",
+        "body": "各ツールへのワンオフコネクタはメンテナンスの地獄を生む。API変更ごとにパイプラインが壊れる。",
+        "postIt": "N=ツール × M=LLM = 混乱"
+      },
+      "step_3": {
+        "kind": "アナロジー",
+        "title": "MCP = ユニバーサルアダプタ",
+        "body": "AI版USB-C。一つのプロトコルで任意のLLMを任意のツールに接続。一度標準化すれば、どこでも接続可能。",
+        "agentLabel": "MCPエージェント",
+        "items": [
+          "Resources: ファイル、ドキュメント、DB読み取り",
+          "Tools: コード実行、API呼び出し",
+          "Prompts: 再利用可能ワークフローテンプレート"
+        ]
+      },
+      "step_4": {
+        "kind": "図解",
+        "title": "アーキテクチャフロー",
+        "body": "Client → MCP Server → あなたのツール",
+        "flow": ["IDE / チャット", "MCP Client", "MCP Server", "GitHub / FS / DB / API"]
+      },
+      "step_5": {
+        "kind": "例",
+        "title": "最小サーバー",
+        "body": "30行 = あなたのファイルシステムを公開する動作するMCPサーバー。",
+        "caption": "stdioトランスポート、SDK以外の依存なし"
+      },
+      "step_6": {
+        "kind": "使う / 使わない",
+        "title": "MCPを使うべき時",
+        "useHeader": "MCPを使う",
+        "dontHeader": "MCPをスキップ",
+        "useItems": [
+          "複数のLLMクライアント",
+          "ツールの共有アクセス",
+          "チーム協働",
+          "長期メンテナンス"
+        ],
+        "dontItems": [
+          "ワンオフスクリプト",
+          "単一ユーザー、単一ツール",
+          "使い捨て実験",
+          "ツール公開不要"
+        ]
+      },
+      "step_7": {
+        "kind": "落とし穴",
+        "title": "よくある罠",
+        "tipHeader": "プロのコツ",
+        "tip": "stdioトランスポートから開始。リモートアクセス必要時のみHTTP/SSEへアップグレード。",
+        "items": [
+          "ローカルツールでの認証過剰設計",
+          "リソースページネーション無視",
+          "ツールスキーマのハードコード",
+          "ツールでのエラーハンドリング欠如"
+        ]
+      },
+      "step_8": {
+        "kind": "次のステップ",
+        "title": "5分でスタート",
+        "closingNote": "MCPはツールボックスをLLMプレイグラウンドに。 🎮",
+        "items": [
+          "毎日使うツールを一つ選ぶ",
+          "そのためのMCPサーバーを書く (30分)",
+          "Cursor / Claude / VS Codeに接続",
+          "チームと共有",
+          "次のツールを構築"
+        ]
+      }
+    },
+    "arrows": { "hook_to_mistake": "→", "mistake_to_analogy": "につながる" },
+    "ui": { "cta": "最初のサーバーを構築", "badge_prefix": "ステップ" },
+    "tags": {
+      "visualLogic": "ユニバーサルアダプタのメンタルモデル",
+      "devFriendly": "stdioファースト、HTTPは後で",
+      "practicalByDesign": "スターターサーバー30行"
+    },
+    "level": "初心者 → 中級者",
+    "footer": "UniTeia / ConteiXeia · try.magica.com/clique-serio"
+  }
+}

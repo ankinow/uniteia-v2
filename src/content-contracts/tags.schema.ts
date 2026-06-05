@@ -13,7 +13,6 @@ export const KNOWN_TOPIC_TAGS = new Set([
   'virtual-machines',
   'ai-agents',
   'llm-comparison',
-  'prompt-engineering',
 ])
 
 export const KNOWN_INTENT_TAGS = new Set([

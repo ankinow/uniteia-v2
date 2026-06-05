@@ -1,0 +1,97 @@
+/* UniTeia Canvas — Dark Mode Theme */
+.uniteia-canvas {
+  position: fixed;
+  inset: 0;
+  background: #0a0a0f;
+  color: #e0e0e0;
+  font-family: "Inter", "Noto Sans", sans-serif;
+}
+
+/* tldraw canvas overrides */
+.uniteia-canvas .tl-container {
+  background: #0a0a0f !important;
+}
+
+/* Custom selection color for our shapes */
+.uniteia-canvas .tl-selection .tl-handle {
+  background: #00d4ff !important;
+  border-color: #00d4ff !important;
+}
+
+.uniteia-canvas .tl-selection .tl-handle:hover {
+  background: #00ffff !important;
+}
+
+/* Dark theme for tldraw UI */
+.uniteia-canvas .tl-ui {
+  background: rgba(10, 10, 15, 0.9) !important;
+  border-color: #1a1a2e !important;
+  color: #e0e0e0 !important;
+}
+
+.uniteia-canvas .tl-button {
+  background: #1a1a2e !important;
+  border-color: #30363d !important;
+  color: #e0e0e0 !important;
+}
+
+.uniteia-canvas .tl-button:hover {
+  background: #00d4ff !important;
+  color: #0a0a0f !important;
+}
+
+.uniteia-canvas .tl-button:active {
+  background: #00ffff !important;
+}
+
+/* Font imports handled via @import in global CSS or HTML */
+/* Fallback if fonts not loaded */
+@font-face {
+  font-family: "Inter";
+  src: local("Inter"), local("Noto Sans");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: local("Noto Sans"), local("Inter");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: local("JetBrains Mono"), local("Fira Code"), local("Monospace");
+  font-display: swap;
+}
+
+/* Scrollbar styling for code blocks */
+.uniteia-canvas pre::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.uniteia-canvas pre::-webkit-scrollbar-track {
+  background: #0d1117;
+}
+
+.uniteia-canvas pre::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 4px;
+}
+
+.uniteia-canvas pre::-webkit-scrollbar-thumb:hover {
+  background: #00d4ff;
+}
+
+/* Focus styles for accessibility */
+.uniteia-canvas *:focus-visible {
+  outline: 2px solid #00d4ff;
+  outline-offset: 2px;
+}
+
+/* Tooltip for badge numbers */
+.uniteia-canvas .tl-shape-util__badge {
+  background: #00d4ff;
+  color: #0a0a0f;
+  font-weight: 700;
+}
