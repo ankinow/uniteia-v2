@@ -151,7 +151,9 @@ export const zh: TranslationStrings = {
     knowledgeClusters: '集群',
     frontierStreams: '前沿',
     signalCount: '{count} insights',
+    signalCountOne: '1 insight',
     curatedAcross: '从 {count} 个领域精选',
+    curatedAcrossOne: '从 1 个领域精选',
     noSignals: '暂无Insights',
     browseTopics: '浏览主题',
     networkState: 'UniTeia 网络状态',
@@ -194,6 +196,7 @@ export const zh: TranslationStrings = {
     apexBadge: 'APEX · 直播',
     headline: '来自 {count} 个轨道的边沿信号',
     tracksLabel: '活跃轨道',
+    tracksLabelOne: '活跃轨道',
   },
   legal: {
     privacy: {

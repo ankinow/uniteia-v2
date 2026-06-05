@@ -1,53 +1,110 @@
-import { type ClassList, component$ } from '@builder.io/qwik'
+/**
+ * upsilon-sigil.tsx — UniTeia brand mark (Υ)
+ *
+ * A distinctive geometric shape: the Greek letter upsilon rendered as
+ * a three-branch fork with holographic animation. Used as:
+ *   - Page loader / transition
+ *   - Empty state placeholder
+ *   - Brand watermark
+ *   - Favicon alternative
+ *
+ * R26 P1 — "Derivative aesthetic needs signature visual"
+ */
+
+import { component$ } from '@builder.io/qwik'
+import './upsilon-sigil.css'
 
 export interface UpsilonSigilProps {
   size?: number
-  class?: ClassList
+  animated?: boolean
+  variant?: 'fork' | 'ring' | 'watermark'
+  color?: string
+  class?: string
 }
 
-/**
- * UpsilonSigil — inline SVG brand sigil for UniTeia.
- * Greek capital Upsilon (Υ) centered in a dashed circle,
- * typeset in JetBrains Mono at currentColor.
- * 0 KB marginal cost (no external assets).
- */
-export const UpsilonSigil = component$<UpsilonSigilProps>(({ size = 48, class: className }) => {
-  const cx = size / 2
-  const cy = size / 2
-  const radius = size * 0.44
-  const fontSize = size * 0.52
+export const UpsilonSigil = component$<UpsilonSigilProps>(
+  ({ size = 48, animated = true, variant = 'fork', color, class: className }) => {
+    const strokeColor = color ?? 'oklch(72% 0.165 80)'
+    const glowColor = color ?? 'oklch(75% 0.18 200)'
 
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox={`0 0 ${size} ${size}`}
-      fill="none"
-      aria-label="UniTeia"
-      class={className}
-    >
-      <circle
-        cx={cx}
-        cy={cy}
-        r={radius}
-        stroke="currentColor"
-        stroke-width={Math.max(1.5, size * 0.04)}
-        stroke-dasharray={`${size * 0.1} ${size * 0.07}`}
+    return (
+      <svg
+        width={size}
+        height={size}
+        viewBox="0 0 64 64"
         fill="none"
-      />
-      <text
-        x={cx}
-        y={cy}
-        text-anchor="middle"
-        dominant-baseline="central"
-        font-family="'JetBrains Mono', monospace"
-        font-size={fontSize}
-        font-weight="700"
-        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+        class={['upsilon-sigil', animated && 'upsilon-sigil--animated', className]
+          .filter(Boolean)
+          .join(' ')}
+        aria-hidden="true"
+        role="img"
+        aria-label="UniTeia upsilon sigil"
       >
-        {'\u03A5'}
-      </text>
-    </svg>
-  )
-})
+        {/* Outer glow ring (variant: ring or all) */}
+        {(variant === 'ring' || variant === 'watermark') && (
+          <circle
+            cx="32"
+            cy="32"
+            r="28"
+            stroke={glowColor}
+            stroke-width="0.5"
+            opacity="0.3"
+            class={animated ? 'upsilon-ring' : ''}
+          />
+        )}
+
+        {/* Υ fork — three branches converging at center */}
+        <g class={animated ? 'upsilon-fork' : ''}>
+          {/* Left branch */}
+          <path
+            d="M20 16 L32 36 L20 56"
+            stroke={strokeColor}
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            opacity="0.9"
+          />
+          {/* Right branch */}
+          <path
+            d="M44 16 L32 36 L44 56"
+            stroke={strokeColor}
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            opacity="0.9"
+          />
+          {/* Center stem */}
+          <line
+            x1="32"
+            y1="36"
+            x2="32"
+            y2="56"
+            stroke={strokeColor}
+            stroke-width="2"
+            stroke-linecap="round"
+            opacity="0.5"
+          />
+        </g>
+
+        {/* Central node (variant: watermark omits this) */}
+        {variant !== 'watermark' && (
+          <circle cx="32" cy="36" r="3" fill={glowColor} class={animated ? 'upsilon-core' : ''} />
+        )}
+
+        {/* Subtle neon pulse ring around center */}
+        {(variant === 'fork' || variant === 'ring') && (
+          <circle
+            cx="32"
+            cy="36"
+            r="8"
+            stroke={glowColor}
+            stroke-width="0.5"
+            opacity="0"
+            class={animated ? 'upsilon-pulse' : ''}
+          />
+        )}
+      </svg>
+    )
+  }
+)

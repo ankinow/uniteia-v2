@@ -4,12 +4,8 @@
   "domain": "ops",
   "content": "error-pages/not-found'\n\n/**\n * Catchall route for 404 Not Found\n * Matches any route that doesn't have a specific handler\n */\nexport default component$(() => {\n  return <NotFound />\n})\n\nexport const head: DocumentHead = {\n  title: '404 - Page Not Found | UniTeia',\n  meta: [\n    { name: 'description', content: 'The page you are looking for does not exist",
   "actionability": "reference",
-  "cross_refs": [
-    "ops"
-  ],
-  "source_findings": [
-    "F-0063"
-  ],
+  "cross_refs": ["ops"],
+  "source_findings": ["F-0063"],
   "eval_d9_promotion": 85,
   "promoted_at": "2026-05-30T04:47:31.409266+00:00"
 }

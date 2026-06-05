@@ -31,6 +31,7 @@ export interface GenerativeHeroProps {
     apexBadge: string // e.g. "APEX · Live"
     headline: string // e.g. "Frontier signals from {count} tracks"
     tracksLabel: string // e.g. "Active tracks"
+    tracksLabelOne: string // e.g. "Active track"
     curating?: string // e.g. "Curating"
     topNiches?: string // e.g. "Top niches"
   }
@@ -134,7 +135,8 @@ export const GenerativeHero = component$<GenerativeHeroProps>(props => {
               {t.headline.replace('{count}', String(activeTracks))}
             </h1>
             <p class="text-sm text-bone-muted mt-2 font-mono">
-              {apex.label} · {totalArticles} {t.tracksLabel}
+              {apex.label} · {totalArticles}{' '}
+              {totalArticles === 1 ? (t.tracksLabelOne ?? t.tracksLabel) : t.tracksLabel}
             </p>
             <div class="flex flex-wrap gap-2 mt-4">
               {sorted.slice(0, 6).map(cluster => (

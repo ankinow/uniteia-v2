@@ -153,7 +153,9 @@ export const ja: TranslationStrings = {
     knowledgeClusters: 'クラスター',
     frontierStreams: 'フロンティア',
     signalCount: '{count} insights',
+    signalCountOne: '1 insight',
     curatedAcross: '{count} のニッチからキュレーション',
+    curatedAcrossOne: '1 のニッチからキュレーション',
     noSignals: 'Insightsはまだ公開されていません',
     browseTopics: 'トピックを閲覧',
     networkState: 'UniTeia ネットワーク状態',
@@ -199,6 +201,7 @@ export const ja: TranslationStrings = {
     apexBadge: 'APEX · ライブ',
     headline: '{count}つのトラックからのフロンティア信号',
     tracksLabel: 'アクティブなトラック',
+    tracksLabelOne: 'アクティブなトラック',
   },
   legal: {
     privacy: {

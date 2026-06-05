@@ -4,12 +4,8 @@
   "domain": "ui",
   "content": "error TS2322: Type '{ format: VisualFormat; quality: number; constraints: { maxDurationMs: number | undefined; maxSizeBytes: number | undefined; }; renderer: string; }[]' is not assignable to type 'ArtifactOutputTarget[]'",
   "actionability": "reference",
-  "cross_refs": [
-    "ui"
-  ],
-  "source_findings": [
-    "F-0117"
-  ],
+  "cross_refs": ["ui"],
+  "source_findings": ["F-0117"],
   "eval_d9_promotion": 85,
   "promoted_at": "2026-05-30T04:36:22.611938+00:00"
 }

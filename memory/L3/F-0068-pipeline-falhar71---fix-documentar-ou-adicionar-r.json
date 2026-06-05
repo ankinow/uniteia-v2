@@ -1,0 +1,11 @@
+{
+  "id": "W-0068",
+  "title": "falhar\n71: - **Fix:** Documentar ou adicionar redirect\n72: \n73: ---\n74: \n75: ## ",
+  "domain": "pipeline",
+  "content": "falhar\n71: - **Fix:** Documentar ou adicionar redirect\n72: \n73: ---\n74: \n75: ## 🟢 BAIXOS (2)\n76: \n77: ### GAP-005: Console Errors (Não Verificável Diretamente)\n78: - **Nota:** Sem acesso a browser console via MCP, mas rotas quebradas (404, privacy root) provavelmente geram erros no servidor\n79: - **Recomendação:** Verificar Cloudflare Pages Functions logs\n80: \n81: ### GAP-006: Mobile View (Não Verificável Diretamente)\n82: - **Nota:** Sem viewport simulation via MCP\n83: - **Recomendação:** Testar",
+  "actionability": "reference",
+  "cross_refs": ["pipeline"],
+  "source_findings": ["F-0068"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-04T12:32:43.790916+00:00"
+}

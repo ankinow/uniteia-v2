@@ -155,7 +155,9 @@ export const fr: TranslationStrings = {
     knowledgeClusters: 'Clusters',
     frontierStreams: 'Frontière',
     signalCount: '{count} insights',
+    signalCountOne: '1 insight',
     curatedAcross: 'organisés dans {count} niches',
+    curatedAcrossOne: 'organisé dans 1 niche',
     noSignals: 'Aucun insight publié dans cette langue.',
     browseTopics: 'Parcourir les sujets',
     networkState: 'État du Réseau UniTeia',
@@ -207,6 +209,7 @@ export const fr: TranslationStrings = {
     apexBadge: 'APEX · En Direct',
     headline: 'Signaux de frontière de {count} canaux',
     tracksLabel: 'canaux actifs',
+    tracksLabelOne: 'canal actif',
   },
   legal: {
     privacy: {

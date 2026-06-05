@@ -4,12 +4,8 @@
   "domain": "ui",
   "content": "Problem:** Accidentally delete work\n1467: - **Fix:** Require typed \"discard\" confirmation\n1468: \n1469: ## Red Flags\n1470: \n1471: **Never:**\n1472: - Proceed with failing tests\n1473: - Merge without verifying tests on result\n1474: - Delete work without confirmation\n1475: - Force-push without explicit request\n1476: - Remove a worktree before confirming merge success\n1477: - Clean up worktrees you didn't create (provenance check)\n1478: - Run `git worktree remove` from inside the worktree\n1479: \n1480",
   "actionability": "reference",
-  "cross_refs": [
-    "ui"
-  ],
-  "source_findings": [
-    "F-0088"
-  ],
+  "cross_refs": ["ui"],
+  "source_findings": ["F-0088"],
   "eval_d9_promotion": 85,
   "promoted_at": "2026-05-30T04:44:40.763468+00:00"
 }

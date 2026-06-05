@@ -4,12 +4,8 @@
   "domain": "pipeline",
   "content": "Problem:** Merge broken code, create failing PR\n1443: - **Fix:** Always verify tests before offering options\n1444: \n1445: **Open-ended questions**\n1446: - **Problem:** \"What should I do next?\" is ambiguous\n1447: - **Fix:** Present exactly 4 structured options (or 3 for detached HEAD)\n1448: \n1449: **Cleaning up worktree for Option 2**\n1450: - **Problem:** Remove worktree user needs for PR iteration\n1451: - **Fix:** Only cleanup for Options 1 and 4\n1452: \n1453: **Deleting branch before removing wo",
   "actionability": "reference",
-  "cross_refs": [
-    "pipeline"
-  ],
-  "source_findings": [
-    "F-0077"
-  ],
+  "cross_refs": ["pipeline"],
+  "source_findings": ["F-0077"],
   "eval_d9_promotion": 85,
   "promoted_at": "2026-05-30T04:47:31.410626+00:00"
 }

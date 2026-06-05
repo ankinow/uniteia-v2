@@ -1,0 +1,11 @@
+{
+  "id": "W-0071",
+  "title": "error\n59: - **Esperado:** Redirect para `/en/privacy` (ou negociação de idioma)\n",
+  "domain": "pipeline",
+  "content": "error\n59: - **Esperado:** Redirect para `/en/privacy` (ou negociação de idioma)\n60: - **Fix:** Adicionar redirect em `src/routes/privacy/index",
+  "actionability": "reference",
+  "cross_refs": ["pipeline"],
+  "source_findings": ["F-0071"],
+  "eval_d9_promotion": 90,
+  "promoted_at": "2026-06-04T12:32:43.791190+00:00"
+}

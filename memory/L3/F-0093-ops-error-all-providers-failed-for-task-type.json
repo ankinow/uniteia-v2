@@ -1,0 +1,11 @@
+{
+  "id": "W-0093",
+  "title": "error: `All providers failed for task type: ${taskType}`,\n76:       attempts,\n77",
+  "domain": "ops",
+  "content": "error: `All providers failed for task type: ${taskType}`,\n76:       attempts,\n77:     };\n78:   }\n79: }\n80: \n81: const DEFAULT_PROVIDERS: ProviderEndpoint[] = [\n82:   {\n83:     name: \"OpenCode Go DeepSeek V4 Flash\",\n84:     baseUrl: \"https://opencode",
+  "actionability": "reference",
+  "cross_refs": ["ops"],
+  "source_findings": ["F-0093"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-04T12:32:43.794604+00:00"
+}

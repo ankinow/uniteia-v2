@@ -52,6 +52,16 @@ export default component$(() => {
     a.nicheSlug === 'apex' ? -1 : b.nicheSlug === 'apex' ? 1 : 0
   )
 
+  // Pluralization helper: picks singular key when count === 1
+  const p = (key: 'signalCount' | 'curatedAcross', count: number): string => {
+    if (count === 1)
+      return (
+        (t.homepage as Record<string, string>)[`${key}One`] ??
+        t.homepage[key].replace('{count}', '1')
+      )
+    return t.homepage[key].replace('{count}', count.toString())
+  }
+
   // Start ambient drone on homepage mount
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
@@ -118,12 +128,12 @@ export default component$(() => {
                   const clusterNodes = sortedClusters.map(c => ({
                     id: c.nicheSlug,
                     label: c.label,
-                    outcome: `${t.homepage.signalCount.replace('{count}', c.articleCount.toString())} · Q${c.avgGraphScore.toFixed(0)}`,
+                    outcome: `${p('signalCount', c.articleCount)} · Q${c.avgGraphScore.toFixed(0)}`,
                   }))
                   const rootNode = {
                     id: 'signal-intake',
                     label: t.homepage.signalIntake,
-                    outcome: `${t.homepage.signalCount.replace('{count}', new Set([...featuredSignals, ...frontierStreams].map(s => s.node.id)).size.toString())} ${t.homepage.curatedAcross.replace('{count}', clusterNodes.length.toString())}`,
+                    outcome: `${p('signalCount', new Set([...featuredSignals, ...frontierStreams].map(s => s.node.id)).size)} ${p('curatedAcross', clusterNodes.length)}`,
                     children: clusterNodes.length > 0 ? clusterNodes : undefined,
                   }
                   const deliveryNode = {
@@ -231,11 +241,7 @@ export default component$(() => {
                                 <p class="font-semibold text-bone text-base">{cluster.label}</p>
                               </div>
                               <p class="text-sm text-bone mt-2 tabular-nums">
-                                {t.homepage.signalCount.replace(
-                                  '{count}',
-                                  cluster.articleCount.toString()
-                                )}{' '}
-                                ·{' '}
+                                {p('signalCount', cluster.articleCount)} ·{' '}
                                 <span
                                   aria-label={`Signal Origin Score ${cluster.avgGraphScore.toFixed(0)} — Aether Gate 7/7`}
                                   data-tooltip="Signal Origin Score — the vacuum where the signal emerges"
@@ -304,10 +310,12 @@ export default component$(() => {
             Knowledge Architecture
           </h2>
           <p class="text-sm text-bone/40 text-center mb-8 max-w-lg mx-auto">
-            <span class="accent-glow text-neon-cyan">{featuredSignals.length}</span> signals ·{' '}
-            <span class="text-neon-amber">{sortedClusters.length}</span> clusters ·{' '}
-            <span class="text-neon-rose">{frontierStreams.length}</span> frontiers · Qwik islands +
-            P3 wide-gamut
+            <span class="accent-glow text-neon-cyan">{featuredSignals.length}</span>{' '}
+            {featuredSignals.length === 1 ? 'signal' : 'signals'} ·{' '}
+            <span class="text-neon-amber">{sortedClusters.length}</span>{' '}
+            {sortedClusters.length === 1 ? 'cluster' : 'clusters'} ·{' '}
+            <span class="text-neon-rose">{frontierStreams.length}</span>{' '}
+            {frontierStreams.length === 1 ? 'frontier' : 'frontiers'} · Qwik islands + P3 wide-gamut
           </p>
           <BentoGrid
             minCellWidth="240px"

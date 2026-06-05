@@ -4,12 +4,8 @@
   "domain": "pipeline",
   "content": "error handling using project's patterns\n\n**Exit**: All planned changes done, tests written, no syntax errors, diff generated, **NOT APPLIED**\n**Failures**: Compilation errors → fix, stay in BUILD | Pattern violations → review `projectRules",
   "actionability": "reference",
-  "cross_refs": [
-    "pipeline"
-  ],
-  "source_findings": [
-    "F-0007"
-  ],
+  "cross_refs": ["pipeline"],
+  "source_findings": ["F-0007"],
   "eval_d9_promotion": 85,
   "promoted_at": "2026-05-30T04:47:31.406756+00:00"
 }

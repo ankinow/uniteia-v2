@@ -4,12 +4,8 @@
   "domain": "content",
   "content": "Error } from '~/types/content'\\nimport { loadContent } from '~/utils/content-loader'\\n\\nlet warmupDone = false\\nbeforeAll(async () => {\\n  if (!warmupDone) {\\n    warmupDone = true\\n    try {\\n      await loadContent('apex', 'tencent-cloud-deal-stack-builders', 'en')\\n    } catch {}\\n  }\\n}, 60_000)\\n\\ndescribe('loadContent', () => {\\n  it('loads a valid English article and returns typed LlmWikiContent', async () => {\\n    const result = await loadContent('apex', 'tencent-cloud-deal-stack-builde",
   "actionability": "reference",
-  "cross_refs": [
-    "content"
-  ],
-  "source_findings": [
-    "F-0035"
-  ],
+  "cross_refs": ["content"],
+  "source_findings": ["F-0035"],
   "eval_d9_promotion": 85,
   "promoted_at": "2026-05-30T04:37:50.135449+00:00"
 }

@@ -1,0 +1,106 @@
+/* upsilon-sigil.css — brand mark animations */
+
+/* ── CSS Houdini property for fork rotation ── */
+@property --upsilon-rotate {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* ── Fork: slow rotation on hover, subtle idle pulse ── */
+.upsilon-sigil--animated .upsilon-fork {
+  transform-origin: 32px 36px;
+  animation: upsilon-idle 6s ease-in-out infinite;
+  transition: filter 0.4s ease;
+}
+
+.upsilon-sigil--animated:hover .upsilon-fork {
+  animation: upsilon-spin 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px oklch(75% 0.18 200 / 0.6));
+}
+
+/* ── Ring: perimeter pulse ── */
+.upsilon-ring {
+  transform-origin: 32px 32px;
+  animation: upsilon-ring-pulse 3s ease-in-out infinite;
+}
+
+/* ── Core: glow pulse ── */
+.upsilon-core {
+  animation: upsilon-core-glow 2.5s ease-in-out infinite;
+}
+
+/* ── Pulse ring: expanding stroke ── */
+.upsilon-pulse {
+  transform-origin: 32px 36px;
+  animation: upsilon-pulse-expand 3s ease-out infinite;
+}
+
+/* ── Keyframes ── */
+@keyframes upsilon-idle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+    opacity: 0.85;
+  }
+  50% {
+    transform: rotate(0.5deg);
+    opacity: 0.95;
+  }
+}
+
+@keyframes upsilon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes upsilon-ring-pulse {
+  0%,
+  100% {
+    opacity: 0.2;
+    r: 27;
+  }
+  50% {
+    opacity: 0.4;
+    r: 29;
+  }
+}
+
+@keyframes upsilon-core-glow {
+  0%,
+  100% {
+    opacity: 0.7;
+    r: 3;
+  }
+  50% {
+    opacity: 1;
+    r: 3.5;
+  }
+}
+
+@keyframes upsilon-pulse-expand {
+  0% {
+    opacity: 0.6;
+    r: 4;
+    stroke-width: 1;
+  }
+  100% {
+    opacity: 0;
+    r: 16;
+    stroke-width: 0.2;
+  }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .upsilon-sigil--animated .upsilon-fork,
+  .upsilon-ring,
+  .upsilon-core,
+  .upsilon-pulse {
+    animation: none;
+  }
+}

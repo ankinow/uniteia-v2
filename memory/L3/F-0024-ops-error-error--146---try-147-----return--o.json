@@ -1,0 +1,11 @@
+{
+  "id": "W-0024",
+  "title": "error: Error }> {\n146:   try {\n147:     return { ok: true, value: await readFile",
+  "domain": "ops",
+  "content": "error: Error }> {\n146:   try {\n147:     return { ok: true, value: await readFile(filePath, 'utf8') }\n148:   } catch (error) {\n149:     return { ok: false, error: error instanceof Error ? error : new Error(String(error)) }\n150:   }\n151: }\n152: \n153: function parseJson<T>(\n154:   text: string,\n155:   fallbackMessage: string\n156: ): { ok: true; value: T } | { ok: false; error: Error } {\n157:   try {\n158:     return { ok: true, value: JSON",
+  "actionability": "reference",
+  "cross_refs": ["ops"],
+  "source_findings": ["F-0024"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-04T12:32:56.213335+00:00"
+}

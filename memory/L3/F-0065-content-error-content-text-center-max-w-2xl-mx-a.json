@@ -1,0 +1,11 @@
+{
+  "id": "W-0065",
+  "title": "error-content text-center max-w-2xl mx-auto\" q:key=\"3k_2\"><div data-testid=\"erro",
+  "domain": "content",
+  "content": "error-content text-center max-w-2xl mx-auto\" q:key=\"3k_2\"><div data-testid=\"error-code\" class=\"error-code text-8xl md:text-9xl font-bold mb-8\"><span class=\"text-action\">404</span></div><h1 data-testid=\"error-title\" class=\"error-title text-3xl md:text-4xl font-semibold mb-4 text-bone\"><!--t=x-->Page Not Found<!----></h1><p data-testid=\"error-message\" class=\"error-message text-lg md:text-xl text-bone-muted mb-8 leading-relaxed\"><!--t=y-->The page you&#39;re looking for doesn&#39;t exist or has bee",
+  "actionability": "reference",
+  "cross_refs": ["content"],
+  "source_findings": ["F-0065"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-04T12:32:56.215969+00:00"
+}

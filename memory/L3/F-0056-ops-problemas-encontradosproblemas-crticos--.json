@@ -4,12 +4,8 @@
   "domain": "ops",
   "content": "problemas encontrados:\nPROBLEMAS CRÍTICOS:\n\n    Páginas de Niche Landing QUEBRADAS/INCOMPLETAS:\n        FR /signals/apex/ - Apenas \"Skip to main content\" + título, sem cards, sem lista de tópicos\n        JA /signals/apex/ - Mostra conteúdo do artigo Galaxy AI em vez da landing page\n        ZH /signals/apex/ - Mostra conteúdo do artigo Tencent Cloud em vez da landing page\n    Conteúdo NÃO TRADUZIDO em artigos:\n        foundation-models-overview: Título traduzido (Visão Geral de Modelos Fundaciona",
   "actionability": "reference",
-  "cross_refs": [
-    "ops"
-  ],
-  "source_findings": [
-    "F-0056"
-  ],
+  "cross_refs": ["ops"],
+  "source_findings": ["F-0056"],
   "eval_d9_promotion": 85,
   "promoted_at": "2026-05-30T04:44:40.761255+00:00"
 }

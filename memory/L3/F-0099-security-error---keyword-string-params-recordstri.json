@@ -1,0 +1,11 @@
+{
+  "id": "W-0099",
+  "title": "Error = { keyword: string; params: Record<string, unknown>; message?: string; in",
+  "domain": "security",
+  "content": "Error = { keyword: string; params: Record<string, unknown>; message?: string; instancePath?: string };\n5: \n6: function isObject(v: unknown): v is Record<string, unknown> {\n7:   return typeof v === \"object\" && v !== null && !Array",
+  "actionability": "reference",
+  "cross_refs": ["security"],
+  "source_findings": ["F-0099"],
+  "eval_d9_promotion": 100,
+  "promoted_at": "2026-06-04T12:32:56.218102+00:00"
+}

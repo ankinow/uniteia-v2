@@ -153,7 +153,9 @@ export interface TranslationStrings {
     knowledgeClusters: string
     frontierStreams: string
     signalCount: string
+    signalCountOne: string
     curatedAcross: string
+    curatedAcrossOne: string
     noSignals: string
     browseTopics: string
     networkState: string
@@ -195,6 +197,7 @@ export interface TranslationStrings {
     apexBadge: string
     headline: string
     tracksLabel: string
+    tracksLabelOne: string
   }
   legal: {
     privacy: {
