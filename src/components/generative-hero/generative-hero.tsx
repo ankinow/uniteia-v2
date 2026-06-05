@@ -1,17 +1,22 @@
 /**
- * GenerativeHero — Context-Aware Hero Section (Content-Graph Driven)
+ * GenerativeHero — APEX-Powered Hero Section
  *
- * Reads knowledge clusters from the homepage projection to determine
- * the top trending niche, then generates an adaptive gradient mesh
- * with locale-aware text.
+ * APEX is the umbrella signal at the frontier of AI. This hero always
+ * leads with APEX (the section that defines the entire site) and lists
+ * APEX's derivative signals as supporting tracks.
+ *
+ * Reads knowledge clusters from the homepage projection; resolves the
+ * APEX cluster as the headline, surfaces all apex-* signals + the
+ * magica-* / mcp-* support tooling as secondary chips.
  *
  * SSG-safe: all data is static, passed as props at build time.
  * No runtime API calls, no client-side data fetching.
  *
- * Color mapping per niche slug:
- * - apex → cyan (oklch 75% 0.18 200)
- * - prompt-engineering → amber (oklch 72% 0.165 80)
- * - default → indigo (oklch 60% 0.2 265)
+ * Color mapping:
+ * - apex → oklch(78% 0.18 200) — bright cyan (primary brand)
+ * - apex-* derivatives → oklch(70% 0.16 195) — cyan family
+ * - magica-* / mcp-* → oklch(72% 0.165 80) — amber
+ * - default → oklch(60% 0.2 265) — indigo
  */
 
 import { component$ } from '@builder.io/qwik'
@@ -23,34 +28,69 @@ export interface GenerativeHeroProps {
   clusters: KnowledgeCluster[]
   lang: SupportedLanguage
   t: {
-    curating: string // "Curating {niche} signals today"
-    topNiches: string // "Top Niches"
+    apexBadge: string // e.g. "APEX · Live"
+    headline: string // e.g. "Frontier signals from {count} tracks"
+    tracksLabel: string // e.g. "Active tracks"
   }
 }
 
-const NICHE_HUES: Record<string, { h: number; c: number; l: number }> = {
-  apex: { h: 200, c: 0.18, l: 75 },
-}
+const APEX_HUE = { h: 200, c: 0.18, l: 78 }
+const APEX_DERIVATIVE_HUE = { h: 195, c: 0.16, l: 70 }
+const MAGICA_HUE = { h: 80, c: 0.165, l: 72 }
+const DEFAULT_HUE = { h: 265, c: 0.2, l: 60 }
 
 function getNicheColor(nicheSlug: string): string {
-  const c = NICHE_HUES[nicheSlug] ?? { h: 265, c: 0.2, l: 60 }
+  let c
+  if (nicheSlug === 'apex') {
+    c = APEX_HUE
+  } else if (nicheSlug.startsWith('apex-')) {
+    c = APEX_DERIVATIVE_HUE
+  } else if (nicheSlug.startsWith('magica-') || nicheSlug === 'mcp') {
+    c = MAGICA_HUE
+  } else {
+    c = DEFAULT_HUE
+  }
   return `oklch(${c.l}% ${c.c} ${c.h})`
 }
 
 function getNicheColorDim(nicheSlug: string): string {
-  const c = NICHE_HUES[nicheSlug] ?? { h: 265, c: 0.15, l: 45 }
+  let c
+  if (nicheSlug === 'apex') {
+    c = { h: 200, c: 0.15, l: 50 }
+  } else if (nicheSlug.startsWith('apex-')) {
+    c = { h: 195, c: 0.13, l: 45 }
+  } else if (nicheSlug.startsWith('magica-') || nicheSlug === 'mcp') {
+    c = { h: 80, c: 0.13, l: 45 }
+  } else {
+    c = { h: 265, c: 0.15, l: 45 }
+  }
   return `oklch(${c.l}% ${c.c} ${c.h})`
+}
+
+function rankCluster(slug: string): number {
+  if (slug === 'apex') return 0
+  if (slug.startsWith('apex-')) return 1
+  if (slug.startsWith('magica-') || slug === 'mcp') return 2
+  return 3
 }
 
 export const GenerativeHero = component$<GenerativeHeroProps>(props => {
   const { class: classList, clusters, t } = props
 
-  // Determine top niche by article count
-  const sorted = [...clusters].sort((a, b) => b.articleCount - a.articleCount)
-  const topNiche = sorted[0]
+  // Always lead with APEX; then apex-* derivatives; then supporting tracks
+  const sorted = [...clusters].sort((a, b) => {
+    const ra = rankCluster(a.nicheSlug)
+    const rb = rankCluster(b.nicheSlug)
+    if (ra !== rb) return ra - rb
+    return b.articleCount - a.articleCount
+  })
 
-  const primaryColor = topNiche ? getNicheColor(topNiche.nicheSlug) : getNicheColor('default')
-  const dimColor = topNiche ? getNicheColorDim(topNiche.nicheSlug) : getNicheColorDim('default')
+  const apex = sorted[0]
+  const primaryColor = apex ? getNicheColor(apex.nicheSlug) : getNicheColor('default')
+  const dimColor = apex ? getNicheColorDim(apex.nicheSlug) : getNicheColorDim('default')
+
+  const totalArticles = clusters.reduce((sum, c) => sum + c.articleCount, 0)
+  const activeTracks = clusters.filter(c => c.articleCount > 0).length
 
   return (
     <div
@@ -70,16 +110,32 @@ export const GenerativeHero = component$<GenerativeHeroProps>(props => {
       />
 
       <div class="relative z-10">
-        {topNiche ? (
+        {apex ? (
           <>
-            <p class="text-sm font-mono uppercase tracking-[0.2em] text-bone-muted mb-3">
-              {t.topNiches}
-            </p>
+            <div class="flex items-center gap-3 mb-3">
+              <span
+                class="inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-mono uppercase tracking-[0.2em] rounded-full border"
+                style={{
+                  borderColor: `color-mix(in srgb, ${primaryColor} 50%, transparent)`,
+                  color: primaryColor,
+                }}
+              >
+                <span
+                  class="w-1.5 h-1.5 rounded-full animate-pulse"
+                  style={{ backgroundColor: primaryColor }}
+                  aria-hidden="true"
+                />
+                {t.apexBadge}
+              </span>
+            </div>
             <h1 class="text-2xl md:text-4xl font-display text-bone leading-tight text-wrap:balance">
-              {t.curating.replace('{niche}', topNiche.label)}
+              {t.headline.replace('{count}', String(activeTracks))}
             </h1>
+            <p class="text-sm text-bone-muted mt-2 font-mono">
+              {apex.label} · {totalArticles} {t.tracksLabel}
+            </p>
             <div class="flex flex-wrap gap-2 mt-4">
-              {sorted.slice(0, 3).map(cluster => (
+              {sorted.slice(0, 6).map(cluster => (
                 <a
                   key={cluster.nicheSlug}
                   href={cluster.href}
@@ -101,7 +157,9 @@ export const GenerativeHero = component$<GenerativeHeroProps>(props => {
             </div>
           </>
         ) : (
-          <p class="text-bone-muted font-mono text-sm uppercase tracking-wider">{t.topNiches}</p>
+          <p class="text-bone-muted font-mono text-sm uppercase tracking-wider">
+            {t.tracksLabel}
+          </p>
         )}
       </div>
     </div>

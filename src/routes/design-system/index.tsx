@@ -54,27 +54,60 @@ const DopamineCardDemo = component$<{ title: string; description: string }>(
 )
 
 // ── Inline GenerativeHero display (mock data for standalone route) ──
+//
+// APEX is the only section that powers the entire site. This demo
+// surfaces APEX as the headline + the live apex-* derivatives, then
+// the magica-* / mcp-* support tracks as chips. Mirrors the real
+// GenerativeHero component (kept in sync with src/components/generative-hero/).
 
 const GenerativeHeroDemo = component$(() => {
   const mockClusters = [
     { nicheSlug: 'apex', label: 'Apex Signal', href: '/en/signals/apex', articleCount: 24 },
-    { nicheSlug: 'ai-agents', label: 'AI Agents', href: '/en/signals/ai-agents', articleCount: 12 },
+    { nicheSlug: 'apex-overview', label: 'Apex Overview', href: '/en/signals/apex-overview', articleCount: 8 },
+    { nicheSlug: 'apex-quickstart', label: 'Apex Quickstart', href: '/en/signals/apex-quickstart', articleCount: 12 },
+    { nicheSlug: 'apex-flow', label: 'Apex Flow', href: '/en/signals/apex-flow', articleCount: 6 },
+    { nicheSlug: 'magica', label: 'Magica', href: '/en/signals/magica', articleCount: 9 },
+    { nicheSlug: 'mcp', label: 'MCP', href: '/en/signals/mcp', articleCount: 15 },
   ]
-  const topNiche = mockClusters[0]!
-  const getNicheColor = (slug: string) => {
-    const hues: Record<string, string> = {
-      apex: 'oklch(75% 0.18 200)',
-    }
-    return hues[slug] ?? 'oklch(60% 0.2 265)'
+
+  const NICHE_HUES: Record<string, { h: number; c: number; l: number }> = {
+    apex: { h: 200, c: 0.18, l: 78 },
+    'apex-overview': { h: 195, c: 0.16, l: 70 },
+    'apex-quickstart': { h: 195, c: 0.16, l: 70 },
+    'apex-flow': { h: 195, c: 0.16, l: 70 },
+    magica: { h: 80, c: 0.165, l: 72 },
+    mcp: { h: 80, c: 0.165, l: 72 },
   }
-  const getNicheColorDim = (slug: string) => {
-    const hues: Record<string, string> = {
-      apex: 'oklch(45% 0.15 200)',
-    }
-    return hues[slug] ?? 'oklch(45% 0.15 265)'
+
+  const rankCluster = (slug: string): number => {
+    if (slug === 'apex') return 0
+    if (slug.startsWith('apex-')) return 1
+    if (slug.startsWith('magica-') || slug === 'mcp') return 2
+    return 3
   }
-  const primaryColor = getNicheColor(topNiche.nicheSlug)
-  const dimColor = getNicheColorDim(topNiche.nicheSlug)
+
+  const sorted = [...mockClusters].sort((a, b) => {
+    const ra = rankCluster(a.nicheSlug)
+    const rb = rankCluster(b.nicheSlug)
+    if (ra !== rb) return ra - rb
+    return b.articleCount - a.articleCount
+  })
+
+  const getNicheColor = (slug: string): string => {
+    const c = NICHE_HUES[slug] ?? { h: 265, c: 0.2, l: 60 }
+    return `oklch(${c.l}% ${c.c} ${c.h})`
+  }
+
+  const getNicheColorDim = (slug: string): string => {
+    const c = NICHE_HUES[slug] ?? { h: 265, c: 0.15, l: 45 }
+    return `oklch(${c.l * 0.6}% ${c.c * 0.85} ${c.h})`
+  }
+
+  const apex = sorted[0]!
+  const primaryColor = getNicheColor(apex.nicheSlug)
+  const dimColor = getNicheColorDim(apex.nicheSlug)
+  const totalArticles = mockClusters.reduce((s, c) => s + c.articleCount, 0)
+  const activeTracks = mockClusters.filter(c => c.articleCount > 0).length
 
   return (
     <div
@@ -88,12 +121,30 @@ const GenerativeHeroDemo = component$(() => {
       }}
     >
       <div class="relative z-10">
-        <p class="text-sm font-mono uppercase tracking-[0.2em] text-bone-muted mb-3">Top Niches</p>
+        <div class="flex items-center gap-3 mb-3">
+          <span
+            class="inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-mono uppercase tracking-[0.2em] rounded-full border"
+            style={{
+              borderColor: `color-mix(in srgb, ${primaryColor} 50%, transparent)`,
+              color: primaryColor,
+            }}
+          >
+            <span
+              class="w-1.5 h-1.5 rounded-full animate-pulse"
+              style={{ backgroundColor: primaryColor }}
+              aria-hidden="true"
+            />
+            APEX · Live
+          </span>
+        </div>
         <h1 class="text-2xl md:text-4xl font-display text-bone leading-tight text-wrap:balance">
-          Curating {topNiche.label} signals today
+          Frontier signals from {activeTracks} tracks
         </h1>
+        <p class="text-sm text-bone-muted mt-2 font-mono">
+          {apex.label} · {totalArticles} active articles
+        </p>
         <div class="flex flex-wrap gap-2 mt-4">
-          {mockClusters.map(cluster => (
+          {sorted.slice(0, 6).map(cluster => (
             <span
               key={cluster.nicheSlug}
               class="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono uppercase tracking-wider rounded-full border"

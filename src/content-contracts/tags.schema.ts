@@ -8,7 +8,16 @@ export const TAG_CATEGORIES = new Set([
   'pipeline',
 ])
 
+// APEX cluster: the umbrella signal at the frontier of AI. Every
+// topic below feeds the APEX summary. New APEX derivatives should
+// be added here AND in config/niches.yaml + src/components/icon-set.
 export const KNOWN_TOPIC_TAGS = new Set([
+  'apex',
+  'apex-overview',
+  'apex-quickstart',
+  'apex-flow',
+  'mcp',
+  'magica',
   'cloud-computing',
   'virtual-machines',
   'ai-agents',

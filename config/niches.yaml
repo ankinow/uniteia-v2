@@ -36,6 +36,123 @@
     ja: AI研究と産業の最前線における新興シグナル。
     zh: 人工智能研究和产业前沿的新兴信号。
 
-- slug: prompt-engineering-removed
-  # APEX-only pivot: prompt-engineering section retired
-  # See commits efacca1+ for context
+- slug: ai-agents
+  slugs:
+    en: ai-agents
+    pt: agentes-ia
+    es: agentes-ia
+    fr: agents-ia
+    de: ki-agenten
+    it: agenti-ai
+    ja: ai-エージェント
+    zh: ai-代理
+  icon: bot
+  title:
+    en: AI Agents
+    pt: Agentes de IA
+    es: Agentes de IA
+    fr: Agents d'IA
+    de: KI-Agenten
+    it: Agenti AI
+    ja: AIエージェント
+    zh: AI 代理
+  description:
+    en: Autonomous AI systems that perceive, reason, and act to achieve goals.
+    pt: Sistemas de IA autônomos que percebem, raciocinam e agem para atingir objetivos.
+    es: Sistemas de IA autónomos que perciben, razonan y actúan para lograr objetivos.
+    fr: "Systèmes d'IA autonomes qui perçoivent, raisonnent et agissent pour atteindre des objectifs."
+    de: Autonome KI-Systeme, die wahrnehmen, schlussfolgern und handeln, um Ziele zu erreichen.
+    it: Sistemi AI autonomi che percepiscono, ragionano e agiscono per raggiungere obiettivi.
+    ja: 目標を達成するために知覚、推論、行動する自律型AIシステム。
+    zh: 能够感知、推理和行动以实现目标的自主AI系统。
+
+- slug: llm-comparison
+  slugs:
+    en: llm-comparison
+    pt: comparacao-llm
+    es: comparacion-llm
+    fr: comparaison-llm
+    de: llm-vergleich
+    it: confronto-llm
+    ja: llm比較
+    zh: llm比较
+  icon: layers
+  title:
+    en: LLM Comparison
+    pt: Comparação LLMs
+    es: Comparación LLMs
+    fr: Comparaison LLMs
+    de: LLM-Vergleich
+    it: Confronto LLM
+    ja: LLM比較
+    zh: LLM比较
+  description:
+    en: Side-by-side benchmarks, capabilities, and pricing for frontier LLMs.
+    pt: Benchmarks, capacidades e preços lado a lado para LLMs de fronteira.
+    es: Benchmarks, capacidades y precios lado a lado para LLMs de frontera.
+    fr: Benchmarks, capacités et prix côte à côte pour les LLMs de pointe.
+    de: Benchmarks, Fähigkeiten und Preise nebeneinander für Frontier-LLMs.
+    it: Benchmark, capacità e prezzi fianco a fianco per LLM all'avanguardia.
+    ja: 最前線LLMのベンチマーク、機能、価格を並べて比較。
+    zh: 面向前沿LLM的并排基准测试、功能和定价。
+
+- slug: cloud-computing
+  slugs:
+    en: cloud-computing
+    pt: computacao-nuvem
+    es: computacion-nube
+    fr: informatique-nuage
+    de: cloud-computing
+    it: cloud-computing
+    ja: クラウドコンピューティング
+    zh: 云计算
+  icon: cloud
+  title:
+    en: Cloud Computing
+    pt: Computação em Nuvem
+    es: Computación en la Nube
+    fr: Informatique en Nuage
+    de: Cloud Computing
+    it: Cloud Computing
+    ja: クラウドコンピューティング
+    zh: 云计算
+  description:
+    en: Modern cloud platforms, edge networks, and serverless architectures.
+    pt: Plataformas de nuvem modernas, redes de borda e arquiteturas serverless.
+    es: Plataformas cloud modernas, redes edge y arquitecturas serverless.
+    fr: Plateformes cloud modernes, réseaux edge et architectures serverless.
+    de: Moderne Cloud-Plattformen, Edge-Netzwerke und Serverless-Architekturen.
+    it: Piattaforme cloud moderne, reti edge e architetture serverless.
+    ja: 最新のクラウドプラットフォーム、エッジネットワーク、サーバーレスアーキテクチャ。
+    zh: 现代云平台、边缘网络和无服务器架构。
+
+- slug: virtual-machines
+  slugs:
+    en: virtual-machines
+    pt: maquinas-virtuais
+    es: maquinas-virtuales
+    fr: machines-virtuelles
+    de: virtuelle-maschinen
+    it: macchine-virtuali
+    ja: 仮想マシン
+    zh: 虚拟机
+  icon: server
+  title:
+    en: Virtual Machines
+    pt: Máquinas Virtuais
+    es: Máquinas Virtuales
+    fr: Machines Virtuelles
+    de: Virtuelle Maschinen
+    it: Macchine Virtuali
+    ja: 仮想マシン
+    zh: 虚拟机
+  description:
+    en: VM orchestration, containerization, and infrastructure as code.
+    pt: Orquestração de VMs, conteinerização e infraestrutura como código.
+    es: Orquestación de VMs, contenerización e infraestructura como código.
+    fr: Orchestration de VMs, conteneurisation et infrastructure en tant que code.
+    de: VM-Orchestrierung, Containerisierung und Infrastructure as Code.
+    it: Orchestrazione VM, containerizzazione e infrastructure as code.
+    ja: VMオーケストレーション、コンテナ化、Infrastructure as Code。
+    zh: 虚拟机编排、容器化和基础设施即代码。
+
