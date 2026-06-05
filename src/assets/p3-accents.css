@@ -25,17 +25,13 @@
     }
 
     .accent-glow {
-      text-shadow:
-        0 0 10px var(--neon-cyan),
-        0 0 20px var(--neon-cyan),
-        0 0 40px oklch(80% 0.25 200 / 0.5);
+      text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px
+        oklch(80% 0.25 200 / 0.5);
     }
 
     .border-neon {
       border-color: var(--neon-cyan);
-      box-shadow:
-        0 0 8px var(--neon-cyan),
-        inset 0 0 4px var(--neon-cyan);
+      box-shadow: 0 0 8px var(--neon-cyan), inset 0 0 4px var(--neon-cyan);
     }
 
     .text-neon-cyan {

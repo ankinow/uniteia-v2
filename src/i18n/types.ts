@@ -192,6 +192,9 @@ export interface TranslationStrings {
   generativeHero: {
     curating: string
     topNiches: string
+    apexBadge: string
+    headline: string
+    tracksLabel: string
   }
   legal: {
     privacy: {
@@ -317,6 +320,28 @@ export interface TranslationStrings {
       tags: { visualLogic: string; devFriendly: string; practicalByDesign: string }
       footer: string
     }
+  }
+  /**
+   * 18 i18n keys consumed by `useCanvaI18n` and `CanvaComposition` (canva pipeline).
+   * Flat dotted-path shape — `useCanvaI18n` reads via `getTranslation(lang)`
+   * directly (Qwik SSR-safe, NOT via useI18n() closure which can't resolve
+   * nested proxy paths).
+   */
+  canva: {
+    hero: { title: string; subtitle: string; cta: string }
+    concept: { central: string; satellite: { '1': string; '2': string } }
+    code: {
+      step: {
+        '1': { title: string; body: string }
+        '2': { title: string }
+      }
+    }
+    compare: {
+      option: { a: string; b: string }
+      decision: { yes: string; no: string }
+    }
+    timeline: { milestone: { '1': string; '2': string } }
+    summary: { takeaway: { '1': string; '2': string }; nextstep: string }
   }
 }
 

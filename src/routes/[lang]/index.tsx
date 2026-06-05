@@ -150,11 +150,7 @@ export default component$(() => {
       />
 
       {/* 027.3: GenerativeHero — context-aware adaptive hero */}
-      <GenerativeHero
-        clusters={sortedClusters}
-        lang={lang}
-        t={{ curating: t.generativeHero.curating, topNiches: t.generativeHero.topNiches }}
-      />
+      <GenerativeHero clusters={sortedClusters} lang={lang} t={t.generativeHero} />
 
       <CanvasSurface tone="parchment" class="mt-8">
         <ScrollContentCanvas class="my-8">
@@ -308,12 +304,17 @@ export default component$(() => {
             Knowledge Architecture
           </h2>
           <p class="text-sm text-bone/40 text-center mb-8 max-w-lg mx-auto">
-            <span class="accent-glow text-neon-cyan">{featuredSignals.length}</span> signals
-            · <span class="text-neon-amber">{sortedClusters.length}</span> clusters
-            · <span class="text-neon-rose">{frontierStreams.length}</span> frontiers
-            · Qwik islands + P3 wide-gamut
+            <span class="accent-glow text-neon-cyan">{featuredSignals.length}</span> signals ·{' '}
+            <span class="text-neon-amber">{sortedClusters.length}</span> clusters ·{' '}
+            <span class="text-neon-rose">{frontierStreams.length}</span> frontiers · Qwik islands +
+            P3 wide-gamut
           </p>
-          <BentoGrid minCellWidth="240px" cellHeight="160px" gap="0.75rem" class="max-w-4xl mx-auto">
+          <BentoGrid
+            minCellWidth="240px"
+            cellHeight="160px"
+            gap="0.75rem"
+            class="max-w-4xl mx-auto"
+          >
             <BentoCell size="featured" as="article" class="border-neon">
               <div class="flex flex-col h-full justify-between">
                 <p class="text-xs uppercase tracking-[0.3em] text-bone/50 font-mono">
@@ -353,9 +354,9 @@ export default component$(() => {
                   SOTA 2026 · P3 Bioluminescence
                 </p>
                 <p class="text-sm text-bone/80 leading-relaxed">
-                  Display P3 wide-gamut neon accents render in living color on compatible
-                  monitors. Falls back to sRGB tones automatically. This card itself
-                  demonstrates the <code class="text-neon-acid">.border-neon</code> glow.
+                  Display P3 wide-gamut neon accents render in living color on compatible monitors.
+                  Falls back to sRGB tones automatically. This card itself demonstrates the{' '}
+                  <code class="text-neon-acid">.border-neon</code> glow.
                 </p>
               </div>
             </BentoCell>

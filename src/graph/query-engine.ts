@@ -166,7 +166,7 @@ export class NvidiaNimEmbeddingProvider implements EmbeddingProvider {
 
   async embed(text: string): Promise<number[]> {
     const results = await this.embedBatch([text])
-    return results[0]
+    return results[0]!
   }
 
   async embedBatch(texts: string[]): Promise<number[][]> {
@@ -220,9 +220,11 @@ export function cosineSimilarity(a: number[], b: number[]): number {
   let normB = 0
 
   for (let i = 0; i < a.length; i++) {
-    dot += a[i] * b[i]
-    normA += a[i] * a[i]
-    normB += b[i] * b[i]
+    const valA = a[i] ?? 0
+    const valB = b[i] ?? 0
+    dot += valA * valB
+    normA += valA * valA
+    normB += valB * valB
   }
 
   const denom = Math.sqrt(normA) * Math.sqrt(normB)
@@ -234,7 +236,8 @@ export function cosineSimilarity(a: number[], b: number[]): number {
  */
 export function meanVector(vectors: number[][]): number[] {
   if (vectors.length === 0) return []
-  const dim = vectors[0].length
+  const first = vectors[0]!
+  const dim = first.length
   const sum = new Array(dim).fill(0)
   for (const v of vectors) {
     for (let i = 0; i < dim; i++) {
@@ -281,7 +284,11 @@ export class QueryEngine {
 
     const map = new Map<string, number[]>()
     for (let i = 0; i < this.graph.nodes.length; i++) {
-      map.set(this.graph.nodes[i].id, embeddings[i])
+      const node = this.graph.nodes[i]
+      const emb = embeddings[i]
+      if (node && emb) {
+        map.set(node.id, emb)
+      }
     }
 
     this.precomputedEmbeddings = map
@@ -447,10 +454,11 @@ export class QueryEngine {
   expand(entityId: string, options?: ExpandOptions): ExpandResult {
     const { depth = 1, edgeKinds, includeEdges = false } = options ?? {}
 
-    const entity = this.graph.nodes[this.graph.indexes.byId[entityId]]
-    if (!entity) {
+    const entityIdx = this.graph.indexes.byId[entityId]
+    if (entityIdx === undefined) {
       return { entity: null as unknown as Entity, neighbors: [] }
     }
+    const entity = this.graph.nodes[entityIdx]!
 
     const visited = new Set<string>([entityId])
     const neighbors: ExpandResult['neighbors'] = []
@@ -474,8 +482,9 @@ export class QueryEngine {
         if (visited.has(neighborId)) continue
         visited.add(neighborId)
 
-        const neighborEntity = this.graph.nodes[this.graph.indexes.byId[neighborId]]
-        if (!neighborEntity) continue
+        const neighborIdx = this.graph.indexes.byId[neighborId]
+        if (neighborIdx === undefined) continue
+        const neighborEntity = this.graph.nodes[neighborIdx]!
 
         neighbors.push({
           entity: neighborEntity,
@@ -506,7 +515,12 @@ export class QueryEngine {
    */
   getEntitiesByType(type: EntityType): Entity[] {
     const ids = this.graph.indexes.byType[type] ?? []
-    return ids.map(id => this.graph.nodes[this.graph.indexes.byId[id]]).filter(Boolean)
+    return ids
+      .map(id => {
+        const idx = this.graph.indexes.byId[id]
+        return idx !== undefined ? this.graph.nodes[idx]! : null
+      })
+      .filter((e): e is Entity => e !== null)
   }
 
   /**
@@ -514,7 +528,12 @@ export class QueryEngine {
    */
   getEntitiesByLocale(locale: string): Entity[] {
     const ids = this.graph.indexes.byLocale[locale] ?? []
-    return ids.map(id => this.graph.nodes[this.graph.indexes.byId[id]]).filter(Boolean)
+    return ids
+      .map(id => {
+        const idx = this.graph.indexes.byId[id]
+        return idx !== undefined ? this.graph.nodes[idx]! : null
+      })
+      .filter((e): e is Entity => e !== null)
   }
 
   /**

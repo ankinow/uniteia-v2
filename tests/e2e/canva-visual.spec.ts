@@ -67,7 +67,9 @@ test.describe('Canva Magica — 8 Lang i18n Coverage', () => {
   for (const lang of LANGS) {
     test(`${lang}: page loads with localized content`, async ({ page }) => {
       await page.goto(`/${lang}/signals/apex/magica-overview`)
-      await page.waitForSelector('.canva-container, .storyboard-grid, .living-brief-2col', { timeout: 10000 })
+      await page.waitForSelector('.canva-container, .storyboard-grid, .living-brief-2col', {
+        timeout: 10000,
+      })
 
       const body = page.locator('body')
       const text = await body.innerText()

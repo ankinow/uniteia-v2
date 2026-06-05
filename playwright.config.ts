@@ -3,9 +3,13 @@ import { defineConfig, devices } from '@playwright/test'
 /**
  * Playwright configuration for UniTeia v2 E2E tests.
  *
- * Runs against the Cloudflare Pages preview runtime on port 8788.
+ * Runs against the Cloudflare Pages preview runtime.
+ * The PLAYWRIGHT_BASE_URL env var overrides the default port (set by ship:check
+ * when it starts a dynamic wrangler preview server on a free port).
  * Uses a single Chromium browser for speed; add Firefox/WebKit as needed.
  */
+const BASE_URL = process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:8788'
+
 export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
@@ -14,7 +18,7 @@ export default defineConfig({
   ...(process.env.CI ? { workers: 1 } : {}),
   reporter: 'html',
   use: {
-    baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:8788',
+    baseURL: BASE_URL,
     trace: 'on-first-retry',
   },
   projects: [
@@ -24,8 +28,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'DOMAIN=http://localhost:8788 npx qwik build && npx qwik preview',
-    url: 'http://localhost:8788',
+    command:
+      'npx wrangler pages dev dist --compatibility-date=2026-04-01 --compatibility-flags nodejs_compat --port=8788',
+    url: BASE_URL,
     reuseExistingServer: true,
     timeout: 180_000,
   },

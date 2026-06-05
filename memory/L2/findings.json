@@ -13,9 +13,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "ops"
-      ],
+      "tags": ["ops"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -32,9 +30,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "ops"
-      ],
+      "tags": ["ops"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -51,9 +47,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "ops"
-      ],
+      "tags": ["ops"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -70,9 +64,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "ops"
-      ],
+      "tags": ["ops"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -89,9 +81,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "data"
-      ],
+      "tags": ["data"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -108,9 +98,7 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "ops"
-      ],
+      "tags": ["ops"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -127,9 +115,7 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "pipeline"
-      ],
+      "tags": ["pipeline"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -146,9 +132,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "ops"
-      ],
+      "tags": ["ops"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -165,9 +149,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "ops"
-      ],
+      "tags": ["ops"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -184,9 +166,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "ops"
-      ],
+      "tags": ["ops"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -203,9 +183,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "ui"
-      ],
+      "tags": ["ui"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -222,9 +200,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "data"
-      ],
+      "tags": ["data"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -241,9 +217,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "ui"
-      ],
+      "tags": ["ui"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -260,9 +234,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "ops"
-      ],
+      "tags": ["ops"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -279,9 +251,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "ops"
-      ],
+      "tags": ["ops"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -298,9 +268,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "ops"
-      ],
+      "tags": ["ops"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -317,9 +285,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "data"
-      ],
+      "tags": ["data"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -336,9 +302,7 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "ops"
-      ],
+      "tags": ["ops"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -355,9 +319,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "ops"
-      ],
+      "tags": ["ops"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -374,9 +336,7 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 2,
-      "tags": [
-        "data"
-      ],
+      "tags": ["data"],
       "stash_refs": [
         "9a544911974c4c5b99747befb4e662c6",
         "19d0b0f58e390e85ef710a769be2c1d77b54da",
@@ -393,14 +353,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0022",
@@ -412,14 +366,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "agent"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["agent"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0023",
@@ -431,14 +379,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0024",
@@ -450,14 +392,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0025",
@@ -469,14 +405,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0026",
@@ -488,14 +418,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0027",
@@ -507,14 +431,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "agent"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["agent"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0028",
@@ -526,14 +444,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "infra"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["infra"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0029",
@@ -545,14 +457,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "pipeline"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["pipeline"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0030",
@@ -564,14 +470,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0031",
@@ -583,14 +483,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0032",
@@ -602,14 +496,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0033",
@@ -621,14 +509,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "agent"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["agent"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0034",
@@ -640,14 +522,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0035",
@@ -659,14 +535,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0036",
@@ -678,14 +548,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0037",
@@ -697,14 +561,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 3,
-      "tags": [
-        "content"
-      ],
-      "stash_refs": [
-        "52024f99754ec4d76806e59dbd295098",
-        "29412e99",
-        "9037e2faa2ee"
-      ]
+      "tags": ["content"],
+      "stash_refs": ["52024f99754ec4d76806e59dbd295098", "29412e99", "9037e2faa2ee"]
     },
     {
       "id": "F-0038",
@@ -716,14 +574,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "ui"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["ui"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0039",
@@ -735,14 +587,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "pipeline"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["pipeline"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0040",
@@ -754,14 +600,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0041",
@@ -773,14 +613,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "pipeline"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["pipeline"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0042",
@@ -792,14 +626,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "content"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["content"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0043",
@@ -811,14 +639,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0044",
@@ -830,14 +652,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "content"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["content"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0045",
@@ -849,14 +665,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0046",
@@ -868,14 +678,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0047",
@@ -887,14 +691,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0048",
@@ -906,14 +704,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "infra"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["infra"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0049",
@@ -925,14 +717,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0050",
@@ -944,14 +730,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0051",
@@ -963,14 +743,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "ui"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["ui"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0052",
@@ -982,14 +756,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0053",
@@ -1001,14 +769,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0054",
@@ -1020,14 +782,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0055",
@@ -1039,14 +795,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0056",
@@ -1058,14 +808,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0057",
@@ -1077,14 +821,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 4,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "0d111780",
-        "ddb37826",
-        "fac800b3"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["0d111780", "ddb37826", "fac800b3"]
     },
     {
       "id": "F-0058",
@@ -1096,14 +834,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0059",
@@ -1115,14 +847,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "content"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["content"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0060",
@@ -1134,14 +860,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0061",
@@ -1153,14 +873,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0062",
@@ -1172,14 +886,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "content"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["content"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0063",
@@ -1191,14 +899,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0064",
@@ -1210,14 +912,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "infra"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["infra"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0065",
@@ -1229,14 +925,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0066",
@@ -1248,14 +938,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0067",
@@ -1267,14 +951,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "content"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["content"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0068",
@@ -1286,14 +964,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0069",
@@ -1305,14 +977,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0070",
@@ -1324,14 +990,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "pipeline"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["pipeline"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0071",
@@ -1343,14 +1003,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0072",
@@ -1362,14 +1016,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "pipeline"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["pipeline"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0073",
@@ -1381,14 +1029,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0074",
@@ -1400,14 +1042,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "44e8f16",
-        "52024f99754ec4d76806e59dbd295098",
-        "62ea440"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["44e8f16", "52024f99754ec4d76806e59dbd295098", "62ea440"]
     },
     {
       "id": "F-0075",
@@ -1419,14 +1055,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0076",
@@ -1438,14 +1068,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0077",
@@ -1457,14 +1081,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "pipeline"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["pipeline"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0078",
@@ -1476,14 +1094,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ui"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["ui"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0079",
@@ -1495,14 +1107,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "pipeline"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["pipeline"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0080",
@@ -1514,14 +1120,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "content"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["content"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0081",
@@ -1533,14 +1133,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0082",
@@ -1552,14 +1146,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "pipeline"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["pipeline"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0083",
@@ -1571,14 +1159,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ui"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["ui"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0084",
@@ -1590,14 +1172,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "data"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["data"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0085",
@@ -1609,14 +1185,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0086",
@@ -1628,14 +1198,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0087",
@@ -1647,14 +1211,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "content"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["content"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0088",
@@ -1666,14 +1224,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ui"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["ui"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0089",
@@ -1685,14 +1237,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0090",
@@ -1704,14 +1250,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0091",
@@ -1723,14 +1263,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "f293036",
-        "590e9bf",
-        "cbd1349635"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["f293036", "590e9bf", "cbd1349635"]
     },
     {
       "id": "F-0092",
@@ -1742,14 +1276,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0093",
@@ -1761,14 +1289,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0094",
@@ -1780,14 +1302,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "data"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["data"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0095",
@@ -1799,14 +1315,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "pipeline"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["pipeline"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0096",
@@ -1818,14 +1328,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0097",
@@ -1837,14 +1341,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0098",
@@ -1856,14 +1354,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "data"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["data"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0099",
@@ -1875,14 +1367,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "agent"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["agent"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0100",
@@ -1894,14 +1380,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0101",
@@ -1913,14 +1393,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "data"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["data"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0102",
@@ -1932,14 +1406,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "data"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["data"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0103",
@@ -1951,14 +1419,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "agent"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["agent"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0104",
@@ -1970,14 +1432,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0105",
@@ -1989,14 +1445,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0106",
@@ -2008,14 +1458,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0107",
@@ -2027,14 +1471,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0108",
@@ -2046,14 +1484,8 @@
       "status": "promoted_L3",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "security"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["security"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     },
     {
       "id": "F-0109",
@@ -2065,14 +1497,8 @@
       "status": "open",
       "deps_satisfied": false,
       "age_days": 5,
-      "tags": [
-        "ops"
-      ],
-      "stash_refs": [
-        "1bd5405",
-        "692f7c2",
-        "52024f99754ec4d76806e59dbd295098"
-      ]
+      "tags": ["ops"],
+      "stash_refs": ["1bd5405", "692f7c2", "52024f99754ec4d76806e59dbd295098"]
     }
   ]
 }

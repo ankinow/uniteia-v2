@@ -191,6 +191,9 @@ export const zh: TranslationStrings = {
   generativeHero: {
     curating: '{niche} insights',
     topNiches: '热门领域',
+    apexBadge: 'APEX · 直播',
+    headline: '来自 {count} 个轨道的边沿信号',
+    tracksLabel: '活跃轨道',
   },
   legal: {
     privacy: {
@@ -384,7 +387,10 @@ export const zh: TranslationStrings = {
           options: [
             { name: 'tldraw desktop', verdict: '当你想要完整、随时可用的白板应用时最佳。' },
             { name: 'tldraw SDK', verdict: '当你希望把白板嵌入并定制到产品里时最佳。' },
-            { name: 'perfect-freehand + canvas', verdict: '当你需要极致性能与最小 bundle 时最佳。' },
+            {
+              name: 'perfect-freehand + canvas',
+              verdict: '当你需要极致性能与最小 bundle 时最佳。',
+            },
             { name: 'Excalidraw', verdict: '当你想要简洁、开源、干净的绘图体验时最佳。' },
           ],
           closingNote: '挑选最契合你的约束、团队和 UX 目标的工具。',
@@ -397,6 +403,32 @@ export const zh: TranslationStrings = {
         practicalByDesign: '务实设计',
       },
       footer: '为学习者打造。为开发者设计。由 UniTeia / ConteiXeia 出品',
+    },
+  },
+  canva: {
+    hero: {
+      title: '可以构建的信号',
+      subtitle: '六个场景，一个决策',
+      cta: '打开画布',
+    },
+    concept: {
+      central: '为什么现在重要',
+      satellite: { '1': '更快的决策', '2': '更清晰的信号' },
+    },
+    code: {
+      step: {
+        '1': { title: '连接基础', body: '20 行、3 个文件、一个可运行的流程。' },
+        '2': { title: '添加下一层' },
+      },
+    },
+    compare: {
+      option: { a: '自己构建', b: '使用平台' },
+      decision: { yes: '如果能回本，可以', no: '不，平台已经存在' },
+    },
+    timeline: { milestone: { '1': '今天：一个 shape', '2': '六个月：完整的画布' } },
+    summary: {
+      takeaway: { '1': '起步比直觉更小', '2': '复用胜过重造' },
+      nextstep: '构建最小可运行的东西',
     },
   },
 }

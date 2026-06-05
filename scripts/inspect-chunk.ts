@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-const CHUNK_NAME = 'q-BA4hx68r.js' // ← o gigante
+const CHUNK_NAME = 'q-CPvdBplO.js' // ← o gigante
 const BUILD_DIR = './dist/build'
 
 function inspectChunk() {

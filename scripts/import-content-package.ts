@@ -26,14 +26,9 @@ function buildFrontmatter(
   factoryNode?: ContentNode
 ): string {
   const qualityScore = factoryNode?.qualityScore ?? (importReport.canPublish === false ? 30 : 65)
-  const trustScore = factoryNode?.trustScore ?? 35
   const verdict = factoryNode?.verdict ?? 'caution'
-  const visibility = factoryNode?.visibility ?? 'draft'
-  const lifecycle = factoryNode?.lifecycle ?? 'generated'
   const createdAt = factoryNode?.timestamps.createdAt ?? new Date().toISOString()
   const updatedAt = factoryNode?.timestamps.updatedAt ?? new Date().toISOString()
-  const noindex = factoryNode?.seo.noindex ?? importReport.canPublish === false
-  const seoPriority = factoryNode?.seo.priority ?? qualityScore
 
   return [
     '---',
@@ -42,9 +37,6 @@ function buildFrontmatter(
     `title: ${JSON.stringify(title)}`,
     `verdict: ${verdict}`,
     `quality_score: ${qualityScore}`,
-    `trust_score: ${trustScore}`,
-    `visibility: ${visibility}`,
-    `lifecycle: ${lifecycle}`,
     'subjects:',
     '  - cloud',
     '  - builders',
@@ -61,9 +53,6 @@ function buildFrontmatter(
     '    title: EdgeOne Overview',
     '  - url: https://www.tencentcloud.com/act/pro/promo',
     '    title: Tencent Cloud Free Tier',
-    'seo:',
-    `  noindex: ${noindex}`,
-    `  priority: ${seoPriority}`,
     'metadata:',
     `  created_at: "${createdAt}"`,
     `  updated_at: "${updatedAt}"`,
@@ -77,15 +66,15 @@ function buildFrontmatter(
 }
 
 function main(): void {
-  const slug = process.argv[2] || 'tencent-cloud-deal-stack-builders'
-  const packageDir = join(FACTORY_ROOT, 'exports', slug)
+  const packageName = process.argv[2] || 'tencent-cloud-deal-stack-builders'
+  const packageDir = join(FACTORY_ROOT, 'exports', packageName)
 
   if (!existsSync(packageDir)) {
     console.error(`Package not found: ${packageDir}`)
     process.exit(1)
   }
 
-  console.log(`Importing package: ${slug}`)
+  console.log(`Importing package: ${packageName}`)
   console.log(`Package dir: ${packageDir}`)
 
   // Phase 1 — Validate
@@ -105,8 +94,9 @@ function main(): void {
   console.log('\n--- Phase 2: importPackage ---')
   const manifestRaw = JSON.parse(readFileSync(join(packageDir, 'manifest.json'), 'utf-8'))
   const imported = importPackage(packageDir, manifestRaw)
+  const canonicalSlug = imported.importReport.slug
 
-  console.log(`  Slug: ${imported.importReport.slug}`)
+  console.log(`  Canonical Slug: ${canonicalSlug}`)
   console.log(`  Layout: ${imported.importReport.layoutId}`)
   console.log(`  Status: ${imported.importReport.status}`)
   console.log(`  canPublish: ${imported.importReport.canPublish}`)
@@ -132,7 +122,7 @@ function main(): void {
   // Phase 4 — Copy content to site content/ directory with factory metadata
   console.log('\n--- Phase 4: Copy content to content/apex/ ---')
   const contentBase = join(V2_ROOT, 'content', NICHE)
-  const assetDir = join(V2_ROOT, 'public', 'assets', 'wiki', slug)
+  const assetDir = join(V2_ROOT, 'public', 'assets', 'wiki', canonicalSlug)
 
   mkdirSync(contentBase, { recursive: true })
   mkdirSync(assetDir, { recursive: true })
@@ -151,7 +141,7 @@ function main(): void {
   for (const [contractLocale, v2Locale] of Object.entries(CONTRACT_TO_V2_LOCALE)) {
     const contentPath = join(packageDir, `content.${contractLocale}.mdx`)
     const targetDir = join(contentBase, v2Locale)
-    const targetPath = join(targetDir, `${slug}.md`)
+    const targetPath = join(targetDir, `${canonicalSlug}.md`)
 
     mkdirSync(targetDir, { recursive: true })
 
@@ -163,18 +153,18 @@ function main(): void {
       // Gate: body must have meaningful content (min 100 chars per schema)
       if (cleanContent.length < 100) {
         console.log(
-          `  ⚠ SKIP ${NICHE}/${v2Locale}/${slug}.md — body too short (${cleanContent.length} chars, min 100)`
+          `  ⚠ SKIP ${NICHE}/${v2Locale}/${canonicalSlug}.md — body too short (${cleanContent.length} chars, min 100)`
         )
         continue
       }
 
-      const title = titleByLang[v2Locale] || slug
+      const title = titleByLang[v2Locale] || canonicalSlug
 
       // Attempt to get factory-provided ContentNode for metadata
-      const factoryNode = getFactoryNode(imported.factoryNodes, contractLocale, slug)
+      const factoryNode = getFactoryNode(imported.factoryNodes, contractLocale, canonicalSlug)
 
       const frontmatter = buildFrontmatter(
-        slug,
+        canonicalSlug,
         v2Locale,
         title,
         imported.importReport as unknown as Record<string, unknown>,
@@ -182,20 +172,22 @@ function main(): void {
       )
       writeFileSync(targetPath, `${frontmatter + cleanContent.trim()}\n`)
       console.log(
-        `  ✓ ${NICHE}/${v2Locale}/${slug}.md${factoryNode ? ' (factory metadata)' : ' (re-derived metadata)'}`
+        `  ✓ ${NICHE}/${v2Locale}/${canonicalSlug}.md${factoryNode ? ' (factory metadata)' : ' (re-derived metadata)'}`
       )
     } else {
-      console.log(`  ✗ ${NICHE}/${v2Locale}/${slug}.md — content.${contractLocale}.mdx not found`)
+      console.log(
+        `  ✗ ${NICHE}/${v2Locale}/${canonicalSlug}.md — content.${contractLocale}.mdx not found`
+      )
     }
   }
 
   // Copy content-nodes.json to content metadata dir (for compiler consumption)
   const contentNodesSrc = join(packageDir, 'content-nodes.json')
   if (existsSync(contentNodesSrc)) {
-    const contentNodesDir = join(V2_ROOT, 'content-metadata', slug)
+    const contentNodesDir = join(V2_ROOT, 'content-metadata', canonicalSlug)
     mkdirSync(contentNodesDir, { recursive: true })
     copyFileSync(contentNodesSrc, join(contentNodesDir, 'content-nodes.json'))
-    console.log(`  ✓ content-metadata/${slug}/content-nodes.json`)
+    console.log(`  ✓ content-metadata/${canonicalSlug}/content-nodes.json`)
   }
 
   // Copy assets
@@ -209,7 +201,7 @@ function main(): void {
   }
 
   // Write import report
-  const reportDir = join(V2_ROOT, 'content-metadata', slug)
+  const reportDir = join(V2_ROOT, 'content-metadata', canonicalSlug)
   mkdirSync(reportDir, { recursive: true })
   writeFileSync(
     join(reportDir, 'import-report.json'),
@@ -229,12 +221,12 @@ function main(): void {
       2
     )
   )
-  console.log(`\n  ✓ Import report saved to content-metadata/${slug}/import-report.json`)
+  console.log(`\n  ✓ Import report saved to content-metadata/${canonicalSlug}/import-report.json`)
 
   console.log('\n✅ Import complete!')
-  console.log(`  Content: content/${NICHE}/{lang}/${slug}.md`)
-  console.log(`  Assets: public/assets/wiki/${slug}/`)
-  console.log(`  Metadata: content-metadata/${slug}/`)
+  console.log(`  Content: content/${NICHE}/{lang}/${canonicalSlug}.md`)
+  console.log(`  Assets: public/assets/wiki/${canonicalSlug}/`)
+  console.log(`  Metadata: content-metadata/${canonicalSlug}/`)
   console.log(`  Metadata origin: ${imported.importReport.metadataOrigin}`)
 }
 

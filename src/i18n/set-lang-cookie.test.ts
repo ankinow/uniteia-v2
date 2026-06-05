@@ -35,7 +35,7 @@ describe('updateLangCookie', () => {
         const re = new RegExp(`${attr}:\\s*${expected}`)
         expect(source, `cookie option "${attr}" should be ${expected}`).toMatch(re)
       } else if (typeof expected === 'number') {
-        const re = new RegExp(`${attr}:\\s*${expected}`)
+        const re = new RegExp(`${attr}:\\s*(?:${expected}|LANGUAGE_COOKIE_MAX_AGE)`)
         expect(source, `cookie option "${attr}" should be ${expected}`).toMatch(re)
       } else {
         // String attrs appear as `attr: 'value'` or `attr: "value"`

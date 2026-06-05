@@ -1,4 +1,4 @@
-import type { RequestHandler } from '@builder.io/qwik-city'
+import type { RequestEvent, RequestHandler } from '@builder.io/qwik-city'
 
 interface SearchResult {
   id: string
@@ -11,17 +11,25 @@ interface SearchResult {
 
 // Simple cosine similarity
 function cosineSimilarity(a: number[], b: number[]): number {
-  let dot = 0, na = 0, nb = 0
+  let dot = 0
+  let na = 0
+  let nb = 0
   for (let i = 0; i < a.length; i++) {
-    dot += a[i] * b[i]
-    na += a[i] * a[i]
-    nb += b[i] * b[i]
+    const valA = a[i] ?? 0
+    const valB = b[i] ?? 0
+    dot += valA * valB
+    na += valA * valA
+    nb += valB * valB
   }
   const denom = Math.sqrt(na) * Math.sqrt(nb)
   return denom === 0 ? 0 : dot / denom
 }
 
-export const onGet: RequestHandler = async ({ query, json, request }) => {
+export const onGet: RequestHandler = async (requestEvent: RequestEvent) => {
+  const { request } = requestEvent
+  const json = requestEvent.json.bind(requestEvent)
+  const url = new URL(request.url)
+  const query = url.searchParams
   const q = query.get('q')?.trim() ?? ''
   const k = Math.min(Number.parseInt(query.get('k') ?? '10', 10) || 10, 50)
   const locale = query.get('locale') ?? ''
@@ -37,7 +45,9 @@ export const onGet: RequestHandler = async ({ query, json, request }) => {
     const url = new URL('/entity-graph.json', request.url).toString()
     const resp = await fetch(url)
     if (resp.ok) graph = await resp.json()
-  } catch { /* silent */ }
+  } catch {
+    /* silent */
+  }
 
   if (!graph?.nodes?.length) {
     json(503, { error: 'Entity graph not loaded' })
@@ -59,14 +69,17 @@ export const onGet: RequestHandler = async ({ query, json, request }) => {
         }
       }
     }
-  } catch { /* silent */ }
+  } catch {
+    /* silent */
+  }
 
   // Get dimensions for hash embedding
   const firstVal = embeddings ? Object.values(embeddings)[0] : undefined
   const dims = firstVal && Array.isArray(firstVal) ? firstVal.length : 1024
 
   // Compute query embedding (deterministic hash, matches LocalEmbeddingProvider)
-  const words = q.toLowerCase()
+  const words = q
+    .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, '')
     .split(/\s+/)
     .filter(t => t.length > 1)

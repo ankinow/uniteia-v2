@@ -42,7 +42,11 @@ const ARTICLE_METAS: Record<string, ArticleMeta> = {
       'Auto-retry with exponential backoff and circuit breaker',
     ],
     diagram: 'magica-arch',
-    metric: { value: '40%', label: 'avg cost reduction vs single-provider', delta: '↓ from baseline' },
+    metric: {
+      value: '40%',
+      label: 'avg cost reduction vs single-provider',
+      delta: '↓ from baseline',
+    },
     ctaTitle: 'Start Building',
     ctaBody: 'Try Magica free — no credit card required.',
     ctaLabel: 'Visit Magica',

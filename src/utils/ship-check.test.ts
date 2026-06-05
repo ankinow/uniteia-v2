@@ -94,6 +94,7 @@ describe('runShipCheck', () => {
     })
     expect(steps.map(step => step.name)).toEqual([
       'lint',
+      'validate:i18n',
       'typecheck',
       'test:unit',
       'build',

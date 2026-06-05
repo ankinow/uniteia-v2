@@ -82,7 +82,7 @@ function bonecoSvg(boneco: BonecoItem): string {
       eye: 'oklch(0.15 0.02 280)',
     },
   }
-  const c = colors[boneco.emotion ?? 'teaching']
+  const c = colors[boneco.emotion as keyof typeof colors] || colors.teaching
   const scale = boneco.scale ?? 1
   const s = (n: number) => Math.round(n * scale)
 

@@ -1,11 +1,11 @@
 import { $, component$ } from '@builder.io/qwik'
-import { playCtaClick } from '~/utils/aether-sound'
 import {
   MagicaCommandCenterDiagram,
   McpArchitectureDiagram,
   QuickstartFlowDiagram,
   TencentStackDiagram,
 } from '~/components/canva/diagrams'
+import { playCtaClick } from '~/utils/aether-sound'
 import { NoiseCanvas } from './noise-canvas'
 import type { ResolvedCell } from './types'
 

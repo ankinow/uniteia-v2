@@ -110,6 +110,7 @@ export class SvgIconShapeUtil extends ShapeUtil<SvgIconShape> {
     const iconSvg: string = ICON_REGISTRY[shape.props.iconId] ?? ICON_REGISTRY.robot ?? ''
     const size = Math.min(shape.props.w, shape.props.h) * shape.props.scale
 
+    // @ts-ignore - HTMLContainer is React component for tldraw canvas
     return (
       <HTMLContainer
         style={{

@@ -15,7 +15,7 @@ export default component$(() => {
 
   return (
     <div class="px-4 py-8 max-w-6xl mx-auto">
-      <header class="mb-8">
+      <div class="mb-8">
         <p class="text-xs font-mono text-bone-muted uppercase tracking-wider mb-2">
           FLUX · SOTA 2026 · DARK MANGA
         </p>
@@ -23,11 +23,10 @@ export default component$(() => {
           The world is noisy. We filter the signal.
         </h1>
         <p class="text-base text-bone-muted max-w-2xl">
-          Hero asset generated via FLUX.1-dev (NVIDIA NIM) at 1024×1024, 21.9s.
-          The prompt below is what produced the image above — same prompt, same
-          seed (17) reproduces deterministically.
+          Hero asset generated via FLUX.1-dev (NVIDIA NIM) at 1024×1024, 21.9s. The prompt below is
+          what produced the image above — same prompt, same seed (17) reproduces deterministically.
         </p>
-      </header>
+      </div>
 
       <figure class="border-2 border-bone/20 bg-void mb-8">
         <img
@@ -45,11 +44,9 @@ export default component$(() => {
 
       <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="border-2 border-bone/20 p-4">
-          <h2 class="text-sm font-mono uppercase tracking-wider text-cyan mb-2">
-            Prompt
-          </h2>
+          <h2 class="text-sm font-mono uppercase tracking-wider text-cyan mb-2">Prompt</h2>
           <pre class="text-xs font-mono text-bone-muted whitespace-pre-wrap leading-relaxed">
-{`cinematic wide shot, dark manga aesthetic, bg-void #0F0F1A,
+            {`cinematic wide shot, dark manga aesthetic, bg-void #0F0F1A,
 abstract visualization of signal waves filtering through white noise,
 concentric pulse rings expanding from center, speed lines radiating,
 screentone halftone patterns as information layer,
@@ -60,30 +57,25 @@ professional illustration, world-class quality, vector-ready lines`}
         </div>
 
         <div class="border-2 border-bone/20 p-4">
-          <h2 class="text-sm font-mono uppercase tracking-wider text-cyan mb-2">
-            SOTA Insights
-          </h2>
+          <h2 class="text-sm font-mono uppercase tracking-wider text-cyan mb-2">SOTA Insights</h2>
           <ul class="text-xs text-bone-muted space-y-2 leading-relaxed">
             <li>
-              <span class="text-cyan font-mono">Anti-text</span> — FLUX renders
-              text unreliably. Explicit "no text" + "no gradients" cuts the
-              6KB-black-fail rate from ~5% to &lt;1%.
+              <span class="text-cyan font-mono">Anti-text</span> — FLUX renders text unreliably.
+              Explicit "no text" + "no gradients" cuts the 6KB-black-fail rate from ~5% to &lt;1%.
             </li>
             <li>
-              <span class="text-cyan font-mono">Vector-ready</span> — specifying
-              "clean ink lines 2px" + "cross-hatch shading" produces output
-              that vtracer can convert at &gt;95% fidelity.
+              <span class="text-cyan font-mono">Vector-ready</span> — specifying "clean ink lines
+              2px" + "cross-hatch shading" produces output that vtracer can convert at &gt;95%
+              fidelity.
             </li>
             <li>
-              <span class="text-cyan font-mono">Dark anchor</span> — pinning
-              background to <code class="text-cyan">#0F0F1A</code> (the
-              brand void) ensures the asset sits inside the design system
-              without post-processing.
+              <span class="text-cyan font-mono">Dark anchor</span> — pinning background to{' '}
+              <code class="text-cyan">#0F0F1A</code> (the brand void) ensures the asset sits inside
+              the design system without post-processing.
             </li>
             <li>
-              <span class="text-cyan font-mono">Seed variance</span> — seed 17
-              is reproducible. The skill recommends seed &gt;10 for any
-              hero asset to avoid FLUX's "default face" bias.
+              <span class="text-cyan font-mono">Seed variance</span> — seed 17 is reproducible. The
+              skill recommends seed &gt;10 for any hero asset to avoid FLUX's "default face" bias.
             </li>
           </ul>
         </div>

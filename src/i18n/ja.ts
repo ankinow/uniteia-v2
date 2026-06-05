@@ -196,6 +196,9 @@ export const ja: TranslationStrings = {
   generativeHero: {
     curating: '{niche} insights',
     topNiches: 'トップニッチ',
+    apexBadge: 'APEX · ライブ',
+    headline: '{count}つのトラックからのフロンティア信号',
+    tracksLabel: 'アクティブなトラック',
   },
   legal: {
     privacy: {
@@ -387,10 +390,19 @@ export const ja: TranslationStrings = {
           kind: 'まとめ',
           title: '推奨まとめ',
           options: [
-            { name: 'tldraw desktop', verdict: 'すぐに使える完成版のホワイトボードアプリが欲しい時に最適。' },
+            {
+              name: 'tldraw desktop',
+              verdict: 'すぐに使える完成版のホワイトボードアプリが欲しい時に最適。',
+            },
             { name: 'tldraw SDK', verdict: '製品に埋め込み、カスタマイズしたい時に最適。' },
-            { name: 'perfect-freehand + canvas', verdict: '最高性能と最小バンドルが必要な時に最適。' },
-            { name: 'Excalidraw', verdict: 'シンプルさ、OSS、クリーンな描画体験を求める時に最適。' },
+            {
+              name: 'perfect-freehand + canvas',
+              verdict: '最高性能と最小バンドルが必要な時に最適。',
+            },
+            {
+              name: 'Excalidraw',
+              verdict: 'シンプルさ、OSS、クリーンな描画体験を求める時に最適。',
+            },
           ],
           closingNote: '制約・チーム・UXの目標に合うツールを選ぼう。',
         },
@@ -402,6 +414,32 @@ export const ja: TranslationStrings = {
         practicalByDesign: '実用的設計',
       },
       footer: '学習者のために。開発者の設計。UniTeia / ConteiXeia 製',
+    },
+  },
+  canva: {
+    hero: {
+      title: '構築できるシグナル',
+      subtitle: '6つのシーン、1つの決断',
+      cta: 'キャンバスを開く',
+    },
+    concept: {
+      central: '今なぜ重要か',
+      satellite: { '1': 'より速い決断', '2': 'より明瞭なシグナル' },
+    },
+    code: {
+      step: {
+        '1': { title: '基本を配線する', body: '20行、3ファイル、動くフロー。' },
+        '2': { title: '次の層を加える' },
+      },
+    },
+    compare: {
+      option: { a: '自作する', b: 'プラットフォームを使う' },
+      decision: { yes: '元が取れるなら Yes', no: 'No、プラットフォームは既にある' },
+    },
+    timeline: { milestone: { '1': '今日：1つの shape', '2': '6ヶ月：完全なキャンバス' } },
+    summary: {
+      takeaway: { '1': '正解より小さく始める', '2': '再発明より再利用' },
+      nextstep: '動く最小のものを作る',
     },
   },
 }

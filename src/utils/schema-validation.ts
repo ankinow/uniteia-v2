@@ -12,6 +12,7 @@ export interface ValidationIssue {
 export interface ValidationReport {
   valid: boolean
   errors: ValidationIssue[]
+  warnings?: ValidationIssue[]
 }
 
 export interface ValidationOptions {
@@ -346,7 +347,7 @@ export function validateMarkdownFrontmatter(markdown: string, filePath: string):
       }
     }
     parsed = {
-      data: (load(match[1]) ?? {}) as Record<string, unknown>,
+      data: (load(match[1] ?? '') ?? {}) as Record<string, unknown>,
       content: markdown.slice(match[0].length),
     }
   } catch (error) {

@@ -57,8 +57,10 @@ export const ScrollReveal = component$<ScrollRevealProps>(props => {
       return
     }
 
-    // Prepare children with initial state
-    const children = Array.from(container.children) as HTMLElement[]
+    // Prepare children with initial state - filter to HTMLElement only
+    const children = Array.from(container.children).filter(
+      (el): el is HTMLElement => el instanceof HTMLElement
+    )
     for (const child of children) {
       child.style.opacity = '0'
       child.style.transition = `opacity ${duration}ms cubic-bezier(0.25, 0.8, 0.25, 1), transform ${duration}ms cubic-bezier(0.25, 0.8, 0.25, 1)`
@@ -104,7 +106,7 @@ export const ScrollReveal = component$<ScrollRevealProps>(props => {
               // Hide element again when it scrolls out of view
               const idx = children.indexOf(entry.target as HTMLElement)
               if (idx >= 0) {
-                const child = children[idx]
+                const child = children[idx]!
                 child.style.opacity = '0'
                 switch (direction) {
                   case 'up':

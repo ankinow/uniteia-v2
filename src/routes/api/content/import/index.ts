@@ -5,8 +5,7 @@
 // Schema: content-package-v1.json
 // Rate: 10 packages/hour
 
-import type { RequestHandler } from '@builder.io/qwik-city';
-import { json } from '@builder.io/qwik-city';
+import type { RequestHandler, RequestEvent } from '@builder.io/qwik-city';
 
 // ── Config (from env or build-time) ──
 const ALLOWED_SCOPES = ['content:import', 'content:write'];
@@ -73,12 +72,15 @@ function verifySignature(pkg: any): boolean {
   return typeof pkg.signature === 'string' && pkg.signature.length > 0;
 }
 
-export const onPost: RequestHandler = async ({ json, request }) => {
+export const onPost: RequestHandler = async (requestEvent: RequestEvent) => {
+  const { request } = requestEvent
+  const json = requestEvent.json.bind(requestEvent)
   // 1. Auth
   const auth = request.headers.get('Authorization');
   const token = getBearerToken(auth);
   if (!token) {
-    return json({ error: 'Unauthorized', detail: 'Bearer token required' }, 401);
+    json(401, { error: 'Unauthorized', detail: 'Bearer token required' });
+    return;
   }
 
   // TODO: Validate JWT with Hermes public key
@@ -87,11 +89,12 @@ export const onPost: RequestHandler = async ({ json, request }) => {
 
   // 2. Rate limit
   if (!checkRateLimit(clientId)) {
-    return json({
+    json(429, {
       error: 'Too Many Requests',
       detail: `Max ${MAX_PACKAGES_PER_HOUR} packages/hour. Retry later.`,
       retry_after_seconds: 3600,
-    }, 429);
+    });
+    return;
   }
 
   // 3. Parse body
@@ -99,18 +102,21 @@ export const onPost: RequestHandler = async ({ json, request }) => {
   try {
     pkg = await request.json();
   } catch {
-    return json({ error: 'Bad Request', detail: 'Invalid JSON body' }, 400);
+    json(400, { error: 'Bad Request', detail: 'Invalid JSON body' });
+    return;
   }
 
   // 4. Schema validation
   const { valid, errors } = validatePackageSchema(pkg);
   if (!valid) {
-    return json({ error: 'Invalid package', detail: errors }, 400);
+    json(400, { error: 'Invalid package', detail: errors });
+    return;
   }
 
   // 5. Signature verification
   if (!verifySignature(pkg)) {
-    return json({ error: 'Forbidden', detail: 'Invalid signature' }, 403);
+    json(403, { error: 'Forbidden', detail: 'Invalid signature' });
+    return;
   }
 
   // 6. Store posts (in-memory staging — SSG rebuild will consume)
@@ -130,11 +136,11 @@ export const onPost: RequestHandler = async ({ json, request }) => {
   // 7. Queue SSG rebuild (placeholder — will integrate with wrangler deploy)
   console.log(`[content-import] Accepted ${stagingId}: ${pkg.posts.length} posts`);
 
-  return json({
+  json(202, {
     status: 'accepted',
     staging_id: stagingId,
     package_id: pkg.package_id,
     posts_count: pkg.posts.length,
     estimated_rebuild_seconds: 120,
-  }, 202);
+  });
 };

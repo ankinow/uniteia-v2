@@ -203,6 +203,9 @@ export const de: TranslationStrings = {
   generativeHero: {
     curating: '{niche} Insights heute',
     topNiches: 'Top-Nischen',
+    apexBadge: 'APEX · Live',
+    headline: 'Grenzsignale von {count} Kanälen',
+    tracksLabel: 'aktive Kanäle',
   },
   legal: {
     privacy: {
@@ -340,7 +343,10 @@ export const de: TranslationStrings = {
           title: 'Mach es nützlich. Mach es deins.',
           body: 'Drei schnelle Wins, um weiterzukommen.',
           items: [
-            { name: 'Speichern & Wiederöffnen', desc: 'Zeichnung als JSON speichern. Jederzeit wieder laden.' },
+            {
+              name: 'Speichern & Wiederöffnen',
+              desc: 'Zeichnung als JSON speichern. Jederzeit wieder laden.',
+            },
             { name: 'Undo / Redo', desc: 'Stack aus Strichen für reibungslose History halten.' },
             { name: 'Bild exportieren', desc: 'Canvas als PNG exportieren.' },
           ],
@@ -374,7 +380,10 @@ export const de: TranslationStrings = {
           options: [
             { name: 'tldraw desktop', desc: 'App-ready. Volle Erfahrung. Integriert.' },
             { name: 'tldraw SDK', desc: 'In deiner App einbetten. Volle Kontrolle. Deine UI.' },
-            { name: 'perfect-freehand + canvas', desc: 'Ultra-leicht. Top-Performance. Unendlicher Canvas.' },
+            {
+              name: 'perfect-freehand + canvas',
+              desc: 'Ultra-leicht. Top-Performance. Unendlicher Canvas.',
+            },
             { name: 'Excalidraw', desc: 'Einfache Optik. Open Source. Schnell zu shippen.' },
           ],
         },
@@ -385,7 +394,10 @@ export const de: TranslationStrings = {
           rules: [
             { question: 'Willst du eine direkt nutzbare App?', yesTo: 'tldraw desktop' },
             { question: 'Willst du das Whiteboard in deiner App einbetten?', yesTo: 'tldraw SDK' },
-            { question: 'Brauchst du ultraleicht + beste Performance?', yesTo: 'perfect-freehand + canvas' },
+            {
+              question: 'Brauchst du ultraleicht + beste Performance?',
+              yesTo: 'perfect-freehand + canvas',
+            },
             { question: 'Willst du schlichten Look und Open Source?', yesTo: 'Excalidraw' },
           ],
           bottomNote: 'Von oben nach unten antworten. Nimm das erste „Ja“.',
@@ -394,10 +406,24 @@ export const de: TranslationStrings = {
           kind: 'Zusammenfassung',
           title: 'Empfehlungen im Überblick',
           options: [
-            { name: 'tldraw desktop', verdict: 'Am besten, wenn du eine komplette Whiteboard-App sofort nutzen willst.' },
-            { name: 'tldraw SDK', verdict: 'Am besten, wenn du das Whiteboard in deinem Produkt einbetten und anpassen willst.' },
-            { name: 'perfect-freehand + canvas', verdict: 'Am besten, wenn du maximale Performance und minimales Bundle brauchst.' },
-            { name: 'Excalidraw', verdict: 'Am besten, wenn du Einfachheit, Open Source und eine saubere Zeichen-Experience willst.' },
+            {
+              name: 'tldraw desktop',
+              verdict: 'Am besten, wenn du eine komplette Whiteboard-App sofort nutzen willst.',
+            },
+            {
+              name: 'tldraw SDK',
+              verdict:
+                'Am besten, wenn du das Whiteboard in deinem Produkt einbetten und anpassen willst.',
+            },
+            {
+              name: 'perfect-freehand + canvas',
+              verdict: 'Am besten, wenn du maximale Performance und minimales Bundle brauchst.',
+            },
+            {
+              name: 'Excalidraw',
+              verdict:
+                'Am besten, wenn du Einfachheit, Open Source und eine saubere Zeichen-Experience willst.',
+            },
           ],
           closingNote: 'Wähle das Tool, das zu deinen Constraints, Team und UX-Zielen passt.',
         },
@@ -409,6 +435,40 @@ export const de: TranslationStrings = {
         practicalByDesign: 'Praktisch by Design',
       },
       footer: 'Für Lernende gebaut. Für Devs gedacht. Von UniTeia / ConteiXeia',
+    },
+  },
+  canva: {
+    hero: {
+      title: 'Das Signal, auf dem du bauen kannst',
+      subtitle: 'Sechs Szenen, eine Entscheidung',
+      cta: 'Canvas öffnen',
+    },
+    concept: {
+      central: 'Warum das jetzt zählt',
+      satellite: { '1': 'Schnellere Entscheidungen', '2': 'Klareres Signal' },
+    },
+    code: {
+      step: {
+        '1': {
+          title: 'Verdrahte das Wesentliche',
+          body: 'Zwanzig Zeilen, drei Dateien, ein lauffähiger Flow.',
+        },
+        '2': { title: 'Füge die nächste Schicht hinzu' },
+      },
+    },
+    compare: {
+      option: { a: 'Selbst bauen', b: 'Plattform nutzen' },
+      decision: { yes: 'Ja, wenn es sich selbst trägt', no: 'Nein, die Plattform ist schon da' },
+    },
+    timeline: {
+      milestone: { '1': 'Heute: eine Shape', '2': 'Sechs Monate: ein vollständiger Canvas' },
+    },
+    summary: {
+      takeaway: {
+        '1': 'Starte kleiner als sich richtig anfühlt',
+        '2': 'Wiederverwendung schlägt Neuerfindung',
+      },
+      nextstep: 'Baue das Kleinste, das funktioniert',
     },
   },
 }

@@ -25,7 +25,7 @@ export function parseFrontmatter(rawContent: string): ParsedMarkdown {
     return { frontmatter: {}, body: rawContent }
   }
   return {
-    frontmatter: (load(match[1]) ?? {}) as Record<string, unknown>,
+    frontmatter: (load(match[1] ?? '') ?? {}) as Record<string, unknown>,
     body: rawContent.slice(match[0].length),
   }
 }

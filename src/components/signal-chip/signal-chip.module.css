@@ -25,10 +25,8 @@
   border-left-width: 3px;
   color: var(--color-bone);
 
-  transition:
-    color var(--duration-micro) var(--ease-micro),
-    background-color var(--duration-micro) var(--ease-micro),
-    border-color var(--duration-micro) var(--ease-micro);
+  transition: color var(--duration-micro) var(--ease-micro), background-color var(--duration-micro)
+    var(--ease-micro), border-color var(--duration-micro) var(--ease-micro);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -38,27 +36,27 @@
 }
 
 /* ── Variant hues (data-attribute selectors for 0-JS switching) ── */
-.root[data-variant='moderator'] {
+.root[data-variant="moderator"] {
   --chip-accent: var(--color-agent-moderator);
   --chip-glow: var(--color-agent-moderator-glow);
 }
 
-.root[data-variant='researcher'] {
+.root[data-variant="researcher"] {
   --chip-accent: var(--color-agent-researcher);
   --chip-glow: var(--color-agent-researcher-glow);
 }
 
-.root[data-variant='writer'] {
+.root[data-variant="writer"] {
   --chip-accent: var(--color-agent-writer);
   --chip-glow: var(--color-agent-writer-glow);
 }
 
-.root[data-variant='curator'] {
+.root[data-variant="curator"] {
   --chip-accent: var(--color-agent-curator);
   --chip-glow: var(--color-agent-curator-glow);
 }
 
-.root[data-variant='analyst'] {
+.root[data-variant="analyst"] {
   --chip-accent: var(--color-agent-analyst);
   --chip-glow: var(--color-agent-analyst-glow);
 }
@@ -87,14 +85,14 @@
   flex-shrink: 0;
 }
 
-.root[data-trend='up'] .trend {
+.root[data-trend="up"] .trend {
   color: #4ade80;
 }
 
-.root[data-trend='down'] .trend {
+.root[data-trend="down"] .trend {
   color: #f87171;
 }
 
-.root[data-trend='stable'] .trend {
+.root[data-trend="stable"] .trend {
   color: #a1a1aa;
 }

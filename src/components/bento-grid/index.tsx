@@ -1,4 +1,4 @@
-import { type ClassList, component$, Slot } from '@builder.io/qwik'
+import { type ClassList, Slot, component$ } from '@builder.io/qwik'
 import styles from './bento-grid.module.css'
 
 export type BentoCellSize = 'default' | 'wide' | 'tall' | 'featured'

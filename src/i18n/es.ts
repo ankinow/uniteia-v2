@@ -200,6 +200,9 @@ export const es: TranslationStrings = {
   generativeHero: {
     curating: '{niche} insights hoy',
     topNiches: 'Principales Nichos',
+    apexBadge: 'APEX · En Vivo',
+    headline: 'Señales de frontera de {count} canales',
+    tracksLabel: 'canales activos',
   },
   legal: {
     privacy: {
@@ -337,8 +340,14 @@ export const es: TranslationStrings = {
           title: 'Hazlo útil. Hazlo tuyo.',
           body: 'Tres victorias rápidas para ir más lejos.',
           items: [
-            { name: 'Guardar & Reabrir', desc: 'Guarda el dibujo como JSON. Carga de nuevo cuando quieras.' },
-            { name: 'Deshacer / Rehacer', desc: 'Mantén una pila de trazos para un historial sin fricción.' },
+            {
+              name: 'Guardar & Reabrir',
+              desc: 'Guarda el dibujo como JSON. Carga de nuevo cuando quieras.',
+            },
+            {
+              name: 'Deshacer / Rehacer',
+              desc: 'Mantén una pila de trazos para un historial sin fricción.',
+            },
             { name: 'Exportar Imagen', desc: 'Exporta el canvas como PNG.' },
           ],
           caption: 'Tres victorias rápidas.',
@@ -371,7 +380,10 @@ export const es: TranslationStrings = {
           options: [
             { name: 'tldraw desktop', desc: 'App lista. Experiencia completa. Integrado.' },
             { name: 'tldraw SDK', desc: 'Incrústalo en tu app. Control total. Tu UI.' },
-            { name: 'perfect-freehand + canvas', desc: 'Ultraligero. Gran rendimiento. Canvas infinito.' },
+            {
+              name: 'perfect-freehand + canvas',
+              desc: 'Ultraligero. Gran rendimiento. Canvas infinito.',
+            },
             { name: 'Excalidraw', desc: 'Estética simple. Open source. Rápido de lanzar.' },
           ],
         },
@@ -382,7 +394,10 @@ export const es: TranslationStrings = {
           rules: [
             { question: '¿Quieres un app listo para usar?', yesTo: 'tldraw desktop' },
             { question: '¿Quieres incrustar la pizarra en tu propia app?', yesTo: 'tldraw SDK' },
-            { question: '¿Necesitas lo más ligero con mejor rendimiento?', yesTo: 'perfect-freehand + canvas' },
+            {
+              question: '¿Necesitas lo más ligero con mejor rendimiento?',
+              yesTo: 'perfect-freehand + canvas',
+            },
             { question: '¿Quieres algo simple, limpio y open source?', yesTo: 'Excalidraw' },
           ],
           bottomNote: 'Responde de arriba a abajo. Toma el primer "Sí".',
@@ -391,12 +406,26 @@ export const es: TranslationStrings = {
           kind: 'Resumen',
           title: 'Resumen de recomendación',
           options: [
-            { name: 'tldraw desktop', verdict: 'Mejor cuando quieres un app de pizarra completo y listo para usar.' },
-            { name: 'tldraw SDK', verdict: 'Mejor cuando quieres incrustar y personalizar la pizarra en tu producto.' },
-            { name: 'perfect-freehand + canvas', verdict: 'Mejor cuando necesitas máximo rendimiento y bundle mínimo.' },
-            { name: 'Excalidraw', verdict: 'Mejor cuando quieres simplicidad, open source y una experiencia de dibujo limpia.' },
+            {
+              name: 'tldraw desktop',
+              verdict: 'Mejor cuando quieres un app de pizarra completo y listo para usar.',
+            },
+            {
+              name: 'tldraw SDK',
+              verdict: 'Mejor cuando quieres incrustar y personalizar la pizarra en tu producto.',
+            },
+            {
+              name: 'perfect-freehand + canvas',
+              verdict: 'Mejor cuando necesitas máximo rendimiento y bundle mínimo.',
+            },
+            {
+              name: 'Excalidraw',
+              verdict:
+                'Mejor cuando quieres simplicidad, open source y una experiencia de dibujo limpia.',
+            },
           ],
-          closingNote: 'Elige la herramienta que encaje con tus restricciones, equipo y objetivos de UX.',
+          closingNote:
+            'Elige la herramienta que encaje con tus restricciones, equipo y objetivos de UX.',
         },
       },
       cta: 'Comparación rápida para builders',
@@ -406,6 +435,38 @@ export const es: TranslationStrings = {
         practicalByDesign: 'Práctico por diseño',
       },
       footer: 'Hecho para quien aprende. Pensado para devs. Por UniTeia / ConteiXeia',
+    },
+  },
+  canva: {
+    hero: {
+      title: 'La señal sobre la que puedes construir',
+      subtitle: 'Seis escenas, una decisión',
+      cta: 'Abrir el canvas',
+    },
+    concept: {
+      central: 'Por qué esto importa ahora',
+      satellite: { '1': 'Decisiones más rápidas', '2': 'Señal más clara' },
+    },
+    code: {
+      step: {
+        '1': {
+          title: 'Conecta lo básico',
+          body: 'Veinte líneas, tres archivos, un flujo que funciona.',
+        },
+        '2': { title: 'Añade la siguiente capa' },
+      },
+    },
+    compare: {
+      option: { a: 'Construirlo tú mismo', b: 'Usar la plataforma' },
+      decision: { yes: 'Sí, si se paga solo', no: 'No, la plataforma ya está ahí' },
+    },
+    timeline: { milestone: { '1': 'Hoy: un shape', '2': 'Seis meses: un canvas completo' } },
+    summary: {
+      takeaway: {
+        '1': 'Empieza más pequeño de lo que parece correcto',
+        '2': 'Reutilizar gana a reinventar',
+      },
+      nextstep: 'Construye lo mínimo que funcione',
     },
   },
 }

@@ -14,7 +14,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@builder.io/qwik",
-    "types": ["vite/client", "node"],
+    "types": ["vite/client", "node", "bun"],
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"]
@@ -25,9 +25,17 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "vite.config.ts",
-
     "playwright.config.ts",
     "tests/**/*.ts"
   ],
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/canvas",
+    "src/canvas-react",
+    "src/shapes",
+    "src/templates",
+    "src/components/canvas",
+    "src/i18n/locales"
+  ]
 }

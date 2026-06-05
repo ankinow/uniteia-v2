@@ -114,8 +114,9 @@ describe('parseFrontmatter', () => {
     expect(result?.quality_score).toBe(95)
     expect(result?.subjects).toEqual(['magica', 'ai-platform', 'multi-model'])
     expect(result?.referral_links).toHaveLength(2)
-    expect(result?.referral_links?.[0].url).toBe('https://magica.com')
-    expect(result?.referral_links?.[0].title).toBe('Magica Official Site')
+    const link = result?.referral_links?.[0]
+    expect(link?.url).toBe('https://magica.com')
+    expect(link?.title).toBe('Magica Official Site')
     expect(result?.metadata?.created_at).toBe('2026-05-25T10:00:00.000Z')
   })
 
@@ -179,7 +180,7 @@ describe('extractEntities', () => {
 
     const belongsTo = edges.filter(e => e.kind === 'belongs_to')
     expect(belongsTo).toHaveLength(3)
-    expect(belongsTo[0].source).toBe('en-magica-overview')
+    expect(belongsTo[0]?.source).toBe('en-magica-overview')
   })
 
   it('extracts product entities from referral links', () => {
@@ -376,8 +377,8 @@ describe('buildEntityGraph', () => {
     const result = buildEntityGraph({ contentDir: '/tmp/entity-graph-test' })
     const transEdges = result.graph.edges.filter(e => e.kind === 'translated_as')
     expect(transEdges).toHaveLength(1)
-    expect(transEdges[0].source).toBe('en-magica-overview')
-    expect(transEdges[0].target).toBe('pt-magica-overview')
+    expect(transEdges[0]?.source).toBe('en-magica-overview')
+    expect(transEdges[0]?.target).toBe('pt-magica-overview')
   })
 
   it('generates valid entity graph (schema-valid)', () => {

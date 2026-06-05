@@ -10,7 +10,7 @@
  * The page is SSG-rendered at build time (routeLoader$ — pitfall 95).
  */
 
-import { component$, Resource } from '@builder.io/qwik'
+import { Resource, component$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$ } from '@builder.io/qwik-city'
 import { Sketchnote } from '~/components/sketchnote/Sketchnote'
 import { getTranslation } from '~/i18n/context'
@@ -31,9 +31,7 @@ const LOCALES = ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'] as const
 
 export const onStaticGenerate = () => {
   return {
-    params: LOCALES.flatMap((lang) =>
-      ALL_TOPICS.map((topic) => ({ lang, topic }))
-    ),
+    params: LOCALES.flatMap(lang => ALL_TOPICS.map(topic => ({ lang, topic }))),
   }
 }
 

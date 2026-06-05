@@ -137,13 +137,14 @@ export const BioOrganicOverlay = component$<BioOrganicOverlayProps>(props => {
     let frameId = 0
     let time = 0
 
-    // Parse color
-    const colorMatch = color.match(/oklch\(([\d.]+)%\s+([\d.]+)\s+([\d.]+)/)
+    // Parse color - handle undefined color prop
+    const colorValue = color ?? 'oklch(65% 0.15 140)'
+    const colorMatch = colorValue.match(/oklch\(([\d.]+)%\s+([\d.]+)\s+([\d.]+)/)
     const [hL, hC, hH] = colorMatch
       ? [
-          Number.parseFloat(colorMatch[1]),
-          Number.parseFloat(colorMatch[2]),
-          Number.parseFloat(colorMatch[3]),
+          Number.parseFloat(colorMatch[1]!),
+          Number.parseFloat(colorMatch[2]!),
+          Number.parseFloat(colorMatch[3]!),
         ]
       : [65, 0.15, 140]
 

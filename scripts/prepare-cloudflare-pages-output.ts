@@ -60,16 +60,8 @@ findHtmlPages(distDir, '')
 // Only route these dynamic paths through Worker — everything else is static
 const routes = {
   version: 1,
-  include: ['/search/*', '/api/*'],
-  exclude: [
-    '/build/*',
-    '/assets/*',
-    '/sitemap.xml',
-    '/robots.txt',
-    '/favicon.ico',
-    '/q-manifest.json',
-    '/service-worker.js',
-  ],
+  include: ['/api/*', '/search'],
+  exclude: ['/build/*', '/assets/*', '/favicon.ico', '/*.svg', '/content-registry.generated.ts'],
 }
 writeFileSync(routesPath, JSON.stringify(routes, null, 2))
 

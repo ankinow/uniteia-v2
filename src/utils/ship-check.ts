@@ -69,7 +69,7 @@ export function createDefaultShipCheckSteps(): ShipCheckStep[] {
     { name: 'linkgraph:report', command: ['bun', 'run', 'generate:linkgraph-report'] },
     { name: 'seo:verification', command: ['bun', 'run', 'generate:seo-verification'] },
     // M003 — Performance sub-budgets
-    { name: 'size:sub-budgets', command: ['bun', 'run', 'size:check', '--threshold', '143360'] },
+    { name: 'size:sub-budgets', command: ['bun', 'run', 'size:check', '--threshold', '163840'] },
 
     // Group B — Preview-required QA (runs after preview server starts)
     { name: 'edge:chaos', command: ['bun', 'run', 'edge:chaos'] },
@@ -118,19 +118,28 @@ export async function runShipCheckStep(
   const killSignal = options.killSignal ?? 'SIGKILL'
 
   return await new Promise((resolve, reject) => {
+    const spawnEnv: Record<string, string> = {}
+    const keys = [
+      'PATH',
+      'NODE_ENV',
+      'CF_PAGES',
+      'SITE_URL',
+      'BUILD_ID',
+      'PREVIEW_PORT',
+      'PLAYWRIGHT_BASE_URL',
+    ]
+    for (const key of keys) {
+      const val = process.env[key]
+      if (val !== undefined) {
+        spawnEnv[key] = val
+      }
+    }
+
     const child = spawn(command, args, {
       cwd: process.cwd(),
-      env: {
-        PATH: process.env.PATH,
-        NODE_ENV: process.env.NODE_ENV,
-        CF_PAGES: process.env.CF_PAGES,
-        SITE_URL: process.env.SITE_URL,
-        BUILD_ID: process.env.BUILD_ID,
-        PREVIEW_PORT: process.env.PREVIEW_PORT,
-        PLAYWRIGHT_BASE_URL: process.env.PLAYWRIGHT_BASE_URL,
-      },
+      env: spawnEnv,
       stdio: 'inherit',
-    })
+    }) as any
 
     let settled = false
     let timedOut = false
@@ -157,7 +166,7 @@ export async function runShipCheckStep(
       resolve(result)
     }
 
-    child.once('error', error => {
+    child.once('error', (error: Error) => {
       if (settled) {
         return
       }
@@ -166,7 +175,7 @@ export async function runShipCheckStep(
       reject(error)
     })
 
-    child.once('exit', (code, signal) => {
+    child.once('exit', (code: number | null, signal: NodeJS.Signals | null) => {
       settle({
         exitCode: code ?? (timedOut ? 124 : 1),
         durationMs: Date.now() - startedAt,

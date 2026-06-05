@@ -27,7 +27,7 @@ export const AetherCanvasEngine = component$<AetherCanvasEngineProps>(
     }
 
     const resolved = resolveLayout(scene, containerWidth.value)
-    const hasContentNodes = scene.nodes.some(n => n.type !== 'hero' && n.type !== 'section')
+    const hasContentNodes = scene.nodes.some(n => n.type !== 'hero' && n.type !== 'connector-label')
 
     // If no meaningful visual content, render minimal decorative canvas
     if (!hasContentNodes) {

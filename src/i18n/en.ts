@@ -193,6 +193,9 @@ export const en: TranslationStrings = {
   generativeHero: {
     curating: '{niche} insights today',
     topNiches: 'Top Niches',
+    apexBadge: 'APEX · Live',
+    headline: 'Frontier signals from {count} tracks',
+    tracksLabel: 'active tracks',
   },
   legal: {
     privacy: {
@@ -378,7 +381,10 @@ export const en: TranslationStrings = {
           rules: [
             { question: 'Want app ready out of the box?', yesTo: 'tldraw desktop' },
             { question: 'Want to embed the whiteboard in your own app?', yesTo: 'tldraw SDK' },
-            { question: 'Need ultra-lightweight with best performance?', yesTo: 'perfect-freehand + canvas' },
+            {
+              question: 'Need ultra-lightweight with best performance?',
+              yesTo: 'perfect-freehand + canvas',
+            },
             { question: 'Want a simple, clean look and open source?', yesTo: 'Excalidraw' },
           ],
           bottomNote: 'Answer top to bottom. Take the first “Yes”.',
@@ -401,7 +407,8 @@ export const en: TranslationStrings = {
             },
             {
               name: 'Excalidraw',
-              verdict: 'Best when you want simplicity, open source, and a clean drawing experience.',
+              verdict:
+                'Best when you want simplicity, open source, and a clean drawing experience.',
             },
           ],
           closingNote: 'Pick the tool that fits your constraints, team, and user experience goals.',
@@ -414,6 +421,32 @@ export const en: TranslationStrings = {
         practicalByDesign: 'Practical by design',
       },
       footer: 'Built for learners. Designed for devs. Made by UniTeia / ConteiXeia',
+    },
+  },
+  canva: {
+    hero: {
+      title: 'The signal you can build on',
+      subtitle: 'Six scenes, one decision',
+      cta: 'Open the canvas',
+    },
+    concept: {
+      central: 'Why this matters now',
+      satellite: { '1': 'Faster decisions', '2': 'Sharper signal' },
+    },
+    code: {
+      step: {
+        '1': { title: 'Wire the basics', body: 'Twenty lines, three files, one working flow.' },
+        '2': { title: 'Add the next layer' },
+      },
+    },
+    compare: {
+      option: { a: 'Build it yourself', b: 'Use the platform' },
+      decision: { yes: 'Yes, if it pays for itself', no: 'No, the platform is already there' },
+    },
+    timeline: { milestone: { '1': 'Today: one shape', '2': 'Six months: a full canvas' } },
+    summary: {
+      takeaway: { '1': 'Start smaller than feels right', '2': 'Reuse beats reinvention' },
+      nextstep: 'Build the smallest thing that works',
     },
   },
 }

@@ -19,7 +19,10 @@
       "type": "object",
       "required": ["agent", "version", "pipeline"],
       "properties": {
-        "agent": { "type": "string", "enum": ["hermes-daily-ops", "hermes-scout", "hermes-writer"] },
+        "agent": {
+          "type": "string",
+          "enum": ["hermes-daily-ops", "hermes-scout", "hermes-writer"]
+        },
         "version": { "type": "string", "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$" },
         "pipeline": { "type": "string", "enum": ["daily", "batch", "test"] }
       }
@@ -37,7 +40,10 @@
           "title": { "type": "string", "minLength": 10, "maxLength": 200 },
           "content": { "type": "string", "minLength": 100, "maxLength": 50000 },
           "lang": { "type": "string", "enum": ["pt", "en", "es", "fr", "de", "it", "ja", "zh"] },
-          "category": { "type": "string", "enum": ["tecnologia", "negocios", "ciencia", "arte", "default"] },
+          "category": {
+            "type": "string",
+            "enum": ["tecnologia", "negocios", "ciencia", "arte", "default"]
+          },
           "meta": {
             "type": "object",
             "properties": {
@@ -51,8 +57,19 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "role": { "type": "string", "enum": ["hero", "inline_1", "inline_2", "footer"] },
-                    "preset": { "type": "string", "enum": ["body_editorial", "body_conceptual", "body_portrait", "footer_banner"] },
+                    "role": {
+                      "type": "string",
+                      "enum": ["hero", "inline_1", "inline_2", "footer"]
+                    },
+                    "preset": {
+                      "type": "string",
+                      "enum": [
+                        "body_editorial",
+                        "body_conceptual",
+                        "body_portrait",
+                        "footer_banner"
+                      ]
+                    },
                     "url": { "type": "string", "format": "uri" },
                     "local_path": { "type": "string" }
                   }

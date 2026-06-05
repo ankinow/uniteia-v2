@@ -63,8 +63,18 @@ const DopamineCardDemo = component$<{ title: string; description: string }>(
 const GenerativeHeroDemo = component$(() => {
   const mockClusters = [
     { nicheSlug: 'apex', label: 'Apex Signal', href: '/en/signals/apex', articleCount: 24 },
-    { nicheSlug: 'apex-overview', label: 'Apex Overview', href: '/en/signals/apex-overview', articleCount: 8 },
-    { nicheSlug: 'apex-quickstart', label: 'Apex Quickstart', href: '/en/signals/apex-quickstart', articleCount: 12 },
+    {
+      nicheSlug: 'apex-overview',
+      label: 'Apex Overview',
+      href: '/en/signals/apex-overview',
+      articleCount: 8,
+    },
+    {
+      nicheSlug: 'apex-quickstart',
+      label: 'Apex Quickstart',
+      href: '/en/signals/apex-quickstart',
+      articleCount: 12,
+    },
     { nicheSlug: 'apex-flow', label: 'Apex Flow', href: '/en/signals/apex-flow', articleCount: 6 },
     { nicheSlug: 'magica', label: 'Magica', href: '/en/signals/magica', articleCount: 9 },
     { nicheSlug: 'mcp', label: 'MCP', href: '/en/signals/mcp', articleCount: 15 },
@@ -307,7 +317,7 @@ export default component$(() => {
     <div class="min-h-screen bg-[oklch(0.18_0.02_280)] text-bone">
       <div class="max-w-5xl mx-auto px-4 md:px-8 py-12 md:py-16">
         {/* Page Header */}
-        <header class="mb-12 pb-8 border-b border-action/20">
+        <div class="mb-12 pb-8 border-b border-action/20">
           <h1 class="text-4xl md:text-5xl font-display text-bone mb-3">
             UniTeia <span class="text-cyan">Design System</span>
           </h1>
@@ -326,7 +336,7 @@ export default component$(() => {
               Tailwind v4
             </span>
           </div>
-        </header>
+        </div>
 
         {/* ── 1. SignalChip ── */}
         <ComponentSection

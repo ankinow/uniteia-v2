@@ -118,9 +118,11 @@ export function buildEntityGraph(input: BuildInput): BuildResult {
     if (ids.length < 2) continue
     for (let i = 0; i < ids.length; i++) {
       for (let j = i + 1; j < ids.length; j++) {
+        const source = ids[i]!
+        const target = ids[j]!
         allEdges.push({
-          source: ids[i],
-          target: ids[j],
+          source,
+          target,
           kind: 'translated_as',
           weight: 1.0,
         })
@@ -132,8 +134,8 @@ export function buildEntityGraph(input: BuildInput): BuildResult {
   const articleEntities = Array.from(allEntities.values()).filter(e => e.type === 'article')
   for (let i = 0; i < articleEntities.length; i++) {
     for (let j = i + 1; j < articleEntities.length; j++) {
-      const a = articleEntities[i]
-      const b = articleEntities[j]
+      const a = articleEntities[i]!
+      const b = articleEntities[j]!
       if (a.locale === b.locale) {
         allEdges.push({
           source: a.id,

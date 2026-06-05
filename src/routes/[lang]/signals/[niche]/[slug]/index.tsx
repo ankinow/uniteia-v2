@@ -7,7 +7,6 @@ import {
 } from '@builder.io/qwik-city'
 import { ArticleRenderer } from '~/components/article-renderer'
 import { Breadcrumb } from '~/components/breadcrumb'
-import { CanvaMagicaOverview } from '~/components/canva/CanvaMagicaOverview'
 import { JSONLD } from '~/components/json-ld'
 import { LivingBrief2Col } from '~/components/living-brief'
 import type { LivingBriefCollageProps } from '~/components/living-brief/types'
@@ -251,7 +250,7 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
         { name: 'description', content: t.errorPages['404'].message },
         { name: 'robots', content: 'noindex, nofollow' },
       ],
-    }
+    } as any
   }
 
   const niche = params.niche ?? ''
@@ -311,7 +310,7 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
           headline: content.title,
           description: description,
           image: 'https://uniteia.com/assets/flux/magica-overview/workflow-ui.jpg',
-          datePublished: content.date ?? new Date().toISOString().split('T')[0],
+          datePublished: content.metadata?.created_at ?? new Date().toISOString().split('T')[0],
           author: { '@type': 'Organization', name: 'UniTeia' },
           publisher: {
             '@type': 'Organization',
@@ -326,5 +325,5 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
         }),
       },
     ],
-  }
+  } as any
 }

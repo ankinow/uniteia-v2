@@ -52,14 +52,49 @@ export function qualityScoreToBand(score: number): QualityBand {
  * True island: server-render only, no client JS.
  */
 export const SignalChip = component$<SignalChipProps>(
-  ({ metric, label, locale, trend = 'stable', variant = 'moderator', qualityScore, class: className }) => {
+  ({
+    metric,
+    label,
+    locale,
+    trend = 'stable',
+    variant = 'moderator',
+    qualityScore,
+    class: className,
+  }) => {
     useStylesScoped$(styles)
 
     const band = qualityScore !== undefined ? qualityScoreToBand(qualityScore) : undefined
     const hue = qualityScore !== undefined ? qualityScoreToHue(qualityScore) : undefined
+    const languageNames: Record<string, string> = {
+      en: 'English',
+      pt: 'Português',
+      es: 'Español',
+      fr: 'Français',
+      de: 'Deutsch',
+      it: 'Italiano',
+      ja: '日本語',
+      zh: '中文',
+    }
+
+    const prepositions: Record<string, string> = {
+      en: 'in',
+      pt: 'em',
+      es: 'en',
+      fr: 'en',
+      de: 'auf',
+      it: 'in',
+      ja: 'の',
+      zh: '用',
+    }
+
+    const langName = locale ? languageNames[locale] || locale : ''
+    const prep = locale ? prepositions[locale] || 'in' : ''
+    const ariaLabel = locale ? `${metric} ${label} ${prep} ${langName}` : `${metric} ${label}`
+
     return (
       <span
-        aria-label={`${metric} ${label}${locale ? `, ${locale}` : ''}`}
+        role="img"
+        aria-label={ariaLabel}
         class={['root', band ? `root--score-${band}` : null, className]}
         data-variant={variant}
         data-trend={trend}

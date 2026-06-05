@@ -70,13 +70,32 @@ export const Sketchnote = component$<SketchnoteProps>(({ variant, t, lang }) => 
   useStylesScoped$(styles)
 
   return (
-    <article class="sk-root" lang={lang} role="article" aria-label={t.sketchnote[variant].title}>
-      <div class="sk-sparkles sk-sparkles--tl" aria-hidden="true">✨</div>
-      <div class="sk-sparkles sk-sparkles--br" aria-hidden="true">✨</div>
+    <article class="sk-root" lang={lang} aria-label={t.sketchnote[variant].title}>
+      <div class="sk-sparkles sk-sparkles--tl" aria-hidden="true">
+        ✨
+      </div>
+      <div class="sk-sparkles sk-sparkles--br" aria-hidden="true">
+        ✨
+      </div>
 
-      {variant === 'template01' && <Template01 data={t.sketchnote.template01 as TranslationStrings['sketchnote']['template01']} lang={lang} />}
-      {variant === 'template02' && <Template02 data={t.sketchnote.template02 as TranslationStrings['sketchnote']['template02']} lang={lang} />}
-      {variant === 'template03' && <Template03 data={t.sketchnote.template03 as TranslationStrings['sketchnote']['template03']} lang={lang} />}
+      {variant === 'template01' && (
+        <Template01
+          data={t.sketchnote.template01 as TranslationStrings['sketchnote']['template01']}
+          lang={lang}
+        />
+      )}
+      {variant === 'template02' && (
+        <Template02
+          data={t.sketchnote.template02 as TranslationStrings['sketchnote']['template02']}
+          lang={lang}
+        />
+      )}
+      {variant === 'template03' && (
+        <Template03
+          data={t.sketchnote.template03 as TranslationStrings['sketchnote']['template03']}
+          lang={lang}
+        />
+      )}
     </article>
   )
 })
@@ -110,7 +129,9 @@ const Template01 = component$<{
         <Card num={3} kind={s.analogy.kind} title={s.analogy.title} accent="cyan" icon="hub" full>
           <ul class="sk-card__list">
             {s.analogy.items.map((item, i) => (
-              <li key={i} class="sk-card__list-item">{item}</li>
+              <li key={i} class="sk-card__list-item">
+                {item}
+              </li>
             ))}
           </ul>
           <p class="sk-card__tip">
@@ -122,8 +143,14 @@ const Template01 = component$<{
           <div class="sk-card__flow">
             {s.diagram.flow.map((node, i) => (
               <>
-                <span class="sk-card__flow-item" key={`f-${i}`}>{node}</span>
-                {i < s.diagram.flow.length - 1 && <span class="sk-card__flow-arrow" key={`a-${i}`}>→</span>}
+                <span class="sk-card__flow-item" key={`f-${i}`}>
+                  {node}
+                </span>
+                {i < s.diagram.flow.length - 1 && (
+                  <span class="sk-card__flow-arrow" key={`a-${i}`}>
+                    →
+                  </span>
+                )}
               </>
             ))}
           </div>
@@ -138,15 +165,23 @@ const Template01 = component$<{
         <Card num={6} kind={s.use.kind} title={s.use.title} accent="green" icon="check">
           <div class="sk-card__use-dont">
             <div class="sk-card__use-dont-col">
-              <div class="sk-card__use-dont-header sk-card__use-dont-header--use">✓ {s.use.useHeader}</div>
+              <div class="sk-card__use-dont-header sk-card__use-dont-header--use">
+                ✓ {s.use.useHeader}
+              </div>
               {s.use.useItems.map((item, i) => (
-                <div key={i} class="sk-card__use-dont-item">{item}</div>
+                <div key={i} class="sk-card__use-dont-item">
+                  {item}
+                </div>
               ))}
             </div>
             <div class="sk-card__use-dont-col">
-              <div class="sk-card__use-dont-header sk-card__use-dont-header--dont">✗ {s.use.dontHeader}</div>
+              <div class="sk-card__use-dont-header sk-card__use-dont-header--dont">
+                ✗ {s.use.dontHeader}
+              </div>
               {s.use.dontItems.map((item, i) => (
-                <div key={i} class="sk-card__use-dont-item">{item}</div>
+                <div key={i} class="sk-card__use-dont-item">
+                  {item}
+                </div>
               ))}
             </div>
           </div>
@@ -155,7 +190,9 @@ const Template01 = component$<{
         <Card num={7} kind={s.pitfalls.kind} title={s.pitfalls.title} accent="rose" icon="flag">
           <ol class="sk-card__list">
             {s.pitfalls.items.map((item, i) => (
-              <li key={i} class="sk-card__list-item">{item}</li>
+              <li key={i} class="sk-card__list-item">
+                {item}
+              </li>
             ))}
           </ol>
           <div class="sk-card__tip">
@@ -164,10 +201,19 @@ const Template01 = component$<{
           </div>
         </Card>
 
-        <Card num={8} kind={s.nextStep.kind} title={s.nextStep.title} accent="cyan" icon="star" full>
+        <Card
+          num={8}
+          kind={s.nextStep.kind}
+          title={s.nextStep.title}
+          accent="cyan"
+          icon="star"
+          full
+        >
           <ol class="sk-card__list">
             {s.nextStep.items.map((item, i) => (
-              <li key={i} class="sk-card__list-item">{item}</li>
+              <li key={i} class="sk-card__list-item">
+                {item}
+              </li>
             ))}
           </ol>
           <div class="sk-card__postit">{s.nextStep.closingNote}</div>
@@ -225,12 +271,25 @@ const stroke = getStroke(points, {
           <div class="sk-card__postit">{s.code.caption}</div>
         </Card>
 
-        <Card num={4} kind={s.howItWorks.kind} title={s.howItWorks.title} accent="green" icon="flow" full>
+        <Card
+          num={4}
+          kind={s.howItWorks.kind}
+          title={s.howItWorks.title}
+          accent="green"
+          icon="flow"
+          full
+        >
           <div class="sk-card__flow">
             {s.howItWorks.flow.map((node, i) => (
               <>
-                <span class="sk-card__flow-item" key={`f-${i}`}>{node}</span>
-                {i < s.howItWorks.flow.length - 1 && <span class="sk-card__flow-arrow" key={`a-${i}`}>→</span>}
+                <span class="sk-card__flow-item" key={`f-${i}`}>
+                  {node}
+                </span>
+                {i < s.howItWorks.flow.length - 1 && (
+                  <span class="sk-card__flow-arrow" key={`a-${i}`}>
+                    →
+                  </span>
+                )}
               </>
             ))}
           </div>
@@ -290,13 +349,25 @@ const Template03 = component$<{
           </ul>
         </Card>
 
-        <Card num={3} kind={p.decision.kind} title={p.decision.title} accent="green" icon="flow" full>
+        <Card
+          num={3}
+          kind={p.decision.kind}
+          title={p.decision.title}
+          accent="green"
+          icon="flow"
+          full
+        >
           <p class="sk-card__body">{p.decision.subtitle}</p>
           {p.decision.rules.map((rule, i) => (
             <div key={i} class="sk-card__flow" style="margin-top: 0.4rem">
               <span class="sk-card__flow-item">{rule.question}</span>
               <span class="sk-card__flow-arrow">→</span>
-              <span class="sk-card__flow-item" style="background: oklch(92% 0.08 145); border-color: oklch(70% 0.18 145)">{rule.yesTo}</span>
+              <span
+                class="sk-card__flow-item"
+                style="background: oklch(92% 0.08 145); border-color: oklch(70% 0.18 145)"
+              >
+                {rule.yesTo}
+              </span>
             </div>
           ))}
           <div class="sk-card__postit">{p.decision.bottomNote}</div>
@@ -343,14 +414,16 @@ const Header = component$<HeaderProps>(({ title, subtitle, postIt, mascotBubble,
   )
 })
 
-const Card = component$<CardProps>((props) => {
+const Card = component$<CardProps>(props => {
   const { num, kind, title, accent, icon, full } = props
   const accentClass = `sk-card--${accent}`
   const fullClass = full ? ' sk-card--full' : ''
   return (
     <article class={`sk-card ${accentClass}${fullClass}`}>
       <div class="sk-card__header">
-        <div class="sk-card__num" aria-label={`Step ${num}`}>{num}</div>
+        <div class="sk-card__num" aria-label={`Step ${num}`}>
+          {num}
+        </div>
         <div class="sk-card__icon" aria-hidden="true">
           <IconSwitch icon={icon} />
         </div>

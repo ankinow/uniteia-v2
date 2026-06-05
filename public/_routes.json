@@ -1,17 +1,5 @@
 {
   "version": 1,
-  "include": ["/search/*", "/api/*"],
-  "exclude": [
-    "/build/*",
-    "/assets/*",
-    "/sitemap.xml",
-    "/robots.txt",
-    "/favicon.ico",
-    "/favicon.svg",
-    "/q-manifest.json",
-    "/entity-graph.json",
-    "/entity-graph.stats.json",
-    "/entity-embeddings.json",
-    "/entity-embeddings.meta.json"
-  ]
+  "include": ["/api/*", "/search"],
+  "exclude": ["/build/*", "/assets/*", "/favicon.ico", "/*.svg", "/content-registry.generated.ts"]
 }

@@ -11,6 +11,7 @@
 import { component$, useSignal, useStylesScoped$, useVisibleTask$ } from '@builder.io/qwik'
 import { useLocation } from '@builder.io/qwik-city'
 import { useCanvaMagicaT } from '~/hooks/useCanvaI18n'
+import type { SupportedLanguage } from '~/i18n/types'
 import styles from './canva.module.css?inline'
 
 interface CanvaCard {
@@ -30,7 +31,7 @@ interface CanvaMagicaProps {
 export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
   ({ languages = 8, features = [] }) => {
     const loc = useLocation()
-    const lang = loc.params.lang || 'en'
+    const lang = (loc.params.lang as SupportedLanguage) || 'en'
     useStylesScoped$(styles)
 
     const t = useCanvaMagicaT(lang)

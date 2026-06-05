@@ -1,10 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
-  "entry": [
-    "src/entry.ssr.tsx",
-    "src/entry.cloudflare-pages.tsx",
-    "functions/[[route]].ts"
-  ],
+  "entry": ["src/entry.ssr.tsx", "src/entry.cloudflare-pages.tsx", "functions/[[route]].ts"],
   "project": ["src/**/*.{ts,tsx}"],
   "ignore": [
     "**/*.test.ts",

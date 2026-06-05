@@ -5,6 +5,25 @@
  * Warm tactile: grain 4K + paper fiber + glassmorphism 2.0
  */
 
+@property --hologram-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes hologram-rotate {
+  from {
+    --hologram-angle: 0deg;
+  }
+  to {
+    --hologram-angle: 360deg;
+  }
+}
+
+.hologram-prism {
+  animation: hologram-rotate 10s linear infinite;
+}
+
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @plugin "@iconify/tailwind4";

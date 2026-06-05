@@ -30,26 +30,19 @@
     border: 1px solid oklch(30% 0.03 260 / 0.4);
     border-radius: 12px;
     padding: 1.5rem;
-    transition:
-      transform var(--duration-base, 200ms) var(--ease-micro, ease-out),
-      border-color var(--duration-base, 200ms) var(--ease-micro, ease-out);
+    transition: transform var(--duration-base, 200ms) var(--ease-micro, ease-out), border-color
+      var(--duration-base, 200ms) var(--ease-micro, ease-out);
   }
 
   /* Border-glow on hover (no box-shadow per design system) */
   .cell::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(
-      135deg,
-      var(--color-cyan, oklch(75% 0.18 200)),
-      transparent 60%
-    );
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
+    background: linear-gradient(135deg, var(--color-cyan, oklch(75% 0.18 200)), transparent 60%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     opacity: 0;

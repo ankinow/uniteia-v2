@@ -48,11 +48,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "AetherAmbient",
-        "AetherAmbientProps",
-        "AmbientMode"
-      ]
+      "exports": ["AetherAmbient", "AetherAmbientProps", "AmbientMode"]
     },
     {
       "name": "AetherCanvas",
@@ -61,11 +57,7 @@
       "description": "",
       "props": {},
       "variants": [],
-      "exports": [
-        "AetherCanvasEngine",
-        "CanvasConnector",
-        "CanvasNode"
-      ]
+      "exports": ["AetherCanvasEngine", "CanvasConnector", "CanvasNode"]
     },
     {
       "name": "AetherHanddrawCollage",
@@ -184,11 +176,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "AgentState",
-        "AgentStatus",
-        "AgentStatusProps"
-      ]
+      "exports": ["AgentState", "AgentStatus", "AgentStatusProps"]
     },
     {
       "name": "AnalogConnector",
@@ -227,12 +215,7 @@
           "type": "ConnectorCoord[]"
         }
       },
-      "variants": [
-        "solid",
-        "dashed",
-        "dotted",
-        "glow"
-      ],
+      "variants": ["solid", "dashed", "dotted", "glow"],
       "exports": [
         "ALL_VARIANTS",
         "AnalogConnector",
@@ -307,11 +290,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "ArticleFrame",
-        "ArticleFrameLogEvent",
-        "ArticleFrameProps"
-      ]
+      "exports": ["ArticleFrame", "ArticleFrameLogEvent", "ArticleFrameProps"]
     },
     {
       "name": "ArticleRenderer",
@@ -354,10 +333,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "ArticleRenderer",
-        "ArticleRendererProps"
-      ]
+      "exports": ["ArticleRenderer", "ArticleRendererProps"]
     },
     {
       "name": "Avatar",
@@ -387,11 +363,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "Avatar",
-        "AvatarProps",
-        "AvatarVariant"
-      ]
+      "exports": ["Avatar", "AvatarProps", "AvatarVariant"]
     },
     {
       "name": "BentoCell",
@@ -421,13 +393,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "BentoCell",
-        "BentoCellProps",
-        "BentoCellSize",
-        "BentoGrid",
-        "BentoGridProps"
-      ]
+      "exports": ["BentoCell", "BentoCellProps", "BentoCellSize", "BentoGrid", "BentoGridProps"]
     },
     {
       "name": "BioOrganicOverlay",
@@ -462,10 +428,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "BioOrganicOverlay",
-        "BioOrganicOverlayProps"
-      ]
+      "exports": ["BioOrganicOverlay", "BioOrganicOverlayProps"]
     },
     {
       "name": "Breadcrumb",
@@ -474,9 +437,7 @@
       "description": "Breadcrumb — visible nav element with Schema.org BreadcrumbList JSON-LD",
       "props": {},
       "variants": [],
-      "exports": [
-        "Breadcrumb"
-      ]
+      "exports": ["Breadcrumb"]
     },
     {
       "name": "CanvaMagicaOverview",
@@ -485,9 +446,7 @@
       "description": "CanvaMagicaOverview — Production-Grade Animated Component PLANO-075: pixel-perfect, 4 materials, SVG paths, stagger animations, a11y Usage: <CanvaMagicaOverview qualityScore={84} languages={8} features={[...]} /> Integrates with existing i18n system via useCanvaI18n() hook",
       "props": {},
       "variants": [],
-      "exports": [
-        "CanvaMagicaOverview"
-      ]
+      "exports": ["CanvaMagicaOverview"]
     },
     {
       "name": "CanvasSurface",
@@ -507,11 +466,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "CanvasSurface",
-        "CanvasSurfaceProps",
-        "CanvasSurfaceTone"
-      ]
+      "exports": ["CanvasSurface", "CanvasSurfaceProps", "CanvasSurfaceTone"]
     },
     {
       "name": "CinematicDepth",
@@ -520,10 +475,7 @@
       "description": "",
       "props": {},
       "variants": [],
-      "exports": [
-        "CinematicDepthCard",
-        "DepthCard"
-      ]
+      "exports": ["CinematicDepthCard", "DepthCard"]
     },
     {
       "name": "CinematicDepthCard",
@@ -552,11 +504,7 @@
           "type": "string"
         }
       },
-      "variants": [
-        "logic",
-        "insight",
-        "flow"
-      ],
+      "variants": ["logic", "insight", "flow"],
       "exports": [
         "ALL_VARIANTS",
         "CinematicDepthCard",
@@ -571,10 +519,7 @@
       "description": "icon-set.tsx — 8 Knowledge Cluster icons with neon glow Coral (#ff2a6d) + cyan (#05d9e8) palette SVG inline, bundle-safe (<1KB each)",
       "props": {},
       "variants": [],
-      "exports": [
-        "ClusterIcon",
-        "nicheToIcon"
-      ]
+      "exports": ["ClusterIcon", "nicheToIcon"]
     },
     {
       "name": "DecisionMap",
@@ -599,11 +544,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "DecisionMap",
-        "DecisionMapProps",
-        "DecisionNode"
-      ]
+      "exports": ["DecisionMap", "DecisionMapProps", "DecisionNode"]
     },
     {
       "name": "DecisionMap",
@@ -628,12 +569,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "DecisionMap",
-        "DecisionMapProps",
-        "DecisionMapVariant",
-        "DecisionNode"
-      ]
+      "exports": ["DecisionMap", "DecisionMapProps", "DecisionMapVariant", "DecisionNode"]
     },
     {
       "name": "DepthCard",
@@ -642,9 +578,7 @@
       "description": "Maps the new DepthVariant values to the legacy data-depth attribute so existing CSS selectors (.depth-surface[data-depth=\"front/mid/back\"]) still work.",
       "props": {},
       "variants": [],
-      "exports": [
-        "DepthCard"
-      ]
+      "exports": ["DepthCard"]
     },
     {
       "name": "DepthSection",
@@ -653,9 +587,7 @@
       "description": "Maps the new DepthVariant values to the legacy data-depth attribute so existing CSS selectors (.depth-surface[data-depth=\"front/mid/back\"]) still work.",
       "props": {},
       "variants": [],
-      "exports": [
-        "DepthSection"
-      ]
+      "exports": ["DepthSection"]
     },
     {
       "name": "DepthTilt",
@@ -700,10 +632,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "DepthTilt",
-        "DepthTiltProps"
-      ]
+      "exports": ["DepthTilt", "DepthTiltProps"]
     },
     {
       "name": "DonationButton",
@@ -712,9 +641,7 @@
       "description": "",
       "props": {},
       "variants": [],
-      "exports": [
-        "DonationButton"
-      ]
+      "exports": ["DonationButton"]
     },
     {
       "name": "DopamineCard",
@@ -778,10 +705,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "DopamineCard",
-        "DopamineCardProps"
-      ]
+      "exports": ["DopamineCard", "DopamineCardProps"]
     },
     {
       "name": "EditorialVerdict",
@@ -809,11 +733,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "EditorialVerdict",
-        "EditorialVerdictProps",
-        "VerdictLevel"
-      ]
+      "exports": ["EditorialVerdict", "EditorialVerdictProps", "VerdictLevel"]
     },
     {
       "name": "ErrorBoundary",
@@ -835,10 +755,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "ErrorBoundary",
-        "ErrorBoundaryProps"
-      ]
+      "exports": ["ErrorBoundary", "ErrorBoundaryProps"]
     },
     {
       "name": "FallbackBanner",
@@ -847,9 +764,7 @@
       "description": "FallbackBanner — shown when content is displayed in a language different from the user's requested locale because the article isn't available in their preferred language",
       "props": {},
       "variants": [],
-      "exports": [
-        "FallbackBanner"
-      ]
+      "exports": ["FallbackBanner"]
     },
     {
       "name": "Footer",
@@ -865,11 +780,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "Footer",
-        "FooterLink",
-        "FooterProps"
-      ]
+      "exports": ["Footer", "FooterLink", "FooterProps"]
     },
     {
       "name": "FrontmatterSlots",
@@ -954,10 +865,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "GenerativeHero",
-        "GenerativeHeroProps"
-      ]
+      "exports": ["GenerativeHero", "GenerativeHeroProps"]
     },
     {
       "name": "HudLabel",
@@ -992,12 +900,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "HudLabel",
-        "HudLabelProps",
-        "HudLabelSize",
-        "HudLabelTone"
-      ]
+      "exports": ["HudLabel", "HudLabelProps", "HudLabelSize", "HudLabelTone"]
     },
     {
       "name": "ImageCluster",
@@ -1044,10 +947,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "JSONLDProps",
-        "JSONLD"
-      ]
+      "exports": ["JSONLDProps", "JSONLD"]
     },
     {
       "name": "KindlePlayground",
@@ -1087,12 +987,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "KindleFont",
-        "KindleFontSize",
-        "KindlePlayground",
-        "KindlePlaygroundProps"
-      ]
+      "exports": ["KindleFont", "KindleFontSize", "KindlePlayground", "KindlePlaygroundProps"]
     },
     {
       "name": "LangSwitcherSegmented",
@@ -1269,10 +1164,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "NavTree",
-        "NavTreeProps"
-      ]
+      "exports": ["NavTree", "NavTreeProps"]
     },
     {
       "name": "NicheCard",
@@ -1306,11 +1198,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "NicheCard",
-        "NicheCardProps",
-        "NicheCardSize"
-      ]
+      "exports": ["NicheCard", "NicheCardProps", "NicheCardSize"]
     },
     {
       "name": "NicheLanding",
@@ -1350,10 +1238,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "NicheLanding",
-        "NicheLandingProps"
-      ]
+      "exports": ["NicheLanding", "NicheLandingProps"]
     },
     {
       "name": "NotFound",
@@ -1362,10 +1247,7 @@
       "description": "404 Not Found Error Page Component Follows JRPG-brutalist aesthetic: - Minimal animation (respects prefers-reduced-motion) - SolarLanso dark-first color palette - Clear error message with navigation back to home - Multilingual support (en/pt/es/ja/zh)",
       "props": {},
       "variants": [],
-      "exports": [
-        "NotFound",
-        "ServerError"
-      ]
+      "exports": ["NotFound", "ServerError"]
     },
     {
       "name": "OnboardingFlow",
@@ -1385,10 +1267,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "OnboardingFlow",
-        "OnboardingFlowProps"
-      ]
+      "exports": ["OnboardingFlow", "OnboardingFlowProps"]
     },
     {
       "name": "QualityRing",
@@ -1428,10 +1307,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "QualityRing",
-        "QualityRingProps"
-      ]
+      "exports": ["QualityRing", "QualityRingProps"]
     },
     {
       "name": "RelatedArticles",
@@ -1456,10 +1332,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "RelatedArticles",
-        "RelatedArticlesProps"
-      ]
+      "exports": ["RelatedArticles", "RelatedArticlesProps"]
     },
     {
       "name": "RouterHead",
@@ -1468,9 +1341,7 @@
       "description": "BCP47 locale tag mapping for og:locale and hreflang",
       "props": {},
       "variants": [],
-      "exports": [
-        "RouterHead"
-      ]
+      "exports": ["RouterHead"]
     },
     {
       "name": "ScratchDivider",
@@ -1500,10 +1371,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "ScratchDivider",
-        "ScratchDividerProps"
-      ]
+      "exports": ["ScratchDivider", "ScratchDividerProps"]
     },
     {
       "name": "ScrollDriven",
@@ -1568,11 +1436,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "ScrollReveal",
-        "ScrollRevealProps",
-        "StaggerDirection"
-      ]
+      "exports": ["ScrollReveal", "ScrollRevealProps", "StaggerDirection"]
     },
     {
       "name": "SearchResults",
@@ -1581,9 +1445,7 @@
       "description": "",
       "props": {},
       "variants": [],
-      "exports": [
-        "SearchResults"
-      ]
+      "exports": ["SearchResults"]
     },
     {
       "name": "Sidebar",
@@ -1598,10 +1460,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "Sidebar",
-        "SidebarProps"
-      ]
+      "exports": ["Sidebar", "SidebarProps"]
     },
     {
       "name": "SignalChip",
@@ -1645,13 +1504,7 @@
           "type": "ClassList"
         }
       },
-      "variants": [
-        "moderator",
-        "researcher",
-        "writer",
-        "curator",
-        "analyst"
-      ],
+      "variants": ["moderator", "researcher", "writer", "curator", "analyst"],
       "exports": [
         "ALL_QUALITY_BANDS",
         "ALL_TRENDS",
@@ -1688,12 +1541,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "SignalGrid",
-        "SignalGridItem",
-        "SignalGridProps",
-        "SignalGridVariant"
-      ]
+      "exports": ["SignalGrid", "SignalGridItem", "SignalGridProps", "SignalGridVariant"]
     },
     {
       "name": "SiteHeader2D5",
@@ -1702,9 +1550,7 @@
       "description": "",
       "props": {},
       "variants": [],
-      "exports": [
-        "SiteHeader2D5"
-      ]
+      "exports": ["SiteHeader2D5"]
     },
     {
       "name": "SiteShell",
@@ -1726,12 +1572,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "SiteShell",
-        "SiteShellLogEvent",
-        "SiteShellProps",
-        "onRequest"
-      ]
+      "exports": ["SiteShell", "SiteShellLogEvent", "SiteShellProps", "onRequest"]
     },
     {
       "name": "SketchNote",
@@ -1766,11 +1607,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "SketchNote",
-        "SketchNoteProps",
-        "SketchNoteVariant"
-      ]
+      "exports": ["SketchNote", "SketchNoteProps", "SketchNoteVariant"]
     },
     {
       "name": "SourceLedger",
@@ -1798,11 +1635,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "ReferralLinkSlot",
-        "SourceLedger",
-        "SourceLedgerProps"
-      ]
+      "exports": ["ReferralLinkSlot", "SourceLedger", "SourceLedgerProps"]
     },
     {
       "name": "StoryboardGrid",
@@ -1810,14 +1643,7 @@
       "category": "card",
       "description": "StoryboardGrid — Editorial CSS Grid layout Replaces the Living Brief collage with indexable, accessible, responsive HTML",
       "props": {},
-      "variants": [
-        "insight",
-        "evidence",
-        "diagram",
-        "cta",
-        "metric",
-        "quote"
-      ],
+      "variants": ["insight", "evidence", "diagram", "cta", "metric", "quote"],
       "exports": [
         "CellVariant",
         "ResolvedCell",
@@ -1855,10 +1681,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "TopicCard",
-        "TopicCardProps"
-      ]
+      "exports": ["TopicCard", "TopicCardProps"]
     },
     {
       "name": "TrendingSection",
@@ -1878,12 +1701,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "NewsCard",
-        "RepoCard",
-        "TrendingSection",
-        "TrendingSectionProps"
-      ]
+      "exports": ["NewsCard", "RepoCard", "TrendingSection", "TrendingSectionProps"]
     },
     {
       "name": "UpsilonSigil",
@@ -1903,10 +1721,7 @@
         }
       },
       "variants": [],
-      "exports": [
-        "UpsilonSigil",
-        "UpsilonSigilProps"
-      ]
+      "exports": ["UpsilonSigil", "UpsilonSigilProps"]
     },
     {
       "name": "VisualExplainer",

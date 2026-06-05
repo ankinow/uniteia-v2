@@ -4,7 +4,7 @@ import { verifySWRHeaders } from '../../src/utils/edge-chaos'
 // ── Constants ──────────────────────────────────────────────────────────
 
 const TRACKED_ROUTES = [
-  '/en/signals/apex/tencent-cloud-deal-stack-builders',
+  '/en/signals/apex/magica-overview',
   '/en/signals',
   '/en/signals/ai-agents',
 ] as const
@@ -75,13 +75,11 @@ test.describe('Edge Chaos — Stale chunk handling', () => {
       })
     })
 
-    await gotoAndAssertNegotiation(page, '/en/signals/apex/tencent-cloud-deal-stack-builders')
+    await gotoAndAssertNegotiation(page, '/en/signals/apex/magica-overview')
     await expect(page.locator('[data-testid="article-frame"]')).toBeVisible()
 
     // Check that the page headline renders despite stale chunks
-    await expect(
-      page.getByRole('heading', { name: 'Tencent Cloud Deal Stack for Builders' })
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Magica AI Platform — Overview' })).toBeVisible()
 
     await page.waitForLoadState('networkidle')
 
@@ -141,7 +139,7 @@ test.describe('Edge Chaos — BUILD_ID mismatch', () => {
 
     // Intercept the HTML route and inject a different q:manifest-hash
     const mismatchHash = 'deadbeef'
-    await page.route('**/en/signals/apex/tencent-cloud-deal-stack-builders**', async route => {
+    await page.route('**/en/signals/apex/magica-overview**', async route => {
       const response = await route.fetch()
       let body = await response.text()
       // Replace existing manifest hash with a deliberately different one
@@ -153,7 +151,7 @@ test.describe('Edge Chaos — BUILD_ID mismatch', () => {
       })
     })
 
-    await gotoAndAssertNegotiation(page, '/en/signals/apex/tencent-cloud-deal-stack-builders')
+    await gotoAndAssertNegotiation(page, '/en/signals/apex/magica-overview')
     await page.waitForLoadState('networkidle')
 
     // The page should still be rendered — the SW detects the mismatch
@@ -188,10 +186,7 @@ test.describe('Edge Chaos — SWR cache header verification', () => {
   test('S4: HTML response includes stale-while-revalidate Cache-Control', async ({ page }) => {
     const errors = collectConsoleErrors(page)
 
-    const response = await gotoAndAssertNegotiation(
-      page,
-      '/en/signals/apex/tencent-cloud-deal-stack-builders'
-    )
+    const response = await gotoAndAssertNegotiation(page, '/en/signals/apex/magica-overview')
     await expect(page.locator('[data-testid="article-frame"]')).toBeVisible()
 
     const headers = (response as NonNullable<typeof response>).headers()

@@ -52,6 +52,32 @@ export default component$(() => {
       </head>
       <body>
         <RouterOutlet />
+        <svg style={{ display: 'none' }} aria-hidden="true">
+          <filter id="prismatic-dispersion">
+            <feOffset in="SourceGraphic" dx="2" dy="0" result="red-offset" />
+            <feColorMatrix
+              in="red-offset"
+              type="matrix"
+              values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"
+              result="red-channel"
+            />
+            <feOffset in="SourceGraphic" dx="-2" dy="0" result="blue-offset" />
+            <feColorMatrix
+              in="blue-offset"
+              type="matrix"
+              values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0"
+              result="blue-channel"
+            />
+            <feColorMatrix
+              in="SourceGraphic"
+              type="matrix"
+              values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0"
+              result="green-channel"
+            />
+            <feBlend in="red-channel" in2="blue-channel" mode="screen" result="red-blue" />
+            <feBlend in="red-blue" in2="green-channel" mode="screen" />
+          </filter>
+        </svg>
       </body>
     </QwikCityProvider>
   )

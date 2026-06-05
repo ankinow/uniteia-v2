@@ -16,8 +16,8 @@
 
 @theme {
   /* ── Surfaces ── */
-  --color-void: #0f0f1a;
-  --color-deep: #0f0f1a;
+  --color-void: oklch(0.15 0.02 280);
+  --color-deep: oklch(0.15 0.02 280);
   --color-mid: #21262d;
   --color-raised: #30363d;
 
@@ -177,11 +177,14 @@
   --radius-parchment: 0.25rem;
 }
 
-
 :root {
   /* Surfaces */
-  --void: #0f0f1a;
-  --deep: #0f0f1a;
+  --void: oklch(0.15 0.02 280);
+  --bg-void: oklch(0.15 0.02 280);
+  --deep: oklch(0.15 0.02 280);
+  --neon-amber: oklch(0.85 0.2 70);
+  --neon-cyan: oklch(0.8 0.15 220);
+  --glass-surface: color-mix(in oklch, var(--bg-void) 40%, transparent);
   --mid: #21262d;
   --raised: #30363d;
 
@@ -284,4 +287,3 @@
   --duration-reveal: 500ms;
   --duration-breath: 3s;
 }
-

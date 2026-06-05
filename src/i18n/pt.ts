@@ -199,6 +199,9 @@ export const pt: TranslationStrings = {
   generativeHero: {
     curating: '{niche} hoje',
     topNiches: 'Principais Nichos',
+    apexBadge: 'APEX · Ao Vivo',
+    headline: 'Sinais de fronteira de {count} canais',
+    tracksLabel: 'canais ativos',
   },
   legal: {
     privacy: {
@@ -336,8 +339,14 @@ export const pt: TranslationStrings = {
           title: 'Torne útil. Torne seu.',
           body: 'Três vitórias rápidas para ir além.',
           items: [
-            { name: 'Salvar & Reabrir', desc: 'Guarde o desenho como JSON. Carregue de volta quando quiser.' },
-            { name: 'Desfazer / Refazer', desc: 'Mantenha uma pilha de traços para histórico sem fricção.' },
+            {
+              name: 'Salvar & Reabrir',
+              desc: 'Guarde o desenho como JSON. Carregue de volta quando quiser.',
+            },
+            {
+              name: 'Desfazer / Refazer',
+              desc: 'Mantenha uma pilha de traços para histórico sem fricção.',
+            },
             { name: 'Exportar Imagem', desc: 'Exporte o canvas como PNG.' },
           ],
           caption: 'Três vitórias rápidas.',
@@ -370,7 +379,10 @@ export const pt: TranslationStrings = {
           options: [
             { name: 'tldraw desktop', desc: 'App pronto. Experiência completa. Integrado.' },
             { name: 'tldraw SDK', desc: 'Embarque no seu app. Controle total. Sua UI.' },
-            { name: 'perfect-freehand + canvas', desc: 'Ultra-leve. Ótima performance. Canvas infinito.' },
+            {
+              name: 'perfect-freehand + canvas',
+              desc: 'Ultra-leve. Ótima performance. Canvas infinito.',
+            },
             { name: 'Excalidraw', desc: 'Estética simples. Open source. Rápido de entregar.' },
           ],
         },
@@ -381,7 +393,10 @@ export const pt: TranslationStrings = {
           rules: [
             { question: 'Quer um app pronto para usar?', yesTo: 'tldraw desktop' },
             { question: 'Quer embarcar o quadro no seu próprio app?', yesTo: 'tldraw SDK' },
-            { question: 'Precisa do mais leve com melhor performance?', yesTo: 'perfect-freehand + canvas' },
+            {
+              question: 'Precisa do mais leve com melhor performance?',
+              yesTo: 'perfect-freehand + canvas',
+            },
             { question: 'Quer visual simples, limpo e open source?', yesTo: 'Excalidraw' },
           ],
           bottomNote: 'Responda de cima para baixo. Pegue o primeiro "Sim".',
@@ -390,10 +405,24 @@ export const pt: TranslationStrings = {
           kind: 'Resumo',
           title: 'Resumo de recomendação',
           options: [
-            { name: 'tldraw desktop', verdict: 'Melhor quando você quer um app de quadro branco completo, pronto para usar.' },
-            { name: 'tldraw SDK', verdict: 'Melhor quando você quer embarcar e customizar o quadro no seu produto.' },
-            { name: 'perfect-freehand + canvas', verdict: 'Melhor quando você precisa de máxima performance e bundle mínimo.' },
-            { name: 'Excalidraw', verdict: 'Melhor quando você quer simplicidade, open source e uma experiência de desenho limpa.' },
+            {
+              name: 'tldraw desktop',
+              verdict:
+                'Melhor quando você quer um app de quadro branco completo, pronto para usar.',
+            },
+            {
+              name: 'tldraw SDK',
+              verdict: 'Melhor quando você quer embarcar e customizar o quadro no seu produto.',
+            },
+            {
+              name: 'perfect-freehand + canvas',
+              verdict: 'Melhor quando você precisa de máxima performance e bundle mínimo.',
+            },
+            {
+              name: 'Excalidraw',
+              verdict:
+                'Melhor quando você quer simplicidade, open source e uma experiência de desenho limpa.',
+            },
           ],
           closingNote: 'Escolha a ferramenta que cabe nas suas restrições, time e metas de UX.',
         },
@@ -405,6 +434,35 @@ export const pt: TranslationStrings = {
         practicalByDesign: 'Prático por design',
       },
       footer: 'Feito para quem aprende. Pensado para devs. Por UniTeia / ConteiXeia',
+    },
+  },
+  canva: {
+    hero: {
+      title: 'O sinal em que dá pra construir',
+      subtitle: 'Seis cenas, uma decisão',
+      cta: 'Abrir o canvas',
+    },
+    concept: {
+      central: 'Por que isso importa agora',
+      satellite: { '1': 'Decisões mais rápidas', '2': 'Sinal mais nítido' },
+    },
+    code: {
+      step: {
+        '1': {
+          title: 'Conecte o básico',
+          body: 'Vinte linhas, três arquivos, um fluxo funcionando.',
+        },
+        '2': { title: 'Adicione a próxima camada' },
+      },
+    },
+    compare: {
+      option: { a: 'Construir do zero', b: 'Usar a plataforma' },
+      decision: { yes: 'Sim, se vale o investimento', no: 'Não, a plataforma já existe' },
+    },
+    timeline: { milestone: { '1': 'Hoje: um shape', '2': 'Seis meses: um canvas completo' } },
+    summary: {
+      takeaway: { '1': 'Comece menor do que parece certo', '2': 'Reutilizar vence reinventar' },
+      nextstep: 'Construa a menor coisa que funcione',
     },
   },
 }

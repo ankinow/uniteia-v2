@@ -39,6 +39,7 @@ export class StepCardShapeUtil extends ShapeUtil<StepCardShape> {
     const title = t(shape.props.titleKey)
     const body = t(shape.props.bodyKey)
 
+    // @ts-ignore - HTMLContainer is React component for tldraw canvas
     return (
       <HTMLContainer
         style={{

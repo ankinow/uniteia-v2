@@ -221,7 +221,7 @@ function parseFrontmatter(raw: string): { data: Record<string, unknown>; body: s
     const match = raw.match(YAML_FRONTMATTER_RE)
     if (!match) return null
     return {
-      data: (load(match[1]) ?? {}) as Record<string, unknown>,
+      data: (load(match[1] ?? '') ?? {}) as Record<string, unknown>,
       body: raw.slice(match[0].length),
     }
   } catch {

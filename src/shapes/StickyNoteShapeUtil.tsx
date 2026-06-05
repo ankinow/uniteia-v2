@@ -49,6 +49,7 @@ export class StickyNoteShapeUtil extends ShapeUtil<StickyNoteShape> {
     const bgColor = colors[shape.props.color as keyof typeof colors] || colors.yellow
     const txtColor = textColors[shape.props.color as keyof typeof textColors] || textColors.yellow
 
+    // @ts-ignore - HTMLContainer is React component for tldraw canvas
     return (
       <HTMLContainer
         style={{

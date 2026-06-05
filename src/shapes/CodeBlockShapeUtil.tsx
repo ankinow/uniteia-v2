@@ -38,6 +38,7 @@ export class CodeBlockShapeUtil extends ShapeUtil<CodeBlockShape> {
     const code = t(shape.props.codeKey)
     const lang = shape.props.language
 
+    // @ts-ignore - HTMLContainer is React component for tldraw canvas
     return (
       <HTMLContainer
         style={{

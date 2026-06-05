@@ -47,7 +47,7 @@ export function parseFrontmatter(raw: string): ParsedFrontmatter | null {
   if (!match) return null
 
   try {
-    const data = parseYaml(match[1]) as Record<string, unknown>
+    const data = parseYaml(match[1] ?? '') as Record<string, unknown>
     if (!data || typeof data !== 'object') return null
 
     const slug = data.slug as string | undefined

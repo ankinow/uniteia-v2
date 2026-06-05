@@ -81,9 +81,9 @@ export async function evaluateSlugCheck(
           filePath: relativePath,
           message: 'No YAML frontmatter found',
         })
-        return
+        continue
       }
-      const parsed = (load(match[1]) as Record<string, unknown>) ?? {}
+      const parsed = (load(match[1] ?? '') as Record<string, unknown>) ?? {}
       const frontmatterSlug = parsed.slug
 
       if (typeof frontmatterSlug !== 'string' || frontmatterSlug.length === 0) {

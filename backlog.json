@@ -2,14 +2,14 @@
   "round": 13,
   "current": "R13: Breadcrumb component (Schema.org + visible) — ALL routes",
   "backlog": [
-    {"id": "R13", "priority": "P0", "impact": "SEO+A11y", "effort": "M", "status": "completed"},
-    {"id": "R14", "priority": "P0", "impact": "Navigation", "effort": "M", "status": "pending"},
-    {"id": "R15", "priority": "P0", "impact": "Performance", "effort": "M", "status": "pending"},
-    {"id": "R16", "priority": "P1", "impact": "INP", "effort": "H", "status": "pending"},
-    {"id": "R17", "priority": "P1", "impact": "Quality", "effort": "M", "status": "pending"},
-    {"id": "R18", "priority": "P1", "impact": "Security", "effort": "H", "status": "pending"},
-    {"id": "R19", "priority": "P2", "impact": "A11y", "effort": "H", "status": "pending"},
-    {"id": "R20", "priority": "P2", "impact": "Observability", "effort": "H", "status": "pending"}
+    { "id": "R13", "priority": "P0", "impact": "SEO+A11y", "effort": "M", "status": "completed" },
+    { "id": "R14", "priority": "P0", "impact": "Navigation", "effort": "M", "status": "pending" },
+    { "id": "R15", "priority": "P0", "impact": "Performance", "effort": "M", "status": "pending" },
+    { "id": "R16", "priority": "P1", "impact": "INP", "effort": "H", "status": "pending" },
+    { "id": "R17", "priority": "P1", "impact": "Quality", "effort": "M", "status": "pending" },
+    { "id": "R18", "priority": "P1", "impact": "Security", "effort": "H", "status": "pending" },
+    { "id": "R19", "priority": "P2", "impact": "A11y", "effort": "H", "status": "pending" },
+    { "id": "R20", "priority": "P2", "impact": "Observability", "effort": "H", "status": "pending" }
   ],
   "metrics": {
     "ssg_pages": 83,

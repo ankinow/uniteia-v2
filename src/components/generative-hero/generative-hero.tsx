@@ -31,6 +31,8 @@ export interface GenerativeHeroProps {
     apexBadge: string // e.g. "APEX · Live"
     headline: string // e.g. "Frontier signals from {count} tracks"
     tracksLabel: string // e.g. "Active tracks"
+    curating?: string // e.g. "Curating"
+    topNiches?: string // e.g. "Top niches"
   }
 }
 
@@ -157,9 +159,7 @@ export const GenerativeHero = component$<GenerativeHeroProps>(props => {
             </div>
           </>
         ) : (
-          <p class="text-bone-muted font-mono text-sm uppercase tracking-wider">
-            {t.tracksLabel}
-          </p>
+          <p class="text-bone-muted font-mono text-sm uppercase tracking-wider">{t.tracksLabel}</p>
         )}
       </div>
     </div>

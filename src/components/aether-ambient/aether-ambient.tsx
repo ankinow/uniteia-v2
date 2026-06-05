@@ -14,14 +14,14 @@ import { isServer } from '@builder.io/qwik/build'
 export type AmbientMode = 'grain' | 'fog' | 'vortex'
 
 export interface AetherAmbientProps {
-  class?: string
-  mode?: AmbientMode
-  opacity?: number
-  blendMode?: 'overlay' | 'multiply' | 'screen' | 'normal'
-  density?: number // 0.0–1.0, controls noise density
-  speed?: number // animation speed multiplier
-  color?: string // optional tint, e.g. 'oklch(60% 0.2 265)'
-  grainSize?: number // pixel block size (1=sharp, 4=chunky)
+  class?: string | undefined
+  mode?: AmbientMode | undefined
+  opacity?: number | undefined
+  blendMode?: 'overlay' | 'multiply' | 'screen' | 'normal' | undefined
+  density?: number | undefined // 0.0–1.0, controls noise density
+  speed?: number | undefined // animation speed multiplier
+  color?: string | undefined // optional tint, e.g. 'oklch(60% 0.2 265)'
+  grainSize?: number | undefined // pixel block size (1=sharp, 4=chunky)
 }
 
 export const AetherAmbient = component$<AetherAmbientProps>(props => {
@@ -91,7 +91,7 @@ export const AetherAmbient = component$<AetherAmbientProps>(props => {
       if (!c) return [0, 0, 0]
       // Extract oklch numbers: oklch(60% 0.2 265)
       const m = c.match(/oklch\(([\d.]+)%\s+([\d.]+)\s+([\d.]+)/)
-      if (m) {
+      if (m?.[1] && m[2] && m[3]) {
         return [Number.parseFloat(m[1]), Number.parseFloat(m[2]), Number.parseFloat(m[3])]
       }
       return [60, 0.2, 265] // default cyan-indigo

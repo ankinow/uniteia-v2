@@ -205,7 +205,7 @@ describe('LocalEmbeddingProvider', () => {
     const provider = new LocalEmbeddingProvider()
     const results = provider.embedBatch(['AI platform', 'cloud computing', 'benchmark'])
     expect(results).toHaveLength(3)
-    expect(results[0].length).toBe(1024)
+    expect(results[0]?.length).toBe(1024)
   })
 })
 
@@ -282,7 +282,7 @@ describe('QueryEngine', () => {
     it('returns categories', () => {
       const categories = engine.getEntitiesByType('category')
       expect(categories).toHaveLength(1)
-      expect(categories[0].name).toBe('Magica')
+      expect(categories[0]?.name).toBe('Magica')
     })
 
     it('returns empty array for unpopulated type', () => {
@@ -310,7 +310,7 @@ describe('QueryEngine', () => {
 
   describe('getStats', () => {
     it('returns correct statistics', () => {
-      const stats = engine.getStats()
+      const stats = engine.getStats() as any
       expect(stats.totalNodes).toBe(6)
       expect(stats.totalEdges).toBe(6)
       expect(stats.byType).toHaveProperty('article')
@@ -345,7 +345,7 @@ describe('QueryEngine', () => {
         edgeKinds: ['translated_as'],
       })
       expect(result.neighbors).toHaveLength(1)
-      expect(result.neighbors[0].entity.id).toBe('pt-magica-overview')
+      expect(result.neighbors[0]?.entity.id).toBe('pt-magica-overview')
     })
 
     it('returns empty for non-existent entity', () => {
@@ -402,7 +402,7 @@ describe('QueryEngine', () => {
       const result = await engine.search('Tencent Cloud')
       const top = result.results[0]
       expect(top).toBeDefined()
-      expect(top.entity.name).toContain('Tencent Cloud')
+      expect(top?.entity.name).toContain('Tencent Cloud')
     })
 
     it('returns metadata about search', async () => {
