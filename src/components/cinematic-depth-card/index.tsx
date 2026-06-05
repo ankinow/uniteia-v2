@@ -37,7 +37,7 @@ export const CinematicDepthCard = component$<CinematicDepthCardProps>(
     return (
       <div
         ref={cardRef}
-        class={['cinematic-depth-card', 'depth-surface', 'glass', variant, className]}
+        class={['cinematic-depth-card', 'depth-surface', 'surface-panel', variant, className]}
         data-variant={variant}
         data-glow-focus={glowOnFocus && isFocused.value ? '' : undefined}
         data-elevated={elevated ? '' : undefined}

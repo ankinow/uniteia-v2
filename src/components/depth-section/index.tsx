@@ -22,8 +22,8 @@ const mapDepthToDataAttr = (depth: DepthVariant | DepthPlane): DepthPlane => {
  * Returns the glass CSS class when glass mode is active, or null otherwise.
  */
 const getGlassClass = (depth: DepthVariant | DepthPlane, glass?: boolean): string | null => {
-  if (depth === 'glass-light') return 'glass-light'
-  if (glass || depth === 'glass') return 'glass'
+  // DEPRECATED R26: glass variant maps to surface-panel
+  if (depth === 'glass-light' || depth === 'glass' || glass) return 'surface-panel'
   return null
 }
 

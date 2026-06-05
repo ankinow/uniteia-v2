@@ -149,7 +149,7 @@ export const CinematicDepthCard = component$<CinematicDepthCardProps>(
         {/* Layer 1 + 2 — Content + texture */}
         <div
           ref={cardRef}
-          class="glass depth-surface depth-raised relative preserve-3d cursor-pointer"
+          class="surface-panel depth-surface depth-raised relative preserve-3d cursor-pointer"
           data-blur="lg"
           style={{
             transform: `translateZ(${cfg.translateZ + layer}px)`,

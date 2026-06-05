@@ -19,7 +19,7 @@ export const TopicCard = component$<TopicCardProps>(
     const content = (
       <article
         class={[
-          'ue5-illusion depth-raised glass-2-5d group relative overflow-hidden rounded-3xl p-8 transition-transform duration-500 hover:-translate-y-1 hover:rotate-[0.4deg]',
+          'ue5-illusion depth-raised surface-panel group relative overflow-hidden rounded-3xl p-8 transition-transform duration-500 hover:-translate-y-1 hover:rotate-[0.4deg]',
           classList,
         ]}
       >

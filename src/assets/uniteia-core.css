@@ -38,7 +38,6 @@
 /* ── Frame variants ── */
 .frame-glass {
   background: color-mix(in srgb, var(--canvas-tone-surface) 80%, transparent);
-  backdrop-filter: blur(var(--backdrop-blur-glass, 12px));
   border: 1px solid var(--canvas-tone-border);
   border-radius: 12px;
 }

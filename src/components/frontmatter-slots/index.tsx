@@ -30,7 +30,7 @@ export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
       class={[
         'frontmatter-slots',
         'hud-panel',
-        'glass-light',
+        'surface-panel',
         'mt-6 flex flex-col gap-4 p-4',
         props.class,
       ]}

@@ -22,13 +22,13 @@ const mapDepthToDataAttr = (depth: DepthVariant | DepthPlane): DepthPlane => {
  * Returns the glass CSS class when glass mode is active, or null otherwise.
  */
 const getGlassClass = (depth: DepthVariant | DepthPlane, glass?: boolean): string | null => {
-  if (depth === 'glass-light') return 'glass-light'
-  if (glass || depth === 'glass') return 'glass'
+  // DEPRECATED R26: glass variant maps to surface-panel
+  if (depth === 'glass-light' || depth === 'glass' || glass) return 'surface-panel'
   return null
 }
 
 /**
- * Returns ue5-illusion and glass-2-5d classes when the card has depth or glass active
+ * Returns ue5-illusion and surface-panel classes when the card has depth or glass active
  * (Σ LOAD refinement — zero API break).
  */
 const getVisualUpgradeClass = (
@@ -37,7 +37,7 @@ const getVisualUpgradeClass = (
   glass?: boolean
 ): string | null => {
   const hasDepth = depth2d5 || depth === 'glass-light' || glass || depth === 'glass'
-  return hasDepth ? 'ue5-illusion glass-2-5d' : null
+  return hasDepth ? 'ue5-illusion surface-panel' : null
 }
 
 /**

@@ -273,13 +273,7 @@ img {
    Refinamento imediato — sem refatoração
    ═══════════════════════════════════════════ */
 
-.glass-2-5d {
-  background: var(--color-glass);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 25px 60px -15px rgb(0 0 0 / 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-}
+/* .glass-2-5d replaced by .surface-panel (PLANO-083) */
 
 .ue5-illusion {
   position: relative;
@@ -350,7 +344,7 @@ img {
 .canvas-light,
 .canvas-light *,
 .interface-dark,
-.glass-2-5d,
+.surface-panel,
 .ue5-illusion.rounded-3xl {
   border-radius: 1.5rem;
 }

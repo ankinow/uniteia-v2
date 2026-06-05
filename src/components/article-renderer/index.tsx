@@ -39,7 +39,7 @@ const AdaptiveHeader = ({
   title: string
   subtitle?: string
 }) => (
-  <section class="adaptive-header glass-light">
+  <section class="adaptive-header surface-panel">
     <h1
       class={[
         'text-2xl leading-9',
