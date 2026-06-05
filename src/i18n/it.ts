@@ -154,6 +154,7 @@ export const it: TranslationStrings = {
     featuredSignals: 'Insights in Evidenza',
     knowledgeClusters: 'Cluster',
     frontierStreams: 'Frontiera',
+    frontierStreamsOne: 'Frontiera',
     signalCount: '{count} insights',
     signalCountOne: '1 insight',
     curatedAcross: 'curati in {count} nicchie',
@@ -163,6 +164,7 @@ export const it: TranslationStrings = {
     networkState: 'Stato della Rete UniTeia',
     signalIntake: 'Assunzione Insights',
     deliveryLayer: 'Livello di Consegna',
+    bentoTagline: 'Qwik islands + P3 wide-gamut',
   },
   onboarding: {
     step1: {

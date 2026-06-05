@@ -152,6 +152,7 @@ export const ja: TranslationStrings = {
     featuredSignals: '注目のInsights',
     knowledgeClusters: 'クラスター',
     frontierStreams: 'フロンティア',
+    frontierStreamsOne: 'フロンティア',
     signalCount: '{count} insights',
     signalCountOne: '1 insight',
     curatedAcross: '{count} のニッチからキュレーション',
@@ -161,6 +162,7 @@ export const ja: TranslationStrings = {
     networkState: 'UniTeia ネットワーク状態',
     signalIntake: 'Insights収集',
     deliveryLayer: '配信レイヤー',
+    bentoTagline: 'Qwik islands + P3 wide-gamut',
   },
   onboarding: {
     step1: {

@@ -315,7 +315,7 @@ export default component$(() => {
             <span class="text-neon-amber">{sortedClusters.length}</span>{' '}
             {sortedClusters.length === 1 ? 'cluster' : 'clusters'} ·{' '}
             <span class="text-neon-rose">{frontierStreams.length}</span>{' '}
-            {frontierStreams.length === 1 ? 'frontier' : 'frontiers'} · Qwik islands + P3 wide-gamut
+            {frontierStreams.length === 1 ? 'frontier' : 'frontiers'} · {t.homepage.bentoTagline}
           </p>
           <BentoGrid
             minCellWidth="240px"

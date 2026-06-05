@@ -25,12 +25,12 @@ export const OnboardingFlow = component$<OnboardingFlowProps>(({ locale, siteNam
             <span class="hud-label-base mb-4" data-tone="action" aria-hidden="true">
               Step 1
             </span>
-            <h1 class="text-display-xl font-display font-normal mb-4">
+            <h2 class="text-display-xl font-display font-normal mb-4">
               {t.onboarding.step1.title}
-            </h1>
-            <h2 class="text-display-md font-display font-normal text-bone-muted mb-6">
-              {t.onboarding.step1.subtitle}
             </h2>
+            <p class="text-display-md font-display font-normal text-bone-muted mb-6">
+              {t.onboarding.step1.subtitle}
+            </p>
             <p class="text-body-lg text-bone/80 max-w-[68ch] mx-auto">
               {t.onboarding.step1.desc.replace('{siteName}', name)}
             </p>

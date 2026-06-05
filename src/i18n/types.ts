@@ -152,6 +152,7 @@ export interface TranslationStrings {
     featuredSignals: string
     knowledgeClusters: string
     frontierStreams: string
+    frontierStreamsOne: string
     signalCount: string
     signalCountOne: string
     curatedAcross: string
@@ -161,6 +162,7 @@ export interface TranslationStrings {
     networkState: string
     signalIntake: string
     deliveryLayer: string
+    bentoTagline: string
   }
   onboarding: {
     step1: {

@@ -150,6 +150,7 @@ export const zh: TranslationStrings = {
     featuredSignals: '精选Insights',
     knowledgeClusters: '集群',
     frontierStreams: '前沿',
+    frontierStreamsOne: '前沿',
     signalCount: '{count} insights',
     signalCountOne: '1 insight',
     curatedAcross: '从 {count} 个领域精选',
@@ -159,6 +160,7 @@ export const zh: TranslationStrings = {
     networkState: 'UniTeia 网络状态',
     signalIntake: 'Insights摄入',
     deliveryLayer: '交付层',
+    bentoTagline: 'Qwik islands + P3 wide-gamut',
   },
   onboarding: {
     step1: {
