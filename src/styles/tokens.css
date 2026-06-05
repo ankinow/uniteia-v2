@@ -16,10 +16,10 @@
 
 @theme {
   /* ── Surfaces ── */
-  --color-void: oklch(0.15 0.02 280);
-  --color-deep: oklch(0.15 0.02 280);
-  --color-mid: #21262d;
-  --color-raised: #30363d;
+  --color-void: #ffffff;
+  --color-deep: #fafafa;
+  --color-mid: #f5f5f5;
+  --color-raised: #eaeaea;
 
   /* ── Coral Identity (action) ── */
   --color-action: #5b8def;
@@ -37,9 +37,9 @@
   --color-curation-hi: oklch(0.84 0.09 75);
 
   /* ── Text · Bone hierarchy ── */
-  --color-bone: #f0e8d8;
-  --color-bone-muted: #b8b0a0;
-  --color-bone-primary: #f0e8d8;
+  --color-bone: #171717;
+  --color-bone-muted: #666666;
+  --color-bone-primary: #171717;
 
   /* ── Paper ── */
   --color-paper: #e8ddc8;
@@ -60,9 +60,8 @@
   --color-unsafe: oklch(0.65 0.2 30);
 
   /* ── Typography ── */
-  --font-family-sans: "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-  --font-family-display: "Dela Gothic One", ui-serif, Georgia, serif;
+  --font-family-sans: "Inter", "Geist", sans-serif;
+  --font-family-display: "Inter", "Geist", sans-serif;
   --font-family-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas,
     "Liberation Mono", monospace;
 
@@ -179,18 +178,19 @@
 
 :root {
   /* Surfaces */
-  --void: oklch(0.15 0.02 280);
-  --bg-void: oklch(0.15 0.02 280);
-  --deep: oklch(0.15 0.02 280);
-  --neon-amber: oklch(0.85 0.2 70);
-  --neon-cyan: oklch(0.8 0.15 220);
-  --glass-surface: color-mix(in oklch, var(--bg-void) 40%, transparent);
-  --mid: #21262d;
-  --raised: #30363d;
+  --void: #ffffff;
+  --bg-void: #ffffff;
+  --deep: #fafafa;
+  --neon-amber: #f5a623;
+  --neon-cyan: #0070f3;
+  --glass-surface: rgba(255, 255, 255, 0.4);
+  --mid: #f5f5f5;
+  --raised: #eaeaea;
 
   /* Text */
-  --bone: #f0e8d8;
-  --bone-muted: #b8b0a0;
+  --bone: #171717;
+  --bone-muted: #666666;
+  --bone-primary: #171717;
 
   /* Motion */
   --t-fast: 120ms;
@@ -244,9 +244,8 @@
   --paper-border: 1px solid #c4b99e;
 
   /* Typography */
-  --font-display: "Dela Gothic One", ui-serif, Georgia, serif;
-  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+  --font-display: "Inter", "Geist", sans-serif;
+  --font-sans: "Inter", "Geist", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas,
     "Liberation Mono", monospace;
 

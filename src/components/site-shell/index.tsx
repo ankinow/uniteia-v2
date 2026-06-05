@@ -49,7 +49,7 @@ export const SiteShell = component$<SiteShellProps>(({ isApexHost }) => {
 
   return (
     <div
-      class="site-shell min-h-screen flex flex-col bg-gradient-to-b from-[oklch(0.18_0.02_280)] to-[oklch(0.12_0.03_280)] text-bone grid-signal relative"
+      class="site-shell min-h-screen flex flex-col bg-[#FFFFFF] text-[#171717] relative"
       data-dopamine-shell-apex={String(budget.isApexHost)}
       data-dopamine-shell-path={budget.pathname}
       data-dopamine-shell-route-remaining={budget.routeBudget.remaining}

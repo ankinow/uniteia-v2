@@ -28,7 +28,6 @@
 
   /* Compositor-only: translateY + scale */
   will-change: transform;
-  filter: url(#prismatic-dispersion);
 }
 
 /* ── Variant accent colors ── */

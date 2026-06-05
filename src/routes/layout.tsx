@@ -2,6 +2,7 @@ import { $, Slot, component$, useOnWindow, useSignal } from '@builder.io/qwik'
 import { type RequestHandler, routeLoader$ } from '@builder.io/qwik-city'
 import { AgentStatus } from '~/components/agent-status'
 import { AnalogConnector } from '~/components/analog-connector'
+import { Breadcrumb } from '~/components/breadcrumb'
 import { Footer } from '~/components/footer'
 import { LangSwitcher } from '~/components/lang-switcher'
 import { NavTree } from '~/components/nav-tree'
@@ -88,15 +89,18 @@ export default component$(() => {
   return (
     <SiteShell isApexHost={nicheSignal.value === 'apex'}>
       {/* Header - mantido no mobile conforme solicitado */}
-      <div q:slot="header" class="w-full">
+      <div
+        q:slot="header"
+        class="w-full bg-[#FFFFFF]/85 backdrop-blur-md border-b border-[#EAEAEA]"
+      >
         <nav
           aria-label="Primary navigation"
-          class="nav flex items-center justify-between px-4 md:px-8 py-4 border-b border-action/10"
+          class="nav flex items-center justify-between px-4 md:px-8 py-4"
           data-testid="main-nav"
         >
           <a
             href={signalsIndex(lang)}
-            class="text-bone-muted hover:text-bone transition-colors focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
+            class="text-[#171717]/70 hover:text-[#171717] transition-colors focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
           >
             {t.nav.topics}
           </a>
@@ -106,13 +110,18 @@ export default component$(() => {
           {/* Sound toggle */}
           <button
             type="button"
-            class="ml-2 text-bone-muted hover:text-action transition-colors text-sm px-2 py-1"
+            class="ml-2 text-[#171717]/70 hover:text-action transition-colors text-sm px-2 py-1"
             aria-label={isDronePlaying.value ? 'Mute ambient sound' : 'Enable ambient sound'}
             onClick$={toggleDrone}
           >
             {isDronePlaying.value ? '🔊' : '🔇'}
           </button>
         </nav>
+
+        {/* Breadcrumbs Sub-bar */}
+        <div class="px-4 md:px-8 py-2 border-t border-[#EAEAEA] bg-[#FAFAFA]/95 backdrop-blur-sm">
+          <Breadcrumb />
+        </div>
 
         {/* Dynamic Niche Navigation (Auto-derived) */}
         <div class="px-4 md:px-8 py-2 border-b border-action/5 bg-void/50 backdrop-blur-sm sticky top-0 z-40">
