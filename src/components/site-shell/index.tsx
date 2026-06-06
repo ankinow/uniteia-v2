@@ -5,6 +5,10 @@ import { useDopamineBudgetProvider } from '~/stores/dopamine-budget'
 
 export const onRequest: RequestHandler = onLanguageNegotiation
 
+/**
+ * SiteShell — dark theme wrapper with dopamine budget context.
+ * Used by [lang] routes which have a valid location.
+ */
 export const SiteShell = component$(() => {
   const loc = useLocation()
   useDopamineBudgetProvider({ isApexHost: false, location: loc })
