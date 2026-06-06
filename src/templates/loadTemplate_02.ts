@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Editor } from '@tldraw/tldraw'
+import { createShapesAndBindings } from './utils'
 
 export function loadTemplate_02(editor: Editor, _locale = 'en') {
   const shapes: any[] = [
@@ -156,9 +157,7 @@ export function loadTemplate_02(editor: Editor, _locale = 'en') {
     },
   ]
 
-  shapes.forEach(s => {
-    editor.createShape(s)
-  })
+  createShapesAndBindings(editor, shapes)
 
   editor.zoomToFit()
 }

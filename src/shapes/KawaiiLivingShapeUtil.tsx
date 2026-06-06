@@ -78,7 +78,7 @@ export class KawaiiLivingShapeUtil extends ShapeUtil<KawaiiLivingShape> {
             WebkitUserSelect: 'none',
           }}
           // Fallback if image fails to load (show a cute placeholder emoji/box)
-          onError={(e) => {
+          onError={e => {
             const imgEl = e.currentTarget
             imgEl.style.display = 'none'
             const parent = imgEl.parentElement

@@ -4,10 +4,10 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   CodeBlockShapeUtil,
+  KawaiiLivingShapeUtil,
   StepCardShapeUtil,
   StickyNoteShapeUtil,
   SvgIconShapeUtil,
-  KawaiiLivingShapeUtil,
 } from '../shapes'
 import { loadTemplate_01, loadTemplate_02, loadTemplate_03 } from '../templates'
 import '../i18n/i18n'

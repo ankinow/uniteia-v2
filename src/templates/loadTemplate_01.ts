@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Editor } from '@tldraw/tldraw'
+import { createShapesAndBindings } from './utils'
 
 // Template definitions are pure data; cast through any to avoid
 // fighting tldraw's strict discriminated-union prop typing at scale.
@@ -231,9 +232,7 @@ export function loadTemplate_01(editor: Editor, _locale = 'en') {
     },
   ]
 
-  shapes.forEach(s => {
-    editor.createShape(s)
-  })
+  createShapesAndBindings(editor, shapes)
 
   // Zoom to fit all shapes
   editor.zoomToFit()

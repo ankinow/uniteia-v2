@@ -3,4 +3,3 @@ export { StickyNoteShapeUtil } from './StickyNoteShapeUtil'
 export { CodeBlockShapeUtil } from './CodeBlockShapeUtil'
 export { SvgIconShapeUtil } from './SvgIconShapeUtil'
 export { KawaiiLivingShapeUtil } from './KawaiiLivingShapeUtil'
-

@@ -8,7 +8,7 @@
 | Total scenarios | 3 |
 | Passed | 1 |
 | Failed | 2 |
-| Total duration | 30100 ms |
+| Total duration | 24100 ms |
 | Errors | 4 |
 
 ## ❌ Failures
@@ -26,8 +26,8 @@ Running 8 tests using 2 workers
 
 
 
-[1A[2K[1/8] [chromium] › tests/e2e/s02-edge-chaos.spec.ts:104:3 › Edge Chaos — Service worker chunk guard › S2: SW intercepts outdated chunks and fetches fresh versions
-[1A[2K[2/8] [chromium] › tests/e2e/s02-edge-chaos.spec.ts:64:3 › Edge Chaos — Stale chunk handling › S1: stale chunk served via route interception — page renders without crash
+[1A[2K[1/8] [chromium] › tests/e2e/s02-edge-chaos.spec.ts:64:3 › Edge Chaos — Stale chunk handling › S1: stale chunk served via route interception — page renders without crash
+[1A[2K[2/8] [chromium] › tests/e2e/s02-edge-chaos.spec.ts:104:3 › Edge Chaos — Service worker chunk guard › S2: SW intercepts outdated chunks and fetches fresh versions
 [1A[2K  1) [chromium] › tests/e2e/s02-edge-chaos.spec.ts:64:3 › Edge Chaos — Stale chunk handling › S1: stale chunk served via route interception — page renders without crash 
 
     Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
