@@ -25,8 +25,8 @@ describe('loadContent', () => {
     expect(result.subjects).toBeInstanceOf(Array)
     expect(result.subjects.length).toBeGreaterThanOrEqual(1)
     expect(result.referral_links).toBeInstanceOf(Array)
-    expect(result.verdict).toBe('trusted')
-    expect(result.quality_score).toBe(95)
+    expect(result.verdict).toBe('caution')
+    expect(result.quality_score).toBe(65)
   }, 30_000)
 
   it('loads a valid Portuguese article and returns typed LlmWikiContent', async () => {

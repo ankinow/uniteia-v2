@@ -89,10 +89,7 @@ export default component$(() => {
   return (
     <SiteShell isApexHost={nicheSignal.value === 'apex'}>
       {/* Header - mantido no mobile conforme solicitado */}
-      <div
-        q:slot="header"
-        class="w-full bg-[#FFFFFF]/85 backdrop-blur-md border-b border-[#EAEAEA]"
-      >
+      <div q:slot="header" class="w-full bg-void/85 backdrop-blur-md border-b border-raised/20">
         <nav
           aria-label="Primary navigation"
           class="nav flex items-center justify-between px-4 md:px-8 py-4"
@@ -100,7 +97,7 @@ export default component$(() => {
         >
           <a
             href={signalsIndex(lang)}
-            class="text-[#171717]/70 hover:text-[#171717] transition-colors focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
+            class="text-bone/70 hover:text-bone transition-colors focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
           >
             {t.nav.topics}
           </a>
@@ -110,7 +107,7 @@ export default component$(() => {
           {/* Sound toggle */}
           <button
             type="button"
-            class="ml-2 text-[#171717]/70 hover:text-action transition-colors text-sm px-2 py-1"
+            class="ml-2 text-bone/70 hover:text-action transition-colors text-sm px-2 py-1"
             aria-label={isDronePlaying.value ? 'Mute ambient sound' : 'Enable ambient sound'}
             onClick$={toggleDrone}
           >
@@ -119,7 +116,7 @@ export default component$(() => {
         </nav>
 
         {/* Breadcrumbs Sub-bar */}
-        <div class="px-4 md:px-8 py-2 border-t border-[#EAEAEA] bg-[#FAFAFA]/95 backdrop-blur-sm">
+        <div class="px-4 md:px-8 py-2 border-t border-raised/20 bg-deep/95 backdrop-blur-sm">
           <Breadcrumb />
         </div>
 

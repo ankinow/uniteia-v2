@@ -1,7 +1,7 @@
 # SEO Verification Report
 
-**Generated:** 2026-06-06T15:31:03.562Z
-**Source:** content-graph.generated (2026-06-05T22:15:32.414Z)
+**Generated:** 2026-06-06T17:17:50.880Z
+**Source:** content-graph.generated (2026-06-06T17:14:01.900Z)
 **Nodes analyzed:** 35
 
 ## Summary
@@ -47,8 +47,8 @@ Verifies that each node's canonical URL resolves to the correct node via the rou
 | 0–20 | 0 | █ |
 | 21–40 | 0 | █ |
 | 41–60 | 0 | █ |
-| 61–80 | 3 | ███ |
-| 81–100 | 32 | ████████████████████████████████ |
+| 61–80 | 11 | ███████████ |
+| 81–100 | 24 | ████████████████████████ |
 
 ## Appendix: Per-Node SEO Snapshot
 
@@ -58,38 +58,38 @@ Verifies that each node's canonical URL resolves to the correct node via the rou
 | `en-magica-quickstart` | en | published | published | false | 95 | /en/signals/apex/magica-quickstart | es, ja, pt, zh, de, fr, it |
 | `en-magica-mcp-server` | en | published | published | false | 95 | /en/signals/apex/magica-mcp-server | es, ja, pt, zh, de, fr, it |
 | `en-tecent-vm-benefits` | en | draft | generated | true | 65 | /en/signals/apex/tecent-vm-benefits | es, pt |
-| `en-tencent-cloud-deal-stack-builders` | en | published | published | false | 95 | /en/signals/apex/tencent-cloud-deal-stack-builders | es, ja, pt, zh, de, fr, it |
+| `en-tencent-cloud-deal-stack-builders` | en | draft | generated | true | 65 | /en/signals/apex/tencent-cloud-deal-stack-builders | es, ja, pt, zh, de, fr, it |
 | `es-magica-overview` | es | published | published | false | 95 | /es/signals/apex/magica-overview | en, ja, pt, zh, de, fr, it |
 | `es-magica-quickstart` | es | published | published | false | 95 | /es/signals/apex/magica-quickstart | en, ja, pt, zh, de, fr, it |
 | `es-magica-mcp-server` | es | published | published | false | 95 | /es/signals/apex/magica-mcp-server | en, ja, pt, zh, de, fr, it |
 | `es-tecent-vm-benefits` | es | draft | generated | true | 65 | /es/signals/apex/tecent-vm-benefits | en, pt |
-| `es-tencent-cloud-deal-stack-builders` | es | published | published | false | 95 | /es/signals/apex/tencent-cloud-deal-stack-builders | en, ja, pt, zh, de, fr, it |
+| `es-tencent-cloud-deal-stack-builders` | es | draft | generated | true | 65 | /es/signals/apex/tencent-cloud-deal-stack-builders | en, ja, pt, zh, de, fr, it |
 | `ja-magica-overview` | ja | published | published | false | 95 | /ja/signals/apex/magica-overview | en, es, pt, zh, de, fr, it |
 | `ja-magica-quickstart` | ja | published | published | false | 95 | /ja/signals/apex/magica-quickstart | en, es, pt, zh, de, fr, it |
 | `ja-magica-mcp-server` | ja | published | published | false | 95 | /ja/signals/apex/magica-mcp-server | en, es, pt, zh, de, fr, it |
-| `ja-tencent-cloud-deal-stack-builders` | ja | published | published | false | 95 | /ja/signals/apex/tencent-cloud-deal-stack-builders | en, es, pt, zh, de, fr, it |
+| `ja-tencent-cloud-deal-stack-builders` | ja | draft | generated | true | 65 | /ja/signals/apex/tencent-cloud-deal-stack-builders | en, es, pt, zh, de, fr, it |
 | `pt-magica-overview` | pt | published | published | false | 95 | /pt/signals/apex/magica-overview | en, es, ja, zh, de, fr, it |
 | `pt-magica-quickstart` | pt | published | published | false | 95 | /pt/signals/apex/magica-quickstart | en, es, ja, zh, de, fr, it |
 | `pt-magica-mcp-server` | pt | published | published | false | 95 | /pt/signals/apex/magica-mcp-server | en, es, ja, zh, de, fr, it |
 | `pt-tecent-vm-benefits` | pt | draft | generated | true | 65 | /pt/signals/apex/tecent-vm-benefits | en, es |
-| `pt-tencent-cloud-deal-stack-builders` | pt | published | published | false | 95 | /pt/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, zh, de, fr, it |
+| `pt-tencent-cloud-deal-stack-builders` | pt | draft | generated | true | 65 | /pt/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, zh, de, fr, it |
 | `zh-magica-overview` | zh | published | published | false | 95 | /zh/signals/apex/magica-overview | en, es, ja, pt, de, fr, it |
 | `zh-magica-quickstart` | zh | published | published | false | 95 | /zh/signals/apex/magica-quickstart | en, es, ja, pt, de, fr, it |
-| `zh-tencent-cloud-deal-stack-builders` | zh | published | published | false | 95 | /zh/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, de, fr, it |
+| `zh-tencent-cloud-deal-stack-builders` | zh | draft | generated | true | 65 | /zh/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, de, fr, it |
 | `zh-magica-mcp-server` | zh | published | published | false | 95 | /zh/signals/apex/magica-mcp-server | en, es, ja, pt, de, fr, it |
 | `de-magica-overview` | de | published | published | false | 95 | /de/signals/apex/magica-overview | en, es, ja, pt, zh, fr, it |
 | `de-magica-quickstart` | de | published | published | false | 95 | /de/signals/apex/magica-quickstart | en, es, ja, pt, zh, fr, it |
 | `de-magica-mcp-server` | de | published | published | false | 95 | /de/signals/apex/magica-mcp-server | en, es, ja, pt, zh, fr, it |
-| `de-tencent-cloud-deal-stack-builders` | de | published | published | false | 95 | /de/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, zh, fr, it |
+| `de-tencent-cloud-deal-stack-builders` | de | draft | generated | true | 65 | /de/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, zh, fr, it |
 | `fr-magica-overview` | fr | published | published | false | 95 | /fr/signals/apex/magica-overview | en, es, ja, pt, zh, de, it |
 | `fr-magica-quickstart` | fr | published | published | false | 95 | /fr/signals/apex/magica-quickstart | en, es, ja, pt, zh, de, it |
 | `fr-magica-mcp-server` | fr | published | published | false | 95 | /fr/signals/apex/magica-mcp-server | en, es, ja, pt, zh, de, it |
-| `fr-tencent-cloud-deal-stack-builders` | fr | published | published | false | 95 | /fr/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, zh, de, it |
+| `fr-tencent-cloud-deal-stack-builders` | fr | draft | generated | true | 65 | /fr/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, zh, de, it |
 | `it-magica-overview` | it | published | published | false | 95 | /it/signals/apex/magica-overview | en, es, ja, pt, zh, de, fr |
 | `it-magica-quickstart` | it | published | published | false | 95 | /it/signals/apex/magica-quickstart | en, es, ja, pt, zh, de, fr |
 | `it-magica-mcp-server` | it | published | published | false | 95 | /it/signals/apex/magica-mcp-server | en, es, ja, pt, zh, de, fr |
-| `it-tencent-cloud-deal-stack-builders` | it | published | published | false | 95 | /it/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, zh, de, fr |
+| `it-tencent-cloud-deal-stack-builders` | it | draft | generated | true | 65 | /it/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, zh, de, fr |
 
 ---
 
-*Report generated by scripts/generate-seo-verification.ts at 2026-06-06T15:31:03.563Z*
+*Report generated by scripts/generate-seo-verification.ts at 2026-06-06T17:17:50.881Z*

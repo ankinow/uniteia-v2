@@ -16,15 +16,15 @@
 
 @theme {
   /* ── Surfaces ── */
-  --color-void: #ffffff;
-  --color-deep: #fafafa;
-  --color-mid: #f5f5f5;
-  --color-raised: #eaeaea;
+  --color-void: #0b0c15;
+  --color-deep: #111322;
+  --color-mid: #171b30;
+  --color-raised: #212644;
 
   /* ── Coral Identity (action) ── */
-  --color-action: #5b8def;
-  --color-action-hi: oklch(0.78 0.24 22);
-  --color-aether: #5b8def;
+  --color-action: #00d4aa;
+  --color-action-hi: #00ffcc;
+  --color-aether: #00d4aa;
   --color-cristal: #00e5ff;
   --color-pergaminho: #f4efe6;
 
@@ -37,9 +37,9 @@
   --color-curation-hi: oklch(0.84 0.09 75);
 
   /* ── Text · Bone hierarchy ── */
-  --color-bone: #171717;
-  --color-bone-muted: #666666;
-  --color-bone-primary: #171717;
+  --color-bone: #f0e8d8;
+  --color-bone-muted: #949eb0;
+  --color-bone-primary: #f0e8d8;
 
   /* ── Paper ── */
   --color-paper: #e8ddc8;
@@ -178,19 +178,19 @@
 
 :root {
   /* Surfaces */
-  --void: #ffffff;
-  --bg-void: #ffffff;
-  --deep: #fafafa;
-  --neon-amber: #f5a623;
-  --neon-cyan: #0070f3;
-  --glass-surface: rgba(255, 255, 255, 0.4);
-  --mid: #f5f5f5;
-  --raised: #eaeaea;
+  --void: #0b0c15;
+  --bg-void: #0b0c15;
+  --deep: #111322;
+  --neon-amber: #ffaa00;
+  --neon-cyan: #00e5ff;
+  --glass-surface: rgba(255, 255, 255, 0.04);
+  --mid: #171b30;
+  --raised: #212644;
 
   /* Text */
-  --bone: #171717;
-  --bone-muted: #666666;
-  --bone-primary: #171717;
+  --bone: #f0e8d8;
+  --bone-muted: #949eb0;
+  --bone-primary: #f0e8d8;
 
   /* Motion */
   --t-fast: 120ms;

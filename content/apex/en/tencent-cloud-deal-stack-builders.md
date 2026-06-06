@@ -2,8 +2,8 @@
 slug: tencent-cloud-deal-stack-builders
 lang: en
 title: "Tencent Cloud Deal Stack for Builders"
-verdict: trusted
-quality_score: 95
+verdict: caution
+quality_score: 65
 subjects:
   - cloud
   - builders
@@ -21,67 +21,18 @@ referral_links:
   - url: https://www.tencentcloud.com/act/pro/promo
     title: Tencent Cloud Free Tier
 metadata:
-  created_at: "2026-05-15T15:41:13.222Z"
-  updated_at: "2026-05-15T15:41:13.222Z"
+  created_at: "2026-06-06T17:12:41.994Z"
+  updated_at: "2026-06-06T17:12:41.994Z"
   author: UniTeia System
   version: 1
-  sourceCount: 8
-  trustLevel: low
   importedFrom: uniteia-mega-factory
   contentPackage: uniteia-content-package/v1
-canvas:
-  tone: obsidian
-  layout: constellation
-  nodes:
-    - id: intro
-      section: 0
-      type: hero
-    - id: free-products
-      section: 1
-      type: card
-    - id: lighthouse
-      section: 2
-      type: card
-    - id: cvm
-      section: 3
-      type: card
-    - id: edgeone
-      section: 4
-      type: card
-    - id: stack-comparison
-      section: 5
-      type: table
-    - id: checklist
-      section: 6
-      type: list
-    - id: recommended-setup
-      section: 7
-      type: grid
-  connectors:
-    - from: intro
-      to: free-products
-    - from: intro
-      to: lighthouse
-    - from: intro
-      to: cvm
-    - from: intro
-      to: edgeone
-    - from: lighthouse
-      to: stack-comparison
-    - from: cvm
-      to: stack-comparison
-    - from: edgeone
-      to: stack-comparison
-    - from: stack-comparison
-      to: checklist
-    - from: checklist
-      to: recommended-setup
 ---
 # Tencent Cloud Deal Stack: Cheap Cloud for Builders
 
 ## What is the Tencent Cloud Deal Stack?
 
-[Tencent Cloud](https://tencentcloud.com) offers a range of products and promotions ideal for independent builders. With Lighthouse, CVM, and EdgeOne, you can host sites, APIs, bots, dashboards, and small apps spending very little — in some cases, nothing.
+Tencent Cloud offers a range of products and promotions ideal for independent builders. With Lighthouse, CVM, and EdgeOne, you can host sites, APIs, bots, dashboards, and small apps spending very little — in some cases, nothing.
 
 ## Free Products
 
@@ -131,7 +82,7 @@ CVM (Cloud Virtual Machine) is the complete solution for those needing full cont
 
 ## EdgeOne — CDN + Security
 
-EdgeOne combines CDN with WAF, DDoS protection, and bot management in one platform. As automation enters physical spaces — from [Figure 02 handling packages at BMW](https://arstechnica.com/ai/2026/05/the-internet-cant-stop-watching-figure-ais-humanoid-robots-handling-packages/) to broader industrial deployment — reliable edge infrastructure becomes critical.
+EdgeOne combines CDN with WAF, DDoS protection, and bot management in one platform.
 
 **When to use:**
 - Accelerate global content delivery
@@ -156,8 +107,6 @@ EdgeOne combines CDN with WAF, DDoS protection, and bot management in one platfo
 | Setup | Minutes | Hours |
 
 ## Before You Pay — Checklist
-
-The cloud infrastructure landscape is evolving rapidly alongside advancements in robotics and edge AI — the [Humanoid Robotics 2026 market report](https://kraneshares.com/humanoid-robotics-in-2026-the-race-from-pilot-to-platform/) tracks how platforms like [Unitree](https://www.unitree.com) are pushing the need for low-latency cloud services. Before you start paying:
 
 1. **Check region:** Not all promos are available in all regions
 2. **Eligibility:** Some offers are new users only
