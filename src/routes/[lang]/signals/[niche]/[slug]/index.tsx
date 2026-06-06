@@ -127,14 +127,15 @@ export const useRelated = routeLoader$<ContentNode[]>(async ({ params }) => {
 export const useCollageAssets = routeLoader$<LivingBriefCollageProps | null>(async ({ params }) => {
   const slug = params.slug
   if (!slug) return null
-  // Load collage for any article that has pre-generated assets
-  const COLLAGE_SLUGS = new Set([
+  // Load collage for any article that has pre-generated assets (dynamic detection)
+  const ALLOWED_SLUGS = new Set([
     'magica-overview',
     'magica-quickstart',
     'magica-mcp-server',
     'tencent-cloud-deal-stack-builders',
+    'tecent-vm-benefits',
   ])
-  if (!COLLAGE_SLUGS.has(slug)) return null
+  if (!ALLOWED_SLUGS.has(slug)) return null
   try {
     // Read pre-generated collage JSON at build time using fs
     // Runs only during SSG (Node.js available), never on CF Workers edge
@@ -211,25 +212,8 @@ export default component$(() => {
             title: content.value.title,
             subtitle: extractDescription(content.value.content),
             hashtags: content.value.subjects,
-            variant: content.value.slug === 'magica-overview' ? 'magica' : 'default',
-            buttons: [
-              {
-                label: content.value.lang === 'pt' ? 'VISITAR MAGICA' : 'VISIT MAGICA',
-                variant: 'primary',
-                href: 'https://try.magica.com/clique-serio',
-              },
-              {
-                label:
-                  content.value.lang === 'pt' ? 'CÓDIGO PROMO: GXZMYCP' : 'PROMO CODE: GXZMYCP',
-                variant: 'secondary',
-                href: 'https://try.magica.com/redeem',
-              },
-              {
-                label: content.value.lang === 'pt' ? 'SAIBA MAIS' : 'LEARN MORE',
-                variant: 'ghost',
-                href: '/signals/apex/magica-quickstart',
-              },
-            ],
+            variant: 'default',
+            buttons: [],
           }}
           {...(collageAssets.value ? { collage: collageAssets.value } : {})}
         >
@@ -290,12 +274,12 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
       { property: 'og:locale', content: content.lang },
       {
         property: 'og:image',
-        content: 'https://uniteia.com/assets/flux/magica-overview/workflow-ui.jpg',
+        content: 'https://uniteia.com/og-image.png',
       },
       { name: 'twitter:card', content: 'summary_large_image' },
       {
         name: 'twitter:image',
-        content: 'https://uniteia.com/assets/flux/magica-overview/workflow-ui.jpg',
+        content: 'https://uniteia.com/og-image.png',
       },
       { name: 'twitter:title', content: content.title },
       { name: 'twitter:description', content: description },
@@ -312,7 +296,7 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
           '@type': 'Article',
           headline: content.title,
           description: description,
-          image: 'https://uniteia.com/assets/flux/magica-overview/workflow-ui.jpg',
+          image: 'https://uniteia.com/og-image.png',
           datePublished: content.metadata?.created_at ?? new Date().toISOString().split('T')[0],
           author: { '@type': 'Organization', name: 'UniTeia' },
           publisher: {

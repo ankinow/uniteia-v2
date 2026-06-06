@@ -1,288 +1,46 @@
 /**
- * UNITEIA · DESIGN TOKENS — canonical source (M014-S6 refactor)
- * ═══════════════════════════════════════════════════════════════
- * Single source of truth for all design tokens.
- * Imported by global.css. Do NOT duplicate tokens elsewhere.
- *
- * Sections:
- *   1. @theme  — Tailwind v4 Oxide design tokens (consumed by utilities)
- *   2. :root   — CSS custom properties (consumed by .module.css)
- *
- * Maintenance:
- *   - Add new tokens here, NOT in global.css
- *   - Group by purpose (surfaces/text/motion/depth/agent-intent)
- *   - Use OKLCH wide-gamut for new colors
+ * UNITEIA · DESIGN TOKENS — v3.0 refatorado
+ * Dark theme premium simplificado. OKLCH wide-gamut.
  */
 
 @theme {
-  /* ── Surfaces ── */
-  --color-void: #0b0c15;
-  --color-deep: #111322;
-  --color-mid: #171b30;
-  --color-raised: #212644;
+  /* ── Surfaces (dark premium) ── */
+  --color-void: #08090f;
+  --color-deep: #0f1119;
+  --color-mid: #161925;
+  --color-raised: #1e2130;
 
-  /* ── Coral Identity (action) ── */
-  --color-action: #00d4aa;
-  --color-action-hi: #00ffcc;
-  --color-aether: #00d4aa;
-  --color-cristal: #00e5ff;
-  --color-pergaminho: #f4efe6;
+  /* ── Brand accent ── */
+  --color-accent: oklch(0.75 0.18 200);
+  --color-accent-hi: oklch(0.82 0.2 200);
 
-  /* ── Semantic · Verified ── */
-  --color-verified: oklch(0.79 0.18 145);
-  --color-verified-hi: oklch(0.84 0.18 145);
+  /* ── Semantic signals ── */
+  --color-neon-cyan: oklch(0.75 0.18 200);
+  --color-neon-amber: oklch(0.72 0.15 70);
+  --color-neon-rose: oklch(0.65 0.18 15);
 
-  /* ── Semantic · Curation ── */
-  --color-curation: oklch(0.79 0.09 75);
-  --color-curation-hi: oklch(0.84 0.09 75);
-
-  /* ── Text · Bone hierarchy ── */
-  --color-bone: #f0e8d8;
-  --color-bone-muted: #949eb0;
-  --color-bone-primary: #f0e8d8;
-
-  /* ── Paper ── */
-  --color-paper: #e8ddc8;
-  --color-paper-text: #2c2416;
-  --color-paper-border: #c4b99e;
-
-  /* ── M011: Visual DNA — OKLCH wide-gamut Coral + Cyan brand ── */
-  --color-coral: oklch(0.72 0.2 22);
-  --color-coral-hi: oklch(0.8 0.22 22);
-  --color-cyan: oklch(0.75 0.18 200);
-  --color-cyan-hi: oklch(0.82 0.2 200);
-
-  /* ── 2026 Super Prompt: Semantic signals ── */
-  --color-acid: oklch(0.72 0.2 120);
-  --color-gold: oklch(0.7 0.15 65);
-  --color-safe: oklch(0.65 0.18 145);
-  --color-caution: oklch(0.7 0.18 75);
-  --color-unsafe: oklch(0.65 0.2 30);
+  /* ── Text hierarchy ── */
+  --color-bone: #ede6d5;
+  --color-bone-muted: #8b8fa6;
 
   /* ── Typography ── */
-  --font-family-sans: "Inter", "Geist", sans-serif;
-  --font-family-display: "Inter", "Geist", sans-serif;
-  --font-family-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas,
-    "Liberation Mono", monospace;
+  --font-family-sans: "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-family-display: "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-family-mono: "JetBrains Mono", ui-monospace, monospace;
 
   /* ── Motion ── */
   --transition-duration-fast: 120ms;
   --transition-duration-base: 200ms;
-  --transition-duration-slow: 250ms;
-  --transition-timing-function-solar: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --transition-timing-function-warm: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-duration-slow: 350ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
 
-  /* ── Motion: compositor-only, dopamine-budget compliant ── */
-  --ease-micro: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --ease-base: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-slow: cubic-bezier(0.3, 1.2, 0.5, 1);
-  --ease-narrative: cubic-bezier(0.25, 0.8, 0.25, 1);
-
-  --duration-micro: 120ms;
-  --duration-base: 200ms;
-  --duration-slow: 350ms;
-  --duration-narrative: 400ms;
-
-  /* ── Glass backdrop-blur scale ── */
-  --backdrop-blur-glass-sm: 4px;
-  --backdrop-blur-glass: 12px;
-  --backdrop-blur-glass-lg: 24px;
-
-  /* ── 2.5D Perspective scale ── */
-  --perspective-2d5: 800px;
-  --perspective-dramatic: 1000px;
-
-  /* ── Spacing scale (M011: fluid clamp typography) ── */
+  /* ── Typography scale ── */
   --font-size-display-xl: clamp(2rem, 5vw, 3.5rem);
   --font-size-display-lg: clamp(1.5rem, 4vw, 2.5rem);
   --font-size-display-md: clamp(1.25rem, 3vw, 2rem);
 
-  /* ── 2026 Visual DNA: Material properties ── */
-  --glass-opacity: 0.15;
-  --pbr-roughness: 0.4;
-  --depth-2-5d: 12px;
-  --color-glass: oklch(15% 0.02 260 / 0.75);
-
-  /* ── Depth z-index scale ── */
+  /* ── Z-index scale ── */
   --z-surface: 0;
   --z-raised: 10;
-  --z-pressed: 20;
-  --z-floating: 30;
   --z-overlay: 50;
-
-  /* ── Depth shadow scale ── */
-  --shadow-d1: 0 8px 20px rgb(0 0 0 / 0.18);
-  --shadow-d2: 0 14px 32px rgb(0 0 0 / 0.24);
-  --shadow-d3: 0 18px 42px rgb(0 0 0 / 0.34);
-  --shadow-d4: 0 25px 60px rgb(0 0 0 / 0.5);
-
-  /* ── Depth border scale ── */
-  --border-d1: 1px solid color-mix(in srgb, var(--color-curation) 50%, transparent);
-  --border-d2: 1px solid color-mix(in srgb, var(--color-cyan) 40%, transparent);
-  --border-d3: 1px solid color-mix(in srgb, var(--color-cyan) 50%, transparent);
-  --border-d4: 1px solid rgba(255, 255, 255, 0.18);
-
-  /* ── Aether OS Phase 4: Cinematic Depth Card accent colors ── */
-  --color-aether-parchment: oklch(93% 0.03 75);
-  --color-aether-indigo: oklch(60% 0.2 265);
-  --color-aether-indigo-glow: oklch(60% 0.3 265 / 0.35);
-  --color-aether-amber: oklch(72% 0.165 80);
-  --color-aether-amber-glow: oklch(72% 0.3 80 / 0.35);
-  --color-aether-teal: oklch(70% 0.16 195);
-  --color-aether-teal-glow: oklch(70% 0.28 195 / 0.35);
-
-  /* ── Phase 5: Agent-intent semantic tokens (SignalChip variants) ── */
-  --color-agent-moderator: oklch(0.65 0.15 280);
-  --color-agent-moderator-glow: oklch(0.65 0.3 280 / 0.35);
-  --color-agent-researcher: oklch(0.65 0.15 220);
-  --color-agent-researcher-glow: oklch(0.65 0.3 220 / 0.35);
-  --color-agent-writer: oklch(0.7 0.15 80);
-  --color-agent-writer-glow: oklch(0.7 0.3 80 / 0.35);
-  --color-agent-curator: oklch(0.6 0.12 160);
-  --color-agent-curator-glow: oklch(0.6 0.25 160 / 0.35);
-  --color-agent-analyst: oklch(0.65 0.18 15);
-  --color-agent-analyst-glow: oklch(0.65 0.3 15 / 0.35);
-
-  /* ── v2.0: Depth animation tokens ── */
-  --ease-depth: cubic-bezier(0.3, 1.2, 0.5, 1);
-  --ease-emotional: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --duration-tilt: 200ms;
-  --duration-reveal: 500ms;
-  --duration-breath: 3s;
-  --depth-tilt-perspective: 1000px;
-
-  /* ── M015: Aether Canvas Engine — visual content canvas ── */
-  --color-canvas-bg: oklch(10% 0.01 260);
-  --color-canvas-text: oklch(90% 0.01 75);
-  --color-canvas-surface: oklch(15% 0.02 260 / 0.6);
-  --color-canvas-border: oklch(25% 0.04 260 / 0.4);
-  --color-canvas-parchment: oklch(93% 0.03 75);
-  --color-canvas-parchment-text: oklch(20% 0.02 75);
-  --color-canvas-warm-gray: oklch(35% 0.02 60);
-  --color-canvas-warm-gray-text: oklch(90% 0.01 60);
-  --color-canvas-obsidian: oklch(8% 0.01 260);
-  --color-canvas-obsidian-text: oklch(85% 0.02 260);
-  --color-canvas-glow-indigo: oklch(60% 0.3 265 / 0.35);
-  --color-canvas-glow-amber: oklch(72% 0.3 80 / 0.35);
-  --color-canvas-glow-teal: oklch(70% 0.28 195 / 0.35);
-
-  /* ── Phase 4: Mixed-UI-Zones — Parchment Canvas vs Dark Chrome ── */
-  --color-parchment-surface: oklch(93% 0.03 75);
-  --color-parchment-border: oklch(82% 0.04 75);
-  --color-chrome-surface: oklch(10% 0.01 260);
-  --color-chrome-border: oklch(18% 0.02 260 / 0.5);
-  --shadow-parchment-elevated: 0 12px 40px rgb(0 0 0 / 0.35), 0 2px 8px rgb(0 0 0 / 0.15);
-  --shadow-parchment-modal: 0 24px 64px rgb(0 0 0 / 0.5);
-  --radius-parchment: 0.25rem;
-}
-
-:root {
-  /* Surfaces */
-  --void: #0b0c15;
-  --bg-void: #0b0c15;
-  --deep: #111322;
-  --neon-amber: #ffaa00;
-  --neon-cyan: #00e5ff;
-  --glass-surface: rgba(255, 255, 255, 0.04);
-  --mid: #171b30;
-  --raised: #212644;
-
-  /* Text */
-  --bone: #f0e8d8;
-  --bone-muted: #949eb0;
-  --bone-primary: #f0e8d8;
-
-  /* Motion */
-  --t-fast: 120ms;
-  --t-base: 200ms;
-  --t-slow: 250ms;
-  --ease-solar: cubic-bezier(0.2, 0.8, 0.2, 1);
-
-  /* Glass */
-  --glass-bg: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--raised) 20%, transparent),
-    transparent
-  );
-  --glass-border: 1px solid color-mix(in srgb, var(--color-cyan) 40%, transparent);
-  --glass-blur: 12px;
-  --glass-blur-sm: 4px;
-  --glass-blur-lg: 24px;
-
-  /* PBR fake */
-  --pbr-specular: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--color-cyan) 8%, transparent) 0%,
-    transparent 60%
-  );
-  --pbr-metalness: 0 1px 2px color-mix(in srgb, var(--color-cyan) 10%, transparent), 0 2px 4px
-    color-mix(in srgb, var(--color-cyan) 5%, transparent);
-
-  /* 2.5D depth */
-  --z-2d5-back: -1;
-  --z-2d5-base: 0;
-  --z-2d5-front: 1;
-  --z-2d5-floating: 2;
-  --perspective-2d5: 800px;
-  --perspective-dramatic: 1000px;
-
-  /* S03: Semantic Depth z-index (matches ADR 4-level depth system) */
-  --z-surface: 0; /* background, grain, paper */
-  --z-raised: 10; /* content cards, sections */
-  --z-pressed: 20; /* interactive active, hover lift */
-  --z-floating: 30; /* overlays, tooltips, dropdown panels */
-  --z-overlay: 50; /* modals, skip-links */
-
-  /* Tooltip styles */
-  --tooltip-bg: oklch(0.15 0.02 280);
-  --tooltip-text: oklch(0.95 0.01 80);
-  --tooltip-font: "JetBrains Mono", monospace;
-
-  /* Paper */
-  --paper-bg: #e8ddc8;
-  --paper-text: #2c2416;
-  --paper-border: 1px solid #c4b99e;
-
-  /* Typography */
-  --font-display: "Inter", "Geist", sans-serif;
-  --font-sans: "Inter", "Geist", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas,
-    "Liberation Mono", monospace;
-
-  /* Emotional weight spacing */
-  --heading-letter-spacing-xl: -0.03em;
-  --heading-letter-spacing-lg: -0.02em;
-  --heading-letter-spacing-md: -0.01em;
-  --body-line-height-lg: 1.6;
-  --body-max-width: 68ch;
-
-  /* Aether OS Phase 4: glass backdrop refinado */
-  --glass-backdrop: blur(16px) saturate(140%);
-  --glass-inner-glow: inset 0 0 24px var(--card-accent);
-  --ease-bloom: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-  /* ═══ v2.0: ADVANCED DEPTH & TEXTURE ═══ */
-  --depth-tilt-max: 8deg;
-  --depth-tilt-perspective: 1000px;
-  --depth-scroll-reveal-duration: 500ms;
-  --depth-scroll-stagger: 100ms;
-
-  --glow-ambient-speed: 3s;
-  --glow-breath-opacity-min: 0.15;
-  --glow-breath-opacity-max: 0.35;
-
-  --grain-animated-opacity: 0.03;
-  --grain-static-opacity: 0.06;
-  --grain-size: 3px;
-
-  --texture-vignette-opacity: 0.3;
-  --texture-chromatic-strength: 0.08;
-  --texture-dither-opacity: 0.03;
-
-  --ease-depth: cubic-bezier(0.3, 1.2, 0.5, 1);
-  --ease-emotional: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-  --duration-tilt: 200ms;
-  --duration-reveal: 500ms;
-  --duration-breath: 3s;
 }

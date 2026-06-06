@@ -1,27 +1,19 @@
 /**
- * UNITEIA · VISUAL DNA RENAISSANCE v2.0
- * Tailwind v4 Oxide · CSS-first @theme · OKLCH wide-gamut
- * Aesthetic: JRPG + Anime + Whiteboard Technical
- * Warm tactile: grain 4K + paper fiber + glassmorphism 2.0
+ * UNITEIA · GLOBAL CSS v3.0
+ * Dark theme premium. Portal de conteúdo multilíngue.
+ * Stack: Qwik City + Tailwind v4 Oxide + OKLCH
  */
 
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @plugin "@iconify/tailwind4";
 @import "./assets/components-utilities.css";
-@import "./assets/uniteia-tokens.css";
-@import "./assets/p3-accents.css";
 @import "./styles/tokens.css";
 
 /* ═══════════════════════════════════════════
-   LAYER HIERARCHY — explicit cascade order
-   (lower index = lower priority, overridden by higher)
-   Tailwind v4 Oxide layers take precedence
+   LAYER ORDER
    ═══════════════════════════════════════════ */
-@layer theme, design-tokens, p3-accents, reset, base, components, bento-grid, utilities, overrides;
-
-/* Design tokens moved to ./styles/tokens.css (canonical source).
-   This file (global.css) keeps: imports, layer order, font-face, components, reset, typography. */
+@layer theme, reset, base, components, utilities;
 
 /* ═══════════════════════════════════════════
    FONT FACE
@@ -41,70 +33,17 @@
 }
 
 /* ═══════════════════════════════════════════
-   COMPONENTS (flattened: Tailwind v4 @apply rules)
+   BASE
    ═══════════════════════════════════════════ */
-
-@layer components {
-  .btn {
-    @apply px-4 py-2 font-medium;
-    border-radius: 0;
-    transition-property: color, background-color, border-color, box-shadow, transform, opacity;
-    transition-duration: var(--duration-base);
-    transition-timing-function: var(--ease-micro);
-  }
-
-  .btn-primary {
-    @apply px-4 py-2 font-medium bg-action text-void;
-    border-radius: 0;
-    transition-property: color, background-color, border-color, box-shadow, transform, opacity;
-    transition-duration: var(--duration-base);
-    transition-timing-function: var(--ease-micro);
-
-    &:hover {
-      background-color: var(--color-cyan-hi);
-    }
-  }
-
-  .btn-outline {
-    @apply px-4 py-2 font-medium border border-current;
-    border-radius: 0;
-    transition-property: color, background-color, border-color, box-shadow, transform, opacity;
-    transition-duration: var(--duration-base);
-    transition-timing-function: var(--ease-micro);
-
-    &:hover {
-      background-color: color-mix(in srgb, white 5%, transparent);
-    }
-  }
-
-  /* hud-panel / hud-label compose via className in JSX — no @apply chain needed */
-}
-
-/* ═══════════════════════════════════════════
-   BRUTALIST RESET
-   ═══════════════════════════════════════════ */
-
-@layer base {
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    border-radius: 0; /* Brutalist default — override per surface via unlayered block */
-  }
-}
 
 html {
-  background-color: var(--void);
-  color: var(--bone);
-  font-family: var(--font-sans);
+  background-color: var(--color-void);
+  color: var(--color-bone);
+  font-family: var(--font-family-sans);
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
-  overflow-x: hidden;
 }
 
 body {
@@ -114,283 +53,126 @@ body {
 }
 
 /* ═══════════════════════════════════════════
-   EDITORIAL TYPOGRAPHY
+   TYPOGRAPHY
    ═══════════════════════════════════════════ */
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-display);
-  font-weight: 400; /* Editorial preference for lighter weights in display */
-  line-height: 1.1;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-display);
+  font-weight: 600;
+  line-height: 1.15;
   text-wrap: balance;
 }
 
-h1 {
-  font-size: var(--font-size-display-xl);
-  font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: var(--heading-letter-spacing-xl);
-}
-h2 {
-  font-size: var(--font-size-display-lg);
-  font-weight: 400;
-  line-height: 1.0;
-  letter-spacing: var(--heading-letter-spacing-lg);
-}
-h3 {
-  font-size: var(--font-size-display-md);
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: var(--heading-letter-spacing-md);
-}
+h1 { font-size: var(--font-size-display-xl); letter-spacing: -0.03em; }
+h2 { font-size: var(--font-size-display-lg); letter-spacing: -0.02em; }
+h3 { font-size: var(--font-size-display-md); letter-spacing: -0.01em; }
 
 p {
-  max-width: 65ch;
+  max-width: 68ch;
   text-wrap: pretty;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 /* ═══════════════════════════════════════════
-   LINKS · FOCUS · SELECTION
+   LINKS
    ═══════════════════════════════════════════ */
 
 a {
-  color: var(--color-cyan);
+  color: var(--color-accent);
   text-decoration: none;
-  transition: color var(--duration-micro) var(--ease-micro);
+  transition: color var(--transition-duration-fast) var(--ease-out);
+}
+a:hover { color: var(--color-accent-hi); }
+
+/* ═══════════════════════════════════════════
+   FOCUS
+   ═══════════════════════════════════════════ */
+
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-void), 0 0 0 4px var(--color-accent);
+  border-radius: 2px;
 }
 
-a:hover {
-  color: var(--color-cyan-hi);
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-void);
 }
 
-@layer base {
-  :focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--color-void), 0 0 0 4px var(--color-cyan);
-    border-radius: 2px;
+/* ═══════════════════════════════════════════
+   COMPONENTS
+   ═══════════════════════════════════════════ */
+
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all var(--transition-duration-fast) var(--ease-out);
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    composes: btn;
+    background: var(--color-accent);
+    color: var(--color-void);
+  }
+  .btn-primary:hover {
+    background: var(--color-accent-hi);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    composes: btn;
+    background: transparent;
+    color: var(--color-bone-muted);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .btn-ghost:hover {
+    color: var(--color-bone);
+    border-color: rgba(255, 255, 255, 0.15);
   }
 }
 
-/* Dark surface focus-visible (on void/deep backgrounds) */
-.interface-dark :focus-visible {
-  box-shadow: 0 0 0 2px var(--color-void), 0 0 0 4px var(--color-cyan);
+/* ═══════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════ */
+
+.surface-card {
+  background: var(--color-deep);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.5rem;
 }
 
-/* Light canvas focus-visible — use darker accent for contrast */
-.canvas-light :focus-visible {
-  box-shadow: 0 0 0 2px var(--color-void), 0 0 0 4px oklch(0.52 0.12 195);
+.surface-card:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  transition: all var(--transition-duration-base) var(--ease-out);
 }
 
+.text-balance { text-wrap: balance; }
+
+/* ── Skip link ── */
 .skip-link {
   position: absolute;
   top: -100%;
   left: 0;
   z-index: var(--z-overlay);
   padding: 0.75rem 1.25rem;
-  background: var(--color-cyan);
-  color: var(--void);
+  background: var(--color-accent);
+  color: var(--color-void);
   font-weight: 600;
-  font-size: 1rem;
-  text-decoration: none;
-  transition: top var(--duration-micro) var(--ease-micro);
+  transition: top var(--transition-duration-fast) var(--ease-out);
 }
+.skip-link:focus { top: 0; }
 
-.skip-link:focus {
-  top: 0;
-}
-
-::selection {
-  background-color: var(--color-cyan);
-  color: var(--void);
-}
-
-/* ── Image outlines (subtle depth — make-interfaces-feel-better Principle 11) ── */
-img {
-  outline: 1px solid rgba(255, 255, 255, 0.1);
-  outline-offset: -1px;
-}
-
-/* ═══════════════════════════════════════════
-   JRPG WHISPER
-   ═══════════════════════════════════════════ */
-
-.whisper-hover {
-  transition: transform var(--duration-base) var(--ease-micro);
-}
-
-.whisper-hover:hover {
-  transform: translateY(-2px);
-}
-
-/* ═══════════════════════════════════════════
-   COMPONENT UTILITIES — loaded via components-utilities.css import
-   Classes: surface-hud, hud-label, scratch-divider, depth-surface,
-   glass, grid-signal, noise-mask, grain-4k, paper-fiber, canvas-parchment,
-   canvas-chrome, cinematic-depth-card, mixed-media-canvas, etc.
-   ═══════════════════════════════════════════ */
-
-/* ── Scale on press (tactile feedback — Principle 12) ── */
-.scale-on-press {
-  transition-property: scale;
-  transition-duration: 150ms;
-  transition-timing-function: ease-out;
-}
-.scale-on-press:active {
-  scale: 0.96;
-}
+/* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
-  .scale-on-press:active {
-    scale: none;
-  }
-}
-
-/* ═══════════════════════════════════════════
-   Σ LOAD: UE5 Illusion + Mixed UI + Tactile Warmth
-   Refinamento imediato — sem refatoração
-   ═══════════════════════════════════════════ */
-
-/* .glass-2-5d replaced by .surface-panel (PLANO-083) */
-
-.ue5-illusion {
-  position: relative;
-  perspective: 1400px;
-  transform-style: preserve-3d;
-}
-
-.ue5-illusion::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(#ffffff08 0.8px, transparent 1px),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23grain)' opacity='0.06'/%3E%3C/svg%3E");
-  background-size: 5px 5px, cover;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  opacity: 0.7;
-  border-radius: inherit;
-}
-
-/* ── Mixed UI Zone: Canvas Light ── */
-.canvas-light {
-  --zone-bg: #f2f0e9;
-  --zone-text: #0f0e0d;
-  --zone-text-muted: #3d3a35;
-  --zone-border: #d4d0c7;
-  --zone-accent: #1a6b8a;
-  background: var(--zone-bg);
-  color: var(--zone-text);
-}
-
-.canvas-light h1,
-.canvas-light h2,
-.canvas-light h3,
-.canvas-light h4,
-.canvas-light h5,
-.canvas-light h6,
-.canvas-light p,
-.canvas-light li,
-.canvas-light label {
-  color: var(--zone-text);
-}
-
-.canvas-light .text-bone-muted {
-  color: var(--zone-text-muted);
-}
-
-/* ── Mixed UI Zone: Interface Dark ── */
-.interface-dark {
-  --zone-dark-bg: #0f0e0d;
-  --zone-dark-text: #f2f0e9;
-  --zone-dark-text-muted: #8b949e;
-  --zone-dark-border: rgba(255, 255, 255, 0.08);
-  --zone-dark-accent: var(--color-cyan);
-  background: var(--zone-dark-bg);
-  color: var(--zone-dark-text);
-}
-
-.interface-dark a {
-  transition: color 150ms ease, text-shadow 300ms ease;
-}
-
-.interface-dark a:hover {
-  text-shadow: 0 0 8px color-mix(in srgb, var(--color-cyan) 60%, transparent);
-}
-
-/* ══ Mixed-UI zones — rounded corners without !important war ══ */
-.canvas-light,
-.canvas-light *,
-.interface-dark,
-.surface-panel,
-.ue5-illusion.rounded-3xl {
-  border-radius: 1.5rem;
-}
-
-/* ═══════════════════════════════════════════
-   AETHER HAND-DRAW COLLAGE — Pure Vector Effects
-   ═══════════════════════════════════════════ */
-
-@keyframes collage-draw {
-  from {
-    stroke-dashoffset: 100;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-.collage-arrow {
-  animation: collage-draw 1.2s ease-out forwards;
-}
-
-@media (max-width: 640px) {
-  .aether-collage {
-    aspect-ratio: 4 / 5;
-    min-height: 400px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .collage-arrow {
-    animation: none;
-  }
-}
-
-/* ── ∅ Tooltip ── */
-[data-tooltip] {
-  position: relative;
-}
-
-[data-tooltip]::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 4px 8px;
-  background: var(--tooltip-bg);
-  color: var(--tooltip-text);
-  font-family: var(--tooltip-font);
-  font-size: 11px;
-  line-height: 1.4;
-  white-space: nowrap;
-  border-radius: 4px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.15s ease;
-  z-index: var(--z-floating);
-}
-
-[data-tooltip]:hover::after {
-  opacity: 1;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [data-tooltip]::after {
-    transition: none;
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
