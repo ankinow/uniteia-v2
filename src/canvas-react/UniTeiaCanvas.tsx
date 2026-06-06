@@ -7,12 +7,19 @@ import {
   StepCardShapeUtil,
   StickyNoteShapeUtil,
   SvgIconShapeUtil,
+  KawaiiLivingShapeUtil,
 } from '../shapes'
 import { loadTemplate_01, loadTemplate_02, loadTemplate_03 } from '../templates'
 import '../i18n/i18n'
 import './canvas.css'
 
-const customShapes = [StepCardShapeUtil, StickyNoteShapeUtil, CodeBlockShapeUtil, SvgIconShapeUtil]
+const customShapes = [
+  StepCardShapeUtil,
+  StickyNoteShapeUtil,
+  CodeBlockShapeUtil,
+  SvgIconShapeUtil,
+  KawaiiLivingShapeUtil,
+]
 
 const templateLoaders: Record<string, (editor: any, locale: string) => void> = {
   '01': loadTemplate_01,
