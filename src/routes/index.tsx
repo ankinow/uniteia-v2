@@ -10,12 +10,14 @@ export default component$(() => {
   return (
     <div class="min-h-screen flex flex-col items-center justify-center bg-void text-bone px-4">
       <div class="text-center space-y-8 max-w-md">
-        <h1 class="text-4xl md:text-5xl font-bold tracking-tight">
-          Uni<span class="text-accent">Teia</span>
-        </h1>
-        <p class="text-bone-muted text-lg leading-relaxed">
-          Knowledge signals. Clean. Multilingual. No noise.
-        </p>
+        <header class="space-y-4">
+          <h1 class="text-4xl md:text-5xl font-bold tracking-tight">
+            Uni<span class="text-accent">Teia</span>
+          </h1>
+          <p class="text-bone-muted text-lg leading-relaxed">
+            Knowledge signals. Clean. Multilingual. No noise.
+          </p>
+        </header>
 
         <div class="flex flex-wrap justify-center gap-3" aria-label="Select language">
           {SUPPORTED_LANGUAGES.map(l => (

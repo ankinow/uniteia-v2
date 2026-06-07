@@ -84,6 +84,31 @@ export const useNicheData = routeLoader$<NicheRouteData>(async ({ params, error 
   // Find the matching niche
   const niche = findNicheBySlug(niches, nicheSlug, lang as SupportedLanguage)
   if (!niche) {
+    // During SSG, return empty data instead of throwing
+    if (import.meta.env.SSR) {
+      console.warn(`[niche-loader] Niche not found during SSG: "${nicheSlug}"`)
+      return {
+        niche:
+          niches[0] ||
+          ({
+            slug: nicheSlug,
+            slugs: { en: nicheSlug, pt: nicheSlug },
+            icon: 'file',
+            title: {
+              en: nicheSlug,
+              pt: nicheSlug,
+              es: nicheSlug,
+              fr: nicheSlug,
+              de: nicheSlug,
+              it: nicheSlug,
+              ja: nicheSlug,
+              zh: nicheSlug,
+            },
+            description: { en: '', pt: '', es: '', fr: '', de: '', it: '', ja: '', zh: '' },
+          } as any),
+        otherNiches: [],
+      }
+    }
     console.warn(`[niche-loader] Niche not found for slug: "${nicheSlug}"`)
     throw error(404, `Niche not found: ${nicheSlug}`)
   }
@@ -102,20 +127,29 @@ export const useNicheArticles = routeLoader$<NicheArticleEntry[]>(async ({ param
   const niche = findNicheBySlug(niches, nicheSlug, lang as SupportedLanguage)
   if (!niche) return []
 
-  const { contentGraphProvider } = await import('~/content-graph.generated')
-  const nodes = contentGraphProvider.getByNiche(niche.slug)
+  try {
+    const { contentGraphProvider } = await import('~/content-graph.generated')
+    const nodes = contentGraphProvider.getByNiche(niche.slug)
 
-  return nodes
-    .filter(
-      n => n.slug !== '_index' && n.title && n.title !== '' && contentGraphProvider.isPublic(n)
-    )
-    .map(node => ({
-      slug: node.slug,
-      lang: node.locale as SupportedLanguage,
-      title: node.title,
-      summary: node.summary,
-      updatedAt: node.timestamps.updatedAt,
-    }))
+    return nodes
+      .filter(
+        n => n.slug !== '_index' && n.title && n.title !== '' && contentGraphProvider.isPublic(n)
+      )
+      .map(node => ({
+        slug: node.slug,
+        lang: node.locale as SupportedLanguage,
+        title: node.title,
+        summary: node.summary,
+        updatedAt: node.timestamps.updatedAt,
+      }))
+  } catch (err) {
+    // During SSG, content graph may not be available
+    if (import.meta.env.SSR) {
+      console.warn(`[niche-loader] Content graph unavailable during SSG for niche: ${nicheSlug}`)
+      return []
+    }
+    throw err
+  }
 })
 
 /**

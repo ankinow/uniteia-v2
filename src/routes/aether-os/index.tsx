@@ -12,14 +12,14 @@ export default component$(() => {
 
   return (
     <div class="max-w-4xl mx-auto px-4 py-12 text-bone">
-      <div class="mb-12">
+      <header class="mb-12">
         <h1 class="text-3xl md:text-4xl font-display font-bold text-bone mb-2">
           Aether OS <span class="text-action/60">PA∞</span>
         </h1>
         <p class="text-bone-muted text-lg">
           The autonomous pipeline that builds and curates {t.seo.siteName}.
         </p>
-      </div>
+      </header>
 
       {/* Pipeline overview */}
       <section class="mb-12">

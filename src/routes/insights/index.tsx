@@ -15,7 +15,7 @@ export default component$(() => {
 
   return (
     <div class="px-4 py-8 max-w-6xl mx-auto">
-      <div class="mb-8">
+      <header class="mb-8">
         <p class="text-xs font-mono text-bone-muted uppercase tracking-wider mb-2">
           FLUX · SOTA 2026 · DARK MANGA
         </p>
@@ -26,7 +26,7 @@ export default component$(() => {
           Hero asset generated via FLUX.1-dev (NVIDIA NIM) at 1024×1024, 21.9s. The prompt below is
           what produced the image above — same prompt, same seed (17) reproduces deterministically.
         </p>
-      </div>
+      </header>
 
       <figure class="border-2 border-bone/20 bg-void mb-8">
         <img

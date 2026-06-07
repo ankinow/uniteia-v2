@@ -317,7 +317,7 @@ export default component$(() => {
     <div class="min-h-screen bg-[oklch(0.18_0.02_280)] text-bone">
       <div class="max-w-5xl mx-auto px-4 md:px-8 py-12 md:py-16">
         {/* Page Header */}
-        <div class="mb-12 pb-8 border-b border-action/20">
+        <header class="mb-12 pb-8 border-b border-action/20">
           <h1 class="text-4xl md:text-5xl font-display text-bone mb-3">
             UniTeia <span class="text-cyan">Design System</span>
           </h1>
@@ -336,7 +336,7 @@ export default component$(() => {
               Tailwind v4
             </span>
           </div>
-        </div>
+        </header>
 
         {/* ── 1. SignalChip ── */}
         <ComponentSection

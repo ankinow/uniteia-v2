@@ -88,6 +88,7 @@ async function main(): Promise<void> {
         'dev',
         'dist',
         '--compatibility-date=2026-04-01',
+        '--compatibility-flags=nodejs_compat',
         `--port=${PREVIEW_PORT}`,
       ],
       {
@@ -102,6 +103,7 @@ async function main(): Promise<void> {
     // Set env vars for preview-dependent steps
     process.env.PLAYWRIGHT_BASE_URL = PREVIEW_URL
     process.env.PREVIEW_PORT = String(PREVIEW_PORT)
+    process.env.CI = 'true'
 
     // Update commands with dynamic URL where needed
     for (const step of previewSteps) {

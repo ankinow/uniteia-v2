@@ -312,15 +312,11 @@ export interface MangaPanel {
   step: number
   total: number
   wide?: boolean
+  bgIsCss?: boolean
   title: string
   body?: string
   list?: string[]
   codeSnippet?: string
-}
-
-const MANGA_ASSETS = {
-  bg: (id: string) => `/assets/manga-bg/tencent-cloud-deal/bg-${id}.webp`,
-  kw: (name: string) => `/assets/kawaii-vibecoder/mini/mini-${name}.webp`,
 }
 
 export function getMangaLayout(slug: string): MangaPanel[] | null {
@@ -342,6 +338,7 @@ export function getMangaLayout(slug: string): MangaPanel[] | null {
       kawaiiPos: R,
       step: 1,
       total: T,
+      bgIsCss: true,
       title: 'Nuvem demais',
       body: 'AWS? GCP? Azure? Relaxa.',
     },
@@ -435,6 +432,7 @@ export function getMangaLayout(slug: string): MangaPanel[] | null {
       kawaiiPos: R,
       step: 8,
       total: T,
+      bgIsCss: true,
       title: '3 erros que custam',
       list: ['DONT over-provision', 'AVOID static', 'NEVER skip CDN'],
     },

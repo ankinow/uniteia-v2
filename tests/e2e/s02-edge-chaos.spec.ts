@@ -79,7 +79,9 @@ test.describe('Edge Chaos — Stale chunk handling', () => {
     await expect(page.locator('[data-testid="article-frame"]')).toBeVisible()
 
     // Check that the page headline renders despite stale chunks
-    await expect(page.getByRole('heading', { name: 'Magica AI Platform — Overview' })).toBeVisible()
+    await expect(
+      page.getByRole('heading', { name: 'Magica: The AI Command Center', level: 1 })
+    ).toBeVisible()
 
     await page.waitForLoadState('networkidle')
 

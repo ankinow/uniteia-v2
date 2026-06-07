@@ -13,6 +13,7 @@ export interface StoryboardCell {
   quote?: { text: string; source: string }
   diagram?: 'magica-arch' | 'quickstart-flow' | 'mcp-arch' | 'tencent-stack' | 'vibecoder'
   arrowTo?: string[]
+  codeSnippet?: string
 }
 
 export interface StoryboardLayout {
@@ -47,4 +48,5 @@ export interface ResolvedCell {
   quote?: { text: string; source: string }
   diagram?: 'magica-arch' | 'quickstart-flow' | 'mcp-arch' | 'tencent-stack' | 'vibecoder'
   arrowTo?: string[]
+  codeSnippet?: string
 }

@@ -90,7 +90,7 @@ test.describe('S03: Hydration Resilience — CPU Throttling', () => {
     await gotoAndAssertNegotiation(page, TRACKED_ROUTES[0])
     await expect(page.locator('[data-testid="article-frame"]')).toBeVisible()
     await expect(
-      page.getByRole('heading', { name: 'Tencent Cloud Deal Stack for Builders' })
+      page.getByRole('heading', { name: 'Tencent Cloud Deal Stack for Builders', level: 1 })
     ).toBeVisible()
     await page.waitForLoadState('networkidle')
 
@@ -136,7 +136,7 @@ test.describe('S03: Hydration Resilience — Delayed Chunks', () => {
     await gotoAndAssertNegotiation(page, TRACKED_ROUTES[0])
     await expect(page.locator('[data-testid="article-frame"]')).toBeVisible()
     await expect(
-      page.getByRole('heading', { name: 'Tencent Cloud Deal Stack for Builders' })
+      page.getByRole('heading', { name: 'Tencent Cloud Deal Stack for Builders', level: 1 })
     ).toBeVisible()
     await page.waitForLoadState('networkidle')
 

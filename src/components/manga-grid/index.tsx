@@ -4,6 +4,7 @@
  * Mobile: 1-col | Desktop: 2-col with wide panels spanning full width
  */
 import { component$ } from '@builder.io/qwik'
+import './manga-grid.css'
 
 export interface MangaPanel {
   id: string
@@ -28,6 +29,7 @@ export interface MangaPanel {
   step: number
   total: number
   wide?: boolean
+  bgIsCss?: boolean
   title: string
   body?: string
   list?: string[]
@@ -64,14 +66,16 @@ export const MangaGrid = component$<MangaGridProps>(({ panels }) => {
           style={{ gridArea: `p${String(i + 1).padStart(2, '0')}` }}
         >
           <div class="vne-panel__bg">
-            <img
-              src={panel.bgSrc}
-              alt={panel.bgAlt}
-              class="vne-panel__bg-img"
-              loading={i < 3 ? 'eager' : 'lazy'}
-              width={panel.wide ? 1920 : 1024}
-              height={panel.wide ? 1080 : 768}
-            />
+            {!panel.bgIsCss && (
+              <img
+                src={panel.bgSrc}
+                alt={panel.bgAlt}
+                class="vne-panel__bg-img"
+                loading={i < 3 ? 'eager' : 'lazy'}
+                width={panel.wide ? 1344 : 1024}
+                height={panel.wide ? 768 : 768}
+              />
+            )}
           </div>
 
           <div class={`vne-panel__kawaii vne-panel__kawaii--${panel.kawaiiPos}`}>
