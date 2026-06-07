@@ -10,9 +10,10 @@ import { Breadcrumb } from '~/components/breadcrumb'
 import { JSONLD } from '~/components/json-ld'
 import { LivingBrief2Col } from '~/components/living-brief'
 import type { LivingBriefCollageProps } from '~/components/living-brief/types'
+import { MangaGrid } from '~/components/manga-grid'
 import { StoryboardGrid } from '~/components/storyboard-grid'
 import { collagePackageToProps, parseCollagePackage } from '~/utils/collage-importer'
-import { getStoryboardLayout } from '~/utils/storyboard-resolver'
+import { getMangaLayout, getStoryboardLayout } from '~/utils/storyboard-resolver'
 
 import type { ContentLocale, ContentNode } from '~/content-graph/contracts/node'
 import { getTranslation, useI18n } from '~/i18n/context'
@@ -188,6 +189,9 @@ export default component$(() => {
     ...(collage ? ({ collage } as const) : {}),
   }
 
+  // Check for MangaGrid layout (12-panel sequential narrative)
+  const mangaPanels = content.value.slug ? getMangaLayout(content.value.slug) : null
+
   // Check for StoryboardGrid layout
   const storyboardLayout = content.value.slug
     ? getStoryboardLayout(content.value.slug, content.value.lang, t)
@@ -195,12 +199,17 @@ export default component$(() => {
 
   return (
     <>
-      {storyboardLayout ? (
+      {mangaPanels ? (
+        <>
+          <JSONLD data={webPageSchema} />
+          <MangaGrid panels={mangaPanels} />
+        </>
+      ) : storyboardLayout ? (
         <>
           <div class="px-4 pt-6 pb-2 w-full max-w-6xl mx-auto">
             <Breadcrumb />
             <h1 class="text-2xl md:text-3xl font-bold font-display tracking-tight text-bone mt-6 mb-4">
-              {content.value.title}
+              {storyboardLayout.metaTitle || content.value.title}
             </h1>
           </div>
           <JSONLD data={webPageSchema} />
@@ -274,12 +283,26 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
       { property: 'og:locale', content: content.lang },
       {
         property: 'og:image',
-        content: 'https://uniteia.com/og-image.png',
+        content: [
+          'magica-overview',
+          'magica-quickstart',
+          'magica-mcp-server',
+          'tencent-cloud-deal-stack-builders',
+        ].includes(slug)
+          ? 'https://uniteia.com/assets/kawaii-vibecoder/hero-postit-collage.webp'
+          : 'https://uniteia.com/og-image.png',
       },
       { name: 'twitter:card', content: 'summary_large_image' },
       {
         name: 'twitter:image',
-        content: 'https://uniteia.com/og-image.png',
+        content: [
+          'magica-overview',
+          'magica-quickstart',
+          'magica-mcp-server',
+          'tencent-cloud-deal-stack-builders',
+        ].includes(slug)
+          ? 'https://uniteia.com/assets/kawaii-vibecoder/hero-postit-collage.webp'
+          : 'https://uniteia.com/og-image.png',
       },
       { name: 'twitter:title', content: content.title },
       { name: 'twitter:description', content: description },

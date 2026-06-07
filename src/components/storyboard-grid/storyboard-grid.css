@@ -236,6 +236,48 @@
   border: 1px solid #e2e2e2;
 }
 
+/* Full-width diagram/closing cells — allow taller images (override all breakpoints) */
+.storyboard-cell[data-cell-id="diagram"] .storyboard-cell__image,
+.storyboard-cell[data-cell-id="closing"] .storyboard-cell__image {
+  max-height: 500px !important;
+  object-fit: contain !important;
+}
+
+/* ── Mini connector (kawaii narrative flow) ── */
+.storyboard-cell__mini-connector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.storyboard-cell__mini-image {
+  max-height: 56px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.85;
+  animation: kawaii-fade-in 0.4s ease-out both;
+}
+
+@keyframes kawaii-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.95);
+  }
+  to {
+    opacity: 0.85;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .storyboard-cell__mini-image {
+    max-height: 36px;
+    opacity: 0.7;
+  }
+}
+
 /* ── CTA ── */
 .storyboard-cell__cta-wrapper {
   display: flex;

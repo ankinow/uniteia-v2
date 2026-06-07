@@ -116,6 +116,20 @@ export const StoryboardCell = component$<{ cell: ResolvedCell }>(({ cell }) => {
         </blockquote>
       )}
 
+      {/* ── Mini cell (small centered kawaii connector) ── */}
+      {cell.variant === 'mini' && (
+        <div class="storyboard-cell__mini-connector">
+          {cell.image && (
+            <img
+              src={cell.image.src}
+              alt={cell.image.alt}
+              class="storyboard-cell__mini-image"
+              loading="lazy"
+            />
+          )}
+        </div>
+      )}
+
       {/* ── Arrow indicator (for cells that connect to others) ── */}
       {cell.arrowTo && cell.arrowTo.length > 0 && (
         <div class="storyboard-cell__arrow-indicator" aria-hidden="true">

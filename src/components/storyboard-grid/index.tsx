@@ -78,7 +78,7 @@ export const StoryboardGrid = component$<{ layout: ResolvedLayout }>(({ layout }
   })
 
   return (
-    <div class="storyboard-wrapper" style={textureStyle}>
+    <article class="storyboard-wrapper" style={textureStyle} data-testid="article-frame">
       <div
         ref={gridRef}
         class="storyboard-grid"
@@ -123,6 +123,6 @@ export const StoryboardGrid = component$<{ layout: ResolvedLayout }>(({ layout }
 
       {/* Grain overlay for texture */}
       <div class="storyboard-grain" aria-hidden="true" />
-    </div>
+    </article>
   )
 })

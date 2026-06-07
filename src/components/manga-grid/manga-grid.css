@@ -1,0 +1,209 @@
+/* VNE Grid — Visual Narrative Engine v2 */
+.vne-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 12px;
+}
+
+.vne-panel {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid oklch(0.94 0.02 80 / 0.12);
+  background: oklch(0.12 0.02 265);
+  min-height: 280px;
+  transition: transform 0.2s ease;
+}
+
+.vne-panel__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.vne-panel__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.92;
+}
+
+/* Craft paper overlay */
+.vne-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: oklch(0.94 0.03 85 / 0.04);
+  pointer-events: none;
+}
+
+.vne-panel__kawaii {
+  position: absolute;
+  z-index: 10;
+}
+.vne-panel__kawaii--bottom-right {
+  bottom: 10px;
+  right: 10px;
+}
+.vne-panel__kawaii--bottom-left {
+  bottom: 10px;
+  left: 10px;
+}
+.vne-panel__kawaii-img {
+  max-height: 100px;
+  width: auto;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.35));
+  animation: vne-pop 0.45s ease-out both;
+}
+
+@keyframes vne-pop {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Progress badge */
+.vne-panel__badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: oklch(0.15 0.02 265 / 0.85);
+  backdrop-filter: blur(4px);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid oklch(0.75 0.18 200 / 0.3);
+}
+.vne-panel__step-num {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: oklch(0.75 0.18 200);
+}
+.vne-panel__step-emoji {
+  font-size: 14px;
+}
+
+/* Caption */
+.vne-panel__caption {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 130px;
+  z-index: 10;
+  color: oklch(0.94 0.02 80);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+.vne-panel__title {
+  font-family: "Sora", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 3px 0;
+}
+.vne-panel__body {
+  font-family: "Inter Variable", sans-serif;
+  font-size: 0.8rem;
+  opacity: 0.85;
+  margin: 0;
+}
+.vne-panel__list {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.vne-panel__list li {
+  background: oklch(0.94 0.02 80 / 0.08);
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+}
+.vne-panel__code {
+  background: oklch(0.15 0.01 260 / 0.9);
+  color: oklch(0.8 0.18 145);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  padding: 6px 10px;
+  border-radius: 5px;
+  margin: 6px 0 0 0;
+  overflow-x: auto;
+}
+
+/* Desktop: 2-col with wide panels */
+@media (min-width: 768px) {
+  .vne-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "p01 p02" "p03 p04" "p05 p05" "p06 p07"
+      "p08 p09" "p10 p10" "p11 p12";
+    gap: 28px;
+  }
+  .vne-panel {
+    min-height: 360px;
+  }
+  .vne-panel--wide {
+    min-height: 420px;
+  }
+  .vne-panel__kawaii-img {
+    max-height: 130px;
+  }
+  .vne-panel__caption {
+    right: 160px;
+  }
+}
+
+/* Wide panels span 2 columns */
+.vne-panel--wide {
+  grid-column: 1 / -1;
+}
+
+/* Panel type-specific accent borders */
+.vne-panel--hook {
+  border-top: 3px solid oklch(0.65 0.18 30);
+}
+.vne-panel--myth {
+  border-top: 3px solid oklch(0.7 0.15 80);
+}
+.vne-panel--promise {
+  border-top: 3px solid oklch(0.72 0.17 145);
+}
+.vne-panel--analogy {
+  border-top: 3px solid oklch(0.68 0.16 200);
+}
+.vne-panel--architecture {
+  border-top: 3px solid oklch(0.75 0.18 200);
+}
+.vne-panel--code-peek {
+  border-top: 3px solid oklch(0.6 0.05 260);
+}
+.vne-panel--decision {
+  border-top: 3px solid oklch(0.68 0.16 280);
+}
+.vne-panel--warning {
+  border-top: 3px solid oklch(0.62 0.2 25);
+}
+.vne-panel--benchmark {
+  border-top: 3px solid oklch(0.7 0.15 80);
+}
+.vne-panel--hands-on {
+  border-top: 3px solid oklch(0.72 0.17 145);
+}
+.vne-panel--result {
+  border-top: 3px solid oklch(0.72 0.18 150);
+}
+.vne-panel--next-step {
+  border-top: 3px solid oklch(0.75 0.18 200);
+}

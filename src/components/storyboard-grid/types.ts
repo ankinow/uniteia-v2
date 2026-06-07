@@ -1,17 +1,4 @@
-/**
- * StoryboardGrid — Editorial CSS Grid layout
- * Replaces the Living Brief collage with indexable, accessible, responsive HTML.
- *
- * Cell variants:
- *   insight   — title + paragraph (insight-driven)
- *   evidence  — image + caption
- *   diagram   — icon/SVG + feature list
- *   cta       — CTA button + badge + microcopy
- *   metric    — large number + label + delta
- *   quote     — blockquote + attribution
- */
-
-export type CellVariant = 'insight' | 'evidence' | 'diagram' | 'cta' | 'metric' | 'quote'
+export type CellVariant = 'insight' | 'evidence' | 'diagram' | 'cta' | 'metric' | 'quote' | 'mini'
 
 export interface StoryboardCell {
   id: string
@@ -24,24 +11,19 @@ export interface StoryboardCell {
   cta?: { label: string; href: string; variant: 'primary' | 'secondary' }
   metric?: { value: string; label: string; delta?: string }
   quote?: { text: string; source: string }
-  /** SVG diagram component key (resolved at render time). One of: magica-arch | quickstart-flow | mcp-arch | tencent-stack */
-  diagram?: 'magica-arch' | 'quickstart-flow' | 'mcp-arch' | 'tencent-stack'
-  /** Cells this cell's arrow points TO (SVG arrow drawn between grid areas) */
+  diagram?: 'magica-arch' | 'quickstart-flow' | 'mcp-arch' | 'tencent-stack' | 'vibecoder'
   arrowTo?: string[]
 }
 
 export interface StoryboardLayout {
   version: '2.0'
-  /** Path to background texture image (or empty for CSS-only) */
   texture?: string
-  /** CSS grid-template-areas value */
   gridTemplate: string
   gridColumns: string
   gridRows: string
   cells: StoryboardCell[]
 }
 
-/** Resolved storyboard layout with i18n text already loaded */
 export interface ResolvedLayout {
   version: '2.0'
   texture?: string
@@ -49,6 +31,7 @@ export interface ResolvedLayout {
   gridColumns: string
   gridRows: string
   cells: ResolvedCell[]
+  metaTitle?: string
 }
 
 export interface ResolvedCell {
@@ -62,6 +45,6 @@ export interface ResolvedCell {
   cta?: { label: string; href: string; variant: 'primary' | 'secondary' }
   metric?: { value: string; label: string; delta?: string }
   quote?: { text: string; source: string }
-  diagram?: 'magica-arch' | 'quickstart-flow' | 'mcp-arch' | 'tencent-stack'
+  diagram?: 'magica-arch' | 'quickstart-flow' | 'mcp-arch' | 'tencent-stack' | 'vibecoder'
   arrowTo?: string[]
 }
