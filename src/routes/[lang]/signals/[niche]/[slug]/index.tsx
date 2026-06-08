@@ -26,7 +26,7 @@ import { ContentLoaderError } from '~/types/content'
 import { canvasToCollageProps } from '~/utils/canvas-to-collage'
 import { loadContent } from '~/utils/content-loader'
 import { generateWebPageSchema } from '~/utils/schema-generators'
-import { extractDescription } from '~/utils/text-utils'
+import { estimateReadTime, extractDescription } from '~/utils/text-utils'
 
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
 
@@ -198,6 +198,8 @@ export default component$(() => {
     ? getStoryboardLayout(content.value.slug, content.value.lang, t)
     : null
 
+  const readTime = estimateReadTime(content.value.content)
+
   return (
     <>
       {mangaPanels ? (
@@ -217,9 +219,10 @@ export default component$(() => {
         <>
           <div class="px-4 pt-6 pb-2 w-full max-w-6xl mx-auto">
             <Breadcrumb />
-            <h1 class="text-2xl md:text-3xl font-bold font-display tracking-tight text-bone mt-6 mb-4">
+            <h1 class="text-2xl md:text-3xl font-bold font-display tracking-tight text-bone mt-6 mb-2">
               {storyboardLayout.metaTitle || content.value.title}
             </h1>
+            <span class="text-sm text-bone-muted">{readTime}</span>
           </div>
           <JSONLD data={webPageSchema} />
           <StoryboardGrid layout={storyboardLayout} />
@@ -236,7 +239,7 @@ export default component$(() => {
         <LivingBrief2Col
           hero={{
             title: content.value.title,
-            subtitle: extractDescription(content.value.content),
+            subtitle: `${extractDescription(content.value.content)} · ${readTime}`,
             hashtags: content.value.subjects,
             variant: 'default',
             buttons: [],
