@@ -53,7 +53,14 @@ export const LivingBrief2Col = component$<LivingBrief2ColProps>(
             hashtags={hero.hashtags}
             buttons={hero.buttons}
             variant={hero.variant}
-          />
+          >
+            <div q:slot="breadcrumb">
+              <Slot name="breadcrumb" />
+            </div>
+            <div q:slot="toc">
+              <Slot name="toc" />
+            </div>
+          </LivingBriefHero>
         </div>
 
         {/* Right Panel — Collage (65% desktop, full-width mobile) */}

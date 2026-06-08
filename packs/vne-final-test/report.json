@@ -1,0 +1,39 @@
+{
+  "slug": "vne-final-test",
+  "pipeline": "vne-3.0.0-bun",
+  "panels_count": 12,
+  "seed_base": 77777,
+  "generation_time_sec": 9.9,
+  "total_size_kb": 589.5,
+  "total_size_mb": 0.58,
+  "size_limit_mb": 1.8,
+  "pass": true,
+  "t16_textRisk_summary": {
+    "low": 12,
+    "medium": 0,
+    "high": 0
+  },
+  "logs": [
+    "T2 SKIP: /tmp/vne-final-test/character/dev-chan-sheet.webp (already exists)",
+    "T2 SKIP: /tmp/vne-final-test/panels/01-hook.webp (already exists)",
+    "T3 SKIP: /tmp/vne-final-test/panels/02-myth.webp (already exists)",
+    "T4 SKIP: /tmp/vne-final-test/panels/03-promise.webp (already exists)",
+    "T5 SKIP: /tmp/vne-final-test/panels/04-analogy.webp (already exists)",
+    "T6 SKIP: /tmp/vne-final-test/panels/05-architecture-(wide).webp (already exists)",
+    "T7 SKIP: /tmp/vne-final-test/panels/06-code-peek.webp (already exists)",
+    "T8 SKIP: /tmp/vne-final-test/panels/07-decision.webp (already exists)",
+    "T9 SKIP: /tmp/vne-final-test/panels/08-warning.webp (already exists)",
+    "T10 SKIP: /tmp/vne-final-test/panels/09-benchmark.webp (already exists)",
+    "T11 SKIP: /tmp/vne-final-test/panels/10-hands-on-(wide).webp (already exists)",
+    "T12 SKIP: /tmp/vne-final-test/panels/11-result.webp (already exists)",
+    "T13 SKIP: /tmp/vne-final-test/panels/12-next-step.webp (already exists)",
+    "Caption pt: /tmp/vne-final-test/captions/pt.json",
+    "Caption en: /tmp/vne-final-test/captions/en.json",
+    "Caption es: /tmp/vne-final-test/captions/es.json",
+    "Caption fr: /tmp/vne-final-test/captions/fr.json",
+    "Caption de: /tmp/vne-final-test/captions/de.json",
+    "Caption it: /tmp/vne-final-test/captions/it.json",
+    "Caption ja: /tmp/vne-final-test/captions/ja.json",
+    "Caption zh: /tmp/vne-final-test/captions/zh.json"
+  ]
+}

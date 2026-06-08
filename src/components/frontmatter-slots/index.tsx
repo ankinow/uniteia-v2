@@ -1,6 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import { HudLabel } from '~/components/hud-label'
 import { ScratchDivider } from '~/components/scratch-divider'
+import { formatRelativeTime } from '~/utils/time-utils'
 import type { FrontmatterSlotsProps } from './types'
 
 const LANG_LABELS: Record<string, string> = {
@@ -58,23 +59,54 @@ export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
       )}
 
       {props.metadata && (
-        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-bone-muted">
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-bone-muted">
           {props.metadata.author && (
-            <div class="flex items-center gap-2 text-xs text-bone-muted">
-              <HudLabel
-                label={labels.byAuthor.replace('{author}', props.metadata.author)}
-                tone="muted"
-                surface="frontmatter"
-              />
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-neon-cyan/20 border border-neon-cyan/30 flex items-center justify-center text-neon-cyan font-bold text-xs overflow-hidden">
+                {props.metadata.author?.[0]?.toUpperCase?.() ?? 'U'}
+              </div>
+              <div class="flex flex-col">
+                <span class="text-[10px] uppercase tracking-wider opacity-50 font-mono">
+                  Author
+                </span>
+                <span class="text-bone font-medium">
+                  {props.metadata.author}
+                </span>
+              </div>
             </div>
           )}
+
+          {props.metadata.created_at && (
+            <div class="flex flex-col">
+              <span class="text-[10px] uppercase tracking-wider opacity-50 font-mono">
+                Published
+              </span>
+              <span class="text-bone/80 tabular-nums" title={new Date(props.metadata.created_at).toLocaleDateString(props.lang)}>
+                {formatRelativeTime(props.metadata.created_at, props.lang)}
+              </span>
+            </div>
+          )}
+
+          {props.metadata.updated_at &&
+            props.metadata.updated_at !== props.metadata.created_at && (
+              <div class="flex flex-col border-l border-white/5 pl-6">
+                <span class="text-[10px] uppercase tracking-wider opacity-50 font-mono">
+                  Updated
+                </span>
+                <span class="text-bone/80 tabular-nums" title={new Date(props.metadata.updated_at).toLocaleDateString(props.lang)}>
+                  {formatRelativeTime(props.metadata.updated_at, props.lang)}
+                </span>
+              </div>
+            )}
+
           {props.metadata.version != null && (
-            <div class="flex items-center gap-2">
-              <HudLabel
-                label={labels.version.replace('{version}', String(props.metadata.version))}
-                tone="action"
-                surface="frontmatter"
-              />
+            <div class="flex flex-col border-l border-white/5 pl-6">
+              <span class="text-[10px] uppercase tracking-wider opacity-50 font-mono">
+                Version
+              </span>
+              <span class="text-neon-amber font-mono">
+                v{props.metadata.version}
+              </span>
             </div>
           )}
         </div>

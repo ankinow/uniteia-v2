@@ -1,11 +1,21 @@
 import { component$ } from '@builder.io/qwik'
-import type { DocumentHead } from '@builder.io/qwik-city'
+import { type DocumentHead, type RequestHandler } from '@builder.io/qwik-city'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
 
 /**
- * Root landing page — language selector. Static, no client JS needed.
- * Redirects to /[lang]/ for content.
+ * Root landing page — language selector.
+ * Redirects to /[lang]/ for content automatically.
  */
+export const onRequest: RequestHandler = async ({ request, redirect }) => {
+  const acceptLang = request.headers.get('accept-language') || ''
+  const preferredLang = (acceptLang.split(',')[0]?.split('-')[0] || 'en').toLowerCase()
+
+  const supported = SUPPORTED_LANGUAGES.find(l => l.code === preferredLang)
+  const targetLang = supported ? supported.code : 'en'
+
+  throw redirect(302, `/${targetLang}/`)
+}
+
 export default component$(() => {
   return (
     <div class="min-h-screen flex flex-col items-center justify-center bg-void text-bone px-4">

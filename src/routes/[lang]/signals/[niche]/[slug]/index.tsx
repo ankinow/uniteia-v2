@@ -13,6 +13,7 @@ import { LivingBrief2Col } from '~/components/living-brief'
 import type { LivingBriefCollageProps } from '~/components/living-brief/types'
 import { MangaGrid } from '~/components/manga-grid'
 import { StoryboardGrid } from '~/components/storyboard-grid'
+import { TableOfContents } from '~/components/table-of-contents'
 import { collagePackageToProps, parseCollagePackage } from '~/utils/collage-importer'
 import { getMangaLayout, getStoryboardLayout } from '~/utils/storyboard-resolver'
 
@@ -187,6 +188,8 @@ export default component$(() => {
       version: t.article.version,
       readInLang: t.article.readInLang,
     },
+    hideHeader: true,
+    readTime: estimateReadTime(content.value.content),
     ...(collage ? ({ collage } as const) : {}),
   }
 
@@ -246,6 +249,12 @@ export default component$(() => {
           }}
           {...(collageAssets.value ? { collage: collageAssets.value } : {})}
         >
+          <div q:slot="breadcrumb">
+            <Breadcrumb />
+          </div>
+          <div q:slot="toc">
+            <TableOfContents />
+          </div>
           <JSONLD data={webPageSchema} />
           <ArticleRenderer {...rendererProps} />
           <div class="mt-8">

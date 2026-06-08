@@ -64,15 +64,21 @@ export const StoryboardCell = component$<{ cell: ResolvedCell }>(({ cell }) => {
               {cell.diagram === 'tencent-stack' && <TencentStackDiagram />}
             </div>
           )}
-          {cell.list && cell.list.length > 0 && (
-            <ul class="storyboard-cell__list">
-              {cell.list.map((item, idx) => (
-                <li key={idx} class="storyboard-cell__list-item">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          )}
+          {cell.list &&
+            cell.list.length > 0 &&
+            (cell.id === 'code' ? (
+              <pre class="storyboard-cell__code-block">
+                <code>{cell.list.join('\n')}</code>
+              </pre>
+            ) : (
+              <ul class="storyboard-cell__list">
+                {cell.list.map((item, idx) => (
+                  <li key={idx} class="storyboard-cell__list-item">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            ))}
         </>
       )}
 

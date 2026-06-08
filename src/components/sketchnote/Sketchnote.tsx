@@ -12,6 +12,7 @@
  */
 
 import { Slot, component$, useStylesScoped$ } from '@builder.io/qwik'
+import { Boneco } from '~/components/boneco'
 import type { TranslationStrings } from '~/i18n/types'
 import {
   AlertIcon as Alert,
@@ -21,7 +22,6 @@ import {
   FlowIcon as Flow,
   HubIcon as Hub,
   MagnetIcon as Magnet,
-  RobotIcon as Robot,
   StarIcon as Star,
 } from './icons'
 
@@ -405,7 +405,7 @@ const Header = component$<HeaderProps>(({ title, subtitle, postIt, mascotBubble,
       </div>
       <div class="sk-header__mascot" aria-label={`Mascot says: ${mascotBubble}`}>
         <div class="sk-header__mascot-bubble">{mascotBubble}</div>
-        <Robot size={56} />
+        <Boneco emotion="teaching" scale={1.2} />
       </div>
       <div class="sk-card__postit" style="grid-column: 1 / -1; justify-self: start">
         {postIt}

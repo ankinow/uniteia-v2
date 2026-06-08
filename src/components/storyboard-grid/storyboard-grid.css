@@ -441,3 +441,20 @@
   line-height: 1.8;
   word-break: keep-all;
 }
+
+/* ── Code block styling (for terminal code cards) ── */
+.storyboard-cell__code-block {
+  background: #111111;
+  color: #a7f3d0; /* emerald-200 green terminal look */
+  padding: 1.25rem;
+  border-radius: 6px;
+  font-family: "JetBrains Mono", Courier, monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  border: 1px solid #2d2d2d;
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
+  margin-top: 0.75rem;
+}

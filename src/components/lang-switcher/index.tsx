@@ -1,6 +1,5 @@
 import { $, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 import { getLanguageName, getTranslation, useI18n } from '~/i18n/context'
-import { updateLangCookie } from '~/i18n/set-lang-cookie'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 import { routes } from '~/routing/routes'
 import type { LangSwitcherLogEvent, LangSwitcherProps, LangSwitcherSegmentedProps } from './types'
@@ -34,9 +33,13 @@ export const LangSwitcher = component$<LangSwitcherProps>(
       const redirectUrl = routes.localized(currentPath, newLang)
       logEvent({ type: 'redirect', to: newLang, redirectUrl })
 
-      updateLangCookie(newLang).finally(() => {
-        window.location.href = redirectUrl
-      })
+      // Set cookie on client side for SSG/static hosting
+      if (typeof document !== 'undefined') {
+        const maxAge = 365 * 24 * 60 * 60 // 1 year
+        document.cookie = `uniteia_lang=${newLang}; path=/; max-age=${maxAge}; SameSite=Lax; Secure`
+      }
+
+      window.location.href = redirectUrl
     })
 
     const toggleDropdown = $(() => {

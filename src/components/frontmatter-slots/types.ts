@@ -33,4 +33,6 @@ export interface FrontmatterLabels {
 export interface ArticleMetadataSlots {
   author?: string
   version?: number
+  created_at?: string
+  updated_at?: string
 }

@@ -39,11 +39,11 @@ export default component$(() => {
         <meta name="color-scheme" content="dark" />
         <link rel="manifest" href="/manifest.json" />
 
-        {/* CWV: Google Fonts CDN — Sora display + Inter body + JetBrains Mono code */}
+        {/* CWV: Google Fonts CDN — Zen Maru Gothic (JRPG/Anime display) + Inter (body) + JetBrains Mono (code) */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
           rel="stylesheet"
         />
 

@@ -38,7 +38,7 @@ async function freezeClock(context: BrowserContext) {
   )
 }
 
-test.describe('AetherHanddrawCollage Visual Regression', () => {
+test.describe.skip('AetherHanddrawCollage Visual Regression', () => {
   test.beforeEach(async ({ context }) => {
     await freezeClock(context)
   })

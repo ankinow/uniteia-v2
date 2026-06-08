@@ -32,20 +32,23 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
           <div class="footer-tagline text-center" data-testid="footer-tagline">
             <p class="text-bone-muted">{t.footer.madeWith}</p>
           </div>
-          <div class="text-center text-xs flex items-center justify-center gap-1.5">
+          <div class="text-center text-xs flex items-center justify-center gap-2">
             <UpsilonSigil
-              size={16}
+              size={18}
               variant="ring"
               animated={true}
-              color="var(--color-bone-muted)"
-              class="opacity-40 hover:opacity-100 transition-opacity"
+              color="var(--color-neon-cyan)"
+              class="opacity-60 hover:opacity-100 transition-opacity"
             />
-            <a
-              href="/aether-os"
-              class="font-mono text-bone-muted/50 hover:text-action/60 transition-colors duration-200"
-            >
-              built with <span class="text-action/40">PA∞</span>
-            </a>
+            <div class="flex flex-col items-start leading-none">
+              <a
+                href="/aether-os"
+                class="font-mono text-bone-muted hover:text-neon-cyan transition-colors duration-200 uppercase tracking-tighter"
+              >
+                Built with <span class="text-neon-cyan font-bold">PA∞ SOTA</span>
+              </a>
+              <span class="text-[8px] text-bone/20 font-mono">Autonomous Engineering</span>
+            </div>
           </div>
           <nav
             aria-label="Footer links"

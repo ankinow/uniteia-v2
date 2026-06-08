@@ -1,0 +1,204 @@
+/**
+ * UNITEIA · CRAFT LAYER v1.0
+ * Additive design tokens — kawaii-dark, craft-paper, washi tape, post-it.
+ * Layers ON TOP of tokens.css (Neo-Realistic 2.5D dark).
+ * Import this AFTER tokens.css to override/augment selectively.
+ *
+ * Usage: @import "./styles/craft-layer.css" in global.css after tokens.css
+ */
+
+@layer theme {
+  /* ── Craft surface accents (additive) ── */
+  --color-craft-paper: #F5F0E8;
+  --color-craft-paper-dark: #2a2520;
+  --color-kawaii-blush: oklch(0.72 0.12 15);
+  --color-kawaii-eye: oklch(0.82 0.18 220);
+
+  /* ── Post-it + Washi tape palette ── */
+  --color-post-it: #FFE135;
+  --color-post-it-glow: oklch(0.85 0.18 90);
+  --color-washi-pink: #FF6B9D;
+  --color-washi-teal: #4ECDC4;
+  --color-washi-lavender: #C4B5FD;
+
+  /* ── Craft shadows (paper layer effect) ── */
+  --shadow-craft: 0 4px 0 0 oklch(0% 0 0 / 0.15);
+  --shadow-craft-hover: 0 6px 0 0 oklch(0% 0 0 / 0.22);
+  --shadow-craft-card: 0 2px 8px oklch(0% 0 0 / 0.3), 0 0 0 1px oklch(100% 0 0 / 0.04);
+
+  /* ── Craft border radius ── */
+  --radius-craft-sm: 8px;
+  --radius-craft-md: 16px;
+  --radius-craft-lg: 24px;
+
+  /* ── Craft spacing scale (4px base) ── */
+  --space-craft-1: 4px;
+  --space-craft-2: 8px;
+  --space-craft-3: 12px;
+  --space-craft-4: 16px;
+  --space-craft-6: 24px;
+  --space-craft-8: 32px;
+  --space-craft-12: 48px;
+  --space-craft-16: 64px;
+
+  /* ── Manga screentone pattern (inline SVG data-URI, <1KB) ── */
+  --pattern-screentone: url("data:image/svg+xml,%3Csvg width='8' height='8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' r='1.2' fill='white' opacity='0.06'/%3E%3C/svg%3E");
+  --pattern-craft-paper: url("data:image/svg+xml,%3Csvg width='64' height='64' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='64' height='64' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+@layer utilities {
+  /* ── Craft card (kawaii-dark variant) ── */
+  .craft-card {
+    position: relative;
+    background: var(--color-raised);
+    border: 1px solid oklch(100% 0 0 / 0.06);
+    border-radius: var(--radius-craft-md);
+    box-shadow: var(--shadow-craft-card);
+    transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+    overflow: hidden;
+  }
+
+  .craft-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-craft-hover), 0 0 24px oklch(0.75 0.18 200 / 0.08);
+  }
+
+  .craft-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--pattern-screentone);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Washi tape decorative strip ── */
+  .washi-tape {
+    position: relative;
+  }
+
+  .washi-tape::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 12px;
+    width: 60px;
+    height: 14px;
+    background: var(--color-washi-pink);
+    opacity: 0.7;
+    transform: rotate(-3deg);
+    border-radius: 2px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .washi-tape-teal::before { background: var(--color-washi-teal); transform: rotate(2deg); left: auto; right: 16px; }
+  .washi-tape-lavender::before { background: var(--color-washi-lavender); transform: rotate(-1deg); }
+
+  /* ── Post-it accent corner ── */
+  .post-it-corner {
+    position: relative;
+  }
+
+  .post-it-corner::after {
+    content: "";
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 32px;
+    height: 32px;
+    background: var(--color-post-it);
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    opacity: 0.85;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  /* ── Craft paper background (for light-mode or accent panels) ── */
+  .craft-paper-bg {
+    background-color: var(--color-craft-paper);
+    background-image: var(--pattern-craft-paper);
+    color: var(--color-craft-paper-dark);
+  }
+
+  /* ── Mascot watermark (subtle background) ── */
+  .mascot-watermark {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    opacity: 0.06;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Kawaii glow ring (for CTAs and interactive elements) ── */
+  .kawaii-glow {
+    box-shadow:
+      0 0 12px oklch(0.82 0.18 220 / 0.25),
+      0 0 24px oklch(0.72 0.12 15 / 0.12);
+  }
+
+  .kawaii-glow:hover {
+    box-shadow:
+      0 0 18px oklch(0.82 0.18 220 / 0.4),
+      0 0 36px oklch(0.72 0.12 15 / 0.2);
+  }
+
+  /* ── Empty state with craft styling ── */
+  .craft-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-craft-12) var(--space-craft-6);
+    text-align: center;
+    border: 2px dashed oklch(100% 0 0 / 0.08);
+    border-radius: var(--radius-craft-lg);
+    background: oklch(100% 0 0 / 0.015);
+  }
+
+  /* ── Share button pill ── */
+  .share-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    border: 1px solid oklch(100% 0 0 / 0.1);
+    background: oklch(100% 0 0 / 0.04);
+    color: var(--color-bone);
+    transition: all 150ms var(--ease-out);
+    cursor: pointer;
+  }
+
+  .share-pill:hover {
+    background: oklch(100% 0 0 / 0.08);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  /* ── Newsletter input ── */
+  .newsletter-input {
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: var(--radius-craft-sm);
+    border: 1px solid oklch(100% 0 0 / 0.12);
+    background: oklch(100% 0 0 / 0.03);
+    color: var(--color-bone);
+    font-family: var(--font-family-sans);
+    font-size: 0.9375rem;
+    transition: border-color 150ms var(--ease-out);
+  }
+
+  .newsletter-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px oklch(0.75 0.18 200 / 0.15);
+  }
+
+  .newsletter-input::placeholder {
+    color: var(--color-bone-muted);
+  }
+}

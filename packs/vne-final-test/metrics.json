@@ -1,0 +1,196 @@
+{
+  "runId": "vne-mq44th5g",
+  "version": "vne-3.0.0-bun",
+  "startedAt": "2026-06-07T18:45:09.268Z",
+  "completedAt": "2026-06-07T18:45:14.874Z",
+  "panels": {
+    "total": 12,
+    "succeeded": 12,
+    "failed": 0,
+    "skipped": 12,
+    "avgSizeKb": 49.1,
+    "avgTimeSec": 0.11,
+    "t16Results": [
+      {
+        "panel": "P03",
+        "size": {
+          "width": 1024,
+          "height": 1024,
+          "kb": 57.4
+        },
+        "textRisk": "low",
+        "colorCheck": {
+          "devChanBlue": true,
+          "craftBg": true
+        },
+        "pass": true
+      },
+      {
+        "panel": "P02",
+        "size": {
+          "width": 1024,
+          "height": 1024,
+          "kb": 53.5
+        },
+        "textRisk": "low",
+        "colorCheck": {
+          "devChanBlue": true,
+          "craftBg": true
+        },
+        "pass": true
+      },
+      {
+        "panel": "P01",
+        "size": {
+          "width": 1024,
+          "height": 1024,
+          "kb": 41.4
+        },
+        "textRisk": "low",
+        "colorCheck": {
+          "devChanBlue": true,
+          "craftBg": true
+        },
+        "pass": true
+      },
+      {
+        "panel": "P05",
+        "size": {
+          "width": 1344,
+          "height": 768,
+          "kb": 44.9
+        },
+        "textRisk": "low",
+        "colorCheck": {
+          "devChanBlue": true,
+          "craftBg": true
+        },
+        "pass": true
+      },
+      {
+        "panel": "P06",
+        "size": {
+          "width": 1024,
+          "height": 1024,
+          "kb": 40.9
+        },
+        "textRisk": "low",
+        "colorCheck": {
+          "devChanBlue": true,
+          "craftBg": true
+        },
+        "pass": true
+      },
+      {
+        "panel": "P04",
+        "size": {
+          "width": 1024,
+          "height": 1024,
+          "kb": 64.2
+        },
+        "textRisk": "low",
+        "colorCheck": {
+          "devChanBlue": true,
+          "craftBg": true
+        },
+        "pass": true
+      },
+      {
+        "panel": "P07",
+        "size": {
+          "width": 1024,
+          "height": 1024,
+          "kb": 66.6
+        },
+        "textRisk": "low",
+        "colorCheck": {
+          "devChanBlue": true,
+          "craftBg": true
+        },
+        "pass": true
+      },
+      {
+        "panel": "P08",
+        "size": {
+          "width": 1024,
+          "height": 1024,
+          "kb": 41
+        },
+        "textRisk": "low",
+        "colorCheck": {
+          "devChanBlue": true,
+          "craftBg": true
+        },
+        "pass": true
+      },
+      {
+        "panel": "P09",
+        "size": {
+          "width": 1024,
+          "height": 1024,
+          "kb": 19
+        },
+        "textRisk": "low",
+        "colorCheck": {
+          "devChanBlue": true,
+          "craftBg": true
+        },
+        "pass": true
+      },
+      {
+        "panel": "P12",
+        "size": {
+          "width": 1024,
+          "height": 1024,
+          "kb": 49.2
+        },
+        "textRisk": "low",
+        "colorCheck": {
+          "devChanBlue": true,
+          "craftBg": true
+        },
+        "pass": true
+      },
+      {
+        "panel": "P10",
+        "size": {
+          "width": 1344,
+          "height": 768,
+          "kb": 46.5
+        },
+        "textRisk": "low",
+        "colorCheck": {
+          "devChanBlue": true,
+          "craftBg": true
+        },
+        "pass": true
+      },
+      {
+        "panel": "P11",
+        "size": {
+          "width": 1024,
+          "height": 1024,
+          "kb": 64.9
+        },
+        "textRisk": "low",
+        "colorCheck": {
+          "devChanBlue": true,
+          "craftBg": true
+        },
+        "pass": true
+      }
+    ]
+  },
+  "fluxApi": {
+    "totalCalls": 0,
+    "retries": 0,
+    "rateLimit429s": 0,
+    "avgCallTimeMs": 0
+  },
+  "assembly": {
+    "panelsUsed": 12,
+    "finalSizeKb": 377.7,
+    "durationMs": 5155
+  },
+  "totalDurationSec": 9.9
+}

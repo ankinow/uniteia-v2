@@ -58,7 +58,7 @@ const POSE_LABEL: Record<string, string> = {
 
 export const MangaGrid = component$<MangaGridProps>(({ panels }) => {
   return (
-    <div class="vne-grid">
+    <div class="vne-grid" data-testid="article-frame">
       {panels.map((panel, i) => (
         <article
           key={panel.id}

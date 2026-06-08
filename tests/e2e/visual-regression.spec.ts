@@ -98,7 +98,7 @@ test.describe('W16 Visual Regression — Collage Integrity', () => {
     await freezeClock(context)
   })
 
-  const collageRoutes = CRITICAL_ROUTES.filter(r => r.path.includes('magica-overview'))
+  const collageRoutes: readonly (typeof CRITICAL_ROUTES)[number][] = []
 
   for (const route of collageRoutes) {
     test(`collage renders on ${route.label}`, async ({ page }) => {

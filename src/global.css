@@ -9,6 +9,7 @@
 @plugin "@iconify/tailwind4";
 @import "./assets/components-utilities.css";
 @import "./styles/tokens.css";
+@import "./styles/craft-layer.css";
 
 /* ═══════════════════════════════════════════
    LAYER ORDER
@@ -58,19 +59,28 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family-display);
-  font-weight: 600;
-  line-height: 1.15;
+  font-weight: 700;
+  line-height: 1.1;
   text-wrap: balance;
+  color: var(--color-bone);
 }
 
-h1 { font-size: var(--font-size-display-xl); letter-spacing: -0.03em; }
-h2 { font-size: var(--font-size-display-lg); letter-spacing: -0.02em; }
-h3 { font-size: var(--font-size-display-md); letter-spacing: -0.01em; }
+h1 { font-size: var(--font-size-display-xl); letter-spacing: -0.02em; margin-bottom: 2rem; }
+h2 { font-size: var(--font-size-display-lg); letter-spacing: -0.01em; margin-top: 3rem; margin-bottom: 1.5rem; }
+h3 { font-size: var(--font-size-display-md); letter-spacing: -0.005em; margin-top: 2rem; margin-bottom: 1rem; }
+h4 { font-size: var(--font-size-display-sm); margin-top: 1.5rem; margin-bottom: 0.75rem; }
 
-p {
-  max-width: 68ch;
+p, li {
+  max-width: 65ch;
   text-wrap: pretty;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+  color: var(--color-bone-muted);
+}
+
+b, strong {
+  color: var(--color-bone);
+  font-weight: 600;
 }
 
 /* ═══════════════════════════════════════════
@@ -168,6 +178,84 @@ a:hover { color: var(--color-accent-hi); }
   transition: top var(--transition-duration-fast) var(--ease-out);
 }
 .skip-link:focus { top: 0; }
+
+/* ═══════════════════════════════════════════
+   THEME OVERRIDES (Light Mode)
+   ═══════════════════════════════════════════ */
+
+.light {
+  --color-void: #f9f8f4;
+  --color-deep: #f2f1eb;
+  --color-mid: #e9e7df;
+  --color-raised: #ffffff;
+  --color-bone: #1a1a1a;
+  --color-bone-muted: #5a5a5a;
+  --color-washi-teal: #1a8a81; /* Darker teal for accessibility on light bg */
+}
+
+.light .btn-primary {
+  color: #ffffff;
+}
+
+.light .share-pill {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+  color: var(--color-bone);
+}
+
+.light .share-pill:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: var(--color-accent);
+}
+
+.light body {
+  background-color: var(--color-void);
+  color: var(--color-bone);
+}
+
+.light .surface-card,
+.light .surface-panel,
+.light .hud-panel {
+  background: var(--color-raised);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.light .prose {
+  --tw-prose-body: var(--color-bone-muted);
+  --tw-prose-headings: var(--color-bone);
+  --tw-prose-links: var(--color-accent);
+  --tw-prose-bold: var(--color-bone);
+}
+
+.light .living-brief-hero {
+  background: linear-gradient(180deg, #2a2520 0%, #1a1a1a 100%);
+}
+
+.light .living-brief-collage {
+  background-color: #fdfcf8;
+}
+
+.light .torn-edges {
+  opacity: 0.1;
+}
+
+/* ── Skeleton Loading ── */
+.skeleton {
+  background-color: var(--color-mid);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0)
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {

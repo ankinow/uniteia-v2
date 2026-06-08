@@ -3,6 +3,7 @@ import { CinematicDepthCard } from '~/components/cinematic-depth'
 import { DepthSection } from '~/components/depth-section'
 import { DopamineCard } from '~/components/dopamine-card'
 import { ErrorBoundary } from '~/components/error-boundary'
+import { Boneco } from '~/components/boneco'
 import { useI18n } from '~/i18n/context'
 import { nicheIndex } from '~/routing/routes'
 import { getLucideIconClass } from '~/utils/icon-classes'
@@ -53,18 +54,12 @@ export const NicheLanding = component$<NicheLandingProps>(
             class="relative overflow-hidden rounded-3xl p-6 md:p-8 bg-[#131820] border border-white/5 craft-card"
             data-blur="lg"
           >
-            {/* Kawaii mascot watermark */}
-            <svg
-              class="mascot-watermark"
-              width="80" height="80" viewBox="0 0 80 80"
-              fill="none" aria-hidden="true"
-            >
-              <circle cx="40" cy="40" r="38" stroke="currentColor" stroke-width="1.5" class="text-bone/10" />
-              <circle cx="32" cy="34" r="4" fill="currentColor" class="text-bone/10" />
-              <circle cx="48" cy="34" r="4" fill="currentColor" class="text-bone/10" />
-              <path d="M30 50 Q40 58 50 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-bone/10" />
-              <rect x="26" y="24" width="28" height="20" rx="8" stroke="currentColor" stroke-width="1.5" class="text-bone/10" />
-            </svg>
+            {/* Unified Mascot Watermark */}
+            <Boneco
+              emotion="happy"
+              scale={1.5}
+              class="mascot-watermark opacity-10 grayscale absolute -bottom-4 -right-4 pointer-events-none"
+            />
             <div
               class="grain-4k absolute inset-0 pointer-events-none opacity-30"
               aria-hidden="true"
@@ -161,7 +156,7 @@ export const NicheLanding = component$<NicheLandingProps>(
           </section>
         </ErrorBoundary>
 
-        {/* Related niches — canvas-light + grain (mixed UI continuity) */}
+        {/* Related niches — filter out empty ones unless it's APEX */}
         <ErrorBoundary fallbackMsg="Related Niches">
           {otherNiches.length > 0 && (
             <section
@@ -178,16 +173,18 @@ export const NicheLanding = component$<NicheLandingProps>(
                   {t.niche.allNiches}
                 </h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {otherNiches.map(related => (
-                    <DopamineCard
-                      key={related.slug}
-                      title={related.title[lang]}
-                      description={related.description[lang]}
-                      href={nicheIndex(lang, getNicheSlug(related, lang))}
-                      icon={related.icon}
-                      lang={lang}
-                    />
-                  ))}
+                  {otherNiches
+                    .filter(related => articles.some(a => a.lang === lang && a.slug.includes(related.slug)) || related.slug === 'apex')
+                    .map(related => (
+                      <DopamineCard
+                        key={related.slug}
+                        title={related.title[lang]}
+                        description={related.description[lang]}
+                        href={nicheIndex(lang, getNicheSlug(related, lang))}
+                        icon={related.icon}
+                        lang={lang}
+                      />
+                    ))}
                 </div>
               </div>
             </section>
@@ -197,5 +194,3 @@ export const NicheLanding = component$<NicheLandingProps>(
     )
   }
 )
-
-export type { NicheLandingProps } from './types'

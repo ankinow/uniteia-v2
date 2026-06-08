@@ -1,0 +1,14 @@
+{
+  "P01-hook": "You need cloud. But which one?",
+  "P02-myth": "Comparing 3 vendors is exhausting.",
+  "P03-promise": "Tencent has a bundle with 30% off.",
+  "P04-analogy": "Like saving coins: Lighthouse + CVM + EdgeOne in one billing.",
+  "P05-architecture-(wide)": "Full stack: Lighthouse (frontend), CVM (compute), EdgeOne (CDN).",
+  "P06-code-peek": "One API call and your stack responds in 200ms.",
+  "P07-decision": "Separate billing vs unified bundle. Which makes sense?",
+  "P08-warning": "Watch out: egress fees can blow your budget.",
+  "P09-benchmark": "Bundle is 30% cheaper on average for builders.",
+  "P10-hands-on-(wide)": "Deploy in 1 click via Tencent console.",
+  "P11-result": "Stack live. Lighthouse + CVM + EdgeOne working together.",
+  "P12-next-step": "Claim your 30% OFF now. Link in bio."
+}

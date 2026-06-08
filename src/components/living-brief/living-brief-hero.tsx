@@ -6,7 +6,7 @@
  * purple description, hashtags row, action buttons.
  */
 
-import { component$ } from '@builder.io/qwik'
+import { Slot, component$ } from '@builder.io/qwik'
 import type { LivingBriefHeroProps } from './types'
 
 export const LivingBriefHero = component$<LivingBriefHeroProps>(
@@ -26,6 +26,10 @@ export const LivingBriefHero = component$<LivingBriefHeroProps>(
           .join(' ')}
         data-testid="living-brief-hero"
       >
+        {/* Breadcrumb Slot */}
+        <div class="absolute top-8 left-8 md:left-12 z-10">
+          <Slot name="breadcrumb" />
+        </div>
         {/* Ambient glow orbs */}
         <div
           class="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-20 blur-3xl pointer-events-none"
@@ -68,6 +72,11 @@ export const LivingBriefHero = component$<LivingBriefHeroProps>(
             {subtitle}
           </p>
         )}
+
+        {/* Table of Contents Slot */}
+        <div class="mb-10 w-full max-w-xs">
+          <Slot name="toc" />
+        </div>
 
         {/* Hashtags row */}
         {hashtags && hashtags.length > 0 && (

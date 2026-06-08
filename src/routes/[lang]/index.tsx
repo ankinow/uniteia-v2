@@ -34,26 +34,18 @@ export default component$(() => {
   const siteName = t.seo.siteName
   const { featuredSignals, knowledgeClusters, frontierStreams } = homepage.value
 
-  // APEX-first: apex articles pinned to top, then rest by score
-  const sortedClusters = [...knowledgeClusters].sort((a, b) => {
-    if (a.nicheSlug === 'apex') return -1
-    if (b.nicheSlug === 'apex') return 1
-    return b.avgGraphScore - a.avgGraphScore
-  })
-
-  // Pluralization helper
-  const p = (key: 'signalCount' | 'curatedAcross', count: number): string => {
-    if (count === 1)
-      return (
-        (t.homepage as Record<string, string>)[`${key}One`] ??
-        t.homepage[key].replace('{count}', '1')
-      )
-    return t.homepage[key].replace('{count}', count.toString())
-  }
+  // APEX-first: apex articles pinned to top, then rest by score. Filter out empty clusters.
+  const sortedClusters = [...knowledgeClusters]
+    .filter(c => c.articleCount > 0 || c.nicheSlug === 'apex')
+    .sort((a, b) => {
+      if (a.nicheSlug === 'apex') return -1
+      if (b.nicheSlug === 'apex') return 1
+      return b.avgGraphScore - a.avgGraphScore
+    })
 
   return (
-    <div class="mx-auto max-w-5xl px-4 sm:px-6 py-8 md:py-12">
-      {/* JSON-LD: WebSite + Organization + SearchAction */}
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 py-12 md:py-24 space-y-24">
+      {/* JSON-LD ... */}
       <JSONLD
         data={{
           '@context': 'https://schema.org',
@@ -80,12 +72,12 @@ export default component$(() => {
 
       {/* APEX: featured signals — the real content */}
       {featuredSignals.length > 0 && (
-        <section class="mt-14" aria-label={t.homepage.featuredSignals}>
-          <h2 class="text-xs uppercase tracking-[0.3em] text-bone/40 font-mono mb-5">
+        <section aria-label={t.homepage.featuredSignals}>
+          <h2 class="text-xs uppercase tracking-[0.3em] text-bone/40 font-mono mb-8">
             {t.homepage.featuredSignals}
-            <span class="ml-2 text-neon-cyan tabular-nums">{featuredSignals.length}</span>
+            <span class="ml-3 text-neon-cyan tabular-nums opacity-60">{featuredSignals.length}</span>
           </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {featuredSignals.map(signal => (
               <a
                 key={signal.node.id}
@@ -94,23 +86,26 @@ export default component$(() => {
               >
                 <CinematicDepthCard
                   {...(signal.node.visualStyle ? { visualStyle: signal.node.visualStyle } : {})}
-                  class="transition-all duration-200 group-hover:-translate-y-0.5 group-hover:shadow-xl group-hover:shadow-neon-cyan/5"
+                  class="h-full transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-2xl group-hover:shadow-neon-cyan/10"
                 >
-                  <div class="p-5">
-                    <p class="font-semibold text-bone text-base leading-tight group-hover:text-neon-cyan transition-colors duration-200">
+                  <div class="p-6 md:p-8">
+                    <p class="font-bold text-bone text-lg md:text-xl leading-tight group-hover:text-neon-cyan transition-colors duration-200">
                       {signal.node.title}
                     </p>
-                    <p class="text-sm text-bone/60 mt-1.5 line-clamp-2 leading-relaxed">
+                    <p class="text-sm md:text-base text-bone-muted mt-3 line-clamp-3 leading-relaxed">
                       {signal.node.summary}
                     </p>
-                    <div class="flex items-center gap-3 mt-3">
-                      <span class="text-xs text-bone/40 uppercase tracking-wider font-mono">
+                    <div class="flex items-center gap-4 mt-6">
+                      <span class="text-[10px] text-bone/30 uppercase tracking-[0.2em] font-mono border border-white/5 px-2 py-0.5 rounded">
                         {signal.node.locale}
                       </span>
                       {signal.node.qualityScore != null && (
-                        <span class="text-xs text-neon-amber font-mono tabular-nums">
-                          ∅{signal.node.qualityScore.toFixed(0)}
-                        </span>
+                        <div class="flex items-center gap-1.5">
+                          <span class="text-[10px] text-bone/20 font-mono">Score</span>
+                          <span class="text-xs text-neon-amber font-mono tabular-nums">
+                            ∅{signal.node.qualityScore.toFixed(0)}
+                          </span>
+                        </div>
                       )}
                     </div>
                   </div>
@@ -123,22 +118,22 @@ export default component$(() => {
 
       {/* Clusters: niche pills — compact navigation */}
       {sortedClusters.length > 0 && (
-        <section class="mt-12" aria-label={t.homepage.knowledgeClusters}>
-          <h2 class="text-xs uppercase tracking-[0.3em] text-bone/40 font-mono mb-4">
+        <section aria-label={t.homepage.knowledgeClusters}>
+          <h2 class="text-xs uppercase tracking-[0.3em] text-bone/40 font-mono mb-6">
             {t.homepage.knowledgeClusters}
           </h2>
-          <div class="flex flex-wrap gap-2.5">
+          <div class="flex flex-wrap gap-3">
             {sortedClusters.map(cluster => (
               <a
                 key={cluster.nicheSlug}
                 href={cluster.href}
-                class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-bone/10 bg-deep hover:bg-mid hover:border-neon-cyan/30 transition-all duration-150 no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan"
+                class="inline-flex items-center gap-3 px-5 py-2.5 rounded-xl border border-white/5 bg-deep hover:bg-mid hover:border-neon-cyan/40 transition-all duration-200 no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan"
               >
-                <ClusterIcon name={nicheToIcon(cluster.nicheSlug)} size={16} />
-                <span class="text-sm text-bone group-hover:text-bone transition-colors">
+                <ClusterIcon name={nicheToIcon(cluster.nicheSlug)} size={18} class="text-bone/40 group-hover:text-neon-cyan transition-colors" />
+                <span class="text-sm md:text-base font-medium text-bone/70 group-hover:text-bone transition-colors">
                   {cluster.label}
                 </span>
-                <span class="text-xs text-bone/40 font-mono tabular-nums ml-1">
+                <span class="text-[10px] text-bone/20 font-mono tabular-nums ml-2 bg-white/5 px-1.5 py-0.5 rounded">
                   {cluster.articleCount}
                 </span>
               </a>

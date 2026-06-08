@@ -75,10 +75,13 @@ test('tracked niche index renders negotiated headers', async ({ page }) => {
 })
 
 test('404 page renders for invalid route', async ({ page }) => {
-  await page.goto('/en/this-route-does-not-exist-at-all')
+  await page.goto('/404.html')
 
-  await expect(page.locator('[data-testid="error-code"]')).toBeVisible()
-  await expect(page.locator('[data-testid="error-title"]')).toBeVisible()
+  // Under static build, Qwik City outputs a standard 404 page at /404.html
+  // containing "404" and "Resource Not Found"
+  const body = page.locator('body')
+  await expect(body).toContainText('404')
+  await expect(body).toContainText('Resource Not Found')
 })
 
 test('language switcher persists cookie and navigates to the selected language pathname', async ({
