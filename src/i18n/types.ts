@@ -115,6 +115,7 @@ export interface TranslationStrings {
     exploreNiche: string
     articleCount: string
     allNiches: string
+    comingSoon?: string
   }
   editorial: {
     verdictLabel: string

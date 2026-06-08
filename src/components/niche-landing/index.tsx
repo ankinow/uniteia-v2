@@ -80,10 +80,69 @@ export const NicheLanding = component$<NicheLandingProps>(
                 </div>
               ) : (
                 <div
-                  class="border border-dashed border-paper-border rounded-lg p-8 text-center text-paper-text/60"
+                  class="flex flex-col items-center justify-center py-12 px-4 text-center space-y-6"
                   data-testid="niche-articles-placeholder"
                 >
-                  <p>{t.niche.exploreNiche.replace('{niche}', niche.title[lang])}</p>
+                  {/* Kawaii sparkle icon — inline SVG */}
+                  <svg
+                    class="w-16 h-16 text-cyan/30 animate-breathe"
+                    viewBox="0 0 64 64"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M32 4L35.5 26.5L32 28L28.5 26.5L32 4Z"
+                      fill="currentColor"
+                      class="opacity-60"
+                    />
+                    <path
+                      d="M32 60L28.5 37.5L32 36L35.5 37.5L32 60Z"
+                      fill="currentColor"
+                      class="opacity-60"
+                    />
+                    <path
+                      d="M4 32L26.5 28.5L28 32L26.5 35.5L4 32Z"
+                      fill="currentColor"
+                      class="opacity-60"
+                    />
+                    <path
+                      d="M60 32L37.5 35.5L36 32L37.5 28.5L60 32Z"
+                      fill="currentColor"
+                      class="opacity-60"
+                    />
+                    <circle cx="32" cy="32" r="8" fill="currentColor" class="opacity-40" />
+                    <circle cx="32" cy="32" r="3" fill="currentColor" />
+                  </svg>
+                  <div>
+                    <h3 class="text-xl font-display text-bone mb-2">
+                      {t.niche.exploreNiche.replace('{niche}', niche.title[lang])}
+                    </h3>
+                    <p class="text-bone-muted max-w-md mx-auto">
+                      {t.niche.comingSoon
+                        ? t.niche.comingSoon.replace('{niche}', niche.title[lang])
+                        : `We're curating the first articles for ${niche.title[lang]}. Explore related topics below.`}
+                    </p>
+                  </div>
+                  {/* Quick link to other niches */}
+                  {otherNiches.length > 0 && (
+                    <div class="flex flex-wrap justify-center gap-2 pt-2">
+                      {otherNiches.slice(0, 3).map(related => (
+                        <a
+                          key={related.slug}
+                          href={nicheIndex(lang, getNicheSlug(related, lang))}
+                          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm
+                                 bg-white/5 hover:bg-white/10 text-bone-muted hover:text-bone
+                                 border border-white/5 hover:border-white/10
+                                 transition-colors duration-200"
+                        >
+                          {related.icon && (
+                            <span class={getLucideIconClass(related.icon)} aria-hidden="true" />
+                          )}
+                          {related.title[lang]}
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
             </div>

@@ -7,6 +7,7 @@ import {
 } from '@builder.io/qwik-city'
 import { ArticleRenderer } from '~/components/article-renderer'
 import { Breadcrumb } from '~/components/breadcrumb'
+import { CTASection } from '~/components/cta-section'
 import { JSONLD } from '~/components/json-ld'
 import { LivingBrief2Col } from '~/components/living-brief'
 import type { LivingBriefCollageProps } from '~/components/living-brief/types'
@@ -203,6 +204,14 @@ export default component$(() => {
         <>
           <JSONLD data={webPageSchema} />
           <MangaGrid panels={mangaPanels} />
+          <div class="max-w-6xl mx-auto px-4 mt-8">
+            <CTASection
+              slug={content.value.slug ?? ''}
+              lang={content.value.lang}
+              url={canonicalUrl(loc.url.origin, loc.url.pathname)}
+              githubUrl="https://github.com/ankinow/uniteia-v2"
+            />
+          </div>
         </>
       ) : storyboardLayout ? (
         <>
@@ -214,6 +223,14 @@ export default component$(() => {
           </div>
           <JSONLD data={webPageSchema} />
           <StoryboardGrid layout={storyboardLayout} />
+          <div class="max-w-6xl mx-auto px-4 mt-8">
+            <CTASection
+              slug={content.value.slug ?? ''}
+              lang={content.value.lang}
+              url={canonicalUrl(loc.url.origin, loc.url.pathname)}
+              githubUrl="https://github.com/ankinow/uniteia-v2"
+            />
+          </div>
         </>
       ) : (
         <LivingBrief2Col
@@ -228,6 +245,14 @@ export default component$(() => {
         >
           <JSONLD data={webPageSchema} />
           <ArticleRenderer {...rendererProps} />
+          <div class="mt-8">
+            <CTASection
+              slug={content.value.slug ?? ''}
+              lang={content.value.lang}
+              url={canonicalUrl(loc.url.origin, loc.url.pathname)}
+              githubUrl="https://github.com/ankinow/uniteia-v2"
+            />
+          </div>
         </LivingBrief2Col>
       )}
     </>
