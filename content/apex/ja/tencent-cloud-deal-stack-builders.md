@@ -4,6 +4,7 @@ lang: ja
 title: "開発者向けTencent Cloud Deal Stack"
 verdict: caution
 quality_score: 65
+created_at: "2026-05-11T11:40:07-03:00"
 subjects:
   - cloud
   - builders

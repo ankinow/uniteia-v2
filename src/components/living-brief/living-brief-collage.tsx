@@ -16,13 +16,7 @@
 
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 import { Boneco } from '~/components/boneco'
-import type {
-  BonecoItem,
-  CollageArrow,
-  LivingBriefCollageProps,
-  PolaroidItem,
-  TapeVariant,
-} from './types'
+import type { CollageArrow, LivingBriefCollageProps, PolaroidItem, TapeVariant } from './types'
 
 // ── SVG Templates (inline) ──
 

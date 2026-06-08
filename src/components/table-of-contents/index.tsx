@@ -1,4 +1,4 @@
-import { component$, useSignal, useVisibleTask$, $ } from '@builder.io/qwik'
+import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 
 export interface TOCEntry {
   id: string
@@ -19,7 +19,7 @@ export const TableOfContents = component$(() => {
     const findHeadings = () => {
       const headings = document.querySelectorAll('article h2, article h3')
       const newEntries: TOCEntry[] = []
-      
+
       headings.forEach((h, idx) => {
         if (!h.id) {
           // Generate ID if missing
@@ -28,7 +28,7 @@ export const TableOfContents = component$(() => {
         newEntries.push({
           id: h.id,
           text: h.textContent || '',
-          level: parseInt(h.tagName?.[1] ?? '2'),
+          level: Number.parseInt(h.tagName?.[1] ?? '2'),
         })
       })
       entries.value = newEntries
@@ -38,7 +38,7 @@ export const TableOfContents = component$(() => {
 
     // Intersection Observer to highlight active heading
     const observer = new IntersectionObserver(
-      (items) => {
+      items => {
         const visible = items.filter(i => i.isIntersecting)
         if (visible.length > 0) {
           activeId.value = visible[0]?.target?.id ?? ''
@@ -56,21 +56,18 @@ export const TableOfContents = component$(() => {
 
   return (
     <nav class="toc space-y-4" aria-label="Table of contents">
-      <h3 class="text-xs uppercase tracking-[0.2em] text-bone/30 font-mono mb-4">
-        Content Index
-      </h3>
+      <h3 class="text-xs uppercase tracking-[0.2em] text-bone/30 font-mono mb-4">Content Index</h3>
       <ul class="space-y-2.5">
-        {entries.value.map((entry) => (
+        {entries.value.map(entry => (
           <li
             key={entry.id}
-            class={[
-              'transition-all duration-200',
-              entry.level === 3 ? 'pl-4' : '',
-            ]}
+            class={['transition-all duration-200', entry.level === 3 ? 'pl-4' : '']}
           >
             <a
               href={`#${entry.id}`}
-              onClick$={() => { activeId.value = entry.id }}
+              onClick$={() => {
+                activeId.value = entry.id
+              }}
               class={[
                 'block text-sm leading-tight transition-colors',
                 activeId.value === entry.id

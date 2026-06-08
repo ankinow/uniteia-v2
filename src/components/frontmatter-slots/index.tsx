@@ -69,9 +69,7 @@ export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
                 <span class="text-[10px] uppercase tracking-wider opacity-50 font-mono">
                   Author
                 </span>
-                <span class="text-bone font-medium">
-                  {props.metadata.author}
-                </span>
+                <span class="text-bone font-medium">{props.metadata.author}</span>
               </div>
             </div>
           )}
@@ -81,32 +79,31 @@ export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
               <span class="text-[10px] uppercase tracking-wider opacity-50 font-mono">
                 Published
               </span>
-              <span class="text-bone/80 tabular-nums" title={new Date(props.metadata.created_at).toLocaleDateString(props.lang)}>
+              <span
+                class="text-bone/80 tabular-nums"
+                title={new Date(props.metadata.created_at).toLocaleDateString(props.lang)}
+              >
                 {formatRelativeTime(props.metadata.created_at, props.lang)}
               </span>
             </div>
           )}
 
-          {props.metadata.updated_at &&
-            props.metadata.updated_at !== props.metadata.created_at && (
-              <div class="flex flex-col border-l border-white/5 pl-6">
-                <span class="text-[10px] uppercase tracking-wider opacity-50 font-mono">
-                  Updated
-                </span>
-                <span class="text-bone/80 tabular-nums" title={new Date(props.metadata.updated_at).toLocaleDateString(props.lang)}>
-                  {formatRelativeTime(props.metadata.updated_at, props.lang)}
-                </span>
-              </div>
-            )}
+          {props.metadata.updated_at && props.metadata.updated_at !== props.metadata.created_at && (
+            <div class="flex flex-col border-l border-white/5 pl-6">
+              <span class="text-[10px] uppercase tracking-wider opacity-50 font-mono">Updated</span>
+              <span
+                class="text-bone/80 tabular-nums"
+                title={new Date(props.metadata.updated_at).toLocaleDateString(props.lang)}
+              >
+                {formatRelativeTime(props.metadata.updated_at, props.lang)}
+              </span>
+            </div>
+          )}
 
           {props.metadata.version != null && (
             <div class="flex flex-col border-l border-white/5 pl-6">
-              <span class="text-[10px] uppercase tracking-wider opacity-50 font-mono">
-                Version
-              </span>
-              <span class="text-neon-amber font-mono">
-                v{props.metadata.version}
-              </span>
+              <span class="text-[10px] uppercase tracking-wider opacity-50 font-mono">Version</span>
+              <span class="text-neon-amber font-mono">v{props.metadata.version}</span>
             </div>
           )}
         </div>

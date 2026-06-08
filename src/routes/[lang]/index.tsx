@@ -75,7 +75,9 @@ export default component$(() => {
         <section aria-label={t.homepage.featuredSignals}>
           <h2 class="text-xs uppercase tracking-[0.3em] text-bone/40 font-mono mb-8">
             {t.homepage.featuredSignals}
-            <span class="ml-3 text-neon-cyan tabular-nums opacity-60">{featuredSignals.length}</span>
+            <span class="ml-3 text-neon-cyan tabular-nums opacity-60">
+              {featuredSignals.length}
+            </span>
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {featuredSignals.map(signal => (
@@ -129,7 +131,11 @@ export default component$(() => {
                 href={cluster.href}
                 class="inline-flex items-center gap-3 px-5 py-2.5 rounded-xl border border-white/5 bg-deep hover:bg-mid hover:border-neon-cyan/40 transition-all duration-200 no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan"
               >
-                <ClusterIcon name={nicheToIcon(cluster.nicheSlug)} size={18} class="text-bone/40 group-hover:text-neon-cyan transition-colors" />
+                <ClusterIcon
+                  name={nicheToIcon(cluster.nicheSlug)}
+                  size={18}
+                  class="text-bone/40 group-hover:text-neon-cyan transition-colors"
+                />
                 <span class="text-sm md:text-base font-medium text-bone/70 group-hover:text-bone transition-colors">
                   {cluster.label}
                 </span>

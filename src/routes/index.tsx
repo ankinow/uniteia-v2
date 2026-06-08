@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik'
-import { type DocumentHead, type RequestHandler } from '@builder.io/qwik-city'
+import type { DocumentHead, RequestHandler } from '@builder.io/qwik-city'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
 
 /**

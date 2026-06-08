@@ -7,9 +7,9 @@ import {
   AetherHanddrawCollage,
   type AetherHanddrawCollageProps,
 } from '~/components/moodboard-aether'
+import { NewsletterForm } from '~/components/newsletter-form'
 import { RelatedArticles } from '~/components/related-articles'
 import { ShareBar } from '~/components/share-bar'
-import { NewsletterForm } from '~/components/newsletter-form'
 import type { ContentNode } from '~/content-graph/contracts/node'
 import type { SupportedLanguage } from '~/i18n/types'
 import type { LlmWikiContent } from '~/types/content'
@@ -59,11 +59,7 @@ const AdaptiveHeader = ({
     </h1>
     {(subtitle || readTime) && (
       <div class="mt-4 flex flex-col gap-2">
-        {subtitle && (
-          <p class="text-lg text-bone-muted leading-relaxed max-w-2xl">
-            {subtitle}
-          </p>
-        )}
+        {subtitle && <p class="text-lg text-bone-muted leading-relaxed max-w-2xl">{subtitle}</p>}
         {readTime && (
           <span class="text-sm font-mono text-neon-cyan/60 uppercase tracking-widest">
             {readTime}
@@ -75,7 +71,16 @@ const AdaptiveHeader = ({
 )
 
 export const ArticleRenderer = component$<ArticleRendererProps>(
-  ({ content, relatedNodes, labels, withErrorBoundary = true, svgs, collage, hideHeader, readTime }) => {
+  ({
+    content,
+    relatedNodes,
+    labels,
+    withErrorBoundary = true,
+    svgs,
+    collage,
+    hideHeader,
+    readTime,
+  }) => {
     const loc = useLocation()
     const description = extractDescription(content.content)
     const pageUrl = `${loc.url.origin}${loc.url.pathname}`

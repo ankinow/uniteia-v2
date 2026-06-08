@@ -12,6 +12,8 @@ import { JSONLD } from '~/components/json-ld'
 import { LivingBrief2Col } from '~/components/living-brief'
 import type { LivingBriefCollageProps } from '~/components/living-brief/types'
 import { MangaGrid } from '~/components/manga-grid'
+import { NewsletterForm } from '~/components/newsletter-form'
+import { ShareBar } from '~/components/share-bar'
 import { StoryboardGrid } from '~/components/storyboard-grid'
 import { TableOfContents } from '~/components/table-of-contents'
 import { collagePackageToProps, parseCollagePackage } from '~/utils/collage-importer'
@@ -217,6 +219,10 @@ export default component$(() => {
               githubUrl="https://github.com/ankinow/uniteia-v2"
             />
           </div>
+          <div class="max-w-6xl mx-auto px-4 mt-6 pb-12 space-y-6">
+            <ShareBar url={pageUrl} title={content.value.title} />
+            <NewsletterForm class="max-w-sm" />
+          </div>
         </>
       ) : storyboardLayout ? (
         <>
@@ -236,6 +242,10 @@ export default component$(() => {
               url={canonicalUrl(loc.url.origin, loc.url.pathname)}
               githubUrl="https://github.com/ankinow/uniteia-v2"
             />
+          </div>
+          <div class="max-w-6xl mx-auto px-4 mt-6 pb-12 space-y-6">
+            <ShareBar url={pageUrl} title={content.value.title} />
+            <NewsletterForm class="max-w-sm" />
           </div>
         </>
       ) : (

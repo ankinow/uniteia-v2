@@ -1,9 +1,9 @@
 import { component$ } from '@builder.io/qwik'
+import { Boneco } from '~/components/boneco'
 import { CinematicDepthCard } from '~/components/cinematic-depth'
 import { DepthSection } from '~/components/depth-section'
 import { DopamineCard } from '~/components/dopamine-card'
 import { ErrorBoundary } from '~/components/error-boundary'
-import { Boneco } from '~/components/boneco'
 import { useI18n } from '~/i18n/context'
 import { nicheIndex } from '~/routing/routes'
 import { getLucideIconClass } from '~/utils/icon-classes'
@@ -58,7 +58,7 @@ export const NicheLanding = component$<NicheLandingProps>(
             <Boneco
               emotion="happy"
               scale={1.5}
-              class="mascot-watermark opacity-10 grayscale absolute -bottom-4 -right-4 pointer-events-none"
+              class="mascot-watermark opacity-5 absolute -bottom-4 -right-4 pointer-events-none"
             />
             <div
               class="grain-4k absolute inset-0 pointer-events-none opacity-30"
@@ -174,7 +174,11 @@ export const NicheLanding = component$<NicheLandingProps>(
                 </h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {otherNiches
-                    .filter(related => articles.some(a => a.lang === lang && a.slug.includes(related.slug)) || related.slug === 'apex')
+                    .filter(
+                      related =>
+                        articles.some(a => a.lang === lang && a.slug.includes(related.slug)) ||
+                        related.slug === 'apex'
+                    )
                     .map(related => (
                       <DopamineCard
                         key={related.slug}

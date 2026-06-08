@@ -21,7 +21,10 @@ export function extractDescription(html: string, maxLength = 155): string {
  * Uses 200 words/min for English, adjusted to 180 for CJK content.
  */
 export function estimateReadTime(html: string): string {
-  const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+  const text = html
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
   const words = text.split(/\s+/).length
   // Detect CJK-heavy content (slower reading speed)
   const cjkChars = (text.match(/[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff]/g) || []).length
