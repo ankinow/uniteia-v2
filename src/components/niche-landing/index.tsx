@@ -32,9 +32,9 @@ export const NicheLanding = component$<NicheLandingProps>(
         data-testid={`niche-landing-${niche.slug}`}
         class={['max-w-4xl mx-auto px-4 py-8 space-y-10', classList]}
       >
-        {/* Niche header — CinematicDepthCard with hero variant for 2.5D glass depth */}
+        {/* Niche header — CinematicDepthCard with craft washi tape */}
         <DepthSection as="div" depth="front" class="mb-2">
-          <CinematicDepthCard variant="hero" class="w-full">
+          <CinematicDepthCard variant="hero" class="w-full washi-tape washi-tape-teal">
             <div class="p-6 md:p-8">
               <div class="flex items-center gap-4 mb-4">
                 {iconClass && <div class={iconClass} aria-hidden="true" />}
@@ -47,12 +47,24 @@ export const NicheLanding = component$<NicheLandingProps>(
           </CinematicDepthCard>
         </DepthSection>
 
-        {/* Article list — canvas-light + grain + ue5-illusion (mixed UI: light content) */}
+        {/* Article list — craft section with mascot watermark */}
         <ErrorBoundary fallbackMsg="Article Grid">
           <section
-            class="relative overflow-hidden rounded-3xl p-6 md:p-8 bg-[#131820] border border-white/5"
+            class="relative overflow-hidden rounded-3xl p-6 md:p-8 bg-[#131820] border border-white/5 craft-card"
             data-blur="lg"
           >
+            {/* Kawaii mascot watermark */}
+            <svg
+              class="mascot-watermark"
+              width="80" height="80" viewBox="0 0 80 80"
+              fill="none" aria-hidden="true"
+            >
+              <circle cx="40" cy="40" r="38" stroke="currentColor" stroke-width="1.5" class="text-bone/10" />
+              <circle cx="32" cy="34" r="4" fill="currentColor" class="text-bone/10" />
+              <circle cx="48" cy="34" r="4" fill="currentColor" class="text-bone/10" />
+              <path d="M30 50 Q40 58 50 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-bone/10" />
+              <rect x="26" y="24" width="28" height="20" rx="8" stroke="currentColor" stroke-width="1.5" class="text-bone/10" />
+            </svg>
             <div
               class="grain-4k absolute inset-0 pointer-events-none opacity-30"
               aria-hidden="true"
