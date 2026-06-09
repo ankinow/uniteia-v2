@@ -159,9 +159,28 @@ function parseRegistryEntry(
         ? 'caution'
         : 'unsafe'
 
-  // Prefer factory qualityScore and trustScore, fall back to computed
-  const effectiveQualityScore = factoryNode?.qualityScore ?? qualityScore
-  const trustScore = factoryNode?.trustScore ?? computeTrustScore(verdict, qualityScore)
+  // Prefer factory qualityScore and trustScore, fall back to computed.
+  // v3.2 Cross-Validation Gate: if factory provided a qualityScore but it
+  // diverges >20pts from what we computed from frontmatter, emit a warning
+  // and use the LOWER score. This closes the "blind trust" loophole
+  // documented in ESTUDO-CONTENT-PACKAGE-CONTRACT-v2.md §Evidencia #5.
+  const computedQuality = qualityScore
+  const factoryQuality = factoryNode?.qualityScore
+  let qualityDivergence = 0
+  if (typeof factoryQuality === 'number' && typeof computedQuality === 'number') {
+    qualityDivergence = Math.abs(factoryQuality - computedQuality)
+    if (qualityDivergence > 20) {
+      console.warn(
+        `⚠️  [cross-validation] qualityScore divergence detected for ${id}: ` +
+        `factory=${factoryQuality} vs computed=${computedQuality} (Δ${qualityDivergence}). ` +
+        `metadataOrigin: factory. Using lower score.`
+      )
+    }
+  }
+  const effectiveQualityScore = (typeof factoryQuality === 'number' && typeof computedQuality === 'number')
+    ? (qualityDivergence > 20 ? Math.min(factoryQuality, computedQuality) : factoryQuality)
+    : (factoryQuality ?? computedQuality)
+  const trustScore = factoryNode?.trustScore ?? computeTrustScore(verdict, effectiveQualityScore)
   const seoNoindex = factoryNode?.seo.noindex ?? isDraft
   const seoPriority = factoryNode?.seo.priority ?? effectiveQualityScore
   const createdAt =

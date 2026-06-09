@@ -210,8 +210,9 @@
 /* ─── Materials ─── */
 .material-glass {
   background: var(--color-material-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  /* v3.2 — glassmorphism removed (PLANO-083). Solid bg + sharp shadow. */
+  background: oklch(14% 0.015 260 / 0.95);
+  box-shadow: 2px 2px 0px oklch(30% 0.02 260 / 0.7);
 }
 
 .material-carbon {

@@ -150,7 +150,9 @@
       rgba(80, 140, 200, 0.04) 0%,
       transparent 70%
     ), radial-gradient(ellipse 40% 50% at 90% 80%, rgba(220, 140, 80, 0.03) 0%, transparent 70%);
-  filter: blur(6px);
+  /* v3.2 — glassmorphism removed (PLANO-083). Use micro-noise texture + sharp shadow. */
+  background: oklch(10% 0.01 260 / 0.92);
+  box-shadow: 1px 1px 0px oklch(35% 0.03 260 / 0.7);
   z-index: -1;
 }
 
@@ -192,8 +194,9 @@
     color-mix(in srgb, var(--raised, #30363d) 20%, transparent),
     color-mix(in srgb, var(--void, #0d1117) 50%, transparent)
   );
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  /* v3.2 — glassmorphism removed (PLANO-083). Solid surface with sharp shadow. */
+  background: oklch(16% 0.02 260 / 0.98);
+  box-shadow: 2px 2px 0px oklch(35% 0.03 260 / 0.5);
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0
     -1px 0 rgba(0, 0, 0, 0.2);
