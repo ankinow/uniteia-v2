@@ -13,8 +13,8 @@
       "id": "hero"
     },
     {
-      "cx": 576,
-      "cy": 239,
+      "cx": 569,
+      "cy": 261,
       "r": 32,
       "label": "Benchmarks",
       "shape": "rounded-rect",
@@ -23,8 +23,8 @@
       "id": "benchmarks"
     },
     {
-      "cx": 457,
-      "cy": 405,
+      "cx": 464,
+      "cy": 408,
       "r": 32,
       "label": "Human Feedback",
       "shape": "rounded-rect",
@@ -33,8 +33,8 @@
       "id": "human-eval"
     },
     {
-      "cx": 257,
-      "cy": 362,
+      "cx": 263,
+      "cy": 359,
       "r": 32,
       "label": "Auto Tests",
       "shape": "rounded-rect",
@@ -43,8 +43,8 @@
       "id": "automated"
     },
     {
-      "cx": 246,
-      "cy": 141,
+      "cx": 267,
+      "cy": 146,
       "r": 32,
       "label": "Framework",
       "shape": "rounded-rect",
@@ -53,8 +53,8 @@
       "id": "framework"
     },
     {
-      "cx": 439,
-      "cy": 69,
+      "cx": 442,
+      "cy": 74,
       "r": 32,
       "label": "Conclusion",
       "shape": "rounded-rect",
@@ -66,49 +66,49 @@
   "arrows": [
     {
       "id": "arrow-0",
-      "path": "M 400 250 Q 490 271 576 239",
+      "path": "M 400 250 Q 483 281 569 261",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-1",
-      "path": "M 400 250 Q 405 336 457 405",
+      "path": "M 400 250 Q 408 339 464 408",
       "color": "oklch(0.55 0.12 200)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-2",
-      "path": "M 400 250 Q 312 285 257 362",
+      "path": "M 400 250 Q 315 284 263 359",
       "color": "oklch(0.65 0.18 85)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-3",
-      "path": "M 400 250 Q 339 173 246 141",
+      "path": "M 400 250 Q 349 178 267 146",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-4",
-      "path": "M 400 250 Q 447 166 439 69",
+      "path": "M 400 250 Q 448 168 442 74",
       "color": "oklch(0.55 0.12 200)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-5",
-      "path": "M 576 239 Q 492 304 457 405",
+      "path": "M 569 261 Q 494 319 464 408",
       "color": "oklch(0.65 0.18 85)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-6",
-      "path": "M 257 362 Q 285 250 246 141",
+      "path": "M 263 359 Q 297 253 267 146",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
@@ -116,40 +116,40 @@
   ],
   "notes": [
     {
-      "x": 418,
-      "y": 225,
+      "x": 414,
+      "y": 236,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": -1
     },
     {
-      "x": 358,
-      "y": 315,
+      "x": 362,
+      "y": 317,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 0
     },
     {
-      "x": 259,
-      "y": 302,
+      "x": 262,
+      "y": 301,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 1
     },
     {
-      "x": 253,
-      "y": 176,
+      "x": 264,
+      "y": 178,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": -1
     },
     {
-      "x": 350,
-      "y": 148,
+      "x": 351,
+      "y": 150,
       "text": "",
       "width": 140,
       "height": 40,
@@ -157,24 +157,24 @@
     },
     {
       "x": 447,
-      "y": 318,
+      "y": 331,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 1
     },
     {
-      "x": 182,
-      "y": 232,
+      "x": 195,
+      "y": 233,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": -1
     }
   ],
-  "tone": "parchment",
+  "tone": "obsidian",
   "width": 800,
   "height": 500,
   "layout": "constellation",
-  "generatedAt": "2026-06-09T02:27:03.025Z"
+  "generatedAt": "2026-06-09T03:22:30.413Z"
 }

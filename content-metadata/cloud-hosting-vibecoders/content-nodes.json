@@ -1,0 +1,362 @@
+[
+  {
+    "id": "en-cloud-hosting-vibecoders",
+    "locale": "en",
+    "canonicalLocale": "en",
+    "slug": "cloud-hosting-vibecoders",
+    "canonicalSlug": "cloud-hosting-vibecoders",
+    "title": "Zero-DevOps Cloud Hosting: A Guide for Vibecoders",
+    "summary": "As a vibecoder, your main goal is to build, iterate, and vibe. You want to see your ideas become reality instantly. The last thing you want is to spend three da",
+    "niche": ["cloud-computing"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "pt-BR": "pt-BR-cloud-hosting-vibecoders",
+      "es": "es-cloud-hosting-vibecoders",
+      "fr": "fr-cloud-hosting-vibecoders",
+      "de": "de-cloud-hosting-vibecoders",
+      "it": "it-cloud-hosting-vibecoders",
+      "ja": "ja-cloud-hosting-vibecoders",
+      "zh": "zh-cloud-hosting-vibecoders"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "pt-BR-cloud-hosting-vibecoders",
+    "locale": "pt-BR",
+    "canonicalLocale": "pt-BR",
+    "slug": "cloud-hosting-vibecoders",
+    "canonicalSlug": "cloud-hosting-vibecoders",
+    "title": "Hospedagem em Nuvem Zero-DevOps: Um Guia para Vibecoders",
+    "summary": "Como um vibecoder, seu principal objetivo é construir, iterar e manter o fluxo (vibe). Você quer ver suas ideias se tornarem realidade instantaneamente. A últim",
+    "niche": ["cloud-computing"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-cloud-hosting-vibecoders",
+      "es": "es-cloud-hosting-vibecoders",
+      "fr": "fr-cloud-hosting-vibecoders",
+      "de": "de-cloud-hosting-vibecoders",
+      "it": "it-cloud-hosting-vibecoders",
+      "ja": "ja-cloud-hosting-vibecoders",
+      "zh": "zh-cloud-hosting-vibecoders"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "es-cloud-hosting-vibecoders",
+    "locale": "es",
+    "canonicalLocale": "es",
+    "slug": "cloud-hosting-vibecoders",
+    "canonicalSlug": "cloud-hosting-vibecoders",
+    "title": "Hospedaje en la nube Zero-DevOps: Una guia para vibecoders",
+    "summary": "Como vibecoder, tu objetivo principal es crear, iterar y fluir. Deseas ver tus ideas hechas realidad al instante. Lo último que deseas es pasar tres días escrib",
+    "niche": ["cloud-computing"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-cloud-hosting-vibecoders",
+      "pt-BR": "pt-BR-cloud-hosting-vibecoders",
+      "fr": "fr-cloud-hosting-vibecoders",
+      "de": "de-cloud-hosting-vibecoders",
+      "it": "it-cloud-hosting-vibecoders",
+      "ja": "ja-cloud-hosting-vibecoders",
+      "zh": "zh-cloud-hosting-vibecoders"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "fr-cloud-hosting-vibecoders",
+    "locale": "fr",
+    "canonicalLocale": "fr",
+    "slug": "cloud-hosting-vibecoders",
+    "canonicalSlug": "cloud-hosting-vibecoders",
+    "title": "Hébergement Cloud Zero-DevOps : Un Guide pour les Vibecoders",
+    "summary": "En tant que vibecoder, votre objectif principal est de créer, d'itérer et de vous amuser. Vous voulez voir vos idées se concrétiser instantanément. La dernière ",
+    "niche": ["cloud-computing"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-cloud-hosting-vibecoders",
+      "pt-BR": "pt-BR-cloud-hosting-vibecoders",
+      "es": "es-cloud-hosting-vibecoders",
+      "de": "de-cloud-hosting-vibecoders",
+      "it": "it-cloud-hosting-vibecoders",
+      "ja": "ja-cloud-hosting-vibecoders",
+      "zh": "zh-cloud-hosting-vibecoders"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "de-cloud-hosting-vibecoders",
+    "locale": "de",
+    "canonicalLocale": "de",
+    "slug": "cloud-hosting-vibecoders",
+    "canonicalSlug": "cloud-hosting-vibecoders",
+    "title": "Zero-DevOps Cloud Hosting: Ein Leitfaden fuer Vibecoder",
+    "summary": "Als Vibecoder ist Ihr Hauptziel das Erstellen, Iterieren und Viben. Sie möchten, dass Ihre Ideen sofort Realität werden. Das Letzte, was Sie wollen, ist, drei T",
+    "niche": ["cloud-computing"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-cloud-hosting-vibecoders",
+      "pt-BR": "pt-BR-cloud-hosting-vibecoders",
+      "es": "es-cloud-hosting-vibecoders",
+      "fr": "fr-cloud-hosting-vibecoders",
+      "it": "it-cloud-hosting-vibecoders",
+      "ja": "ja-cloud-hosting-vibecoders",
+      "zh": "zh-cloud-hosting-vibecoders"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "it-cloud-hosting-vibecoders",
+    "locale": "it",
+    "canonicalLocale": "it",
+    "slug": "cloud-hosting-vibecoders",
+    "canonicalSlug": "cloud-hosting-vibecoders",
+    "title": "Hosting Cloud Zero-DevOps: Una Guida per i Vibecoder",
+    "summary": "Come vibecoder, il tuo obiettivo principale è creare, iterare e mantenere il flusso. Vuoi vedere le tue idee diventare realtà all'istante. L'ultima cosa che des",
+    "niche": ["cloud-computing"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-cloud-hosting-vibecoders",
+      "pt-BR": "pt-BR-cloud-hosting-vibecoders",
+      "es": "es-cloud-hosting-vibecoders",
+      "fr": "fr-cloud-hosting-vibecoders",
+      "de": "de-cloud-hosting-vibecoders",
+      "ja": "ja-cloud-hosting-vibecoders",
+      "zh": "zh-cloud-hosting-vibecoders"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "ja-cloud-hosting-vibecoders",
+    "locale": "ja",
+    "canonicalLocale": "ja",
+    "slug": "cloud-hosting-vibecoders",
+    "canonicalSlug": "cloud-hosting-vibecoders",
+    "title": "Zero-DevOpsクラウドホスティング：バイブコーダー向けガイド",
+    "summary": "バイブコーダーとしてのあなたの主な目標は、構築し、反復し、楽しむ（vibe）ことです。自分のアイデアが即座に現実になるのを見たいはずです。最も避けたいのは、Dockerfileの作成、ネットワークルーティングの設定、複雑なKubernetesクラスターのセットアップに3日間を費やすことです。",
+    "niche": ["cloud-computing"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-cloud-hosting-vibecoders",
+      "pt-BR": "pt-BR-cloud-hosting-vibecoders",
+      "es": "es-cloud-hosting-vibecoders",
+      "fr": "fr-cloud-hosting-vibecoders",
+      "de": "de-cloud-hosting-vibecoders",
+      "it": "it-cloud-hosting-vibecoders",
+      "zh": "zh-cloud-hosting-vibecoders"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "zh-cloud-hosting-vibecoders",
+    "locale": "zh",
+    "canonicalLocale": "zh",
+    "slug": "cloud-hosting-vibecoders",
+    "canonicalSlug": "cloud-hosting-vibecoders",
+    "title": "零运维云托管：Vibecoders 指南",
+    "summary": "作为一名 Vibecoder，您的主要目标是构建、迭代和保持流畅状态。您希望立即看到自己的想法变成现实。您最不想做的就是花三天时间编写 Dockerfile、配置网络路由或设置复杂的 Kubernetes 集群。",
+    "niche": ["cloud-computing"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-cloud-hosting-vibecoders",
+      "pt-BR": "pt-BR-cloud-hosting-vibecoders",
+      "es": "es-cloud-hosting-vibecoders",
+      "fr": "fr-cloud-hosting-vibecoders",
+      "de": "de-cloud-hosting-vibecoders",
+      "it": "it-cloud-hosting-vibecoders",
+      "ja": "ja-cloud-hosting-vibecoders"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  }
+]

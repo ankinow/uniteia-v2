@@ -1,0 +1,362 @@
+[
+  {
+    "id": "en-llm-comparison-frontier",
+    "locale": "en",
+    "canonicalLocale": "en",
+    "slug": "llm-comparison-frontier",
+    "canonicalSlug": "llm-comparison-frontier",
+    "title": "Frontier LLM Comparison: GPT-4o, Claude 4, and Gemini 2.5",
+    "summary": "The landscape of Large Language Models (LLMs) in 2026 is defined by three main contenders: OpenAI's GPT-4o, Anthropic's Claude 4, and Google's Gemini 2.5. Each ",
+    "niche": ["llm-comparison"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "pt-BR": "pt-BR-llm-comparison-frontier",
+      "es": "es-llm-comparison-frontier",
+      "fr": "fr-llm-comparison-frontier",
+      "de": "de-llm-comparison-frontier",
+      "it": "it-llm-comparison-frontier",
+      "ja": "ja-llm-comparison-frontier",
+      "zh": "zh-llm-comparison-frontier"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "pt-BR-llm-comparison-frontier",
+    "locale": "pt-BR",
+    "canonicalLocale": "pt-BR",
+    "slug": "llm-comparison-frontier",
+    "canonicalSlug": "llm-comparison-frontier",
+    "title": "Comparação de LLMs de Fronteira: GPT-4o, Claude 4 e Gemini 2.5",
+    "summary": "O cenário dos Grandes Modelos de Linguagem (LLMs) em 2026 é definido por três principais concorrentes: GPT-4o da OpenAI, Claude 4 da Anthropic e Gemini 2.5 do G",
+    "niche": ["llm-comparison"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-llm-comparison-frontier",
+      "es": "es-llm-comparison-frontier",
+      "fr": "fr-llm-comparison-frontier",
+      "de": "de-llm-comparison-frontier",
+      "it": "it-llm-comparison-frontier",
+      "ja": "ja-llm-comparison-frontier",
+      "zh": "zh-llm-comparison-frontier"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "es-llm-comparison-frontier",
+    "locale": "es",
+    "canonicalLocale": "es",
+    "slug": "llm-comparison-frontier",
+    "canonicalSlug": "llm-comparison-frontier",
+    "title": "Comparación de LLMs de Frontera: GPT-4o, Claude 4 y Gemini 2.5",
+    "summary": "El panorama de los Grandes Modelos de Lenguaje (LLMs) en 2026 está definido por tres competidores principales: GPT-4o de OpenAI, Claude 4 de Anthropic y Gemini ",
+    "niche": ["llm-comparison"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-llm-comparison-frontier",
+      "pt-BR": "pt-BR-llm-comparison-frontier",
+      "fr": "fr-llm-comparison-frontier",
+      "de": "de-llm-comparison-frontier",
+      "it": "it-llm-comparison-frontier",
+      "ja": "ja-llm-comparison-frontier",
+      "zh": "zh-llm-comparison-frontier"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "fr-llm-comparison-frontier",
+    "locale": "fr",
+    "canonicalLocale": "fr",
+    "slug": "llm-comparison-frontier",
+    "canonicalSlug": "llm-comparison-frontier",
+    "title": "Comparaison des LLMs de Pointe : GPT-4o, Claude 4 et Gemini 2.5",
+    "summary": "Le paysage des grands modèles de langage (LLM) en 2026 est défini par trois principaux concurrents : GPT-4o d'OpenAI, Claude 4 d'Anthropic et Gemini 2.5 de Goog",
+    "niche": ["llm-comparison"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-llm-comparison-frontier",
+      "pt-BR": "pt-BR-llm-comparison-frontier",
+      "es": "es-llm-comparison-frontier",
+      "de": "de-llm-comparison-frontier",
+      "it": "it-llm-comparison-frontier",
+      "ja": "ja-llm-comparison-frontier",
+      "zh": "zh-llm-comparison-frontier"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "de-llm-comparison-frontier",
+    "locale": "de",
+    "canonicalLocale": "de",
+    "slug": "llm-comparison-frontier",
+    "canonicalSlug": "llm-comparison-frontier",
+    "title": "Frontier-LLM-Vergleich: GPT-4o, Claude 4 und Gemini 2.5",
+    "summary": "Die Landschaft der Large Language Models (LLMs) im Jahr 2026 wird von drei Hauptakteuren bestimmt: OpenAIs GPT-4o, Anthropics Claude 4 und Googles Gemini 2.5. J",
+    "niche": ["llm-comparison"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-llm-comparison-frontier",
+      "pt-BR": "pt-BR-llm-comparison-frontier",
+      "es": "es-llm-comparison-frontier",
+      "fr": "fr-llm-comparison-frontier",
+      "it": "it-llm-comparison-frontier",
+      "ja": "ja-llm-comparison-frontier",
+      "zh": "zh-llm-comparison-frontier"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "it-llm-comparison-frontier",
+    "locale": "it",
+    "canonicalLocale": "it",
+    "slug": "llm-comparison-frontier",
+    "canonicalSlug": "llm-comparison-frontier",
+    "title": "Confronto LLM d'Avanguardia: GPT-4o, Claude 4 e Gemini 2.5",
+    "summary": "Il panorama dei Large Language Models (LLM) nel 2026 è definito da tre principali sfidanti: GPT-4o di OpenAI, Claude 4 di Anthropic e Gemini 2.5 di Google. Cias",
+    "niche": ["llm-comparison"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-llm-comparison-frontier",
+      "pt-BR": "pt-BR-llm-comparison-frontier",
+      "es": "es-llm-comparison-frontier",
+      "fr": "fr-llm-comparison-frontier",
+      "de": "de-llm-comparison-frontier",
+      "ja": "ja-llm-comparison-frontier",
+      "zh": "zh-llm-comparison-frontier"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "ja-llm-comparison-frontier",
+    "locale": "ja",
+    "canonicalLocale": "ja",
+    "slug": "llm-comparison-frontier",
+    "canonicalSlug": "llm-comparison-frontier",
+    "title": "最前線LLM比較: GPT-4o, Claude 4, Gemini 2.5",
+    "summary": "2026年における大規模言語モデル（LLM）の展望は、OpenAIのGPT-4o、AnthropicのClaude 4、GoogleのGemini 2.5という3つの主要な競合によって定義されています。各モデルは独自の特性と構造上の利点を発展させてきました。",
+    "niche": ["llm-comparison"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-llm-comparison-frontier",
+      "pt-BR": "pt-BR-llm-comparison-frontier",
+      "es": "es-llm-comparison-frontier",
+      "fr": "fr-llm-comparison-frontier",
+      "de": "de-llm-comparison-frontier",
+      "it": "it-llm-comparison-frontier",
+      "zh": "zh-llm-comparison-frontier"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "zh-llm-comparison-frontier",
+    "locale": "zh",
+    "canonicalLocale": "zh",
+    "slug": "llm-comparison-frontier",
+    "canonicalSlug": "llm-comparison-frontier",
+    "title": "前沿大语言模型比较：GPT-4o、Claude 4 和 Gemini 2.5",
+    "summary": "2026 年的大语言模型 (LLM) 格局由三个主要竞争对手定义：OpenAI 的 GPT-4o、Anthropic 的 Claude 4 和 Google 的 Gemini 2.5。每个模型都发展出了独特的特性和结构优势。",
+    "niche": ["llm-comparison"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-llm-comparison-frontier",
+      "pt-BR": "pt-BR-llm-comparison-frontier",
+      "es": "es-llm-comparison-frontier",
+      "fr": "fr-llm-comparison-frontier",
+      "de": "de-llm-comparison-frontier",
+      "it": "it-llm-comparison-frontier",
+      "ja": "ja-llm-comparison-frontier"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  }
+]

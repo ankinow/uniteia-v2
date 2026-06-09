@@ -1,0 +1,362 @@
+[
+  {
+    "id": "en-what-are-ai-agents",
+    "locale": "en",
+    "canonicalLocale": "en",
+    "slug": "what-are-ai-agents",
+    "canonicalSlug": "what-are-ai-agents",
+    "title": "What are AI Agents and Why You Should Care",
+    "summary": "AI agents represent a paradigm shift in how we interact with technology. Unlike simple chatbots that respond to prompts with text, AI agents are designed to obs",
+    "niche": ["ai-agents"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "pt-BR": "pt-BR-what-are-ai-agents",
+      "es": "es-what-are-ai-agents",
+      "fr": "fr-what-are-ai-agents",
+      "de": "de-what-are-ai-agents",
+      "it": "it-what-are-ai-agents",
+      "ja": "ja-what-are-ai-agents",
+      "zh": "zh-what-are-ai-agents"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "pt-BR-what-are-ai-agents",
+    "locale": "pt-BR",
+    "canonicalLocale": "pt-BR",
+    "slug": "what-are-ai-agents",
+    "canonicalSlug": "what-are-ai-agents",
+    "title": "O que são Agentes de IA e por que você deve se importar",
+    "summary": "Os agentes de IA representam uma mudança de paradigma na forma como interagimos com a tecnologia. Ao contrário de chatbots simples que apenas respondem a prompt",
+    "niche": ["ai-agents"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-what-are-ai-agents",
+      "es": "es-what-are-ai-agents",
+      "fr": "fr-what-are-ai-agents",
+      "de": "de-what-are-ai-agents",
+      "it": "it-what-are-ai-agents",
+      "ja": "ja-what-are-ai-agents",
+      "zh": "zh-what-are-ai-agents"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "es-what-are-ai-agents",
+    "locale": "es",
+    "canonicalLocale": "es",
+    "slug": "what-are-ai-agents",
+    "canonicalSlug": "what-are-ai-agents",
+    "title": "Qué son los Agentes de IA y por que deberian importarte",
+    "summary": "Los agentes de IA representan un cambio de paradigma en cómo interactuamos con la tecnología. A diferencia de los chatbots simples que responden a instrucciones",
+    "niche": ["ai-agents"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-what-are-ai-agents",
+      "pt-BR": "pt-BR-what-are-ai-agents",
+      "fr": "fr-what-are-ai-agents",
+      "de": "de-what-are-ai-agents",
+      "it": "it-what-are-ai-agents",
+      "ja": "ja-what-are-ai-agents",
+      "zh": "zh-what-are-ai-agents"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "fr-what-are-ai-agents",
+    "locale": "fr",
+    "canonicalLocale": "fr",
+    "slug": "what-are-ai-agents",
+    "canonicalSlug": "what-are-ai-agents",
+    "title": "Que sont les Agents d'IA et pourquoi devriez-vous vous en soucier",
+    "summary": "Les agents d'IA représentent un changement de paradigme dans notre façon d'interagir avec la technologie. Contrairement aux simples chatbots qui répondent aux r",
+    "niche": ["ai-agents"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-what-are-ai-agents",
+      "pt-BR": "pt-BR-what-are-ai-agents",
+      "es": "es-what-are-ai-agents",
+      "de": "de-what-are-ai-agents",
+      "it": "it-what-are-ai-agents",
+      "ja": "ja-what-are-ai-agents",
+      "zh": "zh-what-are-ai-agents"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "de-what-are-ai-agents",
+    "locale": "de",
+    "canonicalLocale": "de",
+    "slug": "what-are-ai-agents",
+    "canonicalSlug": "what-are-ai-agents",
+    "title": "Was sind KI-Agenten und warum Sie sich dafür interessieren sollten",
+    "summary": "KI-Agenten stellen einen Paradigmenwechsel in der Art und Weise dar, wie wir mit Technologie interagieren. Im Gegensatz zu einfachen Chatbots, die auf Prompts m",
+    "niche": ["ai-agents"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-what-are-ai-agents",
+      "pt-BR": "pt-BR-what-are-ai-agents",
+      "es": "es-what-are-ai-agents",
+      "fr": "fr-what-are-ai-agents",
+      "it": "it-what-are-ai-agents",
+      "ja": "ja-what-are-ai-agents",
+      "zh": "zh-what-are-ai-agents"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "it-what-are-ai-agents",
+    "locale": "it",
+    "canonicalLocale": "it",
+    "slug": "what-are-ai-agents",
+    "canonicalSlug": "what-are-ai-agents",
+    "title": "Cosa sono gli Agenti AI e perché dovresti occupartene",
+    "summary": "Gli agenti AI rappresentano un cambio di paradigma nel modo in cui interagiamo con la tecnologia. A differenza dei semplici chatbot che rispondono ai prompt con",
+    "niche": ["ai-agents"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-what-are-ai-agents",
+      "pt-BR": "pt-BR-what-are-ai-agents",
+      "es": "es-what-are-ai-agents",
+      "fr": "fr-what-are-ai-agents",
+      "de": "de-what-are-ai-agents",
+      "ja": "ja-what-are-ai-agents",
+      "zh": "zh-what-are-ai-agents"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "ja-what-are-ai-agents",
+    "locale": "ja",
+    "canonicalLocale": "ja",
+    "slug": "what-are-ai-agents",
+    "canonicalSlug": "what-are-ai-agents",
+    "title": "AIエージェントとは何か、そしてなぜ注目すべきなのか",
+    "summary": "AIエージェントは、私たちがテクノロジーと対話する方法におけるパラダイムシフトを表しています。テキストでプロンプトに応答するだけの単純なチャットボットとは異なり、AIエージェントは自律的に観察、計画、決定を下し、複雑な目標を達成するために行動するように設計されています。",
+    "niche": ["ai-agents"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-what-are-ai-agents",
+      "pt-BR": "pt-BR-what-are-ai-agents",
+      "es": "es-what-are-ai-agents",
+      "fr": "fr-what-are-ai-agents",
+      "de": "de-what-are-ai-agents",
+      "it": "it-what-are-ai-agents",
+      "zh": "zh-what-are-ai-agents"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "zh-what-are-ai-agents",
+    "locale": "zh",
+    "canonicalLocale": "zh",
+    "slug": "what-are-ai-agents",
+    "canonicalSlug": "what-are-ai-agents",
+    "title": "什么是 AI 代理以及为什么您应该关注",
+    "summary": "AI 代理代表了我们与技术交互方式的范式转变。与通过文本响应提示的简单聊天机器人不同，AI 代理旨在自主观察、计划、做出决策并采取行动，以实现复杂的目标。",
+    "niche": ["ai-agents"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-what-are-ai-agents",
+      "pt-BR": "pt-BR-what-are-ai-agents",
+      "es": "es-what-are-ai-agents",
+      "fr": "fr-what-are-ai-agents",
+      "de": "de-what-are-ai-agents",
+      "it": "it-what-are-ai-agents",
+      "ja": "ja-what-are-ai-agents"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  }
+]

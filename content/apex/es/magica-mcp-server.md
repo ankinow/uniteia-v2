@@ -9,14 +9,20 @@ subjects:
   - mcp
   - api
   - development
-referral_links: []
+referral_links:
+  - url: /en/signals/apex/magica-overview
+    title: magica-overview
+  - url: /en/signals/apex/magica-quickstart
+    title: magica-quickstart
+  - url: /en/signals/apex/multi-agent-vibecoding
+    title: multi-agent-vibecoding
 metadata:
-  created_at: "2026-06-09T02:27:03.025Z"
-  updated_at: "2026-06-09T02:27:03.025Z"
+  created_at: "2026-06-09T03:22:19.407Z"
+  updated_at: "2026-06-09T03:22:30.413Z"
   author: UniTeia System
-  version: 1
+  version: 2
 canvas:
-  tone: obsidian
+  tone: coral
   layout: neural-branch
   nodes:
     - id: hero

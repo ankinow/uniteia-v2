@@ -14,12 +14,10 @@ export const NewsletterForm = component$<NewsletterFormProps>(
   ({ placeholder = 'your@email.com', buttonText = 'Subscribe', class: classList }) => {
     return (
       <div class={['w-full max-w-md', classList]}>
-        <form
-          method="POST"
-          action="/api/newsletter"
-          class="flex flex-col sm:flex-row gap-2"
-        >
-          <label for="newsletter-email" class="sr-only">Email address</label>
+        <form method="POST" action="/api/newsletter" class="flex flex-col sm:flex-row gap-2">
+          <label for="newsletter-email" class="sr-only">
+            Email address
+          </label>
           <input
             id="newsletter-email"
             type="email"

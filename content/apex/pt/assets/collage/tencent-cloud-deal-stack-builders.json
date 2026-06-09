@@ -13,8 +13,8 @@
       "id": "what-is-the-tencent-cloud-deal-stack"
     },
     {
-      "cx": 578,
-      "cy": 263,
+      "cx": 577,
+      "cy": 239,
       "r": 32,
       "label": "Free Products",
       "shape": "rounded-rect",
@@ -26,7 +26,7 @@
   "arrows": [
     {
       "id": "arrow-0",
-      "path": "M 400 250 Q 487 283 578 263",
+      "path": "M 400 250 Q 490 271 577 239",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
@@ -35,7 +35,7 @@
   "notes": [
     {
       "x": 419,
-      "y": 236,
+      "y": 225,
       "text": "",
       "width": 140,
       "height": 40,
@@ -46,5 +46,5 @@
   "width": 800,
   "height": 500,
   "layout": "constellation",
-  "generatedAt": "2026-06-09T02:27:03.025Z"
+  "generatedAt": "2026-06-09T03:22:30.413Z"
 }

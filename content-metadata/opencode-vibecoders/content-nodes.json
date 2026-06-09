@@ -1,0 +1,182 @@
+{
+  "version": "1",
+  "canonicalSlug": "opencode-vibecoders",
+  "nodes": [
+    {
+      "id": "en-opencode-vibecoders",
+      "locale": "en",
+      "slug": "opencode-vibecoders",
+      "niche": "apex",
+      "qualityScore": 95,
+      "visibility": "published",
+      "metadata": {
+        "title": "OpenCode: The Terminal That Replaces Your IDE for Advanced Vibecoding",
+        "created_at": "2026-06-08T23:00:00-03:00",
+        "tags": [
+          "opencode",
+          "vibecoding",
+          "cli",
+          "ai-agents",
+          "terminal",
+          "multi-agent",
+          "nvidia-nim",
+          "mcp"
+        ]
+      }
+    },
+    {
+      "id": "pt-opencode-vibecoders",
+      "locale": "pt",
+      "slug": "opencode-vibecoders",
+      "niche": "apex",
+      "qualityScore": 95,
+      "visibility": "published",
+      "metadata": {
+        "title": "OpenCode: O Terminal Que Substitui Sua IDE para Vibecoding Avançado",
+        "created_at": "2026-06-08T23:00:00-03:00",
+        "tags": [
+          "opencode",
+          "vibecoding",
+          "cli",
+          "ai-agents",
+          "terminal",
+          "multi-agent",
+          "nvidia-nim",
+          "mcp"
+        ]
+      }
+    },
+    {
+      "id": "es-opencode-vibecoders",
+      "locale": "es",
+      "slug": "opencode-vibecoders",
+      "niche": "apex",
+      "qualityScore": 95,
+      "visibility": "published",
+      "metadata": {
+        "title": "OpenCode: El Terminal Que Reemplaza Tu IDE para Vibecoding Avanzado",
+        "created_at": "2026-06-08T23:00:00-03:00",
+        "tags": [
+          "opencode",
+          "vibecoding",
+          "cli",
+          "ai-agents",
+          "terminal",
+          "multi-agent",
+          "nvidia-nim",
+          "mcp"
+        ]
+      }
+    },
+    {
+      "id": "fr-opencode-vibecoders",
+      "locale": "fr",
+      "slug": "opencode-vibecoders",
+      "niche": "apex",
+      "qualityScore": 95,
+      "visibility": "published",
+      "metadata": {
+        "title": "OpenCode: Le Terminal Qui Remplace Votre IDE pour le Vibecoding Avancé",
+        "created_at": "2026-06-08T23:00:00-03:00",
+        "tags": [
+          "opencode",
+          "vibecoding",
+          "cli",
+          "ai-agents",
+          "terminal",
+          "multi-agent",
+          "nvidia-nim",
+          "mcp"
+        ]
+      }
+    },
+    {
+      "id": "de-opencode-vibecoders",
+      "locale": "de",
+      "slug": "opencode-vibecoders",
+      "niche": "apex",
+      "qualityScore": 95,
+      "visibility": "published",
+      "metadata": {
+        "title": "OpenCode: Das Terminal, Das Deine IDE für Fortgeschrittenes Vibecoding Ersetzt",
+        "created_at": "2026-06-08T23:00:00-03:00",
+        "tags": [
+          "opencode",
+          "vibecoding",
+          "cli",
+          "ai-agents",
+          "terminal",
+          "multi-agent",
+          "nvidia-nim",
+          "mcp"
+        ]
+      }
+    },
+    {
+      "id": "it-opencode-vibecoders",
+      "locale": "it",
+      "slug": "opencode-vibecoders",
+      "niche": "apex",
+      "qualityScore": 95,
+      "visibility": "published",
+      "metadata": {
+        "title": "OpenCode: Il Terminale Che Sostituisce Il Tuo IDE per il Vibecoding Avanzato",
+        "created_at": "2026-06-08T23:00:00-03:00",
+        "tags": [
+          "opencode",
+          "vibecoding",
+          "cli",
+          "ai-agents",
+          "terminal",
+          "multi-agent",
+          "nvidia-nim",
+          "mcp"
+        ]
+      }
+    },
+    {
+      "id": "ja-opencode-vibecoders",
+      "locale": "ja",
+      "slug": "opencode-vibecoders",
+      "niche": "apex",
+      "qualityScore": 95,
+      "visibility": "published",
+      "metadata": {
+        "title": "OpenCode: 高度なVibecodingのためのIDEを置き換えるターミナル",
+        "created_at": "2026-06-08T23:00:00-03:00",
+        "tags": [
+          "opencode",
+          "vibecoding",
+          "cli",
+          "ai-agents",
+          "terminal",
+          "multi-agent",
+          "nvidia-nim",
+          "mcp"
+        ]
+      }
+    },
+    {
+      "id": "zh-opencode-vibecoders",
+      "locale": "zh",
+      "slug": "opencode-vibecoders",
+      "niche": "apex",
+      "qualityScore": 95,
+      "visibility": "published",
+      "metadata": {
+        "title": "OpenCode: 用终端取代IDE进行高级Vibecoding",
+        "created_at": "2026-06-08T23:00:00-03:00",
+        "tags": [
+          "opencode",
+          "vibecoding",
+          "cli",
+          "ai-agents",
+          "terminal",
+          "multi-agent",
+          "nvidia-nim",
+          "mcp"
+        ]
+      }
+    }
+  ]
+}

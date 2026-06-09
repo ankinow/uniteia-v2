@@ -1,0 +1,174 @@
+{
+  "version": "1",
+  "canonicalSlug": "multi-agent-vibecoding",
+  "nodes": [
+    {
+      "id": "en-multi-agent-vibecoding",
+      "locale": "en",
+      "slug": "multi-agent-vibecoding",
+      "niche": "apex",
+      "qualityScore": 95,
+      "visibility": "published",
+      "metadata": {
+        "title": "Multi-Agent Vibecoding: Orchestrating Agent Swarms with OpenCode",
+        "created_at": "2026-06-08T23:30:00-03:00",
+        "tags": [
+          "opencode",
+          "multi-agent",
+          "vibecoding",
+          "orchestration",
+          "delegate-task",
+          "mcp",
+          "ai-agents"
+        ]
+      }
+    },
+    {
+      "id": "pt-multi-agent-vibecoding",
+      "locale": "pt",
+      "slug": "multi-agent-vibecoding",
+      "niche": "apex",
+      "qualityScore": 95,
+      "visibility": "published",
+      "metadata": {
+        "title": "Multi-Agent Vibecoding: Orquestrando Enxames de Agentes com OpenCode",
+        "created_at": "2026-06-08T23:30:00-03:00",
+        "tags": [
+          "opencode",
+          "multi-agent",
+          "vibecoding",
+          "orchestration",
+          "delegate-task",
+          "mcp",
+          "ai-agents"
+        ]
+      }
+    },
+    {
+      "id": "es-multi-agent-vibecoding",
+      "locale": "es",
+      "slug": "multi-agent-vibecoding",
+      "niche": "apex",
+      "qualityScore": 95,
+      "visibility": "published",
+      "metadata": {
+        "title": "Multi-Agent Vibecoding: Orquestando Enjambres de Agentes con OpenCode",
+        "created_at": "2026-06-08T23:30:00-03:00",
+        "tags": [
+          "opencode",
+          "multi-agent",
+          "vibecoding",
+          "orchestration",
+          "delegate-task",
+          "mcp",
+          "ai-agents"
+        ]
+      }
+    },
+    {
+      "id": "fr-multi-agent-vibecoding",
+      "locale": "fr",
+      "slug": "multi-agent-vibecoding",
+      "niche": "apex",
+      "qualityScore": 95,
+      "visibility": "published",
+      "metadata": {
+        "title": "Multi-Agent Vibecoding: Orchestrer des Essaims d'Agents avec OpenCode",
+        "created_at": "2026-06-08T23:30:00-03:00",
+        "tags": [
+          "opencode",
+          "multi-agent",
+          "vibecoding",
+          "orchestration",
+          "delegate-task",
+          "mcp",
+          "ai-agents"
+        ]
+      }
+    },
+    {
+      "id": "de-multi-agent-vibecoding",
+      "locale": "de",
+      "slug": "multi-agent-vibecoding",
+      "niche": "apex",
+      "qualityScore": 95,
+      "visibility": "published",
+      "metadata": {
+        "title": "Multi-Agent Vibecoding: Agentenschwärme mit OpenCode Orchestrieren",
+        "created_at": "2026-06-08T23:30:00-03:00",
+        "tags": [
+          "opencode",
+          "multi-agent",
+          "vibecoding",
+          "orchestration",
+          "delegate-task",
+          "mcp",
+          "ai-agents"
+        ]
+      }
+    },
+    {
+      "id": "it-multi-agent-vibecoding",
+      "locale": "it",
+      "slug": "multi-agent-vibecoding",
+      "niche": "apex",
+      "qualityScore": 95,
+      "visibility": "published",
+      "metadata": {
+        "title": "Multi-Agent Vibecoding: Orchestrare Sciami di Agenti con OpenCode",
+        "created_at": "2026-06-08T23:30:00-03:00",
+        "tags": [
+          "opencode",
+          "multi-agent",
+          "vibecoding",
+          "orchestration",
+          "delegate-task",
+          "mcp",
+          "ai-agents"
+        ]
+      }
+    },
+    {
+      "id": "ja-multi-agent-vibecoding",
+      "locale": "ja",
+      "slug": "multi-agent-vibecoding",
+      "niche": "apex",
+      "qualityScore": 95,
+      "visibility": "published",
+      "metadata": {
+        "title": "マルチエージェントVibecoding: OpenCodeでエージェントスウォームを編成",
+        "created_at": "2026-06-08T23:30:00-03:00",
+        "tags": [
+          "opencode",
+          "multi-agent",
+          "vibecoding",
+          "orchestration",
+          "delegate-task",
+          "mcp",
+          "ai-agents"
+        ]
+      }
+    },
+    {
+      "id": "zh-multi-agent-vibecoding",
+      "locale": "zh",
+      "slug": "multi-agent-vibecoding",
+      "niche": "apex",
+      "qualityScore": 95,
+      "visibility": "published",
+      "metadata": {
+        "title": "多代理Vibecoding: 用OpenCode编排代理集群",
+        "created_at": "2026-06-08T23:30:00-03:00",
+        "tags": [
+          "opencode",
+          "multi-agent",
+          "vibecoding",
+          "orchestration",
+          "delegate-task",
+          "mcp",
+          "ai-agents"
+        ]
+      }
+    }
+  ]
+}

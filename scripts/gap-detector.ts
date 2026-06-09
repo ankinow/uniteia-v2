@@ -114,7 +114,11 @@ function chkCanvas(): Gap[] {
               detail: `No canvas: ${relative(ROOT, fp)}`,
             })
         }
-  } catch {}
+  } catch (err) {
+    console.warn(
+      `[gap-detector] chkCanvas: error scanning content — error=${(err as Error)?.message ?? String(err)}`
+    )
+  }
   return a
 }
 
@@ -138,7 +142,11 @@ function chkCollage(): Gap[] {
               detail: `No collage: ${relative(ROOT, cp)}`,
             })
         }
-  } catch {}
+  } catch (err) {
+    console.warn(
+      `[gap-detector] chkCollage: error scanning content — error=${(err as Error)?.message ?? String(err)}`
+    )
+  }
   return a
 }
 
@@ -159,7 +167,11 @@ function chkLocale(): Gap[] {
               detail: `Missing ${l}: ${n}/${l}/${s}.md`,
             })
         }
-  } catch {}
+  } catch (err) {
+    console.warn(
+      `[gap-detector] chkLocale: error scanning content — error=${(err as Error)?.message ?? String(err)}`
+    )
+  }
   return a
 }
 
@@ -196,7 +208,11 @@ function chkStale(): Gap[] {
         /* skip */
       }
     }
-  } catch {}
+  } catch (err) {
+    console.warn(
+      `[gap-detector] chkStale: error scanning stale content — error=${(err as Error)?.message ?? String(err)}`
+    )
+  }
   return a
 }
 
@@ -219,7 +235,11 @@ function chkLowQ(): Gap[] {
               detail: `score=${sc}<70: ${relative(ROOT, fp)}`,
             })
         }
-  } catch {}
+  } catch (err) {
+    console.warn(
+      `[gap-detector] chkLowQ: error scanning content — error=${(err as Error)?.message ?? String(err)}`
+    )
+  }
   return a
 }
 
@@ -237,8 +257,16 @@ function chkHreflang(): Gap[] {
               locale: l,
               detail: `No hreflang: ${relative(ROOT, h)}`,
             })
-        } catch {}
-  } catch {}
+        } catch (err) {
+          console.warn(
+            `[gap-detector] chkHreflang: error reading dist HTML — locale=${l} path=${h} error=${(err as Error)?.message ?? String(err)}`
+          )
+        }
+  } catch (err) {
+    console.warn(
+      `[gap-detector] chkHreflang: error scanning dist — error=${(err as Error)?.message ?? String(err)}`
+    )
+  }
   return a
 }
 

@@ -13,8 +13,8 @@
       "id": "hero"
     },
     {
-      "cx": 579,
-      "cy": 238,
+      "cx": 570,
+      "cy": 251,
       "r": 32,
       "label": "Benchmarks",
       "shape": "rounded-rect",
@@ -23,7 +23,7 @@
       "id": "benchmarks"
     },
     {
-      "cx": 457,
+      "cx": 449,
       "cy": 417,
       "r": 32,
       "label": "Human Feedback",
@@ -33,8 +33,8 @@
       "id": "human-eval"
     },
     {
-      "cx": 255,
-      "cy": 356,
+      "cx": 265,
+      "cy": 343,
       "r": 32,
       "label": "Auto Tests",
       "shape": "rounded-rect",
@@ -43,8 +43,8 @@
       "id": "automated"
     },
     {
-      "cx": 261,
-      "cy": 138,
+      "cx": 247,
+      "cy": 152,
       "r": 32,
       "label": "Framework",
       "shape": "rounded-rect",
@@ -53,8 +53,8 @@
       "id": "framework"
     },
     {
-      "cx": 468,
-      "cy": 69,
+      "cx": 445,
+      "cy": 77,
       "r": 32,
       "label": "Conclusion",
       "shape": "rounded-rect",
@@ -66,49 +66,49 @@
   "arrows": [
     {
       "id": "arrow-0",
-      "path": "M 400 250 Q 491 271 579 238",
+      "path": "M 400 250 Q 485 276 570 251",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-1",
-      "path": "M 400 250 Q 403 342 457 417",
+      "path": "M 400 250 Q 399 341 449 417",
       "color": "oklch(0.55 0.12 200)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-2",
-      "path": "M 400 250 Q 312 281 255 356",
+      "path": "M 400 250 Q 319 276 265 343",
       "color": "oklch(0.65 0.18 85)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-3",
-      "path": "M 400 250 Q 347 173 261 138",
+      "path": "M 400 250 Q 338 178 247 152",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-4",
-      "path": "M 400 250 Q 461 170 468 69",
+      "path": "M 400 250 Q 448 170 445 77",
       "color": "oklch(0.55 0.12 200)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-5",
-      "path": "M 579 238 Q 491 309 457 417",
+      "path": "M 570 251 Q 485 316 449 417",
       "color": "oklch(0.65 0.18 85)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-6",
-      "path": "M 255 356 Q 291 248 261 138",
+      "path": "M 265 343 Q 285 245 247 152",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
@@ -116,15 +116,15 @@
   ],
   "notes": [
     {
-      "x": 420,
-      "y": 224,
+      "x": 415,
+      "y": 231,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": -1
     },
     {
-      "x": 358,
+      "x": 355,
       "y": 322,
       "text": "",
       "width": 140,
@@ -132,39 +132,39 @@
       "rotation": 0
     },
     {
-      "x": 258,
-      "y": 299,
+      "x": 262,
+      "y": 293,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 1
     },
     {
-      "x": 260,
-      "y": 174,
+      "x": 253,
+      "y": 181,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": -1
     },
     {
-      "x": 364,
-      "y": 147,
+      "x": 352,
+      "y": 152,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 0
     },
     {
-      "x": 448,
-      "y": 324,
+      "x": 439,
+      "y": 330,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 1
     },
     {
-      "x": 188,
+      "x": 186,
       "y": 227,
       "text": "",
       "width": 140,
@@ -172,9 +172,9 @@
       "rotation": -1
     }
   ],
-  "tone": "parchment",
+  "tone": "obsidian",
   "width": 800,
   "height": 500,
   "layout": "constellation",
-  "generatedAt": "2026-06-09T02:27:03.025Z"
+  "generatedAt": "2026-06-09T03:22:30.413Z"
 }

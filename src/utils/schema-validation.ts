@@ -129,7 +129,13 @@ function validateReferralLinks(
       addIssue(issues, filePath, `referral_links.${index}.url`, 'Must be a string')
     } else {
       try {
-        new URL(link.url)
+        // Accept relative URLs (e.g. /en/signals/apex/magica-overview)
+        // by constructing with a base URL for validation purposes only
+        const urlToValidate = link.url.startsWith('/')
+          ? new URL(link.url, 'https://uniteia.com')
+          : new URL(link.url)
+        // Ensure the URL is well-formed (constructor throws on invalid URIs)
+        void urlToValidate
       } catch {
         addIssue(issues, filePath, `referral_links.${index}.url`, 'Must match format "uri"')
       }

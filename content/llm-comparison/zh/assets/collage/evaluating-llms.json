@@ -13,8 +13,8 @@
       "id": "hero"
     },
     {
-      "cx": 582,
-      "cy": 240,
+      "cx": 571,
+      "cy": 261,
       "r": 32,
       "label": "Benchmarks",
       "shape": "rounded-rect",
@@ -24,7 +24,7 @@
     },
     {
       "cx": 460,
-      "cy": 409,
+      "cy": 422,
       "r": 32,
       "label": "Human Feedback",
       "shape": "rounded-rect",
@@ -33,8 +33,8 @@
       "id": "human-eval"
     },
     {
-      "cx": 272,
-      "cy": 364,
+      "cx": 259,
+      "cy": 340,
       "r": 32,
       "label": "Auto Tests",
       "shape": "rounded-rect",
@@ -43,8 +43,8 @@
       "id": "automated"
     },
     {
-      "cx": 265,
-      "cy": 140,
+      "cx": 263,
+      "cy": 155,
       "r": 32,
       "label": "Framework",
       "shape": "rounded-rect",
@@ -53,8 +53,8 @@
       "id": "framework"
     },
     {
-      "cx": 456,
-      "cy": 86,
+      "cx": 439,
+      "cy": 71,
       "r": 32,
       "label": "Conclusion",
       "shape": "rounded-rect",
@@ -66,49 +66,49 @@
   "arrows": [
     {
       "id": "arrow-0",
-      "path": "M 400 250 Q 493 272 582 240",
+      "path": "M 400 250 Q 484 281 571 261",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-1",
-      "path": "M 400 250 Q 406 339 460 409",
+      "path": "M 400 250 Q 404 345 460 422",
       "color": "oklch(0.55 0.12 200)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-2",
-      "path": "M 400 250 Q 319 288 272 364",
+      "path": "M 400 250 Q 316 274 259 340",
       "color": "oklch(0.65 0.18 85)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-3",
-      "path": "M 400 250 Q 349 174 265 140",
+      "path": "M 400 250 Q 346 182 263 155",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-4",
-      "path": "M 400 250 Q 453 176 456 86",
+      "path": "M 400 250 Q 447 166 439 71",
       "color": "oklch(0.55 0.12 200)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-5",
-      "path": "M 582 240 Q 496 306 460 409",
+      "path": "M 571 261 Q 491 325 460 422",
       "color": "oklch(0.65 0.18 85)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-6",
-      "path": "M 272 364 Q 302 251 265 140",
+      "path": "M 259 340 Q 289 248 263 155",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
@@ -116,8 +116,8 @@
   ],
   "notes": [
     {
-      "x": 421,
-      "y": 225,
+      "x": 416,
+      "y": 235,
       "text": "",
       "width": 140,
       "height": 40,
@@ -125,15 +125,15 @@
     },
     {
       "x": 360,
-      "y": 318,
+      "y": 324,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 0
     },
     {
-      "x": 266,
-      "y": 303,
+      "x": 259,
+      "y": 291,
       "text": "",
       "width": 140,
       "height": 40,
@@ -141,40 +141,40 @@
     },
     {
       "x": 262,
-      "y": 175,
+      "y": 183,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": -1
     },
     {
-      "x": 358,
-      "y": 156,
+      "x": 350,
+      "y": 148,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 0
     },
     {
-      "x": 451,
-      "y": 320,
+      "x": 446,
+      "y": 337,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 1
     },
     {
-      "x": 198,
-      "y": 232,
+      "x": 191,
+      "y": 228,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": -1
     }
   ],
-  "tone": "parchment",
+  "tone": "obsidian",
   "width": 800,
   "height": 500,
   "layout": "constellation",
-  "generatedAt": "2026-06-09T02:27:03.025Z"
+  "generatedAt": "2026-06-09T03:22:30.413Z"
 }

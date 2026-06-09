@@ -3,18 +3,24 @@ slug: tencent-cloud-deal-stack-builders
 lang: en
 title: Tencent Cloud Deal Stack for Builders
 verdict: caution
-quality_score: 65
+quality_score: 90
 subjects:
   - cloud
   - builders
   - infrastructure
   - tencent-cloud
-referral_links: []
+referral_links:
+  - url: /en/signals/apex/magica-mcp-server
+    title: magica-mcp-server
+  - url: /en/signals/apex/magica-overview
+    title: magica-overview
+  - url: /en/signals/apex/magica-quickstart
+    title: magica-quickstart
 metadata:
-  created_at: "2026-06-09T02:27:03.025Z"
-  updated_at: "2026-06-09T02:27:03.025Z"
+  created_at: "2026-06-09T03:22:19.407Z"
+  updated_at: "2026-06-09T03:22:30.413Z"
   author: UniTeia System
-  version: 1
+  version: 2
 canvas:
   tone: obsidian
   layout: constellation

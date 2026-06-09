@@ -279,6 +279,14 @@ function compileSymmetry(nodes: Map<string, ContentNode>): void {
     const presentLocales = new Set(group.map(n => n.locale))
     const allLocalesPresent = ALL_LOCALES.every(l => presentLocales.has(l))
     if (!allLocalesPresent) {
+      const missingLocales = ALL_LOCALES.filter(l => !presentLocales.has(l))
+      const sampleNode = group[0]
+      console.warn(
+        `[compileSymmetry] ⚠ Incomplete locale symmetry for "${sampleNode?.canonicalSlug}": ` +
+          `present=[${[...presentLocales].join(',')}] ` +
+          `missing=[${missingLocales.join(',')}] → ` +
+          `ALL ${group.length} locales set to draft`
+      )
       for (const node of group) {
         node.visibility = 'draft'
         node.seo.noindex = true

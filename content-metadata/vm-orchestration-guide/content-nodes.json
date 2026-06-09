@@ -1,0 +1,362 @@
+[
+  {
+    "id": "en-vm-orchestration-guide",
+    "locale": "en",
+    "canonicalLocale": "en",
+    "slug": "vm-orchestration-guide",
+    "canonicalSlug": "vm-orchestration-guide",
+    "title": "Demystifying Virtual Machines for AI Developers",
+    "summary": "While serverless edge platforms are perfect for lightweight APIs and static frontends, heavy workloads — such as training models, running database servers, or e",
+    "niche": ["virtual-machines"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "pt-BR": "pt-BR-vm-orchestration-guide",
+      "es": "es-vm-orchestration-guide",
+      "fr": "fr-vm-orchestration-guide",
+      "de": "de-vm-orchestration-guide",
+      "it": "it-vm-orchestration-guide",
+      "ja": "ja-vm-orchestration-guide",
+      "zh": "zh-vm-orchestration-guide"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "pt-BR-vm-orchestration-guide",
+    "locale": "pt-BR",
+    "canonicalLocale": "pt-BR",
+    "slug": "vm-orchestration-guide",
+    "canonicalSlug": "vm-orchestration-guide",
+    "title": "Desmistificando Máquinas Virtuais para Desenvolvedores de IA",
+    "summary": "Embora plataformas serverless na borda sejam ideais para APIs leves e frontends estáticos, cargas de trabalho pesadas — como treinamento de modelos, execução de",
+    "niche": ["virtual-machines"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-vm-orchestration-guide",
+      "es": "es-vm-orchestration-guide",
+      "fr": "fr-vm-orchestration-guide",
+      "de": "de-vm-orchestration-guide",
+      "it": "it-vm-orchestration-guide",
+      "ja": "ja-vm-orchestration-guide",
+      "zh": "zh-vm-orchestration-guide"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "es-vm-orchestration-guide",
+    "locale": "es",
+    "canonicalLocale": "es",
+    "slug": "vm-orchestration-guide",
+    "canonicalSlug": "vm-orchestration-guide",
+    "title": "Desmitificando maquinas virtuales para desarrolladores de IA",
+    "summary": "Aunque las plataformas serverless son ideales para APIs sencillas y frontends estáticos, las tareas pesadas (como el entrenamiento de modelos, bases de datos o ",
+    "niche": ["virtual-machines"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-vm-orchestration-guide",
+      "pt-BR": "pt-BR-vm-orchestration-guide",
+      "fr": "fr-vm-orchestration-guide",
+      "de": "de-vm-orchestration-guide",
+      "it": "it-vm-orchestration-guide",
+      "ja": "ja-vm-orchestration-guide",
+      "zh": "zh-vm-orchestration-guide"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "fr-vm-orchestration-guide",
+    "locale": "fr",
+    "canonicalLocale": "fr",
+    "slug": "vm-orchestration-guide",
+    "canonicalSlug": "vm-orchestration-guide",
+    "title": "Démystifier les Machines Virtuelles pour les Développeurs d'IA",
+    "summary": "Si les plateformes serverless edge sont parfaites pour les API légères, les charges de travail lourdes — comme l'entraînement de modèles, le fonctionnement de s",
+    "niche": ["virtual-machines"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-vm-orchestration-guide",
+      "pt-BR": "pt-BR-vm-orchestration-guide",
+      "es": "es-vm-orchestration-guide",
+      "de": "de-vm-orchestration-guide",
+      "it": "it-vm-orchestration-guide",
+      "ja": "ja-vm-orchestration-guide",
+      "zh": "zh-vm-orchestration-guide"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "de-vm-orchestration-guide",
+    "locale": "de",
+    "canonicalLocale": "de",
+    "slug": "vm-orchestration-guide",
+    "canonicalSlug": "vm-orchestration-guide",
+    "title": "Virtuelle Maschinen für KI-Entwickler entmystifizieren",
+    "summary": "Während serverlose Edge-Plattformen perfekt für schlanke APIs und statische Frontends sind, erfordern rechenintensive Workloads – wie das Trainieren von Modelle",
+    "niche": ["virtual-machines"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-vm-orchestration-guide",
+      "pt-BR": "pt-BR-vm-orchestration-guide",
+      "es": "es-vm-orchestration-guide",
+      "fr": "fr-vm-orchestration-guide",
+      "it": "it-vm-orchestration-guide",
+      "ja": "ja-vm-orchestration-guide",
+      "zh": "zh-vm-orchestration-guide"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "it-vm-orchestration-guide",
+    "locale": "it",
+    "canonicalLocale": "it",
+    "slug": "vm-orchestration-guide",
+    "canonicalSlug": "vm-orchestration-guide",
+    "title": "Demistificare le Macchine Virtuali per gli Sviluppatori AI",
+    "summary": "Sebbene le piattaforme serverless all'edge siano ideali per API leggere e frontend statici, i carichi di lavoro intensivi (como l'addestramento di modelli, l'es",
+    "niche": ["virtual-machines"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-vm-orchestration-guide",
+      "pt-BR": "pt-BR-vm-orchestration-guide",
+      "es": "es-vm-orchestration-guide",
+      "fr": "fr-vm-orchestration-guide",
+      "de": "de-vm-orchestration-guide",
+      "ja": "ja-vm-orchestration-guide",
+      "zh": "zh-vm-orchestration-guide"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "ja-vm-orchestration-guide",
+    "locale": "ja",
+    "canonicalLocale": "ja",
+    "slug": "vm-orchestration-guide",
+    "canonicalSlug": "vm-orchestration-guide",
+    "title": "AI開発者のための仮想マシン入門",
+    "summary": "サーバーレスエッジプラットフォームは軽量なAPIや静的フロントエンドには最適ですが、モデルのトレーニング、データベースサーバーの稼働、複雑なAIエージェントのループ実行などの重いワークロードには、専用の計算リソースが必要です。ここで仮想マシン（VM）が不可欠となります。",
+    "niche": ["virtual-machines"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-vm-orchestration-guide",
+      "pt-BR": "pt-BR-vm-orchestration-guide",
+      "es": "es-vm-orchestration-guide",
+      "fr": "fr-vm-orchestration-guide",
+      "de": "de-vm-orchestration-guide",
+      "it": "it-vm-orchestration-guide",
+      "zh": "zh-vm-orchestration-guide"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  },
+  {
+    "id": "zh-vm-orchestration-guide",
+    "locale": "zh",
+    "canonicalLocale": "zh",
+    "slug": "vm-orchestration-guide",
+    "canonicalSlug": "vm-orchestration-guide",
+    "title": "为 AI 开发者揭秘虚拟机",
+    "summary": "虽然无服务器边缘平台非常适合轻量级 API 和静态前端，但繁重的工作负载（例如训练模型、运行数据库服务器或执行复杂的 AI 代理循环）需要专用的计算资源。这就是虚拟机 (VM) 的关键所在。",
+    "niche": ["virtual-machines"],
+    "tags": [],
+    "entities": [],
+    "qualityScore": 95,
+    "trustScore": 95,
+    "visibility": "published",
+    "lifecycle": "generated",
+    "verdict": "trusted",
+    "routes": {
+      "canonical": "",
+      "aliases": []
+    },
+    "alternates": {
+      "en": "en-vm-orchestration-guide",
+      "pt-BR": "pt-BR-vm-orchestration-guide",
+      "es": "es-vm-orchestration-guide",
+      "fr": "fr-vm-orchestration-guide",
+      "de": "de-vm-orchestration-guide",
+      "it": "it-vm-orchestration-guide",
+      "ja": "ja-vm-orchestration-guide"
+    },
+    "related": [],
+    "seo": {
+      "noindex": false,
+      "priority": 65
+    },
+    "timestamps": {
+      "createdAt": "2026-06-09T00:10:57.517Z",
+      "updatedAt": "2026-06-09T00:10:57.517Z"
+    },
+    "metrics": {
+      "edgeRank": 0,
+      "semanticDensity": 0,
+      "freshnessScore": 0,
+      "graphScore": 0
+    }
+  }
+]

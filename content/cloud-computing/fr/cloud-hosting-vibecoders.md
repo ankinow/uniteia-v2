@@ -10,12 +10,12 @@ subjects:
   - deployment
 referral_links: []
 metadata:
-  created_at: "2026-06-09T02:27:03.025Z"
-  updated_at: "2026-06-09T02:27:03.025Z"
+  created_at: "2026-06-09T03:22:19.407Z"
+  updated_at: "2026-06-09T03:22:30.413Z"
   author: UniTeia System
-  version: 1
+  version: 2
 canvas:
-  tone: warm-gray
+  tone: obsidian
   layout: editorial-collage
   nodes:
     - id: hero

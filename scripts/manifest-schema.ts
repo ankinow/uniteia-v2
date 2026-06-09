@@ -73,7 +73,18 @@ const articleSchema = z.object({
   verdict: z.enum(['trusted', 'caution', 'flagged']).default('trusted'),
   quality_score: z.number().min(0).max(100).default(85),
   subjects: z.array(z.string()).optional(),
-  referral_links: z.array(z.string()).optional(),
+  referral_links: z
+    .union([
+      z.array(z.string()),
+      z.array(
+        z.object({
+          url: z.string().min(1),
+          title: z.string().min(1),
+          description: z.string().optional(),
+        })
+      ),
+    ])
+    .optional(),
   canvas: canvasSchema.optional(), // omitir para auto-geração
   locales: localeRecord(
     z.object({
@@ -105,5 +116,6 @@ export const manifestSchema = z.object({
 
 export type Manifest = z.infer<typeof manifestSchema>
 export type ArticleEntry = z.infer<typeof articleSchema>
+export type ReferralLink = { url: string; title: string; description?: string }
 export type CanvasDef = z.infer<typeof canvasSchema>
 export type CanvasNode = z.infer<typeof canvasNodeSchema>

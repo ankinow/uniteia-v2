@@ -101,6 +101,7 @@ export type CanvaMagicaI18nKey =
   | 'visitMagica'
   | 'workflowSteps'
   | 'poweredBy'
+  | 'qualityScore'
 
 export const MAGICA_KEYS: readonly CanvaMagicaI18nKey[] = [
   'magicaWorkflowBuilder',
@@ -119,6 +120,7 @@ export const MAGICA_KEYS: readonly CanvaMagicaI18nKey[] = [
   'visitMagica',
   'workflowSteps',
   'poweredBy',
+  'qualityScore',
 ] as const
 
 /**
@@ -128,7 +130,7 @@ export const MAGICA_KEYS: readonly CanvaMagicaI18nKey[] = [
  */
 export function useCanvaMagicaT(lang: SupportedLanguage): Record<CanvaMagicaI18nKey, string> {
   const all = getTranslation(lang) as unknown as Record<string, unknown>
-  const magicaNs = (all.magica as Record<string, unknown>) ?? {}
+  const magicaNs = (all.article as any)?.canvaMagicaProduction ?? {}
   const out: Partial<Record<CanvaMagicaI18nKey, string>> = {}
   for (const key of MAGICA_KEYS) {
     const cur = magicaNs[key]

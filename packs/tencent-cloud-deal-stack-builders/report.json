@@ -3,11 +3,16 @@
   "pipeline": "vne-3.0.0-bun",
   "panels_count": 12,
   "seed_base": 77777,
-  "generation_time_sec": 8.3,
+  "generation_time_sec": 14.2,
   "total_size_kb": 589.5,
   "total_size_mb": 0.58,
   "size_limit_mb": 1.8,
   "pass": true,
+  "t16_textRisk_summary": {
+    "low": 12,
+    "medium": 0,
+    "high": 0
+  },
   "logs": [
     "T2 SKIP: .factory/vne/output/tencent-cloud-deal-stack-builders/character/dev-chan-sheet.webp (already exists)",
     "T2 SKIP: .factory/vne/output/tencent-cloud-deal-stack-builders/panels/01-hook.webp (already exists)",

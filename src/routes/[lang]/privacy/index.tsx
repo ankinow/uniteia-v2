@@ -20,9 +20,10 @@ export default component$(() => {
   return (
     <div class="max-w-3xl mx-auto px-4 py-12">
       <h1 class="text-3xl font-bold text-bone mb-6">{t.legal.privacy.title}</h1>
-      <div class="prose prose-invert max-w-none text-bone leading-relaxed space-y-4">
-        <p>{t.legal.privacy.body}</p>
-      </div>
+      <div
+        class="prose prose-invert max-w-none text-bone leading-relaxed space-y-4"
+        dangerouslySetInnerHTML={t.legal.privacy.body}
+      />
     </div>
   )
 })
@@ -34,7 +35,7 @@ export const head: DocumentHead = ({ params }) => {
   return {
     title: `${t.legal.privacy.title} | UniTeia`,
     meta: [
-      { name: 'description', content: t.legal.privacy.body.slice(0, 160) },
+      { name: 'description', content: t.legal.privacy.title },
       { name: 'robots', content: 'noindex, nofollow' },
     ],
   }
