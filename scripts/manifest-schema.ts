@@ -23,9 +23,20 @@ const localeRecord = <T extends z.ZodTypeAny>(schema: T) =>
 // ─── Canvas node ───
 const canvasNodeSchema = z.object({
   id: z.string().min(1).describe('Unique node identifier (e.g. "hero", "brain")'),
-  section: z.string().min(1).describe('Human-readable section label'),
+  section: z.union([z.string().min(1), z.number()]).describe('Human-readable section label'),
   type: z
-    .enum(['hero', 'card', 'grid', 'insight', 'timeline', 'quote'])
+    .enum([
+      'hero',
+      'card',
+      'grid',
+      'insight',
+      'timeline',
+      'quote',
+      'text',
+      'image',
+      'list',
+      'table',
+    ])
     .describe('Visual node type'),
 })
 
@@ -40,6 +51,15 @@ const canvasSchema = z.object({
     'storyboard',
   ]),
   nodes: z.array(canvasNodeSchema).min(1).max(12),
+  connectors: z
+    .array(
+      z.object({
+        from: z.string().min(1),
+        to: z.string().min(1),
+        label: z.string().optional(),
+      })
+    )
+    .optional(),
 })
 
 // ─── Article ───
@@ -50,7 +70,7 @@ const articleSchema = z.object({
     .regex(/^[a-z0-9-]+$/),
   niche: z.string().min(1),
   tags: z.array(z.string()).min(1).max(5),
-  verdict: z.enum(['approved', 'draft', 'review']).default('approved'),
+  verdict: z.enum(['trusted', 'caution', 'flagged']).default('trusted'),
   quality_score: z.number().min(0).max(100).default(85),
   subjects: z.array(z.string()).optional(),
   referral_links: z.array(z.string()).optional(),
@@ -70,7 +90,7 @@ const nicheIndexSchema = z.object({
   locales: localeRecord(
     z.object({
       title: z.string().min(1),
-      subtitle: z.string().min(1),
+      subtitle: z.string().optional(),
       body: z.string().min(1),
     })
   ),
