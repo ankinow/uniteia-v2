@@ -18,6 +18,9 @@ export interface ManifestLayout {
 
 export interface ManifestQuality {
   publishable: boolean
+  /** v3.2 — Granular 0-100 score from W16 QualityAuditorAgent. 
+   *  If absent, content was NOT audited (placeholder qualityScore=50). */
+  overallScore?: number
   sourceCount: number
   trustLevel: 'high' | 'medium' | 'low'
   blockers: string[]
@@ -51,6 +54,26 @@ export interface Manifest {
   sources: Array<{ title: string; url: string }>
   hashes: ManifestHashes
   provenance: ManifestProvenance
+  /** v3.2 — Design tokens bridging factory→frontend (Content Package Contract v3).
+   *  Consumed by v2 for glassmorphism policy enforcement + color calibration. */
+  designTokens?: {
+    schemaVersion: string
+    colorProfile: string
+    assembly?: {
+      bg: string
+      borderColor: string
+      borderWidth: number
+      padding: number
+      canvasWidth: number
+    }
+    typography?: {
+      captionFont: string
+      monoFont: string
+      displayFont: string
+    }
+    persistencePolicy: 'flat-2d' | 'css-3d' | 'parallax'
+    glassmorphismPolicy: 'forbidden' | 'allowed'
+  }
 }
 
 export const ALLOWED_CONTENT_TYPES = new Set([

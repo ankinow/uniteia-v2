@@ -44,6 +44,15 @@ export function importPackage(packageDir: string, manifest: Manifest): ImportedP
     }
   }
 
+  // v3.2 — Audit Gate Check: if manifest quality lacks overallScore, content was
+  // NOT audited by W16 and qualityScore=50 is a placeholder, not a real score.
+  // See: ESTUDO-CONTENT-PACKAGE-CONTRACT-v2.md §Evidencia #10
+  const isAudited = typeof manifestQ.overallScore === 'number'
+  if (!isAudited && factoryNodes.length > 0) {
+    const warning = `content-not-audited: qualityScore is a placeholder (50). Content was exported without W16 QualityAuditorAgent. Treat as draft.`
+    ;(manifestQ.warnings as string[]).push(warning)
+  }
+
   const report = {
     timestamp: new Date().toISOString(),
     packageDir,

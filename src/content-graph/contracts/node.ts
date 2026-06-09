@@ -10,21 +10,9 @@ export type ContentNodeLifecycle =
 export type ContentNodeVerdict = 'safe' | 'caution' | 'unsafe'
 export type VisualStyle = 'signal-grid' | 'material-myth' | 'editorial-collage'
 
-/** Visual asset reference from Content Package Contract v2 (L2 bridge) */
-export interface VisualAsset {
-  /** Asset type from factory pipeline */
-  type: 'handdraw-svg' | 'procedural-sprite' | 'moodboard' | 'polaroid-set' | 'dataviz'
-  /** Relative path within Content Package (e.g., assets/moodboard-main.svg) */
-  path: string
-  /** Visual style variant (e.g., 'aether-handdrawn', 'aether-default') */
-  style: string
-  /** Aether OKLCH palette used */
-  colors?: string[]
-  /** File size in bytes */
-  fileSize?: number
-  /** Whether the asset passed quality gate */
-  valid?: boolean
-}
+// v3.2 — VisualAsset now imported from shared @uniteia/content-node-contract
+import type { VisualAsset } from '@uniteia/content-node-contract'
+export type { VisualAsset }
 
 export interface ContentNode {
   id: string
