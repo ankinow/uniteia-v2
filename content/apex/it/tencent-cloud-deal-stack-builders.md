@@ -1,33 +1,30 @@
 ---
 slug: tencent-cloud-deal-stack-builders
 lang: it
-title: "Tencent Cloud Deal Stack per Sviluppatori"
+title: Tencent Cloud Deal Stack per Sviluppatori
 verdict: caution
 quality_score: 65
-created_at: "2026-05-11T11:40:07-03:00"
 subjects:
   - cloud
   - builders
   - infrastructure
   - tencent-cloud
-referral_links:
-  - url: https://www.tencentcloud.com/act/pro/promo
-    title: Tencent Cloud Promotions
-  - url: https://www.tencentcloud.com/products/lighthouse
-    title: Lighthouse Overview
-  - url: https://www.tencentcloud.com/products/cvm
-    title: CVM Overview
-  - url: https://www.tencentcloud.com/products/teo
-    title: EdgeOne Overview
-  - url: https://www.tencentcloud.com/act/pro/promo
-    title: Tencent Cloud Free Tier
+referral_links: []
 metadata:
-  created_at: "2026-06-06T17:12:41.994Z"
-  updated_at: "2026-06-06T17:12:41.994Z"
+  created_at: "2026-06-09T02:27:03.025Z"
+  updated_at: "2026-06-09T02:27:03.025Z"
   author: UniTeia System
   version: 1
-  importedFrom: uniteia-mega-factory
-  contentPackage: uniteia-content-package/v1
+canvas:
+  tone: obsidian
+  layout: constellation
+  nodes:
+    - id: what-is-the-tencent-cloud-deal-stack
+      section: What is the Tencent Cloud Deal Stack?
+      type: hero
+    - id: free-products
+      section: Free Products
+      type: card
 ---
 # Tencent Cloud Deal Stack: Cloud Economica per Builder
 

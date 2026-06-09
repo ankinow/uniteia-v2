@@ -1,0 +1,180 @@
+{
+  "slug": "evaluating-llms",
+  "title": "Canvas Collage",
+  "nodes": [
+    {
+      "cx": 400,
+      "cy": 250,
+      "r": 40,
+      "label": "Evaluation",
+      "shape": "hexagon",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "hero"
+    },
+    {
+      "cx": 561,
+      "cy": 252,
+      "r": 32,
+      "label": "Benchmarks",
+      "shape": "rounded-rect",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "benchmarks"
+    },
+    {
+      "cx": 446,
+      "cy": 403,
+      "r": 32,
+      "label": "Human Feedback",
+      "shape": "rounded-rect",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "human-eval"
+    },
+    {
+      "cx": 254,
+      "cy": 347,
+      "r": 32,
+      "label": "Auto Tests",
+      "shape": "rounded-rect",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "automated"
+    },
+    {
+      "cx": 265,
+      "cy": 139,
+      "r": 32,
+      "label": "Framework",
+      "shape": "rounded-rect",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "framework"
+    },
+    {
+      "cx": 464,
+      "cy": 76,
+      "r": 32,
+      "label": "Conclusion",
+      "shape": "rounded-rect",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "conclusion"
+    }
+  ],
+  "arrows": [
+    {
+      "id": "arrow-0",
+      "path": "M 400 250 Q 480 275 561 252",
+      "color": "oklch(0.55 0.15 270)",
+      "strokeWidth": 2.5,
+      "animated": true
+    },
+    {
+      "id": "arrow-1",
+      "path": "M 400 250 Q 400 333 446 403",
+      "color": "oklch(0.55 0.12 200)",
+      "strokeWidth": 2.5,
+      "animated": true
+    },
+    {
+      "id": "arrow-2",
+      "path": "M 400 250 Q 313 277 254 347",
+      "color": "oklch(0.65 0.18 85)",
+      "strokeWidth": 2.5,
+      "animated": true
+    },
+    {
+      "id": "arrow-3",
+      "path": "M 400 250 Q 349 174 265 139",
+      "color": "oklch(0.55 0.15 270)",
+      "strokeWidth": 2.5,
+      "animated": true
+    },
+    {
+      "id": "arrow-4",
+      "path": "M 400 250 Q 458 173 464 76",
+      "color": "oklch(0.55 0.12 200)",
+      "strokeWidth": 2.5,
+      "animated": true
+    },
+    {
+      "id": "arrow-5",
+      "path": "M 561 252 Q 481 310 446 403",
+      "color": "oklch(0.65 0.18 85)",
+      "strokeWidth": 2.5,
+      "animated": true
+    },
+    {
+      "id": "arrow-6",
+      "path": "M 254 347 Q 291 245 265 139",
+      "color": "oklch(0.55 0.15 270)",
+      "strokeWidth": 2.5,
+      "animated": true
+    }
+  ],
+  "notes": [
+    {
+      "x": 410,
+      "y": 231,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": -1
+    },
+    {
+      "x": 353,
+      "y": 314,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": 0
+    },
+    {
+      "x": 257,
+      "y": 295,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": 1
+    },
+    {
+      "x": 263,
+      "y": 175,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": -1
+    },
+    {
+      "x": 362,
+      "y": 151,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": 0
+    },
+    {
+      "x": 433,
+      "y": 323,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": 1
+    },
+    {
+      "x": 190,
+      "y": 223,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": -1
+    }
+  ],
+  "tone": "parchment",
+  "width": 800,
+  "height": 500,
+  "layout": "constellation",
+  "generatedAt": "2026-06-09T02:27:03.025Z"
+}

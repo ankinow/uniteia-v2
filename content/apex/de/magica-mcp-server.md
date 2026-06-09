@@ -1,7 +1,7 @@
 ---
 slug: magica-mcp-server
 lang: de
-title: "MCP-Server mit Magica erstellen"
+title: MCP-Server mit Magica erstellen
 verdict: trusted
 quality_score: 95
 subjects:
@@ -9,16 +9,10 @@ subjects:
   - mcp
   - api
   - development
-referral_links:
-  - url: https://docs.magica.com
-    title: Magica Documentation
-  - url: https://modelcontextprotocol.io
-    title: MCP Specification
-  - url: https://magica.com
-    title: Magica Official Site
+referral_links: []
 metadata:
-  created_at: "2026-05-25T10:00:00.000Z"
-  updated_at: "2026-05-25T10:00:00.000Z"
+  created_at: "2026-06-09T02:27:03.025Z"
+  updated_at: "2026-06-09T02:27:03.025Z"
   author: UniTeia System
   version: 1
 canvas:
@@ -67,7 +61,6 @@ canvas:
     - from: magica-integration
       to: advanced
 ---
-
 # MCP-Server mit Magica erstellen
 
 ## Was ist MCP?

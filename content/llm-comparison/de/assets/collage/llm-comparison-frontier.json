@@ -1,0 +1,150 @@
+{
+  "slug": "llm-comparison-frontier",
+  "title": "Canvas Collage",
+  "nodes": [
+    {
+      "cx": 264,
+      "cy": 155,
+      "r": 40,
+      "label": "Comparison",
+      "shape": "hexagon",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "hero"
+    },
+    {
+      "cx": 615,
+      "cy": 96,
+      "r": 32,
+      "label": "Benchmarks",
+      "shape": "rounded-rect",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "benchmark"
+    },
+    {
+      "cx": 605,
+      "cy": 151,
+      "r": 32,
+      "label": "GPT-4o",
+      "shape": "rounded-rect",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "gpt4o"
+    },
+    {
+      "cx": 219,
+      "cy": 281,
+      "r": 32,
+      "label": "Claude 4",
+      "shape": "rounded-rect",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "claude4"
+    },
+    {
+      "cx": 547,
+      "cy": 277,
+      "r": 32,
+      "label": "Gemini 2.5",
+      "shape": "rounded-rect",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "gemini25"
+    },
+    {
+      "cx": 270,
+      "cy": 142,
+      "r": 32,
+      "label": "The Verdict",
+      "shape": "rounded-rect",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "verdict"
+    }
+  ],
+  "arrows": [
+    {
+      "id": "arrow-0",
+      "path": "M 264 155 Q 448 179 615 96",
+      "color": "oklch(0.55 0.15 270)",
+      "strokeWidth": 2.5,
+      "animated": true
+    },
+    {
+      "id": "arrow-1",
+      "path": "M 615 96 Q 602 122 605 151",
+      "color": "oklch(0.55 0.12 200)",
+      "strokeWidth": 2.5,
+      "animated": true
+    },
+    {
+      "id": "arrow-2",
+      "path": "M 605 151 Q 392 158 219 281",
+      "color": "oklch(0.65 0.18 85)",
+      "strokeWidth": 2.5,
+      "animated": true
+    },
+    {
+      "id": "arrow-3",
+      "path": "M 219 281 Q 383 328 547 277",
+      "color": "oklch(0.55 0.15 270)",
+      "strokeWidth": 2.5,
+      "animated": true
+    },
+    {
+      "id": "arrow-4",
+      "path": "M 547 277 Q 428 168 270 142",
+      "color": "oklch(0.55 0.12 200)",
+      "strokeWidth": 2.5,
+      "animated": true
+    }
+  ],
+  "notes": [
+    {
+      "x": 370,
+      "y": 106,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": -1
+    },
+    {
+      "x": 540,
+      "y": 112,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": 0
+    },
+    {
+      "x": 342,
+      "y": 212,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": 1
+    },
+    {
+      "x": 313,
+      "y": 259,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": -1
+    },
+    {
+      "x": 338,
+      "y": 198,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": 0
+    }
+  ],
+  "tone": "parchment",
+  "width": 800,
+  "height": 500,
+  "layout": "editorial-collage",
+  "generatedAt": "2026-06-09T02:27:03.025Z"
+}

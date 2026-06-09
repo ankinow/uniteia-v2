@@ -1,0 +1,150 @@
+{
+  "slug": "cloud-hosting-vibecoders",
+  "title": "Canvas Collage",
+  "nodes": [
+    {
+      "cx": 269,
+      "cy": 139,
+      "r": 40,
+      "label": "Cloud Hosting",
+      "shape": "hexagon",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "hero"
+    },
+    {
+      "cx": 601,
+      "cy": 94,
+      "r": 32,
+      "label": "Zero DevOps",
+      "shape": "rounded-rect",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "zero-devops"
+    },
+    {
+      "cx": 601,
+      "cy": 142,
+      "r": 32,
+      "label": "Providers",
+      "shape": "rounded-rect",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "providers"
+    },
+    {
+      "cx": 210,
+      "cy": 290,
+      "r": 32,
+      "label": "Auto Scaling",
+      "shape": "rounded-rect",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "scaling"
+    },
+    {
+      "cx": 555,
+      "cy": 280,
+      "r": 32,
+      "label": "Pricing",
+      "shape": "rounded-rect",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "pricing"
+    },
+    {
+      "cx": 278,
+      "cy": 148,
+      "r": 32,
+      "label": "Conclusion",
+      "shape": "rounded-rect",
+      "fill": "oklch(0.40 0.14 270)",
+      "wobble": true,
+      "id": "conclusion"
+    }
+  ],
+  "arrows": [
+    {
+      "id": "arrow-0",
+      "path": "M 269 139 Q 442 166 601 94",
+      "color": "oklch(0.55 0.15 270)",
+      "strokeWidth": 2.5,
+      "animated": true
+    },
+    {
+      "id": "arrow-1",
+      "path": "M 601 94 Q 594 118 601 142",
+      "color": "oklch(0.55 0.12 200)",
+      "strokeWidth": 2.5,
+      "animated": true
+    },
+    {
+      "id": "arrow-2",
+      "path": "M 601 142 Q 383 157 210 290",
+      "color": "oklch(0.65 0.18 85)",
+      "strokeWidth": 2.5,
+      "animated": true
+    },
+    {
+      "id": "arrow-3",
+      "path": "M 210 290 Q 384 337 555 280",
+      "color": "oklch(0.55 0.15 270)",
+      "strokeWidth": 2.5,
+      "animated": true
+    },
+    {
+      "id": "arrow-4",
+      "path": "M 555 280 Q 437 173 278 148",
+      "color": "oklch(0.55 0.12 200)",
+      "strokeWidth": 2.5,
+      "animated": true
+    }
+  ],
+  "notes": [
+    {
+      "x": 365,
+      "y": 96,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": -1
+    },
+    {
+      "x": 531,
+      "y": 106,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": 0
+    },
+    {
+      "x": 335,
+      "y": 212,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": 1
+    },
+    {
+      "x": 313,
+      "y": 265,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": -1
+    },
+    {
+      "x": 347,
+      "y": 202,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": 0
+    }
+  ],
+  "tone": "obsidian",
+  "width": 800,
+  "height": 500,
+  "layout": "editorial-collage",
+  "generatedAt": "2026-06-09T02:27:03.025Z"
+}

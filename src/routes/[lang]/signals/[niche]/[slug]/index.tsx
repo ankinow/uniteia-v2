@@ -132,22 +132,16 @@ export const useRelated = routeLoader$<ContentNode[]>(async ({ params }) => {
 export const useCollageAssets = routeLoader$<LivingBriefCollageProps | null>(async ({ params }) => {
   const slug = params.slug
   if (!slug) return null
-  // Load collage for any article that has pre-generated assets (dynamic detection)
-  const ALLOWED_SLUGS = new Set([
-    'magica-overview',
-    'magica-quickstart',
-    'magica-mcp-server',
-    'tencent-cloud-deal-stack-builders',
-    'tecent-vm-benefits',
-  ])
-  if (!ALLOWED_SLUGS.has(slug)) return null
   try {
     // Read pre-generated collage JSON at build time using fs
     // Runs only during SSG (Node.js available), never on CF Workers edge
     const fs = await import('node:fs')
     const path = await import('node:path')
     const repoRoot = process.cwd()
-    const jsonPath = path.join(repoRoot, `content/apex/${params.lang}/assets/collage/${slug}.json`)
+    const jsonPath = path.join(
+      repoRoot,
+      `content/${params.niche}/${params.lang}/assets/collage/${slug}.json`
+    )
     if (!fs.existsSync(jsonPath)) return null
     const raw = fs.readFileSync(jsonPath, 'utf-8')
     const pkg = parseCollagePackage(raw)
@@ -196,7 +190,9 @@ export default component$(() => {
   }
 
   // Check for MangaGrid layout (12-panel sequential narrative)
-  const mangaPanels = content.value.slug ? getMangaLayout(content.value.slug) : null
+  const mangaPanels = content.value.slug
+    ? getMangaLayout(content.value.slug, content.value.lang)
+    : null
 
   // Check for StoryboardGrid layout
   const storyboardLayout = content.value.slug

@@ -1,0 +1,171 @@
+{
+  "history": [
+    {
+      "iteration": 1,
+      "timestamp": "2026-06-09T01:58:32.085Z",
+      "deployGatesPassed": 0,
+      "deployGatesTotal": 8,
+      "testPassCount": 0,
+      "testTotalCount": 0,
+      "collageCount": 80,
+      "contentGraphNodes": 0,
+      "hreflangCount": 8,
+      "locChanged": 3453,
+      "depsCalled": 0,
+      "phasesFailed": 0,
+      "mutationsApplied": [],
+      "rollback": false,
+      "cem": 0.023161551823972205
+    },
+    {
+      "iteration": 2,
+      "timestamp": "2026-06-09T01:59:02.822Z",
+      "deployGatesPassed": 0,
+      "deployGatesTotal": 8,
+      "testPassCount": 0,
+      "testTotalCount": 0,
+      "collageCount": 80,
+      "contentGraphNodes": 0,
+      "hreflangCount": 8,
+      "locChanged": 3453,
+      "depsCalled": 0,
+      "phasesFailed": 0,
+      "mutationsApplied": [],
+      "rollback": false,
+      "cem": 0.023161551823972205
+    },
+    {
+      "iteration": 1,
+      "timestamp": "2026-06-09T02:14:08.848Z",
+      "deployGatesPassed": 0,
+      "deployGatesTotal": 8,
+      "testPassCount": 0,
+      "testTotalCount": 0,
+      "collageCount": 80,
+      "contentGraphNodes": 0,
+      "hreflangCount": 8,
+      "locChanged": 3453,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0.023154848046309694,
+      "mutationsApplied": [
+        "QUALITY_BUMP"
+      ],
+      "rollback": false
+    },
+    {
+      "iteration": 2,
+      "timestamp": "2026-06-09T02:14:08.978Z",
+      "deployGatesPassed": 0,
+      "deployGatesTotal": 8,
+      "testPassCount": 0,
+      "testTotalCount": 0,
+      "collageCount": 80,
+      "contentGraphNodes": 0,
+      "hreflangCount": 8,
+      "locChanged": 3453,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0.023154848046309694,
+      "mutationsApplied": [
+        "CROSS_LINK"
+      ],
+      "rollback": false
+    },
+    {
+      "iteration": 1,
+      "timestamp": "2026-06-09T02:15:31.703Z",
+      "deployGatesPassed": 0,
+      "deployGatesTotal": 8,
+      "testPassCount": 0,
+      "testTotalCount": 0,
+      "collageCount": 0,
+      "contentGraphNodes": 0,
+      "hreflangCount": 8,
+      "locChanged": 3453,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0,
+      "mutationsApplied": [
+        "LOCALE_ENRICH"
+      ],
+      "rollback": false
+    },
+    {
+      "iteration": 3,
+      "timestamp": "2026-06-09T02:15:31.930Z",
+      "deployGatesPassed": 0,
+      "deployGatesTotal": 8,
+      "testPassCount": 0,
+      "testTotalCount": 0,
+      "collageCount": 0,
+      "contentGraphNodes": 0,
+      "hreflangCount": 8,
+      "locChanged": 3453,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0,
+      "mutationsApplied": [
+        "ADJUST_TONE"
+      ],
+      "rollback": false
+    },
+    {
+      "iteration": 1,
+      "timestamp": "2026-06-09T02:27:02.492Z",
+      "deployGatesPassed": 0,
+      "deployGatesTotal": 8,
+      "testPassCount": 0,
+      "testTotalCount": 0,
+      "collageCount": 0,
+      "contentGraphNodes": 0,
+      "hreflangCount": 8,
+      "locChanged": 13147,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0,
+      "mutationsApplied": [
+        "ADD_SECTION"
+      ],
+      "rollback": false
+    },
+    {
+      "iteration": 2,
+      "timestamp": "2026-06-09T02:27:02.824Z",
+      "deployGatesPassed": 0,
+      "deployGatesTotal": 8,
+      "testPassCount": 0,
+      "testTotalCount": 0,
+      "collageCount": 0,
+      "contentGraphNodes": 0,
+      "hreflangCount": 8,
+      "locChanged": 13153,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0,
+      "mutationsApplied": [
+        "QUALITY_BUMP"
+      ],
+      "rollback": false
+    },
+    {
+      "iteration": 3,
+      "timestamp": "2026-06-09T02:27:03.104Z",
+      "deployGatesPassed": 0,
+      "deployGatesTotal": 8,
+      "testPassCount": 0,
+      "testTotalCount": 0,
+      "collageCount": 0,
+      "contentGraphNodes": 0,
+      "hreflangCount": 8,
+      "locChanged": 13153,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0,
+      "mutationsApplied": [
+        "ENHANCE_CANVAS"
+      ],
+      "rollback": false
+    }
+  ]
+}

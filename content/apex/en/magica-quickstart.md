@@ -1,7 +1,7 @@
 ---
 slug: magica-quickstart
 lang: en
-title: "Getting Started with Magica"
+title: Getting Started with Magica
 verdict: trusted
 quality_score: 95
 subjects:
@@ -9,16 +9,10 @@ subjects:
   - tutorial
   - quickstart
   - ai-workflows
-referral_links:
-  - url: https://magica.com
-    title: Magica Official Site
-  - url: https://try.magica.com
-    title: Magica Free Trial
-  - url: https://docs.magica.com
-    title: Magica Documentation
+referral_links: []
 metadata:
-  created_at: "2026-05-25T10:00:00.000Z"
-  updated_at: "2026-05-25T10:00:00.000Z"
+  created_at: "2026-06-09T02:27:03.025Z"
+  updated_at: "2026-06-09T02:27:03.025Z"
   author: UniTeia System
   version: 1
 canvas:
@@ -109,4 +103,3 @@ Once comfortable with the basics, explore:
 - **Agent memory** — give your workflows persistent context across sessions
 - **Team workspaces** — collaborate on workflows with shared assets and version history
 - **Custom tools** — write your own MCP tools that Magica agents can discover and use
-

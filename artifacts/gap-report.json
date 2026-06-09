@@ -1,0 +1,212 @@
+[
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-overview",
+    "locale": "en",
+    "detail": "Git: 2026-05-28 (12d): content/apex/en/magica-overview.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-quickstart",
+    "locale": "en",
+    "detail": "Git: 2026-05-28 (12d): content/apex/en/magica-quickstart.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-mcp-server",
+    "locale": "en",
+    "detail": "Git: 2026-05-28 (12d): content/apex/en/magica-mcp-server.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-overview",
+    "locale": "pt",
+    "detail": "Git: 2026-05-28 (12d): content/apex/pt/magica-overview.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-quickstart",
+    "locale": "pt",
+    "detail": "Git: 2026-05-28 (12d): content/apex/pt/magica-quickstart.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-mcp-server",
+    "locale": "pt",
+    "detail": "Git: 2026-05-28 (12d): content/apex/pt/magica-mcp-server.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-overview",
+    "locale": "es",
+    "detail": "Git: 2026-05-28 (12d): content/apex/es/magica-overview.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-quickstart",
+    "locale": "es",
+    "detail": "Git: 2026-05-28 (12d): content/apex/es/magica-quickstart.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-mcp-server",
+    "locale": "es",
+    "detail": "Git: 2026-05-28 (12d): content/apex/es/magica-mcp-server.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-overview",
+    "locale": "fr",
+    "detail": "Git: 2026-05-28 (12d): content/apex/fr/magica-overview.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-quickstart",
+    "locale": "fr",
+    "detail": "Git: 2026-05-28 (12d): content/apex/fr/magica-quickstart.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-mcp-server",
+    "locale": "fr",
+    "detail": "Git: 2026-05-28 (12d): content/apex/fr/magica-mcp-server.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-overview",
+    "locale": "de",
+    "detail": "Git: 2026-05-28 (12d): content/apex/de/magica-overview.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-quickstart",
+    "locale": "de",
+    "detail": "Git: 2026-05-28 (12d): content/apex/de/magica-quickstart.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-mcp-server",
+    "locale": "de",
+    "detail": "Git: 2026-05-28 (12d): content/apex/de/magica-mcp-server.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-overview",
+    "locale": "it",
+    "detail": "Git: 2026-05-28 (12d): content/apex/it/magica-overview.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-quickstart",
+    "locale": "it",
+    "detail": "Git: 2026-05-29 (10d): content/apex/it/magica-quickstart.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-overview",
+    "locale": "ja",
+    "detail": "Git: 2026-05-28 (12d): content/apex/ja/magica-overview.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-quickstart",
+    "locale": "ja",
+    "detail": "Git: 2026-05-29 (10d): content/apex/ja/magica-quickstart.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-mcp-server",
+    "locale": "ja",
+    "detail": "Git: 2026-05-28 (12d): content/apex/ja/magica-mcp-server.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-overview",
+    "locale": "zh",
+    "detail": "Git: 2026-05-28 (12d): content/apex/zh/magica-overview.md"
+  },
+  {
+    "type": "STALE_CONTENT",
+    "niche": "apex",
+    "slug": "magica-quickstart",
+    "locale": "zh",
+    "detail": "Git: 2026-05-29 (10d): content/apex/zh/magica-quickstart.md"
+  },
+  {
+    "type": "LOW_QUALITY",
+    "niche": "apex",
+    "slug": "tencent-cloud-deal-stack-builders",
+    "locale": "en",
+    "detail": "score=65<70: content/apex/en/tencent-cloud-deal-stack-builders.md"
+  },
+  {
+    "type": "LOW_QUALITY",
+    "niche": "apex",
+    "slug": "tencent-cloud-deal-stack-builders",
+    "locale": "pt",
+    "detail": "score=65<70: content/apex/pt/tencent-cloud-deal-stack-builders.md"
+  },
+  {
+    "type": "LOW_QUALITY",
+    "niche": "apex",
+    "slug": "tencent-cloud-deal-stack-builders",
+    "locale": "es",
+    "detail": "score=65<70: content/apex/es/tencent-cloud-deal-stack-builders.md"
+  },
+  {
+    "type": "LOW_QUALITY",
+    "niche": "apex",
+    "slug": "tencent-cloud-deal-stack-builders",
+    "locale": "fr",
+    "detail": "score=65<70: content/apex/fr/tencent-cloud-deal-stack-builders.md"
+  },
+  {
+    "type": "LOW_QUALITY",
+    "niche": "apex",
+    "slug": "tencent-cloud-deal-stack-builders",
+    "locale": "de",
+    "detail": "score=65<70: content/apex/de/tencent-cloud-deal-stack-builders.md"
+  },
+  {
+    "type": "LOW_QUALITY",
+    "niche": "apex",
+    "slug": "tencent-cloud-deal-stack-builders",
+    "locale": "it",
+    "detail": "score=65<70: content/apex/it/tencent-cloud-deal-stack-builders.md"
+  },
+  {
+    "type": "LOW_QUALITY",
+    "niche": "apex",
+    "slug": "tencent-cloud-deal-stack-builders",
+    "locale": "ja",
+    "detail": "score=65<70: content/apex/ja/tencent-cloud-deal-stack-builders.md"
+  },
+  {
+    "type": "LOW_QUALITY",
+    "niche": "apex",
+    "slug": "tencent-cloud-deal-stack-builders",
+    "locale": "zh",
+    "detail": "score=65<70: content/apex/zh/tencent-cloud-deal-stack-builders.md"
+  }
+]

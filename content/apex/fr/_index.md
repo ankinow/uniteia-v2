@@ -1,25 +1,16 @@
 ---
-type: "index"
-slug: "_index"
-lang: "fr"
-title: "UniTeia Apex"
-subjects: ["apex"]
+type: index
+slug: _index
+lang: fr
+title: UniTeia Apex
+subjects:
+  - apex
 referral_links: []
-verdict: "trusted"
+verdict: trusted
 quality_score: 100
 metadata:
-  created_at: "2026-04-28T08:59:36.892Z"
-  updated_at: "2026-04-28T08:59:36.892Z"
-canvas:
-  tone: warm-gray
-  layout: neural-branch
-  nodes:
-    - id: hero
-      section: 0
-      type: hero
-    - id: topics
-      section: 1
-      type: grid
+  created_at: "2026-06-09T02:27:03.025Z"
+  updated_at: "2026-06-09T02:27:03.025Z"
 ---
 
 # UniTeia Apex

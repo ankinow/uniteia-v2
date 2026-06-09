@@ -1,9 +1,11 @@
 import type { ResolvedCell, ResolvedLayout } from '~/components/storyboard-grid/types'
 import type { SupportedLanguage } from '~/i18n/types'
 import type { TranslationStrings } from '~/i18n/types'
+import tencentCaptions from './tencent-captions.json'
 
 const WHITEBOARD = '/assets/whiteboard/articles'
 const KAWAII = '/assets/kawaii-vibecoder'
+const VNE_PACK = '/assets/vne/tencent-cloud-deal-stack-builders/panels'
 
 type ArticleMeta = {
   slug: string
@@ -416,6 +418,9 @@ export function hasStoryboardLayout(slug: string): boolean {
 
 // ─── MANGA LAYOUT (12-panel sequential with kawaii overlay) ───
 
+/** Slugs that have VNE manga packs — add new packs here. */
+const MANGA_SLUGS = new Set(['tencent-cloud-deal-stack-builders'])
+
 export interface MangaPanel {
   id: string
   vneType:
@@ -446,13 +451,16 @@ export interface MangaPanel {
   codeSnippet?: string
 }
 
-export function getMangaLayout(slug: string): MangaPanel[] | null {
-  if (slug !== 'tencent-cloud-deal-stack-builders') return null
+export function getMangaLayout(slug: string, locale: string): MangaPanel[] | null {
+  if (!MANGA_SLUGS.has(slug)) return null
   const T = 12
-  const bg = (id: string) => `/assets/manga-bg/tencent-cloud-deal/bg-${id}.webp`
-  const kw = (name: string) => `/assets/kawaii-vibecoder/mini/mini-${name}.webp`
+  const bg = (id: string) => `${VNE_PACK}/${id}.webp`
   const R = 'bottom-right' as const
   const L = 'bottom-left' as const
+
+  const loc =
+    (tencentCaptions as Record<string, any>)[locale] ||
+    (tencentCaptions as Record<string, any>)['en']
 
   return [
     {
@@ -460,161 +468,159 @@ export function getMangaLayout(slug: string): MangaPanel[] | null {
       vneType: 'hook',
       bgSrc: bg('01-hook'),
       bgAlt: 'Messy desk',
-      kawaiiSrc: kw('confused-hand-chin'),
-      kawaiiAlt: 'Confused',
+      kawaiiSrc: '',
+      kawaiiAlt: '',
       kawaiiPos: R,
       step: 1,
       total: T,
-      bgIsCss: true,
-      title: 'Nuvem demais',
-      body: 'AWS? GCP? Azure? Relaxa.',
+      title: loc['P01-hook'],
+      body: '',
     },
     {
       id: '02-myth',
       vneType: 'myth',
-      bgSrc: bg('02-context'),
+      bgSrc: bg('02-myth'),
       bgAlt: 'Builder vs Corp',
-      kawaiiSrc: kw('thinking-brain'),
-      kawaiiAlt: 'Skeptical',
+      kawaiiSrc: '',
+      kawaiiAlt: '',
       kawaiiPos: L,
       step: 2,
       total: T,
-      title: 'Mito: só enterprise usa cloud',
-      body: 'Builders solo também.',
+      title: loc['P02-myth'],
+      body: '',
     },
     {
       id: '03-promise',
       vneType: 'promise',
-      bgSrc: bg('03-mechanism'),
+      bgSrc: bg('03-promise'),
       bgAlt: '3-layer stack',
-      kawaiiSrc: kw('presenting-open-arms'),
-      kawaiiAlt: 'Excited',
+      kawaiiSrc: '',
+      kawaiiAlt: '',
       kawaiiPos: R,
       step: 3,
       total: T,
-      title: '3 peças, 1 stack',
-      body: 'Lighthouse → CVM → EdgeOne.',
+      title: loc['P03-promise'],
+      body: '',
     },
     {
       id: '04-analogy',
       vneType: 'analogy',
-      bgSrc: bg('04-detail-a'),
+      bgSrc: bg('04-analogy'),
       bgAlt: 'Menu analogy',
-      kawaiiSrc: kw('architect-working'),
-      kawaiiAlt: 'Explaining',
+      kawaiiSrc: '',
+      kawaiiAlt: '',
       kawaiiPos: R,
       step: 4,
       total: T,
-      title: 'Cardápio de cloud',
-      body: 'Escolhe o que precisa. Só.',
+      title: loc['P04-analogy'],
+      body: '',
     },
     {
       id: '05-architecture',
       vneType: 'architecture',
-      bgSrc: bg('05-architecture-wide'),
+      bgSrc: bg('05-architecture-(wide)'),
       bgAlt: 'Architecture',
-      kawaiiSrc: kw('looking-up'),
-      kawaiiAlt: 'Blueprint',
+      kawaiiSrc: '',
+      kawaiiAlt: '',
       kawaiiPos: R,
       step: 5,
       total: T,
       wide: true,
-      title: 'A arquitetura',
-      list: ['Lighthouse: VPS', 'CVM: compute', 'EdgeOne: CDN', 'IAM: 1 conta'],
+      title: loc['P05-architecture-(wide)'],
+      list: ['Lighthouse: VPS', 'CVM: compute', 'EdgeOne: CDN', 'IAM: 1 account'],
     },
     {
       id: '06-code-peek',
       vneType: 'code-peek',
-      bgSrc: bg('06-code'),
+      bgSrc: bg('06-code-peek'),
       bgAlt: 'Terminal',
-      kawaiiSrc: kw('typing-keyboard'),
-      kawaiiAlt: 'Typing',
+      kawaiiSrc: '',
+      kawaiiAlt: '',
       kawaiiPos: L,
       step: 6,
       total: T,
-      title: '1 comando, no ar',
+      title: loc['P06-code-peek'],
       codeSnippet:
         'tccli lighthouse CreateInstance --bundle bundle2022_gen_01 --blueprint wordpress',
     },
     {
       id: '07-decision',
       vneType: 'decision',
-      bgSrc: bg('08-validation'),
+      bgSrc: bg('07-decision'),
       bgAlt: 'Checklist',
-      kawaiiSrc: kw('thinking-brain'),
-      kawaiiAlt: 'Weighing',
+      kawaiiSrc: '',
+      kawaiiAlt: '',
       kawaiiPos: R,
       step: 7,
       total: T,
-      title: 'Checklist de decisão',
-      list: ['✓ VPS? Lighthouse', '✓ Escala? CVM', '☐ CDN? EdgeOne'],
+      title: loc['P07-decision'],
+      list: ['VPS? Lighthouse', 'Scale? CVM', 'CDN? EdgeOne'],
     },
     {
       id: '08-warning',
       vneType: 'warning',
-      bgSrc: bg('07-warning'),
+      bgSrc: bg('08-warning'),
       bgAlt: 'Warning',
-      kawaiiSrc: kw('dodging-x'),
-      kawaiiAlt: 'Alarmed',
+      kawaiiSrc: '',
+      kawaiiAlt: '',
       kawaiiPos: R,
       step: 8,
       total: T,
-      bgIsCss: true,
-      title: '3 erros que custam',
+      title: loc['P08-warning'],
       list: ['DONT over-provision', 'AVOID static', 'NEVER skip CDN'],
     },
     {
       id: '09-benchmark',
       vneType: 'benchmark',
-      bgSrc: bg('05-detail-b'),
+      bgSrc: bg('09-benchmark'),
       bgAlt: 'Benchmark',
-      kawaiiSrc: kw('pointing-right'),
-      kawaiiAlt: 'Analyzing',
+      kawaiiSrc: '',
+      kawaiiAlt: '',
       kawaiiPos: L,
       step: 9,
       total: T,
-      title: 'Números reais',
-      list: ['S5: $12/mês', 'SA2: $18', 'GPU: $45', 'Bundle -30%'],
+      title: loc['P09-benchmark'],
+      list: ['S5: $12/mo', 'SA2: $18', 'GPU: $45', 'Bundle -30%'],
     },
     {
       id: '10-hands-on',
       vneType: 'hands-on',
-      bgSrc: bg('10-hands-on-wide'),
+      bgSrc: bg('10-hands-on-(wide)'),
       bgAlt: 'Tutorial',
-      kawaiiSrc: kw('typing-keyboard'),
-      kawaiiAlt: 'Building',
+      kawaiiSrc: '',
+      kawaiiAlt: '',
       kawaiiPos: L,
       step: 10,
       total: T,
       wide: true,
-      title: 'Mão na massa',
+      title: loc['P10-hands-on-(wide)'],
       codeSnippet: 'tccli lighthouse CreateInstance\n# WordPress online em 30s',
     },
     {
       id: '11-result',
       vneType: 'result',
-      bgSrc: bg('09-result'),
+      bgSrc: bg('11-result'),
       bgAlt: 'Success',
-      kawaiiSrc: kw('success-arms-up'),
-      kawaiiAlt: 'Celebrating',
+      kawaiiSrc: '',
+      kawaiiAlt: '',
       kawaiiPos: R,
       step: 11,
       total: T,
-      title: 'Sua stack está viva!',
-      body: '$3.27/mês. IP público.',
+      title: loc['P11-result'],
+      body: '$3.27/mo. Public IP.',
     },
     {
       id: '12-next-step',
       vneType: 'next-step',
-      bgSrc: bg('12-meta'),
+      bgSrc: bg('12-next-step'),
       bgAlt: 'Path',
-      kawaiiSrc: kw('energetic-jump'),
-      kawaiiAlt: 'Forward',
+      kawaiiSrc: '',
+      kawaiiAlt: '',
       kawaiiPos: R,
       step: 12,
       total: T,
-      title: 'Próximo passo',
-      body: 'Monitora. Escala. Domina.',
+      title: loc['P12-next-step'],
+      body: 'Monitor. Scale. Dominate.',
     },
   ]
 }

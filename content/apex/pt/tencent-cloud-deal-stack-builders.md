@@ -9,24 +9,22 @@ subjects:
   - builders
   - infrastructure
   - tencent-cloud
-referral_links:
-  - url: https://www.tencentcloud.com/act/pro/promo
-    title: Tencent Cloud Promotions
-  - url: https://www.tencentcloud.com/products/lighthouse
-    title: Lighthouse Overview
-  - url: https://www.tencentcloud.com/products/cvm
-    title: CVM Overview
-  - url: https://www.tencentcloud.com/products/teo
-    title: EdgeOne Overview
-  - url: https://www.tencentcloud.com/act/pro/promo
-    title: Tencent Cloud Free Tier
+referral_links: []
 metadata:
-  created_at: "2026-06-06T17:12:41.994Z"
-  updated_at: "2026-06-06T17:12:41.994Z"
+  created_at: "2026-06-09T02:27:03.025Z"
+  updated_at: "2026-06-09T02:27:03.025Z"
   author: UniTeia System
   version: 1
-  importedFrom: uniteia-mega-factory
-  contentPackage: uniteia-content-package/v1
+canvas:
+  tone: obsidian
+  layout: constellation
+  nodes:
+    - id: what-is-the-tencent-cloud-deal-stack
+      section: What is the Tencent Cloud Deal Stack?
+      type: hero
+    - id: free-products
+      section: Free Products
+      type: card
 ---
 # Tencent Cloud Deal Stack: Cloud Barata para Builders
 

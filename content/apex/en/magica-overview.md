@@ -9,16 +9,10 @@ subjects:
   - ai-platform
   - multi-model
   - productivity
-referral_links:
-  - url: https://magica.com
-    title: Magica Official Site
-  - url: https://docs.magica.com
-    title: Magica Documentation
-  - url: https://try.magica.com
-    title: Magica Free Trial
+referral_links: []
 metadata:
-  created_at: "2026-05-25T10:00:00.000Z"
-  updated_at: "2026-05-25T10:00:00.000Z"
+  created_at: "2026-06-09T02:27:03.025Z"
+  updated_at: "2026-06-09T02:27:03.025Z"
   author: UniTeia System
   version: 1
 canvas:
@@ -118,4 +112,3 @@ The free tier is generous enough to evaluate core features. New users who sign u
 ## Why Magica Matters for Builders
 
 For solo builders and small teams, Magica collapses the AI toolchain into a single interface with a single bill. The cost savings ($360+/year vs separate subscriptions) compound with productivity gains from eliminating context-switching. The MCP support and workflow automation make it particularly compelling for developers who want to build AI-powered tools without managing multiple API keys and rate limits across providers. For structuring creative AI workflows, teams can apply the [KJ Method](https://www.kj-method.org/) for organizing ideas generated across models.
-
