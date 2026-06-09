@@ -16,7 +16,9 @@ export interface LivingBriefHeroProps {
   /** CTA buttons */
   buttons?: LivingBriefButton[] | undefined
   /** Background variant */
-  variant?: 'default' | 'magica' | undefined
+  variant?: 'default' | 'magica' | 'terminal' | undefined
+  /** Hero background image URL (subtle, right-aligned, ~12% opacity) */
+  heroImage?: string | undefined
 }
 
 export interface LivingBriefButton {

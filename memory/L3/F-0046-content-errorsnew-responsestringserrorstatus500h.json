@@ -1,0 +1,11 @@
+{
+  "id": "W-0046",
+  "title": "error(s),new Response(String(s||\"Error\"),{status:500,headers:{\"Content-Type\":\"te",
+  "domain": "content",
+  "content": "error(s),new Response(String(s||\"Error\"),{status:500,headers:{\"Content-Type\":\"text/plain; charset=utf-8\",\"X-Error\":\"cloudflare-pages\"}})}}return n}const Dt=Pt({render:Ie,qwikCityPlan:ve,manifest:Ue}),Ut=Dt;export{Ut as fetch,Dt as onRequest};\n\n```\n\n---\n\n## Assistant (Plan · DeepSeek V4 Pro · 27",
+  "actionability": "reference",
+  "cross_refs": ["content"],
+  "source_findings": ["F-0046"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-09T12:16:48.160701+00:00"
+}

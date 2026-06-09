@@ -163,7 +163,9 @@ export default component$(() => {
   }
 
   const canvasData = content.value.canvas
-  const collage = canvasData ? canvasToCollageProps(canvasData, { width: 800, height: 500 }) : null
+  // Skip procedural canvas collage for articles that have real polaroid images
+  const useCanvasCollage = content.value.slug !== 'opencode-vibecoders'
+  const collage = useCanvasCollage && canvasData ? canvasToCollageProps(canvasData, { width: 800, height: 500 }) : null
 
   // JSON-LD WebPage for the current article page (per-locale structured data)
   const pageUrl = canonicalUrl(loc.url.origin, loc.url.pathname + loc.url.search)
@@ -250,10 +252,81 @@ export default component$(() => {
             title: content.value.title,
             subtitle: `${extractDescription(content.value.content)} · ${readTime}`,
             hashtags: content.value.subjects,
-            variant: 'default',
+            variant:
+              content.value.slug === 'opencode-vibecoders' ? 'terminal' : 'default',
+            heroImage:
+              content.value.slug === 'opencode-vibecoders'
+                ? '/assets/whiteboard/chalk/C11-opencode/terminal-agent.webp'
+                : undefined,
             buttons: [],
           }}
-          {...(collageAssets.value ? { collage: collageAssets.value } : {})}
+          {...(collageAssets.value
+            ? { collage: collageAssets.value }
+            : content.value.slug === 'opencode-vibecoders'
+              ? {
+                  collage: {
+                    polaroids: [
+                      {
+                        id: 'terminal',
+                        src: '/assets/whiteboard/chalk/C4-tool/terminal.webp',
+                        label: 'The Terminal',
+                        rotate: -2,
+                        width: 170,
+                        offsetX: 15,
+                        offsetY: 10,
+                      },
+                      {
+                        id: 'code-editor',
+                        src: '/assets/whiteboard/white/C4-tool/code-editor.webp',
+                        label: 'Code Generation',
+                        rotate: 3,
+                        width: 160,
+                        offsetX: 280,
+                        offsetY: 25,
+                      },
+                      {
+                        id: 'browser',
+                        src: '/assets/whiteboard/white/C4-tool/browser.webp',
+                        label: 'Live Output',
+                        rotate: -1,
+                        width: 165,
+                        offsetX: 520,
+                        offsetY: 15,
+                      },
+                      {
+                        id: 'pipeline',
+                        src: '/assets/whiteboard/white/C4-tool/deploy-pipeline.webp',
+                        label: 'Auto Deploy',
+                        rotate: 2,
+                        width: 155,
+                        offsetX: 80,
+                        offsetY: 220,
+                      },
+                      {
+                        id: 'orchestrator',
+                        src: '/assets/whiteboard/white/C4-tool/pipeline-orchestrator.webp',
+                        label: 'Agent Workflow',
+                        rotate: -3,
+                        width: 175,
+                        offsetX: 340,
+                        offsetY: 230,
+                      },
+                      {
+                        id: 'git-ops',
+                        src: '/assets/whiteboard/white/C4-tool/git-ops.webp',
+                        label: 'Version Control',
+                        rotate: 1,
+                        width: 150,
+                        offsetX: 580,
+                        offsetY: 210,
+                      },
+                    ],
+                    emoticons: ['💻', '🚀', '✨', '🤖', '⚡', '🔧'],
+                    tapeVariants: ['yellow', 'white', 'washi', 'clear', 'yellow', 'white'] as any,
+                    showFlora: false,
+                  },
+                }
+              : {})}
         >
           <div q:slot="breadcrumb">
             <Breadcrumb />
@@ -331,6 +404,7 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
           'magica-quickstart',
           'magica-mcp-server',
           'tencent-cloud-deal-stack-builders',
+          'opencode-vibecoders',
         ].includes(slug)
           ? 'https://uniteia.com/assets/kawaii-vibecoder/hero-postit-collage.webp'
           : 'https://uniteia.com/og-image.png',
@@ -343,6 +417,7 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
           'magica-quickstart',
           'magica-mcp-server',
           'tencent-cloud-deal-stack-builders',
+          'opencode-vibecoders',
         ].includes(slug)
           ? 'https://uniteia.com/assets/kawaii-vibecoder/hero-postit-collage.webp'
           : 'https://uniteia.com/og-image.png',

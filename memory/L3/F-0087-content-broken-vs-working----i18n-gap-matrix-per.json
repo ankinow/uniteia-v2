@@ -1,0 +1,11 @@
+{
+  "id": "W-0087",
+  "title": "broken vs working)  \n- i18n gap matrix (per locale)  \n- A11y/contrast/focus viol",
+  "domain": "content",
+  "content": "broken vs working)  \n- i18n gap matrix (per locale)  \n- A11y/contrast/focus violations  \n- Recommended fix plan (cross-ref to existing components: LangSwitcherSegmented, FrontmatterSlots, SearchResults, Footer, layout",
+  "actionability": "reference",
+  "cross_refs": ["content"],
+  "source_findings": ["F-0087"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-09T12:17:07.743603+00:00"
+}

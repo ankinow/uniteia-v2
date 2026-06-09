@@ -1,0 +1,11 @@
+{
+  "id": "W-0002",
+  "title": "Error→Diagnose→Fix→Retry)\n    │   ├─ ConsensusVote(multi_path → select_best)\n   ",
+  "domain": "ops",
+  "content": "Error→Diagnose→Fix→Retry)\n    │   ├─ ConsensusVote(multi_path → select_best)\n    │   └─ PoT(generate_code_to_validate_reasoning)\n    ├─ EvalDim9D(Perf⊕Read⊕Edge⊕Bias⊕Artifact⊕MPS⊕Feasib⊕Safe⊕Cost)\n    ├─ AutoResearch(Karpathy_Loop: hypothesize→experiment→log)\n    └─ AgentOps(Guardrails⊕Monitor⊕Audit⊕SelfHeal)\n\n  _execution_protocol:  # ∀ task T\n    steps:\n      1: \"DECOMPOSE — Break T into sub-intents (CHI)\"\n      2: \"BRANCH — Explore 2-5 parallel paths (MA-ToT)\"\n      3: \"ACT — Tool-calls first",
+  "actionability": "reference",
+  "cross_refs": ["ops"],
+  "source_findings": ["F-0002"],
+  "eval_d9_promotion": 95,
+  "promoted_at": "2026-06-09T12:16:48.159979+00:00"
+}

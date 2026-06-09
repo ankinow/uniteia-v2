@@ -1,0 +1,11 @@
+{
+  "id": "W-0100",
+  "title": "Problem:** Merge broken code, create failing PR\n- **Fix:** Always verify tests b",
+  "domain": "pipeline",
+  "content": "Problem:** Merge broken code, create failing PR\n- **Fix:** Always verify tests before offering options\n\n**Open-ended questions**\n- **Problem:** \"What should I do next?\" is ambiguous\n- **Fix:** Present exactly 4 structured options (or 3 for detached HEAD)\n\n**Cleaning up worktree for Option 2**\n- **Problem:** Remove worktree user needs for PR iteration\n- **Fix:** Only cleanup for Options 1 and 4\n\n**Deleting branch before removing worktree**\n- **Problem:** `git branch -d` fails because worktree sti",
+  "actionability": "reference",
+  "cross_refs": ["pipeline"],
+  "source_findings": ["F-0100"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-09T12:16:48.163299+00:00"
+}

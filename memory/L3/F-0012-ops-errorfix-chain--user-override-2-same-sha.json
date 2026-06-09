@@ -1,0 +1,11 @@
+{
+  "id": "W-0012",
+  "title": "error→fix chain | user override ≥2× same shape\n    diff:   expected_vs_actual pe",
+  "domain": "ops",
+  "content": "error→fix chain | user override ≥2× same shape\n    diff:   expected_vs_actual per pattern\n    score:  EvalDim⁹ {Perf·Read·Edge·Bias·Artifact·MPS·Feasib·Safety·$}\n\n3 CONSOLIDATE (daily@00:10 | weekly@sun03:00):\n    wiki-lint:     dedupe + prune stale + merge contradictions\n    memory-commit: facts→MEMORY",
+  "actionability": "reference",
+  "cross_refs": ["ops"],
+  "source_findings": ["F-0012"],
+  "eval_d9_promotion": 95,
+  "promoted_at": "2026-06-09T12:17:07.741909+00:00"
+}

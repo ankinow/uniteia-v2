@@ -1,0 +1,11 @@
+{
+  "id": "W-0099",
+  "title": "ErrorBoundary } from '~/components/error-boundary'\n6: import { useI18n } from '~",
+  "domain": "content",
+  "content": "ErrorBoundary } from '~/components/error-boundary'\n6: import { useI18n } from '~/i18n/context'\n7: import { nicheIndex } from '~/routing/routes'\n8: import { getLucideIconClass } from '~/utils/icon-classes'\n9: import { getNicheSlug } from '~/utils/niche-loader'\n10: import type { NicheLandingProps } from '",
+  "actionability": "reference",
+  "cross_refs": ["content"],
+  "source_findings": ["F-0099"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-09T12:17:07.744063+00:00"
+}

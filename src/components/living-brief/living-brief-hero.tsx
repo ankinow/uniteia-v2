@@ -4,13 +4,15 @@
  * Dark background with glowing title, descriptive text, hashtags, and CTA buttons.
  * Exact match to "The Living Brief" image reference: yellow glowing title,
  * purple description, hashtags row, action buttons.
+ *
+ * v3.1 — heroImage support for background visual hook
  */
 
 import { Slot, component$ } from '@builder.io/qwik'
 import type { LivingBriefHeroProps } from './types'
 
 export const LivingBriefHero = component$<LivingBriefHeroProps>(
-  ({ title, subtitle, hashtags, buttons, variant = 'default' }) => {
+  ({ title, subtitle, hashtags, buttons, heroImage, variant = 'default' }) => {
     return (
       <div
         class={[
@@ -21,11 +23,65 @@ export const LivingBriefHero = component$<LivingBriefHeroProps>(
           'bg-gradient-to-b from-[oklch(0.12_0.04_280)] to-[oklch(0.08_0.05_280)]',
           'relative overflow-hidden',
           variant === 'magica' ? 'magica-hero-variant' : '',
+          variant === 'terminal' ? 'terminal-hero-variant' : '',
         ]
           .filter(Boolean)
           .join(' ')}
         data-testid="living-brief-hero"
       >
+        {/* Hero Background Image (subtle, right-aligned, opacity) */}
+        {heroImage && (
+          <div
+            class="absolute right-0 top-0 w-[55%] h-full opacity-[0.12] pointer-events-none hidden lg:block"
+            aria-hidden="true"
+          >
+            <img
+              src={heroImage}
+              alt=""
+              class="w-full h-full object-cover object-right"
+              loading="eager"
+            />
+            {/* Gradient fade to blend with dark bg */}
+            <div class="absolute inset-0 bg-gradient-to-l from-transparent via-[oklch(0.10_0.04_280/0.5)] to-[oklch(0.10_0.04_280)]" />
+          </div>
+        )}
+
+        {/* Terminal Visual Hook (Only for terminal variant) */}
+        {variant === 'terminal' && (
+          <div class="absolute top-1/2 -right-24 -translate-y-1/2 w-[500px] h-[350px] bg-black/40 border border-neon-cyan/20 rounded-lg shadow-2xl backdrop-blur-xl rotate-3 hidden lg:block overflow-hidden">
+            <div class="flex items-center gap-1.5 px-3 py-2 border-b border-white/5 bg-white/5">
+              <div class="w-2.5 h-2.5 rounded-full bg-red-500/50" />
+              <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
+              <div class="w-2.5 h-2.5 rounded-full bg-green-500/50" />
+              <div class="ml-2 text-[10px] font-mono text-white/20 uppercase tracking-widest">
+                OpenCode Terminal
+              </div>
+            </div>
+            <div class="p-4 font-mono text-xs space-y-2">
+              <div class="flex gap-2">
+                <span class="text-neon-cyan opacity-50">$</span>
+                <span class="text-white/80">opencode "create bakery site"</span>
+              </div>
+              <div class="text-neon-amber animate-pulse">› Planning architectural structure...</div>
+              <div class="text-white/40">› Initializing Vite + React template...</div>
+              <div class="text-white/40">› Generating menu component...</div>
+              <div class="flex gap-2 mt-4">
+                <span class="text-neon-cyan opacity-50">$</span>
+                <span class="w-2 h-4 bg-neon-cyan/50 animate-bounce" />
+              </div>
+            </div>
+            {/* Scanline overlay for terminal */}
+            <div
+              class="absolute inset-0 pointer-events-none opacity-20"
+              style={{
+                background:
+                  'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06))',
+                backgroundSize: '100% 2px, 3px 100%',
+              }}
+            />
+          </div>
+        )}
+
         {/* Breadcrumb Slot */}
         <div class="absolute top-8 left-8 md:left-12 z-10">
           <Slot name="breadcrumb" />

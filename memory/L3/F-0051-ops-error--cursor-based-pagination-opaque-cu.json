@@ -1,0 +1,11 @@
+{
+  "id": "W-0051",
+  "title": "error)\n- Cursor-based pagination (opaque cursor, `limit` cap at 200)\n- Single er",
+  "domain": "ops",
+  "content": "error)\n- Cursor-based pagination (opaque cursor, `limit` cap at 200)\n- Single error shape: `{ error: { code, message, details, requestId } }`\n- Additive evolution; breaking changes need `/v2/` path\n\n## WebSocket Conventions\n\n- Structured JSON messages with `type` field\n- Lifecycle: subscribe → snapshot → event* → unsubscribe\n- Reconnect: client sends `lastSeq`, server replays missed events\n- Monotonic `seq` per topic for deduplication\n- `retryable` flag on errors\n\n## Correlation\n\n- `trace_id`, `",
+  "actionability": "reference",
+  "cross_refs": ["ops"],
+  "source_findings": ["F-0051"],
+  "eval_d9_promotion": 95,
+  "promoted_at": "2026-06-09T12:16:48.160944+00:00"
+}
