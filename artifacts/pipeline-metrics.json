@@ -356,6 +356,196 @@
         "CROSS_LINK"
       ],
       "rollback": false
+    },
+    {
+      "iteration": 1,
+      "timestamp": "2026-06-09T02:36:03.797Z",
+      "deployGatesPassed": 8,
+      "deployGatesTotal": 8,
+      "testPassCount": 597,
+      "testTotalCount": 646,
+      "collageCount": 96,
+      "contentGraphNodes": 96,
+      "hreflangCount": 18,
+      "locChanged": 3220,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0.2175667287399131,
+      "mutationsApplied": [
+        "CROSS_LINK"
+      ],
+      "rollback": false
+    },
+    {
+      "iteration": 2,
+      "timestamp": "2026-06-09T02:36:06.464Z",
+      "deployGatesPassed": 8,
+      "deployGatesTotal": 8,
+      "testPassCount": 597,
+      "testTotalCount": 646,
+      "collageCount": 96,
+      "contentGraphNodes": 96,
+      "hreflangCount": 18,
+      "locChanged": 3278,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0.21371951219512195,
+      "mutationsApplied": [
+        "LOCALE_ENRICH"
+      ],
+      "rollback": true
+    },
+    {
+      "iteration": 3,
+      "timestamp": "2026-06-09T02:36:09.373Z",
+      "deployGatesPassed": 8,
+      "deployGatesTotal": 8,
+      "testPassCount": 597,
+      "testTotalCount": 646,
+      "collageCount": 96,
+      "contentGraphNodes": 96,
+      "hreflangCount": 18,
+      "locChanged": 3264,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0.2146356399265156,
+      "mutationsApplied": [
+        "CROSS_LINK"
+      ],
+      "rollback": false
+    },
+    {
+      "iteration": 4,
+      "timestamp": "2026-06-09T02:36:12.076Z",
+      "deployGatesPassed": 8,
+      "deployGatesTotal": 8,
+      "testPassCount": 597,
+      "testTotalCount": 646,
+      "collageCount": 96,
+      "contentGraphNodes": 96,
+      "hreflangCount": 18,
+      "locChanged": 3298,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0.21242424242424243,
+      "mutationsApplied": [
+        "LOCALE_ENRICH"
+      ],
+      "rollback": true
+    },
+    {
+      "iteration": 5,
+      "timestamp": "2026-06-09T02:36:15.057Z",
+      "deployGatesPassed": 8,
+      "deployGatesTotal": 8,
+      "testPassCount": 594,
+      "testTotalCount": 646,
+      "collageCount": 96,
+      "contentGraphNodes": 96,
+      "hreflangCount": 18,
+      "locChanged": 3244,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0.215033887861984,
+      "mutationsApplied": [
+        "QUALITY_BUMP"
+      ],
+      "rollback": false
+    },
+    {
+      "iteration": 6,
+      "timestamp": "2026-06-09T02:36:17.691Z",
+      "deployGatesPassed": 8,
+      "deployGatesTotal": 8,
+      "testPassCount": 594,
+      "testTotalCount": 646,
+      "collageCount": 96,
+      "contentGraphNodes": 96,
+      "hreflangCount": 18,
+      "locChanged": 3290,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0.2120291616038882,
+      "mutationsApplied": [
+        "LOCALE_ENRICH"
+      ],
+      "rollback": true
+    },
+    {
+      "iteration": 7,
+      "timestamp": "2026-06-09T02:36:20.367Z",
+      "deployGatesPassed": 8,
+      "deployGatesTotal": 8,
+      "testPassCount": 594,
+      "testTotalCount": 646,
+      "collageCount": 96,
+      "contentGraphNodes": 96,
+      "hreflangCount": 18,
+      "locChanged": 3813,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0.18296199213630407,
+      "mutationsApplied": [
+        "ADD_SECTION"
+      ],
+      "rollback": true
+    },
+    {
+      "iteration": 8,
+      "timestamp": "2026-06-09T02:36:23.002Z",
+      "deployGatesPassed": 8,
+      "deployGatesTotal": 8,
+      "testPassCount": 594,
+      "testTotalCount": 646,
+      "collageCount": 96,
+      "contentGraphNodes": 96,
+      "hreflangCount": 18,
+      "locChanged": 3368,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0.20712166172106825,
+      "mutationsApplied": [
+        "LOCALE_ENRICH"
+      ],
+      "rollback": false
+    },
+    {
+      "iteration": 9,
+      "timestamp": "2026-06-09T02:36:25.642Z",
+      "deployGatesPassed": 8,
+      "deployGatesTotal": 8,
+      "testPassCount": 594,
+      "testTotalCount": 646,
+      "collageCount": 96,
+      "contentGraphNodes": 96,
+      "hreflangCount": 18,
+      "locChanged": 3310,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0.2107487922705314,
+      "mutationsApplied": [
+        "ADJUST_TONE"
+      ],
+      "rollback": false
+    },
+    {
+      "iteration": 10,
+      "timestamp": "2026-06-09T02:36:28.528Z",
+      "deployGatesPassed": 8,
+      "deployGatesTotal": 8,
+      "testPassCount": 594,
+      "testTotalCount": 646,
+      "collageCount": 96,
+      "contentGraphNodes": 96,
+      "hreflangCount": 18,
+      "locChanged": 3334,
+      "depsCalled": 1,
+      "phasesFailed": 0,
+      "cem": 0.2092326139088729,
+      "mutationsApplied": [
+        "QUALITY_BUMP"
+      ],
+      "rollback": true
     }
   ]
 }

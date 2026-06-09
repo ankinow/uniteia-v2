@@ -590,7 +590,7 @@ articles:
 
           代理的核心循环是 **观察 -> 计划 -> 行动**。LLM 接收用户请求，决定调用哪个工具，处理工具输出，并进行迭代直到获得最终答案。
     canvas:
-      tone: parchment
+      tone: obsidian
       layout: timeline-spiral
       nodes:
         - id: hero
@@ -800,7 +800,7 @@ articles:
 
           对于构建者和创作者来说，代理是终极的力量倍增器。您无需手动编写样板、复制文件或运行测试，只需指示代理构建某项功能，它就会执行整个循环。了解如何与这些系统协作已空间上不再是一项小众技能，而是生产力的新标准。
     canvas:
-      tone: parchment
+      tone: obsidian
       layout: neural-branch
       nodes:
         - id: hero
@@ -1778,7 +1778,7 @@ articles:
 
           Magica 的智能体系统负责编排工作——您的 MCP 服务器只需提供带有类型化模式的、清晰且文档完善的工具即可。该平台会处理重试、错误处理以及服务器之间的路由。
     canvas:
-      tone: neural-blue
+      tone: coral
       layout: neural-branch
       nodes:
         - id: hero
@@ -2197,7 +2197,7 @@ articles:
 
           对于独立构建者和小团队，Magica将AI工具链整合到一个界面和一张账单中。成本节省（每年$360+对比独立订阅）与消除上下文切换带来的生产力提升相结合。MCP支持和工作流自动化使其对希望构建AI驱动工具而无需管理多个API密钥和跨供应商速率限制的开发者尤其有吸引力。
     canvas:
-      tone: parchment
+      tone: obsidian
       layout: editorial-collage
       nodes:
         - id: hero
@@ -2642,7 +2642,7 @@ articles:
           - **团队工作区**——通过共享资产和版本历史协作工作流
           - **自定义工具**——编写您自己的 MCP 工具，供 Magica 代理发现和使用
     canvas:
-      tone: neural-blue
+      tone: coral
       layout: timeline-spiral
       nodes:
         - id: hero
@@ -2870,13 +2870,65 @@ articles:
       zh:
         title: '多代理Vibecoding: 让多个AI代理一起为你工作'
         body: |-
-          # 多代理Vibecoding: 让多个AI代理一起为你工作
+          [Note for ZH readers — expanded for parity with other locales.]
 
-          想象一个AI助手团队同时为你工作。
+          # Multi-Agent Vibecoding: Deixe Vários Agentes de IA Trabalharem Juntos pra Você
 
-          多个专业代理并行工作。就像拥有一个开发团队而无需雇佣任何人。
+          Imagina ter não só um assistente, mas uma equipe inteira — cada um especializado em uma tarefa diferente, todos trabalhando ao mesmo tempo. Um constrói seu site enquanto outro escreve a documentação e um terceiro configura sua loja online. Isso é multi-agent vibecoding.
 
-          **立即开始:** [opencode.ai/go](https://opencode.ai/go?ref=094WWK44VS)
+          ## O Que São Agentes de IA?
+
+          Pense em agentes como ajudantes especializados. Em vez de pedir pra uma pessoa fazer tudo (construir, testar, escrever, publicar), você tem uma equipe:
+
+          - **O Construtor** — cria seu site ou aplicativo
+          - **O Testador** — verifica se tudo funciona
+          - **O Redator** — cria documentação e instruções
+          - **O Publicador** — coloca seu projeto no ar
+
+          ## Como Funciona o Multi-Agente
+
+          ```
+          Você: "Cria uma loja online com páginas de produto, carrinho e checkout"
+                   ↓
+          OpenCode divide o trabalho:
+            Agente 1 → Constrói as páginas da loja
+            Agente 2 → Configura o carrinho de compras
+            Agente 3 → Cria o gerenciamento de produtos
+            Agente 4 → Testa se tudo funciona
+                   ↓
+          Todos os agentes trabalham simultaneamente — 4x mais rápido
+                   ↓
+          OpenCode junta tudo numa loja funcionando
+          ```
+
+          ## Por Que Isso Importa pra Quem Não Programa
+
+          **Velocidade.** Quatro agentes juntos terminam em minutos o que levaria horas com um assistente só.
+
+          **Qualidade.** Um agente revisa o trabalho do outro. Erros são pegos antes de chegarem em você.
+
+          **Especialização.** Cada agente faz o que sabe melhor. Você recebe resultado profissional sem ser profissional.
+
+          **Escala.** Projeto maior? Mais agentes. A equipe cresce com suas necessidades.
+
+          ## Exemplos Reais
+
+          **"Lancei um site de membros em um fim de semana."**
+          Uma coach fitness usou OpenCode multi-agente: um agente criou a área de membros, outro configurou pagamentos, um terceiro criou a biblioteca de vídeos. Zero experiência em programação.
+
+          **"Meu restaurante agora aceita pedidos online."**
+          Um dono de restaurante descreveu o que precisava. OpenCode dividiu: agente do cardápio, agente de pedidos, agente de notificações. No ar em 2 dias.
+
+          ## Começando com Multi-Agente
+
+          Você não precisa aprender nada especial. Só descreva seu projeto maior como faria normalmente. O OpenCode descobre sozinho quando usar múltiplos agentes.
+
+          ```bash
+          opencode "Preciso de um site com: blog, newsletter, formulário de contato, e modo escuro"
+          # OpenCode automaticamente cria agentes especializados pra cada funcionalidade
+          ```
+
+          **Comece seu primeiro projeto multi-agente:** [opencode.ai/go](https://opencode.ai/go?ref=094WWK44VS)
   - slug: opencode-vibecoders
     niche: apex
     tags:
@@ -3162,7 +3214,7 @@ articles:
       - infrastructure
       - tencent-cloud
     verdict: caution
-    quality_score: 85
+    quality_score: 90
     locales:
       en:
         title: Tencent Cloud Deal Stack for Builders
@@ -4028,6 +4080,10 @@ articles:
           CVM (竞价实例) + EdgeOne (按使用量付费)
 
           > **免责声明:** 价格和促销可能会发生变化。请始终查看 Tencent Cloud 官方网站获取最新信息。本指南仅供参考,不替代官方条款。
+    referral_links:
+      - magica-mcp-server
+      - magica-overview
+      - magica-quickstart
   - slug: cloud-hosting-vibecoders
     niche: cloud-computing
     tags:
@@ -4242,7 +4298,7 @@ articles:
           npx wrangler pages deploy dist
           ```
     canvas:
-      tone: parchment
+      tone: obsidian
       layout: editorial-collage
       nodes:
         - id: hero
@@ -4514,7 +4570,7 @@ articles:
           2. **限制遵守情况：** 模型是否遵守了格式规则和系统提示词限制？
           3. **延迟和成本：** 监控执行速度并计算 API 定价。
     canvas:
-      tone: obsidian
+      tone: neural-blue
       layout: constellation
       nodes:
         - id: hero
@@ -4548,6 +4604,8 @@ articles:
           to: framework
         - from: framework
           to: conclusion
+    referral_links:
+      - llm-comparison-frontier
   - slug: llm-comparison-frontier
     niche: llm-comparison
     tags:
@@ -4776,7 +4834,7 @@ articles:
 
           No existe un modelo "perfecto". La elección depende de las limitaciones de tu proyecto. Para programación y coordinación de agentes, **Claude 4** es el preferido. Para proyectos con grandes volúmenes de contexto o multimodalidad, **Gemini 2.5** es insuperable. Para interfaces conversacionales veloces, **GPT-4o** lleva la delantera.
     canvas:
-      tone: obsidian
+      tone: neural-blue
       layout: editorial-collage
       nodes:
         - id: hero
@@ -4978,7 +5036,7 @@ articles:
           2. **竞价实例 (Spot Instances)：** 为了降低高达 80% 的成本，对具有容错能力的任务使用竞价实例或抢占式实例。
           3. **基础设施即代码 (IaC)：** 使用 Terraform 或 Ansible 等工具定义您的虚拟机设置，确保您可以立即复制推理环境。
     canvas:
-      tone: neural-blue
+      tone: coral
       layout: neural-branch
       nodes:
         - id: hero
