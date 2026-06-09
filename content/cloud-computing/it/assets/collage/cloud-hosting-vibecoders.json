@@ -3,8 +3,8 @@
   "title": "Canvas Collage",
   "nodes": [
     {
-      "cx": 264,
-      "cy": 144,
+      "cx": 275,
+      "cy": 145,
       "r": 40,
       "label": "Cloud Hosting",
       "shape": "hexagon",
@@ -13,8 +13,8 @@
       "id": "hero"
     },
     {
-      "cx": 619,
-      "cy": 94,
+      "cx": 620,
+      "cy": 100,
       "r": 32,
       "label": "Zero DevOps",
       "shape": "rounded-rect",
@@ -23,8 +23,8 @@
       "id": "zero-devops"
     },
     {
-      "cx": 603,
-      "cy": 156,
+      "cx": 606,
+      "cy": 145,
       "r": 32,
       "label": "Providers",
       "shape": "rounded-rect",
@@ -33,8 +33,8 @@
       "id": "providers"
     },
     {
-      "cx": 211,
-      "cy": 285,
+      "cx": 202,
+      "cy": 291,
       "r": 32,
       "label": "Auto Scaling",
       "shape": "rounded-rect",
@@ -43,8 +43,8 @@
       "id": "scaling"
     },
     {
-      "cx": 559,
-      "cy": 277,
+      "cx": 554,
+      "cy": 292,
       "r": 32,
       "label": "Pricing",
       "shape": "rounded-rect",
@@ -53,8 +53,8 @@
       "id": "pricing"
     },
     {
-      "cx": 273,
-      "cy": 140,
+      "cx": 266,
+      "cy": 139,
       "r": 32,
       "label": "Conclusion",
       "shape": "rounded-rect",
@@ -66,35 +66,35 @@
   "arrows": [
     {
       "id": "arrow-0",
-      "path": "M 264 144 Q 449 173 619 94",
+      "path": "M 275 145 Q 454 175 620 100",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-1",
-      "path": "M 619 94 Q 602 123 603 156",
+      "path": "M 620 100 Q 606 121 606 145",
       "color": "oklch(0.55 0.12 200)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-2",
-      "path": "M 603 156 Q 388 162 211 285",
+      "path": "M 606 145 Q 382 157 202 291",
       "color": "oklch(0.65 0.18 85)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-3",
-      "path": "M 211 285 Q 386 333 559 277",
+      "path": "M 202 291 Q 378 344 554 292",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-4",
-      "path": "M 559 277 Q 437 166 273 140",
+      "path": "M 554 292 Q 433 173 266 139",
       "color": "oklch(0.55 0.12 200)",
       "strokeWidth": 2.5,
       "animated": true
@@ -102,40 +102,40 @@
   ],
   "notes": [
     {
-      "x": 371,
-      "y": 99,
+      "x": 377,
+      "y": 103,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": -1
     },
     {
-      "x": 541,
-      "y": 113,
+      "x": 543,
+      "y": 111,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 0
     },
     {
-      "x": 337,
-      "y": 217,
+      "x": 334,
+      "y": 214,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 1
     },
     {
-      "x": 315,
-      "y": 261,
+      "x": 308,
+      "y": 271,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": -1
     },
     {
-      "x": 346,
-      "y": 197,
+      "x": 340,
+      "y": 204,
       "text": "",
       "width": 140,
       "height": 40,
@@ -146,5 +146,5 @@
   "width": 800,
   "height": 500,
   "layout": "editorial-collage",
-  "generatedAt": "2026-06-09T03:22:30.413Z"
+  "generatedAt": "2026-06-09T04:00:22.795Z"
 }

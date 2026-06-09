@@ -12,10 +12,10 @@ subjects:
   - beginners
 referral_links: []
 metadata:
-  created_at: "2026-06-09T03:22:19.407Z"
-  updated_at: "2026-06-09T03:22:30.413Z"
+  created_at: "2026-06-09T04:00:22.795Z"
+  updated_at: "2026-06-09T04:00:22.795Z"
   author: UniTeia System
-  version: 2
+  version: 1
 canvas:
   tone: neural-blue
   layout: neural-branch

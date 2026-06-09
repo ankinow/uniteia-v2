@@ -3,8 +3,8 @@
   "title": "Canvas Collage",
   "nodes": [
     {
-      "cx": 270,
-      "cy": 148,
+      "cx": 267,
+      "cy": 151,
       "r": 40,
       "label": "Comparison",
       "shape": "hexagon",
@@ -13,8 +13,8 @@
       "id": "hero"
     },
     {
-      "cx": 616,
-      "cy": 94,
+      "cx": 606,
+      "cy": 90,
       "r": 32,
       "label": "Benchmarks",
       "shape": "rounded-rect",
@@ -23,8 +23,8 @@
       "id": "benchmark"
     },
     {
-      "cx": 606,
-      "cy": 151,
+      "cx": 618,
+      "cy": 149,
       "r": 32,
       "label": "GPT-4o",
       "shape": "rounded-rect",
@@ -33,8 +33,8 @@
       "id": "gpt4o"
     },
     {
-      "cx": 210,
-      "cy": 285,
+      "cx": 201,
+      "cy": 284,
       "r": 32,
       "label": "Claude 4",
       "shape": "rounded-rect",
@@ -43,8 +43,8 @@
       "id": "claude4"
     },
     {
-      "cx": 548,
-      "cy": 290,
+      "cx": 546,
+      "cy": 279,
       "r": 32,
       "label": "Gemini 2.5",
       "shape": "rounded-rect",
@@ -53,8 +53,8 @@
       "id": "gemini25"
     },
     {
-      "cx": 279,
-      "cy": 152,
+      "cx": 266,
+      "cy": 156,
       "r": 32,
       "label": "The Verdict",
       "shape": "rounded-rect",
@@ -66,35 +66,35 @@
   "arrows": [
     {
       "id": "arrow-0",
-      "path": "M 270 148 Q 451 173 616 94",
+      "path": "M 267 151 Q 445 171 606 90",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-1",
-      "path": "M 616 94 Q 602 121 606 151",
+      "path": "M 606 90 Q 603 122 618 149",
       "color": "oklch(0.55 0.12 200)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-2",
-      "path": "M 606 151 Q 388 159 210 285",
+      "path": "M 618 149 Q 389 154 201 284",
       "color": "oklch(0.65 0.18 85)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-3",
-      "path": "M 210 285 Q 378 339 548 290",
+      "path": "M 201 284 Q 374 333 546 279",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-4",
-      "path": "M 548 290 Q 434 181 279 152",
+      "path": "M 546 279 Q 424 176 266 156",
       "color": "oklch(0.55 0.12 200)",
       "strokeWidth": 2.5,
       "animated": true
@@ -102,7 +102,7 @@
   ],
   "notes": [
     {
-      "x": 373,
+      "x": 366,
       "y": 101,
       "text": "",
       "width": 140,
@@ -110,32 +110,32 @@
       "rotation": -1
     },
     {
-      "x": 541,
-      "y": 110,
+      "x": 542,
+      "y": 108,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 0
     },
     {
-      "x": 338,
-      "y": 214,
+      "x": 339,
+      "y": 213,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 1
     },
     {
-      "x": 309,
-      "y": 268,
+      "x": 303,
+      "y": 261,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": -1
     },
     {
-      "x": 344,
-      "y": 209,
+      "x": 336,
+      "y": 206,
       "text": "",
       "width": 140,
       "height": 40,
@@ -146,5 +146,5 @@
   "width": 800,
   "height": 500,
   "layout": "editorial-collage",
-  "generatedAt": "2026-06-09T03:22:30.413Z"
+  "generatedAt": "2026-06-09T04:00:22.795Z"
 }

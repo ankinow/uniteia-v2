@@ -4,7 +4,7 @@
   "nodes": [
     {
       "cx": 270,
-      "cy": 143,
+      "cy": 140,
       "r": 40,
       "label": "Cloud Hosting",
       "shape": "hexagon",
@@ -13,8 +13,8 @@
       "id": "hero"
     },
     {
-      "cx": 608,
-      "cy": 103,
+      "cx": 613,
+      "cy": 88,
       "r": 32,
       "label": "Zero DevOps",
       "shape": "rounded-rect",
@@ -23,8 +23,8 @@
       "id": "zero-devops"
     },
     {
-      "cx": 611,
-      "cy": 151,
+      "cx": 616,
+      "cy": 150,
       "r": 32,
       "label": "Providers",
       "shape": "rounded-rect",
@@ -33,8 +33,8 @@
       "id": "providers"
     },
     {
-      "cx": 205,
-      "cy": 284,
+      "cx": 202,
+      "cy": 289,
       "r": 32,
       "label": "Auto Scaling",
       "shape": "rounded-rect",
@@ -43,8 +43,8 @@
       "id": "scaling"
     },
     {
-      "cx": 544,
-      "cy": 294,
+      "cx": 556,
+      "cy": 286,
       "r": 32,
       "label": "Pricing",
       "shape": "rounded-rect",
@@ -53,8 +53,8 @@
       "id": "pricing"
     },
     {
-      "cx": 264,
-      "cy": 140,
+      "cx": 274,
+      "cy": 153,
       "r": 32,
       "label": "Conclusion",
       "shape": "rounded-rect",
@@ -66,35 +66,35 @@
   "arrows": [
     {
       "id": "arrow-0",
-      "path": "M 270 143 Q 445 174 608 103",
+      "path": "M 270 140 Q 449 165 613 88",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-1",
-      "path": "M 608 103 Q 603 127 611 151",
+      "path": "M 613 88 Q 605 119 616 150",
       "color": "oklch(0.55 0.12 200)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-2",
-      "path": "M 611 151 Q 388 156 205 284",
+      "path": "M 616 150 Q 388 157 202 289",
       "color": "oklch(0.65 0.18 85)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-3",
-      "path": "M 205 284 Q 373 340 544 294",
+      "path": "M 202 289 Q 379 340 556 286",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-4",
-      "path": "M 544 294 Q 427 175 264 140",
+      "path": "M 556 286 Q 435 177 274 153",
       "color": "oklch(0.55 0.12 200)",
       "strokeWidth": 2.5,
       "animated": true
@@ -102,40 +102,40 @@
   ],
   "notes": [
     {
-      "x": 369,
-      "y": 103,
+      "x": 371,
+      "y": 94,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": -1
     },
     {
-      "x": 540,
-      "y": 115,
+      "x": 544,
+      "y": 107,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 0
     },
     {
-      "x": 338,
-      "y": 213,
+      "x": 339,
+      "y": 215,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 1
     },
     {
-      "x": 305,
-      "y": 269,
+      "x": 309,
+      "y": 267,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": -1
     },
     {
-      "x": 334,
-      "y": 205,
+      "x": 345,
+      "y": 207,
       "text": "",
       "width": 140,
       "height": 40,
@@ -146,5 +146,5 @@
   "width": 800,
   "height": 500,
   "layout": "editorial-collage",
-  "generatedAt": "2026-06-09T03:22:30.413Z"
+  "generatedAt": "2026-06-09T04:00:22.795Z"
 }

@@ -13,8 +13,8 @@
       "id": "hero"
     },
     {
-      "cx": 571,
-      "cy": 261,
+      "cx": 565,
+      "cy": 257,
       "r": 32,
       "label": "Benchmarks",
       "shape": "rounded-rect",
@@ -23,8 +23,8 @@
       "id": "benchmarks"
     },
     {
-      "cx": 460,
-      "cy": 422,
+      "cx": 440,
+      "cy": 406,
       "r": 32,
       "label": "Human Feedback",
       "shape": "rounded-rect",
@@ -33,8 +33,8 @@
       "id": "human-eval"
     },
     {
-      "cx": 259,
-      "cy": 340,
+      "cx": 244,
+      "cy": 346,
       "r": 32,
       "label": "Auto Tests",
       "shape": "rounded-rect",
@@ -43,8 +43,8 @@
       "id": "automated"
     },
     {
-      "cx": 263,
-      "cy": 155,
+      "cx": 268,
+      "cy": 143,
       "r": 32,
       "label": "Framework",
       "shape": "rounded-rect",
@@ -53,8 +53,8 @@
       "id": "framework"
     },
     {
-      "cx": 439,
-      "cy": 71,
+      "cx": 442,
+      "cy": 86,
       "r": 32,
       "label": "Conclusion",
       "shape": "rounded-rect",
@@ -66,49 +66,49 @@
   "arrows": [
     {
       "id": "arrow-0",
-      "path": "M 400 250 Q 484 281 571 261",
+      "path": "M 400 250 Q 481 278 565 257",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-1",
-      "path": "M 400 250 Q 404 345 460 422",
+      "path": "M 400 250 Q 397 334 440 406",
       "color": "oklch(0.55 0.12 200)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-2",
-      "path": "M 400 250 Q 316 274 259 340",
+      "path": "M 400 250 Q 308 275 244 346",
       "color": "oklch(0.65 0.18 85)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-3",
-      "path": "M 400 250 Q 346 182 263 155",
+      "path": "M 400 250 Q 350 177 268 143",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-4",
-      "path": "M 400 250 Q 447 166 439 71",
+      "path": "M 400 250 Q 446 175 442 86",
       "color": "oklch(0.55 0.12 200)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-5",
-      "path": "M 571 261 Q 491 325 460 422",
+      "path": "M 565 257 Q 480 313 440 406",
       "color": "oklch(0.65 0.18 85)",
       "strokeWidth": 2.5,
       "animated": true
     },
     {
       "id": "arrow-6",
-      "path": "M 259 340 Q 289 248 263 155",
+      "path": "M 244 346 Q 286 248 268 143",
       "color": "oklch(0.55 0.15 270)",
       "strokeWidth": 2.5,
       "animated": true
@@ -116,32 +116,8 @@
   ],
   "notes": [
     {
-      "x": 416,
-      "y": 235,
-      "text": "",
-      "width": 140,
-      "height": 40,
-      "rotation": -1
-    },
-    {
-      "x": 360,
-      "y": 324,
-      "text": "",
-      "width": 140,
-      "height": 40,
-      "rotation": 0
-    },
-    {
-      "x": 259,
-      "y": 291,
-      "text": "",
-      "width": 140,
-      "height": 40,
-      "rotation": 1
-    },
-    {
-      "x": 262,
-      "y": 183,
+      "x": 412,
+      "y": 234,
       "text": "",
       "width": 140,
       "height": 40,
@@ -149,23 +125,47 @@
     },
     {
       "x": 350,
-      "y": 148,
+      "y": 316,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 0
     },
     {
-      "x": 446,
-      "y": 337,
+      "x": 252,
+      "y": 294,
       "text": "",
       "width": 140,
       "height": 40,
       "rotation": 1
     },
     {
-      "x": 191,
-      "y": 228,
+      "x": 264,
+      "y": 177,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": -1
+    },
+    {
+      "x": 351,
+      "y": 156,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": 0
+    },
+    {
+      "x": 432,
+      "y": 327,
+      "text": "",
+      "width": 140,
+      "height": 40,
+      "rotation": 1
+    },
+    {
+      "x": 186,
+      "y": 225,
       "text": "",
       "width": 140,
       "height": 40,
@@ -176,5 +176,5 @@
   "width": 800,
   "height": 500,
   "layout": "constellation",
-  "generatedAt": "2026-06-09T03:22:30.413Z"
+  "generatedAt": "2026-06-09T04:00:22.795Z"
 }

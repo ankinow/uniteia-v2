@@ -8,7 +8,7 @@ import { getHomepageProjection } from '~/content-graph/projections'
 import type { HomepageProjection } from '~/content-graph/projections'
 import { getTranslation } from '~/i18n/context'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
-
+import { slugToKawaiiMini } from '~/utils/kawaii-thumbnail'
 import { loadNichesConfig } from '~/utils/niche-loader'
 
 export const onStaticGenerate = () => {
@@ -79,41 +79,53 @@ export default component$(() => {
               {featuredSignals.length}
             </span>
           </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {featuredSignals.map(signal => (
-              <a
-                key={signal.node.id}
-                href={signal.href}
-                class="block no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan rounded-xl"
-              >
-                <CinematicDepthCard
-                  {...(signal.node.visualStyle ? { visualStyle: signal.node.visualStyle } : {})}
-                  class="h-full transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-2xl group-hover:shadow-neon-cyan/10"
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 [&>:last-child:nth-child(odd)]:col-span-full">
+            {featuredSignals.map(signal => {
+              const thumb = slugToKawaiiMini(signal.node.slug)
+              return (
+                <a
+                  key={signal.node.id}
+                  href={signal.href}
+                  class="block no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan rounded-xl"
                 >
-                  <div class="p-6 md:p-8">
-                    <p class="font-bold text-bone text-lg md:text-xl leading-tight group-hover:text-neon-cyan transition-colors duration-200">
-                      {signal.node.title}
-                    </p>
-                    <p class="text-sm md:text-base text-bone-muted mt-3 line-clamp-3 leading-relaxed">
-                      {signal.node.summary}
-                    </p>
-                    <div class="flex items-center gap-4 mt-6">
-                      <span class="text-[10px] text-bone/30 uppercase tracking-[0.2em] font-mono border border-white/5 px-2 py-0.5 rounded">
-                        {signal.node.locale}
-                      </span>
-                      {signal.node.qualityScore != null && (
-                        <div class="flex items-center gap-1.5">
-                          <span class="text-[10px] text-bone/20 font-mono">Score</span>
-                          <span class="text-xs text-neon-amber font-mono tabular-nums">
-                            ∅{signal.node.qualityScore.toFixed(0)}
-                          </span>
-                        </div>
-                      )}
+                  <CinematicDepthCard
+                    {...(signal.node.visualStyle ? { visualStyle: signal.node.visualStyle } : {})}
+                    class="h-full transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-2xl group-hover:shadow-neon-cyan/10"
+                  >
+                    <img
+                      src={thumb.src}
+                      alt={thumb.alt}
+                      width="120"
+                      height="120"
+                      loading="lazy"
+                      decoding="async"
+                      class="w-full aspect-[3/2] object-cover rounded-t-xl opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                    />
+                    <div class="p-6 md:p-8">
+                      <p class="font-bold text-bone text-lg md:text-xl leading-tight group-hover:text-neon-cyan transition-colors duration-200">
+                        {signal.node.title}
+                      </p>
+                      <p class="text-sm md:text-base text-bone-muted mt-3 line-clamp-3 leading-relaxed">
+                        {signal.node.summary}
+                      </p>
+                      <div class="flex items-center gap-4 mt-6">
+                        <span class="text-[10px] text-bone/30 uppercase tracking-[0.2em] font-mono border border-white/5 px-2 py-0.5 rounded">
+                          {signal.node.locale}
+                        </span>
+                        {signal.node.qualityScore != null && (
+                          <div class="flex items-center gap-1.5">
+                            <span class="text-[10px] text-bone/20 font-mono">Score</span>
+                            <span class="text-xs text-neon-amber font-mono tabular-nums">
+                              ∅{signal.node.qualityScore.toFixed(0)}
+                            </span>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </CinematicDepthCard>
-              </a>
-            ))}
+                  </CinematicDepthCard>
+                </a>
+              )
+            })}
           </div>
         </section>
       )}
@@ -154,26 +166,40 @@ export default component$(() => {
           <h2 class="text-xs uppercase tracking-[0.3em] text-bone/40 font-mono mb-4">
             {t.homepage.frontierStreams}
           </h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {frontierStreams.map(stream => (
-              <a
-                key={stream.node.id}
-                href={stream.href}
-                class="block no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-rose rounded-lg"
-              >
-                <CinematicDepthCard
-                  variant="card"
-                  class="hover:border-neon-rose/20 transition-colors"
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 [&>:last-child:nth-child(odd)]:col-span-full">
+            {frontierStreams.map(stream => {
+              const thumb = slugToKawaiiMini(stream.node.slug)
+              return (
+                <a
+                  key={stream.node.id}
+                  href={stream.href}
+                  class="block no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-rose rounded-lg"
                 >
-                  <div class="p-4">
-                    <p class="font-medium text-bone text-sm leading-tight group-hover:text-neon-rose transition-colors">
-                      {stream.node.title}
-                    </p>
-                    <p class="text-xs text-bone/50 mt-1 line-clamp-2">{stream.node.summary}</p>
-                  </div>
-                </CinematicDepthCard>
-              </a>
-            ))}
+                  <CinematicDepthCard
+                    variant="card"
+                    class="hover:border-neon-rose/20 transition-colors"
+                  >
+                    <div class="flex items-start gap-3 p-4">
+                      <img
+                        src={thumb.src}
+                        alt={thumb.alt}
+                        width="56"
+                        height="56"
+                        loading="lazy"
+                        decoding="async"
+                        class="w-14 h-14 rounded-lg object-cover shrink-0 opacity-85 group-hover:opacity-100 transition-opacity duration-200"
+                      />
+                      <div class="min-w-0">
+                        <p class="font-medium text-bone text-sm leading-tight group-hover:text-neon-rose transition-colors">
+                          {stream.node.title}
+                        </p>
+                        <p class="text-xs text-bone/50 mt-1 line-clamp-2">{stream.node.summary}</p>
+                      </div>
+                    </div>
+                  </CinematicDepthCard>
+                </a>
+              )
+            })}
           </div>
         </section>
       )}
@@ -194,7 +220,7 @@ export default component$(() => {
         )}
 
       {/* Footer whisper — locale + deploy info, minimal */}
-      <footer class="mt-20 pt-8 border-t border-bone/5 text-center">
+      <footer class="mt-8 pt-8 border-t border-bone/5 text-center">
         <p class="text-xs text-bone/25 font-mono">
           {siteName} · {lang} · {SUPPORTED_LANGUAGES.length} locales · CF Pages
         </p>
