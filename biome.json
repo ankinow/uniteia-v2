@@ -69,7 +69,9 @@
       "artifacts",
       "src/content-graph/generated",
       "src/content-graph.generated.ts",
-      "src/search-index.generated.ts"
+      "src/search-index.generated.ts",
+      "public/canvas-react",
+      "src/content-registry.generated.ts"
     ]
   }
 }
