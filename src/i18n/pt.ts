@@ -163,24 +163,29 @@ export const pt: TranslationStrings = {
     signalIntake: 'Captação de Insights',
     deliveryLayer: 'Camada de Entrega',
     bentoTagline: 'Qwik islands + P3 wide-gamut',
+    footerMadeWith:
+      'Feito com ❤️ para IA descentralizada pela equipe UniTeia & LERMF. Empoderando vibe-coders e construtores em todo o mundo.',
   },
   onboarding: {
     step1: {
-      title: 'O mundo é barulhento.',
-      subtitle: 'Nós filtramos o insight.',
-      desc: '{siteName} ingere milhares de fontes diariamente, extraindo o que importa. Para que você não precise.',
+      title: 'Feito com paixão para a comunidade.',
+      subtitle: 'Filtramos o ruído para você focar no vibe-coding.',
+      desc: 'Nossa equipe UniTeia & LERMF mergulha diariamente em milhares de fontes, curando os melhores insights com amor e dedicação. Para que você foque em construir.',
     },
     step2: {
-      title: 'Cada insight passa por 7 filtros de qualidade antes de chegar até você.',
+      title: 'Curadoria humana, potencializada pela tecnologia.',
       cards: [
-        { label: 'Pesquisa', desc: 'Fontes brutas são ingeridas e pontuadas quanto à confiança.' },
         {
-          label: 'Verificação',
-          desc: 'Alegações são verificadas cruzadamente contra fontes independentes.',
+          label: 'Pesquisa',
+          desc: 'Selecionamos e avaliamos fontes brutas com cuidado para garantir confiança absoluta.',
         },
         {
-          label: 'Estruturação',
-          desc: 'Conteúdo é formatado, localizado e preparado para entrega.',
+          label: 'Verificação',
+          desc: 'Cada afirmação é checada com dedicação de acordo com os padrões da nossa comunidade.',
+        },
+        {
+          label: 'Entrega',
+          desc: 'Conteúdo formatado de forma linda e localizado especialmente para você.',
         },
       ],
     },
@@ -306,7 +311,8 @@ export const pt: TranslationStrings = {
         practicalByDesign: 'Prático por design',
       },
       level: 'Do iniciante ao intermediário',
-      footer: 'Feito para quem aprende. Pensado para devs. Por UniTeia / ConteiXeia',
+      footer:
+        'Criado com ❤️ para aprendizes, vibe-coders e construtores. Pela equipe UniTeia & LERMF.',
     },
     template02: {
       title: 'Template 02 — Receita de Código / Mini Build',
@@ -364,7 +370,8 @@ export const pt: TranslationStrings = {
         devFriendly: 'Amigo do dev',
         practicalByDesign: 'Prático por design',
       },
-      footer: 'Feito para quem aprende. Pensado para devs. Por UniTeia / ConteiXeia',
+      footer:
+        'Criado com ❤️ para aprendizes, vibe-coders e construtores. Pela equipe UniTeia & LERMF.',
     },
     template03: {
       title: 'Template 03 — Mapa de Decisão / Comparativo Visual',
@@ -439,7 +446,8 @@ export const pt: TranslationStrings = {
         devFriendly: 'Amigo do dev',
         practicalByDesign: 'Prático por design',
       },
-      footer: 'Feito para quem aprende. Pensado para devs. Por UniTeia / ConteiXeia',
+      footer:
+        'Criado com ❤️ para aprendizes, vibe-coders e construtores. Pela equipe UniTeia & LERMF.',
     },
   },
   canva: {

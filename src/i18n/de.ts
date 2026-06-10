@@ -164,33 +164,35 @@ export const de: TranslationStrings = {
     signalIntake: 'Insight-Aufnahme',
     deliveryLayer: 'Zustellungsebene',
     bentoTagline: 'Qwik islands + P3 wide-gamut',
+    footerMadeWith:
+      'Mit ❤️ für dezentrale KI vom UniTeia & LERMF-Team erstellt. Stärkung von Vibe-Codern und Entwicklern weltweit.',
   },
   onboarding: {
     step1: {
-      title: 'Die Welt ist laut.',
-      subtitle: 'Wir filtern das Insight.',
-      desc: '{siteName} nimmt täglich Tausende von Quellen auf und extrahiert, was zählt. Damit Sie es nicht tun müssen.',
+      title: 'Mit Leidenschaft für die Community entwickelt.',
+      subtitle: 'Wir filtern das Rauschen, damit Sie Vibe-Coden können.',
+      desc: 'Unser UniTeia & LERMF-Team taucht täglich in Tausende von Quellen ein und kuratiert die besten Insights mit Liebe und Hingabe. Damit Sie sich aufs Bauen konzentrieren können.',
     },
     step2: {
-      title: 'Jedes Insight durchläuft 7 Filter, bevor es dich erreicht.',
+      title: 'Von Menschen kuratiert, durch Technologie gestärkt.',
       cards: [
         {
-          label: 'Recherche',
-          desc: 'Rohquellen werden aufgenommen und nach Vertrauenswürdigkeit bewertet.',
+          label: 'Forschung',
+          desc: 'Wir wählen Rohquellen sorgfältig aus und bewerten sie für absolutes Vertrauen.',
         },
         {
-          label: 'Verifikation',
-          desc: 'Behauptungen werden anhand unabhängiger Quellen überprüft.',
+          label: 'Verifizierung',
+          desc: 'Jede Behauptung wird mit Hingabe nach unseren Community-Standards überprüft.',
         },
         {
-          label: 'Strukturierung',
-          desc: 'Inhalte werden formatiert, lokalisiert und für die Auslieferung vorbereitet.',
+          label: 'Bereitstellung',
+          desc: 'Wunderschön formatierte und lokalisierte Inhalte, speziell für Sie.',
         },
       ],
     },
     step3: {
       title: 'Verfügbar in 8 Sprachen.',
-      desc: 'Nur was zählt. In Ihrer Sprache, zu Ihren Bedingungen.',
+      desc: 'Nur das, was wichtig ist. Geliefert in Ihrer Sprache, zu Ihren Bedingungen.',
       badge: '8 Stimmen',
     },
   },
@@ -310,7 +312,7 @@ export const de: TranslationStrings = {
         practicalByDesign: 'Praktisch by Design',
       },
       level: 'Für Einsteiger → Fortgeschrittene',
-      footer: 'Für Lernende gebaut. Für Devs gedacht. Von UniTeia / ConteiXeia',
+      footer: 'Mit ❤️ für Lernende, Vibe-Coder und Builder gemacht. Vom UniTeia & LERMF-Team.',
     },
     template02: {
       title: 'Template 02 — Code-Rezept / Mini Build',
@@ -365,7 +367,7 @@ export const de: TranslationStrings = {
         devFriendly: 'Dev-freundlich',
         practicalByDesign: 'Praktisch by Design',
       },
-      footer: 'Für Lernende gebaut. Für Devs gedacht. Von UniTeia / ConteiXeia',
+      footer: 'Mit ❤️ für Lernende, Vibe-Coder und Builder gemacht. Vom UniTeia & LERMF-Team.',
     },
     template03: {
       title: 'Template 03 — Entscheidungs-Map / Visueller Vergleich',
@@ -440,7 +442,7 @@ export const de: TranslationStrings = {
         devFriendly: 'Dev-freundlich',
         practicalByDesign: 'Praktisch by Design',
       },
-      footer: 'Für Lernende gebaut. Für Devs gedacht. Von UniTeia / ConteiXeia',
+      footer: 'Mit ❤️ für Lernende, Vibe-Coder und Builder gemacht. Vom UniTeia & LERMF-Team.',
     },
   },
   canva: {

@@ -165,33 +165,35 @@ export const fr: TranslationStrings = {
     signalIntake: "Captation d'Insights",
     deliveryLayer: 'Couche de Livraison',
     bentoTagline: 'Qwik islands + P3 wide-gamut',
+    footerMadeWith:
+      "Fait avec ❤️ pour l'IA décentralisée par l'équipe UniTeia & LERMF. Autonomiser les vibe-coders et les constructeurs du monde entier.",
   },
   onboarding: {
     step1: {
-      title: 'Le monde est bruyant.',
-      subtitle: "Nous filtrons l'insight.",
-      desc: "{siteName} ingère des milliers de sources quotidiennement, extrayant l'essentiel. Pour que vous n'ayez pas à le faire.",
+      title: 'Créé avec passion pour la communauté.',
+      subtitle: 'Nous filtrons le bruit pour que vous puissiez vibe-coder.',
+      desc: 'Notre équipe UniTeia & LERMF plonge chaque jour dans des milliers de sources, sélectionnant les meilleures idées avec amour et dévouement. Pour que vous puissiez vous concentrer sur la création.',
     },
     step2: {
-      title: 'Chaque insight traverse 7 filtres avant de vous atteindre.',
+      title: 'Curation humaine, renforcée par la technologie.',
       cards: [
         {
           label: 'Recherche',
-          desc: 'Les sources brutes sont ingérées et notées selon leur fiabilité.',
+          desc: 'Nous sélectionnons et évaluons soigneusement les sources pour une confiance absolue.',
         },
         {
           label: 'Vérification',
-          desc: 'Les affirmations sont recoupées avec des sources indépendantes.',
+          desc: 'Chaque affirmation est vérifiée avec dévouement selon nos standards communautaires.',
         },
         {
-          label: 'Structuration',
-          desc: 'Le contenu est formaté, localisé et préparé pour la livraison.',
+          label: 'Livraison',
+          desc: 'Un contenu magnifiquement formaté et localisé spécialement pour vous.',
         },
       ],
     },
     step3: {
       title: 'Disponible en 8 langues.',
-      desc: "Seulement l'essentiel. Dans votre langue, selon vos termes.",
+      desc: 'Seulement ce qui compte. Livré dans votre langue, selon vos conditions.',
       badge: '8 voix',
     },
   },
@@ -358,7 +360,8 @@ export const fr: TranslationStrings = {
         practicalByDesign: 'Pratique par design',
       },
       level: 'Du débutant à l’intermédiaire',
-      footer: 'Pensé pour apprendre. Conçu pour les devs. Par UniTeia / ConteiXeia',
+      footer:
+        "Conçu avec ❤️ pour les apprenants, les vibe-coders et les bâtisseurs. Par l'équipe UniTeia & LERMF.",
     },
     template02: {
       title: 'Template 02 — Recette de code / Mini Build',
@@ -416,7 +419,8 @@ export const fr: TranslationStrings = {
         devFriendly: 'Dev friendly',
         practicalByDesign: 'Pratique par design',
       },
-      footer: 'Pensé pour apprendre. Conçu pour les devs. Par UniTeia / ConteiXeia',
+      footer:
+        "Conçu avec ❤️ pour les apprenants, les vibe-coders et les bâtisseurs. Par l'équipe UniTeia & LERMF.",
     },
     template03: {
       title: 'Template 03 — Carte de décision / Comparatif visuel',
@@ -494,7 +498,8 @@ export const fr: TranslationStrings = {
         devFriendly: 'Dev friendly',
         practicalByDesign: 'Pratique par design',
       },
-      footer: 'Pensé pour apprendre. Conçu pour les devs. Par UniTeia / ConteiXeia',
+      footer:
+        "Conçu avec ❤️ pour les apprenants, les vibe-coders et les bâtisseurs. Par l'équipe UniTeia & LERMF.",
     },
   },
   canva: {

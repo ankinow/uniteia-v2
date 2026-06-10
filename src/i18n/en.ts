@@ -163,19 +163,27 @@ export const en: TranslationStrings = {
     signalIntake: 'Insight Intake',
     deliveryLayer: 'Delivery Layer',
     bentoTagline: 'Qwik islands + P3 wide-gamut',
+    footerMadeWith:
+      'Made with ❤️ for decentralized AI by the UniTeia & LERMF team. Empowering vibe-coders and builders worldwide.',
   },
   onboarding: {
     step1: {
-      title: 'The world is noisy.',
-      subtitle: 'We filter the signal.',
-      desc: "{siteName} ingests thousands of sources daily, extracting what matters. So you don't have to.",
+      title: 'Built with passion for the community.',
+      subtitle: 'We filter the noise so you can vibe-code.',
+      desc: 'Our UniTeia & LERMF team dives into thousands of sources daily, curating the best insights with love and dedication. So you can focus on building.',
     },
     step2: {
-      title: 'Every insight passes 7 filters before reaching you.',
+      title: 'Curated by humans, empowered by tech.',
       cards: [
-        { label: 'Research', desc: 'Raw sources are ingested and scored for trust.' },
-        { label: 'Verify', desc: 'Claims are cross-checked against independent sources.' },
-        { label: 'Structure', desc: 'Content is formatted, localized, and readied for delivery.' },
+        {
+          label: 'Research',
+          desc: 'We carefully select and score raw sources for absolute trust.',
+        },
+        {
+          label: 'Verify',
+          desc: 'Every claim is cross-checked with dedication by our community standards.',
+        },
+        { label: 'Deliver', desc: 'Content is beautifully formatted and localized just for you.' },
       ],
     },
     step3: {
@@ -300,7 +308,8 @@ export const en: TranslationStrings = {
         practicalByDesign: 'Practical by design',
       },
       level: 'For beginners → intermediate',
-      footer: 'Built for learners. Designed for devs. Made by UniTeia / ConteiXeia',
+      footer:
+        'Crafted with ❤️ for learners, vibe-coders, and builders. By the UniTeia & LERMF team.',
     },
     template02: {
       title: 'Template 02 — Code Recipe / Mini Build',
@@ -352,7 +361,8 @@ export const en: TranslationStrings = {
         devFriendly: 'Developer friendly',
         practicalByDesign: 'Practical by design',
       },
-      footer: 'Built for learners. Designed for devs. Made by UniTeia / ConteiXeia',
+      footer:
+        'Crafted with ❤️ for learners, vibe-coders, and builders. By the UniTeia & LERMF team.',
     },
     template03: {
       title: 'Template 03 — Decision Map / Comparativo Visual',
@@ -426,7 +436,8 @@ export const en: TranslationStrings = {
         devFriendly: 'Developer friendly',
         practicalByDesign: 'Practical by design',
       },
-      footer: 'Built for learners. Designed for devs. Made by UniTeia / ConteiXeia',
+      footer:
+        'Crafted with ❤️ for learners, vibe-coders, and builders. By the UniTeia & LERMF team.',
     },
   },
   canva: {

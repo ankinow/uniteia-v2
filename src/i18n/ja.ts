@@ -163,27 +163,35 @@ export const ja: TranslationStrings = {
     signalIntake: 'Insights収集',
     deliveryLayer: '配信レイヤー',
     bentoTagline: 'Qwik islands + P3 wide-gamut',
+    footerMadeWith:
+      'UniTeiaとLERMFチームによって分散型AIのために❤️を込めて作られました。世界中のバイブコーダーとビルダーに力を与えます。',
   },
   onboarding: {
     step1: {
-      title: '世界はノイズにあふれています。',
-      subtitle: '私たちはインサイトを濾過します。',
-      desc: '{siteName}は毎日何千ものソースを取り込み、重要なものを抽出します。あなたがする必要はありません。',
+      title: 'コミュニティへの情熱を込めて構築されました。',
+      subtitle: 'ノイズをフィルタリングして、バイブコーディングに集中できるようにします。',
+      desc: '私たちのUniTeia & LERMFチームは毎日何千もの情報源に飛び込み、愛と献身を持って最高の洞察をキュレーションしています。あなたが構築に集中できるように。',
     },
     step2: {
-      title: '7フィルター',
+      title: '人間によってキュレーションされ、テクノロジーで強化されています。',
       cards: [
-        { label: 'リサーチ', desc: '生のソースが取り込まれ、信頼性がスコアリングされます。' },
-        { label: '検証', desc: '主張が独立したソースと照合されます。' },
         {
-          label: '構造化',
-          desc: 'コンテンツがフォーマット、ローカライズされ、配信準備が整えられます。',
+          label: '調査',
+          desc: '絶対的な信頼のために、生のソースを慎重に選択し、スコア付けします。',
+        },
+        {
+          label: '検証',
+          desc: 'すべての主張は、コミュニティの基準に従って献身的にクロスチェックされます。',
+        },
+        {
+          label: '配信',
+          desc: 'あなたのために特別に美しくフォーマットされ、ローカライズされたコンテンツ。',
         },
       ],
     },
     step3: {
       title: '8言語で利用可能。',
-      desc: '重要なものだけを。あなたの言語で、あなたの条件で。',
+      desc: '重要なことだけを。あなたの言語で、あなたの条件で配信されます。',
       badge: '8つの声',
     },
   },
@@ -303,7 +311,8 @@ export const ja: TranslationStrings = {
         practicalByDesign: '実用的設計',
       },
       level: '初心者 → 中級者向け',
-      footer: '学習者のために。開発者の設計。UniTeia / ConteiXeia 製',
+      footer:
+        '学習者、バイブコーダー、ビルダーのために❤️を込めて作られました。UniTeia & LERMFチームより。',
     },
     template02: {
       title: 'Template 02 — コードレシピ / ミニビルド',
@@ -355,7 +364,8 @@ export const ja: TranslationStrings = {
         devFriendly: '開発者フレンドリー',
         practicalByDesign: '実用的設計',
       },
-      footer: '学習者のために。開発者の設計。UniTeia / ConteiXeia 製',
+      footer:
+        '学習者、バイブコーダー、ビルダーのために❤️を込めて作られました。UniTeia & LERMFチームより。',
     },
     template03: {
       title: 'Template 03 — 意思決定マップ / ビジュアル比較',
@@ -419,7 +429,8 @@ export const ja: TranslationStrings = {
         devFriendly: '開発者フレンドリー',
         practicalByDesign: '実用的設計',
       },
-      footer: '学習者のために。開発者の設計。UniTeia / ConteiXeia 製',
+      footer:
+        '学習者、バイブコーダー、ビルダーのために❤️を込めて作られました。UniTeia & LERMFチームより。',
     },
   },
   canva: {

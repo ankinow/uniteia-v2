@@ -161,24 +161,26 @@ export const zh: TranslationStrings = {
     signalIntake: 'Insights摄入',
     deliveryLayer: '交付层',
     bentoTagline: 'Qwik islands + P3 wide-gamut',
+    footerMadeWith:
+      '由 UniTeia 和 LERMF 团队为去中心化 AI ❤️ 制作。赋能全球的 vibe-coders 和构建者。',
   },
   onboarding: {
     step1: {
-      title: '世界充满噪音。',
-      subtitle: '我们过滤insight。',
-      desc: '{siteName} 每天摄入数千个来源，提取重要的信息。让您无需亲力亲为。',
+      title: '充满对社区的热情而构建。',
+      subtitle: '我们过滤噪音，让您可以专心进行 vibe-code。',
+      desc: '我们的 UniTeia 和 LERMF 团队每天深入研究数千个信息源，用爱和奉献精神策划最好的见解。让您可以专注于构建。',
     },
     step2: {
-      title: '每个insight在到达你之前都会经过7过滤器。',
+      title: '由人类精心策划，由技术提供支持。',
       cards: [
-        { label: '研究', desc: '原始来源被摄取并根据可信度评分。' },
-        { label: '验证', desc: '声明与独立来源进行交叉验证。' },
-        { label: '结构化', desc: '内容被格式化、本地化并准备好交付。' },
+        { label: '研究', desc: '我们仔细选择和评估原始信息源，以确保绝对信任。' },
+        { label: '验证', desc: '每项声明都根据我们的社区标准进行了专注的交叉验证。' },
+        { label: '交付', desc: '专为您进行精美格式化和本地化的内容。' },
       ],
     },
     step3: {
-      title: '支持8种语言。',
-      desc: '只有重要的内容。用您的语言，按您的方式。',
+      title: '提供 8 种语言。',
+      desc: '只有真正重要的内容。以您的语言，按您的条件交付。',
       badge: '8种声音',
     },
   },
@@ -298,7 +300,7 @@ export const zh: TranslationStrings = {
         practicalByDesign: '务实设计',
       },
       level: '适合初学者 → 中级',
-      footer: '为学习者打造。为开发者设计。由 UniTeia / ConteiXeia 出品',
+      footer: '为学习者、vibe-coders 和构建者用心 ❤️ 制作。由 UniTeia 和 LERMF 团队提供。',
     },
     template02: {
       title: 'Template 02 — 代码配方 / 迷你构建',
@@ -350,7 +352,7 @@ export const zh: TranslationStrings = {
         devFriendly: '开发者友好',
         practicalByDesign: '务实设计',
       },
-      footer: '为学习者打造。为开发者设计。由 UniTeia / ConteiXeia 出品',
+      footer: '为学习者、vibe-coders 和构建者用心 ❤️ 制作。由 UniTeia 和 LERMF 团队提供。',
     },
     template03: {
       title: 'Template 03 — 决策地图 / 可视化对比',
@@ -408,7 +410,7 @@ export const zh: TranslationStrings = {
         devFriendly: '开发者友好',
         practicalByDesign: '务实设计',
       },
-      footer: '为学习者打造。为开发者设计。由 UniTeia / ConteiXeia 出品',
+      footer: '为学习者、vibe-coders 和构建者用心 ❤️ 制作。由 UniTeia 和 LERMF 团队提供。',
     },
   },
   canva: {
