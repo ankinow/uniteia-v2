@@ -40,7 +40,9 @@ export function importPackage(packageDir: string, manifest: Manifest): ImportedP
     try {
       const raw = JSON.parse(readFileSync(contentNodesPath, 'utf-8'))
       if (Array.isArray(raw)) {
-        factoryNodes = raw.map((n: unknown) => forwardCompatContentNodeSchema.parse(n)) as ContractContentNode[]
+        factoryNodes = raw.map((n: unknown) =>
+          forwardCompatContentNodeSchema.parse(n)
+        ) as ContractContentNode[]
         metadataOrigin = 'factory'
       }
     } catch {
