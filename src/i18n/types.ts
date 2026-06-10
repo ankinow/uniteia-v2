@@ -164,6 +164,7 @@ export interface TranslationStrings {
     signalIntake: string
     deliveryLayer: string
     bentoTagline: string
+    footerMadeWith: string
   }
   onboarding: {
     step1: {

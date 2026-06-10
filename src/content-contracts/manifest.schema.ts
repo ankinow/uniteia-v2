@@ -18,7 +18,7 @@ export interface ManifestLayout {
 
 export interface ManifestQuality {
   publishable: boolean
-  /** v3.2 — Granular 0-100 score from W16 QualityAuditorAgent. 
+  /** v3.2 — Granular 0-100 score from W16 QualityAuditorAgent.
    *  If absent, content was NOT audited (placeholder qualityScore=50). */
   overallScore?: number
   sourceCount: number

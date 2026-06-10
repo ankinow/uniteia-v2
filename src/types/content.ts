@@ -84,6 +84,7 @@ export interface CanvasConnectorDef {
 export interface CanvasSceneGraph {
   version: number
   tone: CanvasTone
+  variant?: 'default' | 'terminal' | 'cyber' | string
   nodes: CanvasNodeDef[]
   connectors?: CanvasConnectorDef[]
   style?:
