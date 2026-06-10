@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 /**
  * GATE-RUNNER v1.0 — Deterministic Quality Gate Engine
- * 
+ *
  * Runs ALL quality gates and produces a machine-readable JSON verdict.
  * Replaces the fragile `bun run ship:check` with deterministic checks.
  *
@@ -27,12 +27,11 @@
  * Exit: 0 = all critical gates pass, 1 = one or more critical gates failed
  */
 
-import { readFileSync, writeFileSync, existsSync } from "fs"
-import { execSync, execFileSync } from "child_process"
+import { existsSync, readFileSync, writeFileSync } from 'fs'
 
 // ── Types ──
 
-type GateSeverity = "critical" | "warning"
+type GateSeverity = 'critical' | 'warning'
 
 interface GateDef {
   id: string
@@ -63,8 +62,8 @@ interface GateReport {
 
 function grepFile(path: string, pattern: RegExp): { found: boolean; lines: string[] } {
   if (!existsSync(path)) return { found: false, lines: [`${path} not found`] }
-  const content = readFileSync(path, "utf-8")
-  const lines = content.split("\n")
+  const content = readFileSync(path, 'utf-8')
+  const lines = content.split('\n')
   const matches: string[] = []
   for (let i = 0; i < lines.length; i++) {
     if (pattern.test(lines[i])) matches.push(`L${i + 1}: ${lines[i].trim().substring(0, 80)}`)
@@ -74,21 +73,21 @@ function grepFile(path: string, pattern: RegExp): { found: boolean; lines: strin
 
 function grepReverse(path: string, pattern: RegExp): { found: boolean } {
   if (!existsSync(path)) return { found: false }
-  const content = readFileSync(path, "utf-8")
+  const content = readFileSync(path, 'utf-8')
   return { found: pattern.test(content) }
 }
 
 // ── Gate Definitions ──
 
 const REPO = process.cwd()
-const REPO_MF = "/home/lermf/uniteia-mega-factory"
-const REPO_V2 = "/home/lermf/uniteia-v2"
+const REPO_MF = '/home/lermf/uniteia-mega-factory'
+const REPO_V2 = '/home/lermf/uniteia-v2'
 
 const GATES: GateDef[] = [
   {
-    id: "G1",
-    name: "glassmorphism-css",
-    severity: "critical",
+    id: 'G1',
+    name: 'glassmorphism-css',
+    severity: 'critical',
     check: () => {
       const cssFiles = [
         `${REPO_V2}/src/assets/living-brief.css`,
@@ -107,134 +106,146 @@ const GATES: GateDef[] = [
       }
       return {
         passed: findings.length === 0,
-        evidence: findings.length === 0 ? "0 blur instances" : findings.join("; "),
+        evidence: findings.length === 0 ? '0 blur instances' : findings.join('; '),
       }
     },
   },
   {
-    id: "G2",
-    name: "z-literal-regression",
-    severity: "critical",
+    id: 'G2',
+    name: 'z-literal-regression',
+    severity: 'critical',
     check: () => {
       const p = `${REPO_MF}/packages/content-node-contract/src/schemas.ts`
       const result = grepFile(p, /z\.literal\(/)
       return {
         passed: !result.found,
-        evidence: result.found ? result.lines.join("; ") : "z.enum active, no z.literal",
+        evidence: result.found ? result.lines.join('; ') : 'z.enum active, no z.literal',
       }
     },
   },
   {
-    id: "G3",
-    name: "qualityscore-binary-fallback",
-    severity: "critical",
+    id: 'G3',
+    name: 'qualityscore-binary-fallback',
+    severity: 'critical',
     check: () => {
       const p = `${REPO_MF}/src/exporters/uniteia-v2/manifest-writer.ts`
       const bin = grepReverse(p, /publishable\s*\?\s*95\s*:\s*65/)
       const audited = grepReverse(p, /wasAudited/)
       return {
         passed: !bin.found && audited.found,
-        evidence: bin.found ? "binary fallback 95:65 present" : audited.found ? "wasAudited gate active" : "wasAudited gate missing",
+        evidence: bin.found
+          ? 'binary fallback 95:65 present'
+          : audited.found
+            ? 'wasAudited gate active'
+            : 'wasAudited gate missing',
       }
     },
   },
   {
-    id: "G4",
-    name: "visualasset-shared-contract",
-    severity: "critical",
+    id: 'G4',
+    name: 'visualasset-shared-contract',
+    severity: 'critical',
     check: () => {
       const p = `${REPO_V2}/src/content-graph/contracts/node.ts`
       const local = grepReverse(p, /export interface VisualAsset\s*\{/)
       const shared = grepReverse(p, /@uniteia\/content-node-contract/)
       return {
         passed: !local.found || shared.found,
-        evidence: local.found && !shared.found ? "local VisualAsset def (not shared)" : shared.found ? "imported from shared" : "no VisualAsset ref",
+        evidence:
+          local.found && !shared.found
+            ? 'local VisualAsset def (not shared)'
+            : shared.found
+              ? 'imported from shared'
+              : 'no VisualAsset ref',
       }
     },
   },
   {
-    id: "G5",
-    name: "registry-v2-entry",
-    severity: "critical",
+    id: 'G5',
+    name: 'registry-v2-entry',
+    severity: 'critical',
     check: () => {
       const p = `${REPO_MF}/packages/content-node-contract/src/contract-versions.ts`
       const v2 = grepReverse(p, /"content-graph\.v2"/)
       return {
         passed: v2.found,
-        evidence: v2.found ? "v2 entry present" : "v2 entry missing from registry",
+        evidence: v2.found ? 'v2 entry present' : 'v2 entry missing from registry',
       }
     },
   },
   {
-    id: "G6",
-    name: "audit-gate-flag",
-    severity: "critical",
+    id: 'G6',
+    name: 'audit-gate-flag',
+    severity: 'critical',
     check: () => {
       const p = `${REPO_MF}/src/shared/quality-policy.ts`
       const flag = grepReverse(p, /AUDIT_GATE_REQUIRED/)
       return {
         passed: flag.found,
-        evidence: flag.found ? "AUDIT_GATE_REQUIRED present" : "AUDIT_GATE_REQUIRED removed",
+        evidence: flag.found ? 'AUDIT_GATE_REQUIRED present' : 'AUDIT_GATE_REQUIRED removed',
       }
     },
   },
   {
-    id: "G7",
-    name: "quality-divergence",
-    severity: "critical",
+    id: 'G7',
+    name: 'quality-divergence',
+    severity: 'critical',
     check: () => {
       const p = `${REPO_V2}/src/content-graph/compiler/compile-content-graph.ts`
       const hasMathMin = grepReverse(p, /Math\.min\(factoryQuality/)
       const hasDivergence = grepReverse(p, /qualityDivergence/)
       return {
         passed: hasMathMin.found && hasDivergence.found,
-        evidence: hasMathMin.found ? "cross-validation active (Math.min + divergence)" : "cross-validation missing",
+        evidence: hasMathMin.found
+          ? 'cross-validation active (Math.min + divergence)'
+          : 'cross-validation missing',
       }
     },
   },
   {
-    id: "G8",
-    name: "design-tokens-bridge",
-    severity: "warning",
+    id: 'G8',
+    name: 'design-tokens-bridge',
+    severity: 'warning',
     check: () => {
       const p = `${REPO_V2}/src/content-contracts/manifest.schema.ts`
       const dt = grepReverse(p, /designTokens\?:/)
       return {
         passed: dt.found,
-        evidence: dt.found ? "designTokens in Manifest" : "designTokens missing from v2 Manifest",
+        evidence: dt.found ? 'designTokens in Manifest' : 'designTokens missing from v2 Manifest',
       }
     },
   },
   {
-    id: "G9",
-    name: "skill-registry-sketch",
-    severity: "warning",
+    id: 'G9',
+    name: 'skill-registry-sketch',
+    severity: 'warning',
     check: () => {
       const p = `${REPO_MF}/packages/core/src/skills.ts`
       const sketch = grepReverse(p, /"sketch-instrutivo-v1"/)
       return {
         passed: sketch.found,
-        evidence: sketch.found ? "sketch-instrutivo-v1 registered" : "skill not registered",
+        evidence: sketch.found ? 'sketch-instrutivo-v1 registered' : 'skill not registered',
       }
     },
   },
   {
-    id: "G10",
-    name: "glassmorphism-live",
-    severity: "critical",
+    id: 'G10',
+    name: 'glassmorphism-live',
+    severity: 'critical',
     check: async () => {
       try {
-        const res = await fetch("https://uniteia.com/en/signals/")
+        const res = await fetch('https://uniteia.com/en/signals/')
         const html = await res.text()
         const blurMatches = html.match(/backdrop-filter:\s*blur\(/gi)
         const noneMatches = html.match(/backdrop-filter:\s*none/gi)
         const count = (blurMatches?.length ?? 0) - (noneMatches?.length ?? 0)
         return {
           passed: count === 0,
-          evidence: count === 0 ? "0 blur on live site" : `${count} blur instance(s) on live /en/signals/`,
+          evidence:
+            count === 0 ? '0 blur on live site' : `${count} blur instance(s) on live /en/signals/`,
         }
       } catch {
-        return { passed: true, evidence: "site unreachable (skipped)" }
+        return { passed: true, evidence: 'site unreachable (skipped)' }
       }
     },
   },
@@ -244,24 +255,24 @@ const GATES: GateDef[] = [
 
 async function main() {
   const args = process.argv.slice(2)
-  const jsonOnly = args.includes("--json-only")
-  const failFast = args.includes("--fail-fast")
-  const subsetArg = args.find(a => a.startsWith("--gates="))
-  const subset = subsetArg ? subsetArg.replace("--gates=", "").split(",") : null
+  const jsonOnly = args.includes('--json-only')
+  const failFast = args.includes('--fail-fast')
+  const subsetArg = args.find(a => a.startsWith('--gates='))
+  const subset = subsetArg ? subsetArg.replace('--gates=', '').split(',') : null
 
-  const gatesToRun = subset
-    ? GATES.filter(g => subset.includes(g.id))
-    : GATES
+  const gatesToRun = subset ? GATES.filter(g => subset.includes(g.id)) : GATES
 
   const results: GateResult[] = []
 
   if (!jsonOnly) {
-    console.log("╔══════════════════════════════════════════════════╗")
-    console.log("║  GATE-RUNNER v1.0 — Quality Gate Engine           ║")
-    console.log("╠══════════════════════════════════════════════════╣")
-    console.log(`║  Repo: ${REPO.split("/").pop()}`)
-    console.log(`║  Gates: ${gatesToRun.length} (${gatesToRun.filter(g => g.severity === "critical").length} critical)`)
-    console.log("╚══════════════════════════════════════════════════╝\n")
+    console.log('╔══════════════════════════════════════════════════╗')
+    console.log('║  GATE-RUNNER v1.0 — Quality Gate Engine           ║')
+    console.log('╠══════════════════════════════════════════════════╣')
+    console.log(`║  Repo: ${REPO.split('/').pop()}`)
+    console.log(
+      `║  Gates: ${gatesToRun.length} (${gatesToRun.filter(g => g.severity === 'critical').length} critical)`
+    )
+    console.log('╚══════════════════════════════════════════════════╝\n')
   }
 
   for (const gate of gatesToRun) {
@@ -276,20 +287,22 @@ async function main() {
     results.push({ ...gate, ...result, durationMs })
 
     if (!jsonOnly) {
-      const icon = result.passed ? "✅" : "❌"
-      const sev = gate.severity === "critical" ? "🔴" : "🟡"
-      console.log(`${icon} ${sev} ${gate.id} ${gate.name.padEnd(28)} ${result.evidence.substring(0, 50)} (${durationMs}ms)`)
+      const icon = result.passed ? '✅' : '❌'
+      const sev = gate.severity === 'critical' ? '🔴' : '🟡'
+      console.log(
+        `${icon} ${sev} ${gate.id} ${gate.name.padEnd(28)} ${result.evidence.substring(0, 50)} (${durationMs}ms)`
+      )
     }
 
-    if (failFast && !result.passed && gate.severity === "critical") {
-      if (!jsonOnly) console.log("\n⛔ Fail-fast: critical gate failed, stopping.")
+    if (failFast && !result.passed && gate.severity === 'critical') {
+      if (!jsonOnly) console.log('\n⛔ Fail-fast: critical gate failed, stopping.')
       break
     }
   }
 
   const passed = results.filter(r => r.passed).length
   const failed = results.filter(r => !r.passed).length
-  const criticalFailed = results.filter(r => !r.passed && r.severity === "critical").length
+  const criticalFailed = results.filter(r => !r.passed && r.severity === 'critical').length
 
   const report: GateReport = {
     timestamp: new Date().toISOString(),
@@ -302,10 +315,12 @@ async function main() {
   writeFileSync(outPath, JSON.stringify(report, null, 2))
 
   if (!jsonOnly) {
-    console.log("\n╔══════════════════════════════════════════════════╗")
-    console.log(`║  VERDICT: ${criticalFailed === 0 ? "PASS" : "FAIL"}                                  ║`)
+    console.log('\n╔══════════════════════════════════════════════════╗')
+    console.log(
+      `║  VERDICT: ${criticalFailed === 0 ? 'PASS' : 'FAIL'}                                  ║`
+    )
     console.log(`║  ${passed}/${results.length} gates passed, ${criticalFailed} critical failed`)
-    console.log("╚══════════════════════════════════════════════════╝")
+    console.log('╚══════════════════════════════════════════════════╝')
     console.log(`\n📄 ${outPath}`)
   }
 

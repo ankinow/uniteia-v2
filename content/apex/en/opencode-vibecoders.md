@@ -29,6 +29,7 @@ metadata:
 canvas:
   tone: neural-blue
   layout: neural-branch
+  variant: terminal
   nodes:
     - id: hero
       section: Overview

@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-06-10T15:03:52.455Z",
+  "target": "https://uniteia.com",
+  "gates": [
+    {
+      "gate": "G1:glassmorphism-live",
+      "passed": true,
+      "evidence": "0 blur instances on 3 pages"
+    },
+    {
+      "gate": "G2:quality-divergence",
+      "passed": true,
+      "evidence": "0 divergence warnings. 0 factory scores, 0 effective."
+    },
+    {
+      "gate": "G3a:z-literal-regression",
+      "passed": true,
+      "evidence": "z.enum active, no z.literal found"
+    },
+    {
+      "gate": "G3b:binary-fallback",
+      "passed": true,
+      "evidence": "overallScore gate active (50 fallback)"
+    },
+    {
+      "gate": "G3c:visualasset-dual-def",
+      "passed": true,
+      "evidence": "imported from shared"
+    },
+    {
+      "gate": "G3d:css-glassmorphism",
+      "passed": true,
+      "evidence": "0 blur instances in CSS source"
+    }
+  ],
+  "summary": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0,
+    "blocked": 0
+  }
+}
