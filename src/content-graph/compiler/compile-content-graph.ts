@@ -172,14 +172,17 @@ function parseRegistryEntry(
     if (qualityDivergence > 20) {
       console.warn(
         `⚠️  [cross-validation] qualityScore divergence detected for ${id}: ` +
-        `factory=${factoryQuality} vs computed=${computedQuality} (Δ${qualityDivergence}). ` +
-        `metadataOrigin: factory. Using lower score.`
+          `factory=${factoryQuality} vs computed=${computedQuality} (Δ${qualityDivergence}). ` +
+          `metadataOrigin: factory. Using lower score.`
       )
     }
   }
-  const effectiveQualityScore = (typeof factoryQuality === 'number' && typeof computedQuality === 'number')
-    ? (qualityDivergence > 20 ? Math.min(factoryQuality, computedQuality) : factoryQuality)
-    : (factoryQuality ?? computedQuality)
+  const effectiveQualityScore =
+    typeof factoryQuality === 'number' && typeof computedQuality === 'number'
+      ? qualityDivergence > 20
+        ? Math.min(factoryQuality, computedQuality)
+        : factoryQuality
+      : (factoryQuality ?? computedQuality)
   const trustScore = factoryNode?.trustScore ?? computeTrustScore(verdict, effectiveQualityScore)
   const seoNoindex = factoryNode?.seo.noindex ?? isDraft
   const seoPriority = factoryNode?.seo.priority ?? effectiveQualityScore
