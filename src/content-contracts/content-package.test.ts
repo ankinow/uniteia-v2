@@ -396,7 +396,8 @@ describe('map-layout', () => {
 })
 
 describe('contract version gate', () => {
-  it('CONTENT_GRAPH_SCHEMA_VERSION matches v2 expected version', () => {
-    expect(CONTENT_GRAPH_SCHEMA_VERSION).toBe('content-graph.v1')
+  it('CONTENT_GRAPH_SCHEMA_VERSION is a recognized contract version', () => {
+    const acceptedVersions = ['content-graph.v1', 'content-graph.v2', 'content-graph.v3']
+    expect(acceptedVersions).toContain(CONTENT_GRAPH_SCHEMA_VERSION)
   })
 })

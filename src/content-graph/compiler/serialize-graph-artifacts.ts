@@ -86,7 +86,7 @@ export function serializeGraphArtifacts(graph: ContentGraph): GraphArtifacts {
   })
 
   const graphArtifact: SerializableGraphV1 = {
-    version: 'content-graph.v1',
+    version: 'content-graph.v3',
     generatedAt: now,
     nodes,
     edges,

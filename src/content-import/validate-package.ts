@@ -4,6 +4,10 @@ import {
   contentNodeSchema,
   requireCurrentVersion,
 } from '@uniteia/content-node-contract'
+
+// v3.2 — Forward-compat: passthrough schema accepts visualAsset, designTokens,
+// and other future fields without silently discarding them.
+const forwardCompatContentNodeSchema = contentNodeSchema.passthrough()
 import { validateBlocks } from '../content-contracts/blocks.schema'
 import { validateDesign } from '../content-contracts/design.schema'
 import { type Manifest, validateManifest } from '../content-contracts/manifest.schema'
@@ -88,7 +92,7 @@ export function validatePackage(packageDir: string): PackageValidationResult {
       } else {
         for (let i = 0; i < contentNodesRaw.length; i++) {
           try {
-            contentNodeSchema.parse(contentNodesRaw[i])
+            forwardCompatContentNodeSchema.parse(contentNodesRaw[i])
           } catch (e: unknown) {
             issues.push({
               path: `content-nodes.json[${i}]`,

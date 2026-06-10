@@ -3,6 +3,10 @@ import type { ContentNode as ContractContentNode } from '@uniteia/content-node-c
 import { contentNodeSchema } from '@uniteia/content-node-contract'
 import type { Manifest } from '../content-contracts/manifest.schema'
 
+// v3.2 — Forward-compat: passthrough schema accepts visualAsset, designTokens,
+// and other future fields without silently discarding them.
+const forwardCompatContentNodeSchema = contentNodeSchema.passthrough()
+
 export interface ImportedPackage {
   manifest: Manifest
   packageDir: string
@@ -36,7 +40,7 @@ export function importPackage(packageDir: string, manifest: Manifest): ImportedP
     try {
       const raw = JSON.parse(readFileSync(contentNodesPath, 'utf-8'))
       if (Array.isArray(raw)) {
-        factoryNodes = raw.map((n: unknown) => contentNodeSchema.parse(n)) as ContractContentNode[]
+        factoryNodes = raw.map((n: unknown) => forwardCompatContentNodeSchema.parse(n)) as ContractContentNode[]
         metadataOrigin = 'factory'
       }
     } catch {

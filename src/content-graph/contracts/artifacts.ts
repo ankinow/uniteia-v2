@@ -2,8 +2,11 @@ import type { GraphEdge } from './edge'
 import type { ContentGroupCollection } from './group'
 import type { ContentLocale, ContentNode } from './node'
 
+/** Accepted content graph schema versions — keep in sync with @uniteia/content-node-contract */
+export type ContentGraphVersion = 'content-graph.v1' | 'content-graph.v2' | 'content-graph.v3'
+
 export interface SerializableGraphV1 {
-  version: 'content-graph.v1'
+  version: ContentGraphVersion
   generatedAt: string
   nodes: ContentNode[]
   edges: GraphEdge[]
