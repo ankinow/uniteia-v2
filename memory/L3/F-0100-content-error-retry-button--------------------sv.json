@@ -1,0 +1,11 @@
+{
+  "id": "W-0100",
+  "title": "error-retry-button\"\n         >\n           <svg\n@@ -75,7 +75,7 @@ const ErrorCont",
+  "domain": "content",
+  "content": "error-retry-button\"\n         >\n           <svg\n@@ -75,7 +75,7 @@ const ErrorContent = component$(() => {\n         {/* Home link */}\n         <a\n           href=\"/\"\n-          class=\"home-link inline-flex items-center gap-2 px-6 py-3 border-2 border-action text-action font-semibold rounded-lg hover:bg-action/10 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-action focus:ring-offset-2 focus:ring-offset-void\"\n+          class=\"home-link inline-flex items-center gap-2 px-6",
+  "actionability": "reference",
+  "cross_refs": ["content"],
+  "source_findings": ["F-0100"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-10T11:02:15.481932+00:00"
+}

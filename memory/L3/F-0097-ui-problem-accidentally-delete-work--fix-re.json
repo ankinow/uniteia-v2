@@ -1,0 +1,11 @@
+{
+  "id": "W-0097",
+  "title": "Problem:** Accidentally delete work\n- **Fix:** Require typed \"discard\" confirmat",
+  "domain": "ui",
+  "content": "Problem:** Accidentally delete work\n- **Fix:** Require typed \"discard\" confirmation\n\n## Red Flags\n\n**Never:**\n- Proceed with failing tests\n- Merge without verifying tests on result\n- Delete work without confirmation\n- Force-push without explicit request\n- Remove a worktree before confirming merge success\n- Clean up worktrees you didn't create (provenance check)\n- Run `git worktree remove` from inside the worktree\n\n**Always:**\n- Verify tests before offering options\n- Detect environment before pre",
+  "actionability": "reference",
+  "cross_refs": ["ui"],
+  "source_findings": ["F-0097"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-10T11:02:33.181229+00:00"
+}

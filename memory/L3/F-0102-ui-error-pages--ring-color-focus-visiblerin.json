@@ -1,0 +1,11 @@
+{
+  "id": "W-0102",
+  "title": "error pages → ring color `focus-visible:ring-coral/50` on error buttons\n- For do",
+  "domain": "ui",
+  "content": "error pages → ring color `focus-visible:ring-coral/50` on error buttons\n- For donation → ring color `focus-visible:ring-yellow-400/50`\n- For `[tabIndex={0}]` progressbar elements → add `focus-visible:ring-2 focus-visible:ring-cyan/50`\n\n- [ ] **Step 3: Run tests + verify**\n\n```bash\nbun lint && bun typecheck && bun vitest run\n```\n\n- [ ] **Step 4: Commit**\n\n```bash\ngit add src/global",
+  "actionability": "reference",
+  "cross_refs": ["ui"],
+  "source_findings": ["F-0102"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-10T11:02:33.182216+00:00"
+}

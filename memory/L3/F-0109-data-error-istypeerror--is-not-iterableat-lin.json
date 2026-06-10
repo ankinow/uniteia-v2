@@ -1,0 +1,11 @@
+{
+  "id": "W-0109",
+  "title": "error is:\n```\nTypeError: {} is not iterable\n```\nAt line 40:14 which is:\n```js\nfo",
+  "domain": "data",
+  "content": "error is:\n```\nTypeError: {} is not iterable\n```\nAt line 40:14 which is:\n```js\nfor (const node of nodes) {\n```\n\nThe issue is at line 35-37:\n```js\nconst publicGroupIds: Set<string> = new Set(\n    (groups",
+  "actionability": "reference",
+  "cross_refs": ["data"],
+  "source_findings": ["F-0109"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-10T11:02:15.483540+00:00"
+}

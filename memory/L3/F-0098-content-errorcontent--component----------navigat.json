@@ -1,0 +1,11 @@
+{
+  "id": "W-0098",
+  "title": "ErrorContent = component$(() => {\n       {/* Navigation back to home */}\n       ",
+  "domain": "content",
+  "content": "ErrorContent = component$(() => {\n       {/* Navigation back to home */}\n       <a\n         href=\"/\"\n-        class=\"error-home-link inline-flex items-center gap-2 px-6 py-3 bg-action text-void font-semibold rounded-lg hover:bg-action/90 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-action focus:ring-offset-2 focus:ring-offset-void\"\n+        class=\"error-home-link inline-flex items-center gap-2 px-6 py-3 bg-action text-void font-semibold rounded-lg hover:bg-action/90 ",
+  "actionability": "reference",
+  "cross_refs": ["content"],
+  "source_findings": ["F-0098"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-10T11:02:15.481310+00:00"
+}

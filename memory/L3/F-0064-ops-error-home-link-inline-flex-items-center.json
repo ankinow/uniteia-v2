@@ -1,0 +1,11 @@
+{
+  "id": "W-0064",
+  "title": "error-home-link inline-flex items-center gap-2 px-6 py-3 bg-action text-void fon",
+  "domain": "ops",
+  "content": "error-home-link inline-flex items-center gap-2 px-6 py-3 bg-action text-void font-semibold rounded-lg hover:bg-action/90 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action focus-visible:ring-offset-2 focus-visible:ring-offset-void\"\n\n\n/home/lermf/uniteia-v2/src/components/frontmatter-slots/index",
+  "actionability": "reference",
+  "cross_refs": ["ops"],
+  "source_findings": ["F-0064"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-10T11:02:33.178968+00:00"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "W-0079",
+  "title": "broken links in 8 languages\n2224: BUG-003: Search Input Fallback - no-JS input f",
+  "domain": "ops",
+  "content": "broken links in 8 languages\n2224: BUG-003: Search Input Fallback - no-JS input field\n2225: BUG-004: \"Read in EN EN\" Duplication - conditional rendering fix\n2226: BUG-005: Focus Visible Missing - :focus-visible ring\n2227: BUG-006: Contraste Neutromórfico - WCAG 3:1 contrast\n2228: M019: CerebralCard + AnalogConnector + SignalChip integration\n2229: \n2230: Let me search the codebase to understand each issue",
+  "actionability": "reference",
+  "cross_refs": ["ops"],
+  "source_findings": ["F-0079"],
+  "eval_d9_promotion": 95,
+  "promoted_at": "2026-06-10T11:02:33.180673+00:00"
+}

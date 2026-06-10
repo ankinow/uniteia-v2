@@ -11,7 +11,9 @@ tags:
   - content-pipeline
   - independence
   - system-architecture
-version: "1.0"
+# ⚠️ STALE COPY — Canonical: ~/Documentos/blueprints/COOPERATION-BLUEPRINT.md (v2.4, 2026-06-09)
+# This in-repo copy is stale. See canonical for latest cross-repo contract, git HEADs, and audit.
+version: "2.4"
 generated: "2026-05-18"
 repos:
   - source: "/home/lermf/uniteia-mega-factory"

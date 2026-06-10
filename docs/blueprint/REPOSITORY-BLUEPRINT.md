@@ -11,8 +11,11 @@ tags:
   - qwik
   - cloudflare-pages
   - content-publisher
+# ⚠️ STALE COPY — Canonical blueprint: ~/Documentos/blueprints/UNITEIA-V2-BLUEPRINT.md (v2.4, 2026-06-09)
+# This in-repo copy is v1.1 (2026-05-18). See canonical for latest stats, commits, and audit data.
 version: "1.1"
 generated: "2026-05-18"
+last_sync: "2026-06-09 — canonical updated to v2.4; this copy is STALE"
 source: "/home/lermf/uniteia-v2"
 role: "content-publisher"
 depends_on: ["uniteia-mega-factory (producer)"]

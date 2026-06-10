@@ -1,0 +1,11 @@
+{
+  "id": "W-0119",
+  "title": "errors, null, 2));\\n\\\" 2>&1\",\n  \"description\": \"Debug validator errors\",\n  \"time",
+  "domain": "ops",
+  "content": "errors, null, 2));\\n\\\" 2>&1\",\n  \"description\": \"Debug validator errors\",\n  \"timeout\": 10000\n}\n```\n\n**Output:**\n```\n[\n  {\n    \"keyword\": \"pattern\",\n    \"params\": {\n      \"pattern\": \"^[A-Z_]+$\"\n    },\n    \"message\": \"apiKeyEnv must be UPPER_SNAKE_CASE\",\n    \"instancePath\": \"/providers/0/apiKeyEnv\"\n  },\n  {\n    \"keyword\": \"pattern\",\n    \"params\": {\n      \"pattern\": \"^[A-Z_]+$\"\n    },\n    \"message\": \"apiKeyEnv must be UPPER_SNAKE_CASE\",\n    \"instancePath\": \"/providers/1/apiKeyEnv\"\n  },\n  {\n    \"keyw",
+  "actionability": "reference",
+  "cross_refs": ["ops"],
+  "source_findings": ["F-0119"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-10T11:02:33.182712+00:00"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "W-0036",
+  "title": "Error('Missing value for --build-dir')\n20:       }\n21:       buildDir = value\n22",
+  "domain": "pipeline",
+  "content": "Error('Missing value for --build-dir')\n20:       }\n21:       buildDir = value\n22:       continue\n23:     }\n24: \n25:     if (arg === '--threshold' || arg === '--threshold-bytes') {\n26:       const value = argv[++index]\n27:       if (!value) {\n28:         throw new Error('Missing value for --threshold')\n29:       }\n30:       const parsed = Number(value)\n31:       if (!Number",
+  "actionability": "reference",
+  "cross_refs": ["pipeline"],
+  "source_findings": ["F-0036"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-10T11:02:15.477987+00:00"
+}

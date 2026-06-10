@@ -1,0 +1,11 @@
+{
+  "id": "W-0062",
+  "title": "error(404, `Language \"${lang ?? 'unknown'}\" not supported`)\n74:   }\n75: \n76:   /",
+  "domain": "ops",
+  "content": "error(404, `Language \"${lang ?? 'unknown'}\" not supported`)\n74:   }\n75: \n76:   // Load and validate niches from config\n77:   const niches = await loadNichesConfig()\n78: \n79:   // Find the matching niche\n80:   const niche = findNicheBySlug(niches, nicheSlug, lang as SupportedLanguage)\n81:   if (!niche) {\n82:     console",
+  "actionability": "reference",
+  "cross_refs": ["ops"],
+  "source_findings": ["F-0062"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-10T11:02:33.178545+00:00"
+}
