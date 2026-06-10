@@ -34,14 +34,14 @@ export default component$(() => {
             <a
               key={l.code}
               href={`/${l.code}/`}
-              class="px-4 py-2 rounded-lg border border-white/10 bg-deep hover:bg-mid hover:border-accent/30 transition-all duration-150 text-bone no-underline text-sm font-medium"
+              class="px-4 py-2 rounded-lg border border-white/10 bg-deep hover:bg-mid hover:border-accent/30 transition-colors duration-150 active:scale-[0.96] text-bone no-underline text-sm font-medium"
             >
               {l.nativeName ?? l.code.toUpperCase()}
             </a>
           ))}
         </div>
 
-        <p class="text-bone/25 text-xs font-mono">8 locales · no metaphors</p>
+        <p class="text-bone/25 text-xs font-mono">global reach · no metaphors</p>
       </div>
     </div>
   )

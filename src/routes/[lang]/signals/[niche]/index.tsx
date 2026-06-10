@@ -6,11 +6,7 @@ import {
   useLocation,
 } from '@builder.io/qwik-city'
 import { Breadcrumb } from '~/components/breadcrumb'
-import { ErrorBoundary } from '~/components/error-boundary'
-import { TrendingSection } from '~/components/homepage-curation'
 import { JSONLD } from '~/components/json-ld'
-import { LivingBrief2Col } from '~/components/living-brief'
-import { NicheLanding } from '~/components/niche-landing'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 import { canonicalUrl, xdefaultUrl } from '~/routing/routes'
 import type { NicheArticleEntry } from '~/utils/content-loader'
@@ -157,6 +153,10 @@ export const useNicheArticles = routeLoader$<NicheArticleEntry[]>(async ({ param
  * Renders the NicheLanding component with data from the route loader.
  * Language is read from URL params (already validated by routeLoader$).
  */
+import { BauhausGrid, BauhausSection } from '~/components/bauhaus-section'
+import { BauhausArticleCard } from '~/components/bauhaus-section/article-card'
+import { BauhausTrendingSection } from '~/components/homepage-curation/bauhaus-trending'
+
 export default component$(() => {
   const data = useNicheData()
   const articles = useNicheArticles()
@@ -184,34 +184,67 @@ export default component$(() => {
     ],
   })
 
+  const localizedArticles = articles.value.filter(a => a.lang === lang)
+
   return (
     <>
       <JSONLD data={websiteSchema} />
       <JSONLD data={webPageSchema} />
-      <main>
-        <div class="px-4 pt-6 pb-2 w-full max-w-6xl mx-auto">
-          <Breadcrumb />
-        </div>
-        <LivingBrief2Col
-          hero={{
-            title: data.value.niche.title[lang],
-            subtitle: data.value.niche.description[lang],
-            hashtags: ['signals', data.value.niche.slug, 'ai', 'trending'],
-            variant: 'default',
-          }}
-        >
-          <NicheLanding
-            niche={data.value.niche}
-            otherNiches={data.value.otherNiches}
-            articles={articles.value}
-            lang={lang}
-          />
-          <div class="mt-12 px-4 md:px-8">
-            <ErrorBoundary fallbackMsg="Trending data is temporarily unavailable. Please try again.">
-              <TrendingSection articles={articles.value} lang={lang} />
-            </ErrorBoundary>
+      <main class="bg-[var(--color-bg-primary)]">
+        {/* Bauhaus Hero Header */}
+        <BauhausSection mood="voltage" as="header" class="pt-32 pb-48">
+          <div class="flex flex-col md:flex-row gap-12 items-start justify-between">
+            <div class="max-w-3xl">
+              <div class="mb-8 flex items-center gap-4">
+                <Breadcrumb />
+              </div>
+              <span class="bauhaus-label text-[var(--color-accent)] mb-6 block">
+                Niche Exploration
+              </span>
+              <h1 class="bauhaus-h1 mb-8">{data.value.niche.title[lang]}</h1>
+              <p class="text-xl md:text-2xl font-medium leading-relaxed max-w-2xl opacity-80">
+                {data.value.niche.description[lang]}
+              </p>
+            </div>
+
+            {/* Geometric visual for niche (placeholder for now) */}
+            <div class="w-full md:w-1/3 aspect-square bauhaus-block flex items-center justify-center bg-black text-white">
+              <span class="text-8xl font-black">{data.value.niche.title[lang].charAt(0)}</span>
+            </div>
           </div>
-        </LivingBrief2Col>
+        </BauhausSection>
+
+        {/* Article Grid Section */}
+        {localizedArticles.length > 0 && (
+          <BauhausSection mood="blackout" class="py-32">
+            <div class="mb-24">
+              <span class="bauhaus-label text-[var(--color-accent)] mb-4 block">
+                Knowledge Base
+              </span>
+              <h2 class="bauhaus-h1">Signals Found</h2>
+            </div>
+
+            <BauhausGrid columns={2}>
+              {localizedArticles.map(article => (
+                <BauhausArticleCard
+                  key={article.slug}
+                  title={article.title}
+                  summary={article.summary}
+                  href={`/${lang}/signals/apex/${article.slug}`}
+                  category={data.value.niche.title[lang]}
+                />
+              ))}
+            </BauhausGrid>
+          </BauhausSection>
+        )}
+
+        {/* Trending Section Integration */}
+        <BauhausTrendingSection articles={articles.value} lang={lang} mood="blackout" />
+
+        {/* Footer info (minimal Bauhaus) */}
+        <div class="py-12 px-6 border-t border-[var(--color-border)] text-center bg-black">
+          <span class="bauhaus-label opacity-20">UniTeia v2 · Bauhaus Layer · 2026</span>
+        </div>
       </main>
     </>
   )

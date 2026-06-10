@@ -165,7 +165,10 @@ export default component$(() => {
   const canvasData = content.value.canvas
   // Skip procedural canvas collage for articles that have real polaroid images
   const useCanvasCollage = content.value.slug !== 'opencode-vibecoders'
-  const collage = useCanvasCollage && canvasData ? canvasToCollageProps(canvasData, { width: 800, height: 500 }) : null
+  const collage =
+    useCanvasCollage && canvasData
+      ? canvasToCollageProps(canvasData, { width: 800, height: 500 })
+      : null
 
   // JSON-LD WebPage for the current article page (per-locale structured data)
   const pageUrl = canonicalUrl(loc.url.origin, loc.url.pathname + loc.url.search)
@@ -253,7 +256,8 @@ export default component$(() => {
             subtitle: `${extractDescription(content.value.content)} · ${readTime}`,
             hashtags: content.value.subjects,
             variant:
-              content.value.slug === 'opencode-vibecoders' ? 'terminal' : 'default',
+              (canvasData?.variant as any) ||
+              (content.value.slug === 'opencode-vibecoders' ? 'terminal' : 'default'),
             heroImage:
               content.value.slug === 'opencode-vibecoders'
                 ? '/assets/flux/jrpg-opencode/hero-bg.webp'
@@ -261,64 +265,151 @@ export default component$(() => {
             buttons: [],
           }}
           {...(collageAssets.value
-            ? { collage: collageAssets.value }
+            ? { collage: { ...collageAssets.value, variant: canvasData?.variant as any } }
             : content.value.slug === 'opencode-vibecoders'
               ? {
                   collage: {
+                    variant: (canvasData?.variant as any) || 'cyber',
                     polaroids: [
                       // ── Row 1 (y: 5-30) ──
                       {
-                        id: 'terminal', src: '/assets/flux/jrpg-opencode/terminal-cli.webp',
-                        label: 'The Terminal', rotate: -2, width: 155, offsetX: 5, offsetY: 5,
+                        id: 'terminal',
+                        src: '/assets/flux/jrpg-opencode/terminal-cli.webp',
+                        label: 'The Terminal',
+                        rotate: -2,
+                        width: 155,
+                        offsetX: 5,
+                        offsetY: 5,
                       },
                       {
-                        id: 'code-gen', src: '/assets/flux/jrpg-opencode/code-generation.webp',
-                        label: 'Code Gen', rotate: 3, width: 150, offsetX: 140, offsetY: 18,
+                        id: 'code-gen',
+                        src: '/assets/flux/jrpg-opencode/code-generation.webp',
+                        label: 'Code Gen',
+                        rotate: 3,
+                        width: 150,
+                        offsetX: 140,
+                        offsetY: 18,
                       },
                       {
-                        id: 'preview', src: '/assets/flux/jrpg-opencode/live-preview.webp',
-                        label: 'Live Output', rotate: -1, width: 150, offsetX: 275, offsetY: 8,
+                        id: 'preview',
+                        src: '/assets/flux/jrpg-opencode/live-preview.webp',
+                        label: 'Live Output',
+                        rotate: -1,
+                        width: 150,
+                        offsetX: 275,
+                        offsetY: 8,
                       },
                       {
-                        id: 'deploy', src: '/assets/flux/jrpg-opencode/auto-deploy.webp',
-                        label: 'Auto Deploy', rotate: 2, width: 155, offsetX: 410, offsetY: 22,
+                        id: 'deploy',
+                        src: '/assets/flux/jrpg-opencode/auto-deploy.webp',
+                        label: 'Auto Deploy',
+                        rotate: 2,
+                        width: 155,
+                        offsetX: 410,
+                        offsetY: 22,
                       },
                       {
-                        id: 'workflow', src: '/assets/flux/jrpg-opencode/agent-workflow.webp',
-                        label: 'Agent Flow', rotate: -3, width: 160, offsetX: 545, offsetY: 10,
+                        id: 'workflow',
+                        src: '/assets/flux/jrpg-opencode/agent-workflow.webp',
+                        label: 'Agent Flow',
+                        rotate: -3,
+                        width: 160,
+                        offsetX: 545,
+                        offsetY: 10,
                       },
                       {
-                        id: 'versions', src: '/assets/flux/jrpg-opencode/version-control.webp',
-                        label: 'Version Ctrl', rotate: 1, width: 150, offsetX: 680, offsetY: 25,
+                        id: 'versions',
+                        src: '/assets/flux/jrpg-opencode/version-control.webp',
+                        label: 'Version Ctrl',
+                        rotate: 1,
+                        width: 150,
+                        offsetX: 680,
+                        offsetY: 25,
                       },
                       // ── Row 2 (y: 175-210) ──
                       {
-                        id: 'mindset', src: '/assets/flux/jrpg-opencode/vibecoding-mindset.webp',
-                        label: 'Vibe Mindset', rotate: -2, width: 155, offsetX: 20, offsetY: 180,
+                        id: 'mindset',
+                        src: '/assets/flux/jrpg-opencode/vibecoding-mindset.webp',
+                        label: 'Vibe Mindset',
+                        rotate: -2,
+                        width: 155,
+                        offsetX: 20,
+                        offsetY: 180,
                       },
                       {
-                        id: 'stories', src: '/assets/flux/jrpg-opencode/real-stories.webp',
-                        label: 'Real Stories', rotate: 4, width: 150, offsetX: 150, offsetY: 195,
+                        id: 'stories',
+                        src: '/assets/flux/jrpg-opencode/real-stories.webp',
+                        label: 'Real Stories',
+                        rotate: 4,
+                        width: 150,
+                        offsetX: 150,
+                        offsetY: 195,
                       },
                       {
-                        id: 'started', src: '/assets/flux/jrpg-opencode/getting-started.webp',
-                        label: 'Get Started', rotate: -1, width: 155, offsetX: 285, offsetY: 178,
+                        id: 'started',
+                        src: '/assets/flux/jrpg-opencode/getting-started.webp',
+                        label: 'Get Started',
+                        rotate: -1,
+                        width: 155,
+                        offsetX: 285,
+                        offsetY: 178,
                       },
                       {
-                        id: 'how-works', src: '/assets/flux/jrpg-opencode/how-it-works.webp',
-                        label: 'How It Works', rotate: 2, width: 160, offsetX: 420, offsetY: 205,
+                        id: 'how-works',
+                        src: '/assets/flux/jrpg-opencode/how-it-works.webp',
+                        label: 'How It Works',
+                        rotate: 2,
+                        width: 160,
+                        offsetX: 420,
+                        offsetY: 205,
                       },
                       {
-                        id: 'can-build', src: '/assets/flux/jrpg-opencode/what-can-build.webp',
-                        label: 'What U Can Build', rotate: -4, width: 155, offsetX: 555, offsetY: 185,
+                        id: 'can-build',
+                        src: '/assets/flux/jrpg-opencode/what-can-build.webp',
+                        label: 'What U Can Build',
+                        rotate: -4,
+                        width: 155,
+                        offsetX: 555,
+                        offsetY: 185,
                       },
                       {
-                        id: 'why-vibes', src: '/assets/flux/jrpg-opencode/why-vibecoders.webp',
-                        label: 'Why Vibecoders', rotate: 1, width: 155, offsetX: 690, offsetY: 200,
+                        id: 'why-vibes',
+                        src: '/assets/flux/jrpg-opencode/why-vibecoders.webp',
+                        label: 'Why Vibecoders',
+                        rotate: 1,
+                        width: 155,
+                        offsetX: 690,
+                        offsetY: 200,
                       },
                     ],
-                    emoticons: ['💻', '🚀', '✨', '🤖', '⚡', '🔧', '🎮', '🦊', '⭐', '💎', '🧠', '📜'],
-                    tapeVariants: ['yellow', 'white', 'washi', 'clear', 'yellow', 'white', 'washi', 'clear', 'yellow', 'white', 'washi', 'clear'] as any,
+                    emoticons: [
+                      '💻',
+                      '🚀',
+                      '✨',
+                      '🤖',
+                      '⚡',
+                      '🔧',
+                      '🎮',
+                      '🦊',
+                      '⭐',
+                      '💎',
+                      '🧠',
+                      '📜',
+                    ],
+                    tapeVariants: [
+                      'yellow',
+                      'white',
+                      'washi',
+                      'clear',
+                      'yellow',
+                      'white',
+                      'washi',
+                      'clear',
+                      'yellow',
+                      'white',
+                      'washi',
+                      'clear',
+                    ] as any,
                     showFlora: false,
                   },
                 }

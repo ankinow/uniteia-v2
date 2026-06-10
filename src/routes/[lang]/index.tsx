@@ -1,5 +1,6 @@
 import { component$ } from '@builder.io/qwik'
 import { type DocumentHead, routeLoader$, useLocation } from '@builder.io/qwik-city'
+import { BentoCell, BentoGrid } from '~/components/bento-grid'
 import { CinematicDepthCard } from '~/components/cinematic-depth'
 import { GenerativeHero } from '~/components/generative-hero'
 import { ClusterIcon, nicheToIcon } from '~/components/icon-set/icon-set'
@@ -79,54 +80,57 @@ export default component$(() => {
               {featuredSignals.length}
             </span>
           </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 [&>:last-child:nth-child(odd)]:col-span-full">
-            {featuredSignals.map(signal => {
+          <BentoGrid cellHeight="auto" gap="1.5rem">
+            {featuredSignals.map((signal, idx) => {
               const thumb = slugToKawaiiMini(signal.node.slug)
               return (
-                <a
-                  key={signal.node.id}
-                  href={signal.href}
-                  class="block no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan rounded-xl"
-                >
-                  <CinematicDepthCard
-                    {...(signal.node.visualStyle ? { visualStyle: signal.node.visualStyle } : {})}
-                    class="h-full transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-2xl group-hover:shadow-neon-cyan/10"
+                <BentoCell key={signal.node.id} size={idx === 0 ? 'wide' : 'default'} as="article">
+                  <a
+                    href={signal.href}
+                    class="block h-full no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan rounded-xl active:scale-[0.98] transition-transform duration-200"
                   >
-                    <img
-                      src={thumb.src}
-                      alt={thumb.alt}
-                      width="120"
-                      height="120"
-                      loading="lazy"
-                      decoding="async"
-                      class="w-full aspect-[3/2] object-cover rounded-t-xl opacity-90 group-hover:opacity-100 transition-opacity duration-300"
-                    />
-                    <div class="p-6 md:p-8">
-                      <p class="font-bold text-bone text-lg md:text-xl leading-tight group-hover:text-neon-cyan transition-colors duration-200">
-                        {signal.node.title}
-                      </p>
-                      <p class="text-sm md:text-base text-bone-muted mt-3 line-clamp-3 leading-relaxed">
-                        {signal.node.summary}
-                      </p>
-                      <div class="flex items-center gap-4 mt-6">
-                        <span class="text-[10px] text-bone/30 uppercase tracking-[0.2em] font-mono border border-white/5 px-2 py-0.5 rounded">
-                          {signal.node.locale}
-                        </span>
-                        {signal.node.qualityScore != null && (
-                          <div class="flex items-center gap-1.5">
-                            <span class="text-[10px] text-bone/20 font-mono">Score</span>
-                            <span class="text-xs text-neon-amber font-mono tabular-nums">
-                              ∅{signal.node.qualityScore.toFixed(0)}
-                            </span>
-                          </div>
-                        )}
+                    <CinematicDepthCard
+                      {...(signal.node.visualStyle ? { visualStyle: signal.node.visualStyle } : {})}
+                      class="h-full transition-[transform,box-shadow] duration-300 group-hover:-translate-y-1.5 group-hover:shadow-2xl group-hover:shadow-neon-cyan/10"
+                    >
+                      <img
+                        src={thumb.src}
+                        alt={thumb.alt}
+                        width="120"
+                        height="120"
+                        loading="lazy"
+                        decoding="async"
+                        class="w-full aspect-[3/2] object-cover rounded-t-xl opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                      />
+                      <div class="p-4 md:p-5">
+                        <p class="font-bold text-bone text-base md:text-lg leading-tight group-hover:text-neon-cyan transition-colors duration-200">
+                          {signal.node.title}
+                        </p>
+                        <p class="text-xs md:text-sm text-bone-muted mt-2 line-clamp-3 leading-relaxed">
+                          {signal.node.summary}
+                        </p>
+                        <div class="flex items-center gap-4 mt-4">
+                          <span class="text-[9px] text-bone/40 uppercase tracking-[0.2em] font-mono border border-white/10 px-1.5 py-0.5 rounded bg-void/50 backdrop-blur-sm">
+                            {signal.node.locale}
+                          </span>
+                          {signal.node.qualityScore != null && (
+                            <div class="flex items-center gap-1.5">
+                              <span class="text-[9px] text-bone/30 font-mono uppercase tracking-widest">
+                                Score
+                              </span>
+                              <span class="text-[11px] text-neon-amber font-mono tabular-nums font-bold">
+                                ∅{signal.node.qualityScore.toFixed(0)}
+                              </span>
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </CinematicDepthCard>
-                </a>
+                    </CinematicDepthCard>
+                  </a>
+                </BentoCell>
               )
             })}
-          </div>
+          </BentoGrid>
         </section>
       )}
 
@@ -141,7 +145,7 @@ export default component$(() => {
               <a
                 key={cluster.nicheSlug}
                 href={cluster.href}
-                class="inline-flex items-center gap-3 px-5 py-2.5 rounded-xl border border-white/5 bg-deep hover:bg-mid hover:border-neon-cyan/40 transition-all duration-200 no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan"
+                class="inline-flex items-center gap-3 px-5 py-2.5 rounded-xl border border-white/5 bg-deep hover:bg-mid hover:border-neon-cyan/40 transition-[color,background-color,border-color,transform] duration-200 active:scale-[0.96] no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan"
               >
                 <ClusterIcon
                   name={nicheToIcon(cluster.nicheSlug)}
@@ -163,7 +167,8 @@ export default component$(() => {
       {/* Frontier streams: compact list */}
       {frontierStreams.length > 0 && (
         <section class="mt-12" aria-label={t.homepage.frontierStreams}>
-          <h2 class="text-xs uppercase tracking-[0.3em] text-bone/40 font-mono mb-4">
+          <h2 class="text-[10px] uppercase tracking-[0.4em] text-bone/40 font-mono mb-6 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 bg-neon-rose rounded-full animate-pulse" />
             {t.homepage.frontierStreams}
           </h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 [&>:last-child:nth-child(odd)]:col-span-full">
@@ -173,7 +178,7 @@ export default component$(() => {
                 <a
                   key={stream.node.id}
                   href={stream.href}
-                  class="block no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-rose rounded-lg"
+                  class="block no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-rose rounded-lg active:scale-[0.98] transition-transform duration-150"
                 >
                   <CinematicDepthCard
                     variant="card"
@@ -212,17 +217,20 @@ export default component$(() => {
             <p class="text-bone/50 text-lg font-display">{t.homepage.noSignals}</p>
             <a
               href={`/${lang}/signals`}
-              class="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full border border-neon-cyan/20 text-neon-cyan hover:bg-neon-cyan/5 transition-all duration-200 no-underline"
+              class="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full border border-neon-cyan/20 text-neon-cyan hover:bg-neon-cyan/5 transition-colors duration-200 active:scale-[0.96] no-underline"
             >
               {t.homepage.browseTopics} →
             </a>
           </section>
         )}
 
-      {/* Footer whisper — locale + deploy info, minimal */}
-      <footer class="mt-8 pt-8 border-t border-bone/5 text-center">
-        <p class="text-xs text-bone/25 font-mono">
-          {siteName} · {lang} · {SUPPORTED_LANGUAGES.length} locales · CF Pages
+      {/* Footer whisper — humanized and passionate */}
+      <footer class="mt-8 pt-8 border-t border-bone/5 text-center flex flex-col items-center gap-2">
+        <p class="text-xs text-bone/40 font-medium">
+          {t.homepage.footerMadeWith || 'Made with ❤️ for decentralized AI'}
+        </p>
+        <p class="text-[10px] text-bone/25 font-mono">
+          &copy; {new Date().getFullYear()} {siteName}. All rights reserved.
         </p>
       </footer>
     </div>
