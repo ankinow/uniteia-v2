@@ -30,7 +30,7 @@ export const CopyCode = component$(() => {
         pre.style.position = 'relative'
         const btn = document.createElement('button')
         btn.className =
-          'copy-code-btn absolute top-2 right-2 p-1.5 rounded bg-white/5 border border-white/10 text-bone/40 hover:text-bone hover:bg-white/10 transition-all duration-150 z-10'
+          'copy-code-btn absolute top-2 right-2 p-1.5 rounded bg-white/5 border border-white/10 text-bone/40 hover:text-bone hover:bg-white/10 transition-[color,background-color,opacity] duration-150 z-10 active:scale-[0.92]'
         btn.setAttribute('aria-label', 'Copy code')
         btn.innerHTML =
           '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>'

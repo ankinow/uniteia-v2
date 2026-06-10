@@ -66,7 +66,7 @@ export const SearchInput = component$<SearchInputProps>(
             onKeyDown$={e => {
               if (e.key === 'Enter') handleSubmit()
             }}
-            class="w-full pl-10 pr-12 py-2.5 rounded-full border border-[oklch(100%_0_0_/_0.1)] bg-[oklch(100%_0_0_/_0.03)] text-bone text-sm placeholder:text-bone-muted focus:outline-none focus:border-[var(--color-accent)] focus:shadow-[0_0_0_3px_oklch(0.75_0.18_200_/_0.15)] transition-all duration-150"
+            class="w-full pl-10 pr-12 py-2.5 rounded-full border border-[oklch(100%_0_0_/_0.1)] bg-[oklch(100%_0_0_/_0.03)] text-bone text-sm placeholder:text-bone-muted focus:outline-none focus:border-[var(--color-accent)] focus:shadow-[0_0_0_3px_oklch(0.75_0.18_200_/_0.15)] transition-[border-color,box-shadow] duration-150"
             autocomplete="off"
             spellcheck={false}
           />

@@ -174,7 +174,7 @@ export const LivingBriefHero = component$<LivingBriefHeroProps>(
                     'inline-flex items-center gap-2',
                     'px-5 py-2.5 rounded-lg',
                     'text-sm tracking-wide uppercase',
-                    'transition-all duration-200',
+                    'transition-[color,transform] duration-200',
                     variantStyles[btn.variant || 'secondary'],
                   ].join(' ')}
                 >

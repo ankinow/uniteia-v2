@@ -146,7 +146,7 @@ export const GenerativeHero = component$<GenerativeHeroProps>(props => {
                 <a
                   key={cluster.nicheSlug}
                   href={cluster.href}
-                  class="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono uppercase tracking-wider rounded-full border transition-all duration-200 hover:-translate-y-0.5"
+                  class="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono uppercase tracking-wider rounded-full border transition-[color,border-color,transform] duration-200 hover:-translate-y-0.5 active:scale-[0.96]"
                   style={{
                     borderColor: `color-mix(in srgb, ${getNicheColor(cluster.nicheSlug)} 40%, transparent)`,
                     color: getNicheColor(cluster.nicheSlug),

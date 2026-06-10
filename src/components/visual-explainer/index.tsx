@@ -351,7 +351,7 @@ export const VisualExplainer = component$<VisualExplainerProps>(props => {
               key={layer.id}
               class={[
                 'absolute left-1/2 -translate-x-1/2 pointer-events-auto',
-                'cursor-pointer transition-all duration-200',
+                'cursor-pointer transition-[color,transform] duration-200',
                 'rounded-lg text-center',
                 selectedLayer.value === layer.id ? 'ring-1 ring-inset z-10' : 'hover:bg-white/5',
               ].join(' ')}

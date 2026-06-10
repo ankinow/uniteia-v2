@@ -30,7 +30,7 @@ export const NewsletterForm = component$<NewsletterFormProps>(
           <button
             type="submit"
             class={[
-              'px-5 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 whitespace-nowrap',
+              'px-5 py-2.5 rounded-lg font-medium text-sm transition-[color,background-color,transform] duration-200 active:scale-[0.96] whitespace-nowrap',
               'bg-[var(--color-accent)] text-[var(--color-void)]',
               'hover:bg-[var(--color-accent-hi)]',
               'focus:outline-none focus:shadow-[0_0_0_3px_oklch(0.75_0.18_200_/_0.15)]',

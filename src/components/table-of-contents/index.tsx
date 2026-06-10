@@ -61,7 +61,7 @@ export const TableOfContents = component$(() => {
         {entries.value.map(entry => (
           <li
             key={entry.id}
-            class={['transition-all duration-200', entry.level === 3 ? 'pl-4' : '']}
+            class={['transition-[color,padding] duration-200', entry.level === 3 ? 'pl-4' : '']}
           >
             <a
               href={`#${entry.id}`}

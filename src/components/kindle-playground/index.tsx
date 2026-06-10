@@ -32,7 +32,7 @@ export const KindlePlayground = component$<KindlePlaygroundProps>(
         }}
       >
         <div
-          class="fixed top-0 left-0 h-1 bg-action transition-all duration-300 z-[var(--z-floating)] focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
+          class="fixed top-0 left-0 h-1 bg-action transition-[width] duration-300 z-[var(--z-floating)] focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
           style={{ width: `${clampedProgress}%` }}
           role="progressbar"
           aria-valuenow={clampedProgress}

@@ -80,7 +80,7 @@ export const EmptyState = component$<EmptyStateProps>(
           <a
             href={ctaHref}
             class={[
-              'inline-flex items-center gap-2 font-medium transition-all duration-200',
+              'inline-flex items-center gap-2 font-medium transition-[color,transform] duration-200 active:scale-[0.96]',
               isCraft
                 ? 'px-6 py-2.5 rounded-full bg-[var(--color-accent)] text-[var(--color-void)] hover:bg-[var(--color-accent-hi)] kawaii-glow text-sm'
                 : 'btn btn-primary text-sm',

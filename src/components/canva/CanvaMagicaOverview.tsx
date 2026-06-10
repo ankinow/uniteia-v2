@@ -115,7 +115,7 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
                 <QuickstartFlowDiagram />
               </div>
               <footer class="section-footer">
-                <div class="pill dark">CF Pages</div>
+                <div class="pill dark">Global Edge</div>
                 <div class="pill dark">Zero-Latency</div>
               </footer>
             </div>

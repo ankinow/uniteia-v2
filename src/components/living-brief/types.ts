@@ -29,6 +29,8 @@ export interface LivingBriefButton {
 }
 
 export interface LivingBriefCollageProps {
+  /** Visual variant (default: 'default') */
+  variant?: 'default' | 'cyber' | 'magica' | undefined
   /** Polaroid images with metadata */
   polaroids?: PolaroidItem[] | undefined
   /** Hand-drawn labels/annotations */

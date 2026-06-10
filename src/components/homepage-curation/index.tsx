@@ -34,7 +34,7 @@ export const RepoCard = component$<{ repo: TrendingRepo }>(({ repo }) => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${repo.name}: ${repo.description || 'No description'}`}
-      class="repo-card polaroid-card inline-block p-3 rounded-sm bg-white/90 shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-1 hover:rotate-[0.5deg] w-full max-w-[280px]"
+      class="repo-card polaroid-card inline-block p-3 rounded-sm bg-white/90 shadow-md hover:shadow-lg transition-[box-shadow,transform] duration-200 hover:-translate-y-1 hover:rotate-[0.5deg] w-full max-w-[280px]"
     >
       <div class="flex items-center gap-2 mb-2">
         {repo.avatarUrl && (
@@ -80,7 +80,7 @@ export const NewsCard = component$<{ news: NewsItem }>(({ news }) => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${news.title} — ${news.score} points`}
-      class="news-card block p-3 rounded-sm bg-white/80 backdrop-blur-sm border-l-2 border-[oklch(0.72_0.165_80/0.4)] shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5"
+      class="news-card block p-3 rounded-sm bg-white/80 backdrop-blur-sm border-l-2 border-[oklch(0.72_0.165_80/0.4)] shadow-sm hover:shadow-md transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5"
     >
       <h4 class="text-sm font-medium text-[oklch(0.20_0.03_280)] mb-1 line-clamp-2 leading-snug">
         {news.title}
@@ -311,7 +311,7 @@ export const TrendingSection = component$<TrendingSectionProps>(({ articles, lan
           <a
             href={`/${lang}/signals/apex/${randomArticle.slug}`}
             aria-label={`Random article: ${randomArticle.title}`}
-            class="random-article-card block p-4 rounded-sm bg-gradient-to-br from-[oklch(0.15_0.04_280/0.8)] to-[oklch(0.10_0.03_280/0.9)] border border-white/10 hover:border-[oklch(0.72_0.165_80/0.3)] transition-all duration-200"
+            class="random-article-card block p-4 rounded-sm bg-gradient-to-br from-[oklch(0.15_0.04_280/0.8)] to-[oklch(0.10_0.03_280/0.9)] border border-white/10 hover:border-[oklch(0.72_0.165_80/0.3)] transition-[border-color,box-shadow] duration-200"
           >
             <h3 class="text-base font-semibold text-[oklch(0.85_0.12_85)] mb-1">
               {randomArticle.title}

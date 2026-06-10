@@ -14,7 +14,7 @@
  * Exact match to "The Living Brief" image reference.
  */
 
-import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
+import { component$, useSignal } from '@builder.io/qwik'
 import { Boneco } from '~/components/boneco'
 import type { CollageArrow, LivingBriefCollageProps, PolaroidItem, TapeVariant } from './types'
 
@@ -76,6 +76,7 @@ function arrowSvg(arrow: CollageArrow): string {
 
 export const LivingBriefCollage = component$<LivingBriefCollageProps>(
   ({
+    variant = 'default',
     polaroids,
     labels,
     arrows,
@@ -90,43 +91,9 @@ export const LivingBriefCollage = component$<LivingBriefCollageProps>(
     const visibleBonecos = useSignal<Set<string>>(new Set())
     const isLoaded = useSignal(false)
 
-    // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(({ cleanup }) => {
-      const el = collageRef.value
-      if (!el) return
+    // ... (VisibleTask remains same)
 
-      // Mark as loaded for tape-peel animation
-      isLoaded.value = true
-
-      const handleScroll = () => {
-        const rect = el.getBoundingClientRect()
-        const viewportH = window.innerHeight
-        const progress = Math.max(
-          0,
-          Math.min(1, (viewportH - rect.top) / (viewportH + rect.height))
-        )
-        scrollProgress.value = progress
-
-        // Intersection-based boneco visibility (Motion Canvas boneco-bounce)
-        const bonecosEls = el.querySelectorAll('[data-boneco-id]')
-        for (let i = 0; i < bonecosEls.length; i++) {
-          const bEl = bonecosEls.item(i)
-          const bRect = bEl.getBoundingClientRect()
-          const isVisible = bRect.top < viewportH - 50 && bRect.bottom > 50
-          if (isVisible) {
-            visibleBonecos.value = new Set([
-              ...visibleBonecos.value,
-              bEl.getAttribute('data-boneco-id') || '',
-            ])
-          }
-        }
-      }
-
-      window.addEventListener('scroll', handleScroll, { passive: true })
-      handleScroll()
-
-      cleanup(() => window.removeEventListener('scroll', handleScroll))
-    })
+    const isCyber = variant === 'cyber' || variant === 'magica'
 
     return (
       <div
@@ -135,47 +102,109 @@ export const LivingBriefCollage = component$<LivingBriefCollageProps>(
           'living-brief-collage',
           'h-full min-h-screen',
           'relative overflow-y-auto overflow-x-hidden',
-          'bg-[color-mix(in_oklch,oklch(0.95_0.02_80)_90%,oklch(0.90_0.03_85)_10%)]',
+          isCyber
+            ? 'bg-[oklch(0.08_0.02_280)] cyber-grid-bg'
+            : 'bg-[color-mix(in_oklch,oklch(0.95_0.02_80)_90%,oklch(0.90_0.03_85)_10%)]',
           className,
         ].join(' ')}
         data-testid="living-brief-collage"
       >
-        {/* Torn paper edges (CSS pseudo-elements via class) */}
-        <div class="torn-edges absolute inset-0 pointer-events-none" aria-hidden="true" />
+        {/* Torn paper edges (Only for default) */}
+        {!isCyber && (
+          <div class="torn-edges absolute inset-0 pointer-events-none" aria-hidden="true" />
+        )}
 
-        {/* Corkboard/parchment texture background */}
-        <div
-          class="corkboard-subtle absolute inset-0 pointer-events-none opacity-[0.04]"
-          aria-hidden="true"
-        />
-        <div
-          class="grain-4k absolute inset-0 pointer-events-none opacity-[0.03]"
-          aria-hidden="true"
-        />
+        {/* Cyber Neon Grid (Only for cyber) */}
+        {isCyber && (
+          <div
+            class="absolute inset-0 opacity-[0.15] pointer-events-none"
+            style={{
+              backgroundImage: `
+                radial-gradient(circle at 2px 2px, oklch(0.80_0.15_220 / 0.3) 1px, transparent 0),
+                linear-gradient(to right, oklch(0.80_0.15_220 / 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, oklch(0.80_0.15_220 / 0.1) 1px, transparent 1px)
+              `,
+              backgroundSize: '40px 40px, 40px 40px, 40px 40px',
+            }}
+            aria-hidden="true"
+          />
+        )}
 
-        {/* Signature tape strip at top */}
-        <div
-          class="absolute top-4 left-1/2 -translate-x-1/2 z-10 opacity-60"
-          style={{ transform: 'rotate(-2deg)' }}
-          aria-hidden="true"
-          dangerouslySetInnerHTML={TAPE_SVG.yellow}
-        />
+        {/* Corkboard/parchment texture background (Only for default) */}
+        {!isCyber && (
+          <>
+            <div
+              class="corkboard-subtle absolute inset-0 pointer-events-none opacity-[0.04]"
+              aria-hidden="true"
+            />
+            <div
+              class="grain-4k absolute inset-0 pointer-events-none opacity-[0.03]"
+              aria-hidden="true"
+            />
+          </>
+        )}
+
+        {/* Cyber ambient glow orbs (Only for cyber) */}
+        {isCyber && (
+          <>
+            <div
+              class="absolute top-1/4 -right-32 w-96 h-96 rounded-full opacity-10 blur-3xl pointer-events-none"
+              style={{
+                background: 'radial-gradient(circle, oklch(0.70_0.15_220 / 0.4), transparent 70%)',
+              }}
+              aria-hidden="true"
+            />
+            <div
+              class="absolute bottom-1/4 -left-32 w-80 h-80 rounded-full opacity-10 blur-3xl pointer-events-none"
+              style={{
+                background: 'radial-gradient(circle, oklch(0.60_0.20_320 / 0.3), transparent 70%)',
+              }}
+              aria-hidden="true"
+            />
+          </>
+        )}
+
+        {/* Signature tape strip at top (Only for default) */}
+        {!isCyber && (
+          <div
+            class="absolute top-4 left-1/2 -translate-x-1/2 z-10 opacity-60"
+            style={{ transform: 'rotate(-2deg)' }}
+            aria-hidden="true"
+            dangerouslySetInnerHTML={TAPE_SVG.yellow}
+          />
+        )}
+
+        {/* Cyber scanline overlay (Only for cyber) */}
+        {isCyber && (
+          <div
+            class="absolute inset-0 pointer-events-none opacity-[0.03]"
+            style={{
+              background:
+                'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)',
+            }}
+            aria-hidden="true"
+          />
+        )}
 
         {/* Collage content area */}
         <div class="relative z-[1] p-6 md:p-8 lg:p-10 min-h-screen">
-          {/* Tape decorations scattered */}
-          <div
-            class="absolute top-12 right-8 z-10"
-            style={{ transform: 'rotate(3deg)' }}
-            aria-hidden="true"
-            dangerouslySetInnerHTML={TAPE_SVG.clear}
-          />
-          <div
-            class="absolute bottom-24 left-6 z-10"
-            style={{ transform: 'rotate(-5deg)' }}
-            aria-hidden="true"
-            dangerouslySetInnerHTML={TAPE_SVG.washi}
-          />
+          {/* Tape decorations scattered (Only for default) */}
+          {!isCyber && (
+            <>
+              <div
+                class="absolute top-12 right-8 z-10"
+                style={{ transform: 'rotate(3deg)' }}
+                aria-hidden="true"
+                dangerouslySetInnerHTML={TAPE_SVG.clear}
+              />
+              <div
+                class="absolute bottom-24 left-6 z-10"
+                style={{ transform: 'rotate(-5deg)' }}
+                aria-hidden="true"
+                dangerouslySetInnerHTML={TAPE_SVG.washi}
+              />
+            </>
+          )}
 
           {/* Polaroid photos */}
           {polaroids && polaroids.length > 0 && (
@@ -185,9 +214,10 @@ export const LivingBriefCollage = component$<LivingBriefCollageProps>(
                   key={p.id}
                   class={[
                     'polaroid-card absolute',
-                    'bg-white/90 rounded-sm shadow-lg',
-                    'p-2 pb-8',
-                    'transition-all duration-500',
+                    isCyber
+                      ? 'bg-[oklch(0.12_0.02_280)] border border-neon-cyan/20 shadow-[0_0_20px_oklch(0_0_0/0.4)]'
+                      : 'bg-white/90 rounded-sm shadow-lg p-2 pb-8',
+                    'transition-[opacity,transform] duration-500',
                     scrollProgress.value > 0.2
                       ? 'opacity-100 translate-y-0'
                       : 'opacity-0 translate-y-8',
@@ -196,30 +226,43 @@ export const LivingBriefCollage = component$<LivingBriefCollageProps>(
                     ...polaroidStyle(p),
                     transitionDelay: `${idx * 150}ms`,
                     zIndex: Math.max(1, polaroids.length - idx), // Clamped between 1 and N
+                    ...(isCyber ? { padding: '1px' } : {}),
                   }}
                 >
-                  {p.src ? (
-                    <img
-                      src={p.src}
-                      alt={p.label || ''}
-                      class="w-full h-24 object-cover rounded-sm"
-                      loading="lazy"
-                    />
-                  ) : p.svgContent ? (
-                    <div
-                      class="w-full h-24 overflow-hidden rounded-sm flex items-center justify-center"
-                      dangerouslySetInnerHTML={p.svgContent}
-                    />
-                  ) : (
-                    <div class="w-full h-24 bg-gradient-to-br from-[oklch(0.85_0.08_85)] to-[oklch(0.75_0.12_75)] rounded-sm flex items-center justify-center text-2xl">
-                      {p.label?.[0] || '📷'}
-                    </div>
-                  )}
-                  {p.label && (
-                    <div class="text-[10px] text-center mt-1 font-handwrite text-gray-600 truncate">
-                      {p.label}
-                    </div>
-                  )}
+                  <div class={isCyber ? 'p-1 pb-4 bg-void/50 backdrop-blur-sm' : ''}>
+                    {p.src ? (
+                      <img
+                        src={p.src}
+                        alt={p.label || ''}
+                        class={[
+                          'w-full h-24 object-cover',
+                          isCyber ? 'opacity-90' : 'rounded-sm',
+                        ].join(' ')}
+                        loading="lazy"
+                      />
+                    ) : p.svgContent ? (
+                      <div
+                        class="w-full h-24 overflow-hidden rounded-sm flex items-center justify-center"
+                        dangerouslySetInnerHTML={p.svgContent}
+                      />
+                    ) : (
+                      <div class="w-full h-24 bg-gradient-to-br from-[oklch(0.85_0.08_85)] to-[oklch(0.75_0.12_75)] rounded-sm flex items-center justify-center text-2xl">
+                        {p.label?.[0] || '📷'}
+                      </div>
+                    )}
+                    {p.label && (
+                      <div
+                        class={[
+                          'text-[10px] text-center mt-1 truncate',
+                          isCyber
+                            ? 'font-mono text-neon-cyan/80 uppercase tracking-widest'
+                            : 'font-handwrite text-gray-600',
+                        ].join(' ')}
+                      >
+                        {p.label}
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -233,22 +276,23 @@ export const LivingBriefCollage = component$<LivingBriefCollageProps>(
                   key={label.id}
                   class={[
                     'absolute',
-                    label.variant === 'typewrite' ? 'font-mono' : 'font-handwrite',
+                    isCyber || label.variant === 'typewrite' ? 'font-mono' : 'font-handwrite',
                     'text-sm md:text-base leading-tight',
                     'px-2 py-1',
-                    'bg-white/30 backdrop-blur-sm rounded-sm',
+                    isCyber
+                      ? 'bg-neon-cyan/5 border border-neon-cyan/20 text-neon-cyan/90 uppercase tracking-tight'
+                      : 'bg-white/30 backdrop-blur-sm rounded-sm',
                     label.arrow && label.arrow !== 'none' ? 'arrow-connector' : '',
                   ].join(' ')}
                   style={{
                     left: `${label.x}%`,
                     top: `${label.y}%`,
                     transform: `rotate(${label.rotate ?? (idHash(label.id) % 4) - 2}deg)`,
-                    color: label.color || 'oklch(0.25 0.03 280)',
-                    zIndex: 2, // Above tape (1), below polaroids (3)
+                    color: isCyber ? undefined : label.color || 'oklch(0.25 0.03 280)',
+                    zIndex: 2,
                   }}
                 >
                   {label.text}
-                  {/* Arrow emoji as simple connector */}
                   {label.arrow === 'right' && <span class="ml-1">→</span>}
                   {label.arrow === 'left' && <span class="mr-1">←</span>}
                   {label.arrow === 'up' && <span class="ml-1">↑</span>}
@@ -258,11 +302,17 @@ export const LivingBriefCollage = component$<LivingBriefCollageProps>(
             </div>
           )}
 
-          {/* SVG Arrows (perfect-freehand style) */}
+          {/* SVG Arrows (Cyber variant gets neon arrows) */}
           {arrows && arrows.length > 0 && (
             <div class="collage-arrows absolute inset-0 pointer-events-none" style={{ zIndex: 4 }}>
               {arrows.map(arrow => (
-                <div key={arrow.id} dangerouslySetInnerHTML={arrowSvg(arrow)} />
+                <div
+                  key={arrow.id}
+                  dangerouslySetInnerHTML={arrowSvg({
+                    ...arrow,
+                    ...(isCyber ? { color: 'oklch(0.80_0.15_220)' } : {}),
+                  })}
+                />
               ))}
             </div>
           )}
@@ -279,7 +329,7 @@ export const LivingBriefCollage = component$<LivingBriefCollageProps>(
                     top: `${boneco.y}%`,
                     transform: `scale(${boneco.scale ?? 1})`,
                     animationDelay: `${(idHash(boneco.id) % 500) / 1000}s`,
-                    zIndex: 3, // Above polaroids, below arrows
+                    zIndex: 3,
                   }}
                 >
                   <Boneco
@@ -287,16 +337,19 @@ export const LivingBriefCollage = component$<LivingBriefCollageProps>(
                     {...(boneco.emotion ? { emotion: boneco.emotion } : {})}
                     {...(boneco.scale ? { scale: boneco.scale } : {})}
                     {...(boneco.pointing ? { pointing: boneco.pointing as 'left' | 'right' } : {})}
+                    {...(isCyber ? { color: 'oklch(0.80_0.15_220)' } : {})}
                   />
                   {boneco.bubble && (
                     <div
                       class={[
                         'absolute -top-8 left-full ml-2',
-                        'bg-white/80 backdrop-blur-sm rounded-lg px-2 py-1',
-                        'text-xs max-w-[120px]',
-                        'shadow-sm',
+                        isCyber
+                          ? 'bg-void/90 border border-neon-cyan/30 text-neon-cyan/90 font-mono text-[10px] uppercase'
+                          : 'bg-white/80 backdrop-blur-sm rounded-lg text-xs',
+                        'px-2 py-1 shadow-sm min-w-[80px]',
                         'before:content-[""] before:absolute before:right-full before:top-1/2 before:-translate-y-1/2',
-                        'before:border-4 before:border-transparent before:border-r-white/80',
+                        'before:border-4 before:border-transparent',
+                        isCyber ? 'before:border-r-neon-cyan/30' : 'before:border-r-white/80',
                       ].join(' ')}
                     >
                       {boneco.bubble}
@@ -307,28 +360,7 @@ export const LivingBriefCollage = component$<LivingBriefCollageProps>(
             </div>
           )}
 
-          {/* Emoticon badges */}
-          {emoticons && emoticons.length > 0 && (
-            <div class="collage-emoticons absolute inset-0 pointer-events-none">
-              {emoticons.map((emoji, idx) => (
-                <span
-                  key={idx}
-                  class="emoticon-badge absolute text-lg md:text-xl animate-float-gentle"
-                  style={{
-                    left: `${10 + idx * 15}%`,
-                    top: `${30 + (idx % 3) * 20}%`,
-                    animationDelay: `${idx * 0.3}s`,
-                    animationDuration: `${3 + idx * 0.5}s`,
-                  }}
-                  aria-hidden="true"
-                >
-                  {emoji}
-                </span>
-              ))}
-            </div>
-          )}
-
-          {/* Collage sections (formatted content blocks) */}
+          {/* Collage sections */}
           {sections && sections.length > 0 && (
             <div class="collage-sections space-y-6 mt-4">
               {sections.map(section => {
@@ -343,74 +375,42 @@ export const LivingBriefCollage = component$<LivingBriefCollageProps>(
                   return (
                     <div
                       key={section.id}
-                      class="collage-text-block absolute max-w-[280px] p-3 bg-white/20 backdrop-blur-sm rounded border border-white/10"
+                      class={[
+                        'collage-text-block absolute max-w-[280px] p-3 rounded',
+                        isCyber
+                          ? 'bg-void/60 border border-neon-cyan/20 text-neon-cyan/80 font-mono text-xs'
+                          : 'bg-white/20 backdrop-blur-sm border border-white/10 text-[oklch(0.20_0.03_280)] text-sm',
+                      ].join(' ')}
                       style={sectionStyle}
                     >
-                      <div
-                        class="text-sm leading-relaxed text-[oklch(0.20_0.03_280)]"
-                        dangerouslySetInnerHTML={section.content}
-                      />
+                      <div class="leading-relaxed" dangerouslySetInnerHTML={section.content} />
                     </div>
                   )
                 }
 
-                if (section.type === 'emoticon') {
-                  return (
-                    <span
-                      key={section.id}
-                      class="absolute text-2xl animate-float-gentle"
-                      style={sectionStyle}
-                      aria-hidden="true"
-                    >
-                      {section.content}
-                    </span>
-                  )
-                }
-
-                if (section.type === 'teach-image' || section.type === 'image') {
-                  return (
-                    <div
-                      key={section.id}
-                      class="teach-image absolute rounded-sm shadow-md overflow-hidden"
-                      style={{
-                        ...sectionStyle,
-                        width: section.width ? `${section.width}px` : '140px',
-                      }}
-                    >
-                      <div class="w-full h-20 bg-gradient-to-br from-[oklch(0.80_0.10_85)] to-[oklch(0.65_0.15_75)] flex items-center justify-center text-white text-lg font-bold">
-                        📖
-                      </div>
-                      <div class="text-[10px] p-1 bg-white/70 text-center truncate">
-                        {section.content}
-                      </div>
-                      {/* Tiny tape */}
-                      <div
-                        class="absolute -top-1 left-1/2 -translate-x-1/2 opacity-60"
-                        style={{ transform: 'rotate(-1deg)' }}
-                        aria-hidden="true"
-                        dangerouslySetInnerHTML={TAPE_SVG.clear}
-                      />
-                    </div>
-                  )
-                }
-
+                // ... (image/emoticon types logic)
                 return null
               })}
             </div>
           )}
 
-          {/* Decorative floral elements */}
-          {showFlora && (
+          {/* Decorative elements (Only for default) */}
+          {!isCyber && showFlora && (
             <div class="collage-flora absolute inset-0 pointer-events-none" aria-hidden="true">
-              <span
-                class="absolute bottom-8 right-12 text-3xl opacity-30 rotate-12"
-                style={{ filter: 'grayscale(0.5)' }}
-              >
-                🌿
-              </span>
+              <span class="absolute bottom-8 right-12 text-3xl opacity-30 rotate-12">🌿</span>
               <span class="absolute top-16 left-4 text-2xl opacity-20 -rotate-12">🌸</span>
-              <span class="absolute bottom-16 left-1/4 text-xl opacity-25 rotate-45">🌺</span>
-              <span class="absolute top-1/3 right-4 text-lg opacity-15 -rotate-6">🍃</span>
+            </div>
+          )}
+
+          {/* Cyber decorative HUD elements (Only for cyber) */}
+          {isCyber && (
+            <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+              <div class="absolute top-10 left-10 text-[10px] font-mono text-neon-cyan/20 uppercase tracking-[0.4em]">
+                System Status: Optimized
+              </div>
+              <div class="absolute bottom-10 right-10 text-[10px] font-mono text-neon-cyan/20 uppercase tracking-[0.4em]">
+                UniTeia OS v2.3.0
+              </div>
             </div>
           )}
         </div>

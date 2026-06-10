@@ -67,6 +67,7 @@ export const LivingBrief2Col = component$<LivingBrief2ColProps>(
         <div class="w-full md:w-[65%] flex-1 living-brief-right">
           {collage ? (
             <LivingBriefCollage
+              variant={collage.variant || (hero.variant === 'terminal' ? 'cyber' : hero.variant)}
               polaroids={collage.polaroids}
               labels={collage.labels}
               arrows={collage.arrows}

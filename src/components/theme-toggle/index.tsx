@@ -33,7 +33,7 @@ export const ThemeToggle = component$(() => {
     <button
       type="button"
       onClick$={toggle}
-      class="p-2 rounded-lg border border-white/10 bg-white/5 text-bone/60 hover:text-bone hover:bg-white/10 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-neon-cyan"
+      class="p-2 rounded-lg border border-white/10 bg-white/5 text-bone/60 hover:text-bone hover:bg-white/10 transition-[color,background-color,transform] duration-200 active:scale-[0.92] focus:outline-none focus:ring-2 focus:ring-neon-cyan"
       aria-label={`Switch to ${theme.value === 'dark' ? 'light' : 'dark'} mode`}
     >
       {theme.value === 'dark' ? (
