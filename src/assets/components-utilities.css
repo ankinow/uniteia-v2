@@ -211,7 +211,7 @@
     z-index: 1;
   }
 
-  /* 2.5D glass — defined in unlayered Σ LOAD section (cascade priority) */
+  /* 2.5D depth panel — defined in unlayered Σ LOAD section (cascade priority) */
 
   /* ── Signal Grid ── */
   .grid-signal {
@@ -414,7 +414,7 @@
     border-color: var(--color-chrome-border);
   }
 
-  /* Canvas-parchment zone: inner glass clears dark gradient for light parchment bg */
+  /* Canvas-parchment zone: inner panel clears dark gradient for light parchment bg */
   .canvas-parchment .surface-panel {
     background: transparent;
     backdrop-filter: none;

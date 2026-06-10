@@ -1,0 +1,93 @@
+@theme {
+  /* ── Bauhaus Typography ── */
+  --font-bauhaus: "Inter", var(--font-sans);
+  --font-weight-bauhaus-display: 900;
+  --font-weight-bauhaus-headline: 800;
+  --font-weight-bauhaus-label: 600;
+
+  /* ── Bauhaus Spacing & Borders ── */
+  --bauhaus-border-width: 2px;
+  --bauhaus-gap-lg: clamp(2rem, 8vw, 6rem);
+  --bauhaus-gap-md: clamp(1rem, 4vw, 3rem);
+
+  /* ── Bauhaus Ease ── */
+  --bauhaus-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Palette: Blackout ── */
+  --color-blackout-bg: #000000;
+  --color-blackout-headline: #ffffff;
+  --color-blackout-text: #f2f0e9;
+  --color-blackout-accent: oklch(0.75 0.15 195);
+  --color-blackout-border: #2d2c2b;
+
+  /* ── Palette: Voltage ── */
+  --color-voltage-bg: #ffffff;
+  --color-voltage-headline: #000000;
+  --color-voltage-text: #1a1918;
+  --color-voltage-accent: oklch(0.72 0.18 50);
+  --color-voltage-border: #e5e7eb;
+
+  /* ── Palette: Signal ── */
+  --color-signal-bg: oklch(0.75 0.15 195);
+  --color-signal-headline: #000000;
+  --color-signal-text: #0f0e0d;
+}
+
+/* ── Bauhaus Utility Classes ── */
+
+.bauhaus-h1 {
+  font-family: var(--font-bauhaus);
+  font-weight: var(--font-weight-bauhaus-display);
+  font-size: clamp(3rem, 10vw, 8.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+.bauhaus-h2 {
+  font-family: var(--font-bauhaus);
+  font-weight: var(--font-weight-bauhaus-headline);
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.bauhaus-label {
+  font-family: var(--font-bauhaus);
+  font-weight: var(--font-weight-bauhaus-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.bauhaus-block {
+  border: var(--bauhaus-border-width) solid currentColor;
+  padding: var(--space-5);
+  transition: all 400ms var(--bauhaus-ease);
+}
+
+/* ── Section Moods ── */
+
+.section-blackout {
+  background-color: var(--color-blackout-bg);
+  color: var(--color-blackout-text);
+  --color-headline: var(--color-blackout-headline);
+  --color-accent: var(--color-blackout-accent);
+  --color-border: var(--color-blackout-border);
+}
+
+.section-voltage {
+  background-color: var(--color-voltage-bg);
+  color: var(--color-voltage-text);
+  --color-headline: var(--color-voltage-headline);
+  --color-accent: var(--color-voltage-accent);
+  --color-border: var(--color-voltage-border);
+}
+
+.section-signal {
+  background-color: var(--color-signal-bg);
+  color: var(--color-signal-text);
+  --color-headline: var(--color-signal-headline);
+  --color-accent: var(--color-signal-headline);
+  --color-border: var(--color-signal-headline);
+}

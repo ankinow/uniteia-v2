@@ -35,6 +35,54 @@
   --canvas-tone-border: oklch(22% 0.03 260 / 0.5);
 }
 
+/* ── Cyber / High-Fidelity Utilities ── */
+
+:root {
+  --neon-cyan: oklch(0.8 0.15 220);
+  --neon-amber: oklch(0.85 0.2 70);
+  --bg-void: oklch(0.08 0.02 280);
+
+  /* Gradient Mesh Tokens */
+  --mesh-start: oklch(0.8 0.15 220 / 0.15); /* neon-cyan with low opacity */
+  --mesh-middle: oklch(0.6 0.18 250 / 0.1); /* deeper azure */
+  --mesh-end: oklch(0.85 0.2 70 / 0.08); /* neon-amber accent */
+  --mesh-fallback: var(--bg-void);
+}
+
+.mesh-background {
+  background: radial-gradient(circle at 15% 30%, var(--mesh-start), transparent 40%),
+    radial-gradient(circle at 85% 20%, var(--mesh-middle), transparent 45%),
+    radial-gradient(circle at 50% 80%, var(--mesh-end), transparent 50%), var(--mesh-fallback);
+  background-attachment: fixed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mesh-background {
+    animation: none;
+    /* Static fallback is automatically handled by the fixed gradient */
+  }
+}
+
+.cyber-grid-bg {
+  background-image: radial-gradient(
+      circle at 2px 2px,
+      var(--neon-cyan, oklch(0.8 0.15 220 / 0.15)) 1px,
+      transparent 0
+    ), linear-gradient(to right, oklch(0.8 0.15 220 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.8 0.15 220 / 0.05) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px, 40px 40px;
+}
+
+.border-neon {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 10px var(--neon-cyan), inset 0 0 5px var(--neon-cyan);
+}
+
+.text-neon {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px var(--neon-cyan);
+}
+
 /* ── Frame variants ── */
 .frame-glass {
   background: color-mix(in srgb, var(--canvas-tone-surface) 80%, transparent);

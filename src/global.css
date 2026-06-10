@@ -8,6 +8,7 @@
 @plugin "@tailwindcss/typography";
 @plugin "@iconify/tailwind4";
 @import "./assets/components-utilities.css";
+@import "./assets/bauhaus-theme.css";
 @import "./styles/tokens.css";
 @import "./styles/craft-layer.css";
 
@@ -121,8 +122,14 @@ a:hover { color: var(--color-accent-hi); }
     padding: 0.625rem 1.25rem;
     font-weight: 500;
     font-size: 0.875rem;
-    transition: all var(--transition-duration-fast) var(--ease-out);
+    transition-property: color, background-color, border-color, transform, box-shadow;
+    transition-duration: var(--transition-duration-fast);
+    transition-timing-function: var(--ease-out);
     cursor: pointer;
+    touch-action: manipulation;
+  }
+  .btn:active {
+    transform: scale(0.96);
   }
 
   .btn-primary {
@@ -155,15 +162,22 @@ a:hover { color: var(--color-accent-hi); }
   background: var(--color-deep);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 0.5rem;
+  transition-property: border-color, transform, box-shadow;
+  transition-duration: var(--transition-duration-base);
+  transition-timing-function: var(--ease-out);
 }
 
 .surface-card:hover {
   border-color: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
-  transition: all var(--transition-duration-base) var(--ease-out);
+}
+
+.surface-card:active {
+  transform: scale(0.98);
 }
 
 .text-balance { text-wrap: balance; }
+.tabular-metrics { font-variant-numeric: tabular-nums; }
 
 /* ── Skip link ── */
 .skip-link {
