@@ -57,11 +57,18 @@ function findHtmlPages(dir: string, basePath: string): void {
 }
 findHtmlPages(distDir, '')
 
-// Only route these dynamic paths through Worker — everything else is static
+// Only route dynamic paths through Worker — SSG pages are static, served by CDN
 const routes = {
   version: 1,
-  include: ['/', '/api/*', '/search'],
-  exclude: ['/build/*', '/assets/*', '/favicon.ico', '/*.svg', '/content-registry.generated.ts'],
+  include: ['/api/*', '/search'],
+  exclude: [
+    '/build/*',
+    '/assets/*',
+    '/favicon.ico',
+    '/*.svg',
+    '/content-registry.generated.ts',
+    ...ssgExcludes,
+  ],
 }
 writeFileSync(routesPath, JSON.stringify(routes, null, 2))
 
@@ -112,5 +119,5 @@ if (existsSync(staticPathsPath)) {
 }
 
 console.log(
-  'Prep done: dist/server/ copied, dist/_worker.js path fixed, Worker handles only search+api'
+  'Prep done: dist/server/ copied, dist/_worker.js path fixed, Worker handles only API+search, SSG pages served by CDN'
 )
