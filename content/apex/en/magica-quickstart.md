@@ -63,7 +63,11 @@ canvas:
 
 ## Create Your Account
 
-Visit [try.magica.com/clique-serio](https://try.magica.com/clique-serio) and sign up for the free tier — no credit card required. Use promo code **GXZMYCP** on the [rewards page](https://try.magica.com/redeem) to get **10M bonus credits** (perfect for videos, podcasts, and voice). The free tier gives you limited access to all major models, enough to evaluate the platform thoroughly before committing.
+Visit [try.magica.com/clique-serio](https://try.magica.com/clique-serio) and sign up for the free tier — no credit card required. 
+
+> 💡 **Transparency notice:** UniTeia may earn a commission if you sign up through links on this page. See our [ethics policy](/ethics).
+
+Use promo code **GXZMYCP** on the [rewards page](https://try.magica.com/redeem) to get **10M bonus credits** (perfect for videos, podcasts, and voice). The free tier gives you limited access to all major models, enough to evaluate the platform thoroughly before committing.
 
 Once registered, you land on the Magica workspace. The interface has three main zones: the model selector (top), the conversation workspace (center), and the tool drawer (right sidebar with 5,900+ pre-built tools).
 

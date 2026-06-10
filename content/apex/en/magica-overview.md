@@ -113,7 +113,11 @@ Magica integrates with hundreds of external services including Gmail, Google Wor
 | Yearly | $8/mo | Billed annually |
 | Lifetime | $399 | One-time payment |
 
-The free tier is generous enough to evaluate core features. New users who sign up via [try.magica.com/clique-serio](https://try.magica.com/clique-serio) and redeem code **GXZMYCP** on the [rewards page](https://try.magica.com/redeem) unlock **10M bonus credits** — ideal for videos, podcasts, voice generation, and heavy image workflows. For active creators and developers, the $15/month plan replaces $60+ worth of individual subscriptions.
+The free tier is generous enough to evaluate core features. 
+
+> 💡 **Transparency notice:** UniTeia may earn a commission if you sign up through links on this page. This does not affect our evaluation — we only recommend tools we've tested and believe in. See our [ethics policy](/ethics).
+
+New users who sign up via [try.magica.com/clique-serio](https://try.magica.com/clique-serio) and redeem code **GXZMYCP** on the [rewards page](https://try.magica.com/redeem) unlock **10M bonus credits** — ideal for videos, podcasts, voice generation, and heavy image workflows. For active creators and developers, the $15/month plan replaces $60+ worth of individual subscriptions.
 
 ## Why Magica Matters for Builders
 
