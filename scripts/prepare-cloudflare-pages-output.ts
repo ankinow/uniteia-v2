@@ -57,18 +57,11 @@ function findHtmlPages(dir: string, basePath: string): void {
 }
 findHtmlPages(distDir, '')
 
-// Only route dynamic paths through Worker — SSG pages are static, served by CDN
+// Only route dynamic paths through Worker — everything else is static (served by CDN)
 const routes = {
   version: 1,
   include: ['/api/*', '/search'],
-  exclude: [
-    '/build/*',
-    '/assets/*',
-    '/favicon.ico',
-    '/*.svg',
-    '/content-registry.generated.ts',
-    ...ssgExcludes,
-  ],
+  exclude: ['/build/*', '/assets/*', '/favicon.ico', '/*.svg'],
 }
 writeFileSync(routesPath, JSON.stringify(routes, null, 2))
 
