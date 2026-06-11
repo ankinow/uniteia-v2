@@ -38,7 +38,7 @@ export function getHomepageProjection(
 
   const featuredSignals: FeaturedSignal[] = [...publicNodes]
     .sort((a, b) => b.metrics.graphScore - a.metrics.graphScore)
-    .slice(0, 3)
+    .slice(0, 6)
     .map(node => ({ node, href: node.routes.canonical }))
 
   const byNiche = new Map<string, ContentNode[]>()

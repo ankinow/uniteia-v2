@@ -6,9 +6,15 @@ import { useI18n } from '~/i18n/context'
  * Breadcrumb — visible nav element with Schema.org BreadcrumbList JSON-LD.
  *
  * Renders a <nav aria-label="Breadcrumb"> with <ol> containing breadcrumb items
- * derived from the current URL path.
+ * derived from the current URL path. Accepts optional segmentLabels to override
+ * the auto-humanized slug labels (e.g., for niche titles).
  */
-export const Breadcrumb = component$(() => {
+export interface BreadcrumbProps {
+  /** Optional map of URL segment → display label, overrides humanization */
+  segmentLabels?: Record<string, string>
+}
+
+export const Breadcrumb = component$((props: BreadcrumbProps) => {
   const { lang } = useI18n()
   const loc = useLocation()
   const { t } = useI18n()
@@ -29,8 +35,11 @@ export const Breadcrumb = component$(() => {
   for (const segment of trail) {
     accumulated += `/${segment}`
 
-    // Derive label: try labelMap, then humanize slug
-    let label = labelMap[segment]
+    // Derive label: try segmentLabels prop, then labelMap, then humanize slug
+    let label = props.segmentLabels?.[segment]
+    if (!label) {
+      label = labelMap[segment]
+    }
     if (!label) {
       label = segment.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
     }

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <defs>
+    <radialGradient id="g1" cx="30%" cy="30%">
+      <stop offset="0%" stop-color="oklch(0.78 0.18 200)" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="oklch(0.55 0.12 200)" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="oklch(0.2 0.04 200)" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g2" cx="70%" cy="50%">
+      <stop offset="0%" stop-color="oklch(0.72 0.15 195)" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="oklch(0.2 0.04 195)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="#0f1119"/>
+  <rect width="800" height="600" fill="url(#g1)"/>
+  <rect width="800" height="600" fill="url(#g2)"/>
+  <circle cx="250" cy="200" r="120" stroke="oklch(0.78 0.18 200)" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <circle cx="250" cy="200" r="60" stroke="oklch(0.78 0.18 200)" stroke-width="2" fill="none" opacity="0.9"/>
+  <circle cx="250" cy="200" r="8" fill="oklch(0.78 0.18 200)" opacity="0.8"/>
+  <line x1="250" y1="140" x2="250" y2="110" stroke="oklch(0.72 0.15 195)" stroke-width="1" opacity="0.4"/>
+  <line x1="310" y1="200" x2="340" y2="200" stroke="oklch(0.72 0.15 195)" stroke-width="1.5" opacity="0.6"/>
+  <line x1="370" y1="200" x2="420" y2="200" stroke="oklch(0.78 0.18 200)" stroke-width="2" opacity="0.8"/>
+  <circle cx="550" cy="200" r="40" fill="oklch(0.78 0.18 200)" opacity="0.08"/>
+  <circle cx="550" cy="200" r="20" fill="oklch(0.78 0.18 200)" opacity="0.15"/>
+  <circle cx="550" cy="200" r="6" fill="oklch(0.78 0.18 200)" opacity="0.7"/>
+  <line x1="520" y1="350" x2="580" y2="350" stroke="oklch(0.55 0.08 200)" stroke-width="0.5" opacity="0.3"/>
+  <line x1="400" y1="450" x2="500" y2="450" stroke="oklch(0.55 0.08 200)" stroke-width="1" opacity="0.25"/>
+  <path d="M 400 500 L 420 470 L 440 500" stroke="oklch(0.78 0.18 200)" stroke-width="1" fill="none" opacity="0.3"/>
+</svg>

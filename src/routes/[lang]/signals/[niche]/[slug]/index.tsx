@@ -17,6 +17,7 @@ import { ShareBar } from '~/components/share-bar'
 import { StoryboardGrid } from '~/components/storyboard-grid'
 import { TableOfContents } from '~/components/table-of-contents'
 import { collagePackageToProps, parseCollagePackage } from '~/utils/collage-importer'
+import { findNicheBySlug, loadNichesConfig } from '~/utils/niche-loader'
 import { getMangaLayout, getStoryboardLayout } from '~/utils/storyboard-resolver'
 
 import type { ContentLocale, ContentNode } from '~/content-graph/contracts/node'
@@ -151,10 +152,26 @@ export const useCollageAssets = routeLoader$<LivingBriefCollageProps | null>(asy
   }
 })
 
+export const useNicheSegmentLabel = routeLoader$<Record<string, string>>(async ({ params }) => {
+  const lang = params.lang as SupportedLanguage
+  const nicheSlug = params.niche ?? ''
+  try {
+    const niches = await loadNichesConfig()
+    const niche = findNicheBySlug(niches, nicheSlug, lang)
+    if (niche) {
+      return { [niche.slug]: niche.title[lang] }
+    }
+  } catch {
+    // niche config not available (e.g., during SSG) — fall through
+  }
+  return {}
+})
+
 export default component$(() => {
   const content = useArticle()
   const relatedNodes = useRelated()
   const collageAssets = useCollageAssets()
+  const nicheSegmentLabel = useNicheSegmentLabel()
   const { t } = useI18n()
   const loc = useLocation()
 
@@ -163,8 +180,15 @@ export default component$(() => {
   }
 
   const canvasData = content.value.canvas
-  // Skip procedural canvas collage for articles that have real polaroid images
-  const HAS_REAL_IMAGES = new Set(['opencode-vibecoders', 'multi-agent-vibecoding'])
+  // All articles use real FLUX polaroid images — never generate procedural SVG shapes
+  const HAS_REAL_IMAGES = new Set([
+    'magica-overview',
+    'magica-quickstart',
+    'magica-mcp-server',
+    'tencent-cloud-deal-stack-builders',
+    'opencode-vibecoders',
+    'multi-agent-vibecoding',
+  ])
   const useCanvasCollage = !HAS_REAL_IMAGES.has(content.value.slug ?? '')
   const collage =
     useCanvasCollage && canvasData
@@ -229,7 +253,7 @@ export default component$(() => {
       ) : storyboardLayout ? (
         <>
           <div class="px-4 pt-6 pb-2 w-full max-w-6xl mx-auto">
-            <Breadcrumb />
+            <Breadcrumb segmentLabels={nicheSegmentLabel.value} />
             <h1 class="text-2xl md:text-3xl font-bold font-display tracking-tight text-bone mt-6 mb-2">
               {storyboardLayout.metaTitle || content.value.title}
             </h1>
@@ -564,7 +588,7 @@ export default component$(() => {
                 : {})}
         >
           <div q:slot="breadcrumb">
-            <Breadcrumb />
+            <Breadcrumb segmentLabels={nicheSegmentLabel.value} />
           </div>
           <div q:slot="toc">
             <TableOfContents />

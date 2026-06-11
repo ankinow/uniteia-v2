@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <defs>
+    <radialGradient id="g1">
+      <stop offset="0%" stop-color="oklch(0.68 0.12 230)" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="oklch(0.2 0.04 230)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="#0f1119"/>
+  <rect width="800" height="600" fill="url(#g1)"/>
+  <path d="M 290 320 Q 320 280 370 280 Q 430 280 460 320 Q 500 320 510 350 L 240 350 Q 250 320 290 320 Z" fill="oklch(0.68 0.12 230)" opacity="0.1" stroke="oklch(0.68 0.12 230)" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="300" cy="360" r="3" fill="oklch(0.68 0.12 230)" opacity="0.4"/>
+  <circle cx="380" cy="360" r="3" fill="oklch(0.68 0.12 230)" opacity="0.4"/>
+  <circle cx="460" cy="360" r="3" fill="oklch(0.68 0.12 230)" opacity="0.4"/>
+  <rect x="280" y="400" width="40" height="50" rx="4" stroke="oklch(0.68 0.12 230)" stroke-width="1" fill="none" opacity="0.3"/>
+  <rect x="350" y="380" width="40" height="70" rx="4" stroke="oklch(0.68 0.12 230)" stroke-width="1" fill="none" opacity="0.4"/>
+  <rect x="420" y="390" width="40" height="60" rx="4" stroke="oklch(0.68 0.12 230)" stroke-width="1" fill="none" opacity="0.35"/>
+  <line x1="300" y1="450" x2="370" y2="450" stroke="oklch(0.68 0.12 230)" stroke-width="0.5" opacity="0.2"/>
+  <line x1="370" y1="450" x2="440" y2="450" stroke="oklch(0.68 0.12 230)" stroke-width="0.5" opacity="0.2"/>
+</svg>

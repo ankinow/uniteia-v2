@@ -38,6 +38,8 @@ export interface NicheConfig {
   title: NicheTitle
   /** Localized description in all supported languages */
   description: NicheDescription
+  /** Hero image path relative to public/ (e.g. "/assets/hero/apex.svg") */
+  heroImage?: string
 }
 
 /**

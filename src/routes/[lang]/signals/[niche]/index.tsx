@@ -7,6 +7,7 @@ import {
 } from '@builder.io/qwik-city'
 import { Breadcrumb } from '~/components/breadcrumb'
 import { JSONLD } from '~/components/json-ld'
+import type { ContentLocale } from '~/content-graph/contracts/node'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 import { canonicalUrl, xdefaultUrl } from '~/routing/routes'
 import type { NicheArticleEntry } from '~/utils/content-loader'
@@ -125,7 +126,8 @@ export const useNicheArticles = routeLoader$<NicheArticleEntry[]>(async ({ param
 
   try {
     const { contentGraphProvider } = await import('~/content-graph.generated')
-    const nodes = contentGraphProvider.getByNiche(niche.slug)
+    const localeFilter = lang as ContentLocale
+    const nodes = contentGraphProvider.getByNiche(niche.slug, { locale: localeFilter })
 
     return nodes
       .filter(
@@ -196,7 +198,9 @@ export default component$(() => {
           <div class="flex flex-col md:flex-row gap-12 items-start justify-between">
             <div class="max-w-3xl">
               <div class="mb-8 flex items-center gap-4">
-                <Breadcrumb />
+                <Breadcrumb
+                  segmentLabels={{ [data.value.niche.slug]: data.value.niche.title[lang] }}
+                />
               </div>
               <span class="bauhaus-label text-[var(--color-accent)] mb-6 block">
                 Niche Exploration
@@ -207,9 +211,26 @@ export default component$(() => {
               </p>
             </div>
 
-            {/* Geometric visual for niche (placeholder for now) */}
-            <div class="w-full md:w-1/3 aspect-square bauhaus-block flex items-center justify-center bg-black text-white">
-              <span class="text-8xl font-black">{data.value.niche.title[lang].charAt(0)}</span>
+            {/* Hero visual for niche */}
+            <div class="w-full md:w-1/3 aspect-square bauhaus-block flex items-center justify-center overflow-hidden bg-black relative">
+              {data.value.niche.heroImage ? (
+                <img
+                  src={data.value.niche.heroImage}
+                  alt={data.value.niche.title[lang]}
+                  width="400"
+                  height="400"
+                  loading="eager"
+                  class="w-full h-full object-cover"
+                />
+              ) : (
+                <span class="text-8xl font-black text-white/10">
+                  {data.value.niche.title[lang].charAt(0)}
+                </span>
+              )}
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/40 pointer-events-none"
+                aria-hidden="true"
+              />
             </div>
           </div>
         </BauhausSection>
@@ -239,7 +260,7 @@ export default component$(() => {
         )}
 
         {/* Trending Section Integration */}
-        <BauhausTrendingSection articles={articles.value} lang={lang} mood="blackout" />
+        <BauhausTrendingSection articles={localizedArticles} lang={lang} mood="blackout" />
 
         {/* Footer info (minimal Bauhaus) */}
         <div class="py-12 px-6 border-t border-[var(--color-border)] text-center bg-black">

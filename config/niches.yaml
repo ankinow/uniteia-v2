@@ -17,6 +17,7 @@
     ja: apex
     zh: apex
   icon: radio
+  heroImage: /assets/hero/apex.svg
   title:
     en: Apex
     pt: Apex
@@ -47,6 +48,7 @@
     ja: ai-エージェント
     zh: ai-代理
   icon: bot
+  heroImage: /assets/hero/ai-agents.svg
   title:
     en: AI Agents
     pt: Agentes de IA
@@ -77,6 +79,7 @@
     ja: llm比較
     zh: llm比较
   icon: layers
+  heroImage: /assets/hero/llm-comparison.svg
   title:
     en: LLM Comparison
     pt: Comparação LLMs
@@ -107,6 +110,7 @@
     ja: クラウドコンピューティング
     zh: 云计算
   icon: cloud
+  heroImage: /assets/hero/cloud-computing.svg
   title:
     en: Cloud Computing
     pt: Computação em Nuvem
@@ -137,6 +141,7 @@
     ja: 仮想マシン
     zh: 虚拟机
   icon: server
+  heroImage: /assets/hero/virtual-machines.svg
   title:
     en: Virtual Machines
     pt: Máquinas Virtuais

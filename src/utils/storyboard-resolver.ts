@@ -439,7 +439,8 @@ export function getStoryboardLayout(
   const m = getArticleMeta(slug, lang)
   if (!m) return null
   const grid = m.diagram === 'vibecoder' ? VIBECODER_GRID : DEFAULT_GRID
-  return { version: '2.0', ...grid, cells: buildCells(m, lang), metaTitle: m.title }
+  // metaTitle omitted — caller uses content.value.title (already i18n'd from markdown)
+  return { version: '2.0', ...grid, cells: buildCells(m, lang) }
 }
 
 export function hasStoryboardLayout(slug: string): boolean {
@@ -488,9 +489,8 @@ export function getMangaLayout(slug: string, locale: string): MangaPanel[] | nul
   const R = 'bottom-right' as const
   const L = 'bottom-left' as const
 
-  const loc =
-    ((tencentCaptions as Record<string, Record<string, string>>)[locale] ||
-      (tencentCaptions as Record<string, Record<string, string>>).en) as Record<string, string>
+  const loc = ((tencentCaptions as Record<string, Record<string, string>>)[locale] ||
+    (tencentCaptions as Record<string, Record<string, string>>).en) as Record<string, string>
 
   return [
     {
