@@ -59,13 +59,14 @@ findHtmlPages(distDir, '')
 
 // Root (/) goes through Worker for redirect. SSG pages excluded via wildcards.
 // Exclude patterns take priority over include per Cloudflare _routes.json semantics.
-const localeExcludes = ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'].flatMap(l => [
-  `/${l}`,
-  `/${l}/*`,
-])
+// Single-locale build: only the build locale has pages, route everything through Worker
+const buildLocale = process.env.LOCALE
+const localeExcludes = buildLocale
+  ? [] // No excludes — Worker handles all routes for the single locale
+  : ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'].flatMap(l => [`/${l}`, `/${l}/*`])
 const routes = {
   version: 1,
-  include: ['/', '/api/*', '/search'],
+  include: buildLocale ? ['/*'] : ['/', '/api/*', '/search'],
   exclude: [
     ...localeExcludes,
     '/aether-os',
