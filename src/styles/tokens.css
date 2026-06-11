@@ -5,10 +5,10 @@
 
 @theme {
   /* ── Surfaces (dark premium) ── */
-  --color-void: #08090f;
-  --color-deep: #0f1119;
-  --color-mid: #161925;
-  --color-raised: #1e2130;
+  --color-void: oklch(0.12 0.02 270);
+  --color-deep: oklch(0.18 0.02 270);
+  --color-mid: oklch(0.22 0.02 270);
+  --color-raised: oklch(0.28 0.02 270);
 
   /* ── Brand accent ── */
   --color-accent: oklch(0.75 0.18 200);
@@ -20,8 +20,8 @@
   --color-neon-rose: oklch(0.65 0.18 15);
 
   /* ── Text hierarchy ── */
-  --color-bone: #ede6d5;
-  --color-bone-muted: #8b8fa6;
+  --color-bone: oklch(0.93 0.02 85);
+  --color-bone-muted: oklch(0.65 0.02 270);
 
   /* ── Typography ── */
   --font-family-sans: "Inter Variable", "Inter", system-ui, sans-serif;

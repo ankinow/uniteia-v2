@@ -21,7 +21,7 @@ export const StoryboardCell = component$<{ cell: ResolvedCell }>(({ cell }) => {
   return (
     <article
       class={['storyboard-cell', variantClass].join(' ')}
-      style={{ gridArea: cell.gridArea }}
+      style={{ '--sg-area': cell.gridArea }}
       data-cell-id={cell.id}
       data-variant={cell.variant}
     >

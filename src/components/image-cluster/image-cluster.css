@@ -173,11 +173,11 @@
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
-  .image-cluster__item {
-    transition: none !important;
+  .image-cluster .image-cluster__item {
+    transition: none;
   }
 
-  .image-cluster__item:hover {
-    transform: none !important;
+  .image-cluster .image-cluster__item:hover {
+    transform: none;
   }
 }

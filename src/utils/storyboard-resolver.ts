@@ -51,9 +51,9 @@ const N = {
 const JRPG_MAGICA = '/assets/flux/jrpg-magica'
 const JRPG_MINI = `${JRPG_MAGICA}/mini`
 const JRPG = {
-  overview: { src: `${JRPG_MAGICA}/magica-overview-hero.webp`, alt: 'JRPG AI command center' },
-  quickstart: { src: `${JRPG_MAGICA}/magica-quickstart-hero.webp`, alt: 'JRPG tutorial portal' },
-  mcp: { src: `${JRPG_MAGICA}/magica-mcp-server-hero.webp`, alt: 'JRPG server temple' },
+  overview: { src: `${JRPG_MAGICA}/magica-overview-hero.jpg`, alt: 'JRPG AI command center' },
+  quickstart: { src: `${JRPG_MAGICA}/magica-quickstart-hero.jpg`, alt: 'JRPG tutorial portal' },
+  mcp: { src: `${JRPG_MAGICA}/magica-mcp-server-hero.jpg`, alt: 'JRPG server temple' },
 }
 
 // JRPG mini connector variants for magica articles

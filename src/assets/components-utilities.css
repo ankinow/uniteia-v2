@@ -242,7 +242,7 @@
 
   /* M011: Grain 4K overlay (higher quality noise for tactile warmth) */
   .grain-4k {
-    display: none !important;
+    display: none;
   }
 
   /* M011: Paper fiber SVG overlay */
@@ -721,12 +721,12 @@
   }
 
   /* ── Minimalist Cards (BMC / Vercel style overrides) ── */
-  .depth-card,
-  .dopamine-card {
-    border-radius: 9999px !important;
-    border: 1px solid #eaeaea !important;
-    box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1) !important;
-    background: #ffffff !important;
-    color: #171717 !important;
+  .depth-card.depth-card,
+  .dopamine-card.dopamine-card {
+    border-radius: 9999px;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    color: #171717;
   }
 }

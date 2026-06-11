@@ -83,9 +83,9 @@ export const StoryboardGrid = component$<{ layout: ResolvedLayout }>(({ layout }
         ref={gridRef}
         class="storyboard-grid"
         style={{
-          gridTemplateAreas: layout.gridTemplate,
-          gridTemplateColumns: layout.gridColumns,
-          gridTemplateRows: layout.gridRows,
+          '--sg-areas': layout.gridTemplate,
+          '--sg-columns': layout.gridColumns,
+          '--sg-rows': layout.gridRows,
         }}
       >
         {layout.cells.map(cell => (

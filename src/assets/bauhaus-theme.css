@@ -91,3 +91,10 @@
   --color-accent: var(--color-signal-headline);
   --color-border: var(--color-signal-headline);
 }
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .bauhaus-block {
+    transition: none;
+  }
+}

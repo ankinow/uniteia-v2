@@ -198,17 +198,17 @@ a:hover { color: var(--color-accent-hi); }
    ═══════════════════════════════════════════ */
 
 .light {
-  --color-void: #f9f8f4;
-  --color-deep: #f2f1eb;
-  --color-mid: #e9e7df;
-  --color-raised: #ffffff;
-  --color-bone: #1a1a1a;
-  --color-bone-muted: #5a5a5a;
-  --color-washi-teal: #1a8a81; /* Darker teal for accessibility on light bg */
+  --color-void: oklch(0.98 0.005 95);
+  --color-deep: oklch(0.96 0.005 95);
+  --color-mid: oklch(0.93 0.005 95);
+  --color-raised: oklch(1 0 0);
+  --color-bone: oklch(0.22 0 0);
+  --color-bone-muted: oklch(0.48 0 0);
+  --color-washi-teal: oklch(0.56 0.1 190);
 }
 
 .light .btn-primary {
-  color: #ffffff;
+  color: oklch(1 0 0);
 }
 
 .light .share-pill {
@@ -242,11 +242,11 @@ a:hover { color: var(--color-accent-hi); }
 }
 
 .light .living-brief-hero {
-  background: linear-gradient(180deg, #2a2520 0%, #1a1a1a 100%);
+  background: linear-gradient(180deg, oklch(0.25 0.01 60) 0%, oklch(0.22 0 0) 100%);
 }
 
 .light .living-brief-collage {
-  background-color: #fdfcf8;
+  background-color: oklch(0.99 0.005 95);
 }
 
 .light .torn-edges {
@@ -263,7 +263,7 @@ a:hover { color: var(--color-accent-hi); }
     rgba(255, 255, 255, 0)
   );
   background-size: 200% 100%;
-  animation: skeleton-shimmer 1.5s infinite;
+  animation: skeleton-shimmer 400ms infinite;
 }
 
 @keyframes skeleton-shimmer {

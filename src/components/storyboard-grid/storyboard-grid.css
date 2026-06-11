@@ -35,7 +35,7 @@
 
 /* ── Scroll-triggered reveal ── */
 .storyboard-cell {
-  animation: cellReveal 0.6s ease-out both;
+  animation: cellReveal 400ms ease-out both;
 }
 .storyboard-cell:nth-child(1) {
   animation-delay: 0.05s;
@@ -66,8 +66,35 @@
     animation: none;
     opacity: 1;
   }
-}
 
+  .storyboard-cell:hover {
+    transform: none;
+    box-shadow: 4px 4px 0px #111111;
+  }
+
+  .storyboard-cell {
+    transition: none;
+  }
+
+  .storyboard-cell__cta {
+    transition: none;
+  }
+
+  .storyboard-cell__cta--primary::after {
+    transition: none;
+    opacity: 0;
+  }
+
+  .storyboard-cell__mini-image {
+    animation: none;
+    opacity: 0.85;
+    transform: translateY(0) scale(1);
+  }
+
+  .storyboard-cell--cta .storyboard-cell__cta {
+    animation: none;
+  }
+}
 /* ── CTA ripple effect ── */
 .storyboard-cell__cta--primary {
   position: relative;
@@ -95,7 +122,7 @@
 
 /* ── CTA pulse animation on entrance ── */
 .storyboard-cell--cta .storyboard-cell__cta {
-  animation: ctaPulse 2s ease-in-out 0.8s both;
+  animation: ctaPulse 400ms ease-in-out 400ms both;
 }
 
 @keyframes ctaPulse {
@@ -110,18 +137,20 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .storyboard-cell--cta .storyboard-cell__cta {
-    animation: none;
-  }
-}
-
 /* ── Grid ── */
 .storyboard-grid {
   display: grid;
   gap: 1.5rem;
   position: relative;
   z-index: 1;
+  /* Grid layout driven by CSS custom properties (set inline via component) */
+  grid-template-areas: var(--sg-areas);
+  grid-template-columns: var(--sg-columns);
+  grid-template-rows: var(--sg-rows);
+}
+
+.storyboard-grid > .storyboard-cell {
+  grid-area: var(--sg-area);
 }
 
 /* ── Cell base — editorial card ── */
@@ -239,8 +268,8 @@
 /* Full-width diagram/closing cells — allow taller images (override all breakpoints) */
 .storyboard-cell[data-cell-id="diagram"] .storyboard-cell__image,
 .storyboard-cell[data-cell-id="closing"] .storyboard-cell__image {
-  max-height: 500px !important;
-  object-fit: contain !important;
+  max-height: 500px;
+  object-fit: contain;
 }
 
 /* ── Mini connector (kawaii narrative flow) ── */
@@ -412,12 +441,12 @@
   }
 
   .storyboard-grid {
-    grid-template-columns: 1fr !important;
-    grid-template-areas: none !important;
+    grid-template-columns: 1fr;
+    grid-template-areas: none;
   }
 
-  .storyboard-grid > * {
-    grid-area: auto !important;
+  .storyboard-grid > .storyboard-cell {
+    grid-area: auto;
   }
 
   .storyboard-arrows {

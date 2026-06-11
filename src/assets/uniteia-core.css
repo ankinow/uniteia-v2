@@ -153,10 +153,10 @@
 
 /* ── Canvas node transition presets ── */
 .canvas-node-enter {
-  animation: canvas-node-fade-up 0.6s var(--ease-base, cubic-bezier(0.34, 1.56, 0.64, 1)) both;
+  animation: canvas-node-fade-up 400ms var(--ease-base, cubic-bezier(0.34, 1.56, 0.64, 1)) both;
 }
 .canvas-node-enter-stagger {
-  animation: canvas-node-fade-up 0.6s var(--ease-base, cubic-bezier(0.34, 1.56, 0.64, 1)) both;
+  animation: canvas-node-fade-up 400ms var(--ease-base, cubic-bezier(0.34, 1.56, 0.64, 1)) both;
 }
 
 @keyframes canvas-node-fade-up {

@@ -142,7 +142,7 @@
 
 /* Boneco bounce-in animation (scroll-triggered) */
 .boneco-bounce-in {
-  animation: bonecoBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: bonecoBounceIn 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
 @keyframes bonecoBounceIn {
@@ -162,7 +162,7 @@
 /* ── Floating gentle animation for emoticons ── */
 
 .animate-float-gentle {
-  animation: floatGentle 4s ease-in-out infinite;
+  animation: floatGentle 400ms ease-in-out infinite;
 }
 
 @keyframes floatGentle {
@@ -178,7 +178,7 @@
 /* ── Arrow draw animation ── */
 
 .arrow-animated .arrow-body {
-  animation: arrowDrawIn 1.5s ease-out forwards;
+  animation: arrowDrawIn 400ms ease-out forwards;
 }
 
 @keyframes arrowDrawIn {
@@ -188,7 +188,7 @@
 }
 
 .arrow-animated .arrow-head {
-  animation: arrowHeadIn 0.3s 1.2s ease-out both;
+  animation: arrowHeadIn 400ms 400ms ease-out both;
 }
 
 @keyframes arrowHeadIn {
@@ -265,8 +265,8 @@
   max-width: 180px;
 }
 
-.collage-labels > div:hover {
-  transform: scale(1.05) rotate(0deg) !important;
+.living-brief-right .collage-labels > div:hover {
+  transform: scale(1.05) rotate(0deg);
 }
 
 /* ── Connector label with arrow ── */
@@ -278,7 +278,7 @@
 /* ── Motion Canvas: Tape peel on load ── */
 
 .tape-peel {
-  animation: tapePeelIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: tapePeelIn 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
 @keyframes tapePeelIn {
@@ -299,13 +299,13 @@
 /* ── Motion Canvas: Boneco bounce on viewport enter ── */
 
 .boneco-visible {
-  animation: bonecoBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: bonecoBounceIn 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
 /* ── Responsive: mobile collage ── */
 
 .image-float {
-  animation: imageFloat 6s ease-in-out infinite;
+  animation: imageFloat 400ms ease-in-out infinite;
 }
 
 @keyframes imageFloat {
@@ -328,32 +328,32 @@
     min-height: auto;
   }
 
-  .polaroid-card {
-    position: relative !important;
+  .living-brief-collage .polaroid-card {
+    position: relative;
     margin-bottom: 1rem;
   }
 
-  .collage-labels > div {
-    position: relative !important;
-    left: auto !important;
-    top: auto !important;
+  .living-brief-collage .collage-labels > div {
+    position: relative;
+    left: auto;
+    top: auto;
     margin-bottom: 0.5rem;
     max-width: 100%;
   }
 
-  .boneco-wrapper {
-    position: relative !important;
-    left: auto !important;
-    top: auto !important;
+  .living-brief-collage .boneco-wrapper {
+    position: relative;
+    left: auto;
+    top: auto;
     display: inline-block;
     margin: 0.5rem;
   }
 
-  .collage-emoticons .emoticon-badge {
+  .living-brief-collage .collage-emoticons .emoticon-badge {
     display: inline-block;
-    position: relative !important;
-    left: auto !important;
-    top: auto !important;
+    position: relative;
+    left: auto;
+    top: auto;
     margin: 0.25rem;
   }
 }
@@ -362,6 +362,11 @@
 
 @media (prefers-reduced-motion: reduce) {
   .boneco-bounce-in {
+    animation: none;
+    opacity: 1;
+  }
+
+  .boneco-visible {
     animation: none;
     opacity: 1;
   }
@@ -378,6 +383,31 @@
 
   .animate-float-gentle {
     animation: none;
+  }
+
+  .tape-peel {
+    animation: none;
+    opacity: 0.7;
+  }
+
+  .image-float {
+    animation: none;
+  }
+
+  .polaroid-card,
+  .teach-image,
+  .collage-text-block {
+    transition: none;
+  }
+
+  .polaroid-card:hover,
+  .teach-image:hover,
+  .collage-text-block:hover {
+    transform: none;
+  }
+
+  .boneco-puppet:hover {
+    transform: none;
   }
 }
 
