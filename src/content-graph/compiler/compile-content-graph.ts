@@ -295,6 +295,14 @@ function compileSymmetry(nodes: Map<string, ContentNode>): void {
     byCanonicalSlug.set(key, group)
   }
 
+  // Single-locale builds don't require full locale symmetry
+  const buildLocale = process.env.LOCALE
+  const allLocales = [...new Set([...nodes.values()].map(n => n.locale))]
+  if (buildLocale || allLocales.length === 1) {
+    console.log(`[compileSymmetry] Single-locale build (${allLocales[0]}), skipping symmetry check`)
+    return
+  }
+
   for (const [, group] of byCanonicalSlug) {
     const presentLocales = new Set(group.map(n => n.locale))
     const allLocalesPresent = ALL_LOCALES.every(l => presentLocales.has(l))

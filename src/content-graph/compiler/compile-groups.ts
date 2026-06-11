@@ -18,7 +18,17 @@ export function compileGroups(nodes: Map<string, ContentNode>): ContentGroupColl
     const publishedLocales: ContentLocale[] = []
     const missingLocales: ContentLocale[] = []
 
-    for (const loc of REQUIRED_LOCALES) {
+    // Single-locale build: only check the locales actually present
+    console.log(
+      '[compileGroups] buildLocale:',
+      process.env.LOCALE,
+      'isFullySymmetric samples:',
+      groups.slice(0, 2).map(g => g.isFullySymmetric)
+    )
+    const buildLocale = process.env.LOCALE
+    const requiredLocales = buildLocale ? [buildLocale as ContentLocale] : REQUIRED_LOCALES
+
+    for (const loc of requiredLocales) {
       const hasNode = groupNodes.some(
         n => n.locale === loc && n.visibility === 'published' && n.qualityScore >= 95
       )
@@ -29,7 +39,7 @@ export function compileGroups(nodes: Map<string, ContentNode>): ContentGroupColl
       }
     }
 
-    const completionScore = publishedLocales.length / REQUIRED_LOCALES.length
+    const completionScore = publishedLocales.length / requiredLocales.length
     const isFullySymmetric = missingLocales.length === 0
 
     const title = groupNodes[0]?.title ?? canonicalSlug
@@ -50,10 +60,21 @@ export function compileGroups(nodes: Map<string, ContentNode>): ContentGroupColl
   const partial = groups.filter(g => g.completionScore >= 0.5 && g.completionScore < 1)
   const incomplete = groups.filter(g => g.completionScore < 0.5)
   const fullySymmetric = groups.filter(g => g.isFullySymmetric)
-  const publicGroups = groups.filter(g => {
-    if (!g.isFullySymmetric) return false
-    return g.nodes.every(n => n.visibility === 'published' && n.qualityScore >= 95)
-  })
+  // For single-locale builds, all groups with published nodes are public
+  // Single-locale build: accept any group with published nodes
+  console.log(
+    '[compileGroups] buildLocale:',
+    process.env.LOCALE,
+    'isFullySymmetric samples:',
+    groups.slice(0, 2).map(g => g.isFullySymmetric)
+  )
+  const buildLocale = process.env.LOCALE
+  const publicGroups = buildLocale
+    ? groups.filter(g => g.nodes.some(n => n.visibility === 'published' && n.qualityScore >= 95))
+    : groups.filter(g => {
+        if (!g.isFullySymmetric) return false
+        return g.nodes.every(n => n.visibility === 'published' && n.qualityScore >= 95)
+      })
 
   return {
     groups,

@@ -72,6 +72,9 @@ export function serializeGraphArtifacts(graph: ContentGraph): GraphArtifacts {
   })
 
   // Format groups for SerializableGraphV1: it expects ContentGroupCollection structure
+  // Single-locale build: required locales is 1, not 8
+  const buildLocale = process.env.LOCALE
+  const requiredLocaleCount = buildLocale ? 1 : 8
   const groupsList = Array.from(graph.groups.entries()).map(([canonicalSlug, groupNodes]) => {
     return {
       canonicalSlug,
@@ -80,8 +83,8 @@ export function serializeGraphArtifacts(graph: ContentGraph): GraphArtifacts {
       nodes: groupNodes,
       publishedLocales: groupNodes.map(n => n.locale),
       missingLocales: [] as import('../contracts/node').ContentLocale[],
-      completionScore: groupNodes.length / 8,
-      isFullySymmetric: groupNodes.length >= 8,
+      completionScore: groupNodes.length / requiredLocaleCount,
+      isFullySymmetric: groupNodes.length >= requiredLocaleCount,
     }
   })
 
@@ -98,11 +101,15 @@ export function serializeGraphArtifacts(graph: ContentGraph): GraphArtifacts {
         incomplete: groupsList.filter(g => g.completionScore < 0.5),
       },
       fullySymmetric: groupsList.filter(g => g.isFullySymmetric),
-      publicGroups: groupsList.filter(
-        g =>
-          g.isFullySymmetric &&
-          g.nodes.every(n => n.visibility === 'published' && n.qualityScore >= 95)
-      ),
+      publicGroups: buildLocale
+        ? groupsList.filter(g =>
+            g.nodes.some(n => n.visibility === 'published' && n.qualityScore >= 95)
+          )
+        : groupsList.filter(
+            g =>
+              g.isFullySymmetric &&
+              g.nodes.every(n => n.visibility === 'published' && n.qualityScore >= 95)
+          ),
     },
     indexes: {
       byId,

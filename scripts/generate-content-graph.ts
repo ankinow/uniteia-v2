@@ -58,9 +58,24 @@ function normalizeFactoryNode(node: Record<string, unknown>): string {
 }
 
 async function main() {
-  console.log('[content-graph] Generating content graph...')
+  const buildLocale = process.env.LOCALE || 'en'
+  console.log(`[content-graph] Generating content graph for locale: ${buildLocale}...`)
 
   const { contentRegistry } = await import('../src/content-registry.generated')
+  // Filter registry to only include entries for the build locale
+  // contentRegistry is Record<string, string> with keys like './content/apex/en/slug.md'
+  const filteredRegistry: Record<string, string> = {}
+  let totalEntries = 0
+  for (const [key, value] of Object.entries(contentRegistry)) {
+    totalEntries++
+    const localeMatch = key.match(/\/content\/apex\/([a-z]{2})\//)
+    if (localeMatch && localeMatch[1] === buildLocale) {
+      filteredRegistry[key] = value
+    }
+  }
+  console.log(
+    `[content-graph] Filtered registry: ${Object.keys(filteredRegistry).length} entries (from ${totalEntries})`
+  )
 
   // Load factory-provided ContentNodes from content-metadata dirs
   const factoryNodes: Record<string, unknown> = {}
@@ -90,9 +105,9 @@ async function main() {
   }
 
   const graph = compileContentGraph({
-    registry: contentRegistry,
-    locales: ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'],
-    defaultLocale: 'en',
+    registry: filteredRegistry,
+    locales: [buildLocale],
+    defaultLocale: buildLocale,
     // biome-ignore lint/suspicious/noExplicitAny: factory nodes come from dynamic LLM output with unknown shape
     factoryNodes: factoryNodes as Record<string, any>,
   })
