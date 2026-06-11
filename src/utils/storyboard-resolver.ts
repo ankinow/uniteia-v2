@@ -48,7 +48,7 @@ const N = {
 }
 
 // JRPG hero variants for magica articles
-const JRPG_MAGICA = '/assets/flux/jrpg-magica'
+const JRPG_MAGICA = '/assets/jrpg-magica'
 const JRPG_MINI = `${JRPG_MAGICA}/mini`
 const JRPG = {
   overview: { src: `${JRPG_MAGICA}/magica-overview-hero.jpg`, alt: 'JRPG AI command center' },
@@ -59,7 +59,7 @@ const JRPG = {
 // JRPG mini connector variants for magica articles
 const JRPG_N = {
   intro: { src: `${JRPG_MINI}/mini-waving-goodbye.webp`, alt: 'JRPG waving hand' },
-  countdown: { src: `${JRPG_MINI}/mini-countdown-3.webp`, alt: 'JRPG countdown 3' },
+  countdown: { src: `${JRPG_MINI}/mini-countdown-4.webp`, alt: 'JRPG countdown 4' },
   pointing: { src: `${JRPG_MINI}/mini-pointing-right.webp`, alt: 'JRPG pointing right' },
   thinking: { src: `${JRPG_MINI}/mini-thinking-brain.webp`, alt: 'JRPG thinking brain' },
   routing: { src: `${JRPG_MINI}/mini-routing-arrows.webp`, alt: 'JRPG routing arrows' },
