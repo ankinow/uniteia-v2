@@ -1,7 +1,6 @@
 import { writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { contentGraphData } from '../src/content-graph.generated'
-import { SUPPORTED_LANGUAGES } from '../src/i18n/types'
 import { buildRobotsTxt, formatSitemapDate } from '../src/utils/sitemap-builder'
 
 interface SitemapEntry {
@@ -11,11 +10,22 @@ interface SitemapEntry {
 }
 
 async function generate() {
-  const origin = process.env.DOMAIN || 'https://uniteia.com'
+  const buildLocale = process.env.LOCALE || 'en'
+  // Single-locale: use subdomain origin (e.g., https://pt.uniteia.com)
+  // Multi-locale fallback: use configured DOMAIN or uniteia.com
+  const origin =
+    process.env.DOMAIN ||
+    (buildLocale ? `https://${buildLocale}.uniteia.com` : 'https://uniteia.com')
+  const apexDomain = 'uniteia.com'
   const distDir = join(process.cwd(), 'dist')
   const today = new Date().toISOString().split('T')[0]
 
-  console.log(`📍 Generating SEO files for ${origin}...`)
+  console.log(`📍 Generating SEO files for locale=${buildLocale} origin=${origin}...`)
+
+  // Filter nodes to build locale only
+  const localeNodes = buildLocale
+    ? contentGraphData.nodes.filter(n => n.locale === buildLocale)
+    : contentGraphData.nodes
 
   try {
     // Group nodes by canonicalSlug for locale-aware URL generation
@@ -30,100 +40,78 @@ async function generate() {
       })
     }
 
-    // Collect unique niches from all nodes
+    // Collect unique niches from locale nodes
     const allNiches = new Set<string>()
-    for (const node of contentGraphData.nodes) {
+    for (const node of localeNodes) {
       for (const n of node.niche) {
         allNiches.add(n)
       }
     }
 
-    const entries: string[] = []
-    // Root — priority 0.9
-    entries.push(
-      `  <url>
-    <loc>${origin}/</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>`
-    )
+    // Get locale origin for hreflang
+    const getLocaleOrigin = (code: string) => `https://${code}.${apexDomain}`
 
-    // Language index pages — priority 0.8
-    for (const l of SUPPORTED_LANGUAGES) {
+    const entries: string[] = []
+
+    // Root — only for multi-locale or build locale home
+    if (!buildLocale) {
       entries.push(
-        `  <url>
-    <loc>${origin}/${l.code}/signals</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>`
+        `  <url>\n    <loc>${origin}/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.9</priority>\n  </url>`
       )
     }
 
-    // Niche listing pages — priority 0.6
-    for (const l of SUPPORTED_LANGUAGES) {
-      for (const niche of allNiches) {
-        entries.push(
-          `  <url>
-    <loc>${origin}/${l.code}/signals/${niche}</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>`
-        )
-      }
+    // Home page for build locale
+    entries.push(
+      `  <url>\n    <loc>${origin}/${buildLocale}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.9</priority>\n  </url>`
+    )
+
+    // Signals index for build locale
+    entries.push(
+      `  <url>\n    <loc>${origin}/${buildLocale}/signals</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>0.8</priority>\n  </url>`
+    )
+
+    // Niche listing pages for build locale
+    for (const niche of allNiches) {
+      entries.push(
+        `  <url>\n    <loc>${origin}/${buildLocale}/signals/${niche}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.6</priority>\n  </url>`
+      )
     }
 
-    // Legal pages (privacy, terms) — priority 0.3
-    for (const l of SUPPORTED_LANGUAGES) {
-      for (const legalSlug of ['privacy', 'terms']) {
-        entries.push(
-          `  <url>
-    <loc>${origin}/${l.code}/${legalSlug}</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>`
-        )
-      }
+    // Legal pages for build locale
+    for (const legalSlug of ['privacy', 'terms']) {
+      entries.push(
+        `  <url>\n    <loc>${origin}/${buildLocale}/${legalSlug}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.3</priority>\n  </url>`
+      )
     }
 
-    // Build sitemap entries from graph data — articles, priority 0.8
-    for (const nodeId of contentGraphData.indexes.sitemapEligible) {
-      const idx = contentGraphData.indexes.byId[nodeId]
-      if (idx === undefined) continue
-      const node = contentGraphData.nodes[idx]
-      if (!node) continue
+    // Build sitemap entries from graph data — articles for build locale
+    const publicNodes = localeNodes.filter(n => n.visibility === 'published')
 
+    for (const node of publicNodes) {
       const firstNiche = node.niche[0] ?? 'apex'
       const loc = `${origin}/${node.locale}/signals/${firstNiche}/${node.slug}`
       const lastmodDate = formatSitemapDate(node.timestamps.updatedAt)
       const lastmod = lastmodDate ? `    <lastmod>${lastmodDate}</lastmod>\n` : ''
 
+      // hreflang alternates pointing to locale subdomains
       const group = byCanonical.get(node.canonicalSlug) ?? []
       const hreflangLines = group
         .filter(v => v.lang !== node.locale)
         .map(
           v =>
-            `    <xhtml:link rel="alternate" hreflang="${v.lang}" href="${origin}/${v.lang}/signals/${firstNiche}/${v.slug}" />`
+            `    <xhtml:link rel="alternate" hreflang="${v.lang}" href="${getLocaleOrigin(v.lang)}/${v.lang}/signals/${firstNiche}/${v.slug}" />`
         )
 
       const hasEn = group.some(v => v.lang === 'en')
       if (hasEn) {
         const enSlug = group.find(v => v.lang === 'en')?.slug ?? node.slug
         hreflangLines.push(
-          `    <xhtml:link rel="alternate" hreflang="x-default" href="${origin}/en/signals/${firstNiche}/${enSlug}" />`
+          `    <xhtml:link rel="alternate" hreflang="x-default" href="${getLocaleOrigin('en')}/en/signals/${firstNiche}/${enSlug}" />`
         )
       }
 
       entries.push(
-        `  <url>
-    <loc>${loc}</loc>
-${lastmod}    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-${hreflangLines.join('\n')}
-  </url>`
+        `  <url>\n    <loc>${loc}</loc>\n${lastmod}    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n${hreflangLines.join('\n')}\n  </url>`
       )
     }
 

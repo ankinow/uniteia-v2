@@ -286,13 +286,13 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
   const alternateLinks: AlternateLink[] = SUPPORTED_LANGUAGES.map(l => ({
     rel: 'alternate',
     hreflang: l.code,
-    href: canonicalUrl(url.origin, `/${l.code}/signals/${getNicheSlug(data.niche, l.code)}`),
+    href: canonicalUrl(`https://${l.code}.uniteia.com`, `/${l.code}/signals/${params.niche}`),
   }))
 
   alternateLinks.push({
     rel: 'alternate',
     hreflang: 'x-default',
-    href: xdefaultUrl(url.origin, nicheStr),
+    href: xdefaultUrl('https://en.uniteia.com', params.niche),
   })
 
   return {

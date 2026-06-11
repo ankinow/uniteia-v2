@@ -632,13 +632,13 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
     SUPPORTED_LANGUAGES.map(l => ({
       rel: 'alternate' as const,
       hreflang: l.code,
-      href: canonicalUrl(url.origin, `/${l.code}/signals/${niche}/${slug}`),
+      href: canonicalUrl(`https://${l.code}.uniteia.com`, `/${l.code}/signals/${niche}/${slug}`),
     }))
 
   alternateLinks.push({
     rel: 'alternate',
     hreflang: 'x-default',
-    href: xdefaultUrl(url.origin, niche, slug),
+    href: xdefaultUrl('https://en.uniteia.com', niche, slug),
   })
 
   const description = extractDescription(content.content)

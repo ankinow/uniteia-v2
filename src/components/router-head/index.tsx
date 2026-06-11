@@ -29,9 +29,13 @@ function buildHreflangAlternates(
   const tail = firstIsLocale ? parts.slice(1).join('/') : parts.join('/')
   const tailSegment = tail ? `/${tail}` : ''
 
+  // Multi-domain: each locale has its own subdomain
+  // en -> en.uniteia.com, pt -> pt.uniteia.com, etc.
+  const apexDomain = 'uniteia.com'
+
   return LOCALE_CODES.map(code => ({
     hreflang: code,
-    href: `${origin}/${code}${tailSegment}`,
+    href: `https://${code}.${apexDomain}/${code}${tailSegment}`,
   }))
 }
 
@@ -108,7 +112,7 @@ export const RouterHead = component$(() => {
       {alternates.map(alt => (
         <link key={alt.hreflang} rel="alternate" hreflang={alt.hreflang} href={alt.href} />
       ))}
-      <link rel="alternate" href={`${loc.url.origin}/en/`} hreflang="x-default" />
+      <link rel="alternate" href="https://en.uniteia.com/" hreflang="x-default" />
 
       {/* Dynamic og:locale — derived from current URL locale */}
       <meta property="og:locale" content={ogLocale} />
