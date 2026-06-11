@@ -475,7 +475,11 @@ function startAnimation(
       return
     }
 
-    const seg = segments[currentSeg]!
+    const seg = segments[currentSeg]
+    if (!seg) {
+      drawComplete(ctx, w, h, segments)
+      return
+    }
     const elapsed = timestamp - startTime
     const easeT = Math.min(elapsed / seg.duration, 1)
 
@@ -486,7 +490,8 @@ function startAnimation(
 
     // Draw completed segments fully
     for (let i = 0; i < currentSeg; i++) {
-      const doneSeg = segments[i]!
+      const doneSeg = segments[i]
+      if (!doneSeg) continue
       ctx.strokeStyle = doneSeg.color
       ctx.lineWidth = 1.5
       ctx.globalAlpha = 0.6

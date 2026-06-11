@@ -140,6 +140,7 @@ export const StoryboardCell = component$<{ cell: ResolvedCell }>(({ cell }) => {
       {cell.arrowTo && cell.arrowTo.length > 0 && (
         <div class="storyboard-cell__arrow-indicator" aria-hidden="true">
           <svg width="24" height="12" viewBox="0 0 24 12">
+            <title>Arrow indicator</title>
             <path d="M0,6 L20,6" stroke="currentColor" stroke-width="1.5" fill="none" />
             <polygon points="20,1 24,6 20,11" fill="currentColor" />
           </svg>

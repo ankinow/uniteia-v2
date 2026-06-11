@@ -47,7 +47,10 @@ export const TableOfContents = component$(() => {
       { rootMargin: '-10% 0px -80% 0px' }
     )
 
-    document.querySelectorAll('article h2, article h3').forEach(h => observer.observe(h))
+    const headings = document.querySelectorAll('article h2, article h3')
+    for (const h of headings) {
+      observer.observe(h)
+    }
 
     return () => observer.disconnect()
   })

@@ -23,7 +23,7 @@ export const FlagIcon = component$<FlagIconProps>(({ size = 40, class: className
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      {/* flag pole */}
+      <title>Flag icon</title>
       <path d="M 10 5.2 L 10.2 35" />
       {/* pole base nub */}
       <path d="M 7.6 35 L 12.8 35" />

@@ -140,13 +140,13 @@ export const BioOrganicOverlay = component$<BioOrganicOverlayProps>(props => {
     // Parse color - handle undefined color prop
     const colorValue = color ?? 'oklch(65% 0.15 140)'
     const colorMatch = colorValue.match(/oklch\(([\d.]+)%\s+([\d.]+)\s+([\d.]+)/)
-    const [hL, hC, hH] = colorMatch
-      ? [
-          Number.parseFloat(colorMatch[1]!),
-          Number.parseFloat(colorMatch[2]!),
-          Number.parseFloat(colorMatch[3]!),
-        ]
-      : [65, 0.15, 140]
+    const c1 = colorMatch?.[1]
+    const c2 = colorMatch?.[2]
+    const c3 = colorMatch?.[3]
+    const [hL, hC, hH] =
+      c1 && c2 && c3
+        ? [Number.parseFloat(c1), Number.parseFloat(c2), Number.parseFloat(c3)]
+        : [65, 0.15, 140]
 
     const drawBranch = (b: Branch, px: number, py: number, t: number) => {
       const mx = mouseX.value

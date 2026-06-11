@@ -23,7 +23,7 @@ export const MagnetIcon = component$<MagnetIconProps>(({ size = 40, class: class
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      {/* horseshoe outer curve */}
+      <title>Magnet icon</title>
       <path d="M 9 32 L 9 17 C 9 11.5 13.6 7 19.2 6.8 C 25 6.7 30.1 11 30.2 16.9 L 30.2 32" />
       {/* horseshoe inner curve */}
       <path d="M 14 32 L 14 17.2 C 14.1 13.6 17 10.9 20.4 11 C 24.1 11.1 26.3 14 26.2 17.4 L 26.2 32" />

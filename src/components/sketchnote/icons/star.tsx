@@ -23,7 +23,7 @@ export const StarIcon = component$<StarIconProps>(({ size = 40, class: className
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      {/* 5-point star (amber accent fill, slight irregularity) */}
+      <title>Star icon</title>
       <path
         d="M 17 6.6 L 20.2 13.6 L 27.8 14.4 C 28.4 14.5 28.6 15.2 28.2 15.6 L 22.6 20.8 L 24.4 28.2 C 24.6 28.8 24 29.2 23.5 28.9 L 17 25.2 L 10.4 29 C 9.9 29.3 9.4 28.9 9.5 28.3 L 11.3 20.8 L 5.7 15.7 C 5.3 15.3 5.5 14.6 6.1 14.5 L 13.7 13.7 L 16.4 6.6 C 16.6 6 17.4 6 17 6.6 Z"
         fill="oklch(72% 0.165 80)"

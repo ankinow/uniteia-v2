@@ -23,7 +23,7 @@ export const CodeIcon = component$<CodeIconProps>(({ size = 40, class: className
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      {/* left bracket "<" (cyan accent) */}
+      <title>Code icon</title>
       <path d="M 15 12.6 L 7 20 L 15 27.4" stroke="oklch(70% 0.18 200)" />
       {/* right bracket ">" (cyan accent) */}
       <path d="M 25 12.6 L 33 20 L 25 27.4" stroke="oklch(70% 0.18 200)" />

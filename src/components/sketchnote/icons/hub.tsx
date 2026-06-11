@@ -23,7 +23,7 @@ export const HubIcon = component$<HubIconProps>(({ size = 40, class: className }
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      {/* connecting lines (slight wobble for hand-drawn feel) */}
+      <title>Hub icon</title>
       <path d="M 20 14.5 L 20 8" stroke="oklch(60% 0.01 240)" />
       <path d="M 25.6 21.4 L 32 25.8" stroke="oklch(60% 0.01 240)" />
       <path d="M 14.4 21.4 L 8 25.8" stroke="oklch(60% 0.01 240)" />

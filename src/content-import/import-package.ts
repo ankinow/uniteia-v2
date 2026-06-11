@@ -55,7 +55,8 @@ export function importPackage(packageDir: string, manifest: Manifest): ImportedP
   // See: ESTUDO-CONTENT-PACKAGE-CONTRACT-v2.md §Evidencia #10
   const isAudited = typeof manifestQ.overallScore === 'number'
   if (!isAudited && factoryNodes.length > 0) {
-    const warning = `content-not-audited: qualityScore is a placeholder (50). Content was exported without W16 QualityAuditorAgent. Treat as draft.`
+    const warning =
+      'content-not-audited: qualityScore is a placeholder (50). Content was exported without W16 QualityAuditorAgent. Treat as draft.'
     ;(manifestQ.warnings as string[]).push(warning)
   }
 

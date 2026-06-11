@@ -7,6 +7,7 @@ import render from './entry.ssr'
 
 const qwikCityHandler = createQwikCity({ render, qwikCityPlan, manifest })
 
+// biome-ignore lint/suspicious/noExplicitAny: Cloudflare Pages handler signature
 export const onRequest = async (request: any, env: any, ctx: any) => {
   const url = new URL(request.url)
 

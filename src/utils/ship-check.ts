@@ -139,6 +139,7 @@ export async function runShipCheckStep(
       cwd: process.cwd(),
       env: spawnEnv,
       stdio: 'inherit',
+      // biome-ignore lint/suspicious/noExplicitAny: spawn type varies between Node/Bun runtimes
     }) as any
 
     let settled = false

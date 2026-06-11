@@ -88,8 +88,8 @@ export const LivingBriefCollage = component$<LivingBriefCollageProps>(
   }) => {
     const collageRef = useSignal<HTMLDivElement>()
     const scrollProgress = useSignal(0)
-    const visibleBonecos = useSignal<Set<string>>(new Set())
-    const isLoaded = useSignal(false)
+    const _visibleBonecos = useSignal<Set<string>>(new Set())
+    const _isLoaded = useSignal(false)
 
     // ... (VisibleTask remains same)
 

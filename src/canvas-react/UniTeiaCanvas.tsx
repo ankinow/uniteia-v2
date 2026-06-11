@@ -21,6 +21,7 @@ const customShapes = [
   KawaiiLivingShapeUtil,
 ]
 
+// biome-ignore lint/suspicious/noExplicitAny: tldraw editor ref is third-party
 const templateLoaders: Record<string, (editor: any, locale: string) => void> = {
   '01': loadTemplate_01,
   '02': loadTemplate_02,

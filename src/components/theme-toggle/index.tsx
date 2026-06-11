@@ -38,6 +38,7 @@ export const ThemeToggle = component$(() => {
     >
       {theme.value === 'dark' ? (
         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <title>Light mode</title>
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -46,6 +47,7 @@ export const ThemeToggle = component$(() => {
         </svg>
       ) : (
         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <title>Dark mode</title>
           <path
             stroke-linecap="round"
             stroke-linejoin="round"

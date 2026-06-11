@@ -489,8 +489,8 @@ export function getMangaLayout(slug: string, locale: string): MangaPanel[] | nul
   const L = 'bottom-left' as const
 
   const loc =
-    (tencentCaptions as Record<string, any>)[locale] ||
-    (tencentCaptions as Record<string, any>)['en']
+    ((tencentCaptions as Record<string, Record<string, string>>)[locale] ||
+      (tencentCaptions as Record<string, Record<string, string>>).en) as Record<string, string>
 
   return [
     {
@@ -503,7 +503,7 @@ export function getMangaLayout(slug: string, locale: string): MangaPanel[] | nul
       kawaiiPos: R,
       step: 1,
       total: T,
-      title: loc['P01-hook'],
+      title: loc['P01-hook'] ?? '',
       body: '',
     },
     {
@@ -516,7 +516,7 @@ export function getMangaLayout(slug: string, locale: string): MangaPanel[] | nul
       kawaiiPos: L,
       step: 2,
       total: T,
-      title: loc['P02-myth'],
+      title: loc['P02-myth'] ?? '',
       body: '',
     },
     {
@@ -529,7 +529,7 @@ export function getMangaLayout(slug: string, locale: string): MangaPanel[] | nul
       kawaiiPos: R,
       step: 3,
       total: T,
-      title: loc['P03-promise'],
+      title: loc['P03-promise'] ?? '',
       body: '',
     },
     {
@@ -542,7 +542,7 @@ export function getMangaLayout(slug: string, locale: string): MangaPanel[] | nul
       kawaiiPos: R,
       step: 4,
       total: T,
-      title: loc['P04-analogy'],
+      title: loc['P04-analogy'] ?? '',
       body: '',
     },
     {
@@ -556,7 +556,7 @@ export function getMangaLayout(slug: string, locale: string): MangaPanel[] | nul
       step: 5,
       total: T,
       wide: true,
-      title: loc['P05-architecture-(wide)'],
+      title: loc['P05-architecture-(wide)'] ?? '',
       list: ['Lighthouse: VPS', 'CVM: compute', 'EdgeOne: CDN', 'IAM: 1 account'],
     },
     {
@@ -569,7 +569,7 @@ export function getMangaLayout(slug: string, locale: string): MangaPanel[] | nul
       kawaiiPos: L,
       step: 6,
       total: T,
-      title: loc['P06-code-peek'],
+      title: loc['P06-code-peek'] ?? '',
       codeSnippet:
         'tccli lighthouse CreateInstance --bundle bundle2022_gen_01 --blueprint wordpress',
     },
@@ -583,7 +583,7 @@ export function getMangaLayout(slug: string, locale: string): MangaPanel[] | nul
       kawaiiPos: R,
       step: 7,
       total: T,
-      title: loc['P07-decision'],
+      title: loc['P07-decision'] ?? '',
       list: ['VPS? Lighthouse', 'Scale? CVM', 'CDN? EdgeOne'],
     },
     {
@@ -596,7 +596,7 @@ export function getMangaLayout(slug: string, locale: string): MangaPanel[] | nul
       kawaiiPos: R,
       step: 8,
       total: T,
-      title: loc['P08-warning'],
+      title: loc['P08-warning'] ?? '',
       list: ['DONT over-provision', 'AVOID static', 'NEVER skip CDN'],
     },
     {
@@ -609,7 +609,7 @@ export function getMangaLayout(slug: string, locale: string): MangaPanel[] | nul
       kawaiiPos: L,
       step: 9,
       total: T,
-      title: loc['P09-benchmark'],
+      title: loc['P09-benchmark'] ?? '',
       list: ['S5: $12/mo', 'SA2: $18', 'GPU: $45', 'Bundle -30%'],
     },
     {
@@ -623,7 +623,7 @@ export function getMangaLayout(slug: string, locale: string): MangaPanel[] | nul
       step: 10,
       total: T,
       wide: true,
-      title: loc['P10-hands-on-(wide)'],
+      title: loc['P10-hands-on-(wide)'] ?? '',
       codeSnippet: 'tccli lighthouse CreateInstance\n# WordPress online em 30s',
     },
     {
@@ -636,7 +636,7 @@ export function getMangaLayout(slug: string, locale: string): MangaPanel[] | nul
       kawaiiPos: R,
       step: 11,
       total: T,
-      title: loc['P11-result'],
+      title: loc['P11-result'] ?? '',
       body: '$3.27/mo. Public IP.',
     },
     {
@@ -649,7 +649,7 @@ export function getMangaLayout(slug: string, locale: string): MangaPanel[] | nul
       kawaiiPos: R,
       step: 12,
       total: T,
-      title: loc['P12-next-step'],
+      title: loc['P12-next-step'] ?? '',
       body: 'Monitor. Scale. Dominate.',
     },
   ]

@@ -78,7 +78,6 @@ export const KindlePlayground = component$<KindlePlaygroundProps>(
             <div
               class="text-bone leading-relaxed [&_p]:mb-4 [&_p]:max-w-prose"
               style={{ lineHeight: '1.8' }}
-              // biome-ignore lint/security/noDangerouslySetInnerHtml: safe HTML content from compiled MDX
               dangerouslySetInnerHTML={content}
             />
           </article>

@@ -24,8 +24,8 @@ export const CopyCode = component$(() => {
 
     const setupButtons = () => {
       const preBlocks = document.querySelectorAll('pre')
-      preBlocks.forEach(pre => {
-        if (pre.querySelector('.copy-code-btn')) return
+      for (const pre of preBlocks) {
+        if (pre.querySelector('.copy-code-btn')) continue
 
         pre.style.position = 'relative'
         const btn = document.createElement('button')
@@ -41,7 +41,7 @@ export const CopyCode = component$(() => {
         }
 
         pre.appendChild(btn)
-      })
+      }
     }
 
     setupButtons()
@@ -55,7 +55,9 @@ export const CopyCode = component$(() => {
 
   return (
     <style
-      dangerouslySetInnerHTML={`.copy-code-btn { opacity: 0; } pre:hover .copy-code-btn { opacity: 1; }`}
+      dangerouslySetInnerHTML={
+        '.copy-code-btn { opacity: 0; } pre:hover .copy-code-btn { opacity: 1; }'
+      }
     />
   )
 })

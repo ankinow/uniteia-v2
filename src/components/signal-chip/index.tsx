@@ -35,15 +35,15 @@ export const ALL_QUALITY_BANDS: QualityBand[] = ['high', 'mid', 'low']
  */
 export function qualityScoreToHue(score: number, variant: SignalChipVariant = 'moderator'): string {
   const isWarm = variant === 'writer' || variant === 'analyst'
-  const hue = isWarm ? 73 : 260
+  const _hue = isWarm ? 73 : 260
 
   if (score >= 95) {
     return isWarm ? 'oklch(76% 0.20 73)' : 'oklch(60% 0.25 260)'
-  } else if (score >= 80) {
-    return isWarm ? 'oklch(88% 0.09 73)' : 'oklch(85% 0.08 260)'
-  } else {
-    return isWarm ? 'oklch(94% 0.03 73)' : 'oklch(92% 0.03 260)'
   }
+  if (score >= 80) {
+    return isWarm ? 'oklch(88% 0.09 73)' : 'oklch(85% 0.08 260)'
+  }
+  return isWarm ? 'oklch(94% 0.03 73)' : 'oklch(92% 0.03 260)'
 }
 
 export function qualityScoreToBand(score: number): QualityBand {
@@ -114,6 +114,7 @@ export const SignalChip = component$<SignalChipProps>(
                 '--chip-accent': hue,
                 '--chip-glow': hue.replace(')', ' / 0.35)'),
                 borderLeftColor: hue,
+                // biome-ignore lint/suspicious/noExplicitAny: CSS custom properties require any cast
               } as any)
             : undefined
         }

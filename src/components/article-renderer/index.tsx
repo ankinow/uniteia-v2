@@ -35,7 +35,6 @@ export interface ArticleRendererProps {
 
 const JSONLD = ({ data }: { data: SchemaType }) => {
   const json = JSON.stringify(data, null, 2)
-  // biome-ignore lint/security/noDangerouslySetInnerHtml: needed for JSON-LD
   return <script type="application/ld+json" dangerouslySetInnerHTML={json} />
 }
 
@@ -98,7 +97,6 @@ export const ArticleRenderer = component$<ArticleRendererProps>(
       <>
         <div
           class="prose prose-invert mt-8 max-w-none text-bone-primary prose-a:text-action hover:prose-a:text-action-hi transition-colors"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: content is pre-validated markdown
           dangerouslySetInnerHTML={content.content}
         />
       </>
@@ -110,7 +108,6 @@ export const ArticleRenderer = component$<ArticleRendererProps>(
           <div
             key={idx}
             class="max-w-md rounded-lg border border-action/10 p-2"
-            // biome-ignore lint/security/noDangerouslySetInnerHtml: SVGs are pre-validated
             dangerouslySetInnerHTML={svg}
           />
         ))}
@@ -126,15 +123,12 @@ export const ArticleRenderer = component$<ArticleRendererProps>(
     return (
       <ArticleFrame>
         <JSONLD data={articleSchema} />
-        {!hideHeader && (
-          <>
-            {readTime ? (
-              <AdaptiveHeader title={content.title} subtitle={description} readTime={readTime} />
-            ) : (
-              <AdaptiveHeader title={content.title} subtitle={description} />
-            )}
-          </>
-        )}
+        {!hideHeader &&
+          (readTime ? (
+            <AdaptiveHeader title={content.title} subtitle={description} readTime={readTime} />
+          ) : (
+            <AdaptiveHeader title={content.title} subtitle={description} />
+          ))}
 
         <div class="flex flex-col gap-6">
           <div class="flex justify-between items-center border-b border-white/5 pb-4">

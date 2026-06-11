@@ -24,7 +24,7 @@ export const RobotIcon = component$<RobotIconProps>(({ size = 60, class: classNa
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      {/* antenna stalk */}
+      <title>Robot icon</title>
       <path d="M 30 6.6 L 30 12" />
       {/* antenna bulb (amber accent) */}
       <circle cx="30" cy="4.6" r="1.6" fill="oklch(72% 0.165 80)" stroke="oklch(72% 0.165 80)" />

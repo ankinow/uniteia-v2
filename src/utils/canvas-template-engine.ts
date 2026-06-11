@@ -93,8 +93,8 @@ function kebab(s: string): string {
     .slice(0, 40)
 }
 function uid(base: string, used: Set<string>): string {
-  let id = base,
-    c = 1
+  let id = base
+  let c = 1
   while (used.has(id)) id = `${base}-${c++}`
   return id
 }
@@ -106,7 +106,8 @@ function buildSequential(
   tone?: CanvasTone,
   typeFn?: (i: number, total: number) => CanvasNodeType
 ): CanvasDef {
-  const p = PRESETS[presetKey]!
+  const p = PRESETS[presetKey]
+  if (!p) throw new Error(`Unknown canvas preset: ${presetKey}`)
   const useLabels = labels.length >= 2 ? labels : p.labels
   const used = new Set<string>()
   const nodes: CanvasNode[] = []
@@ -123,7 +124,8 @@ function buildSequential(
 
 // ─── neural-branch: tree structure with hero at root ───
 function buildNeuralBranch(labels: string[], tone?: CanvasTone): CanvasDef {
-  const p = PRESETS['neural-branch']!
+  const p = PRESETS['neural-branch']
+  if (!p) throw new Error('Unknown canvas preset: neural-branch')
   const useLabels = labels.length >= 2 ? labels : p.labels
   const used = new Set<string>()
   const nodes: CanvasNode[] = [{ id: 'hero', section: useLabels[0] ?? 'Overview', type: 'hero' }]
@@ -187,9 +189,9 @@ interface Edge {
   toId: string
 }
 
-const NW = 200,
-  NH = 140,
-  GAP = 50
+const _NW = 200
+const NH = 140
+const GAP = 50
 const PAL: Record<string, string> = {
   indigo: 'oklch(0.55 0.15 270)',
   amber: 'oklch(0.65 0.18 85)',
@@ -200,19 +202,19 @@ const PAL: Record<string, string> = {
 }
 
 function bezier(x1: number, y1: number, x2: number, y2: number): string {
-  const mx = (x1 + x2) / 2,
-    my = (y1 + y2) / 2,
-    dx = x2 - x1,
-    dy = y2 - y1
+  const mx = (x1 + x2) / 2
+  const my = (y1 + y2) / 2
+  const dx = x2 - x1
+  const dy = y2 - y1
   return `M ${x1.toFixed(0)} ${y1.toFixed(0)} Q ${(mx - dy * 0.15).toFixed(0)} ${(my + dx * 0.15).toFixed(0)} ${x2.toFixed(0)} ${y2.toFixed(0)}`
 }
 
 function positions(nodes: CanvasNode[], layout: CL, w: number, h: number): Map<string, Pt> {
   const pos = new Map<string, Pt>()
-  const cx = w / 2,
-    cy = h / 2,
-    pad = 60,
-    n = nodes.length
+  const cx = w / 2
+  const cy = h / 2
+  const pad = 60
+  const n = nodes.length
   if (n === 0) return pos
 
   switch (layout) {
@@ -222,17 +224,17 @@ function positions(nodes: CanvasNode[], layout: CL, w: number, h: number): Map<s
       const kids = nodes.slice(1)
       const kc = kids.length
       if (kc === 0) break
-      const uw = w - pad * 2,
-        sx = pad + (uw - uw * 0.8) / 2
+      const uw = w - pad * 2
+      const sx = pad + (uw - uw * 0.8) / 2
       const perRow = Math.ceil(kc / 2)
       for (let i = 0; i < kc; i++) {
         const nd = kids[i]
         if (!nd) continue
-        const row = Math.floor(i / perRow),
-          col = i % perRow
+        const row = Math.floor(i / perRow)
+        const col = i % perRow
         const rc = row === 0 ? perRow : kc - perRow
-        const sp = (uw * 0.8) / Math.max(rc, 1),
-          off = (uw * 0.8 - sp * (rc - 1)) / 2
+        const sp = (uw * 0.8) / Math.max(rc, 1)
+        const off = (uw * 0.8 - sp * (rc - 1)) / 2
         pos.set(nd.id, { x: sx + off + col * sp, y: pad * 1.2 + NH + GAP + row * (NH + GAP) })
       }
       break
@@ -241,8 +243,8 @@ function positions(nodes: CanvasNode[], layout: CL, w: number, h: number): Map<s
       for (let i = 0; i < n; i++) {
         const nd = nodes[i]
         if (!nd) continue
-        const a = i * 1.2,
-          r = 60 + i * 50
+        const a = i * 1.2
+        const r = 60 + i * 50
         pos.set(nd.id, { x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r + i * 10 })
       }
       break
@@ -256,8 +258,8 @@ function positions(nodes: CanvasNode[], layout: CL, w: number, h: number): Map<s
         { x: w * 0.5, y: h * 0.42, iw: w * 0.45 - pad, ih: h * 0.3 },
       ]
       for (let i = 0; i < n; i++) {
-        const nd = nodes[i],
-          z = zones[i % zones.length]
+        const nd = nodes[i]
+        const z = zones[i % zones.length]
         if (!nd || !z) continue
         pos.set(nd.id, {
           x: z.x + z.iw / 2 + (Math.random() - 0.5) * 20,
@@ -275,8 +277,8 @@ function positions(nodes: CanvasNode[], layout: CL, w: number, h: number): Map<s
           pos.set(nd.id, { x: cx, y: cy })
           continue
         }
-        const a = ((i - 1) / (n - 1)) * Math.PI * 2,
-          r = Math.min(w, h) * 0.35
+        const a = ((i - 1) / (n - 1)) * Math.PI * 2
+        const r = Math.min(w, h) * 0.35
         pos.set(nd.id, {
           x: cx + Math.cos(a) * r + (Math.random() - 0.5) * 30,
           y: cy + Math.sin(a) * r + (Math.random() - 0.5) * 30,
@@ -288,8 +290,8 @@ function positions(nodes: CanvasNode[], layout: CL, w: number, h: number): Map<s
 }
 
 function edges(nodes: CanvasNode[], layout: CL): Edge[] {
-  const e: Edge[] = [],
-    ids = nodes.map(n => n.id)
+  const e: Edge[] = []
+  const ids = nodes.map(n => n.id)
   if (ids.length < 2) return e
   const root = ids[0]
   switch (layout) {
@@ -302,8 +304,8 @@ function edges(nodes: CanvasNode[], layout: CL): Edge[] {
     case 'timeline-spiral':
     case 'editorial-collage':
       for (let i = 1; i < ids.length; i++) {
-        const p = ids[i - 1],
-          c = ids[i]
+        const p = ids[i - 1]
+        const c = ids[i]
         if (p && c) e.push({ fromId: p, toId: c })
       }
       break
@@ -313,8 +315,8 @@ function edges(nodes: CanvasNode[], layout: CL): Edge[] {
         if (root && c) e.push({ fromId: root, toId: c })
       }
       for (let i = 2; i < ids.length; i += 2) {
-        const a = ids[i - 1],
-          b = ids[i]
+        const a = ids[i - 1]
+        const b = ids[i]
         if (a && b) e.push({ fromId: a, toId: b })
       }
   }
@@ -326,10 +328,10 @@ export function generateCollageProps(
   canvas: CanvasDef,
   opts: { width: number; height: number }
 ): Record<string, unknown> {
-  const { width: w, height: h } = opts,
-    { nodes, layout, tone } = canvas
-  const ps = positions(nodes, layout, w, h),
-    es = edges(nodes, layout)
+  const { width: w, height: h } = opts
+  const { nodes, layout, tone } = canvas
+  const ps = positions(nodes, layout, w, h)
+  const es = edges(nodes, layout)
 
   const cn = nodes.map(n => {
     const p = ps.get(n.id) ?? { x: w / 2, y: h / 2 }
@@ -347,8 +349,8 @@ export function generateCollageProps(
   })
 
   const ar = es.map((e, i) => {
-    const fp = ps.get(e.fromId) ?? { x: w * 0.1, y: h * 0.5 },
-      tp = ps.get(e.toId) ?? { x: w * 0.9, y: h * 0.5 }
+    const fp = ps.get(e.fromId) ?? { x: w * 0.1, y: h * 0.5 }
+    const tp = ps.get(e.toId) ?? { x: w * 0.9, y: h * 0.5 }
     return {
       id: `arrow-${i}`,
       path: bezier(fp.x, fp.y, tp.x, tp.y),
@@ -359,10 +361,10 @@ export function generateCollageProps(
   })
 
   const nt = es.map((e, i) => {
-    const fp = ps.get(e.fromId),
-      tp = ps.get(e.toId)
-    const mx = ((fp?.x ?? 0) + (tp?.x ?? w)) / 2,
-      my = ((fp?.y ?? 0) + (tp?.y ?? h)) / 2
+    const fp = ps.get(e.fromId)
+    const tp = ps.get(e.toId)
+    const mx = ((fp?.x ?? 0) + (tp?.x ?? w)) / 2
+    const my = ((fp?.y ?? 0) + (tp?.y ?? h)) / 2
     return {
       x: Math.round(mx - 70),
       y: Math.round(my - 20 + (i % 3) * 8),

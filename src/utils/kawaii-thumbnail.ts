@@ -93,7 +93,8 @@ export interface KawaiiThumbnail {
  */
 export function slugToKawaiiMini(slug: string): KawaiiThumbnail {
   const idx = idHash(slug) % MINI_POSES.length
-  const pose: string = MINI_POSES[idx] ?? MINI_POSES[0]!
+  const firstPose = MINI_POSES[0]
+  const pose: string = MINI_POSES[idx] ?? firstPose ?? 'default'
   return {
     src: `/assets/kawaii-vibecoder/mini/mini-${pose}.webp`,
     alt: `Kawaii ${pose.replace(/-/g, ' ')}`,

@@ -115,6 +115,7 @@ export const StoryboardGrid = component$<{ layout: ResolvedLayout }>(({ layout }
               stroke="#1a1a1a"
               strokeWidth={2}
               fill="none"
+              // biome-ignore lint/suspicious/noExplicitAny: JSX spread for SVG marker-end attribute
               {...({ 'marker-end': 'url(#storyboard-arrowhead)' } as any)}
             />
           ))}

@@ -23,7 +23,7 @@ export const FlowIcon = component$<FlowIconProps>(({ size = 40, class: className
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      {/* box 1 */}
+      <title>Flow icon</title>
       <rect x="4" y="14" width="8" height="12" rx="1.4" />
       {/* box 2 */}
       <rect x="16" y="14" width="8" height="12" rx="1.4" />

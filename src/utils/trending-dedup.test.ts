@@ -142,8 +142,13 @@ describe('Trending Dedup (F13 — R27)', () => {
         avatarUrl: '',
       },
     ]
-    const featured: TrendingRepo[] = [repos[0]!]
-    expect(dedupRepos(repos, featured)).toEqual([repos[1]!, repos[2]!])
+    const firstRepo = repos[0]
+    if (!firstRepo) return
+    const featured: TrendingRepo[] = [firstRepo]
+    const r1 = repos[1]
+    const r2 = repos[2]
+    if (!r1 || !r2) return
+    expect(dedupRepos(repos, featured)).toEqual([r1, r2])
   })
 
   test('dedupNews excludes featured news', () => {
@@ -151,7 +156,11 @@ describe('Trending Dedup (F13 — R27)', () => {
       { id: 100, title: 'A', url: 'http://a', score: 10, by: 'u', time: 1, descendants: 0 },
       { id: 200, title: 'B', url: 'http://b', score: 20, by: 'u', time: 2, descendants: 0 },
     ]
-    const featured: NewsItem[] = [news[0]!]
-    expect(dedupNews(news, featured)).toEqual([news[1]!])
+    const firstNews = news[0]
+    if (!firstNews) return
+    const featured: NewsItem[] = [firstNews]
+    const n1 = news[1]
+    if (!n1) return
+    expect(dedupNews(news, featured)).toEqual([n1])
   })
 })

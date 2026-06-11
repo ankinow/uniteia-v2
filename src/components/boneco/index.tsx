@@ -56,6 +56,7 @@ export const Boneco = component$<BonecoProps>(
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>Boneco icon</title>
         {/* Hair */}
         <ellipse cx={s(32)} cy={s(16)} rx={s(14)} ry={s(10)} fill={c.hair} opacity="0.9" />
         {/* Head */}

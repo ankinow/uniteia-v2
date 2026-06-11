@@ -171,9 +171,7 @@ function parseRegistryEntry(
     qualityDivergence = Math.abs(factoryQuality - computedQuality)
     if (qualityDivergence > 20) {
       console.warn(
-        `⚠️  [cross-validation] qualityScore divergence detected for ${id}: ` +
-          `factory=${factoryQuality} vs computed=${computedQuality} (Δ${qualityDivergence}). ` +
-          `metadataOrigin: factory. Using lower score.`
+        `⚠️  [cross-validation] qualityScore divergence detected for ${id}: factory=${factoryQuality} vs computed=${computedQuality} (Δ${qualityDivergence}). metadataOrigin: factory. Using lower score.`
       )
     }
   }

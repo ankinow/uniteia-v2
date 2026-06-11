@@ -23,7 +23,7 @@ export const CheckIcon = component$<CheckIconProps>(({ size = 40, class: classNa
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      {/* left circle (do) */}
+      <title>Check icon</title>
       <circle cx="12" cy="20" r="7" />
       {/* checkmark inside (green) */}
       <path d="M 8.8 20.2 L 11 22.4 L 15.2 17.6" stroke="oklch(70% 0.20 145)" />

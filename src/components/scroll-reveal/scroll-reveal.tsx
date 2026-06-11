@@ -106,7 +106,8 @@ export const ScrollReveal = component$<ScrollRevealProps>(props => {
               // Hide element again when it scrolls out of view
               const idx = children.indexOf(entry.target as HTMLElement)
               if (idx >= 0) {
-                const child = children[idx]!
+                const child = children[idx]
+                if (!child) return
                 child.style.opacity = '0'
                 switch (direction) {
                   case 'up':
