@@ -47,8 +47,11 @@ export const RouterHead = component$(() => {
   const title = head.title ? head.title : siteName
   const canonicalUrl = loc.url.origin + loc.url.pathname
 
-  // Current locale from build-time env
-  const currentLocale = 'en'
+  // Current locale from URL pathname (first segment)
+  const pathParts = loc.url.pathname.split('/').filter(Boolean)
+  const currentLocale = (pathParts.length > 0 && LOCALE_CODES.includes(pathParts[0] as never))
+    ? pathParts[0]
+    : 'en'
   const ogLocale = BCP47_MAP[currentLocale] || 'en_US'
 
   // hreflang alternates for SEO

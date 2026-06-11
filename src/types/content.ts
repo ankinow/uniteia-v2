@@ -34,6 +34,8 @@ export interface LlmWikiContent {
   lang: SupportedLanguage
   title: string
   content: string
+  /** Curated summary from content graph (SEO-optimized, unique per article) */
+  summary?: string
   subjects: string[]
   referral_links: ReferralLink[]
   metadata?: ArticleMetadata

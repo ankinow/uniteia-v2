@@ -73,13 +73,15 @@ export const useArticle = routeLoader$<LlmWikiContent | null>(async ({ params, e
 
   const { contentGraphProvider } = await import('~/content-graph.generated')
   const node = contentGraphProvider.getNode(slug, lang as ContentLocale)
-  if (!node) {
-    // isPublic check skipped for single-locale debugging
+  if (!node || !contentGraphProvider.isPublic(node)) {
     throw error(404, `Content not found or not published: ${niche}/${slug} (${lang})`)
   }
 
   try {
-    return await loadContent(niche, slug, lang as SupportedLanguage)
+    const content = await loadContent(niche, slug, lang as SupportedLanguage)
+    // Attach curated summary from content graph for SEO (unique per article)
+    content.summary = node.summary
+    return content
   } catch (err) {
     if (err instanceof ContentLoaderError) {
       if (err.phase !== 'read') {
@@ -198,7 +200,7 @@ export default component$(() => {
 
   // JSON-LD WebPage for the current article page (per-locale structured data)
   const pageUrl = canonicalUrl(loc.url.origin, loc.url.pathname + loc.url.search)
-  const description = extractDescription(content.value.content)
+  const description = content.value.summary || extractDescription(content.value.content)
   const webPageSchema = generateWebPageSchema({
     name: content.value.title,
     url: pageUrl,
@@ -279,7 +281,7 @@ export default component$(() => {
         <LivingBrief2Col
           hero={{
             title: content.value.title,
-            subtitle: `${extractDescription(content.value.content)} · ${readTime}`,
+            subtitle: `${content.value.summary || extractDescription(content.value.content)} · ${readTime}`,
             hashtags: content.value.subjects,
             variant:
               (canvasData?.variant as any) ||
@@ -641,7 +643,7 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
     href: xdefaultUrl('https://en.uniteia.com', niche, slug),
   })
 
-  const description = extractDescription(content.content)
+  const description = content.summary || extractDescription(content.content)
 
   return {
     title: t.seo.articleTitleTemplate.replace('{title}', content.title),
