@@ -113,6 +113,9 @@ async function main() {
   })
 
   const artifacts = serializeGraphArtifacts(graph)
+  // Embed build locale so the Worker can detect single-locale mode
+  // (process.env is not available in Cloudflare Workers)
+  artifacts.graph.buildLocale = buildLocale as import('../src/content-graph/contracts/artifacts').SerializableGraphV1['buildLocale']
 
   mkdirSync(GENERATED_DIR, { recursive: true })
 

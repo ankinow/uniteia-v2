@@ -8,6 +8,8 @@ export type ContentGraphVersion = 'content-graph.v1' | 'content-graph.v2' | 'con
 export interface SerializableGraphV1 {
   version: ContentGraphVersion
   generatedAt: string
+  /** The locale this graph was built for (single-locale build) — undefined for full builds */
+  buildLocale?: ContentLocale
   nodes: ContentNode[]
   edges: GraphEdge[]
   groups?: ContentGroupCollection

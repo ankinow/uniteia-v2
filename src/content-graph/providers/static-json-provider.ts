@@ -9,8 +9,9 @@ import type {
 export class StaticJsonContentGraphProvider implements ContentGraphProvider {
   private nodes: Map<string, ContentNode>
   private allNodes: ContentNode[]
+  private singleLocale: boolean
 
-  constructor(nodes: Map<string, ContentNode> | ContentNode[]) {
+  constructor(nodes: Map<string, ContentNode> | ContentNode[], buildLocale?: string) {
     if (nodes instanceof Map) {
       this.nodes = nodes
       this.allNodes = Array.from(nodes.values())
@@ -18,6 +19,8 @@ export class StaticJsonContentGraphProvider implements ContentGraphProvider {
       this.allNodes = nodes
       this.nodes = new Map(nodes.map(n => [n.id, n]))
     }
+    // Single-locale build: detect from buildLocale flag (Works in Worker without process.env)
+    this.singleLocale = !!buildLocale
   }
 
   // Spec methods
@@ -60,9 +63,9 @@ export class StaticJsonContentGraphProvider implements ContentGraphProvider {
     if (node.qualityScore < 95 || node.visibility !== 'published') {
       return false
     }
-    // Single-locale build: skip 8-locale symmetry check
-    if (process.env.LOCALE) return true
-    // Enforce 8-locale symmetry
+    // Single-locale build: skip 8-locale symmetry check (data-driven detection)
+    if (this.singleLocale) return true
+    // Enforce 8-locale symmetry for multi-locale builds
     const group = this.getGroup(node.canonicalSlug)
     if (!group || group.length < 8) return false
     const locales = new Set(group.map(n => n.locale))
