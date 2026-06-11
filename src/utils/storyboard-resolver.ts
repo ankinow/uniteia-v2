@@ -3,7 +3,6 @@ import type { SupportedLanguage } from '~/i18n/types'
 import type { TranslationStrings } from '~/i18n/types'
 import tencentCaptions from './tencent-captions.json'
 
-const WHITEBOARD = '/assets/whiteboard/articles'
 const KAWAII = '/assets/kawaii-vibecoder'
 const VNE_PACK = '/assets/vne/tencent-cloud-deal-stack-builders/panels'
 
@@ -284,14 +283,13 @@ function insightCell(m: ArticleMeta): ResolvedCell {
 function introCell(): ResolvedCell {
   return { id: 'intro', variant: 'mini', gridArea: 'intro1', image: N.intro } as ResolvedCell
 }
-function evidenceCell(m: ArticleMeta, vibecoder: boolean): ResolvedCell {
-  const img = vibecoder ? N.hero : { src: `${WHITEBOARD}/${m.slug}/hero-insight.webp`, alt: m.alt }
+function evidenceCell(_m: ArticleMeta, _vibecoder: boolean): ResolvedCell {
   return {
     id: 'evidence',
     variant: 'evidence',
     gridArea: 'evidence1',
-    title: m.evidenceTitle,
-    image: img,
+    title: _m.evidenceTitle,
+    image: N.hero,
   }
 }
 function diagramCell(m: ArticleMeta, vibecoder: boolean, lang: SupportedLanguage): ResolvedCell {
