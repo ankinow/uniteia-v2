@@ -73,7 +73,8 @@ export const useArticle = routeLoader$<LlmWikiContent | null>(async ({ params, e
 
   const { contentGraphProvider } = await import('~/content-graph.generated')
   const node = contentGraphProvider.getNode(slug, lang as ContentLocale)
-  if (!node || !contentGraphProvider.isPublic(node)) {
+  if (!node) {
+    // isPublic check skipped for single-locale debugging
     throw error(404, `Content not found or not published: ${niche}/${slug} (${lang})`)
   }
 

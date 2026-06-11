@@ -60,6 +60,8 @@ export class StaticJsonContentGraphProvider implements ContentGraphProvider {
     if (node.qualityScore < 95 || node.visibility !== 'published') {
       return false
     }
+    // Single-locale build: skip 8-locale symmetry check
+    if (process.env.LOCALE) return true
     // Enforce 8-locale symmetry
     const group = this.getGroup(node.canonicalSlug)
     if (!group || group.length < 8) return false
