@@ -49,11 +49,25 @@ const N = {
 
 // JRPG hero variants for magica articles
 const JRPG_MAGICA = '/assets/flux/jrpg-magica'
+const JRPG_MINI = `${JRPG_MAGICA}/mini`
 const JRPG = {
   overview: { src: `${JRPG_MAGICA}/magica-overview-hero.webp`, alt: 'JRPG AI command center' },
   quickstart: { src: `${JRPG_MAGICA}/magica-quickstart-hero.webp`, alt: 'JRPG tutorial portal' },
   mcp: { src: `${JRPG_MAGICA}/magica-mcp-server-hero.webp`, alt: 'JRPG server temple' },
 }
+
+// JRPG mini connector variants for magica articles
+const JRPG_N = {
+  intro: { src: `${JRPG_MINI}/mini-waving-goodbye.webp`, alt: 'JRPG waving hand' },
+  countdown: { src: `${JRPG_MINI}/mini-countdown-3.webp`, alt: 'JRPG countdown 3' },
+  pointing: { src: `${JRPG_MINI}/mini-pointing-right.webp`, alt: 'JRPG pointing right' },
+  thinking: { src: `${JRPG_MINI}/mini-thinking-brain.webp`, alt: 'JRPG thinking brain' },
+  routing: { src: `${JRPG_MINI}/mini-routing-arrows.webp`, alt: 'JRPG routing arrows' },
+  dodging: { src: `${JRPG_MINI}/mini-dodging-x.webp`, alt: 'JRPG dodging shield' },
+}
+
+// Article slugs that use JRPG mini connectors
+const JRPG_MINI_SLUGS = new Set(['magica-overview', 'magica-quickstart', 'magica-mcp-server'])
 
 // ─── i18n: Vibecoder step labels ───
 
@@ -288,8 +302,9 @@ function metricCell(m: ArticleMeta): ResolvedCell {
 function insightCell(m: ArticleMeta): ResolvedCell {
   return { id: 'insight-text', variant: 'insight', gridArea: 'insight2', body: m.body }
 }
-function introCell(): ResolvedCell {
-  return { id: 'intro', variant: 'mini', gridArea: 'intro1', image: N.intro } as ResolvedCell
+function introCell(slug: string): ResolvedCell {
+  const img = JRPG_MINI_SLUGS.has(slug) ? JRPG_N.intro : N.intro
+  return { id: 'intro', variant: 'mini', gridArea: 'intro1', image: img } as ResolvedCell
 }
 function evidenceCell(_m: ArticleMeta, _vibecoder: boolean): ResolvedCell {
   const heroImg =
@@ -367,16 +382,17 @@ function ctaCell(m: ArticleMeta): ResolvedCell {
 
 function buildCells(m: ArticleMeta, lang: SupportedLanguage): ResolvedCell[] {
   const v = m.diagram === 'vibecoder'
-  const cells: ResolvedCell[] = [introCell(), metricCell(m), insightCell(m)]
-  if (v) cells.push(mini('beat-countdown', 'beat1', N.countdown))
+  const isMagica = JRPG_MINI_SLUGS.has(m.slug)
+  const cells: ResolvedCell[] = [introCell(m.slug), metricCell(m), insightCell(m)]
+  if (v) cells.push(mini('beat-countdown', 'beat1', isMagica ? JRPG_N.countdown : N.countdown))
   cells.push(evidenceCell(m, v))
-  if (v) cells.push(mini('beat-pointing', 'beat2', N.pointing))
+  if (v) cells.push(mini('beat-pointing', 'beat2', isMagica ? JRPG_N.pointing : N.pointing))
   cells.push(diagramCell(m, v, lang))
   if (v) {
-    cells.push(mini('beat-routing', 'beat3', N.routing))
+    cells.push(mini('beat-routing', 'beat3', isMagica ? JRPG_N.routing : N.routing))
     const cc = codeCell(m, lang)
     if (cc) cells.push(cc)
-    cells.push(mini('beat-dodging', 'beat4', N.dodging))
+    cells.push(mini('beat-dodging', 'beat4', isMagica ? JRPG_N.dodging : N.dodging))
     cells.push(closingCell(lang))
     cells.push(mini('beat-success', 'beat5', N.success))
   }
