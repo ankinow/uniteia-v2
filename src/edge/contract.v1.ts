@@ -65,13 +65,11 @@ export function localeRedirect(
   locale: SupportedLocale,
   search: string
 ): Response {
-  const targetPath = pathname.startsWith('/n')
-    ? pathname === '/n' || pathname === '/n/'
-      ? `/${locale}/n`
-      : `/${locale}${pathname}`
-    : pathname === '/' || pathname === ''
-      ? `/${locale}/`
-      : `/${locale}${pathname}`
+  // In single-locale architecture, do not prefix the URL with locale.
+  // The locale determines content, not the URL path.
+  const targetPath = pathname === '/' || pathname === ''
+    ? '/'
+    : pathname
 
   return new Response(null, {
     status: 302,

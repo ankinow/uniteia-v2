@@ -56,13 +56,13 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
             data-testid="footer-links"
           >
             <a
-              href={staticPage(lang.value, 'privacy')}
+              href={staticPage('privacy')}
               class="text-bone-muted transition-colors duration-200 hover:text-action focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
             >
               {t.footer.links.privacy}
             </a>
             <a
-              href={staticPage(lang.value, 'terms')}
+              href={staticPage('terms')}
               class="text-bone-muted transition-colors duration-200 hover:text-action focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none"
             >
               {t.footer.links.terms}

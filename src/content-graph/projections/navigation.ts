@@ -40,7 +40,7 @@ export function getPublicNavigation(
     items.push({
       nicheSlug,
       label: config.title[locale] ?? config.title.en,
-      href: nicheIndex(locale, nicheSlug),
+      href: nicheIndex(nicheSlug),
       articleCount: nodes.length,
       avgGraphScore: totalScore / nodes.length,
     })

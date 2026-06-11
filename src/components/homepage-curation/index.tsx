@@ -309,7 +309,7 @@ export const TrendingSection = component$<TrendingSectionProps>(({ articles, lan
             </h3>
           </div>
           <a
-            href={`/${lang}/signals/apex/${randomArticle.slug}`}
+            href={`/signals/apex/${randomArticle.slug}`}
             aria-label={`Random article: ${randomArticle.title}`}
             class="random-article-card block p-4 rounded-sm bg-gradient-to-br from-[oklch(0.15_0.04_280/0.8)] to-[oklch(0.10_0.03_280/0.9)] border border-white/10 hover:border-[oklch(0.72_0.165_80/0.3)] transition-[border-color,box-shadow] duration-200"
           >

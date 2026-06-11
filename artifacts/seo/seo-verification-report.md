@@ -1,7 +1,7 @@
 # SEO Verification Report
 
-**Generated:** 2026-06-09T03:56:13.239Z
-**Source:** content-graph.generated (2026-06-09T03:53:02.445Z)
+**Generated:** 2026-06-11T13:58:52.337Z
+**Source:** content-graph.generated (2026-06-11T13:36:16.035Z)
 **Nodes analyzed:** 96
 
 ## Summary
@@ -55,53 +55,53 @@ Verifies that each node's canonical URL resolves to the correct node via the rou
 | Node | Locale | Visibility | Lifecycle | Noindex | Priority | Canonical URL | Alternates |
 |------|--------|------------|-----------|---------|----------|---------------|------------|
 | `en-magica-mcp-server` | en | published | published | false | 95 | /en/signals/apex/magica-mcp-server | es, ja, pt, zh, de, fr, it |
+| `en-multi-agent-vibecoding` | en | published | published | false | 95 | /en/signals/apex/multi-agent-vibecoding | es, ja, pt, zh, de, fr, it |
+| `en-tencent-cloud-deal-stack-builders` | en | published | generated | false | 65 | /en/signals/apex/tencent-cloud-deal-stack-builders | es, ja, pt, zh, de, fr, it |
+| `en-opencode-vibecoders` | en | published | published | false | 95 | /en/signals/apex/opencode-vibecoders | es, ja, pt, zh, de, fr, it |
 | `en-magica-overview` | en | published | published | false | 95 | /en/signals/apex/magica-overview | es, ja, pt, zh, de, fr, it |
 | `en-magica-quickstart` | en | published | published | false | 95 | /en/signals/apex/magica-quickstart | es, ja, pt, zh, de, fr, it |
-| `en-multi-agent-vibecoding` | en | published | published | false | 95 | /en/signals/apex/multi-agent-vibecoding | es, ja, pt, zh, de, fr, it |
-| `en-opencode-vibecoders` | en | published | published | false | 95 | /en/signals/apex/opencode-vibecoders | es, ja, pt, zh, de, fr, it |
-| `en-tencent-cloud-deal-stack-builders` | en | published | generated | false | 65 | /en/signals/apex/tencent-cloud-deal-stack-builders | es, ja, pt, zh, de, fr, it |
 | `es-magica-mcp-server` | es | published | published | false | 95 | /es/signals/apex/magica-mcp-server | en, ja, pt, zh, de, fr, it |
-| `es-magica-overview` | es | published | published | false | 95 | /es/signals/apex/magica-overview | en, ja, pt, zh, de, fr, it |
-| `es-magica-quickstart` | es | published | published | false | 95 | /es/signals/apex/magica-quickstart | en, ja, pt, zh, de, fr, it |
 | `es-multi-agent-vibecoding` | es | published | published | false | 95 | /es/signals/apex/multi-agent-vibecoding | en, ja, pt, zh, de, fr, it |
 | `es-opencode-vibecoders` | es | published | published | false | 95 | /es/signals/apex/opencode-vibecoders | en, ja, pt, zh, de, fr, it |
 | `es-tencent-cloud-deal-stack-builders` | es | published | generated | false | 65 | /es/signals/apex/tencent-cloud-deal-stack-builders | en, ja, pt, zh, de, fr, it |
+| `es-magica-overview` | es | published | published | false | 95 | /es/signals/apex/magica-overview | en, ja, pt, zh, de, fr, it |
+| `es-magica-quickstart` | es | published | published | false | 95 | /es/signals/apex/magica-quickstart | en, ja, pt, zh, de, fr, it |
 | `ja-magica-mcp-server` | ja | published | published | false | 95 | /ja/signals/apex/magica-mcp-server | en, es, pt, zh, de, fr, it |
-| `ja-magica-overview` | ja | published | published | false | 95 | /ja/signals/apex/magica-overview | en, es, pt, zh, de, fr, it |
-| `ja-magica-quickstart` | ja | published | published | false | 95 | /ja/signals/apex/magica-quickstart | en, es, pt, zh, de, fr, it |
 | `ja-multi-agent-vibecoding` | ja | published | published | false | 95 | /ja/signals/apex/multi-agent-vibecoding | en, es, pt, zh, de, fr, it |
 | `ja-opencode-vibecoders` | ja | published | published | false | 95 | /ja/signals/apex/opencode-vibecoders | en, es, pt, zh, de, fr, it |
 | `ja-tencent-cloud-deal-stack-builders` | ja | published | generated | false | 65 | /ja/signals/apex/tencent-cloud-deal-stack-builders | en, es, pt, zh, de, fr, it |
+| `ja-magica-overview` | ja | published | published | false | 95 | /ja/signals/apex/magica-overview | en, es, pt, zh, de, fr, it |
+| `ja-magica-quickstart` | ja | published | published | false | 95 | /ja/signals/apex/magica-quickstart | en, es, pt, zh, de, fr, it |
 | `pt-magica-mcp-server` | pt | published | published | false | 95 | /pt/signals/apex/magica-mcp-server | en, es, ja, zh, de, fr, it |
-| `pt-magica-overview` | pt | published | published | false | 95 | /pt/signals/apex/magica-overview | en, es, ja, zh, de, fr, it |
-| `pt-magica-quickstart` | pt | published | published | false | 95 | /pt/signals/apex/magica-quickstart | en, es, ja, zh, de, fr, it |
 | `pt-multi-agent-vibecoding` | pt | published | published | false | 95 | /pt/signals/apex/multi-agent-vibecoding | en, es, ja, zh, de, fr, it |
 | `pt-opencode-vibecoders` | pt | published | published | false | 95 | /pt/signals/apex/opencode-vibecoders | en, es, ja, zh, de, fr, it |
 | `pt-tencent-cloud-deal-stack-builders` | pt | published | generated | false | 65 | /pt/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, zh, de, fr, it |
+| `pt-magica-overview` | pt | published | published | false | 95 | /pt/signals/apex/magica-overview | en, es, ja, zh, de, fr, it |
+| `pt-magica-quickstart` | pt | published | published | false | 95 | /pt/signals/apex/magica-quickstart | en, es, ja, zh, de, fr, it |
 | `zh-magica-mcp-server` | zh | published | published | false | 95 | /zh/signals/apex/magica-mcp-server | en, es, ja, pt, de, fr, it |
-| `zh-magica-overview` | zh | published | published | false | 95 | /zh/signals/apex/magica-overview | en, es, ja, pt, de, fr, it |
-| `zh-magica-quickstart` | zh | published | published | false | 95 | /zh/signals/apex/magica-quickstart | en, es, ja, pt, de, fr, it |
 | `zh-multi-agent-vibecoding` | zh | published | published | false | 95 | /zh/signals/apex/multi-agent-vibecoding | en, es, ja, pt, de, fr, it |
 | `zh-opencode-vibecoders` | zh | published | published | false | 95 | /zh/signals/apex/opencode-vibecoders | en, es, ja, pt, de, fr, it |
 | `zh-tencent-cloud-deal-stack-builders` | zh | published | generated | false | 65 | /zh/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, de, fr, it |
+| `zh-magica-overview` | zh | published | published | false | 95 | /zh/signals/apex/magica-overview | en, es, ja, pt, de, fr, it |
+| `zh-magica-quickstart` | zh | published | published | false | 95 | /zh/signals/apex/magica-quickstart | en, es, ja, pt, de, fr, it |
 | `de-magica-mcp-server` | de | published | published | false | 95 | /de/signals/apex/magica-mcp-server | en, es, ja, pt, zh, fr, it |
-| `de-magica-overview` | de | published | published | false | 95 | /de/signals/apex/magica-overview | en, es, ja, pt, zh, fr, it |
-| `de-magica-quickstart` | de | published | published | false | 95 | /de/signals/apex/magica-quickstart | en, es, ja, pt, zh, fr, it |
 | `de-multi-agent-vibecoding` | de | published | published | false | 95 | /de/signals/apex/multi-agent-vibecoding | en, es, ja, pt, zh, fr, it |
 | `de-opencode-vibecoders` | de | published | published | false | 95 | /de/signals/apex/opencode-vibecoders | en, es, ja, pt, zh, fr, it |
 | `de-tencent-cloud-deal-stack-builders` | de | published | generated | false | 65 | /de/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, zh, fr, it |
+| `de-magica-overview` | de | published | published | false | 95 | /de/signals/apex/magica-overview | en, es, ja, pt, zh, fr, it |
+| `de-magica-quickstart` | de | published | published | false | 95 | /de/signals/apex/magica-quickstart | en, es, ja, pt, zh, fr, it |
 | `fr-magica-mcp-server` | fr | published | published | false | 95 | /fr/signals/apex/magica-mcp-server | en, es, ja, pt, zh, de, it |
-| `fr-magica-overview` | fr | published | published | false | 95 | /fr/signals/apex/magica-overview | en, es, ja, pt, zh, de, it |
-| `fr-magica-quickstart` | fr | published | published | false | 95 | /fr/signals/apex/magica-quickstart | en, es, ja, pt, zh, de, it |
 | `fr-multi-agent-vibecoding` | fr | published | published | false | 95 | /fr/signals/apex/multi-agent-vibecoding | en, es, ja, pt, zh, de, it |
 | `fr-opencode-vibecoders` | fr | published | published | false | 95 | /fr/signals/apex/opencode-vibecoders | en, es, ja, pt, zh, de, it |
 | `fr-tencent-cloud-deal-stack-builders` | fr | published | generated | false | 65 | /fr/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, zh, de, it |
+| `fr-magica-overview` | fr | published | published | false | 95 | /fr/signals/apex/magica-overview | en, es, ja, pt, zh, de, it |
+| `fr-magica-quickstart` | fr | published | published | false | 95 | /fr/signals/apex/magica-quickstart | en, es, ja, pt, zh, de, it |
 | `it-magica-mcp-server` | it | published | published | false | 95 | /it/signals/apex/magica-mcp-server | en, es, ja, pt, zh, de, fr |
-| `it-magica-overview` | it | published | published | false | 95 | /it/signals/apex/magica-overview | en, es, ja, pt, zh, de, fr |
-| `it-magica-quickstart` | it | published | published | false | 95 | /it/signals/apex/magica-quickstart | en, es, ja, pt, zh, de, fr |
 | `it-multi-agent-vibecoding` | it | published | published | false | 95 | /it/signals/apex/multi-agent-vibecoding | en, es, ja, pt, zh, de, fr |
 | `it-opencode-vibecoders` | it | published | published | false | 95 | /it/signals/apex/opencode-vibecoders | en, es, ja, pt, zh, de, fr |
 | `it-tencent-cloud-deal-stack-builders` | it | published | generated | false | 65 | /it/signals/apex/tencent-cloud-deal-stack-builders | en, es, ja, pt, zh, de, fr |
+| `it-magica-overview` | it | published | published | false | 95 | /it/signals/apex/magica-overview | en, es, ja, pt, zh, de, fr |
+| `it-magica-quickstart` | it | published | published | false | 95 | /it/signals/apex/magica-quickstart | en, es, ja, pt, zh, de, fr |
 | `de-building-ai-agents` | de | published | generated | false | 65 | /de/signals/ai-agents/building-ai-agents | en, es, fr, it, ja, pt, zh |
 | `de-what-are-ai-agents` | de | published | generated | false | 65 | /de/signals/ai-agents/what-are-ai-agents | en, es, fr, it, ja, pt, zh |
 | `en-building-ai-agents` | en | published | generated | false | 65 | /en/signals/ai-agents/building-ai-agents | de, es, fr, it, ja, pt, zh |
@@ -153,4 +153,4 @@ Verifies that each node's canonical URL resolves to the correct node via the rou
 
 ---
 
-*Report generated by scripts/generate-seo-verification.ts at 2026-06-09T03:56:13.240Z*
+*Report generated by scripts/generate-seo-verification.ts at 2026-06-11T13:58:52.337Z*

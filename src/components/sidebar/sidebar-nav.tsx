@@ -2,6 +2,7 @@ import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 import type { NavigationItem } from '~/content-graph/projections'
 import { getTranslation, useI18n } from '~/i18n/context'
 import { localed, searchPage, signalsIndex } from '~/routing/routes'
+import { BUILD_LOCALE } from '~/build-locale'
 
 export interface SidebarNavProps {
   navigationItems: NavigationItem[]
@@ -29,7 +30,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
     <ul class="space-y-2">
       <li>
         <a
-          href={localed(lang)}
+          href={localed()}
           class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none scale-on-press"
           style="text-shadow: none"
           onMouseEnter$={e => {
@@ -46,7 +47,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
       </li>
       <li>
         <a
-          href={signalsIndex(lang)}
+          href={signalsIndex()}
           class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none scale-on-press"
           style="text-shadow: none"
           onMouseEnter$={e => {
@@ -63,7 +64,7 @@ export const SidebarNav = component$<SidebarNavProps>(({ navigationItems }) => {
       </li>
       <li>
         <a
-          href={searchPage(lang)}
+          href={searchPage()}
           class="pixel-cursor block py-2 px-3 text-bone hover:text-cyan hover:bg-cyan/10 transition-colors duration-200 font-pixel text-xs uppercase tracking-wider focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none scale-on-press"
           style="text-shadow: none"
           onMouseEnter$={e => {

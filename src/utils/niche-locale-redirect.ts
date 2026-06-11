@@ -1,6 +1,7 @@
 import { DEFAULT_LOCALE, LOCALE_CODES, type SupportedLocale } from '../edge/contract.v1'
 import { parseAcceptLanguage } from '../edge/parse-accept-language'
 import { countryToLang } from '../i18n/geo-map'
+import { BUILD_LOCALE } from '../build-locale'
 
 const VALID_LANG_CODES = new Set<string>(LOCALE_CODES)
 
@@ -24,6 +25,11 @@ export function chooseNicheFallbackLocale(
   return preferredLang || DEFAULT_LOCALE
 }
 
+/**
+ * Build a redirect path without locale prefix.
+ * In single-locale multi-domain architecture, the locale is determined
+ * at build time and never appears in the URL path.
+ */
 export function buildNicheLocaleRedirectPath(
   pathname: string,
   search: string,
@@ -31,7 +37,9 @@ export function buildNicheLocaleRedirectPath(
   countryCode: string | null = null,
   cookieLang: string | null = null
 ): string {
-  const lang = chooseNicheFallbackLocale(acceptLanguage, countryCode, cookieLang)
+  // Still negotiate locale for cookie-setting / analytics,
+  // but do NOT prefix the URL with it.
+  chooseNicheFallbackLocale(acceptLanguage, countryCode, cookieLang)
 
   // Normalize pathname to remove trailing slash for comparison
   const normalizedPath =
@@ -39,7 +47,5 @@ export function buildNicheLocaleRedirectPath(
 
   const tail = normalizedPath === '/signals' ? '' : normalizedPath.slice('/signals'.length)
 
-  // Ensure /signals or /signals/ goes to /pt/signals (no trailing slash)
-  // Ensure /signals/tail goes to /pt/signals/tail
-  return `/${lang}/signals${tail}${search}`
+  return `/signals${tail}${search}`
 }

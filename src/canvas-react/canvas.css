@@ -1,47 +1,47 @@
-/* UniTeia Canvas — Dark Mode Theme */
+/* UniTeia Canvas — Dark Mode Theme with OKLCH */
 .uniteia-canvas {
   position: fixed;
   inset: 0;
-  background: #0a0a0f;
-  color: #e0e0e0;
+  background: oklch(15.75% 0.015 259.02); /* #0a0a0f */
+  color: oklch(90% 0 0); /* #e0e0e0 */
   font-family: "Inter", "Noto Sans", sans-serif;
 }
 
 /* tldraw canvas overrides */
 .uniteia-canvas .tl-container {
-  background: #0a0a0f !important;
+  background: oklch(15.75% 0.015 259.02) !important;
 }
 
 /* Custom selection color for our shapes */
 .uniteia-canvas .tl-selection .tl-handle {
-  background: #00d4ff !important;
-  border-color: #00d4ff !important;
+  background: oklch(77.53% 0.203 234.33) !important; /* #00d4ff */
+  border-color: oklch(77.53% 0.203 234.33) !important;
 }
 
 .uniteia-canvas .tl-selection .tl-handle:hover {
-  background: #00ffff !important;
+  background: oklch(91.31% 0.165 194.27) !important; /* #00ffff */
 }
 
 /* Dark theme for tldraw UI */
 .uniteia-canvas .tl-ui {
-  background: rgba(10, 10, 15, 0.9) !important;
-  border-color: #1a1a2e !important;
-  color: #e0e0e0 !important;
+  background: oklch(15.75% 0.015 259.02 / 0.9) !important;
+  border-color: oklch(22.6% 0.038 259.02) !important; /* #1a1a2e */
+  color: oklch(90% 0 0) !important;
 }
 
 .uniteia-canvas .tl-button {
-  background: #1a1a2e !important;
-  border-color: #30363d !important;
-  color: #e0e0e0 !important;
+  background: oklch(22.6% 0.038 259.02) !important;
+  border-color: oklch(30% 0.02 259.02) !important; /* #30363d approx */
+  color: oklch(90% 0 0) !important;
 }
 
 .uniteia-canvas .tl-button:hover {
-  background: #00d4ff !important;
-  color: #0a0a0f !important;
+  background: oklch(77.53% 0.203 234.33) !important;
+  color: oklch(15.75% 0.015 259.02) !important;
 }
 
 .uniteia-canvas .tl-button:active {
-  background: #00ffff !important;
+  background: oklch(91.31% 0.165 194.27) !important;
 }
 
 /* Font imports handled via @import in global CSS or HTML */
@@ -71,27 +71,27 @@
 }
 
 .uniteia-canvas pre::-webkit-scrollbar-track {
-  background: #0d1117;
+  background: oklch(12% 0.01 259.02); /* #0d1117 */
 }
 
 .uniteia-canvas pre::-webkit-scrollbar-thumb {
-  background: #30363d;
+  background: oklch(30% 0.02 259.02);
   border-radius: 4px;
 }
 
 .uniteia-canvas pre::-webkit-scrollbar-thumb:hover {
-  background: #00d4ff;
+  background: oklch(77.53% 0.203 234.33);
 }
 
 /* Focus styles for accessibility */
 .uniteia-canvas *:focus-visible {
-  outline: 2px solid #00d4ff;
+  outline: 2px solid oklch(77.53% 0.203 234.33);
   outline-offset: 2px;
 }
 
 /* Tooltip for badge numbers */
 .uniteia-canvas .tl-shape-util__badge {
-  background: #00d4ff;
-  color: #0a0a0f;
+  background: oklch(77.53% 0.203 234.33);
+  color: oklch(15.75% 0.015 259.02);
   font-weight: 700;
 }

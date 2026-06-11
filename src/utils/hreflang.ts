@@ -2,7 +2,10 @@ import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 
 /**
  * Generate hreflang links for all available language versions
- * of a content piece
+ * of a content piece.
+ *
+ * In single-locale multi-domain architecture, hreflang links point
+ * to the per-domain canonical URL (no /lang/ prefix).
  */
 export interface HreflangLink {
   hreflang: string
@@ -10,12 +13,9 @@ export interface HreflangLink {
 }
 
 /**
- * Generate hreflang links for a content article
- * @param niche - The niche subdomain (e.g., 'singularity', 'apex')
- * @param slug - The article slug
- * @param availableLangs - Array of language codes that have translations
- * @param origin - Optional origin (e.g., 'https://uniteia.com' or 'http://localhost:3000')
- * @returns Array of hreflang link objects
+ * Generate hreflang links for a content article.
+ * In single-locale builds, there are no alternate language URLs.
+ * This function exists for contract compatibility only.
  */
 export function generateHreflangLinks(
   niche: string,
@@ -27,7 +27,7 @@ export function generateHreflangLinks(
 
   const links: HreflangLink[] = availableLangs.map(lang => ({
     hreflang: lang,
-    href: `${baseOrigin}/${lang}/${slug}`,
+    href: `${baseOrigin}/${slug}`,
   }))
 
   // Add x-default pointing to English
@@ -36,7 +36,7 @@ export function generateHreflangLinks(
     if (defaultLang) {
       links.push({
         hreflang: 'x-default',
-        href: `${baseOrigin}/${defaultLang}/${slug}`,
+        href: `${baseOrigin}/${slug}`,
       })
     }
   }
@@ -45,12 +45,7 @@ export function generateHreflangLinks(
 }
 
 /**
- * Build alternate links HTML string for head placement
- * @param niche - The niche subdomain
- * @param slug - The article slug
- * @param currentLang - The current language being viewed
- * @param availableLangs - Array of available language codes
- * @returns HTML string with alternate link tags
+ * Build alternate links HTML string for head placement.
  */
 export function buildAlternateLinksHTML(
   niche: string,
@@ -66,13 +61,11 @@ export function buildAlternateLinksHTML(
 }
 
 /**
- * Get available languages from content or filesystem
- * This is a simplified version - in production would use content-loader
+ * Get available languages from content or filesystem.
  */
 export async function getAvailableLanguages(
   _niche: string,
   _slug: string
 ): Promise<SupportedLanguage[]> {
-  // Default to all supported languages if no specific data
   return SUPPORTED_LANGUAGES.map(l => l.code)
 }

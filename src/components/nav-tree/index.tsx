@@ -30,7 +30,7 @@ export const NavTree = component$<NavTreeProps>(
         return {
           id: niche.slug,
           title: landing?.title ?? niche.title[currentLang] ?? niche.title.en ?? niche.slug,
-          href: nicheIndex(currentLang, nicheSlugMap?.[niche.slug] ?? niche.slug),
+          href: nicheIndex(nicheSlugMap?.[niche.slug] ?? niche.slug),
           isActive: currentNiche === niche.slug,
           articleCount: realArticles.length,
         }

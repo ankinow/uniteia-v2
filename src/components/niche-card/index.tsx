@@ -29,7 +29,7 @@ const SIZE_STYLES: Record<NicheCardSize, { title: string; padding: string }> = {
  */
 export const NicheCard = component$<NicheCardProps>(
   ({ niche, lang, class: classList, size = 'medium' }) => {
-    const href = `/${lang}/signals/${getNicheSlug(niche, lang)}`
+    const href = `/signals/${getNicheSlug(niche, lang)}`
     const iconClass = getLucideIconClass(niche.icon)
     const styles = SIZE_STYLES[size]
 

@@ -60,7 +60,7 @@ export function getHomepageProjection(
     knowledgeClusters.push({
       nicheSlug,
       label: config.title[locale] ?? config.title.en,
-      href: nicheIndex(locale, nicheSlug),
+      href: nicheIndex(nicheSlug),
       articleCount: nodes.length,
       avgGraphScore: nodes.reduce((s, n) => s + n.metrics.graphScore, 0) / nodes.length,
     })

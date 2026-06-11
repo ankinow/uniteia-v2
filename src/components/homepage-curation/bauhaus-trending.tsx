@@ -312,7 +312,7 @@ export const BauhausTrendingSection = component$<BauhausTrendingSectionProps>(
         {/* Random Article CTA */}
         {randomArticle && (
           <a
-            href={`/${lang}/signals/apex/${randomArticle.slug}`}
+            href={`/signals/apex/${randomArticle.slug}`}
             class="group mt-16 p-12 border-2 border-[var(--color-border)] hover:border-[var(--color-accent)] flex flex-col md:flex-row items-center justify-between gap-8 transition-colors"
           >
             <div class="flex-1">

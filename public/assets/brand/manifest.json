@@ -1,0 +1,23 @@
+{
+  "generated": "2026-06-03T14:36:53.239076",
+  "candidates": [
+    {
+      "candidate": 1,
+      "path": ".factory/assets/brand/uniwordmark-candidate-1.jpg",
+      "size_bytes": 16363
+    },
+    {
+      "candidate": 2,
+      "path": ".factory/assets/brand/uniwordmark-candidate-2.jpg",
+      "size_bytes": 18071
+    },
+    {
+      "candidate": 3,
+      "path": ".factory/assets/brand/uniwordmark-candidate-3.jpg",
+      "size_bytes": 24587
+    }
+  ],
+  "selected": 2,
+  "selected_path": ".factory/assets/brand/uniwordmark-candidate-2.jpg",
+  "selected_rationale": "chrome UT monogram \u2014 angular geometric, premium tech, best match for dark manga aesthetic. UpsilonSigil in v2 is the production asset."
+}

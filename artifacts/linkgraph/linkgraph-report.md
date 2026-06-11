@@ -1,7 +1,7 @@
 # Linkgraph Report
 
-**Generated:** 2026-06-09T03:56:12.993Z
-**Source:** content-graph.generated (2026-06-09T03:53:02.445Z)
+**Generated:** 2026-06-11T13:58:52.226Z
+**Source:** content-graph.generated (2026-06-11T13:36:16.035Z)
 **Nodes:** 96
 **Edges:** 1456
 
@@ -30,11 +30,11 @@ Nodes with the highest total degree (inbound + outbound connections):
 
 | Title | Slug | Inbound | Outbound | Total |
 |-------|------|---------|----------|-------|
+| OpenCode: Build Software Without Knowing How to Code | `opencode-vibecoders` | 62 | 16 | 78 |
 | Multi-Agent Vibecoding: Let AI Agents Work Together For You | `multi-agent-vibecoding` | 61 | 16 | 77 |
-| OpenCode: Build Software Without Knowing How to Code | `opencode-vibecoders` | 61 | 16 | 77 |
 | Building MCP Servers with Magica | `magica-mcp-server` | 60 | 16 | 76 |
-| Getting Started with Magica | `magica-quickstart` | 60 | 16 | 76 |
-| Magica: The AI Command Center | `magica-overview` | 59 | 16 | 75 |
+| Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | 60 | 16 | 76 |
+| Magica: The AI Command Center | `magica-overview` | 58 | 16 | 74 |
 
 > Full node list with individual degree scores: see appendix below.
 
@@ -77,53 +77,53 @@ For each niche, this section reports how many internal edges exist (edges where 
 | ID | Title | Slug | Locale | Niches |
 |----|-------|------|--------|--------|
 | `en-magica-mcp-server` | Building MCP Servers with Magica | `magica-mcp-server` | en | `apex` |
+| `en-multi-agent-vibecoding` | Multi-Agent Vibecoding: Let AI Agents Work Together For You | `multi-agent-vibecoding` | en | `apex` |
+| `en-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | en | `apex` |
+| `en-opencode-vibecoders` | OpenCode: Build Software Without Knowing How to Code | `opencode-vibecoders` | en | `apex` |
 | `en-magica-overview` | Magica: The AI Command Center | `magica-overview` | en | `apex` |
 | `en-magica-quickstart` | Getting Started with Magica | `magica-quickstart` | en | `apex` |
-| `en-multi-agent-vibecoding` | Multi-Agent Vibecoding: Let AI Agents Work Together For You | `multi-agent-vibecoding` | en | `apex` |
-| `en-opencode-vibecoders` | OpenCode: Build Software Without Knowing How to Code | `opencode-vibecoders` | en | `apex` |
-| `en-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack for Builders | `tencent-cloud-deal-stack-builders` | en | `apex` |
 | `es-magica-mcp-server` | Construyendo Servidores MCP con Magica | `magica-mcp-server` | es | `apex` |
-| `es-magica-overview` | Magica: El Centro de Comando de IA | `magica-overview` | es | `apex` |
-| `es-magica-quickstart` | Primeros Pasos con Magica | `magica-quickstart` | es | `apex` |
 | `es-multi-agent-vibecoding` | Multi-Agent Vibecoding: Deja Que Varios Agentes Trabajen Para Ti | `multi-agent-vibecoding` | es | `apex` |
 | `es-opencode-vibecoders` | OpenCode: Crea Software Sin Saber Programar | `opencode-vibecoders` | es | `apex` |
 | `es-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack para Creadores | `tencent-cloud-deal-stack-builders` | es | `apex` |
+| `es-magica-overview` | Magica: El Centro de Comando de IA | `magica-overview` | es | `apex` |
+| `es-magica-quickstart` | Primeros Pasos con Magica | `magica-quickstart` | es | `apex` |
 | `ja-magica-mcp-server` | MagicaでMCPサーバーを構築する | `magica-mcp-server` | ja | `apex` |
-| `ja-magica-overview` | Magica: AIコマンドセンター | `magica-overview` | ja | `apex` |
-| `ja-magica-quickstart` | Magica 入門 | `magica-quickstart` | ja | `apex` |
 | `ja-multi-agent-vibecoding` | マルチエージェントVibecoding: 複数のAIエージェントに働いてもらおう | `multi-agent-vibecoding` | ja | `apex` |
 | `ja-opencode-vibecoders` | OpenCode: プログラミングなしでソフトウェアを作ろう | `opencode-vibecoders` | ja | `apex` |
 | `ja-tencent-cloud-deal-stack-builders` | 開発者向けTencent Cloud Deal Stack | `tencent-cloud-deal-stack-builders` | ja | `apex` |
+| `ja-magica-overview` | Magica: AIコマンドセンター | `magica-overview` | ja | `apex` |
+| `ja-magica-quickstart` | Magica 入門 | `magica-quickstart` | ja | `apex` |
 | `pt-magica-mcp-server` | Construindo Servidores MCP com Magica | `magica-mcp-server` | pt | `apex` |
-| `pt-magica-overview` | Magica: O Centro de Comando de IA | `magica-overview` | pt | `apex` |
-| `pt-magica-quickstart` | Primeiros Passos com Magica | `magica-quickstart` | pt | `apex` |
 | `pt-multi-agent-vibecoding` | Multi-Agent Vibecoding: Deixe Vários Agentes de IA Trabalharem Juntos pra Você | `multi-agent-vibecoding` | pt | `apex` |
 | `pt-opencode-vibecoders` | OpenCode: Crie Software Sem Saber Programar | `opencode-vibecoders` | pt | `apex` |
 | `pt-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack: Cloud Barata para Builders | `tencent-cloud-deal-stack-builders` | pt | `apex` |
+| `pt-magica-overview` | Magica: O Centro de Comando de IA | `magica-overview` | pt | `apex` |
+| `pt-magica-quickstart` | Primeiros Passos com Magica | `magica-quickstart` | pt | `apex` |
 | `zh-magica-mcp-server` | 使用 Magica 构建MCP服务器 | `magica-mcp-server` | zh | `apex` |
-| `zh-magica-overview` | Magica：AI指挥中心 | `magica-overview` | zh | `apex` |
-| `zh-magica-quickstart` | Magica 快速入门 | `magica-quickstart` | zh | `apex` |
 | `zh-multi-agent-vibecoding` | 多代理Vibecoding: 让多个AI代理一起为你工作 | `multi-agent-vibecoding` | zh | `apex` |
 | `zh-opencode-vibecoders` | OpenCode: 不会编程也能创建软件 | `opencode-vibecoders` | zh | `apex` |
 | `zh-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack 开发者版 | `tencent-cloud-deal-stack-builders` | zh | `apex` |
+| `zh-magica-overview` | Magica：AI指挥中心 | `magica-overview` | zh | `apex` |
+| `zh-magica-quickstart` | Magica 快速入门 | `magica-quickstart` | zh | `apex` |
 | `de-magica-mcp-server` | MCP-Server mit Magica erstellen | `magica-mcp-server` | de | `apex` |
-| `de-magica-overview` | Magica: Das KI-Kommandozentrum | `magica-overview` | de | `apex` |
-| `de-magica-quickstart` | Erste Schritte mit Magica | `magica-quickstart` | de | `apex` |
 | `de-multi-agent-vibecoding` | Multi-Agent Vibecoding: Lass Mehrere Agenten Zusammenarbeiten | `multi-agent-vibecoding` | de | `apex` |
 | `de-opencode-vibecoders` | OpenCode: Erstelle Software Ohne Programmieren zu Können | `opencode-vibecoders` | de | `apex` |
 | `de-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack für Entwickler | `tencent-cloud-deal-stack-builders` | de | `apex` |
+| `de-magica-overview` | Magica: Das KI-Kommandozentrum | `magica-overview` | de | `apex` |
+| `de-magica-quickstart` | Erste Schritte mit Magica | `magica-quickstart` | de | `apex` |
 | `fr-magica-mcp-server` | Construire des Serveurs MCP avec Magica | `magica-mcp-server` | fr | `apex` |
-| `fr-magica-overview` | Magica: Le Centre de Commandement IA | `magica-overview` | fr | `apex` |
-| `fr-magica-quickstart` | Premiers Pas avec Magica | `magica-quickstart` | fr | `apex` |
 | `fr-multi-agent-vibecoding` | Multi-Agent Vibecoding: Laissez Plusieurs Agents Travailler Ensemble | `multi-agent-vibecoding` | fr | `apex` |
 | `fr-opencode-vibecoders` | OpenCode: Créez des Logiciels Sans Savoir Coder | `opencode-vibecoders` | fr | `apex` |
 | `fr-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack pour les Créateurs | `tencent-cloud-deal-stack-builders` | fr | `apex` |
+| `fr-magica-overview` | Magica: Le Centre de Commandement IA | `magica-overview` | fr | `apex` |
+| `fr-magica-quickstart` | Premiers Pas avec Magica | `magica-quickstart` | fr | `apex` |
 | `it-magica-mcp-server` | Costruire Server MCP con Magica | `magica-mcp-server` | it | `apex` |
-| `it-magica-overview` | Magica: Il Centro di Comando AI | `magica-overview` | it | `apex` |
-| `it-magica-quickstart` | Primi Passi con Magica | `magica-quickstart` | it | `apex` |
 | `it-multi-agent-vibecoding` | Multi-Agent Vibecoding: Lascia Che Più Agenti Lavorino Per Te | `multi-agent-vibecoding` | it | `apex` |
 | `it-opencode-vibecoders` | OpenCode: Crea Software Senza Saper Programmare | `opencode-vibecoders` | it | `apex` |
 | `it-tencent-cloud-deal-stack-builders` | Tencent Cloud Deal Stack per Sviluppatori | `tencent-cloud-deal-stack-builders` | it | `apex` |
+| `it-magica-overview` | Magica: Il Centro di Comando AI | `magica-overview` | it | `apex` |
+| `it-magica-quickstart` | Primi Passi con Magica | `magica-quickstart` | it | `apex` |
 | `de-building-ai-agents` | Der Leitfaden fuer Einsteiger zum Erstellen von KI-Agenten im Jahr 2026 | `building-ai-agents` | de | `ai-agents` |
 | `de-what-are-ai-agents` | Was sind KI-Agenten und warum Sie sich dafür interessieren sollten | `what-are-ai-agents` | de | `ai-agents` |
 | `en-building-ai-agents` | The Beginner's Guide to Building AI Agents in 2026 | `building-ai-agents` | en | `ai-agents` |
@@ -175,4 +175,4 @@ For each niche, this section reports how many internal edges exist (edges where 
 
 ---
 
-*Report generated by scripts/generate-linkgraph-report.ts at 2026-06-09T03:56:13.001Z*
+*Report generated by scripts/generate-linkgraph-report.ts at 2026-06-11T13:58:52.227Z*

@@ -1,5 +1,6 @@
 import { component$ } from '@builder.io/qwik'
 import { useDocumentHead, useLocation } from '@builder.io/qwik-city'
+import { BUILD_LOCALE } from '~/build-locale'
 import { LOCALE_CODES } from '~/edge/contract.v1'
 
 /**
@@ -42,8 +43,8 @@ export const RouterHead = component$(() => {
   const title = head.title ? head.title : siteName
   const canonicalUrl = loc.url.origin + loc.url.pathname
 
-  // Current locale from URL segment or fallback
-  const currentLocale = loc.params.lang || 'en'
+  // Current locale from build-time env
+  const currentLocale = BUILD_LOCALE || 'en'
   const ogLocale = BCP47_MAP[currentLocale] || 'en_US'
 
   // hreflang alternates for SEO

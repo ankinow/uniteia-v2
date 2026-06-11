@@ -77,7 +77,7 @@ export const NicheLanding = component$<NicheLandingProps>(
                           class={i === 0 ? 'md:col-span-2' : ''}
                           title={article.title}
                           description={article.summary ?? ''}
-                          href={`/${lang}/signals/${niche.slugs[lang]}/${article.slug}`}
+                          href={`/signals/${niche.slugs[lang]}/${article.slug}`}
                           lang={lang}
                           data-testid="article-card"
                         />
@@ -136,7 +136,7 @@ export const NicheLanding = component$<NicheLandingProps>(
                       {otherNiches.slice(0, 3).map(related => (
                         <a
                           key={related.slug}
-                          href={nicheIndex(lang, getNicheSlug(related, lang))}
+                          href={nicheIndex(getNicheSlug(related, lang))}
                           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm
                                  bg-white/5 hover:bg-white/10 text-bone-muted hover:text-bone
                                  border border-white/5 hover:border-white/10
@@ -184,7 +184,7 @@ export const NicheLanding = component$<NicheLandingProps>(
                         key={related.slug}
                         title={related.title[lang]}
                         description={related.description[lang]}
-                        href={nicheIndex(lang, getNicheSlug(related, lang))}
+                        href={nicheIndex(getNicheSlug(related, lang))}
                         icon={related.icon}
                         lang={lang}
                       />
