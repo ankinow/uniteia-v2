@@ -1,6 +1,25 @@
 #!/bin/sh
 # Husky pre-commit hook — fast quality gate before every commit
-# Runs: lint (biome) + typecheck + translation key consistency
+# Runs: YAML guard + lint (biome) + typecheck + translation key consistency
+
+# Guard: reject cat -n corrupted markdown files
+CORRUPTED=$(git diff --cached --name-only --diff-filter=ACM | grep '\.md$' | head -20)
+for f in $CORRUPTED; do
+  if [ -f "$f" ]; then
+    first_line=$(head -1 "$f")
+    # Check for cat -n prefix: line starts with digits followed by |
+    if echo "$first_line" | grep -qE '^[0-9]+\|'; then
+      echo "❌ BLOCKED: $f has cat -n corruption (lines start with N|)"
+      echo "   Run: sed -i 's/^[0-9]\+\|//' $f"
+      exit 1
+    fi
+    # Check YAML frontmatter delimiter
+    if echo "$first_line" | grep -qv '^---$'; then
+      echo "⚠️  WARNING: $f does not start with YAML frontmatter (---)"
+    fi
+  fi
+done
+echo "✅ YAML guard: passed"
 
 echo "🔍 pre-commit: lint (biome)..."
 bun run lint
