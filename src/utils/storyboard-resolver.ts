@@ -47,6 +47,14 @@ const N = {
   energetic: A('energetic-jump'),
 }
 
+// JRPG hero variants for magica articles
+const JRPG_MAGICA = '/assets/flux/jrpg-magica'
+const JRPG = {
+  overview: { src: `${JRPG_MAGICA}/magica-overview-hero.webp`, alt: 'JRPG AI command center' },
+  quickstart: { src: `${JRPG_MAGICA}/magica-quickstart-hero.webp`, alt: 'JRPG tutorial portal' },
+  mcp: { src: `${JRPG_MAGICA}/magica-mcp-server-hero.webp`, alt: 'JRPG server temple' },
+}
+
 // ─── i18n: Vibecoder step labels ───
 
 const STEPS: Record<SupportedLanguage, { step3: string; step4: string; step5: string }> = {
@@ -284,12 +292,20 @@ function introCell(): ResolvedCell {
   return { id: 'intro', variant: 'mini', gridArea: 'intro1', image: N.intro } as ResolvedCell
 }
 function evidenceCell(_m: ArticleMeta, _vibecoder: boolean): ResolvedCell {
+  const heroImg =
+    _m.slug === 'magica-overview'
+      ? JRPG.overview
+      : _m.slug === 'magica-quickstart'
+        ? JRPG.quickstart
+        : _m.slug === 'magica-mcp-server'
+          ? JRPG.mcp
+          : N.hero
   return {
     id: 'evidence',
     variant: 'evidence',
     gridArea: 'evidence1',
     title: _m.evidenceTitle,
-    image: N.hero,
+    image: heroImg,
   }
 }
 function diagramCell(m: ArticleMeta, vibecoder: boolean, lang: SupportedLanguage): ResolvedCell {
