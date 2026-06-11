@@ -34,14 +34,16 @@ export default component$(() => {
             <a
               key={l.code}
               href={`/${l.code}/`}
-              class="px-4 py-2 rounded-lg border border-white/10 bg-deep hover:bg-mid hover:border-accent/30 transition-colors duration-150 active:scale-[0.96] text-bone no-underline text-sm font-medium"
+              class="inline-flex px-4 py-2 rounded-lg border border-white/10 bg-deep hover:bg-mid hover:border-accent/30 transition-colors duration-150 active:scale-[0.96] text-bone no-underline text-sm font-medium whitespace-nowrap"
             >
               {l.nativeName ?? l.code.toUpperCase()}
             </a>
           ))}
         </div>
 
-        <p class="text-bone/25 text-xs font-mono">global reach · no metaphors</p>
+        <p class="text-bone/40 text-xs font-medium mt-4">
+          Crafted with ❤️ for learners, vibe-coders, and builders. By the UniTeia {'&'} LERMF team.
+        </p>
       </div>
     </div>
   )

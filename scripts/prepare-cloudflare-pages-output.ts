@@ -57,11 +57,30 @@ function findHtmlPages(dir: string, basePath: string): void {
 }
 findHtmlPages(distDir, '')
 
-// Only route dynamic paths through Worker — everything else is static (served by CDN)
+// Root (/) goes through Worker for redirect. SSG pages excluded via wildcards.
+// Exclude patterns take priority over include per Cloudflare _routes.json semantics.
+const localeExcludes = ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'].flatMap(l => [
+  `/${l}`,
+  `/${l}/*`,
+])
 const routes = {
   version: 1,
-  include: ['/api/*', '/search'],
-  exclude: ['/build/*', '/assets/*', '/favicon.ico', '/*.svg'],
+  include: ['/', '/api/*', '/search'],
+  exclude: [
+    ...localeExcludes,
+    '/aether-os',
+    '/aether-os/*',
+    '/verdict',
+    '/verdict/*',
+    '/privacy',
+    '/privacy/*',
+    '/terms',
+    '/terms/*',
+    '/build/*',
+    '/assets/*',
+    '/favicon.ico',
+    '/*.svg',
+  ],
 }
 writeFileSync(routesPath, JSON.stringify(routes, null, 2))
 
