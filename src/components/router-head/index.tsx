@@ -44,7 +44,7 @@ export const RouterHead = component$(() => {
   const canonicalUrl = loc.url.origin + loc.url.pathname
 
   // Current locale from build-time env
-  const currentLocale = 'en' || 'en'
+  const currentLocale = 'en'
   const ogLocale = BCP47_MAP[currentLocale] || 'en_US'
 
   // hreflang alternates for SEO

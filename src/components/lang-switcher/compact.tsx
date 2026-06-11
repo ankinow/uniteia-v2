@@ -14,7 +14,7 @@ export const LangSelectorCompact = component$(() => {
       {SUPPORTED_LANGUAGES.map(langInfo => (
         <a
           key={langInfo.code}
-          href={signalsIndex()}
+          href={signalsIndex(lang)}
           aria-current={lang === langInfo.code ? 'page' : undefined}
           class={[
             'block py-1 px-3 text-xs transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-cyan/50 focus-visible:outline-none',

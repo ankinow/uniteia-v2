@@ -49,7 +49,7 @@ const ErrorContent = component$(() => {
 
       {/* Return to Apex CTA (BMC pill style) */}
       <a
-        href={signalsIndex()}
+        href={signalsIndex(lang.value)}
         class="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-cyan hover:bg-cyan-hi text-void font-bold rounded-full shadow-sm hover:shadow active:scale-95 transition-[color,background-color,box-shadow,transform] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan focus-visible:ring-offset-2 z-10"
         data-testid="error-home-link"
       >
