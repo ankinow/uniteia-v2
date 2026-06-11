@@ -67,6 +67,7 @@ canvas:
     - from: magica-integration
       to: advanced
 ---
+
 # Construire des serveurs MCP avec Magica
 
 ## Qu'est-ce que MCP ?

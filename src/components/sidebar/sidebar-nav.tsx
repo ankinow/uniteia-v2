@@ -2,7 +2,6 @@ import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 import type { NavigationItem } from '~/content-graph/projections'
 import { getTranslation, useI18n } from '~/i18n/context'
 import { localed, searchPage, signalsIndex } from '~/routing/routes'
-import { BUILD_LOCALE } from '~/build-locale'
 
 export interface SidebarNavProps {
   navigationItems: NavigationItem[]

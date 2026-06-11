@@ -76,6 +76,7 @@ canvas:
     - from: pricing
       to: conclusion
 ---
+
 # Magica: AI指挥中心
 
 ## Magica是什么？

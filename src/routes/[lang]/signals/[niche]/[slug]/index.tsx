@@ -16,7 +16,6 @@ import { NewsletterForm } from '~/components/newsletter-form'
 import { ShareBar } from '~/components/share-bar'
 import { StoryboardGrid } from '~/components/storyboard-grid'
 import { TableOfContents } from '~/components/table-of-contents'
-import { BUILD_LOCALE } from '~/build-locale'
 import { collagePackageToProps, parseCollagePackage } from '~/utils/collage-importer'
 import { findNicheBySlug, loadNichesConfig } from '~/utils/niche-loader'
 import { getMangaLayout, getStoryboardLayout } from '~/utils/storyboard-resolver'
@@ -24,13 +23,16 @@ import { getMangaLayout, getStoryboardLayout } from '~/utils/storyboard-resolver
 import type { ContentLocale, ContentNode } from '~/content-graph/contracts/node'
 import { getTranslation, useI18n } from '~/i18n/context'
 import type { SupportedLanguage } from '~/i18n/types'
-import { canonicalUrl } from '~/routing/routes'
+import { SUPPORTED_LANGUAGES } from '~/i18n/types'
+import { canonicalUrl, xdefaultUrl } from '~/routing/routes'
 import type { LlmWikiContent } from '~/types/content'
 import { ContentLoaderError } from '~/types/content'
 import { canvasToCollageProps } from '~/utils/canvas-to-collage'
 import { loadContent } from '~/utils/content-loader'
 import { generateWebPageSchema } from '~/utils/schema-generators'
 import { estimateReadTime, extractDescription } from '~/utils/text-utils'
+
+const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
 
 export const onStaticGenerate = async () => {
   const { contentGraphProvider } = await import('~/content-graph.generated')
@@ -41,36 +43,42 @@ export const onStaticGenerate = async () => {
   )
   return {
     params: nodes
-      .filter(n => n.slug !== '_index' && publicGroupIds.has(n.id) && n.locale === BUILD_LOCALE)
+      .filter(n => n.slug !== '_index' && publicGroupIds.has(n.id))
       .map(node => ({
+        lang: node.locale,
+        niche: node.niche[0] ?? 'apex',
         slug: node.slug,
       })),
   }
 }
 
-export const onRequest: RequestHandler = async ({ params }) => {
-  const slug = params.slug
-  if (!slug) {
-    throw new Response('Not Found', { status: 404 })
+export const onRequest: RequestHandler = async event => {
+  const lang = event.params.lang ?? ''
+  if (!lang || !VALID_LANG_CODES.has(lang)) {
+    throw event.error(404, `Language "${lang ?? 'unknown'}" not supported`)
   }
 }
 
 export const useArticle = routeLoader$<LlmWikiContent | null>(async ({ params, error }) => {
+  const lang = params.lang
+  const niche = params.niche
   const slug = params.slug
-  const lang: SupportedLanguage = BUILD_LOCALE as SupportedLanguage
 
-  if (!slug) {
-    throw error(404, 'Missing slug')
+  if (!lang || !VALID_LANG_CODES.has(lang)) {
+    throw error(404, `Language "${lang ?? 'unknown'}" not supported`)
+  }
+  if (!niche || !slug) {
+    throw error(404, 'Missing niche or slug')
   }
 
   const { contentGraphProvider } = await import('~/content-graph.generated')
   const node = contentGraphProvider.getNode(slug, lang as ContentLocale)
   if (!node || !contentGraphProvider.isPublic(node)) {
-    throw error(404, `Content not found or not published: apex/${slug} (${lang})`)
+    throw error(404, `Content not found or not published: ${niche}/${slug} (${lang})`)
   }
 
   try {
-    return await loadContent('apex', slug, lang)
+    return await loadContent(niche, slug, lang as SupportedLanguage)
   } catch (err) {
     if (err instanceof ContentLoaderError) {
       if (err.phase !== 'read') {
@@ -79,16 +87,16 @@ export const useArticle = routeLoader$<LlmWikiContent | null>(async ({ params, e
           err.errors
         )
       }
-      throw error(404, `Content not found: apex/${slug} (${lang})`)
+      throw error(404, `Content not found: ${niche}/${slug} (${lang})`)
     }
     throw err
   }
 })
 
 export const useRelated = routeLoader$<ContentNode[]>(async ({ params }) => {
+  const lang = params.lang
   const slug = params.slug
-  const lang = BUILD_LOCALE as SupportedLanguage
-  if (!slug) return []
+  if (!lang || !slug) return []
 
   const { contentGraphProvider, contentGraphData } = await import('~/content-graph.generated')
   const publicGroupIds = new Set(
@@ -126,12 +134,14 @@ export const useCollageAssets = routeLoader$<LivingBriefCollageProps | null>(asy
   const slug = params.slug
   if (!slug) return null
   try {
+    // Read pre-generated collage JSON at build time using fs
+    // Runs only during SSG (Node.js available), never on CF Workers edge
     const fs = await import('node:fs')
     const path = await import('node:path')
     const repoRoot = process.cwd()
     const jsonPath = path.join(
       repoRoot,
-      `content/apex/${BUILD_LOCALE}/assets/collage/${slug}.json`
+      `content/${params.niche}/${params.lang}/assets/collage/${slug}.json`
     )
     if (!fs.existsSync(jsonPath)) return null
     const raw = fs.readFileSync(jsonPath, 'utf-8')
@@ -142,18 +152,19 @@ export const useCollageAssets = routeLoader$<LivingBriefCollageProps | null>(asy
   }
 })
 
-export const useNicheSegmentLabel = routeLoader$<Record<string, string>>(async () => {
-  const lang = BUILD_LOCALE as SupportedLanguage
+export const useNicheSegmentLabel = routeLoader$<Record<string, string>>(async ({ params }) => {
+  const lang = params.lang as SupportedLanguage
+  const nicheSlug = params.niche ?? ''
   try {
     const niches = await loadNichesConfig()
-    const niche = findNicheBySlug(niches, 'apex', lang)
+    const niche = findNicheBySlug(niches, nicheSlug, lang)
     if (niche) {
-      return { apex: niche.title[lang] }
+      return { [niche.slug]: niche.title[lang] }
     }
   } catch {
-    // niche config not available — fall through
+    // niche config not available (e.g., during SSG) — fall through
   }
-  return { apex: 'Apex' }
+  return {}
 })
 
 export default component$(() => {
@@ -169,6 +180,7 @@ export default component$(() => {
   }
 
   const canvasData = content.value.canvas
+  // All articles use real FLUX polaroid images — never generate procedural SVG shapes
   const HAS_REAL_IMAGES = new Set([
     'magica-overview',
     'magica-quickstart',
@@ -183,6 +195,7 @@ export default component$(() => {
       ? canvasToCollageProps(canvasData, { width: 800, height: 500 })
       : null
 
+  // JSON-LD WebPage for the current article page (per-locale structured data)
   const pageUrl = canonicalUrl(loc.url.origin, loc.url.pathname + loc.url.search)
   const description = extractDescription(content.value.content)
   const webPageSchema = generateWebPageSchema({
@@ -206,10 +219,12 @@ export default component$(() => {
     ...(collage ? ({ collage } as const) : {}),
   }
 
+  // Check for MangaGrid layout (12-panel sequential narrative)
   const mangaPanels = content.value.slug
     ? getMangaLayout(content.value.slug, content.value.lang)
     : null
 
+  // Check for StoryboardGrid layout
   const storyboardLayout = content.value.slug
     ? getStoryboardLayout(content.value.slug, content.value.lang, t)
     : null
@@ -283,6 +298,7 @@ export default component$(() => {
                   collage: {
                     variant: (canvasData?.variant as any) || 'cyber',
                     polaroids: [
+                      // ── Row 1 (y: 5-30) ──
                       {
                         id: 'terminal',
                         src: '/assets/flux/jrpg-opencode/terminal-cli.webp',
@@ -337,6 +353,7 @@ export default component$(() => {
                         offsetX: 680,
                         offsetY: 25,
                       },
+                      // ── Row 2 (y: 175-210) ──
                       {
                         id: 'mindset',
                         src: '/assets/flux/jrpg-opencode/vibecoding-mindset.webp',
@@ -393,13 +410,32 @@ export default component$(() => {
                       },
                     ],
                     emoticons: [
-                      '💻', '🚀', '✨', '🤖', '⚡', '🔧',
-                      '🎮', '🦊', '⭐', '💎', '🧠', '📜',
+                      '💻',
+                      '🚀',
+                      '✨',
+                      '🤖',
+                      '⚡',
+                      '🔧',
+                      '🎮',
+                      '🦊',
+                      '⭐',
+                      '💎',
+                      '🧠',
+                      '📜',
                     ],
                     tapeVariants: [
-                      'yellow', 'white', 'washi', 'clear',
-                      'yellow', 'white', 'washi', 'clear',
-                      'yellow', 'white', 'washi', 'clear',
+                      'yellow',
+                      'white',
+                      'washi',
+                      'clear',
+                      'yellow',
+                      'white',
+                      'washi',
+                      'clear',
+                      'yellow',
+                      'white',
+                      'washi',
+                      'clear',
                     ] as any,
                     showFlora: false,
                   },
@@ -409,27 +445,142 @@ export default component$(() => {
                     collage: {
                       variant: 'cyber',
                       polaroids: [
-                        { id: 'agent1', src: '/assets/flux/jrpg-opencode/agent-workflow.webp', label: 'Agent Team', rotate: -2, width: 155, offsetX: 5, offsetY: 5 },
-                        { id: 'agent2', src: '/assets/flux/jrpg-opencode/terminal-cli.webp', label: 'Orchestrator', rotate: 3, width: 150, offsetX: 140, offsetY: 18 },
-                        { id: 'agent3', src: '/assets/flux/jrpg-opencode/code-generation.webp', label: 'Code Agent', rotate: -1, width: 150, offsetX: 275, offsetY: 8 },
-                        { id: 'agent4', src: '/assets/flux/jrpg-opencode/live-preview.webp', label: 'Test Agent', rotate: 2, width: 155, offsetX: 410, offsetY: 22 },
-                        { id: 'agent5', src: '/assets/flux/jrpg-opencode/auto-deploy.webp', label: 'Deploy Agent', rotate: -3, width: 160, offsetX: 545, offsetY: 10 },
-                        { id: 'agent6', src: '/assets/flux/jrpg-opencode/version-control.webp', label: 'Review Agent', rotate: 1, width: 150, offsetX: 680, offsetY: 25 },
-                        { id: 'multi1', src: '/assets/flux/jrpg-opencode/vibecoding-mindset.webp', label: 'Parallel Work', rotate: -2, width: 155, offsetX: 20, offsetY: 180 },
-                        { id: 'multi2', src: '/assets/flux/jrpg-opencode/real-stories.webp', label: 'Real Results', rotate: 4, width: 150, offsetX: 150, offsetY: 195 },
-                        { id: 'multi3', src: '/assets/flux/jrpg-opencode/getting-started.webp', label: 'Quick Start', rotate: -1, width: 155, offsetX: 285, offsetY: 178 },
-                        { id: 'multi4', src: '/assets/flux/jrpg-opencode/how-it-works.webp', label: 'Architecture', rotate: 2, width: 160, offsetX: 420, offsetY: 205 },
-                        { id: 'multi5', src: '/assets/flux/jrpg-opencode/what-can-build.webp', label: 'What Agents Do', rotate: -4, width: 155, offsetX: 555, offsetY: 185 },
-                        { id: 'multi6', src: '/assets/flux/jrpg-opencode/why-vibecoders.webp', label: 'Why Multi', rotate: 1, width: 155, offsetX: 690, offsetY: 200 },
+                        {
+                          id: 'agent1',
+                          src: '/assets/flux/jrpg-opencode/agent-workflow.webp',
+                          label: 'Agent Team',
+                          rotate: -2,
+                          width: 155,
+                          offsetX: 5,
+                          offsetY: 5,
+                        },
+                        {
+                          id: 'agent2',
+                          src: '/assets/flux/jrpg-opencode/terminal-cli.webp',
+                          label: 'Orchestrator',
+                          rotate: 3,
+                          width: 150,
+                          offsetX: 140,
+                          offsetY: 18,
+                        },
+                        {
+                          id: 'agent3',
+                          src: '/assets/flux/jrpg-opencode/code-generation.webp',
+                          label: 'Code Agent',
+                          rotate: -1,
+                          width: 150,
+                          offsetX: 275,
+                          offsetY: 8,
+                        },
+                        {
+                          id: 'agent4',
+                          src: '/assets/flux/jrpg-opencode/live-preview.webp',
+                          label: 'Test Agent',
+                          rotate: 2,
+                          width: 155,
+                          offsetX: 410,
+                          offsetY: 22,
+                        },
+                        {
+                          id: 'agent5',
+                          src: '/assets/flux/jrpg-opencode/auto-deploy.webp',
+                          label: 'Deploy Agent',
+                          rotate: -3,
+                          width: 160,
+                          offsetX: 545,
+                          offsetY: 10,
+                        },
+                        {
+                          id: 'agent6',
+                          src: '/assets/flux/jrpg-opencode/version-control.webp',
+                          label: 'Review Agent',
+                          rotate: 1,
+                          width: 150,
+                          offsetX: 680,
+                          offsetY: 25,
+                        },
+                        {
+                          id: 'multi1',
+                          src: '/assets/flux/jrpg-opencode/vibecoding-mindset.webp',
+                          label: 'Parallel Work',
+                          rotate: -2,
+                          width: 155,
+                          offsetX: 20,
+                          offsetY: 180,
+                        },
+                        {
+                          id: 'multi2',
+                          src: '/assets/flux/jrpg-opencode/real-stories.webp',
+                          label: 'Real Results',
+                          rotate: 4,
+                          width: 150,
+                          offsetX: 150,
+                          offsetY: 195,
+                        },
+                        {
+                          id: 'multi3',
+                          src: '/assets/flux/jrpg-opencode/getting-started.webp',
+                          label: 'Quick Start',
+                          rotate: -1,
+                          width: 155,
+                          offsetX: 285,
+                          offsetY: 178,
+                        },
+                        {
+                          id: 'multi4',
+                          src: '/assets/flux/jrpg-opencode/how-it-works.webp',
+                          label: 'Architecture',
+                          rotate: 2,
+                          width: 160,
+                          offsetX: 420,
+                          offsetY: 205,
+                        },
+                        {
+                          id: 'multi5',
+                          src: '/assets/flux/jrpg-opencode/what-can-build.webp',
+                          label: 'What Agents Do',
+                          rotate: -4,
+                          width: 155,
+                          offsetX: 555,
+                          offsetY: 185,
+                        },
+                        {
+                          id: 'multi6',
+                          src: '/assets/flux/jrpg-opencode/why-vibecoders.webp',
+                          label: 'Why Multi',
+                          rotate: 1,
+                          width: 155,
+                          offsetX: 690,
+                          offsetY: 200,
+                        },
                       ],
                       emoticons: [
-                        '🤖', '🤖', '🤖', '🔧', '📋', '✅',
-                        '⚡', '🚀', '💡', '🏗️', '🎯', '🔗',
+                        '🤖',
+                        '🤖',
+                        '🤖',
+                        '🔧',
+                        '📋',
+                        '✅',
+                        '⚡',
+                        '🚀',
+                        '💡',
+                        '🏗️',
+                        '🎯',
+                        '🔗',
                       ],
                       tapeVariants: [
-                        'yellow', 'white', 'washi', 'clear',
-                        'yellow', 'white', 'washi', 'clear',
-                        'yellow', 'white', 'washi', 'clear',
+                        'yellow',
+                        'white',
+                        'washi',
+                        'clear',
+                        'yellow',
+                        'white',
+                        'washi',
+                        'clear',
+                        'yellow',
+                        'white',
+                        'washi',
+                        'clear',
                       ] as any,
                       showFlora: false,
                     },
@@ -460,7 +611,7 @@ export default component$(() => {
 
 export const head: DocumentHead = ({ resolveValue, params, url }) => {
   const content = resolveValue(useArticle)
-  const lang = BUILD_LOCALE as SupportedLanguage
+  const lang = (params.lang as SupportedLanguage) || 'en'
   const t = getTranslation(lang)
 
   if (!content) {
@@ -473,7 +624,22 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
     } as any
   }
 
+  const niche = params.niche ?? ''
   const slug = params.slug ?? ''
+
+  const alternateLinks: Array<{ rel: string; hreflang: string; href: string }> =
+    SUPPORTED_LANGUAGES.map(l => ({
+      rel: 'alternate' as const,
+      hreflang: l.code,
+      href: canonicalUrl(url.origin, `/${l.code}/signals/${niche}/${slug}`),
+    }))
+
+  alternateLinks.push({
+    rel: 'alternate',
+    hreflang: 'x-default',
+    href: xdefaultUrl(url.origin, niche, slug),
+  })
+
   const description = extractDescription(content.content)
 
   return {
@@ -485,7 +651,7 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
       { property: 'og:description', content: description },
       {
         property: 'og:url',
-        content: canonicalUrl(url.origin, `/signals/apex/${slug}`),
+        content: canonicalUrl(url.origin, `/${lang}/signals/${niche}/${slug}`),
       },
       { property: 'og:type', content: 'article' },
       { property: 'og:site_name', content: t.seo.siteName },
@@ -493,8 +659,12 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
       {
         property: 'og:image',
         content: [
-          'magica-overview', 'magica-quickstart', 'magica-mcp-server',
-          'tencent-cloud-deal-stack-builders', 'opencode-vibecoders', 'multi-agent-vibecoding',
+          'magica-overview',
+          'magica-quickstart',
+          'magica-mcp-server',
+          'tencent-cloud-deal-stack-builders',
+          'opencode-vibecoders',
+          'multi-agent-vibecoding',
         ].includes(slug)
           ? 'https://uniteia.com/assets/flux/jrpg-opencode/hero-bg.webp'
           : 'https://uniteia.com/og-image.png',
@@ -503,8 +673,12 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
       {
         name: 'twitter:image',
         content: [
-          'magica-overview', 'magica-quickstart', 'magica-mcp-server',
-          'tencent-cloud-deal-stack-builders', 'opencode-vibecoders', 'multi-agent-vibecoding',
+          'magica-overview',
+          'magica-quickstart',
+          'magica-mcp-server',
+          'tencent-cloud-deal-stack-builders',
+          'opencode-vibecoders',
+          'multi-agent-vibecoding',
         ].includes(slug)
           ? 'https://uniteia.com/assets/kawaii-vibecoder/hero-postit-collage.webp'
           : 'https://uniteia.com/og-image.png',
@@ -513,7 +687,8 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
       { name: 'twitter:description', content: description },
     ],
     links: [
-      { rel: 'canonical', href: canonicalUrl(url.origin, `/signals/apex/${slug}`) },
+      { rel: 'canonical', href: canonicalUrl(url.origin, `/${lang}/signals/${niche}/${slug}`) },
+      ...alternateLinks,
     ],
     scripts: [
       {
@@ -533,7 +708,7 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
           },
           mainEntityOfPage: {
             '@type': 'WebPage',
-            '@id': canonicalUrl(url.origin, `/signals/apex/${slug}`),
+            '@id': canonicalUrl(url.origin, `/${lang}/signals/${niche}/${slug}`),
           },
           inLanguage: content.lang,
         }),

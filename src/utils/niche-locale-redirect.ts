@@ -1,7 +1,6 @@
 import { DEFAULT_LOCALE, LOCALE_CODES, type SupportedLocale } from '../edge/contract.v1'
 import { parseAcceptLanguage } from '../edge/parse-accept-language'
 import { countryToLang } from '../i18n/geo-map'
-import { BUILD_LOCALE } from '../build-locale'
 
 const VALID_LANG_CODES = new Set<string>(LOCALE_CODES)
 

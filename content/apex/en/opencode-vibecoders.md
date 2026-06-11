@@ -50,6 +50,7 @@ canvas:
       section: Impact
       type: card
 ---
+
 # OpenCode: Build Software Without Knowing How to Code
 
 You don't need to be a programmer to create software anymore. OpenCode is like having a senior developer inside your terminal — you describe what you want in plain English, and it builds it for you.

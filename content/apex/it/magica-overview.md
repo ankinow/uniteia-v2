@@ -76,6 +76,7 @@ canvas:
     - from: pricing
       to: conclusion
 ---
+
 # Magica: Il Centro di Comando dell'AI
 
 ## Cos'è Magica?

@@ -49,6 +49,7 @@ canvas:
       section: Impact
       type: card
 ---
+
 # OpenCode: 不会编程也能创建软件
 
 你不需要成为程序员。OpenCode就像你终端里的私人开发者。

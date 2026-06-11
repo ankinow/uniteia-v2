@@ -39,6 +39,7 @@ canvas:
       section: Impact
       type: card
 ---
+
 # Multi-Agent Vibecoding: Deixe Vários Agentes de IA Trabalharem Juntos pra Você
 
 Imagina ter não só um assistente, mas uma equipe inteira — cada um especializado em uma tarefa diferente, todos trabalhando ao mesmo tempo. Um constrói seu site enquanto outro escreve a documentação e um terceiro configura sua loja online. Isso é multi-agent vibecoding.

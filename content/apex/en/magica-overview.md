@@ -76,6 +76,7 @@ canvas:
     - from: pricing
       to: conclusion
 ---
+
 # Magica: The AI Command Center
 
 ## What is Magica?

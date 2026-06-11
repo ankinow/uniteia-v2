@@ -49,6 +49,7 @@ canvas:
       section: Impact
       type: card
 ---
+
 # OpenCode: Erstelle Software Ohne Programmieren zu Können
 
 Du musst kein Programmierer sein. OpenCode ist dein persönlicher Entwickler im Terminal.

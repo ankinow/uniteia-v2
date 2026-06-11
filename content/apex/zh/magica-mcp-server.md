@@ -67,6 +67,7 @@ canvas:
     - from: magica-integration
       to: advanced
 ---
+
 # 使用 Magica 构建 MCP 服务器
 
 ## 什么是 MCP？

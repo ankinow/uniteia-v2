@@ -39,6 +39,7 @@ canvas:
       section: Impact
       type: card
 ---
+
 # Multi-Agent Vibecoding: Lass Mehrere Agenten Zusammenarbeiten
 
 Stell dir ein Team von KI-Assistenten vor, die parallel für dich arbeiten.

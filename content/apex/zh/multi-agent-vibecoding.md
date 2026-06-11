@@ -39,6 +39,7 @@ canvas:
       section: Impact
       type: card
 ---
+
 [Note for ZH readers — expanded for parity with other locales.]
 
 # Multi-Agent Vibecoding: Deixe Vários Agentes de IA Trabalharem Juntos pra Você

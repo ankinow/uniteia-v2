@@ -32,6 +32,7 @@ canvas:
       section: Free Products
       type: card
 ---
+
 # Tencent Cloud Deal Stack: Cloud Barata para Builders
 
 ## O que é a Tencent Cloud Deal Stack?

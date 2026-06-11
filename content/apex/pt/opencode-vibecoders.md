@@ -49,6 +49,7 @@ canvas:
       section: Impact
       type: card
 ---
+
 # OpenCode: Crie Software Sem Saber Programar
 
 Você não precisa ser programador para criar software. OpenCode é como ter um desenvolvedor sênior dentro do seu terminal — você descreve o que quer em português, e ele constrói pra você.

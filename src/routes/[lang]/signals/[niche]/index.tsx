@@ -7,50 +7,81 @@ import {
 } from '@builder.io/qwik-city'
 import { Breadcrumb } from '~/components/breadcrumb'
 import { JSONLD } from '~/components/json-ld'
-import { BUILD_LOCALE } from '~/build-locale'
 import type { ContentLocale } from '~/content-graph/contracts/node'
-import type { SupportedLanguage } from '~/i18n/types'
-import { canonicalUrl } from '~/routing/routes'
+import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
+import { canonicalUrl, xdefaultUrl } from '~/routing/routes'
 import type { NicheArticleEntry } from '~/utils/content-loader'
 import { findNicheBySlug, getNicheSlug, loadNichesConfig } from '~/utils/niche-loader'
 import { generateWebPageSchema } from '~/utils/schema-generators'
 import { generateWebSiteSchema } from '~/utils/schema-generators'
 import type { NicheRouteData } from './types'
 
+type AlternateLink = {
+  rel: 'alternate'
+  hreflang: SupportedLanguage | 'x-default'
+  href: string
+}
+
+/** Quick lookup set for valid language codes */
+const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
+
 export const onRequest: RequestHandler = async event => {
-  const lang = BUILD_LOCALE as SupportedLanguage
-  const nicheSlug = 'apex'
+  const lang = event.params.lang ?? ''
+  const nicheSlug = event.params.niche ?? ''
+
+  if (!lang || !VALID_LANG_CODES.has(lang)) {
+    throw event.error(404, `Language "${lang ?? 'unknown'}" not supported`)
+  }
 
   const niches = await loadNichesConfig()
-  const niche = findNicheBySlug(niches, nicheSlug, lang)
+  const niche = findNicheBySlug(niches, nicheSlug, lang as SupportedLanguage)
 
   if (!niche) {
     throw event.error(404, `Niche not found: ${nicheSlug}`)
   }
 
-  const localeSlug = getNicheSlug(niche, lang)
+  const localeSlug = getNicheSlug(niche, lang as SupportedLanguage)
   if (localeSlug !== nicheSlug) {
-    throw event.redirect(301, `/signals/${localeSlug}${event.url.search}`)
+    throw event.redirect(301, `/${lang}/signals/${localeSlug}${event.url.search}`)
   }
 }
 
 export const onStaticGenerate = async () => {
+  const niches = await loadNichesConfig()
   return {
-    params: [{}],
+    params: SUPPORTED_LANGUAGES.flatMap(l =>
+      niches.map(n => ({
+        lang: l.code,
+        niche: getNicheSlug(n, l.code),
+      }))
+    ),
   }
 }
 
 /**
- * routeLoader$ that loads the niches config and returns typed NicheRouteData.
- * Hardcoded to APEX niche only.
+ * routeLoader$ that loads the niches config, finds the niche matching
+ * the URL slug, validates the language param, and returns typed
+ * NicheRouteData or throws 404.
+ *
+ * All Node.js imports are inside loadNichesConfig (which uses dynamic
+ * import() per D001), so this loader is fully server-only.
  */
-export const useNicheData = routeLoader$<NicheRouteData>(async ({ error }) => {
-  const lang = BUILD_LOCALE as SupportedLanguage
-  const nicheSlug = 'apex'
+export const useNicheData = routeLoader$<NicheRouteData>(async ({ params, error }) => {
+  const lang = params.lang ?? ''
+  const nicheSlug = params.niche ?? ''
 
+  // Validate language parameter
+  if (!lang || !VALID_LANG_CODES.has(lang)) {
+    throw error(404, `Language "${lang ?? 'unknown'}" not supported`)
+  }
+
+  // Load and validate niches from config
   const niches = await loadNichesConfig()
-  const niche = findNicheBySlug(niches, nicheSlug, lang)
+
+  // Find the matching niche
+  const niche = findNicheBySlug(niches, nicheSlug, lang as SupportedLanguage)
   if (!niche) {
+    // During SSG, return empty data instead of throwing
     if (import.meta.env.SSR) {
       console.warn(`[niche-loader] Niche not found during SSG: "${nicheSlug}"`)
       return {
@@ -61,8 +92,14 @@ export const useNicheData = routeLoader$<NicheRouteData>(async ({ error }) => {
             slugs: { en: nicheSlug, pt: nicheSlug },
             icon: 'file',
             title: {
-              en: nicheSlug, pt: nicheSlug, es: nicheSlug, fr: nicheSlug,
-              de: nicheSlug, it: nicheSlug, ja: nicheSlug, zh: nicheSlug,
+              en: nicheSlug,
+              pt: nicheSlug,
+              es: nicheSlug,
+              fr: nicheSlug,
+              de: nicheSlug,
+              it: nicheSlug,
+              ja: nicheSlug,
+              zh: nicheSlug,
             },
             description: { en: '', pt: '', es: '', fr: '', de: '', it: '', ja: '', zh: '' },
           } as any),
@@ -73,15 +110,18 @@ export const useNicheData = routeLoader$<NicheRouteData>(async ({ error }) => {
     throw error(404, `Niche not found: ${nicheSlug}`)
   }
 
+  // Return current niche + all other niches for the related grid
   const otherNiches = niches.filter(n => n.slug !== nicheSlug)
+
   return { niche, otherNiches }
 })
 
-export const useNicheArticles = routeLoader$<NicheArticleEntry[]>(async () => {
-  const lang = BUILD_LOCALE as SupportedLanguage
+export const useNicheArticles = routeLoader$<NicheArticleEntry[]>(async ({ params }) => {
+  const lang = params.lang ?? ''
+  const nicheSlug = params.niche ?? ''
 
   const niches = await loadNichesConfig()
-  const niche = findNicheBySlug(niches, 'apex', lang)
+  const niche = findNicheBySlug(niches, nicheSlug, lang as SupportedLanguage)
   if (!niche) return []
 
   try {
@@ -101,14 +141,20 @@ export const useNicheArticles = routeLoader$<NicheArticleEntry[]>(async () => {
         updatedAt: node.timestamps.updatedAt,
       }))
   } catch (err) {
+    // During SSG, content graph may not be available
     if (import.meta.env.SSR) {
-      console.warn(`[niche-loader] Content graph unavailable during SSG for niche: apex`)
+      console.warn(`[niche-loader] Content graph unavailable during SSG for niche: ${nicheSlug}`)
       return []
     }
     throw err
   }
 })
 
+/**
+ * Niche landing page component
+ * Renders the NicheLanding component with data from the route loader.
+ * Language is read from URL params (already validated by routeLoader$).
+ */
 import { BauhausGrid, BauhausSection } from '~/components/bauhaus-section'
 import { BauhausArticleCard } from '~/components/bauhaus-section/article-card'
 import { BauhausTrendingSection } from '~/components/homepage-curation/bauhaus-trending'
@@ -117,7 +163,7 @@ export default component$(() => {
   const data = useNicheData()
   const articles = useNicheArticles()
   const location = useLocation()
-  const lang = BUILD_LOCALE as SupportedLanguage
+  const lang = (location.params.lang as SupportedLanguage) || 'en'
   const pageTitle = `${data.value.niche.title[lang]} — UniTeia`
 
   const websiteSchema = generateWebSiteSchema({
@@ -127,15 +173,15 @@ export default component$(() => {
     lang,
   })
 
-  const nicheUrl = canonicalUrl(location.url.origin, `/signals/apex`)
+  const nicheUrl = canonicalUrl(location.url.origin, `/${lang}/signals/${data.value.niche.slug}`)
   const webPageSchema = generateWebPageSchema({
     name: pageTitle,
     url: nicheUrl,
     description: data.value.niche.description[lang],
     lang,
     breadcrumb: [
-      { name: lang.toUpperCase(), item: `${location.url.origin}/` },
-      { name: 'Signals', item: `${location.url.origin}/signals` },
+      { name: lang.toUpperCase(), item: `${location.url.origin}/${lang}` },
+      { name: 'Signals', item: `${location.url.origin}/${lang}/signals` },
       { name: data.value.niche.title[lang], item: nicheUrl },
     ],
   })
@@ -147,12 +193,13 @@ export default component$(() => {
       <JSONLD data={websiteSchema} />
       <JSONLD data={webPageSchema} />
       <main class="bg-[var(--color-bg-primary)]">
+        {/* Bauhaus Hero Header */}
         <BauhausSection mood="voltage" as="header" class="pt-32 pb-48">
           <div class="flex flex-col md:flex-row gap-12 items-start justify-between">
             <div class="max-w-3xl">
               <div class="mb-8 flex items-center gap-4">
                 <Breadcrumb
-                  segmentLabels={{ apex: data.value.niche.title[lang] }}
+                  segmentLabels={{ [data.value.niche.slug]: data.value.niche.title[lang] }}
                 />
               </div>
               <span class="bauhaus-label text-[var(--color-accent)] mb-6 block">
@@ -164,6 +211,7 @@ export default component$(() => {
               </p>
             </div>
 
+            {/* Hero visual for niche */}
             <div class="w-full md:w-1/3 aspect-square bauhaus-block flex items-center justify-center overflow-hidden bg-black relative">
               {data.value.niche.heroImage ? (
                 <img
@@ -187,6 +235,7 @@ export default component$(() => {
           </div>
         </BauhausSection>
 
+        {/* Article Grid Section */}
         {localizedArticles.length > 0 && (
           <BauhausSection mood="blackout" class="py-32">
             <div class="mb-24">
@@ -202,7 +251,7 @@ export default component$(() => {
                   key={article.slug}
                   title={article.title}
                   summary={article.summary}
-                  href={`/signals/apex/${article.slug}`}
+                  href={`/${lang}/signals/apex/${article.slug}`}
                   category={data.value.niche.title[lang]}
                 />
               ))}
@@ -210,8 +259,10 @@ export default component$(() => {
           </BauhausSection>
         )}
 
+        {/* Trending Section Integration */}
         <BauhausTrendingSection articles={localizedArticles} lang={lang} mood="blackout" />
 
+        {/* Footer info (minimal Bauhaus) */}
         <div class="py-12 px-6 border-t border-[var(--color-border)] text-center bg-black">
           <span class="bauhaus-label opacity-20">UniTeia v2 · Bauhaus Layer · 2026</span>
         </div>
@@ -220,13 +271,29 @@ export default component$(() => {
   )
 })
 
-export const head: DocumentHead = ({ resolveValue, url }) => {
+/**
+ * Document head — sets page title and meta description from niche data
+ */
+export const head: DocumentHead = ({ resolveValue, params, url }) => {
   const data = resolveValue(useNicheData)
-  const lang = BUILD_LOCALE as SupportedLanguage
+  const lang = (params.lang as SupportedLanguage) || 'en'
 
-  const localizedSlug = getNicheSlug(data.niche, lang)
+  const localizedSlug = getNicheSlug(data.niche, lang as SupportedLanguage)
+  const nicheStr = data.niche.slug
   const pageTitle = `${data.niche.title[lang]} — UniTeia`
   const description = data.niche.description[lang]
+
+  const alternateLinks: AlternateLink[] = SUPPORTED_LANGUAGES.map(l => ({
+    rel: 'alternate',
+    hreflang: l.code,
+    href: canonicalUrl(url.origin, `/${l.code}/signals/${getNicheSlug(data.niche, l.code)}`),
+  }))
+
+  alternateLinks.push({
+    rel: 'alternate',
+    hreflang: 'x-default',
+    href: xdefaultUrl(url.origin, nicheStr),
+  })
 
   return {
     title: pageTitle,
@@ -237,7 +304,7 @@ export const head: DocumentHead = ({ resolveValue, url }) => {
       { property: 'og:description', content: description },
       {
         property: 'og:url',
-        content: canonicalUrl(url.origin, `/signals/${localizedSlug}`),
+        content: canonicalUrl(url.origin, `/${lang}/signals/${localizedSlug}`),
       },
       { property: 'og:type', content: 'article' },
       { property: 'og:locale', content: lang },
@@ -246,7 +313,8 @@ export const head: DocumentHead = ({ resolveValue, url }) => {
       { name: 'twitter:description', content: description },
     ],
     links: [
-      { rel: 'canonical', href: canonicalUrl(url.origin, `/signals/${localizedSlug}`) },
+      { rel: 'canonical', href: canonicalUrl(url.origin, `/${lang}/signals/${localizedSlug}`) },
+      ...alternateLinks,
     ],
   }
 }

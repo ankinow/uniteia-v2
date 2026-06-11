@@ -39,6 +39,7 @@ canvas:
       section: Impact
       type: card
 ---
+
 # Multi-Agent Vibecoding: Deja Que Varios Agentes Trabajen Para Ti
 
 Imagina un equipo de asistentes IA trabajando juntos. Multi-agente para no-programadores.

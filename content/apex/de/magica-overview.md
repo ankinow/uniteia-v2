@@ -76,6 +76,7 @@ canvas:
     - from: pricing
       to: conclusion
 ---
+
 # Magica: Das KI-Kommandozentrum
 
 ## Was ist Magica?

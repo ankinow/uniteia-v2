@@ -67,9 +67,7 @@ export function localeRedirect(
 ): Response {
   // In single-locale architecture, do not prefix the URL with locale.
   // The locale determines content, not the URL path.
-  const targetPath = pathname === '/' || pathname === ''
-    ? '/'
-    : pathname
+  const targetPath = pathname === '/' || pathname === '' ? '/' : pathname
 
   return new Response(null, {
     status: 302,

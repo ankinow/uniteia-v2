@@ -59,6 +59,7 @@ canvas:
     - from: export
       to: next-steps
 ---
+
 # Débuter avec Magica
 
 ## Créer votre compte

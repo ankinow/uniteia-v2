@@ -13,7 +13,7 @@
  */
 import { component$, useSignal, useStylesScoped$, useVisibleTask$ } from '@builder.io/qwik'
 import { useLocation } from '@builder.io/qwik-city'
-import { BUILD_LOCALE } from '~/build-locale'
+
 import { useCanvaMagicaT } from '~/hooks/useCanvaI18n'
 import type { SupportedLanguage } from '~/i18n/types'
 import { CodeIcon, FlowIcon, HubIcon, MagnetIcon, RobotIcon } from '../sketchnote/icons'
@@ -33,7 +33,7 @@ interface CanvaMagicaProps {
 export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
   ({ qualityScore = 84, languages = 8 }) => {
     const loc = useLocation()
-    const lang = BUILD_LOCALE as SupportedLanguage
+    const lang = 'en' as SupportedLanguage
     useStylesScoped$(styles)
 
     const t = useCanvaMagicaT(lang)

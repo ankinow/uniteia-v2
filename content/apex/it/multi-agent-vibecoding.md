@@ -39,6 +39,7 @@ canvas:
       section: Impact
       type: card
 ---
+
 # Multi-Agent Vibecoding: Lascia Che Più Agenti Lavorino Per Te
 
 Immagina un team di assistenti IA che lavorano insieme per te.
