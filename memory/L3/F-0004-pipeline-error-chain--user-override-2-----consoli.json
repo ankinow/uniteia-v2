@@ -1,0 +1,11 @@
+{
+  "id": "W-0004",
+  "title": "error-chain | user-override ≥2×)\n- [ ]  CONSOLIDATE: wiki-lint + memory-commit d",
+  "domain": "pipeline",
+  "content": "error-chain | user-override ≥2×)\n- [ ]  CONSOLIDATE: wiki-lint + memory-commit done\n- [ ]  MUTATE: skill-forge OR GEPA-patch OR archive applied\n- [ ]  AUDIT: scorecard emitted (tokens, cost, healed, born, pruned, pass-rate)\n- [ ]  ANCHOR: no self-reward without PRM/tool/adv/constitutional\n\n## §16 — BLEEDINGEDGE-W17 (2026-04-23 → 2026-04-30, experimental SOTA)\n\n<aside>\n⚡\n\n**Janela**: W17/2026 (23–30 abr) · **Tier**: β-experimental ∀ entries · **Anchor-rule**: §4 GOLDEN — não promover a γ sem PRM/",
+  "actionability": "reference",
+  "cross_refs": ["pipeline"],
+  "source_findings": ["F-0004"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-11T12:51:57.671296+00:00"
+}

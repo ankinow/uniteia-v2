@@ -1,0 +1,11 @@
+{
+  "id": "W-0023",
+  "title": "errors (warnings OK with justification), coverage meets threshold, build succeed",
+  "domain": "pipeline",
+  "content": "errors (warnings OK with justification), coverage meets threshold, build succeeds\n**Exit (CONDITIONAL)**: Tests fail with documented waiver OR user grants waiver\n\n**Failures**: Tests fail → synthesize minimal patch, return to BUILD | Lint errors → fix, retry | Build fails → diagnose, return to BUILD\n\n**Retry Protocol**:\n- 1st fail: Analyze output, minimal fix, re-test\n- 2nd fail: Re-analyze approach, check environment, fix, re-test\n- 3rd fail: **STALL DETECTED** → request user input or agent swa",
+  "actionability": "reference",
+  "cross_refs": ["pipeline"],
+  "source_findings": ["F-0023"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-11T12:51:57.671764+00:00"
+}

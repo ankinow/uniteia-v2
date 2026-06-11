@@ -1,0 +1,11 @@
+{
+  "id": "W-0079",
+  "title": "error-pages/not-found'\nimport { FrontmatterSlots } from '~/components/frontmatte",
+  "domain": "ui",
+  "content": "error-pages/not-found'\nimport { FrontmatterSlots } from '~/components/frontmatter-slots'\nimport { JSONLD } from '~/components/json-ld'\nimport { RelatedArticles } from '~/components/related-articles'\nimport type { ContentLocale, ContentNode } from '~/content-graph/contracts/node'\nimport { getTranslation } from '~/i18n/context'\nimport type { SupportedLanguage } from '~/i18n/types'\nimport { SUPPORTED_LANGUAGES } from '~/i18n/types'\nimport type { LlmWikiContent } from '~/types/content'\nimport { Cont",
+  "actionability": "reference",
+  "cross_refs": ["ui"],
+  "source_findings": ["F-0079"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-11T12:51:57.672846+00:00"
+}

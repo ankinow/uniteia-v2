@@ -1,0 +1,11 @@
+{
+  "id": "W-0069",
+  "title": "Error:**\n```\nMCP error -32602: MCP error -32602: Invalid tools/call result: [\n  ",
+  "domain": "agent",
+  "content": "Error:**\n```\nMCP error -32602: MCP error -32602: Invalid tools/call result: [\n  {\n    \"code\": \"invalid_union\",\n    \"errors\": [\n      [\n        {\n          \"code\": \"invalid_value\",\n          \"values\": [\n            \"text\"\n          ],\n          \"path\": [\n            \"type\"\n          ],\n          \"message\": \"Invalid input: expected \\\"text\\\"\"\n        },\n        {\n          \"expected\": \"string\",\n          \"code\": \"invalid_type\",\n          \"path\": [\n            \"text\"\n          ],\n          \"message\"",
+  "actionability": "reference",
+  "cross_refs": ["agent"],
+  "source_findings": ["F-0069"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-11T12:51:57.672291+00:00"
+}

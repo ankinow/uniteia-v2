@@ -1,0 +1,11 @@
+{
+  "id": "W-0083",
+  "title": "error handling\" / \"add validation\" / \"handle edge cases\"\n2156: - \"Write tests fo",
+  "domain": "pipeline",
+  "content": "error handling\" / \"add validation\" / \"handle edge cases\"\n2156: - \"Write tests for the above\" (without actual test code)\n2157: - \"Similar to Task N\" (repeat the code — the engineer may be reading tasks out of order)\n2158: - Steps that describe what to do without showing how (code blocks required for code steps)\n2159: - References to types, functions, or methods not defined in any task\n2160: \n2161: ## Remember\n2162: - Exact file paths always\n2163: - Complete code in every step — if a step changes ",
+  "actionability": "reference",
+  "cross_refs": ["pipeline"],
+  "source_findings": ["F-0083"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-11T12:51:46.539471+00:00"
+}

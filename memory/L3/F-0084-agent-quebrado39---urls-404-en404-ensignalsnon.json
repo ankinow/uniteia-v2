@@ -1,0 +1,11 @@
+{
+  "id": "W-0084",
+  "title": "Quebrado\n39: - **URLs:** `/404`, `/en/404`, `/en/signals/nonexistent`, `/en/sign",
+  "domain": "agent",
+  "content": "Quebrado\n39: - **URLs:** `/404`, `/en/404`, `/en/signals/nonexistent`, `/en/signals/ai-agents/nonexistent-article`\n40: - **Status:** Internal error (não 404 Not Found)\n41: - **Esperado:** Página 404 amigável com i18n\n42: - **Causa provável:** `[",
+  "actionability": "reference",
+  "cross_refs": ["agent"],
+  "source_findings": ["F-0084"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-11T12:51:57.673069+00:00"
+}

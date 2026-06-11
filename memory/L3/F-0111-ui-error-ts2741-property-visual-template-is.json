@@ -1,0 +1,11 @@
+{
+  "id": "W-0111",
+  "title": "error TS2741: Property '\"visual-template\"' is missing in type '{ template: strin",
+  "domain": "ui",
+  "content": "error TS2741: Property '\"visual-template\"' is missing in type '{ template: string; style: string; block: string; prompt: string; diagram: string; image: string; icon: string; }' but required in type 'Record<AssetKind, string>'",
+  "actionability": "reference",
+  "cross_refs": ["ui"],
+  "source_findings": ["F-0111"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-11T12:51:46.540904+00:00"
+}

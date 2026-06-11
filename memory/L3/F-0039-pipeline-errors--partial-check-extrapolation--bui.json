@@ -1,0 +1,11 @@
+{
+  "id": "W-0039",
+  "title": "errors | Partial check, extrapolation |\n| Build succeeds | Build command: exit 0",
+  "domain": "pipeline",
+  "content": "errors | Partial check, extrapolation |\n| Build succeeds | Build command: exit 0 | Linter passing, logs look good |\n| Bug fixed | Test original symptom: passes | Code changed, assumed fixed |\n| Regression test works | Red-green cycle verified | Test passes once |\n| Agent completed | VCS diff shows changes | Agent reports \"success\" |\n| Requirements met | Line-by-line checklist | Tests passing |\n\n## Red Flags - STOP\n\n- Using \"should\", \"probably\", \"seems to\"\n- Expressing satisfaction before verific",
+  "actionability": "reference",
+  "cross_refs": ["pipeline"],
+  "source_findings": ["F-0039"],
+  "eval_d9_promotion": 85,
+  "promoted_at": "2026-06-11T12:51:57.672027+00:00"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "W-0103",
+  "title": "quebrados em todos os 8 idiomas30 min2BUG-003: Search Input FallbackAdiciona cam",
+  "domain": "pipeline",
+  "content": "quebrados em todos os 8 idiomas30 min2BUG-003: Search Input FallbackAdiciona campo input para no-JS45 min3BUG-004: \"Read in EN EN\" DuplicaçãoFix renderização condicional idioma ativo15 min4BUG-005: Focus Visible MissingAdiciona :focus-visible com ring-2 ring-cyan20 min5BUG-006: Contraste NeutromórficoAjusta para WCAG 3:1 mínimo30 min6M019: CerebralCard + AnalogConnector + SignalChipIntegra componentes Phase 4 no SiteShell2-3h7Deploy productionDeploy CF Pages com BUG-0015 min\n\nRecomendação: Execu",
+  "actionability": "reference",
+  "cross_refs": ["pipeline"],
+  "source_findings": ["F-0103"],
+  "eval_d9_promotion": 90,
+  "promoted_at": "2026-06-11T12:51:46.540465+00:00"
+}
