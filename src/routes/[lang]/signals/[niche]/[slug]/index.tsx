@@ -164,7 +164,8 @@ export default component$(() => {
 
   const canvasData = content.value.canvas
   // Skip procedural canvas collage for articles that have real polaroid images
-  const useCanvasCollage = content.value.slug !== 'opencode-vibecoders'
+  const HAS_REAL_IMAGES = new Set(['opencode-vibecoders', 'multi-agent-vibecoding'])
+  const useCanvasCollage = !HAS_REAL_IMAGES.has(content.value.slug ?? '')
   const collage =
     useCanvasCollage && canvasData
       ? canvasToCollageProps(canvasData, { width: 800, height: 500 })
@@ -261,7 +262,9 @@ export default component$(() => {
             heroImage:
               content.value.slug === 'opencode-vibecoders'
                 ? '/assets/flux/jrpg-opencode/hero-bg.webp'
-                : undefined,
+                : content.value.slug === 'multi-agent-vibecoding'
+                  ? '/assets/flux/jrpg-opencode/agent-workflow.webp'
+                  : undefined,
             buttons: [],
           }}
           {...(collageAssets.value
@@ -413,7 +416,152 @@ export default component$(() => {
                     showFlora: false,
                   },
                 }
-              : {})}
+              : content.value.slug === 'multi-agent-vibecoding'
+                ? {
+                    collage: {
+                      variant: 'cyber',
+                      polaroids: [
+                        {
+                          id: 'agent1',
+                          src: '/assets/flux/jrpg-opencode/agent-workflow.webp',
+                          label: 'Agent Team',
+                          rotate: -2,
+                          width: 155,
+                          offsetX: 5,
+                          offsetY: 5,
+                        },
+                        {
+                          id: 'agent2',
+                          src: '/assets/flux/jrpg-opencode/terminal-cli.webp',
+                          label: 'Orchestrator',
+                          rotate: 3,
+                          width: 150,
+                          offsetX: 140,
+                          offsetY: 18,
+                        },
+                        {
+                          id: 'agent3',
+                          src: '/assets/flux/jrpg-opencode/code-generation.webp',
+                          label: 'Code Agent',
+                          rotate: -1,
+                          width: 150,
+                          offsetX: 275,
+                          offsetY: 8,
+                        },
+                        {
+                          id: 'agent4',
+                          src: '/assets/flux/jrpg-opencode/live-preview.webp',
+                          label: 'Test Agent',
+                          rotate: 2,
+                          width: 155,
+                          offsetX: 410,
+                          offsetY: 22,
+                        },
+                        {
+                          id: 'agent5',
+                          src: '/assets/flux/jrpg-opencode/auto-deploy.webp',
+                          label: 'Deploy Agent',
+                          rotate: -3,
+                          width: 160,
+                          offsetX: 545,
+                          offsetY: 10,
+                        },
+                        {
+                          id: 'agent6',
+                          src: '/assets/flux/jrpg-opencode/version-control.webp',
+                          label: 'Review Agent',
+                          rotate: 1,
+                          width: 150,
+                          offsetX: 680,
+                          offsetY: 25,
+                        },
+                        {
+                          id: 'multi1',
+                          src: '/assets/flux/jrpg-opencode/vibecoding-mindset.webp',
+                          label: 'Parallel Work',
+                          rotate: -2,
+                          width: 155,
+                          offsetX: 20,
+                          offsetY: 180,
+                        },
+                        {
+                          id: 'multi2',
+                          src: '/assets/flux/jrpg-opencode/real-stories.webp',
+                          label: 'Real Results',
+                          rotate: 4,
+                          width: 150,
+                          offsetX: 150,
+                          offsetY: 195,
+                        },
+                        {
+                          id: 'multi3',
+                          src: '/assets/flux/jrpg-opencode/getting-started.webp',
+                          label: 'Quick Start',
+                          rotate: -1,
+                          width: 155,
+                          offsetX: 285,
+                          offsetY: 178,
+                        },
+                        {
+                          id: 'multi4',
+                          src: '/assets/flux/jrpg-opencode/how-it-works.webp',
+                          label: 'Architecture',
+                          rotate: 2,
+                          width: 160,
+                          offsetX: 420,
+                          offsetY: 205,
+                        },
+                        {
+                          id: 'multi5',
+                          src: '/assets/flux/jrpg-opencode/what-can-build.webp',
+                          label: 'What Agents Do',
+                          rotate: -4,
+                          width: 155,
+                          offsetX: 555,
+                          offsetY: 185,
+                        },
+                        {
+                          id: 'multi6',
+                          src: '/assets/flux/jrpg-opencode/why-vibecoders.webp',
+                          label: 'Why Multi',
+                          rotate: 1,
+                          width: 155,
+                          offsetX: 690,
+                          offsetY: 200,
+                        },
+                      ],
+                      emoticons: [
+                        '🤖',
+                        '🤖',
+                        '🤖',
+                        '🔧',
+                        '📋',
+                        '✅',
+                        '⚡',
+                        '🚀',
+                        '💡',
+                        '🏗️',
+                        '🎯',
+                        '🔗',
+                      ],
+                      tapeVariants: [
+                        'yellow',
+                        'white',
+                        'washi',
+                        'clear',
+                        'yellow',
+                        'white',
+                        'washi',
+                        'clear',
+                        'yellow',
+                        'white',
+                        'washi',
+                        'clear',
+                      ] as any,
+                      showFlora: false,
+                    },
+                  }
+                : {})}
         >
           <div q:slot="breadcrumb">
             <Breadcrumb />
@@ -492,8 +640,9 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
           'magica-mcp-server',
           'tencent-cloud-deal-stack-builders',
           'opencode-vibecoders',
+          'multi-agent-vibecoding',
         ].includes(slug)
-          ? 'https://uniteia.com/assets/kawaii-vibecoder/hero-postit-collage.webp'
+          ? 'https://uniteia.com/assets/flux/jrpg-opencode/hero-bg.webp'
           : 'https://uniteia.com/og-image.png',
       },
       { name: 'twitter:card', content: 'summary_large_image' },
@@ -505,6 +654,7 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
           'magica-mcp-server',
           'tencent-cloud-deal-stack-builders',
           'opencode-vibecoders',
+          'multi-agent-vibecoding',
         ].includes(slug)
           ? 'https://uniteia.com/assets/kawaii-vibecoder/hero-postit-collage.webp'
           : 'https://uniteia.com/og-image.png',
