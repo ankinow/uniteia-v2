@@ -95,8 +95,9 @@ async function generateSitemapForLocale(buildLocale: string, distDir: string) {
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entries.join('\n')}\n</urlset>`
 
-  // Write locale-specific sitemap
-  const filename = buildLocale === 'en' ? 'sitemap.xml' : `sitemap-${buildLocale}.xml`
+  // Write locale-specific sitemap (all locales use sitemap-{locale}.xml)
+  // sitemap.xml is created below as a copy of the EN sitemap
+  const filename = `sitemap-${buildLocale}.xml`
   await writeFile(join(distDir, filename), sitemap)
   console.log(`  ✅ dist/${filename} (${publicNodes.length} articles, ${entries.length} URLs)`)
 }
@@ -113,14 +114,11 @@ async function generate() {
     await generateSitemapForLocale(locale, distDir)
   }
 
-  // Default sitemap.xml = English (canonical/default locale)
+  // Default sitemap.xml = copy of sitemap-en.xml (canonical locale)
   // Worker rewrites /sitemap.xml → /sitemap-{locale}.xml by Host header
-  // sitemap.xml exists as CDN fallback (served when Worker bypassed)
-  if (buildLocale !== 'en') {
-    const { copyFile } = await import('node:fs/promises')
-    await copyFile(join(distDir, 'sitemap-en.xml'), join(distDir, 'sitemap.xml'))
-    console.log(`  📋 dist/sitemap.xml → copy of dist/sitemap-en.xml (default)`)
-  }
+  const { copyFile } = await import('node:fs/promises')
+  await copyFile(join(distDir, 'sitemap-en.xml'), join(distDir, 'sitemap.xml'))
+  console.log(`  📋 dist/sitemap.xml → copy of dist/sitemap-en.xml`)
 
   // Robots.txt
   const robots = buildRobotsTxt(origin)
