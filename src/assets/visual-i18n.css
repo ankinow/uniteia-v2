@@ -87,14 +87,53 @@
     transform: scaleX(-1);
   }
 
+  [dir="rtl"] .icon-arrow-left {
+    transform: scaleX(-1);
+  }
+
+  [dir="rtl"] .icon-log-in {
+    transform: scaleX(-1);
+  }
+
   /* ═══════════════════════════════════════════════════════════
      REDUCED MOTION — Respect user preference globally
      ═══════════════════════════════════════════════════════════ */
 
   @media (prefers-reduced-motion: reduce) {
     [dir="rtl"] .icon-arrow-right,
-    [dir="rtl"] .icon-chevron-right {
+    [dir="rtl"] .icon-chevron-right,
+    [dir="rtl"] .icon-arrow-left,
+    [dir="rtl"] .icon-log-in {
       transform: none;
     }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     CJK FONT IN SVG DIAGRAMS
+     ═══════════════════════════════════════════════════════════ */
+
+  [lang="ja"] svg.diagram text,
+  [lang="zh"] svg.diagram text {
+    font-family: 'Noto Sans JP', 'Noto Sans SC', 'M PLUS Rounded 1c', sans-serif;
+  }
+
+  [lang="ja"] svg.diagram .font-mono,
+  [lang="zh"] svg.diagram .font-mono {
+    font-family: 'Noto Sans JP', 'Noto Sans SC', 'JetBrains Mono', monospace;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     LOCALE-AWARE ARIA PATTERNS — CJK number rendering
+     ═══════════════════════════════════════════════════════════ */
+
+  /* ── Ensure numbers render correctly in CJK locales ── */
+  [lang="ja"] .step-number,
+  [lang="zh"] .step-number {
+    font-feature-settings: 'tnum';
+  }
+
+  [lang="ja"] .metric-value,
+  [lang="zh"] .metric-value {
+    font-variant-numeric: tabular-nums;
   }
 }
