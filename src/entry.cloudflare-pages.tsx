@@ -11,16 +11,10 @@ const qwikCityHandler = createQwikCity({ render, qwikCityPlan, manifest })
 export const onRequest = async (request: any, env: any, ctx: any) => {
   const url = new URL(request.url)
 
-  // Sitemap per locale: rewrite /sitemap.xml → /sitemap-{locale}.xml based on Host header
-  // e.g., pt.uniteia.com/sitemap.xml → /sitemap-pt.xml, en.uniteia.com/sitemap.xml → /sitemap-en.xml
-  if (url.pathname === '/sitemap.xml') {
-    const host = request.headers.get('host') || ''
-    const localeMatch = host.match(/^([a-z]{2})\./)
-    if (localeMatch) {
-      const locale = localeMatch[1]
-      url.pathname = `/sitemap-${locale}.xml`
-      request = new Request(url.toString(), request)
-    }
+  // Sitemap per locale: serve the correct sitemap-{locale}.xml based on Host header
+  // Uses env.ASSETS to fetch static files directly (bypasses Qwik City routing)
+  if (url.pathname === '/sitemap.xml' || url.pathname.startsWith('/sitemap-')) {
+    return serveSitemap(url, request, env)
   }
 
   // 1. Check for null byte
@@ -56,6 +50,60 @@ export const onRequest = async (request: any, env: any, ctx: any) => {
     console.error('Error in Qwik City handler:', err)
     return new Response('Internal Server Error', { status: 500 })
   }
+}
+
+/**
+ * Serve the correct sitemap for the requesting domain.
+ * e.g., pt.uniteia.com/sitemap.xml → serve sitemap-pt.xml
+ * Falls back to sitemap.xml if locale-specific file not found.
+ */
+async function serveSitemap(url: URL, request: any, env: any): Promise<Response> {
+  // Determine target sitemap file
+  let sitemapFile = 'sitemap.xml'
+
+  // If requesting sitemap.xml, try locale-specific version
+  if (url.pathname === '/sitemap.xml') {
+    const host = request.headers.get('host') || ''
+    const localeMatch = host.match(/^([a-z]{2})\./)
+    if (localeMatch) {
+      const localeFile = `sitemap-${localeMatch[1]}.xml`
+      // Try locale-specific first, fall back to default
+      sitemapFile = localeFile
+    }
+  } else {
+    // Direct request for sitemap-{locale}.xml
+    sitemapFile = url.pathname.slice(1) // remove leading /
+  }
+
+  try {
+    // Fetch from static assets (Cloudflare Pages built-in)
+    const assetUrl = new URL(`/${sitemapFile}`, url.origin)
+    const response = await env.ASSETS.fetch(assetUrl, request)
+    if (response.status === 200) {
+      const headers = new Headers(response.headers)
+      headers.set('content-type', 'application/xml; charset=utf-8')
+      headers.set('cache-control', 'public, max-age=0, must-revalidate, s-maxage=3600')
+      return new Response(response.body, { status: 200, headers })
+    }
+  } catch {
+    // Fall through to default
+  }
+
+  // Fallback: serve default sitemap.xml
+  try {
+    const fallbackUrl = new URL('/sitemap.xml', url.origin)
+    const response = await env.ASSETS.fetch(fallbackUrl, request)
+    if (response.status === 200) {
+      const headers = new Headers(response.headers)
+      headers.set('content-type', 'application/xml; charset=utf-8')
+      headers.set('cache-control', 'public, max-age=0, must-revalidate, s-maxage=3600')
+      return new Response(response.body, { status: 200, headers })
+    }
+  } catch {
+    // ignore
+  }
+
+  return new Response('Sitemap not found', { status: 404 })
 }
 
 export const fetch = onRequest
