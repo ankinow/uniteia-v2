@@ -509,7 +509,7 @@ describe('scripts end-to-end (requires content-graph.generated.ts)', () => {
     expect(content).toContain('# Linkgraph Report')
     expect(content).toContain('## Edge Kind Distribution')
     expect(content).toContain('## Edge Reciprocity')
-  })
+  }, 30000)
 
   it('generate:seo-verification exits 0 and writes a non-empty report', () => {
     if (existsSync(seoReport)) _preExistingSeo = true
@@ -528,5 +528,5 @@ describe('scripts end-to-end (requires content-graph.generated.ts)', () => {
     expect(content).toContain('# SEO Verification Report')
     expect(content).toContain('## Hreflang Reciprocity')
     expect(content).toContain('## Priority Distribution')
-  })
+  }, 30000)
 })

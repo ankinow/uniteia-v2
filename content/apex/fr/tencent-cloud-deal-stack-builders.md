@@ -1,7 +1,7 @@
 ---
 slug: tencent-cloud-deal-stack-builders
 lang: fr
-title: Tencent Cloud Deal Stack pour les Créateurs
+title: "Tencent Cloud Deal Stack pour Builders"
 verdict: caution
 quality_score: 90
 subjects:
@@ -10,29 +10,24 @@ subjects:
   - infrastructure
   - tencent-cloud
 referral_links:
-  - url: /en/signals/apex/magica-mcp-server
-    title: magica-mcp-server
-  - url: /en/signals/apex/magica-overview
-    title: magica-overview
-  - url: /en/signals/apex/magica-quickstart
-    title: magica-quickstart
+  - url: https://www.tencentcloud.com/act/pro/promo
+    title: Tencent Cloud Promotions
+  - url: https://www.tencentcloud.com/products/lighthouse
+    title: Lighthouse Overview
+  - url: https://www.tencentcloud.com/products/cvm
+    title: CVM Overview
+  - url: https://www.tencentcloud.com/products/teo
+    title: EdgeOne Overview
+  - url: https://www.tencentcloud.com/act/pro/promo
+    title: Tencent Cloud Free Tier
 metadata:
-  created_at: "2026-06-09T04:00:22.795Z"
-  updated_at: "2026-06-09T04:00:22.795Z"
+  created_at: "2026-06-12T16:53:27.557Z"
+  updated_at: "2026-06-12T16:53:27.557Z"
   author: UniTeia System
   version: 1
-canvas:
-  tone: obsidian
-  layout: constellation
-  nodes:
-    - id: what-is-the-tencent-cloud-deal-stack
-      section: What is the Tencent Cloud Deal Stack?
-      type: hero
-    - id: free-products
-      section: Free Products
-      type: card
+  importedFrom: uniteia-mega-factory
+  contentPackage: uniteia-content-package/v1
 ---
-
 # Tencent Cloud Deal Stack : Cloud Pas Cher pour les Builders
 
 ## Qu'est-ce que Tencent Cloud Deal Stack ?
