@@ -160,7 +160,7 @@ export const LangSwitcher = component$<LangSwitcherProps>(
         </button>
         {isOpen.value && (
           <div
-            class="lang-switcher-dropdown absolute right-0 mt-2 w-48 bg-[var(--sp-void)] border-2 border-[var(--sp-gold)] shadow-[var(--pixel-shadow-md)] overflow-hidden z-[var(--z-overlay)]"
+            class="lang-switcher-dropdown absolute right-0 mt-2 w-48 bg-void border border-action/20 rounded-lg shadow-xl overflow-hidden z-[var(--z-overlay)]"
             role="menu"
             aria-label={t.langSwitcher.available}
             data-testid="lang-switcher-dropdown"

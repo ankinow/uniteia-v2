@@ -248,8 +248,8 @@ export const MasterOpenCanvas = component$<MasterOpenCanvasProps>(
         {/* Layer 1 — Content card */}
         <div
           ref={cardRef}
-          class={['surface-pixel depth-surface relative preserve-3d'].filter(Boolean).join(' ')}
-          data-surface="depth-card"
+          class={['surface-panel depth-surface relative preserve-3d'].filter(Boolean).join(' ')}
+          data-blur="lg"
           style={{
             transformStyle: 'preserve-3d',
             willChange: 'transform',

@@ -41,7 +41,7 @@ export const NicheCard = component$<NicheCardProps>(
         data-surface="niche-card"
         data-blur="lg"
         class={[
-          'niche-card surface-pixel group block relative overflow-hidden',
+          'niche-card surface-panel group block relative overflow-hidden rounded-2xl',
           'transition-transform duration-300 hover:-translate-y-0.5',
           'hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]',
           'hover:border-white/20',

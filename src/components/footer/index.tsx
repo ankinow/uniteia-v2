@@ -52,7 +52,7 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
           </div>
           <nav
             aria-label="Footer links"
-            class="footer-links flex flex-wrap gap-4 justify-center md:justify-end surface-pixel px-3 py-2"
+            class="footer-links flex flex-wrap gap-4 justify-center md:justify-end surface-panel px-3 py-2"
             data-testid="footer-links"
           >
             <a
