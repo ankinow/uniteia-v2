@@ -32,7 +32,6 @@
     "node_modules",
     "dist",
     "src/canvas",
-    "src/canvas-react",
     "src/shapes",
     "src/templates",
     "src/components/canvas",

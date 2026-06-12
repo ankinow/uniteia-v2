@@ -8,5 +8,10 @@ export function formatSitemapDate(dateStr: string | undefined): string | undefin
 }
 
 export function buildRobotsTxt(origin: string): string {
-  return `User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n`
+  return `User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /build/
+Sitemap: ${origin}/sitemap-index.xml
+`
 }

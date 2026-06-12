@@ -7,26 +7,90 @@ import render from './entry.ssr'
 
 const qwikCityHandler = createQwikCity({ render, qwikCityPlan, manifest })
 
+// ── CORS ──────────────────────────────────────────────────────────────────────
+
+const CORS_HEADERS: Record<string, string> = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  'Access-Control-Max-Age': '86400',
+}
+
+function addCorsHeaders(response: Response): Response {
+  const headers = new Headers(response.headers)
+  for (const [key, value] of Object.entries(CORS_HEADERS)) {
+    headers.set(key, value)
+  }
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  })
+}
+
+function corsPreflightResponse(): Response {
+  return new Response(null, {
+    status: 204,
+    headers: CORS_HEADERS,
+  })
+}
+
+// ── Security headers (injected for custom domains where _headers doesn't apply) ─
+
+const SECURITY_HEADERS: Record<string, string> = {
+  'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
+  'X-Frame-Options': 'DENY',
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy':
+    'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()',
+  'Content-Security-Policy':
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com https://hacker-news.firebaseio.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+}
+
+function addSecurityHeaders(response: Response): Response {
+  const headers = new Headers(response.headers)
+  for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
+    // Only set if not already present (respect _headers file when it works)
+    if (!headers.has(key)) {
+      headers.set(key, value)
+    }
+  }
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  })
+}
+
+// ── Main handler ──────────────────────────────────────────────────────────────
+
 // biome-ignore lint/suspicious/noExplicitAny: Cloudflare Pages handler signature
 export const onRequest = async (request: any, env: any, ctx: any) => {
   const url = new URL(request.url)
 
+  // Handle CORS preflight for API routes (before sitemap / security checks)
+  if (url.pathname.startsWith('/api/') && request.method === 'OPTIONS') {
+    return addSecurityHeaders(corsPreflightResponse())
+  }
+
   // Sitemap per locale: serve the correct sitemap-{locale}.xml based on Host header
   // Uses env.ASSETS to fetch static files directly (bypasses Qwik City routing)
   if (url.pathname === '/sitemap.xml' || url.pathname.startsWith('/sitemap-')) {
-    return serveSitemap(url, request, env)
+    const sitemapResponse = await serveSitemap(url, request, env)
+    return addSecurityHeaders(sitemapResponse)
   }
 
   // 1. Check for null byte
   if (url.pathname.includes('\0') || url.pathname.includes('%00')) {
-    return new Response('Bad Request', { status: 400 })
+    return addSecurityHeaders(new Response('Bad Request', { status: 400 }))
   }
 
   // 2. Check for invalid percent encoding
   try {
     decodeURIComponent(url.pathname)
   } catch {
-    return new Response('Bad Request', { status: 400 })
+    return addSecurityHeaders(new Response('Bad Request', { status: 400 }))
   }
 
   // 3. Check for directory traversal (encoded or decoded)
@@ -36,16 +100,23 @@ export const onRequest = async (request: any, env: any, ctx: any) => {
     url.pathname.includes('%2e%2e') ||
     url.pathname.includes('%2E%2E')
   ) {
-    return new Response('Forbidden', { status: 403 })
+    return addSecurityHeaders(new Response('Forbidden', { status: 403 }))
   }
 
   // 4. Prevent overly long paths from causing worker crashes
   if (url.pathname.length > 300) {
-    return new Response('Not Found', { status: 404 })
+    return addSecurityHeaders(new Response('Not Found', { status: 404 }))
   }
 
   try {
-    return await qwikCityHandler(request, env, ctx)
+    let response = await qwikCityHandler(request, env, ctx)
+    // Add CORS headers to all /api/* responses
+    if (url.pathname.startsWith('/api/')) {
+      response = addCorsHeaders(response)
+    }
+    // Inject security headers for custom domains where Cloudflare _headers doesn't apply
+    response = addSecurityHeaders(response)
+    return response
   } catch (err) {
     console.error('Error in Qwik City handler:', err)
     return new Response('Internal Server Error', { status: 500 })

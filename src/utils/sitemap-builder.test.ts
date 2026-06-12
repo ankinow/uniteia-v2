@@ -9,9 +9,10 @@ describe('formatSitemapDate', () => {
 })
 
 describe('buildRobotsTxt', () => {
-  it('points robots.txt at the sitemap', () => {
-    expect(buildRobotsTxt('https://uniteia.com')).toContain(
-      'Sitemap: https://uniteia.com/sitemap.xml'
-    )
+  it('points robots.txt at the sitemap index with disallow rules', () => {
+    const robots = buildRobotsTxt('https://uniteia.com')
+    expect(robots).toContain('Sitemap: https://uniteia.com/sitemap-index.xml')
+    expect(robots).toContain('Disallow: /api/')
+    expect(robots).toContain('Disallow: /build/')
   })
 })
