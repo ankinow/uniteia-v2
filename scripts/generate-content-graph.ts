@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { LOCALE_BCP47_TO_V2 } from '@uniteia/content-node-contract'
 import { compileContentGraph, serializeGraphArtifacts } from '../src/content-graph'
+import type { ContentLocale } from '../src/content-graph/contracts/node'
 
 const GENERATED_DIR = resolve(import.meta.dirname, '..', 'src', 'content-graph', 'generated')
 const GENERATED_TS = resolve(import.meta.dirname, '..', 'src', 'content-graph.generated.ts')
@@ -59,22 +60,23 @@ function normalizeFactoryNode(node: Record<string, unknown>): string {
 
 async function main() {
   const buildLocale = process.env.LOCALE || 'en'
-  console.log(`[content-graph] Generating content graph for locale: ${buildLocale}...`)
+  console.log(`[content-graph] Generating content graph (build=${buildLocale}, all locales included)...`)
 
   const { contentRegistry } = await import('../src/content-registry.generated')
-  // Filter registry to only include entries for the build locale
-  // contentRegistry is Record<string, string> with keys like './content/apex/en/slug.md'
+  // Include ALL locales in the content graph (sitemap + hreflang need cross-locale data)
+  // buildLocale is embedded as metadata for Worker-side single-locale detection
+  const allLocales = ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'] as const
   const filteredRegistry: Record<string, string> = {}
   let totalEntries = 0
   for (const [key, value] of Object.entries(contentRegistry)) {
     totalEntries++
     const localeMatch = key.match(/\/content\/apex\/([a-z]{2})\//)
-    if (localeMatch && localeMatch[1] === buildLocale) {
+    if (localeMatch && (allLocales as readonly string[]).includes(localeMatch[1])) {
       filteredRegistry[key] = value
     }
   }
   console.log(
-    `[content-graph] Filtered registry: ${Object.keys(filteredRegistry).length} entries (from ${totalEntries})`
+    `[content-graph] Registry: ${Object.keys(filteredRegistry).length} entries (from ${totalEntries})`
   )
 
   // Load factory-provided ContentNodes from content-metadata dirs
@@ -106,8 +108,8 @@ async function main() {
 
   const graph = compileContentGraph({
     registry: filteredRegistry,
-    locales: [buildLocale],
-    defaultLocale: buildLocale,
+    locales: allLocales as unknown as ContentLocale[],
+    defaultLocale: buildLocale as ContentLocale,
     // biome-ignore lint/suspicious/noExplicitAny: factory nodes come from dynamic LLM output with unknown shape
     factoryNodes: factoryNodes as Record<string, any>,
   })
