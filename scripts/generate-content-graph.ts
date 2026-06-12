@@ -1,17 +1,22 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { LOCALE_BCP47_TO_V2 } from '@uniteia/content-node-contract'
 import { compileContentGraph, serializeGraphArtifacts } from '../src/content-graph'
+import type { SerializableGraphV1 } from '../src/content-graph/contracts/artifacts'
 import type { ContentLocale } from '../src/content-graph/contracts/node'
 
 const GENERATED_DIR = resolve(import.meta.dirname, '..', 'src', 'content-graph', 'generated')
 const GENERATED_TS = resolve(import.meta.dirname, '..', 'src', 'content-graph.generated.ts')
+const GENERATED_FULL_TS = resolve(
+  import.meta.dirname,
+  '..',
+  'src',
+  'content-graph-full.generated.ts'
+)
 const CONTENT_METADATA_DIR = resolve(import.meta.dirname, '..', 'content-metadata')
 
 /**
  * Normalize a factory node ID from BCP47 locale prefix to v2 internal locale code.
- * E.g., "pt-BR-roundtrip-test-fixture" → "pt-roundtrip-test-fixture"
- * Identity mappings (en→en, es→es, etc.) are skipped.
  */
 function normalizeBcp47NodeId(id: string): string {
   for (const [bcp47, v2] of Object.entries(LOCALE_BCP47_TO_V2)) {
@@ -24,15 +29,10 @@ function normalizeBcp47NodeId(id: string): string {
   return id
 }
 
-/**
- * Normalize all locale-related fields in a factory node from BCP47 to v2 internal locale codes.
- * Mutates the node in place and returns the normalized id.
- */
 function normalizeFactoryNode(node: Record<string, unknown>): string {
   const rawId = node.id as string
   const normalizedId = normalizeBcp47NodeId(rawId)
 
-  // Normalize the locale and canonicalLocale fields
   if (node.locale && LOCALE_BCP47_TO_V2[node.locale as keyof typeof LOCALE_BCP47_TO_V2]) {
     node.locale = LOCALE_BCP47_TO_V2[node.locale as keyof typeof LOCALE_BCP47_TO_V2]
   }
@@ -44,7 +44,6 @@ function normalizeFactoryNode(node: Record<string, unknown>): string {
       LOCALE_BCP47_TO_V2[node.canonicalLocale as keyof typeof LOCALE_BCP47_TO_V2]
   }
 
-  // Normalize alternates keys and values (pt-BR → pt in locale keys and ID values)
   if (node.alternates && typeof node.alternates === 'object') {
     const normalized: Record<string, string> = {}
     for (const [key, val] of Object.entries(node.alternates)) {
@@ -58,33 +57,26 @@ function normalizeFactoryNode(node: Record<string, unknown>): string {
   return normalizedId
 }
 
-async function main() {
-  const buildLocale = process.env.LOCALE || 'en'
-  console.log(
-    `[content-graph] Generating content graph (build=${buildLocale}, all locales included)...`
-  )
-
-  const { contentRegistry } = await import('../src/content-registry.generated')
-  // Include ALL locales in the content graph (sitemap + hreflang need cross-locale data)
-  // buildLocale is embedded as metadata for Worker-side single-locale detection
-  const allLocales = ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'] as const
-  const filteredRegistry: Record<string, string> = {}
-  let totalEntries = 0
+/** Filter content registry to a specific set of locales */
+function filterRegistry(
+  contentRegistry: Record<string, string>,
+  allowedLocales: readonly string[]
+): Record<string, string> {
+  const filtered: Record<string, string> = {}
   for (const [key, value] of Object.entries(contentRegistry)) {
-    totalEntries++
     const localeMatch = key.match(/\/content\/apex\/([a-z]{2})\//)
-    if (localeMatch && (allLocales as readonly string[]).includes(localeMatch[1])) {
-      filteredRegistry[key] = value
+    if (localeMatch && (allowedLocales as readonly string[]).includes(localeMatch[1])) {
+      filtered[key] = value
     }
   }
-  console.log(
-    `[content-graph] Registry: ${Object.keys(filteredRegistry).length} entries (from ${totalEntries})`
-  )
+  return filtered
+}
 
-  // Load factory-provided ContentNodes from content-metadata dirs
+/** Load factory nodes from content-metadata/ (shared between both compilations) */
+function loadFactoryNodes(): Record<string, unknown> {
   const factoryNodes: Record<string, unknown> = {}
   if (existsSync(CONTENT_METADATA_DIR)) {
-    const slugs = (await import('node:fs')).readdirSync(CONTENT_METADATA_DIR)
+    const slugs = readdirSync(CONTENT_METADATA_DIR)
     for (const slug of slugs) {
       const nodePath = resolve(CONTENT_METADATA_DIR, slug, 'content-nodes.json')
       if (existsSync(nodePath)) {
@@ -93,8 +85,6 @@ async function main() {
           if (Array.isArray(nodes)) {
             for (const node of nodes) {
               if (node.id) {
-                // Normalize BCP47 locale prefix to v2 internal code
-                // E.g., "pt-BR-slug" → "pt-slug", locale "pt-BR" → "pt"
                 const normalizedId = normalizeFactoryNode(node)
                 factoryNodes[normalizedId] = node
               }
@@ -105,44 +95,16 @@ async function main() {
         }
       }
     }
-    console.log(`[content-graph] Loaded ${Object.keys(factoryNodes).length} factory nodes`)
   }
+  return factoryNodes
+}
 
-  const graph = compileContentGraph({
-    registry: filteredRegistry,
-    locales: allLocales as unknown as ContentLocale[],
-    defaultLocale: buildLocale as ContentLocale,
-    // biome-ignore lint/suspicious/noExplicitAny: factory nodes come from dynamic LLM output with unknown shape
-    factoryNodes: factoryNodes as Record<string, any>,
-  })
-
-  const artifacts = serializeGraphArtifacts(graph)
-  // Embed build locale so the Worker can detect single-locale mode
-  // (process.env is not available in Cloudflare Workers)
-  artifacts.graph.buildLocale = buildLocale as import(
-    '../src/content-graph/contracts/artifacts'
-  ).SerializableGraphV1['buildLocale']
-
-  mkdirSync(GENERATED_DIR, { recursive: true })
-
-  const files: [string, string][] = [
-    ['content-graph.v1.json', JSON.stringify(artifacts.graph, null, 2)],
-    ['route-manifest.v1.json', JSON.stringify(artifacts.routeManifest, null, 2)],
-    ['locale-index.v1.json', JSON.stringify(artifacts.localeIndex, null, 2)],
-    ['taxonomy-index.v1.json', JSON.stringify(artifacts.taxonomyIndex, null, 2)],
-    ['related-index.v1.json', JSON.stringify(artifacts.relatedIndex, null, 2)],
-    ['visibility-index.v1.json', JSON.stringify(artifacts.visibilityIndex, null, 2)],
-  ]
-
-  for (const [filename, data] of files) {
-    writeFileSync(resolve(GENERATED_DIR, filename), data, 'utf-8')
-  }
-
-  // Also generate a TypeScript module that routes can import
-  const graphJson = JSON.stringify(artifacts.graph)
+/** Write a SerializableGraph as a TypeScript module */
+function writeTsModule(filepath: string, graphJson: string, comment: string) {
   const escapedJson = graphJson.replace(/\\/g, '\\\\').replace(/'/g, "\\'")
-  const generatedTs = [
+  const code = [
     '// AUTO-GENERATED by scripts/generate-content-graph.ts',
+    `// ${comment}`,
     "import { createStaticProvider } from './content-graph/loaders/create-static-provider'",
     "import type { SerializableGraphV1 } from './content-graph/contracts/artifacts'",
     '',
@@ -152,13 +114,84 @@ async function main() {
     'export const contentGraphData = _data',
     '',
   ].join('\n')
-  writeFileSync(GENERATED_TS, generatedTs, 'utf-8')
+  writeFileSync(filepath, code, 'utf-8')
+}
 
-  console.log(`[content-graph] Generated ${graph.nodes.length} nodes`)
-  console.log(`[content-graph] Public: ${artifacts.graph.indexes.public.length}`)
-  console.log(`[content-graph] Edges: ${artifacts.graph.edges.length}`)
-  console.log(`[content-graph] Written ${files.length} artifact files to ${GENERATED_DIR}`)
-  console.log(`[content-graph] Written generated TS module to ${GENERATED_TS}`)
+async function main() {
+  const buildLocale = process.env.LOCALE || 'en'
+  console.log(`[content-graph] Building — per-locale (${buildLocale}) + full (8 locales)`)
+
+  const { contentRegistry } = await import('../src/content-registry.generated')
+  const allLocales = ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'] as const
+  const factoryNodes = loadFactoryNodes()
+  console.log(
+    `[content-graph] Registry: ${Object.keys(contentRegistry).length} entries · ${Object.keys(factoryNodes).length} factory nodes`
+  )
+
+  const biomeIgnore = factoryNodes as Record<string, unknown>
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // 1. FULL graph — all 8 locales (for sitemap, MCP API, audit)
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  const fullRegistry = filterRegistry(contentRegistry, allLocales)
+  const fullGraph = compileContentGraph({
+    registry: fullRegistry,
+    locales: allLocales as unknown as ContentLocale[],
+    defaultLocale: buildLocale as ContentLocale,
+    factoryNodes: biomeIgnore as Record<string, unknown>,
+  })
+  const fullArtifacts = serializeGraphArtifacts(fullGraph)
+  fullArtifacts.graph.buildLocale = buildLocale as SerializableGraphV1['buildLocale']
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // 2. PER-LOCALE graph — build locale only (for routes/SSG)
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  const perLocaleList = [buildLocale] as readonly string[]
+  const perLocaleRegistry = filterRegistry(contentRegistry, perLocaleList)
+  const perLocaleGraph = compileContentGraph({
+    registry: perLocaleRegistry,
+    locales: [buildLocale] as unknown as ContentLocale[],
+    defaultLocale: buildLocale as ContentLocale,
+    factoryNodes: biomeIgnore as Record<string, unknown>,
+  })
+  const perLocaleArtifacts = serializeGraphArtifacts(perLocaleGraph)
+  perLocaleArtifacts.graph.buildLocale = buildLocale as SerializableGraphV1['buildLocale']
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // WRITE: JSON artifacts (full graph for build tools)
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  mkdirSync(GENERATED_DIR, { recursive: true })
+  const jsonFiles: [string, string][] = [
+    ['content-graph.v1.json', JSON.stringify(fullArtifacts.graph, null, 2)],
+    ['route-manifest.v1.json', JSON.stringify(fullArtifacts.routeManifest, null, 2)],
+    ['locale-index.v1.json', JSON.stringify(fullArtifacts.localeIndex, null, 2)],
+    ['taxonomy-index.v1.json', JSON.stringify(fullArtifacts.taxonomyIndex, null, 2)],
+    ['related-index.v1.json', JSON.stringify(fullArtifacts.relatedIndex, null, 2)],
+    ['visibility-index.v1.json', JSON.stringify(fullArtifacts.visibilityIndex, null, 2)],
+  ]
+  for (const [filename, data] of jsonFiles) {
+    writeFileSync(resolve(GENERATED_DIR, filename), data, 'utf-8')
+  }
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // WRITE: TypeScript modules
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  const perLocaleJson = JSON.stringify(perLocaleArtifacts.graph)
+  const fullJson = JSON.stringify(fullArtifacts.graph)
+
+  writeTsModule(GENERATED_TS, perLocaleJson, `PER-LOCALE (${buildLocale}) — routes/SSG import this`)
+  writeTsModule(GENERATED_FULL_TS, fullJson, 'FULL (8 locales) — sitemap, MCP API, audit scripts')
+
+  console.log(
+    `[content-graph] Full:     ${fullArtifacts.graph.nodes.length} nodes · ${fullArtifacts.graph.edges.length} edges · ~${Math.round(fullJson.length / 1024)}KB`
+  )
+  console.log(
+    `[content-graph] Per-loc:  ${perLocaleArtifacts.graph.nodes.length} nodes · ${perLocaleArtifacts.graph.edges.length} edges · ~${Math.round(perLocaleJson.length / 1024)}KB`
+  )
+  console.log(
+    `[content-graph] Savings:  ${Math.round((1 - perLocaleJson.length / fullJson.length) * 100)}% smaller`
+  )
+  console.log(`[content-graph] Written:  ${GENERATED_TS}, ${GENERATED_FULL_TS}`)
 }
 
 main().catch(err => {

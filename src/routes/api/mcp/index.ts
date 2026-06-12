@@ -1,5 +1,5 @@
 import type { RequestHandler } from '@builder.io/qwik-city'
-import { contentGraphData } from '~/content-graph.generated'
+import { contentGraphData } from '~/content-graph-full.generated'
 
 export const onGet: RequestHandler = async ({ json, cacheControl }) => {
   cacheControl({ maxAge: 300, staleWhileRevalidate: 60 })

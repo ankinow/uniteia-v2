@@ -1,6 +1,6 @@
 import { writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import { contentGraphData } from '../src/content-graph.generated'
+import { contentGraphData } from '../src/content-graph-full.generated'
 import { buildRobotsTxt, formatSitemapDate } from '../src/utils/sitemap-builder'
 
 const APEX_DOMAIN = 'uniteia.com'
