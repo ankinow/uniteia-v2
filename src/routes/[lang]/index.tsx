@@ -37,7 +37,6 @@ export default component$(() => {
   const siteName = t.seo.siteName
   const { featuredSignals, knowledgeClusters, frontierStreams } = homepage.value
 
-  // APEX-first: apex articles pinned to top, then rest by score. Filter out empty clusters.
   const sortedClusters = [...knowledgeClusters]
     .filter(c => c.articleCount > 0 || c.nicheSlug === 'apex')
     .sort((a, b) => {
@@ -48,7 +47,6 @@ export default component$(() => {
 
   return (
     <div class="mx-auto max-w-5xl px-4 sm:px-6 py-12 md:py-24 space-y-24">
-      {/* JSON-LD */}
       <JSONLD
         data={{
           '@context': 'https://schema.org',
@@ -70,14 +68,16 @@ export default component$(() => {
         }}
       />
 
-      {/* Hero — clean, direct, context-aware */}
-      <GenerativeHero clusters={sortedClusters} lang={lang} t={t.generativeHero} />
+      {/* Hero — sunset sky background */}
+      <div class="sunset-sky -mx-4 sm:-mx-6 -mt-12 md:-mt-24 px-4 sm:px-6 pt-12 md:pt-24 pb-8 mb-8">
+        <GenerativeHero clusters={sortedClusters} lang={lang} t={t.generativeHero} />
+      </div>
 
-      {/* ── Mission / Value Proposition (Parchment zone) ── */}
-      <BauhausSection mood="voltage" as="section" class="!py-12 !px-6 rounded-2xl">
+      {/* Mission */}
+      <BauhausSection mood="voltage" as="section" class="!py-12 !px-6">
         <div class="flex flex-col md:flex-row gap-8 md:gap-16 items-center max-w-4xl mx-auto">
           <div class="flex-1 text-center md:text-left">
-            <span class="text-[10px] uppercase tracking-[0.3em] text-neon-cyan/60 font-mono mb-4 block">
+            <span class="text-[10px] uppercase tracking-[0.3em] text-[var(--color-accent)]/60 font-mono mb-4 block">
               {t.generativeHero.apexBadge}
             </span>
             <h2 class="text-2xl md:text-3xl font-display text-bone leading-tight mb-4">
@@ -87,19 +87,21 @@ export default component$(() => {
               {t.onboarding.step1.desc}
             </p>
           </div>
-          <div class="flex-shrink-0 w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-neon-cyan/20 to-neon-rose/10 border border-white/5 flex items-center justify-center">
-            <span class="text-4xl md:text-5xl font-display text-neon-cyan/70 font-bold">∞</span>
+          <div class="flex-shrink-0 w-32 h-32 md:w-40 md:h-40 bg-gradient-to-br from-[var(--color-accent)]/20 to-[var(--sp-ember)]/10 border-2 border-[var(--color-accent)]/20 flex items-center justify-center">
+            <span class="text-4xl md:text-5xl font-display text-[var(--color-accent)]/70 font-bold">
+              ∞
+            </span>
           </div>
         </div>
       </BauhausSection>
 
-      {/* ── Featured Signals (expanded grid) ── */}
+      {/* Featured Signals */}
       {featuredSignals.length > 0 && (
         <section aria-label={t.homepage.featuredSignals}>
           <div class="flex items-center justify-between mb-8">
             <h2 class="text-xs uppercase tracking-[0.3em] text-bone/40 font-mono">
               {t.homepage.featuredSignals}
-              <span class="ml-3 text-neon-cyan tabular-nums opacity-60">
+              <span class="ml-3 text-[var(--color-accent)] tabular-nums opacity-60">
                 {featuredSignals.length}
               </span>
             </h2>
@@ -111,11 +113,11 @@ export default component$(() => {
                 <BentoCell key={signal.node.id} size={idx === 0 ? 'wide' : 'default'} as="article">
                   <a
                     href={signal.href}
-                    class="block h-full no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan rounded-xl active:scale-[0.98] transition-transform duration-200"
+                    class="block h-full no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] active:scale-[0.98] transition-transform duration-100"
                   >
                     <CinematicDepthCard
                       {...(signal.node.visualStyle ? { visualStyle: signal.node.visualStyle } : {})}
-                      class="h-full transition-[transform,box-shadow] duration-300 group-hover:-translate-y-1.5 group-hover:shadow-2xl group-hover:shadow-neon-cyan/10"
+                      class="h-full transition-[transform,box-shadow] duration-300 group-hover:-translate-y-1.5 group-hover:shadow-2xl group-hover:shadow-[var(--color-accent)]/10"
                     >
                       <img
                         src={thumb.src}
@@ -124,17 +126,17 @@ export default component$(() => {
                         height="120"
                         loading="lazy"
                         decoding="async"
-                        class="w-full aspect-[3/2] object-cover rounded-t-xl opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                        class="w-full aspect-[3/2] object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
                       />
                       <div class="p-4 md:p-5">
-                        <p class="font-bold text-bone text-base md:text-lg leading-tight group-hover:text-neon-cyan transition-colors duration-200">
+                        <p class="font-bold text-bone text-base md:text-lg leading-tight group-hover:text-[var(--color-accent)] transition-colors duration-200">
                           {signal.node.title}
                         </p>
                         <p class="text-xs md:text-sm text-bone-muted mt-2 line-clamp-3 leading-relaxed">
                           {signal.node.summary}
                         </p>
                         <div class="flex items-center gap-4 mt-4">
-                          <span class="text-[9px] text-bone/40 uppercase tracking-[0.2em] font-mono border border-white/10 px-1.5 py-0.5 rounded bg-void/50 backdrop-blur-sm">
+                          <span class="text-[9px] text-bone/40 uppercase tracking-[0.2em] font-mono border-2 border-[var(--color-accent)]/20 px-1.5 py-0.5 bg-[var(--color-deep)]">
                             {signal.node.locale}
                           </span>
                           {signal.node.qualityScore != null && (
@@ -158,12 +160,12 @@ export default component$(() => {
         </section>
       )}
 
-      {/* ── Knowledge Clusters (compact navigation with parchment feel) ── */}
+      {/* Knowledge Clusters */}
       {sortedClusters.length > 0 && (
         <BauhausSection
           mood="voltage"
           as="section"
-          class="!py-12 !px-0 rounded-2xl"
+          class="!py-12 !px-0"
           aria-label={t.homepage.knowledgeClusters}
         >
           <div class="px-0 sm:px-6">
@@ -175,23 +177,23 @@ export default component$(() => {
                 <a
                   key={cluster.nicheSlug}
                   href={cluster.href}
-                  class="inline-flex items-center gap-3 px-5 py-2.5 rounded-xl border border-white/5 bg-deep hover:bg-mid hover:border-neon-cyan/40 transition-[color,background-color,border-color,transform] duration-200 active:scale-[0.96] no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan"
+                  class="inline-flex items-center gap-3 px-5 py-2.5 border-2 border-[var(--color-accent)]/10 bg-[var(--color-deep)] hover:bg-[var(--color-mid)] hover:border-[var(--color-accent)]/40 transition-[color,background-color,border-color,transform] duration-100 active:scale-[0.96] no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
                 >
                   {cluster.nicheSlug === 'apex' && (
                     <span class="relative flex h-2 w-2">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-cyan opacity-75" />
-                      <span class="relative inline-flex rounded-full h-2 w-2 bg-neon-cyan" />
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent)] opacity-75" />
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-accent)]" />
                     </span>
                   )}
                   <ClusterIcon
                     name={nicheToIcon(cluster.nicheSlug)}
                     size={18}
-                    class="text-bone/40 group-hover:text-neon-cyan transition-colors"
+                    class="text-bone/40 group-hover:text-[var(--color-accent)] transition-colors"
                   />
                   <span class="text-sm md:text-base font-medium text-bone/70 group-hover:text-bone transition-colors">
                     {cluster.label}
                   </span>
-                  <span class="text-[10px] text-bone/20 font-mono tabular-nums ml-2 bg-white/5 px-1.5 py-0.5 rounded">
+                  <span class="text-[10px] text-bone/20 font-mono tabular-nums ml-2 bg-[var(--color-accent)]/10 px-1.5 py-0.5">
                     {cluster.articleCount}
                   </span>
                 </a>
@@ -201,7 +203,7 @@ export default component$(() => {
         </BauhausSection>
       )}
 
-      {/* ── Frontier streams: compact list with parchment zone ── */}
+      {/* Frontier streams */}
       {frontierStreams.length > 0 && (
         <section aria-label={t.homepage.frontierStreams}>
           <div class="flex items-center gap-3 mb-6">
@@ -217,11 +219,11 @@ export default component$(() => {
                 <a
                   key={stream.node.id}
                   href={stream.href}
-                  class="block no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-rose rounded-lg active:scale-[0.98] transition-transform duration-150"
+                  class="block no-underline group focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] active:scale-[0.98] transition-transform duration-100"
                 >
                   <CinematicDepthCard
                     variant="card"
-                    class="hover:border-neon-rose/20 transition-colors"
+                    class="hover:border-[var(--color-accent)]/20 transition-colors"
                   >
                     <div class="flex items-start gap-3 p-4">
                       <img
@@ -231,7 +233,7 @@ export default component$(() => {
                         height="56"
                         loading="lazy"
                         decoding="async"
-                        class="w-14 h-14 rounded-lg object-cover shrink-0 opacity-85 group-hover:opacity-100 transition-opacity duration-200"
+                        class="w-14 h-14 object-cover shrink-0 opacity-85 group-hover:opacity-100 transition-opacity duration-200"
                       />
                       <div class="min-w-0">
                         <p class="font-medium text-bone text-sm leading-tight group-hover:text-neon-rose transition-colors">
@@ -248,29 +250,29 @@ export default component$(() => {
         </section>
       )}
 
-      {/* ── Network State / Mission (light parchment zone) ── */}
-      <BauhausSection mood="signal" as="section" class="!py-12 !px-6 rounded-2xl">
+      {/* Network State / Mission — teal section with dark text for contrast */}
+      <BauhausSection mood="signal" as="section" class="!py-12 !px-6">
         <div class="max-w-3xl mx-auto text-center">
-          <span class="text-[10px] uppercase tracking-[0.3em] text-neon-amber/50 font-mono mb-4 block">
+          <span class="text-[10px] uppercase tracking-[0.3em] text-black/40 font-mono mb-4 block">
             {t.homepage.networkState}
           </span>
-          <h2 class="text-xl md:text-2xl font-display text-bone leading-tight mb-4">
+          <h2 class="text-xl md:text-2xl font-display text-black/80 leading-tight mb-4">
             {t.onboarding.step2.title}
           </h2>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
             {t.onboarding.step2.cards.map(card => (
-              <div key={card.label} class="bg-white/5 rounded-xl p-4 border border-white/5">
-                <span class="text-neon-cyan text-xs font-mono uppercase tracking-widest">
+              <div key={card.label} class="bg-black/10 p-4 border-2 border-black/20">
+                <span class="text-black/70 text-xs font-mono uppercase tracking-widest">
                   {card.label}
                 </span>
-                <p class="text-bone-muted text-xs mt-2 leading-relaxed">{card.desc}</p>
+                <p class="text-black/60 text-xs mt-2 leading-relaxed">{card.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </BauhausSection>
 
-      {/* ── Empty state ── */}
+      {/* Empty state */}
       {featuredSignals.length === 0 &&
         knowledgeClusters.length === 0 &&
         frontierStreams.length === 0 && (
@@ -278,78 +280,12 @@ export default component$(() => {
             <p class="text-bone/50 text-lg font-display">{t.homepage.noSignals}</p>
             <a
               href={`/${lang}/signals`}
-              class="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full border border-neon-cyan/20 text-neon-cyan hover:bg-neon-cyan/5 transition-colors duration-200 active:scale-[0.96] no-underline"
+              class="inline-flex items-center gap-2 mt-6 px-5 py-2.5 border-2 border-[var(--color-accent)]/30 text-[var(--color-accent)] hover:bg-[var(--color-accent)]/10 transition-colors duration-100 active:scale-[0.96] no-underline"
             >
               {t.homepage.browseTopics} →
             </a>
           </section>
         )}
-
-      {/* ── Footer: stronger branding ── */}
-      <footer class="mt-12 pt-10 border-t border-bone/5">
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-10">
-          {/* Brand */}
-          <div class="text-center sm:text-left">
-            <p class="font-display text-bone/70 text-lg font-bold tracking-tight">{siteName}</p>
-            <p class="text-xs text-bone/40 mt-2 max-w-xs leading-relaxed">
-              {t.homepage.footerMadeWith}
-            </p>
-          </div>
-          {/* Links */}
-          <div class="text-center">
-            <p class="text-[10px] uppercase tracking-[0.3em] text-bone/30 font-mono mb-3">
-              Navigate
-            </p>
-            <div class="flex flex-col gap-2">
-              <a
-                href={`/${lang}/signals`}
-                class="text-xs text-bone/50 hover:text-neon-cyan transition-colors no-underline"
-              >
-                {t.nav.topics}
-              </a>
-              <a
-                href={`/${lang}/verdict`}
-                class="text-xs text-bone/50 hover:text-neon-cyan transition-colors no-underline"
-              >
-                {t.editorial.verdictLabel}
-              </a>
-              <a
-                href={`/${lang}/search`}
-                class="text-xs text-bone/50 hover:text-neon-cyan transition-colors no-underline"
-              >
-                {t.nav.search}
-              </a>
-            </div>
-          </div>
-          {/* Legal & Source */}
-          <div class="text-center sm:text-right">
-            <p class="text-[10px] uppercase tracking-[0.3em] text-bone/30 font-mono mb-3">Legal</p>
-            <div class="flex flex-col gap-2">
-              <a
-                href={`/${lang}/legal/privacy`}
-                class="text-xs text-bone/50 hover:text-neon-cyan transition-colors no-underline"
-              >
-                {t.footer.links.privacy}
-              </a>
-              <a
-                href={`/${lang}/legal/terms`}
-                class="text-xs text-bone/50 hover:text-neon-cyan transition-colors no-underline"
-              >
-                {t.footer.links.terms}
-              </a>
-              <span class="text-xs text-bone/30">{t.footer.links.source}</span>
-            </div>
-          </div>
-        </div>
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6 border-t border-bone/5">
-          <p class="text-[10px] text-bone/25 font-mono">
-            {t.footer.copyright.replace('{year}', String(new Date().getFullYear()))}
-          </p>
-          <p class="text-[10px] text-bone/20 font-mono">
-            BUILT WITH PA∞ SOTA · Autonomous Engineering · v2
-          </p>
-        </div>
-      </footer>
     </div>
   )
 })

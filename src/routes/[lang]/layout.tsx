@@ -57,7 +57,7 @@ export default component$(() => {
       {/* Header — clean, minimal */}
       <div
         q:slot="header"
-        class="w-full bg-void/90 backdrop-blur-sm border-b border-white/5 relative z-[var(--z-overlay)]"
+        class="w-full bg-[var(--color-void)] border-b-2 border-[var(--color-accent)]/10 relative z-[var(--z-overlay)]"
       >
         <nav
           aria-label="Primary navigation"
