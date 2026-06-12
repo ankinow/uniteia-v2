@@ -617,6 +617,7 @@ export default component$(() => {
 
 export const head: DocumentHead = ({ resolveValue, params, url }) => {
   const content = resolveValue(useArticle)
+  const nicheLabels = resolveValue(useNicheSegmentLabel)
   const lang = (params.lang as SupportedLanguage) || 'en'
   const t = getTranslation(lang)
 
@@ -647,6 +648,40 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
   })
 
   const description = content.summary || extractDescription(content.content)
+
+  // JSON-LD BreadcrumbList for article pages
+  const nicheLabel = niche ? nicheLabels?.[niche] || niche : niche
+  const pageUrl = canonicalUrl(url.origin, `/${lang}/signals/${niche}/${slug}`)
+  const breadcrumbItems = [
+    {
+      '@type': 'ListItem' as const,
+      position: 1,
+      name: t.seo.siteName,
+      item: canonicalUrl(url.origin, `/${lang}`),
+    },
+    {
+      '@type': 'ListItem' as const,
+      position: 2,
+      name: t.nav?.breadcrumb?.signals || 'Signals',
+      item: canonicalUrl(url.origin, `/${lang}/signals`),
+    },
+    ...(niche
+      ? [
+          {
+            '@type': 'ListItem' as const,
+            position: 3,
+            name: nicheLabel,
+            item: canonicalUrl(url.origin, `/${lang}/signals/${niche}`),
+          },
+        ]
+      : []),
+    {
+      '@type': 'ListItem' as const,
+      position: niche ? 4 : 3,
+      name: content.title,
+      item: pageUrl,
+    },
+  ]
 
   return {
     title: t.seo.articleTitleTemplate.replace('{title}', content.title),
@@ -697,6 +732,14 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
       ...alternateLinks,
     ],
     scripts: [
+      {
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: breadcrumbItems,
+        }),
+      },
       {
         type: 'application/ld+json',
         innerHTML: JSON.stringify({

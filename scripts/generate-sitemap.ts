@@ -67,8 +67,8 @@ async function generateSitemapForLocale(buildLocale: string, distDir: string) {
   for (const node of publicNodes) {
     const firstNiche = node.niche[0] ?? 'apex'
     const loc = `${origin}/${node.locale}/signals/${firstNiche}/${node.slug}`
-    const lastmodDate = formatSitemapDate(node.timestamps.updatedAt)
-    const lastmod = lastmodDate ? `    <lastmod>${lastmodDate}</lastmod>\n` : ''
+    const lastmodDate = formatSitemapDate(node.timestamps.updatedAt) ?? today
+    const lastmod = `    <lastmod>${lastmodDate}</lastmod>\n`
 
     // hreflang alternates
     const group = byCanonical.get(node.canonicalSlug) ?? []

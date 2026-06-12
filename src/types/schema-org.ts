@@ -40,6 +40,7 @@ export interface OrganizationSchema {
   name: string
   url?: string
   logo?: ImageObjectSchema
+  sameAs?: string | string[]
 }
 
 export interface PersonSchema {

@@ -1,0 +1,527 @@
+# I18N Hardcoded English Strings Audit Report
+# Repository: /home/lermf/uniteia-v2
+# Date: 2026-06-12
+# Scope: All components listed in task + additional findings from grep
+# Severity: CRITICAL > HIGH > MEDIUM > LOW
+
+================================================================================
+SUMMARY
+================================================================================
+Files audited:         14 (9 requested + 5 discovered via grep)
+Hardcoded strings:     62 total
+  CRITICAL: 2
+  HIGH:     14
+  MEDIUM:   27
+  LOW:      19
+i18n keys missing:     51 (strings with no existing translation key)
+i18n keys exist but
+  NOT used:            4  (search placeholder, "Retry" ×3)
+
+================================================================================
+1. src/components/footer/index.tsx
+================================================================================
+
+[1] Line 48 — "Built with" + "PA∞ SOTA"
+    String:   Built with <span>PA∞ SOTA</span>
+    Context:  Brand/tagline link inside footer
+    i18n key: NONE
+    Severity: HIGH — user-visible on every page
+    Note:     The words "Built with" and brand "PA∞ SOTA" are inline
+              inside an <a> tag. Could be split into t.footer.builtWith
+              with a placeholder for the brand.
+
+[2] Line 50 — "Autonomous Engineering"
+    String:   Autonomous Engineering
+    Context:  Subtitle below brand link
+    i18n key: NONE
+    Severity: MEDIUM — supplementary footer text
+
+[3] Line 54 — aria-label="Footer links"
+    String:   Footer links
+    Context:  nav aria-label for accessibility
+    i18n key: NONE (could add t.footer.links.ariaLabel)
+    Severity: LOW — screen-reader only, but a11y best practice
+
+================================================================================
+2. src/components/error-pages/not-found.tsx
+================================================================================
+
+STATUS: FULLY I18N'D ✅
+All user-visible strings use t.errorPages['404'].{title, message, backHome}.
+No hardcoded English strings detected.
+
+================================================================================
+3. src/components/lang-switcher/compact.tsx
+================================================================================
+
+[4] Line 12 — aria-label="Language selector"
+    String:   Language selector
+    Context:  fieldset aria-label
+    i18n key: EXISTS (t.langSwitcher.label = "Language") but not reused
+    Severity: LOW — a11y label; could reference existing key
+
+================================================================================
+4. src/components/breadcrumb/index.tsx
+================================================================================
+
+STATUS: FULLY I18N'D ✅
+All labels use t.nav.home, t.nav.breadcrumb.signals, t.nav.breadcrumb.label.
+Line 44 slug humanization is programmatic fallback — acceptable.
+
+================================================================================
+5. src/routes/[lang]/search/index.tsx
+================================================================================
+
+[5] Line 31 — sr-only <label>: "Search topics, articles"
+    String:   Search topics, articles
+    Context:  Hidden label for screen readers
+    i18n key: EXISTS (t.search.placeholder = "Search topics, articles...")
+              but NOT used. Note: i18n key has trailing "...", label doesn't.
+              Consider separate key t.search.label or reuse placeholder.
+    Severity: MEDIUM — screen-reader only, but always-English is bad for a11y
+
+[6] Line 39 — placeholder="Search topics, articles..."  ⚠️ CRITICAL
+    String:   Search topics, articles...
+    Context:  Search input placeholder — MOST VISIBLE gap
+    i18n key: EXISTS (t.search.placeholder) but NOT USED
+    Severity: CRITICAL — the search input is always in English regardless
+              of locale. This is the #1 i18n gap in the audit.
+
+[7] Line 41 — aria-label="Search topics, articles"
+    String:   Search topics, articles
+    Context:  input aria-label (duplicate of #5)
+    i18n key: EXISTS (t.search.placeholder) but not reused
+    Severity: LOW — screen-reader only
+
+[8] Lines 62-63 — " | UniTeia" (in document head title)
+    String:   | UniTeia
+    Context:  Title suffix `${...} | UniTeia`
+    i18n key: PARTIAL — t.seo.siteName = "UniTeia OS" exists, but the
+              pipe-separated format isn't templated. Consider using
+              t.seo.articleTitleTemplate pattern.
+    Severity: LOW — brand name, arguably shouldn't be translated
+
+================================================================================
+6. src/components/canva/CanvaMagicaOverview.tsx
+================================================================================
+
+[9] Line 36 — lang = 'en' (HARDCODED LOCALE)  ⚠️ CRITICAL
+    String:   const lang = 'en' as SupportedLanguage
+    Context:  Component always renders in English regardless of user locale
+    i18n key: N/A (code bug, not string)
+    Severity: CRITICAL — the entire component ignores the user's language.
+              Should use useLocation() to get actual lang param.
+
+--- Pill/Footer labels (all hardcoded, no i18n keys) ---
+
+[10] Line 85  — "Budget Gate"        Severity: HIGH
+[11] Line 86  — "SLO Router"         Severity: HIGH
+[12] Line 103 — "Tool Injection"     Severity: HIGH
+[13] Line 119 — "Global Edge"        Severity: HIGH
+[14] Line 120 — "Zero-Latency"       Severity: HIGH
+[15] Line 136 — "EdgeOne WAF"        Severity: MEDIUM (product name)
+[16] Line 137 — "Lighthouse CVM"     Severity: MEDIUM (product name)
+[17] Line 159 — "PA∞ SOTA Compliance" Severity: HIGH
+
+--- Flow diagram step labels ---
+
+[18] Line 176 — "SOURCES"            Severity: MEDIUM
+[19] Line 183 — "NOVA"               Severity: LOW (product name)
+[20] Line 190 — "D1/KV"              Severity: LOW (product name)
+[21] Line 197 — "API"                Severity: LOW (universal acronym)
+[22] Line 204 — "FRONTEND"           Severity: MEDIUM
+
+All 14 strings above: i18n key = NONE (no keys in magica namespace
+for these labels)
+
+================================================================================
+7. src/components/article-renderer/index.tsx
+================================================================================
+
+[23] Line 90 — "UniTeia System" (author fallback)
+    String:   content.metadata?.author || 'UniTeia System'
+    Context:  Default author when metadata is missing
+    i18n key: NONE
+    Severity: LOW — rarely visible fallback
+
+[24] Line 153 — fallbackMsg="Article Content"
+    String:   Article Content
+    Context:  ErrorBoundary fallback when article body fails
+    i18n key: NONE
+    Severity: MEDIUM — visible on error
+
+[25] Line 160 — fallbackMsg="Related Articles"
+    String:   Related Articles
+    Context:  ErrorBoundary fallback for related articles section
+    i18n key: NONE
+    Severity: MEDIUM — visible on error
+
+================================================================================
+8. src/components/sidebar/sidebar-nav.tsx
+================================================================================
+
+STATUS: FULLY I18N'D ✅
+All nav labels use t.nav.{home, topics, search, niches}.
+The expand/collapse arrows (▼/▶) are Unicode symbols — arguably universal.
+No hardcoded English strings detected.
+
+================================================================================
+9. src/components/homepage-curation/ (2 files)
+================================================================================
+
+=== 9a. src/components/homepage-curation/index.tsx ===
+
+[26] Line 36 — aria-label fallback: "No description"
+    String:   No description
+    Context:  Fallback text in repo card aria-label
+    i18n key: NONE
+    Severity: LOW
+
+[27] Line 75 — "agora" (Portuguese for "now")
+    String:   timeAgo < 1 ? 'agora' : ...
+    Context:  Relative time display
+    i18n key: NONE (should use Intl.RelativeTimeFormat or i18n key)
+    Severity: HIGH — always shows Portuguese word "agora" regardless of locale
+
+[28] Line 159 — "Failed to load trending data"
+    String:   Failed to load trending data
+    Context:  Error message when API call fails
+    i18n key: NONE
+    Severity: MEDIUM
+
+[29] Line 176 — "Trending AI & Robotics"
+    String:   Trending AI & Robotics
+    Context:  Section header (h2)
+    i18n key: NONE
+    Severity: HIGH
+
+[30] Line 179 — "atualizado" (Portuguese)
+    String:   atualizado ${...toLocaleTimeString()}
+    Context:  "updated" label with timestamp
+    i18n key: NONE
+    Severity: HIGH — mixed language; shows Portuguese regardless of locale
+
+[31] Line 219 — "Trending unavailable — check back later"
+    String:   Trending unavailable — check back later
+    Context:  Empty state message
+    i18n key: NONE
+    Severity: MEDIUM
+
+[32] Line 225 — aria-label="Retry loading trending data"
+    String:   Retry loading trending data
+    Context:  Button aria-label
+    i18n key: NONE
+    Severity: LOW
+
+[33] Line 230 — "Retry" (button text, 🔄 emoji)
+    String:   Retry
+    Context:  Retry button in empty state
+    i18n key: EXISTS (t.errorPages['500'].retry) but NOT used
+    Severity: MEDIUM
+
+[34] Line 249 — aria-label="Retry loading trending data"
+    Same as [32], different location (error state)
+    Severity: LOW
+
+[35] Line 254 — "Retry" (button text in error state)
+    Same as [33], different location
+    i18n key: EXISTS but NOT used
+    Severity: MEDIUM
+
+[36] Line 271 — "Top Repos da Semana" (Portuguese)
+    String:   Top Repos da Semana
+    Context:  GitHub trending section header
+    i18n key: NONE
+    Severity: HIGH — always Portuguese regardless of locale
+
+[37] Line 288 — "Notícias do Dia" (Portuguese)
+    String:   Notícias do Dia
+    Context:  HackerNews section header
+    i18n key: NONE
+    Severity: HIGH — always Portuguese regardless of locale
+
+[38] Line 308 — "Artigo Aleatório" (Portuguese)
+    String:   Artigo Aleatório
+    Context:  Random article section header
+    i18n key: NONE
+    Severity: HIGH — always Portuguese regardless of locale
+
+[39] Line 313 — aria-label="Random article: {title}"
+    String:   Random article:
+    Context:  Link aria-label prefix
+    i18n key: NONE
+    Severity: LOW
+
+=== 9b. src/components/homepage-curation/bauhaus-trending.tsx ===
+
+[40] Line 29 — "Curated insight from UniTeia Signals — ..." + "trusted"
+    String:   Curated insight from UniTeia Signals — {verdict} content.
+    Context:  Static fallback description
+    i18n key: NONE (t.editorial.trusted exists but not used)
+    Severity: MEDIUM
+
+[41] Line 33 — "Content" (language label in synthetic data)
+    String:   Content
+    Context:  Language field in generated fallback repo data
+    i18n key: NONE
+    Severity: LOW — synthetic data label
+
+[42] Line 66 — "REPO"
+    String:   REPO
+    Context:  Card label
+    i18n key: NONE
+    Severity: LOW
+
+[43] Line 75 — "Stars"
+    String:   Stars
+    Context:  Card metric label
+    i18n key: NONE
+    Severity: LOW
+
+[44] Line 108 — "By {news.by}"
+    String:   By
+    Context:  Author prefix in news card
+    i18n key: NONE
+    Severity: LOW
+
+[45] Line 109 — "{n} Comments"
+    String:   Comments
+    Context:  Comment count label
+    i18n key: NONE
+    Severity: LOW
+
+--- Status indicator strings (all hardcoded) ---
+
+[46] Line 179 — "Connecting..."   Severity: MEDIUM
+[47] Line 180 — "Error"           Severity: MEDIUM
+[48] Line 181 — "Static Cache"    Severity: MEDIUM
+[49] Line 182 — "No Data"         Severity: MEDIUM
+[50] Line 183 — "Synchronized"    Severity: MEDIUM
+    i18n key: NONE for all 5
+
+--- Section headers ---
+
+[51] Line 198 — "Pulse Check"         Severity: HIGH
+[52] Line 200 — "Trending\nIntelligence" Severity: HIGH
+[53] Line 205 — "Live Stream"         Severity: MEDIUM
+[54] Line 226 — "Global Signals"      Severity: HIGH
+[55] Line 248 — "Signal Lost"         Severity: MEDIUM
+[56] Line 271 — "No Signals"          Severity: MEDIUM
+    i18n key: NONE for all 6
+
+--- Fallback/error messages ---
+
+[57] Line 159 — "Failed to load trending data"     Severity: MEDIUM
+[58] Line 272 — "Trending data unavailable — ..."  Severity: MEDIUM
+[59] Line 294 — "Live feed unavailable ({err})..." Severity: MEDIUM
+[60] Line 296 — "Live feed rate-limited..."        Severity: MEDIUM
+    i18n key: NONE for all 4
+
+--- Buttons and CTAs ---
+
+[61] Lines 253,276,302 — aria-label="Retry loading trending data"
+    i18n key: NONE  |  Severity: LOW
+
+[62] Lines 258,281,307 — "Retry" button text
+    i18n key: EXISTS (t.errorPages['500'].retry) but NOT used
+    Severity: MEDIUM
+
+[63] Line 319 — "Recommended Insight"
+    i18n key: NONE  |  Severity: MEDIUM
+
+[64] Line 324 — "GO →"
+    i18n key: NONE  |  Severity: LOW
+
+================================================================================
+ADDITIONAL FILES FOUND DURING AUDIT
+================================================================================
+
+=== src/components/error-boundary/index.tsx ===
+
+[65] Line 27 — default fallbackMsg: "This section could not be loaded."
+    String:   This section could not be loaded.
+    Context:  Default prop value for ErrorBoundary fallback
+    i18n key: NONE
+    Severity: MEDIUM — visible whenever an error boundary catches an error
+
+[66] Line 62 — aria-label="Retry loading this section"
+    String:   Retry loading this section
+    Context:  Button aria-label
+    i18n key: NONE
+    Severity: LOW
+
+[67] Line 68 — 🔄 Retry
+    String:   Retry
+    Context:  Retry button text
+    i18n key: EXISTS (t.errorPages['500'].retry) but NOT used
+    Severity: MEDIUM
+
+=== src/components/share-bar/index.tsx ===
+
+[68] Line 26 — "Share on X (Twitter)"
+[69] Line 31 — "Share on LinkedIn"
+[70] Line 36 — "Share on Reddit"
+[71] Line 41 — "Share via Email"
+[72] Line 46 — "Copy link"
+    Context:  Social share link aria-labels
+    i18n key: NONE
+    Severity: LOW — accessibility labels
+
+[73] Line 58 — "✓ Copied!"
+    String:   ✓ Copied!
+    Context:  Copy feedback toast
+    i18n key: NONE
+    Severity: LOW — transient feedback
+
+[74] Line 78 — aria-label="Share this article"
+    String:   Share this article
+    Context:  Group aria-label
+    i18n key: NONE
+    Severity: LOW
+
+[75] Line 80 — "Share" (visible label)
+    String:   Share
+    Context:  Label span before share buttons
+    i18n key: NONE
+    Severity: MEDIUM — user-visible text
+
+[76] Line 95 — "Copy" (button text)
+    String:   Copy
+    Context:  Copy link button
+    i18n key: NONE
+    Severity: MEDIUM — user-visible button text
+
+=== src/components/related-articles/index.tsx ===
+
+[77] Line 11 — aria-label fallback: "Related articles"
+    String:   Related articles (default when no label prop passed)
+    Context:  section aria-label
+    i18n key: NONE
+    Severity: MEDIUM — accessibility + visible when label prop is omitted
+
+================================================================================
+EXISTING I18N KEYS NOT BEING USED (Low-hanging fruit)
+================================================================================
+
+The following translation keys EXIST in the i18n system but are NOT being
+used in the components that need them:
+
+  1. t.search.placeholder        → search/index.tsx line 39 (CRITICAL)
+  2. t.errorPages['500'].retry   → error-boundary/index.tsx line 68
+  3. t.errorPages['500'].retry   → homepage-curation/index.tsx lines 230,254
+  4. t.errorPages['500'].retry   → homepage-curation/bauhaus-trending.tsx lines 258,281,307
+  5. t.editorial.trusted         → homepage-curation/bauhaus-trending.tsx line 29
+
+================================================================================
+TOP PRIORITY FIXES (ordered by impact)
+================================================================================
+
+P0 - CRITICAL (blocks multilingual UX):
+  1. search/index.tsx:39 — Use t.search.placeholder for search input
+  2. CanvaMagicaOverview.tsx:36 — Fix hardcoded lang='en' to use actual locale
+
+P1 - HIGH (always-visible user-facing text):
+  3. homepage-curation/index.tsx:176 — "Trending AI & Robotics" section header
+  4. homepage-curation/index.tsx:75,179 — Portuguese strings "agora"/"atualizado"
+  5. homepage-curation/index.tsx:271,288,308 — Portuguese section headers
+  6. CanvaMagicaOverview.tsx:85-204 — All pill labels, step labels, flow labels
+  7. footer/index.tsx:48 — "Built with PA∞ SOTA"
+
+P2 - MEDIUM (visible in specific states):
+  8. Error boundary fallback messages (3 locations)
+  9. Share bar labels ("Share", "Copy")
+  10. Retry buttons across curation + error boundary (use existing key)
+  11. Homepage curation empty/error states
+  12. Bauhaus trending section headers and statuses
+
+P3 - LOW (accessibility labels, fallbacks):
+  13. aria-labels across footer, lang-switcher, search, error boundary
+  14. "UniTeia System" author fallback
+  15. "No description" fallback
+
+================================================================================
+NEW I18N KEYS NEEDED (not in TranslationStrings interface)
+================================================================================
+
+Suggested additions to the type contract and all 8 locale files:
+
+  // Footer
+  footer.builtWith: string          // "Built with {brand}"
+  footer.tagline: string            // "Autonomous Engineering"
+  footer.links.ariaLabel: string    // "Footer links"
+
+  // Search
+  search.label: string              // "Search topics, articles" (no "...")
+  search.ariaLabel: string          // Same as label (or reuse)
+
+  // Share bar
+  share.label: string               // "Share"
+  share.copyButton: string          // "Copy"
+  share.copied: string              // "✓ Copied!"
+  share.ariaLabel: string           // "Share this article"
+  share.platforms.twitter: string   // "Share on X (Twitter)"
+  share.platforms.linkedin: string  // "Share on LinkedIn"
+  share.platforms.reddit: string    // "Share on Reddit"
+  share.platforms.email: string     // "Share via Email"
+  share.platforms.copy: string      // "Copy link"
+
+  // Error boundary
+  errorBoundary.defaultFallback: string  // "This section could not be loaded."
+  errorBoundary.retry: string            // "Retry" (or reuse errorPages.500.retry)
+  errorBoundary.ariaRetry: string        // "Retry loading this section"
+
+  // Article renderer
+  article.fallbackAuthor: string    // "UniTeia System"
+  article.errorContent: string      // "Article Content"
+  article.errorRelated: string      // "Related Articles"
+
+  // Related articles
+  relatedArticles.ariaLabel: string // "Related articles"
+
+  // Homepage curation
+  curation.trendingHeader: string           // "Trending AI & Robotics"
+  curation.topReposHeader: string           // "Top Repos da Semana"
+  curation.newsHeader: string               // "Notícias do Dia"
+  curation.randomArticleHeader: string      // "Artigo Aleatório"
+  curation.randomArticleAria: string        // "Random article: {title}"
+  curation.emptyMessage: string             // "Trending unavailable — check back later"
+  curation.errorMessage: string             // "Failed to load trending data"
+  curation.retryAria: string                // "Retry loading trending data"
+  curation.relativeNow: string              // "now" (or use Intl.RelativeTimeFormat)
+  curation.relativeUpdated: string          // "updated {time}"
+  curation.noDescription: string            // "No description"
+
+  // Bauhaus curation
+  curation.bauhaus.pulseCheck: string       // "Pulse Check"
+  curation.bauhaus.trendingHeader: string   // "Trending\nIntelligence"
+  curation.bauhaus.liveStream: string       // "Live Stream"
+  curation.bauhaus.globalSignals: string    // "Global Signals"
+  curation.bauhaus.signalLost: string       // "Signal Lost"
+  curation.bauhaus.noSignals: string        // "No Signals"
+  curation.bauhaus.recommendedInsight: string // "Recommended Insight"
+  curation.bauhaus.goCTA: string            // "GO →"
+  curation.bauhaus.status.connecting: string  // "Connecting..."
+  curation.bauhaus.status.error: string       // "Error"
+  curation.bauhaus.status.staticCache: string // "Static Cache"
+  curation.bauhaus.status.noData: string      // "No Data"
+  curation.bauhaus.status.synchronized: string // "Synchronized"
+  curation.bauhaus.fallback.message1: string   // "Live feed unavailable..."
+  curation.bauhaus.fallback.message2: string   // "Live feed rate-limited..."
+  curation.bauhaus.card.repo: string           // "REPO"
+  curation.bauhaus.card.stars: string          // "Stars"
+  curation.bauhaus.card.by: string             // "By {author}"
+  curation.bauhaus.card.comments: string       // "{n} Comments"
+
+  // Canva Magica (pill/flow labels)
+  article.canvaMagicaProduction.pillBudgetGate: string      // "Budget Gate"
+  article.canvaMagicaProduction.pillSloRouter: string       // "SLO Router"
+  article.canvaMagicaProduction.pillToolInjection: string   // "Tool Injection"
+  article.canvaMagicaProduction.pillGlobalEdge: string      // "Global Edge"
+  article.canvaMagicaProduction.pillZeroLatency: string     // "Zero-Latency"
+  article.canvaMagicaProduction.pillEdgeOne: string         // "EdgeOne WAF"
+  article.canvaMagicaProduction.pillLighthouse: string      // "Lighthouse CVM"
+  article.canvaMagicaProduction.validationCompliance: string // "PA∞ SOTA Compliance"
+  article.canvaMagicaProduction.flowSources: string         // "SOURCES"
+  article.canvaMagicaProduction.flowFrontend: string        // "FRONTEND"
+
+================================================================================

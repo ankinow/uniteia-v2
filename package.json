@@ -37,6 +37,7 @@
     "test:e2e:ui": "playwright test --ui",
     "browser:verify": "playwright test tests/e2e/smoke.spec.ts tests/e2e/s05-shell-visual.spec.ts",
     "slug:check": "bun run scripts/slug-lint.ts",
+    "check:parity": "bun run scripts/check-content-parity.ts",
     "content:check": "bun run scripts/validate-content.ts \"content/**/*.md\"",
     "size:check": "bun run scripts/size-gate.ts",
     "lighthouse:check": "bun run scripts/lighthouse-gate.ts --audit-path /en/signals/",

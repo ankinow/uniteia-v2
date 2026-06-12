@@ -1,0 +1,154 @@
+======================================================================
+ BUNDLE COMPOSITION PER LOCALE — MEASUREMENT REPORT (A2 Validation)
+======================================================================
+
+Project: uniteia-v2 (Qwik City + Cloudflare Pages)
+Method:  LOCALE=pt bun run build | LOCALE=en bun run build
+Date:    2026-06-12
+
+======================================================================
+ COMPARISON SUMMARY TABLE
+======================================================================
+  Metric                          PT           EN         DIFF        %
+  -----------------------  ----------  ----------  ----------  -------
+  dist/ total                   164M         163M         +1M    +0.7%
+  JS (raw)                    1523KB       1100KB      +423KB   +38.5%
+  JS (gzip)                    311KB        270KB       +41KB   +15.1%
+  CSS                          176KB        176KB        +0KB     0.0%
+  SSG pages                       46           46           0     0.0%
+  Content MD (raw)            30.6KB       28.6KB      +2.0KB    +6.8%
+  Content words                4,313        4,028        +285    +7.1%
+  Build time (SSG)             21.7s         3.3s      +18.4s    +557%
+
+======================================================================
+ 1. dist/ TOTAL SIZE
+======================================================================
+  PT: 163,786,570 bytes (164M)
+  EN: 162,619,338 bytes (163M)
+
+  The 1MB difference is mostly from larger JS bundles and HTML pages.
+
+======================================================================
+ 2. JS BUNDLES (dist/build/)
+======================================================================
+  PT: 246 files, 1,559,918 bytes raw (1.52MB), 318,440 bytes gzip (311KB)
+  EN: 246 files, 1,126,688 bytes raw (1.10MB), 276,702 bytes gzip (270KB)
+
+  PT raw JS is 38.5% larger than EN.
+  PT gzip JS is 15.1% larger than EN.
+
+  ALL 246 JS chunks differ between locales — zero common chunks of identical
+  size exist. Qwik's content-hashed chunk naming means every chunk changes
+  when the locale-specific content embedded in it changes.
+
+  Largest JS chunks (PT):
+    q-BM7rnpMX.js    425,686 bytes  (gzip: 48,961)  <- main framework bundle
+    q-CacFIDh7.js    236,100 bytes  (gzip: 72,926)  <- content data
+    q-BwzYzan_.js     85,350 bytes  (gzip: 25,891)
+    q-DsBLy779.js     73,996 bytes
+    q-DzvwWs8M.js     62,638 bytes
+
+  Largest JS chunks (EN):
+    q-DZPsz4kP.js    423,988 bytes  (gzip: 48,695)
+    q-CacFIDh7.js    195,203 bytes  (gzip: 67,181)
+    q-BwzYzan_.js     53,588 bytes  (gzip: 21,747)
+    q-DsBLy779.js     51,931 bytes
+    q-GkQf6WII.js     41,194 bytes
+
+  KEY INSIGHT: The top chunk (framework) is similar in both (426K vs 424K),
+  but the second chunk (content data) differs by 41KB — this is where the
+  Portuguese text expansion hits hardest.
+
+======================================================================
+ 3. CSS
+======================================================================
+  PT: 180,053 bytes (176KB) — dist/assets/CWmPME-h-style.css + scroll-driven.css
+  EN: 180,053 bytes (176KB) — identical
+
+  CSS is not locale-dependent. Tailwind v4 produces the same output.
+
+======================================================================
+ 4. SSG HTML PAGES
+======================================================================
+  PT: 46 total HTML pages (33 in pt/ locale dir)
+  EN: 46 total HTML pages (33 in en/ locale dir)
+
+  Both locales generate the same route structure (20 unique pages + no-slash
+  variants). Sitemaps show 5 articles, 10 URLs each.
+
+  PT HTML gzip: 976,750 bytes (954KB)
+  EN HTML gzip: 712,593 bytes (696KB)
+  HTML gzip DIFF: +264,157 bytes (+37.1%)
+
+======================================================================
+ 5. CONTENT GRAPH (pre-compiled)
+======================================================================
+  content-graph.generated.ts:    419,608 bytes (410KB)
+  content-registry.generated.ts: 243,460 bytes (238KB)
+
+  These are generated BEFORE the build and are identical for both locales.
+  They contain ALL locale data regardless of LOCALE env var.
+
+======================================================================
+ 6. RAW MARKDOWN CONTENT
+======================================================================
+  PT: 31,287 bytes, 4,313 words
+  EN: 29,289 bytes, 4,028 words
+
+  Portuguese text is only 6.8% larger (1,998 bytes) than English.
+  This is expected — Romance languages are typically 10-15% longer.
+
+======================================================================
+ 7. CONTENT-TO-JS AMPLIFICATION
+======================================================================
+  Raw MD difference:      +1,998 bytes
+  JS bundle difference:  +433,230 bytes
+  AMPLIFICATION:         217x
+
+  Cause: Qwik embeds article content data into each route-specific chunk.
+  The ~2KB of extra Portuguese text gets multiplied across ~17 route
+  chunks, each containing compiled versions of the content with metadata,
+  schema markup, SEO tags, and Qwik serialization overhead.
+
+======================================================================
+ 8. BUILD TIME
+======================================================================
+  PT SSG: 21.7 seconds (1.1s avg per page)
+  EN SSG:  3.3 seconds (164ms avg per page)
+
+  PT is 6.6x slower than EN. This is not explained by content size alone
+  (only 6.8% more text). Likely causes:
+  - Larger in-memory data structures during SSG rendering
+  - More expensive text processing/compilation for Portuguese
+  - Qwik optimizer working harder on larger payloads
+
+======================================================================
+ 9. OTHER COMPONENTS
+======================================================================
+  server/:          PT 1.50MB  EN 1.50MB  (identical)
+  assets/:          PT 157MB   EN 157MB   (near identical, +4KB for PT)
+  q-manifest.json:  PT 165KB   EN 160KB   (+5KB, PT routes slightly larger)
+  _worker.js:       PT 81B     EN 82B     (negligible)
+
+======================================================================
+ 10. VALIDATION ASSESSMENT
+======================================================================
+ 
+ Claim: "Per-locale builds save JS bundle size"
+
+ REALITY CHECK:
+ - Single-locale build (PT): 1.56MB raw JS / 311KB gzip
+ - Single-locale build (EN): 1.10MB raw JS / 270KB gzip
+ - Full 8-locale build (from audit): 1.58MB raw JS / 320KB gzip
+
+ Per-locale builds DO save bytes vs full multi-locale, but the savings
+ are modest for gzip (270-311KB vs 320KB, saving ~3-15%). The bigger
+ win is avoiding 7 unused locales' SSG pages and assets.
+
+ However, the 87KB gzip budget cap (AGENTS.md) and 160KB gate threshold
+ (scripts/size-gate.ts) are BOTH exceeded by per-locale builds.
+
+ WARNING: The content-graph.generated.ts (410KB) contains ALL locale data
+ regardless of the LOCALE env var. This means per-locale builds still
+ include all 8 locales' content graph data in the source, though it may
+ be tree-shaken during build. This is a missed optimization opportunity.

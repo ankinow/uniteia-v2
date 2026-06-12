@@ -43,6 +43,19 @@ export const RouterHead = component$(() => {
   // hreflang alternates for SEO
   const alternates = buildHreflangAlternates(loc.url.origin, loc.url.pathname)
 
+  // JSON-LD Organization (top-level entity)
+  const organizationJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'UniTeia',
+    url: 'https://uniteia.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://uniteia.com/logo.png',
+    },
+    sameAs: ['https://github.com/ankinow/uniteia-v2'],
+  }
+
   // JSON-LD WebSite
   const websiteJsonLd = {
     '@context': 'https://schema.org',
@@ -58,6 +71,11 @@ export const RouterHead = component$(() => {
       url: loc.url.origin,
     },
     inLanguage: toBcp47(currentLocale),
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://uniteia.com/search?q={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
   }
 
   // JSON-LD BreadcrumbList
@@ -87,6 +105,7 @@ export const RouterHead = component$(() => {
         }
       : null
 
+  const organizationJsonLdString = JSON.stringify(organizationJsonLd)
   const websiteJsonLdString = JSON.stringify(websiteJsonLd)
   const breadcrumbJsonLdString = breadcrumbJsonLd ? JSON.stringify(breadcrumbJsonLd) : null
 
@@ -118,6 +137,7 @@ export const RouterHead = component$(() => {
         <link key={JSON.stringify(link)} {...link} />
       ))}
 
+      <script type="application/ld+json">{organizationJsonLdString}</script>
       <script type="application/ld+json">{websiteJsonLdString}</script>
       {breadcrumbJsonLdString && (
         <script type="application/ld+json">{breadcrumbJsonLdString}</script>
