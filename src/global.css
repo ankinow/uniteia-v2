@@ -82,7 +82,6 @@ p, li {
   text-wrap: pretty;
   margin-bottom: 1.5rem;
   line-height: 1.7;
-  color: var(--color-bone-muted);
 }
 
 b, strong {

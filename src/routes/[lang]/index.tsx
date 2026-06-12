@@ -12,7 +12,6 @@ import { toBcp47 } from '~/i18n/bcp47'
 import { getTranslation } from '~/i18n/context'
 import type { SupportedLanguage } from '~/i18n/types'
 import { getBuildLocale } from '~/utils/build-locale'
-import { slugToKawaiiMini } from '~/utils/kawaii-thumbnail'
 import { loadNichesConfig } from '~/utils/niche-loader'
 
 export const onStaticGenerate = () => {
@@ -108,7 +107,6 @@ export default component$(() => {
           </div>
           <BentoGrid cellHeight="auto" gap="1.5rem">
             {featuredSignals.map((signal, idx) => {
-              const thumb = slugToKawaiiMini(signal.node.slug)
               return (
                 <BentoCell key={signal.node.id} size={idx === 0 ? 'wide' : 'default'} as="article">
                   <a
@@ -119,15 +117,6 @@ export default component$(() => {
                       {...(signal.node.visualStyle ? { visualStyle: signal.node.visualStyle } : {})}
                       class="h-full transition-[transform,box-shadow] duration-300 group-hover:-translate-y-1.5 group-hover:shadow-2xl group-hover:shadow-[var(--color-accent)]/10"
                     >
-                      <img
-                        src={thumb.src}
-                        alt={thumb.alt}
-                        width="120"
-                        height="120"
-                        loading="lazy"
-                        decoding="async"
-                        class="w-full aspect-[3/2] object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
-                      />
                       <div class="p-4 md:p-5">
                         <p class="font-bold text-bone text-base md:text-lg leading-tight group-hover:text-[var(--color-accent)] transition-colors duration-200">
                           {signal.node.title}
@@ -214,7 +203,6 @@ export default component$(() => {
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 [&>:last-child:nth-child(odd)]:col-span-full">
             {frontierStreams.map(stream => {
-              const thumb = slugToKawaiiMini(stream.node.slug)
               return (
                 <a
                   key={stream.node.id}
@@ -226,15 +214,6 @@ export default component$(() => {
                     class="hover:border-[var(--color-accent)]/20 transition-colors"
                   >
                     <div class="flex items-start gap-3 p-4">
-                      <img
-                        src={thumb.src}
-                        alt={thumb.alt}
-                        width="56"
-                        height="56"
-                        loading="lazy"
-                        decoding="async"
-                        class="w-14 h-14 object-cover shrink-0 opacity-85 group-hover:opacity-100 transition-opacity duration-200"
-                      />
                       <div class="min-w-0">
                         <p class="font-medium text-bone text-sm leading-tight group-hover:text-neon-rose transition-colors">
                           {stream.node.title}
@@ -265,7 +244,7 @@ export default component$(() => {
                 <span class="text-black/70 text-xs font-mono uppercase tracking-widest">
                   {card.label}
                 </span>
-                <p class="text-black/60 text-xs mt-2 leading-relaxed">{card.desc}</p>
+                <p class="text-[#1a1a1a] text-xs mt-2 leading-relaxed">{card.desc}</p>
               </div>
             ))}
           </div>
