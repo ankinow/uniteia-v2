@@ -19,8 +19,8 @@
   cursor: pointer;
   outline: none;
 
-  /* Static canvas: surface-panel background/border layout (no glass) */
-  background: oklch(15% 0.02 270);
+  /* Static canvas: token-driven background (respects light/dark mode) */
+  background: var(--color-deep);
   border: 2px solid color-mix(in srgb, var(--card-accent) 40%, transparent);
 
   transition: transform var(--duration-base) var(--ease-solar), box-shadow var(--duration-base)
