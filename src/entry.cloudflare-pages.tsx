@@ -11,6 +11,20 @@ const qwikCityHandler = createQwikCity({ render, qwikCityPlan, manifest })
 export const onRequest = async (request: any, env: any, ctx: any) => {
   const url = new URL(request.url)
 
+  // Sitemap per locale: rewrite /sitemap.xml → /sitemap-{locale}.xml based on Host header
+  // e.g., pt.uniteia.com/sitemap.xml → /sitemap-pt.xml
+  if (url.pathname === '/sitemap.xml') {
+    const host = request.headers.get('host') || ''
+    const localeMatch = host.match(/^([a-z]{2})\./)
+    if (localeMatch) {
+      const locale = localeMatch[1]
+      if (locale !== 'en') {
+        url.pathname = `/sitemap-${locale}.xml`
+        request = new Request(url.toString(), request)
+      }
+    }
+  }
+
   // 1. Check for null byte
   if (url.pathname.includes('\0') || url.pathname.includes('%00')) {
     return new Response('Bad Request', { status: 400 })

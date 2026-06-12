@@ -2,21 +2,7 @@ import { component$ } from '@builder.io/qwik'
 import { useDocumentHead, useLocation } from '@builder.io/qwik-city'
 
 import { LOCALE_CODES } from '~/edge/contract.v1'
-
-/**
- * BCP47 locale tag mapping for og:locale and hreflang.
- * Maps our 2-letter codes to proper BCP47 tags.
- */
-const BCP47_MAP: Record<string, string> = {
-  en: 'en_US',
-  pt: 'pt_BR',
-  es: 'es_ES',
-  fr: 'fr_FR',
-  de: 'de_DE',
-  it: 'it_IT',
-  ja: 'ja_JP',
-  zh: 'zh_CN',
-}
+import { BCP47_MAP, toBcp47 } from '~/i18n/bcp47'
 
 function buildHreflangAlternates(
   origin: string,
@@ -49,10 +35,9 @@ export const RouterHead = component$(() => {
 
   // Current locale from URL pathname (first segment)
   const pathParts = loc.url.pathname.split('/').filter(Boolean)
-  const currentLocale = (pathParts.length > 0 && LOCALE_CODES.includes(pathParts[0] as never))
-    ? pathParts[0]
-    : 'en'
-  const ogLocale = BCP47_MAP[currentLocale] || 'en_US'
+  const currentLocale =
+    pathParts.length > 0 && LOCALE_CODES.includes(pathParts[0] as never) ? pathParts[0] : 'en'
+  const ogLocale = BCP47_MAP[currentLocale] || 'en-US'
 
   // hreflang alternates for SEO
   const alternates = buildHreflangAlternates(loc.url.origin, loc.url.pathname)
@@ -71,7 +56,7 @@ export const RouterHead = component$(() => {
       name: siteName,
       url: loc.url.origin,
     },
-    inLanguage: currentLocale,
+    inLanguage: toBcp47(currentLocale),
   }
 
   // JSON-LD BreadcrumbList

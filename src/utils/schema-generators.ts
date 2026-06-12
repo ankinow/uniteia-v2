@@ -1,4 +1,5 @@
 import type { ArticleSchema, WebPageSchema, WebSiteSchema } from '~/types/schema-org'
+import { toBcp47 } from '~/i18n/bcp47'
 
 /**
  * Generate Article schema
@@ -35,7 +36,7 @@ export function generateArticleSchema(props: {
       url: 'https://uniteia.com',
     },
     articleSection: props.niche,
-    inLanguage: props.lang,
+    inLanguage: toBcp47(props.lang),
   }
 }
 
@@ -56,7 +57,7 @@ export function generateWebPageSchema(props: {
     name: props.name,
     url: props.url,
     description: props.description,
-    inLanguage: props.lang,
+    inLanguage: toBcp47(props.lang),
     isPartOf: {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
@@ -97,6 +98,6 @@ export function generateWebSiteSchema(props: {
       name: 'UniTeia',
       url: 'https://uniteia.com',
     },
-    inLanguage: props.lang,
+    inLanguage: toBcp47(props.lang),
   }
 }

@@ -10,6 +10,7 @@ import { JSONLD } from '~/components/json-ld'
 import type { ContentLocale } from '~/content-graph/contracts/node'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 import { canonicalUrl, xdefaultUrl } from '~/routing/routes'
+import { toBcp47 } from '~/i18n/bcp47'
 import type { NicheArticleEntry } from '~/utils/content-loader'
 import { findNicheBySlug, getNicheSlug, loadNichesConfig } from '~/utils/niche-loader'
 import { generateWebPageSchema } from '~/utils/schema-generators'
@@ -307,7 +308,7 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
         content: canonicalUrl(url.origin, `/${lang}/signals/${localizedSlug}`),
       },
       { property: 'og:type', content: 'article' },
-      { property: 'og:locale', content: lang },
+      { property: 'og:locale', content: toBcp47(lang) },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: pageTitle },
       { name: 'twitter:description', content: description },

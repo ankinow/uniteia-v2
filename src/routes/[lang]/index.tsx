@@ -55,7 +55,7 @@ export default component$(() => {
           name: siteName,
           url: `https://uniteia.com/${lang}`,
           description: t.seo.topicsDescription,
-          inLanguage: lang,
+          inLanguage: toBcp47(lang),
           publisher: {
             '@type': 'Organization',
             name: siteName,
@@ -371,7 +371,7 @@ export const head: DocumentHead = ({ params }) => {
       { property: 'og:description', content: description },
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: localeUrl },
-      { property: 'og:locale', content: lang },
+      { property: 'og:locale', content: toBcp47(lang) },
       { property: 'og:site_name', content: siteName },
       { property: 'og:image', content: `${baseUrl}/og-image.png` },
       { name: 'twitter:card', content: 'summary_large_image' },

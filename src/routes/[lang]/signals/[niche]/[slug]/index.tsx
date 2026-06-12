@@ -31,6 +31,7 @@ import { canvasToCollageProps } from '~/utils/canvas-to-collage'
 import { loadContent } from '~/utils/content-loader'
 import { generateWebPageSchema } from '~/utils/schema-generators'
 import { estimateReadTime, extractDescription } from '~/utils/text-utils'
+import { toBcp47 } from '~/i18n/bcp47'
 
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
 
@@ -658,7 +659,7 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
       },
       { property: 'og:type', content: 'article' },
       { property: 'og:site_name', content: t.seo.siteName },
-      { property: 'og:locale', content: content.lang },
+      { property: 'og:locale', content: toBcp47(content.lang) },
       {
         property: 'og:image',
         content: [
@@ -713,7 +714,7 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
             '@type': 'WebPage',
             '@id': canonicalUrl(url.origin, `/${lang}/signals/${niche}/${slug}`),
           },
-          inLanguage: content.lang,
+          inLanguage: toBcp47(content.lang),
         }),
       },
     ],

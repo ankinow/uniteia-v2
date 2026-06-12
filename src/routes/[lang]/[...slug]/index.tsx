@@ -10,6 +10,7 @@ import type { LlmWikiContent } from '~/types/content'
 import { ContentLoaderError } from '~/types/content'
 import { loadContent } from '~/utils/content-loader'
 import { extractDescription } from '~/utils/text-utils'
+import { toBcp47 } from '~/i18n/bcp47'
 
 /**
  * Supported language codes for quick lookup
@@ -166,7 +167,7 @@ export const head: DocumentHead = ({ resolveValue, params }) => {
       { property: 'og:description', content: description },
       { property: 'og:type', content: 'article' },
       { property: 'og:site_name', content: t.seo.siteName },
-      { property: 'og:locale', content: content.lang },
+      { property: 'og:locale', content: toBcp47(content.lang) },
       { property: 'og:image', content: 'https://uniteia.com/og-image.png' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:image', content: 'https://uniteia.com/og-image.png' },
