@@ -45,9 +45,9 @@ export const Footer = component$<FooterProps>(({ class: classList }) => {
                 href="/aether-os"
                 class="font-mono text-bone-muted hover:text-neon-cyan transition-colors duration-200 uppercase tracking-tighter"
               >
-                Built with <span class="text-neon-cyan font-bold">PA∞ SOTA</span>
+                {t.footer.builtWith}
               </a>
-              <span class="text-[8px] text-bone/20 font-mono">Autonomous Engineering</span>
+              <span class="text-[8px] text-bone/20 font-mono">{t.footer.tagline}</span>
             </div>
           </div>
           <nav

@@ -21,6 +21,8 @@ export const ja: TranslationStrings = {
   footer: {
     copyright: '© {year} UniTeia. 全著作権所有。',
     madeWith: '分散型AIのために♥を込めて作成',
+    builtWith: 'PA∞ SOTAで構築',
+    tagline: '自律エンジニアリング',
     links: {
       privacy: 'プライバシーポリシー',
       terms: '利用規約',
@@ -97,6 +99,16 @@ export const ja: TranslationStrings = {
       keyMetrics: '主要指標',
       workflowSteps: 'ワークフローステップ',
       poweredBy: '提供',
+      pillBudgetGate: '予算ゲート',
+      pillSloRouter: 'SLOルーター',
+      pillToolInjection: 'ツール注入',
+      pillGlobalEdge: 'グローバルエッジ',
+      pillZeroLatency: 'ゼロレイテンシ',
+      pillEdgeOne: 'EdgeOne WAF',
+      pillLighthouse: 'Lighthouse CVM',
+      validationCompliance: 'PA∞ SOTA準拠',
+      flowSources: 'ソース',
+      flowFrontend: 'フロントエンド',
     },
     canvaMagica: {
       workflowTitle: 'Magicaワークフロービルダー',
@@ -135,6 +147,7 @@ export const ja: TranslationStrings = {
   },
   search: {
     placeholder: 'トピック、記事を検索...',
+    label: 'トピック、記事を検索',
     resultsFor: '"{query}" の検索結果',
     noResults: '結果が見つかりませんでした',
     noResultsHint: '別のキーワードをお試しいただくか、トピックをご覧ください',
@@ -457,6 +470,47 @@ export const ja: TranslationStrings = {
     summary: {
       takeaway: { '1': '正解より小さく始める', '2': '再発明より再利用' },
       nextstep: '動く最小のものを作る',
+    },
+  },
+  curation: {
+    trendingHeader: 'AI＆ロボティクスのトレンド',
+    topReposHeader: '今週のトップリポジトリ',
+    newsHeader: '今日のニュース',
+    randomArticleHeader: 'ランダム記事',
+    randomArticleAria: 'ランダム記事: {title}',
+    emptyMessage: 'トレンドは利用できません — 後で確認してください',
+    errorMessage: 'トレンドデータの読み込みに失敗しました',
+    retryAria: 'データの再読み込み',
+    relativeNow: '今',
+    relativeUpdated: '更新済み',
+    noDescription: '説明なし',
+    bauhaus: {
+      pulseCheck: 'パルスチェック',
+      trendingHeader: 'トレンド\nインテリジェンス',
+      liveStream: 'ライブストリーム',
+      globalSignals: 'グローバルシグナル',
+      signalLost: 'シグナル喪失',
+      noSignals: 'シグナルなし',
+      recommendedInsight: 'おすすめインサイト',
+      goCTA: 'GO →',
+      status: {
+        connecting: '接続中...',
+        error: 'エラー',
+        staticCache: '静的キャッシュ',
+        noData: 'データなし',
+        synchronized: '同期済み',
+      },
+      fallback: {
+        message1:
+          'ライブフィードは利用できません（{err}）。キュレーションコンテンツを表示しています。',
+        message2: 'ライブフィードはレート制限中です。キュレーションコンテンツを表示しています。',
+      },
+      card: {
+        repo: 'リポジトリ',
+        stars: 'スター',
+        by: '作成者',
+        comments: 'コメント',
+      },
     },
   },
 }

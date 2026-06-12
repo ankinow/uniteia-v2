@@ -33,7 +33,7 @@ interface CanvaMagicaProps {
 export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
   ({ qualityScore = 84, languages = 8 }) => {
     const loc = useLocation()
-    const lang = 'en' as SupportedLanguage
+    const lang = (loc.params.lang as SupportedLanguage) || 'en'
     useStylesScoped$(styles)
 
     const t = useCanvaMagicaT(lang)
@@ -82,8 +82,8 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
                 <MagicaCommandCenterDiagram />
               </div>
               <footer class="section-footer">
-                <div class="pill cyan">Budget Gate</div>
-                <div class="pill gold">SLO Router</div>
+                <div class="pill cyan">{t.pillBudgetGate}</div>
+                <div class="pill gold">{t.pillSloRouter}</div>
               </footer>
             </div>
           </article>
@@ -100,7 +100,7 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
               </div>
               <footer class="section-footer">
                 <div class="pill">{t.nodeBasedPromptChaining}</div>
-                <div class="pill">Tool Injection</div>
+                <div class="pill">{t.pillToolInjection}</div>
               </footer>
             </div>
           </article>
@@ -116,8 +116,8 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
                 <QuickstartFlowDiagram />
               </div>
               <footer class="section-footer">
-                <div class="pill dark">Global Edge</div>
-                <div class="pill dark">Zero-Latency</div>
+                <div class="pill dark">{t.pillGlobalEdge}</div>
+                <div class="pill dark">{t.pillZeroLatency}</div>
               </footer>
             </div>
           </article>
@@ -133,8 +133,8 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
                 <TencentStackDiagram />
               </div>
               <footer class="section-footer">
-                <div class="pill">EdgeOne WAF</div>
-                <div class="pill">Lighthouse CVM</div>
+                <div class="pill">{t.pillEdgeOne}</div>
+                <div class="pill">{t.pillLighthouse}</div>
               </footer>
             </div>
           </article>
@@ -156,7 +156,7 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
                   </div>
                   <div class="status-item">
                     <span class="check">✓</span>
-                    <span>PA∞ SOTA Compliance</span>
+                    <span>{t.validationCompliance}</span>
                   </div>
                 </div>
               </div>
@@ -173,7 +173,7 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
                 <span class="step-icon">
                   <FlowIcon size={32} />
                 </span>
-                <span class="step-label">SOURCES</span>
+                <span class="step-label">{t.flowSources}</span>
               </div>
               <div class="step-arrow">→</div>
               <div class="step">
@@ -201,7 +201,7 @@ export const CanvaMagicaOverview = component$<CanvaMagicaProps>(
                 <span class="step-icon">
                   <RobotIcon size={32} />
                 </span>
-                <span class="step-label">FRONTEND</span>
+                <span class="step-label">{t.flowFrontend}</span>
               </div>
             </div>
           </div>

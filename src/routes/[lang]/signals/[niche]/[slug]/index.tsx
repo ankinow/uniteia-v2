@@ -7,6 +7,7 @@ import {
 } from '@builder.io/qwik-city'
 import { ArticleRenderer } from '~/components/article-renderer'
 import { Breadcrumb } from '~/components/breadcrumb'
+import { CanvaComposition } from '~/components/canva/CanvaComposition'
 import { CTASection } from '~/components/cta-section'
 import { JSONLD } from '~/components/json-ld'
 import { LivingBrief2Col } from '~/components/living-brief'
@@ -173,6 +174,13 @@ export const useNicheSegmentLabel = routeLoader$<Record<string, string>>(async (
   return {}
 })
 
+export const useCanvaComposition = routeLoader$<{ refs: string[]; sceneType: string } | null>(
+  async () => {
+    // PLANO-04 v0.6: Stub — returns null until canva pipeline is wired
+    return null
+  }
+)
+
 export default component$(() => {
   const content = useArticle()
   const relatedNodes = useRelated()
@@ -200,6 +208,11 @@ export default component$(() => {
     useCanvasCollage && canvasData
       ? canvasToCollageProps(canvasData, { width: 800, height: 500 })
       : null
+
+  // Canva composition (PLANO-04 v0.6 wire): SSR-resolved at build time
+  // via routeLoader$. Renders ABOVE StoryboardGrid so users see the canva
+  // visual first, then the storyboard.
+  const canvaComposition = useCanvaComposition()
 
   // JSON-LD WebPage for the current article page (per-locale structured data)
   const pageUrl = canonicalUrl(loc.url.origin, loc.url.pathname + loc.url.search)
@@ -239,6 +252,15 @@ export default component$(() => {
 
   return (
     <>
+      {canvaComposition.value ? (
+        <div class="w-full bg-void py-4">
+          <CanvaComposition
+            refs={canvaComposition.value.refs}
+            lang={content.value.lang}
+            sceneType={canvaComposition.value.sceneType}
+          />
+        </div>
+      ) : null}
       {mangaPanels ? (
         <>
           <JSONLD data={webPageSchema} />

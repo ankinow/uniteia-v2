@@ -22,13 +22,14 @@ export const useSearchIndex = routeLoader$(async ({ url }) => {
 export default component$(() => {
   const location = useLocation()
   const lang = (location.params.lang as SupportedLanguage) || 'en'
+  const t = getTranslation(lang)
   const searchIndex = useSearchIndex()
 
   return (
     <div class="max-w-4xl mx-auto px-4 py-8">
       <form method="GET" class="mb-8">
         <label class="sr-only" for="search-input">
-          Search topics, articles
+          {t.search.label}
         </label>
         <div class="relative">
           <input
@@ -36,9 +37,9 @@ export default component$(() => {
             type="search"
             name="q"
             value={searchIndex.value.query}
-            placeholder="Search topics, articles..."
+            placeholder={t.search.placeholder}
             class="w-full px-4 py-3 bg-void border border-action/30 rounded-lg text-bone placeholder:text-bone-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan/50 focus:border-action"
-            aria-label="Search topics, articles"
+            aria-label={t.search.label}
           />
         </div>
       </form>

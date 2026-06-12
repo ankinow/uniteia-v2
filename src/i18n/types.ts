@@ -38,6 +38,8 @@ export interface TranslationStrings {
   footer: {
     copyright: string
     madeWith: string
+    builtWith: string
+    tagline: string
     links: {
       privacy: string
       terms: string
@@ -108,6 +110,16 @@ export interface TranslationStrings {
       keyMetrics: string
       workflowSteps: string
       poweredBy: string
+      pillBudgetGate: string
+      pillSloRouter: string
+      pillToolInjection: string
+      pillGlobalEdge: string
+      pillZeroLatency: string
+      pillEdgeOne: string
+      pillLighthouse: string
+      validationCompliance: string
+      flowSources: string
+      flowFrontend: string
     }
   }
   niche: {
@@ -136,6 +148,7 @@ export interface TranslationStrings {
   }
   search: {
     placeholder: string
+    label: string
     resultsFor: string
     noResults: string
     noResultsHint: string
@@ -350,6 +363,46 @@ export interface TranslationStrings {
     }
     timeline: { milestone: { '1': string; '2': string } }
     summary: { takeaway: { '1': string; '2': string }; nextstep: string }
+  }
+  curation: {
+    trendingHeader: string
+    topReposHeader: string
+    newsHeader: string
+    randomArticleHeader: string
+    randomArticleAria: string
+    emptyMessage: string
+    errorMessage: string
+    retryAria: string
+    relativeNow: string
+    relativeUpdated: string
+    noDescription: string
+    bauhaus: {
+      pulseCheck: string
+      trendingHeader: string
+      liveStream: string
+      globalSignals: string
+      signalLost: string
+      noSignals: string
+      recommendedInsight: string
+      goCTA: string
+      status: {
+        connecting: string
+        error: string
+        staticCache: string
+        noData: string
+        synchronized: string
+      }
+      fallback: {
+        message1: string
+        message2: string
+      }
+      card: {
+        repo: string
+        stars: string
+        by: string
+        comments: string
+      }
+    }
   }
 }
 

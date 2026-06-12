@@ -102,6 +102,16 @@ export type CanvaMagicaI18nKey =
   | 'workflowSteps'
   | 'poweredBy'
   | 'qualityScore'
+  | 'pillBudgetGate'
+  | 'pillSloRouter'
+  | 'pillToolInjection'
+  | 'pillGlobalEdge'
+  | 'pillZeroLatency'
+  | 'pillEdgeOne'
+  | 'pillLighthouse'
+  | 'validationCompliance'
+  | 'flowSources'
+  | 'flowFrontend'
 
 export const MAGICA_KEYS: readonly CanvaMagicaI18nKey[] = [
   'magicaWorkflowBuilder',
@@ -121,6 +131,16 @@ export const MAGICA_KEYS: readonly CanvaMagicaI18nKey[] = [
   'workflowSteps',
   'poweredBy',
   'qualityScore',
+  'pillBudgetGate',
+  'pillSloRouter',
+  'pillToolInjection',
+  'pillGlobalEdge',
+  'pillZeroLatency',
+  'pillEdgeOne',
+  'pillLighthouse',
+  'validationCompliance',
+  'flowSources',
+  'flowFrontend',
 ] as const
 
 /**

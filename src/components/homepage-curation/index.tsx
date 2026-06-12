@@ -5,6 +5,7 @@
  */
 
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
+import { getTranslation } from '~/i18n/context'
 import type { SupportedLanguage } from '~/i18n/types'
 import type { NicheArticleEntry } from '~/utils/content-loader'
 import {
@@ -16,84 +17,90 @@ import {
 
 // ── RepoCard (Polaroid-style with star count) ──
 
-export const RepoCard = component$<{ repo: TrendingRepo }>(({ repo }) => {
-  const languageColors: Record<string, string> = {
-    Python: 'oklch(0.55 0.20 70)',
-    TypeScript: 'oklch(0.55 0.20 240)',
-    JavaScript: 'oklch(0.65 0.20 85)',
-    Rust: 'oklch(0.60 0.15 30)',
-    Go: 'oklch(0.55 0.18 200)',
-    'C++': 'oklch(0.55 0.15 250)',
-    Java: 'oklch(0.60 0.15 30)',
-    Jupyter: 'oklch(0.65 0.18 40)',
-  }
+export const RepoCard = component$<{ repo: TrendingRepo; noDescriptionLabel: string }>(
+  ({ repo, noDescriptionLabel }) => {
+    const languageColors: Record<string, string> = {
+      Python: 'oklch(0.55 0.20 70)',
+      TypeScript: 'oklch(0.55 0.20 240)',
+      JavaScript: 'oklch(0.65 0.20 85)',
+      Rust: 'oklch(0.60 0.15 30)',
+      Go: 'oklch(0.55 0.18 200)',
+      'C++': 'oklch(0.55 0.15 250)',
+      Java: 'oklch(0.60 0.15 30)',
+      Jupyter: 'oklch(0.65 0.18 40)',
+    }
 
-  return (
-    <a
-      href={repo.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={`${repo.name}: ${repo.description || 'No description'}`}
-      class="repo-card polaroid-card inline-block p-3 rounded-sm bg-white/90 shadow-md hover:shadow-lg transition-[box-shadow,transform] duration-200 hover:-translate-y-1 hover:rotate-[0.5deg] w-full max-w-[280px]"
-    >
-      <div class="flex items-center gap-2 mb-2">
-        {repo.avatarUrl && (
-          <img src={repo.avatarUrl} alt="" class="w-5 h-5 rounded-full" loading="lazy" />
-        )}
-        <span class="text-[11px] font-mono text-[oklch(0.40_0.05_280)] truncate">
-          {repo.fullName}
-        </span>
-      </div>
-      <h4 class="text-sm font-semibold text-[oklch(0.20_0.03_280)] mb-1 line-clamp-2">
-        {repo.name}
-      </h4>
-      {repo.description && (
-        <p class="text-[11px] text-[oklch(0.40_0.03_280)] mb-2 line-clamp-2">{repo.description}</p>
-      )}
-      <div class="flex items-center gap-3 text-[11px] text-[oklch(0.45_0.04_280)]">
-        {repo.language && (
-          <span class="flex items-center gap-1">
-            <span
-              class="w-2.5 h-2.5 rounded-full inline-block"
-              style={{ background: languageColors[repo.language] || 'oklch(0.50 0.05 280)' }}
-            />
-            {repo.language}
+    return (
+      <a
+        href={repo.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${repo.name}: ${repo.description || noDescriptionLabel}`}
+        class="repo-card polaroid-card inline-block p-3 rounded-sm bg-white/90 shadow-md hover:shadow-lg transition-[box-shadow,transform] duration-200 hover:-translate-y-1 hover:rotate-[0.5deg] w-full max-w-[280px]"
+      >
+        <div class="flex items-center gap-2 mb-2">
+          {repo.avatarUrl && (
+            <img src={repo.avatarUrl} alt="" class="w-5 h-5 rounded-full" loading="lazy" />
+          )}
+          <span class="text-[11px] font-mono text-[oklch(0.40_0.05_280)] truncate">
+            {repo.fullName}
           </span>
+        </div>
+        <h4 class="text-sm font-semibold text-[oklch(0.20_0.03_280)] mb-1 line-clamp-2">
+          {repo.name}
+        </h4>
+        {repo.description && (
+          <p class="text-[11px] text-[oklch(0.40_0.03_280)] mb-2 line-clamp-2">
+            {repo.description}
+          </p>
         )}
-        <span>⭐ {repo.stars >= 1000 ? `${(repo.stars / 1000).toFixed(1)}k` : repo.stars}</span>
-        <span>⑂ {repo.forks}</span>
-      </div>
-    </a>
-  )
-})
+        <div class="flex items-center gap-3 text-[11px] text-[oklch(0.45_0.04_280)]">
+          {repo.language && (
+            <span class="flex items-center gap-1">
+              <span
+                class="w-2.5 h-2.5 rounded-full inline-block"
+                style={{ background: languageColors[repo.language] || 'oklch(0.50 0.05 280)' }}
+              />
+              {repo.language}
+            </span>
+          )}
+          <span>⭐ {repo.stars >= 1000 ? `${(repo.stars / 1000).toFixed(1)}k` : repo.stars}</span>
+          <span>⑂ {repo.forks}</span>
+        </div>
+      </a>
+    )
+  }
+)
 
 // ── NewsCard (Taped note style) ──
 
-export const NewsCard = component$<{ news: NewsItem }>(({ news }) => {
-  const timeAgo = Math.floor((Date.now() - news.time * 1000) / (1000 * 60 * 60))
-  const timeStr =
-    timeAgo < 1 ? 'agora' : timeAgo < 24 ? `${timeAgo}h` : `${Math.floor(timeAgo / 24)}d`
+export const NewsCard = component$<{ news: NewsItem; relativeNow: string }>(
+  ({ news, relativeNow }) => {
+    const timeAgo = Math.floor((Date.now() - news.time * 1000) / (1000 * 60 * 60))
+    const timeStr =
+      timeAgo < 1 ? relativeNow : timeAgo < 24 ? `${timeAgo}h` : `${Math.floor(timeAgo / 24)}d`
 
-  return (
-    <a
-      href={news.url || `https://news.ycombinator.com/item?id=${news.id}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={`${news.title} — ${news.score} points`}
-      class="news-card block p-3 rounded-sm bg-white/80 backdrop-blur-sm border-l-2 border-[oklch(0.72_0.165_80/0.4)] shadow-sm hover:shadow-md transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5"
-    >
-      <h4 class="text-sm font-medium text-[oklch(0.20_0.03_280)] mb-1 line-clamp-2 leading-snug">
-        {news.title}
-      </h4>
-      <div class="flex items-center gap-3 text-[10px] text-[oklch(0.45_0.04_280)]">
-        <span>▲ {news.score}</span>
-        <span>by {news.by}</span>
-        <span>{timeStr}</span>
-        {news.descendants > 0 && <span>💬 {news.descendants}</span>}
-      </div>
-    </a>
-  )
-})
+    return (
+      <a
+        href={news.url || `https://news.ycombinator.com/item?id=${news.id}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${news.title} — ${news.score} points`}
+        class="news-card block p-3 rounded-sm bg-white/80 backdrop-blur-sm border-l-2 border-[oklch(0.72_0.165_80/0.4)] shadow-sm hover:shadow-md transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5"
+      >
+        <h4 class="text-sm font-medium text-[oklch(0.20_0.03_280)] mb-1 line-clamp-2 leading-snug">
+          {news.title}
+        </h4>
+        <div class="flex items-center gap-3 text-[10px] text-[oklch(0.45_0.04_280)]">
+          <span>▲ {news.score}</span>
+          <span>by {news.by}</span>
+          <span>{timeStr}</span>
+          {news.descendants > 0 && <span>💬 {news.descendants}</span>}
+        </div>
+      </a>
+    )
+  }
+)
 
 // ── Skeleton Cards (Loading placeholders) ──
 
@@ -134,6 +141,7 @@ export interface TrendingSectionProps {
 }
 
 export const TrendingSection = component$<TrendingSectionProps>(({ articles, lang }) => {
+  const t = getTranslation(lang)
   const data = useSignal<{ repos: TrendingRepo[]; news: NewsItem[] } | null>(null)
   const loading = useSignal(true)
   const error = useSignal<string | null>(null)
@@ -156,7 +164,7 @@ export const TrendingSection = component$<TrendingSectionProps>(({ articles, lan
         empty.value = true
       }
     } catch (err: unknown) {
-      error.value = err instanceof Error ? err.message : 'Failed to load trending data'
+      error.value = err instanceof Error ? err.message : t.curation.errorMessage
     } finally {
       loading.value = false
     }
@@ -173,10 +181,12 @@ export const TrendingSection = component$<TrendingSectionProps>(({ articles, lan
         <span class="text-lg" aria-hidden="true">
           🔥
         </span>
-        <h2 class="text-xl font-semibold text-[oklch(0.85_0.12_85)]">Trending AI & Robotics</h2>
+        <h2 class="text-xl font-semibold text-[oklch(0.85_0.12_85)]">
+          {t.curation.trendingHeader}
+        </h2>
         <span class="text-[10px] text-[oklch(0.50_0.05_280)] font-mono">
           {data.value
-            ? `atualizado ${new Date((data.value.news[0]?.time || Date.now()) * 1000).toLocaleTimeString()}`
+            ? `${t.curation.relativeUpdated} ${new Date((data.value.news[0]?.time || Date.now()) * 1000).toLocaleTimeString()}`
             : ''}
         </span>
       </div>
@@ -215,19 +225,17 @@ export const TrendingSection = component$<TrendingSectionProps>(({ articles, lan
             <span class="text-lg" aria-hidden="true">
               🔄
             </span>
-            <p class="text-sm text-[oklch(0.70_0.10_280)]">
-              Trending unavailable — check back later
-            </p>
+            <p class="text-sm text-[oklch(0.70_0.10_280)]">{t.curation.emptyMessage}</p>
           </div>
           <button
             type="button"
             class="cursor-pointer rounded-sm bg-[oklch(0.72_0.165_80/0.15)] px-5 py-2 text-sm text-[oklch(0.85_0.12_85)] transition-colors hover:bg-[oklch(0.72_0.165_80/0.25)] focus-visible:outline-2 focus-visible:outline-[oklch(0.72_0.165_80/0.6)]"
-            aria-label="Retry loading trending data"
+            aria-label={t.curation.retryAria}
             onClick$={() => {
               fetchTrigger.value++
             }}
           >
-            🔄 Retry
+            🔄 {t.errorPages['500'].retry}
           </button>
         </div>
       )}
@@ -246,12 +254,12 @@ export const TrendingSection = component$<TrendingSectionProps>(({ articles, lan
               <button
                 type="button"
                 class="cursor-pointer rounded-sm bg-[oklch(0.72_0.165_80/0.15)] px-4 py-1.5 text-xs text-[oklch(0.85_0.12_85)] transition-colors hover:bg-[oklch(0.72_0.165_80/0.25)] focus-visible:outline-2 focus-visible:outline-[oklch(0.72_0.165_80/0.6)]"
-                aria-label="Retry loading trending data"
+                aria-label={t.curation.retryAria}
                 onClick$={() => {
                   fetchTrigger.value++
                 }}
               >
-                🔄 Retry
+                🔄 {t.errorPages['500'].retry}
               </button>
             </div>
           </div>
@@ -268,12 +276,12 @@ export const TrendingSection = component$<TrendingSectionProps>(({ articles, lan
                 📦
               </span>
               <h3 class="text-sm font-semibold text-[oklch(0.70_0.10_280)] uppercase tracking-wider">
-                Top Repos da Semana
+                {t.curation.topReposHeader}
               </h3>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {data.value.repos.map(repo => (
-                <RepoCard key={repo.id} repo={repo} />
+                <RepoCard key={repo.id} repo={repo} noDescriptionLabel={t.curation.noDescription} />
               ))}
             </div>
           </div>
@@ -285,12 +293,12 @@ export const TrendingSection = component$<TrendingSectionProps>(({ articles, lan
                 📰
               </span>
               <h3 class="text-sm font-semibold text-[oklch(0.70_0.10_280)] uppercase tracking-wider">
-                Notícias do Dia
+                {t.curation.newsHeader}
               </h3>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {data.value.news.map(item => (
-                <NewsCard key={item.id} news={item} />
+                <NewsCard key={item.id} news={item} relativeNow={t.curation.relativeNow} />
               ))}
             </div>
           </div>
@@ -305,12 +313,12 @@ export const TrendingSection = component$<TrendingSectionProps>(({ articles, lan
               🎲
             </span>
             <h3 class="text-sm font-semibold text-[oklch(0.70_0.10_280)] uppercase tracking-wider">
-              Artigo Aleatório
+              {t.curation.randomArticleHeader}
             </h3>
           </div>
           <a
             href={`/signals/apex/${randomArticle.slug}`}
-            aria-label={`Random article: ${randomArticle.title}`}
+            aria-label={`${t.curation.randomArticleAria.replace('{title}', randomArticle.title)}`}
             class="random-article-card block p-4 rounded-sm bg-gradient-to-br from-[oklch(0.15_0.04_280/0.8)] to-[oklch(0.10_0.03_280/0.9)] border border-white/10 hover:border-[oklch(0.72_0.165_80/0.3)] transition-[border-color,box-shadow] duration-200"
           >
             <h3 class="text-base font-semibold text-[oklch(0.85_0.12_85)] mb-1">

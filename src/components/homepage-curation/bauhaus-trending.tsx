@@ -1,4 +1,5 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
+import { getTranslation } from '~/i18n/context'
 import type { SupportedLanguage } from '~/i18n/types'
 import type { NicheArticleEntry } from '~/utils/content-loader'
 import {
@@ -52,7 +53,11 @@ function buildStaticFallback(articles: NicheArticleEntry[]): {
 /**
  * BauhausRepoCard — Bold, geometric GitHub repo card.
  */
-export const BauhausRepoCard = component$<{ repo: TrendingRepo }>(({ repo }) => {
+export const BauhausRepoCard = component$<{
+  repo: TrendingRepo
+  repoLabel?: string
+  starsLabel?: string
+}>(({ repo, repoLabel = 'REPO', starsLabel = 'Stars' }) => {
   return (
     <BauhausCard
       href={repo.url}
@@ -63,7 +68,7 @@ export const BauhausRepoCard = component$<{ repo: TrendingRepo }>(({ repo }) => 
           <span class="bauhaus-label text-[var(--color-accent)] truncate max-w-[150px]">
             {repo.fullName.split('/')[0]}
           </span>
-          <span class="font-mono text-xs opacity-40">REPO</span>
+          <span class="font-mono text-xs opacity-40">{repoLabel}</span>
         </div>
         <h4 class="bauhaus-h2 text-xl mb-4 group-hover:text-[var(--color-headline)]">
           {repo.name}
@@ -72,7 +77,7 @@ export const BauhausRepoCard = component$<{ repo: TrendingRepo }>(({ repo }) => 
       </div>
       <div class="flex items-end justify-between mt-auto">
         <div class="flex flex-col">
-          <span class="bauhaus-label opacity-40 mb-1">Stars</span>
+          <span class="bauhaus-label opacity-40 mb-1">{starsLabel}</span>
           <span class="font-mono text-2xl font-black tracking-tighter">
             {repo.stars >= 1000 ? `${(repo.stars / 1000).toFixed(1)}K` : repo.stars}
           </span>
@@ -90,7 +95,11 @@ export const BauhausRepoCard = component$<{ repo: TrendingRepo }>(({ repo }) => 
 /**
  * BauhausNewsCard — High-contrast HackerNews story card.
  */
-export const BauhausNewsCard = component$<{ news: NewsItem }>(({ news }) => {
+export const BauhausNewsCard = component$<{
+  news: NewsItem
+  byLabel?: string
+  commentsLabel?: string
+}>(({ news, byLabel = 'By', commentsLabel = 'Comments' }) => {
   return (
     <BauhausCard
       href={news.url || `https://news.ycombinator.com/item?id=${news.id}`}
@@ -105,8 +114,14 @@ export const BauhausNewsCard = component$<{ news: NewsItem }>(({ news }) => {
             {news.title}
           </h4>
           <div class="flex items-center gap-4 text-[10px] opacity-40 uppercase tracking-widest font-bold">
-            <span>By {news.by}</span>
-            {news.descendants > 0 && <span>{news.descendants} Comments</span>}
+            <span>
+              {byLabel} {news.by}
+            </span>
+            {news.descendants > 0 && (
+              <span>
+                {news.descendants} {commentsLabel}
+              </span>
+            )}
           </div>
         </div>
         <span class="text-xl opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
@@ -123,6 +138,7 @@ export interface BauhausTrendingSectionProps {
 
 export const BauhausTrendingSection = component$<BauhausTrendingSectionProps>(
   ({ articles, lang, mood = 'blackout' }) => {
+    const t = getTranslation(lang)
     const data = useSignal<{ repos: TrendingRepo[]; news: NewsItem[] } | null>(null)
     const loading = useSignal(true)
     const error = useSignal<string | null>(null)
@@ -156,7 +172,7 @@ export const BauhausTrendingSection = component$<BauhausTrendingSectionProps>(
           data.value = { repos: result.repos, news: result.news }
         }
       } catch (err: unknown) {
-        const message = err instanceof Error ? err.message : 'Failed to load trending data'
+        const message = err instanceof Error ? err.message : t.curation.errorMessage
         error.value = message
 
         // Attempt static fallback even on hard errors so users see content
@@ -176,11 +192,11 @@ export const BauhausTrendingSection = component$<BauhausTrendingSectionProps>(
 
     // Build status string for the live-stream indicator
     const statusText = (() => {
-      if (loading.value) return 'Connecting...'
-      if (error.value && !staticFallback.value) return 'Error'
-      if (staticFallback.value) return 'Static Cache'
-      if (empty.value) return 'No Data'
-      return 'Synchronized'
+      if (loading.value) return t.curation.bauhaus.status.connecting
+      if (error.value && !staticFallback.value) return t.curation.bauhaus.status.error
+      if (staticFallback.value) return t.curation.bauhaus.status.staticCache
+      if (empty.value) return t.curation.bauhaus.status.noData
+      return t.curation.bauhaus.status.synchronized
     })()
 
     const statusColor = (() => {
@@ -195,14 +211,13 @@ export const BauhausTrendingSection = component$<BauhausTrendingSectionProps>(
       <BauhausSection mood={mood} class="bauhaus-trending">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div class="max-w-2xl">
-            <span class="bauhaus-label text-[var(--color-accent)] mb-4 block">Pulse Check</span>
-            <h2 class="bauhaus-h1">
-              Trending <br />
-              Intelligence
-            </h2>
+            <span class="bauhaus-label text-[var(--color-accent)] mb-4 block">
+              {t.curation.bauhaus.pulseCheck}
+            </span>
+            <h2 class="bauhaus-h1 whitespace-pre-line">{t.curation.bauhaus.trendingHeader}</h2>
           </div>
           <div class="flex flex-col items-end">
-            <span class="bauhaus-label opacity-40 mb-2">Live Stream</span>
+            <span class="bauhaus-label opacity-40 mb-2">{t.curation.bauhaus.liveStream}</span>
             <div class="flex items-center gap-2">
               <span class={`w-2 h-2 rounded-full ${statusColor}`} />
               <span class="font-mono text-sm opacity-60">{statusText}</span>
@@ -217,13 +232,20 @@ export const BauhausTrendingSection = component$<BauhausTrendingSectionProps>(
               ? [1, 2, 3, 4].map(i => <div key={i} class="h-64 bg-white/5 animate-pulse" />)
               : data.value?.repos
                   .slice(0, 4)
-                  .map(repo => <BauhausRepoCard key={repo.id} repo={repo} />)}
+                  .map(repo => (
+                    <BauhausRepoCard
+                      key={repo.id}
+                      repo={repo}
+                      repoLabel={t.curation.bauhaus.card.repo}
+                      starsLabel={t.curation.bauhaus.card.stars}
+                    />
+                  ))}
           </div>
 
           {/* News Column */}
           <div class="lg:col-span-4 flex flex-col bg-[var(--color-bg-primary)]">
             <div class="p-8 border-b border-[var(--color-border)]">
-              <h3 class="bauhaus-label opacity-60">Global Signals</h3>
+              <h3 class="bauhaus-label opacity-60">{t.curation.bauhaus.globalSignals}</h3>
             </div>
             <div class="flex-1 flex flex-col">
               {loading.value
@@ -232,7 +254,14 @@ export const BauhausTrendingSection = component$<BauhausTrendingSectionProps>(
                   ))
                 : data.value?.news
                     .slice(0, 5)
-                    .map(item => <BauhausNewsCard key={item.id} news={item} />)}
+                    .map(item => (
+                      <BauhausNewsCard
+                        key={item.id}
+                        news={item}
+                        byLabel={t.curation.bauhaus.card.by}
+                        commentsLabel={t.curation.bauhaus.card.comments}
+                      />
+                    ))}
             </div>
           </div>
         </div>
@@ -245,17 +274,17 @@ export const BauhausTrendingSection = component$<BauhausTrendingSectionProps>(
                 !
               </span>
               <div class="flex-1">
-                <h3 class="bauhaus-label text-red-400 mb-2">Signal Lost</h3>
+                <h3 class="bauhaus-label text-red-400 mb-2">{t.curation.bauhaus.signalLost}</h3>
                 <p class="text-sm opacity-60 mb-4">{error.value}</p>
                 <button
                   type="button"
                   class="bauhaus-label text-xs border border-currentColor px-4 py-2 hover:bg-white/10 transition-colors cursor-pointer"
-                  aria-label="Retry loading trending data"
+                  aria-label={t.curation.retryAria}
                   onClick$={() => {
                     fetchTrigger.value++
                   }}
                 >
-                  ⟳ Retry
+                  ⟳ {t.errorPages['500'].retry}
                 </button>
               </div>
             </div>
@@ -268,17 +297,17 @@ export const BauhausTrendingSection = component$<BauhausTrendingSectionProps>(
             class="mt-12 border-2 border-amber-500/30 bg-amber-500/5 p-8 text-center"
             data-testid="trending-empty"
           >
-            <h3 class="bauhaus-label text-amber-400 mb-2">No Signals</h3>
+            <h3 class="bauhaus-label text-amber-400 mb-2">{t.curation.bauhaus.noSignals}</h3>
             <p class="text-sm opacity-60 mb-4">Trending data unavailable — check back later</p>
             <button
               type="button"
               class="bauhaus-label text-xs border border-currentColor px-4 py-2 hover:bg-white/10 transition-colors cursor-pointer"
-              aria-label="Retry loading trending data"
+              aria-label={t.curation.retryAria}
               onClick$={() => {
                 fetchTrigger.value++
               }}
             >
-              ⟳ Retry
+              ⟳ {t.errorPages['500'].retry}
             </button>
           </div>
         )}
@@ -292,19 +321,19 @@ export const BauhausTrendingSection = component$<BauhausTrendingSectionProps>(
             <div class="flex-1">
               <p class="text-xs opacity-60">
                 {error.value
-                  ? `Live feed unavailable (${error.value}). Showing curated content instead.`
-                  : 'Live feed rate-limited. Showing curated content instead.'}
+                  ? `${t.curation.bauhaus.fallback.message1.replace('{err}', error.value)}`
+                  : t.curation.bauhaus.fallback.message2}
               </p>
             </div>
             <button
               type="button"
               class="bauhaus-label text-[10px] border border-currentColor px-3 py-1 hover:bg-white/10 transition-colors cursor-pointer"
-              aria-label="Retry loading trending data"
+              aria-label={t.curation.retryAria}
               onClick$={() => {
                 fetchTrigger.value++
               }}
             >
-              ⟳ Retry
+              ⟳ {t.errorPages['500'].retry}
             </button>
           </div>
         )}
@@ -316,12 +345,16 @@ export const BauhausTrendingSection = component$<BauhausTrendingSectionProps>(
             class="group mt-16 p-12 border-2 border-[var(--color-border)] hover:border-[var(--color-accent)] flex flex-col md:flex-row items-center justify-between gap-8 transition-colors"
           >
             <div class="flex-1">
-              <span class="bauhaus-label opacity-40 mb-4 block">Recommended Insight</span>
+              <span class="bauhaus-label opacity-40 mb-4 block">
+                {t.curation.bauhaus.recommendedInsight}
+              </span>
               <h3 class="bauhaus-h2 group-hover:text-[var(--color-accent)] transition-colors">
                 {randomArticle.title}
               </h3>
             </div>
-            <div class="bauhaus-h1 opacity-10 group-hover:opacity-100 transition-opacity">GO →</div>
+            <div class="bauhaus-h1 opacity-10 group-hover:opacity-100 transition-opacity">
+              {t.curation.bauhaus.goCTA}
+            </div>
           </a>
         )}
       </BauhausSection>
