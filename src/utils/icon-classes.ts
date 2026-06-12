@@ -12,6 +12,17 @@ export const LUCIDE_ICON_CLASSES = {
   'pen-tool': 'icon-[lucide--pen-tool]',
   'check-circle-2': 'icon-[lucide--check-circle-2]',
   zap: 'icon-[lucide--zap]',
+  // DepthCard thumbnail icons (GenForge v1.2)
+  'book-open': 'icon-[lucide--book-open]',
+  clock: 'icon-[lucide--clock]',
+  code: 'icon-[lucide--code]',
+  cpu: 'icon-[lucide--cpu]',
+  network: 'icon-[lucide--network]',
+  search: 'icon-[lucide--search]',
+  'bar-chart-3': 'icon-[lucide--bar-chart-3]',
+  layers: 'icon-[lucide--layers]',
+  cloud: 'icon-[lucide--cloud]',
+  'message-circle': 'icon-[lucide--message-circle]',
 } as const
 
 export type LucideIconName = keyof typeof LUCIDE_ICON_CLASSES
