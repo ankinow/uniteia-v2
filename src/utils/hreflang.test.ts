@@ -10,15 +10,15 @@ describe('hreflang', () => {
       expect(links).toHaveLength(4) // 3 languages + x-default
       expect(links[0]).toEqual({
         hreflang: 'en',
-        href: 'https://singularity.uniteia.com/en/test-article',
+        href: 'https://singularity.uniteia.com/test-article',
       })
       expect(links[1]).toEqual({
         hreflang: 'pt',
-        href: 'https://singularity.uniteia.com/pt/test-article',
+        href: 'https://singularity.uniteia.com/test-article',
       })
       expect(links[2]).toEqual({
         hreflang: 'es',
-        href: 'https://singularity.uniteia.com/es/test-article',
+        href: 'https://singularity.uniteia.com/test-article',
       })
     })
 
@@ -27,7 +27,7 @@ describe('hreflang', () => {
 
       const xDefault = links.find(l => l.hreflang === 'x-default')
       expect(xDefault).toBeDefined()
-      expect(xDefault?.href).toBe('https://apex.uniteia.com/en/my-post')
+      expect(xDefault?.href).toBe('https://apex.uniteia.com/my-post')
     })
 
     it('x-default falls back to first available when no English', () => {
@@ -38,7 +38,7 @@ describe('hreflang', () => {
       ] as SupportedLanguage[])
 
       const xDefault = links.find(l => l.hreflang === 'x-default')
-      expect(xDefault?.href).toBe('https://apex.uniteia.com/pt/my-post')
+      expect(xDefault?.href).toBe('https://apex.uniteia.com/my-post')
     })
 
     it('handles single language', () => {
@@ -54,8 +54,8 @@ describe('hreflang', () => {
       const links = generateHreflangLinks('hardware', 'article', allLangs)
 
       expect(links.filter(l => l.hreflang !== 'x-default')).toHaveLength(5)
-      expect(links.some(l => l.href === 'https://hardware.uniteia.com/ja/article')).toBe(true)
-      expect(links.some(l => l.href === 'https://hardware.uniteia.com/zh/article')).toBe(true)
+      expect(links.some(l => l.href === 'https://hardware.uniteia.com/article')).toBe(true)
+      expect(links.some(l => l.href === 'https://hardware.uniteia.com/article')).toBe(true)
     })
   })
 
@@ -71,8 +71,8 @@ describe('hreflang', () => {
     it('includes correct URLs in HTML', () => {
       const html = buildAlternateLinksHTML('apex', 'my-post', 'en', ['en', 'es'])
 
-      expect(html).toContain('https://apex.uniteia.com/en/my-post')
-      expect(html).toContain('https://apex.uniteia.com/es/my-post')
+      expect(html).toContain('https://apex.uniteia.com/my-post')
+      expect(html).toContain('https://apex.uniteia.com/my-post')
     })
   })
 

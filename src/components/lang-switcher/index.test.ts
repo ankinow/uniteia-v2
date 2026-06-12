@@ -19,6 +19,9 @@ vi.mock('~/i18n/set-lang-cookie', () => ({
 
 vi.mock('~/i18n/context', () => ({
   getLanguageName: (code: string) => code,
+  getTranslation: (_code: string) => ({
+    langSwitcher: { label: 'Language', current: 'Current', available: 'Available' },
+  }),
   useI18n: () => ({
     lang: { value: 'en' },
     t: {

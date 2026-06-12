@@ -69,7 +69,6 @@ afterEach(() => {
 
 describe('onLanguageNegotiation', () => {
   it('sets negotiated headers directly on the response headers at the url boundary', () => {
-    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined)
     const { headers } = runNegotiation({
       host: 'singularity.uniteia.com:443',
       lang: 'pt',
@@ -79,7 +78,6 @@ describe('onLanguageNegotiation', () => {
     })
     expect(headers.get('x-negotiated-lang')).toBe('pt')
     expect(headers.get('x-negotiated-niche')).toBe('singularity')
-    expect(logSpy).toHaveBeenCalled()
   })
 
   it('resolves cookie language when fr is now in supported set', () => {

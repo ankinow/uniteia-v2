@@ -196,7 +196,7 @@ describe('compileContentGraph', () => {
     })
     const node = graph.nodes.find(n => n.id === 'en-llm-aggregators-compared')
     expect(node).toBeDefined()
-    expect(node?.routes.canonical).toBe('/en/signals/ai-agents/llm-aggregators-compared')
+    expect(node?.routes.canonical).toBe('/signals/ai-agents/llm-aggregators-compared')
   })
 
   it('populates locale alternates for translated content across all 8 locales', () => {
@@ -207,13 +207,13 @@ describe('compileContentGraph', () => {
     })
     const enNode = graph.nodes.find(n => n.id === 'en-llm-aggregators-compared')
     expect(enNode).toBeDefined()
-    expect(enNode?.alternates.pt).toBe('/pt/signals/ai-agents/llm-aggregators-compared')
-    expect(enNode?.alternates.es).toBe('/es/signals/ai-agents/llm-aggregators-compared')
-    expect(enNode?.alternates.fr).toBe('/fr/signals/ai-agents/llm-aggregators-compared')
-    expect(enNode?.alternates.de).toBe('/de/signals/ai-agents/llm-aggregators-compared')
-    expect(enNode?.alternates.it).toBe('/it/signals/ai-agents/llm-aggregators-compared')
-    expect(enNode?.alternates.ja).toBe('/ja/signals/ai-agents/llm-aggregators-compared')
-    expect(enNode?.alternates.zh).toBe('/zh/signals/ai-agents/llm-aggregators-compared')
+    expect(enNode?.alternates.pt).toBe('/signals/ai-agents/llm-aggregators-compared')
+    expect(enNode?.alternates.es).toBe('/signals/ai-agents/llm-aggregators-compared')
+    expect(enNode?.alternates.fr).toBe('/signals/ai-agents/llm-aggregators-compared')
+    expect(enNode?.alternates.de).toBe('/signals/ai-agents/llm-aggregators-compared')
+    expect(enNode?.alternates.it).toBe('/signals/ai-agents/llm-aggregators-compared')
+    expect(enNode?.alternates.ja).toBe('/signals/ai-agents/llm-aggregators-compared')
+    expect(enNode?.alternates.zh).toBe('/signals/ai-agents/llm-aggregators-compared')
 
     const ptNode = graph.nodes.find(n => n.id === 'pt-llm-aggregators-compared')
     expect(ptNode).toBeDefined()
@@ -272,7 +272,7 @@ describe('compileContentGraph', () => {
     expect(ptNode?.timestamps.updatedAt).toBe('2026-06-01T00:00:00.000Z')
 
     // Routes still populated by compiler (not overridden by factory)
-    expect(ptNode?.routes.canonical).toBe('/pt/signals/ai-agents/llm-aggregators-compared')
+    expect(ptNode?.routes.canonical).toBe('/signals/ai-agents/llm-aggregators-compared')
 
     // Without normalization, a pt-BR keyed node would be silently missed
     expect(graph.nodes.find(n => n.id === 'pt-BR-llm-aggregators-compared')).toBeUndefined()

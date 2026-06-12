@@ -3,7 +3,6 @@ import { join } from 'node:path'
 import { contentGraphData } from '../src/content-graph.generated'
 import { buildRobotsTxt, formatSitemapDate } from '../src/utils/sitemap-builder'
 
-const ALL_LOCALES = ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'] as const
 const APEX_DOMAIN = 'uniteia.com'
 
 interface SitemapEntry {
@@ -107,36 +106,32 @@ async function generate() {
   const origin = `https://${buildLocale}.${APEX_DOMAIN}`
   const distDir = join(process.cwd(), 'dist')
 
-  console.log(`📍 Generating SEO files for all 8 locales (build=${buildLocale})...`)
+  console.log(`📍 Generating SEO files for locale: ${buildLocale}...`)
 
-  // Generate sitemap for ALL locales (not just build locale)
-  for (const locale of ALL_LOCALES) {
-    await generateSitemapForLocale(locale, distDir)
-  }
+  // Only generate sitemap for the build locale (per-locale SSG builds)
+  await generateSitemapForLocale(buildLocale, distDir)
 
-  // Default sitemap.xml = copy of sitemap-en.xml (canonical locale)
+  // Default sitemap.xml = copy of sitemap-{buildLocale}.xml
   // Worker rewrites /sitemap.xml → /sitemap-{locale}.xml by Host header
   const { copyFile } = await import('node:fs/promises')
-  await copyFile(join(distDir, 'sitemap-en.xml'), join(distDir, 'sitemap.xml'))
-  console.log(`  📋 dist/sitemap.xml → copy of dist/sitemap-en.xml`)
+  await copyFile(join(distDir, `sitemap-${buildLocale}.xml`), join(distDir, 'sitemap.xml'))
+  console.log(`  📋 dist/sitemap.xml → copy of dist/sitemap-${buildLocale}.xml`)
 
   // Robots.txt
   const robots = buildRobotsTxt(origin)
   await writeFile(join(distDir, 'robots.txt'), robots)
   console.log('✅ dist/robots.txt generated')
 
-  // Sitemap index for discovery (links to all locale sitemaps)
+  // Sitemap index for discovery (single-locale, per-locale SSG build)
   const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${ALL_LOCALES.map(
-  loc => `  <sitemap>
-    <loc>https://${loc}.${APEX_DOMAIN}/sitemap.xml</loc>
-  </sitemap>`
-).join('\n')}
+  <sitemap>
+    <loc>https://${buildLocale}.${APEX_DOMAIN}/sitemap.xml</loc>
+  </sitemap>
 </sitemapindex>`
   await writeFile(join(distDir, 'sitemap-index.xml'), sitemapIndex)
-  console.log('✅ dist/sitemap-index.xml generated (all 8 locales)')
-  console.log(`   Submit to Google: https://en.uniteia.com/sitemap-index.xml`)
+  console.log(`✅ dist/sitemap-index.xml generated (locale: ${buildLocale})`)
+  console.log(`   Submit to Google: https://${buildLocale}.${APEX_DOMAIN}/sitemap-index.xml`)
 }
 
 generate()

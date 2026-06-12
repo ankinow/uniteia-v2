@@ -11,6 +11,7 @@ import type { ContentLocale } from '~/content-graph/contracts/node'
 import { toBcp47 } from '~/i18n/bcp47'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 import { canonicalUrl, xdefaultUrl } from '~/routing/routes'
+import { getBuildLocale } from '~/utils/build-locale'
 import type { NicheArticleEntry } from '~/utils/content-loader'
 import { findNicheBySlug, getNicheSlug, loadNichesConfig } from '~/utils/niche-loader'
 import { generateWebPageSchema } from '~/utils/schema-generators'
@@ -48,14 +49,13 @@ export const onRequest: RequestHandler = async event => {
 }
 
 export const onStaticGenerate = async () => {
+  const buildLang = getBuildLocale()
   const niches = await loadNichesConfig()
   return {
-    params: SUPPORTED_LANGUAGES.flatMap(l =>
-      niches.map(n => ({
-        lang: l.code,
-        niche: getNicheSlug(n, l.code),
-      }))
-    ),
+    params: niches.map(n => ({
+      lang: buildLang,
+      niche: getNicheSlug(n, buildLang as SupportedLanguage),
+    })),
   }
 }
 

@@ -2,13 +2,13 @@ import { component$ } from '@builder.io/qwik'
 import type { DocumentHead } from '@builder.io/qwik-city'
 import { useLocation } from '@builder.io/qwik-city'
 import { getTranslation } from '~/i18n/context'
-import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
+import type { SupportedLanguage } from '~/i18n/types'
+import { getBuildLocale } from '~/utils/build-locale'
 
 export const onStaticGenerate = () => {
+  const lang = getBuildLocale()
   return {
-    params: SUPPORTED_LANGUAGES.map(l => ({
-      lang: l.code,
-    })),
+    params: [{ lang }],
   }
 }
 

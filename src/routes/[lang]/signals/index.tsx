@@ -7,6 +7,7 @@ import { useI18n } from '~/i18n/context'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
 import { canonicalUrl, signalsIndex, xdefaultUrl } from '~/routing/routes'
 import type { NichesConfig } from '~/types/niche'
+import { getBuildLocale } from '~/utils/build-locale'
 import { loadNichesConfig } from '~/utils/niche-loader'
 
 type AlternateLink = {
@@ -19,10 +20,9 @@ type AlternateLink = {
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
 
 export const onStaticGenerate = () => {
+  const lang = getBuildLocale()
   return {
-    params: SUPPORTED_LANGUAGES.map(l => ({
-      lang: l.code,
-    })),
+    params: [{ lang }],
   }
 }
 

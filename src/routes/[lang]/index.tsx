@@ -10,15 +10,15 @@ import { getHomepageProjection } from '~/content-graph/projections'
 import type { HomepageProjection } from '~/content-graph/projections'
 import { toBcp47 } from '~/i18n/bcp47'
 import { getTranslation } from '~/i18n/context'
-import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
+import type { SupportedLanguage } from '~/i18n/types'
+import { getBuildLocale } from '~/utils/build-locale'
 import { slugToKawaiiMini } from '~/utils/kawaii-thumbnail'
 import { loadNichesConfig } from '~/utils/niche-loader'
 
 export const onStaticGenerate = () => {
+  const lang = getBuildLocale()
   return {
-    params: SUPPORTED_LANGUAGES.map(l => ({
-      lang: l.code,
-    })),
+    params: [{ lang }],
   }
 }
 

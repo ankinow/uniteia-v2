@@ -18,7 +18,7 @@ describe('JSON-LD Schema Generators', () => {
       expect(schema.headline).toBe('Test Article')
       expect(schema.description).toBe('A test description')
       expect(schema.author).toEqual({ '@type': 'Person', name: 'Test Author' })
-      expect(schema.inLanguage).toBe('en')
+      expect(schema.inLanguage).toBe('en-US')
     })
 
     it('generates correct URL for niche', () => {
@@ -85,7 +85,7 @@ describe('JSON-LD Schema Generators', () => {
       expect(schema['@context']).toBe('https://schema.org')
       expect(schema.name).toBe('UniTeia')
       expect(schema.url).toBe('https://uniteia.com')
-      expect(schema.inLanguage).toBe('en')
+      expect(schema.inLanguage).toBe('en-US')
     })
 
     it('handles missing description', () => {
@@ -96,7 +96,7 @@ describe('JSON-LD Schema Generators', () => {
       })
 
       expect(schema.description).toBeUndefined()
-      expect(schema.inLanguage).toBe('pt')
+      expect(schema.inLanguage).toBe('pt-BR')
     })
 
     it('includes publisher for all languages', () => {

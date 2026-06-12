@@ -1,13 +1,12 @@
 import { component$ } from '@builder.io/qwik'
 import { CanvaMagicaOverview } from '~/components/canva/CanvaMagicaOverview'
 import { CanvasIsland } from '~/components/canvas/CanvasIsland'
-import { SUPPORTED_LANGUAGES } from '~/i18n/types'
+import { getBuildLocale } from '~/utils/build-locale'
 
 export const onStaticGenerate = () => {
+  const lang = getBuildLocale()
   return {
-    params: SUPPORTED_LANGUAGES.map(lang => ({
-      lang: lang.code,
-    })),
+    params: [{ lang }],
   }
 }
 

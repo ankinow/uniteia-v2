@@ -5,6 +5,7 @@ import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(() => {
+  const buildLocale = process.env.LOCALE || 'en'
   return {
     plugins: [
       tailwindcss(),
@@ -14,6 +15,11 @@ export default defineConfig(() => {
       }),
       tsconfigPaths(),
     ],
+    define: {
+      // Pass build locale to SSG routes via Vite define (process.env is not
+      // automatically available during Vite SSG builds)
+      'process.env.LOCALE': JSON.stringify(buildLocale),
+    },
     build: {
       rollupOptions: {
         output: {

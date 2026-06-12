@@ -15,6 +15,7 @@ import { type DocumentHead, routeLoader$ } from '@builder.io/qwik-city'
 import { Sketchnote } from '~/components/sketchnote/Sketchnote'
 import { getTranslation } from '~/i18n/context'
 import type { SupportedLanguage } from '~/i18n/types'
+import { getBuildLocale } from '~/utils/build-locale'
 
 // Map topic → which template variant
 const TOPIC_VARIANT: Record<string, 'template01' | 'template02' | 'template03'> = {
@@ -27,11 +28,11 @@ const TOPIC_VARIANT: Record<string, 'template01' | 'template02' | 'template03'> 
 }
 
 const ALL_TOPICS = Object.keys(TOPIC_VARIANT)
-const LOCALES = ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'] as const
 
 export const onStaticGenerate = () => {
+  const lang = getBuildLocale()
   return {
-    params: LOCALES.flatMap(lang => ALL_TOPICS.map(topic => ({ lang, topic }))),
+    params: ALL_TOPICS.map(topic => ({ lang, topic })),
   }
 }
 

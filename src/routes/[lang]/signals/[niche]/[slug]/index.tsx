@@ -28,6 +28,7 @@ import { SUPPORTED_LANGUAGES } from '~/i18n/types'
 import { canonicalUrl, xdefaultUrl } from '~/routing/routes'
 import type { LlmWikiContent } from '~/types/content'
 import { ContentLoaderError } from '~/types/content'
+import { getBuildLocale } from '~/utils/build-locale'
 import { canvasToCollageProps } from '~/utils/canvas-to-collage'
 import { loadContent } from '~/utils/content-loader'
 import { generateWebPageSchema } from '~/utils/schema-generators'
@@ -36,6 +37,7 @@ import { estimateReadTime, extractDescription } from '~/utils/text-utils'
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
 
 export const onStaticGenerate = async () => {
+  const buildLocale = getBuildLocale()
   const { contentGraphProvider } = await import('~/content-graph.generated')
   const nodes = contentGraphProvider.getNodes()
   const { contentGraphData } = await import('~/content-graph.generated')
@@ -44,7 +46,7 @@ export const onStaticGenerate = async () => {
   )
   return {
     params: nodes
-      .filter(n => n.slug !== '_index' && publicGroupIds.has(n.id))
+      .filter(n => n.slug !== '_index' && publicGroupIds.has(n.id) && n.locale === buildLocale)
       .map(node => ({
         lang: node.locale,
         niche: node.niche[0] ?? 'apex',

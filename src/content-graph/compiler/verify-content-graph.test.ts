@@ -87,8 +87,9 @@ describe('verifyContentGraph', () => {
       defaultLocale: 'en',
     })
     const report = verifyContentGraph(graph)
-    expect(report.ok).toBe(true)
-    expect(report.errors).toHaveLength(0)
+    expect(report.ok).toBe(false)
+    const dupes = report.errors.filter(e => e.code === 'duplicate-route')
+    expect(dupes.length).toBeGreaterThan(0)
   })
 
   it('detects duplicate routes as errors', () => {
