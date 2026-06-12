@@ -10,6 +10,7 @@ import { getHomepageProjection } from '~/content-graph/projections'
 import type { HomepageProjection } from '~/content-graph/projections'
 import { getTranslation } from '~/i18n/context'
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '~/i18n/types'
+import { toBcp47 } from '~/i18n/bcp47'
 import { slugToKawaiiMini } from '~/utils/kawaii-thumbnail'
 import { loadNichesConfig } from '~/utils/niche-loader'
 

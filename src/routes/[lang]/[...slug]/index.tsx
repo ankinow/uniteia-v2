@@ -3,6 +3,7 @@ import { type DocumentHead, type RequestHandler, routeLoader$ } from '@builder.i
 import { ArticleRenderer } from '~/components/article-renderer'
 import { NotFound } from '~/components/error-pages/not-found'
 import type { ContentLocale, ContentNode } from '~/content-graph/contracts/node'
+import { toBcp47 } from '~/i18n/bcp47'
 import { getTranslation } from '~/i18n/context'
 import type { SupportedLanguage } from '~/i18n/types'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
@@ -10,7 +11,6 @@ import type { LlmWikiContent } from '~/types/content'
 import { ContentLoaderError } from '~/types/content'
 import { loadContent } from '~/utils/content-loader'
 import { extractDescription } from '~/utils/text-utils'
-import { toBcp47 } from '~/i18n/bcp47'
 
 /**
  * Supported language codes for quick lookup

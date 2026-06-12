@@ -21,6 +21,7 @@ import { findNicheBySlug, loadNichesConfig } from '~/utils/niche-loader'
 import { getMangaLayout, getStoryboardLayout } from '~/utils/storyboard-resolver'
 
 import type { ContentLocale, ContentNode } from '~/content-graph/contracts/node'
+import { toBcp47 } from '~/i18n/bcp47'
 import { getTranslation, useI18n } from '~/i18n/context'
 import type { SupportedLanguage } from '~/i18n/types'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
@@ -31,7 +32,6 @@ import { canvasToCollageProps } from '~/utils/canvas-to-collage'
 import { loadContent } from '~/utils/content-loader'
 import { generateWebPageSchema } from '~/utils/schema-generators'
 import { estimateReadTime, extractDescription } from '~/utils/text-utils'
-import { toBcp47 } from '~/i18n/bcp47'
 
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
 

@@ -130,9 +130,11 @@ async function generate() {
   // Sitemap index for discovery (links to all locale sitemaps)
   const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${ALL_LOCALES.map(loc => `  <sitemap>
+${ALL_LOCALES.map(
+  loc => `  <sitemap>
     <loc>https://${loc}.${APEX_DOMAIN}/sitemap.xml</loc>
-  </sitemap>`).join('\n')}
+  </sitemap>`
+).join('\n')}
 </sitemapindex>`
   await writeFile(join(distDir, 'sitemap-index.xml'), sitemapIndex)
   console.log('✅ dist/sitemap-index.xml generated (all 8 locales)')

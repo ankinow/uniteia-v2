@@ -1,5 +1,5 @@
-import type { ArticleSchema, WebPageSchema, WebSiteSchema } from '~/types/schema-org'
 import { toBcp47 } from '~/i18n/bcp47'
+import type { ArticleSchema, WebPageSchema, WebSiteSchema } from '~/types/schema-org'
 
 /**
  * Generate Article schema
