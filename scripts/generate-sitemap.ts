@@ -113,13 +113,13 @@ async function generate() {
     await generateSitemapForLocale(locale, distDir)
   }
 
-  // Default sitemap.xml = build locale's sitemap (already written as sitemap.xml for en)
-  // For non-en build locale, copy it as sitemap.xml too
+  // Default sitemap.xml = English (canonical/default locale)
+  // Worker rewrites /sitemap.xml → /sitemap-{locale}.xml by Host header
+  // sitemap.xml exists as CDN fallback (served when Worker bypassed)
   if (buildLocale !== 'en') {
-    const buildSitemap = `sitemap-${buildLocale}.xml`
     const { copyFile } = await import('node:fs/promises')
-    await copyFile(join(distDir, buildSitemap), join(distDir, 'sitemap.xml'))
-    console.log(`  📋 dist/sitemap.xml → copy of dist/${buildSitemap}`)
+    await copyFile(join(distDir, 'sitemap-en.xml'), join(distDir, 'sitemap.xml'))
+    console.log(`  📋 dist/sitemap.xml → copy of dist/sitemap-en.xml (default)`)
   }
 
   // Robots.txt

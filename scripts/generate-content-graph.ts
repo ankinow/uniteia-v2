@@ -60,7 +60,9 @@ function normalizeFactoryNode(node: Record<string, unknown>): string {
 
 async function main() {
   const buildLocale = process.env.LOCALE || 'en'
-  console.log(`[content-graph] Generating content graph (build=${buildLocale}, all locales included)...`)
+  console.log(
+    `[content-graph] Generating content graph (build=${buildLocale}, all locales included)...`
+  )
 
   const { contentRegistry } = await import('../src/content-registry.generated')
   // Include ALL locales in the content graph (sitemap + hreflang need cross-locale data)
