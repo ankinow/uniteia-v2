@@ -1,0 +1,100 @@
+/**
+ * VISUAL I18N — Culture-specific gradients + RTL support + CJK fonts
+ * UniTeia v2 — M014
+ *
+ * Provides locale-aware visual styling for all 8 supported locales:
+ *   en, pt, es, fr, de, it, ja, zh
+ *
+ * Three pillars:
+ *   1. Culture-specific gradient accent colors via CSS custom properties
+ *   2. RTL (right-to-left) layout mirroring for Arabic/Hebrew locales
+ *      using CSS logical properties and directional overrides
+ *   3. CJK (Chinese/Japanese/Korean) optimized font stack + typography
+ *
+ * Imported into global.css to maintain identical cascade behavior.
+ */
+
+@layer utilities {
+  /* ═══════════════════════════════════════════════════════════
+     CULTURE-SPECIFIC GRADIENT ACCENTS
+     ═══════════════════════════════════════════════════════════ */
+
+  /* Western Romance + Germanic: cyan accent */
+  [lang="en"],
+  [lang="pt"],
+  [lang="es"],
+  [lang="fr"],
+  [lang="de"] {
+    --gradient-accent: #00d4aa;
+  }
+
+  /* East Asian: jade accent */
+  [lang="ja"],
+  [lang="zh"] {
+    --gradient-accent: #00c896;
+  }
+
+  /* Italian: bronze accent */
+  [lang="it"] {
+    --gradient-accent: #cd7f32;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     RTL SUPPORT — Logical Properties + Directional Overrides
+     ═══════════════════════════════════════════════════════════ */
+
+  /* ── Depth Card Thumbnail: mirror layout ── */
+  [dir="rtl"] .depth-card-thumbnail {
+    direction: rtl;
+  }
+
+  /* ── Storyboard Grid: mirror grid flow ── */
+  [dir="rtl"] .storyboard-grid {
+    direction: rtl;
+  }
+
+  /* ── Pipeline Flow: reverse flex direction ── */
+  [dir="rtl"] .pipeline-flow > * {
+    flex-direction: row-reverse;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     CJK FONT STACK — Japanese + Chinese optimized typography
+     ═══════════════════════════════════════════════════════════ */
+
+  /* ── Primary CJK font stack ── */
+  [lang="ja"],
+  [lang="zh"] {
+    --font-cjk: 'Noto Sans JP', 'Noto Sans SC', sans-serif;
+  }
+
+  /* ── CJK monospace: use CJK fonts as primary, JetBrains Mono as fallback ── */
+  [lang="ja"] .font-mono,
+  [lang="zh"] .font-mono {
+    font-family: 'Noto Sans JP', 'Noto Sans SC', 'JetBrains Mono', monospace;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     LOCALE-AWARE ICON DIRECTIONS
+     ═══════════════════════════════════════════════════════════ */
+
+  /* ── Mirror right-pointing arrows for RTL ── */
+  [dir="rtl"] .icon-arrow-right {
+    transform: scaleX(-1);
+  }
+
+  [dir="rtl"] .icon-chevron-right {
+    transform: scaleX(-1);
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     REDUCED MOTION — Respect user preference globally
+     ═══════════════════════════════════════════════════════════ */
+
+  @media (prefers-reduced-motion: reduce) {
+    [dir="rtl"] .icon-arrow-right,
+    [dir="rtl"] .icon-chevron-right {
+      transform: none;
+    }
+  }
+}
