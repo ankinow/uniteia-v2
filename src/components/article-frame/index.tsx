@@ -15,7 +15,7 @@ export const ArticleFrame = component$<ArticleFrameProps>(props => {
         'font-sans antialiased',
         props.kindleMode
           ? 'bg-amber-50 dark:bg-amber-950 text-amber-900 dark:text-amber-100'
-          : 'surface-panel',
+          : 'surface-pixel',
         'relative',
         '[&>h1]:mb-12 [&>h2]:mb-8 [&>h2]:mt-16 [&>p]:mb-6',
         '[&>h1]:text-wrap-balance [&>h2]:text-wrap-balance',

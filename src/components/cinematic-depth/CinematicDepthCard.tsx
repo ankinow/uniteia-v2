@@ -1,7 +1,7 @@
 /**
  * CinematicDepthCard v2026 — JIT Skill Mutant D002
  * 2.5D Neo-Realistic depth card with WAAPI spring tilt,
- * glass[data-blur="lg"], grain-4k texture, and sharp directional shadows.
+ * pixel-border, grain-4k texture, and sharp directional shadows.
  *
  * Composable unit — replaces flat depth-card across all surfaces.
  */
@@ -149,9 +149,8 @@ export const CinematicDepthCard = component$<CinematicDepthCardProps>(
         {/* Layer 1 + 2 — Content + texture */}
         <div
           ref={cardRef}
-          class="surface-panel depth-surface depth-raised relative preserve-3d cursor-pointer"
+          class="surface-pixel depth-surface depth-raised relative preserve-3d cursor-pointer"
           data-surface="depth-card"
-          data-blur="lg"
           style={{
             transform: `translateZ(${cfg.translateZ + layer}px)`,
             transformStyle: 'preserve-3d',

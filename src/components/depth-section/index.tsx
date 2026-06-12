@@ -19,11 +19,11 @@ const mapDepthToDataAttr = (depth: DepthVariant | DepthPlane): DepthPlane => {
 }
 
 /**
- * Returns the glass CSS class when glass mode is active, or null otherwise.
+ * Returns pixel class for depth sections.
+ * Neo Pixel × Sunset Saga — zero blur, pixel borders only.
  */
-const getGlassClass = (depth: DepthVariant | DepthPlane, glass?: boolean): string | null => {
-  // DEPRECATED R26: glass variant maps to surface-panel
-  if (depth === 'glass-light' || depth === 'glass' || glass) return 'surface-panel'
+const getPixelSectionClass = (depth: DepthVariant | DepthPlane, glass?: boolean): string | null => {
+  if (depth === 'glass-light' || depth === 'glass' || glass) return 'pixel-gold-rim'
   return null
 }
 
@@ -61,7 +61,7 @@ export const DepthSection = component$<DepthSurfaceProps>(
       'surface-hud',
       'depth-surface',
       'depth-section',
-      getGlassClass(depth, glass),
+      getPixelSectionClass(depth, glass),
     ]
 
     // Add signal grid class when depth2d5 is active (subtle tech-grid background)

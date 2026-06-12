@@ -1,47 +1,106 @@
 /**
- * UNITEIA · DESIGN TOKENS — v3.0 refatorado
- * Dark theme premium simplificado. OKLCH wide-gamut.
+ * UNITEIA · DESIGN TOKENS — v4.0
+ * "Neo Pixel × Sunset Saga" — Retro Digital Crepuscular
+ * SolarLanso (legado) + Sunset Pixel (novo) — OKLCH wide-gamut
  */
 
 @theme {
-  /* ── Surfaces (dark premium) ── */
+  /* ═══════════════════════════════════════════
+     SOLARLANSO (legado — mantido para compatibilidade)
+     ═══════════════════════════════════════════ */
   --color-void: oklch(0.12 0.02 270);
   --color-deep: oklch(0.18 0.02 270);
   --color-mid: oklch(0.22 0.02 270);
   --color-raised: oklch(0.28 0.02 270);
 
-  /* ── Brand accent ── */
   --color-accent: oklch(0.75 0.18 200);
   --color-accent-hi: oklch(0.82 0.2 200);
 
-  /* ── Semantic signals ── */
   --color-neon-cyan: oklch(0.75 0.18 200);
   --color-neon-amber: oklch(0.72 0.15 70);
   --color-neon-rose: oklch(0.65 0.18 15);
 
-  /* ── Text hierarchy ── */
   --color-bone: oklch(0.93 0.02 85);
   --color-bone-muted: oklch(0.65 0.02 270);
 
-  /* ── Typography ── */
-  --font-family-sans: "Inter Variable", "Inter", system-ui, sans-serif;
-  --font-family-display: "Zen Maru Gothic", "Inter Variable", "Inter", system-ui, sans-serif;
+  /* ═══════════════════════════════════════════
+     SUNSET PIXEL — Nova paleta crepuscular
+     ═══════════════════════════════════════════ */
+
+  /* ── Surfaces (crepuscular dark) ── */
+  --sp-void: oklch(0.12 0.03 310); /* vinho escuro — background principal */
+  --sp-deep: oklch(0.18 0.04 320); /* purple-black profundo — cards */
+  --sp-mid: oklch(0.25 0.03 315); /* superficie intermediaria — bordas */
+  --sp-raised: oklch(0.32 0.02 300); /* card elevado — hover */
+
+  /* ── Text (quente) ── */
+  --sp-bone: oklch(0.94 0.02 85); /* branco creme — headings */
+  --sp-ink: oklch(0.88 0.03 80); /* texto corpo */
+  --sp-muted: oklch(0.6 0.02 70); /* texto secundario */
+
+  /* ── Sunset Accents ── */
+  --sp-gold: oklch(0.82 0.15 85); /* #FDD835 ouro — accent primario */
+  --sp-amber: oklch(0.72 0.18 60); /* #F57F17 laranja queimado — CTA */
+  --sp-ember: oklch(0.58 0.22 35); /* #B71C1C vermelho purpura — destaque */
+  --sp-rose: oklch(0.65 0.15 10); /* rosa poente — accent secundario */
+
+  /* ── Pixel Cool (toques frios para contraste) ── */
+  --sp-cyan: oklch(0.72 0.1 195); /* ciano pixel — raro, so para contraste */
+  --sp-mint: oklch(0.68 0.08 160); /* verde pixel — sucesso */
+
+  /* ── Texture Colors ── */
+  --sp-parchment: oklch(0.9 0.03 85); /* pergaminho claro */
+  --sp-ash: oklch(0.35 0.02 300); /* cinza quente para bordas */
+
+  /* ── Sunset Glow (opacidades para overlays) ── */
+  --sp-gold-glow: oklch(0.82 0.15 85 / 0.15);
+  --sp-amber-glow: oklch(0.72 0.18 60 / 0.12);
+  --sp-ember-glow: oklch(0.58 0.22 35 / 0.1);
+
+  /* ═══════════════════════════════════════════
+     TYPOGRAPHY — Pixel + Editorial
+     ═══════════════════════════════════════════ */
+  --font-family-sans: "Manrope", "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-family-display: "Press Start 2P", "Silkscreen", "Zen Maru Gothic", monospace;
+  --font-family-pixel: "VT323", "Silkscreen", monospace;
+  --font-family-editorial: "Playfair Display", "Georgia", serif;
   --font-family-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  /* ── Motion ── */
-  --transition-duration-fast: 120ms;
-  --transition-duration-base: 200ms;
-  --transition-duration-slow: 350ms;
-  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
-
-  /* ── Typography scale (SOTA Rigor) ── */
+  /* ═══════════════════════════════════════════
+     TYPOGRAPHY SCALE (SOTA Rigor + Pixel)
+     ═══════════════════════════════════════════ */
   --font-size-super-display: clamp(3rem, 8vw, 6rem);
   --font-size-display-xl: clamp(2.5rem, 6vw, 4rem);
   --font-size-display-lg: clamp(2rem, 4.5vw, 3rem);
   --font-size-display-md: clamp(1.5rem, 3.5vw, 2.25rem);
   --font-size-display-sm: clamp(1.25rem, 2.5vw, 1.75rem);
+  --font-size-pixel-body: clamp(1rem, 2vw, 1.25rem);
 
-  /* ── Z-index scale ── */
+  /* ═══════════════════════════════════════════
+     DEPTH — Pixel 2.5D (translateZ, zero blur)
+     ═══════════════════════════════════════════ */
+  --pixel-depth-back: -4px;
+  --pixel-depth-base: 0px;
+  --pixel-depth-front: 4px;
+  --pixel-depth-float: 8px;
+
+  --pixel-shadow-sm: 2px 2px 0 oklch(0.15 0.02 310 / 0.5);
+  --pixel-shadow-md: 4px 4px 0 oklch(0.12 0.02 310 / 0.6);
+  --pixel-shadow-lg: 6px 6px 0 oklch(0.1 0.02 310 / 0.7);
+  --pixel-shadow-gold: 4px 4px 0 oklch(0.82 0.15 85 / 0.3);
+
+  /* ═══════════════════════════════════════════
+     MOTION — Snap + Pixel Step
+     ═══════════════════════════════════════════ */
+  --transition-duration-fast: 100ms;
+  --transition-duration-base: 150ms;
+  --transition-duration-slow: 300ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-pixel: steps(4, end);
+
+  /* ═══════════════════════════════════════════
+     Z-INDEX
+     ═══════════════════════════════════════════ */
   --z-surface: 0;
   --z-raised: 10;
   --z-overlay: 50;

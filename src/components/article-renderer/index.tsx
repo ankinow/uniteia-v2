@@ -47,7 +47,7 @@ const AdaptiveHeader = ({
   subtitle?: string
   readTime?: string
 }) => (
-  <section class="adaptive-header surface-panel mb-10">
+  <section class="adaptive-header surface-pixel mb-10">
     <h1
       class={[
         'text-3xl md:text-4xl lg:text-5xl font-bold font-display',

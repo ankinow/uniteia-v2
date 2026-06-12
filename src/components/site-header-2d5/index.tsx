@@ -51,8 +51,8 @@ export const SiteHeader2D5 = component$(() => {
       <div class="absolute inset-x-0 top-0 h-full depth-shadow-plane" aria-hidden="true" />
       <div
         ref={wrapperRef}
-        class="surface-panel relative preserve-3d depth-content-plane"
-        data-blur="lg"
+        class="surface-pixel relative preserve-3d depth-content-plane"
+        data-surface="depth-card"
       >
         <div
           class="grain-4k absolute inset-0 pointer-events-none z-[var(--z-surface)] opacity-micro"

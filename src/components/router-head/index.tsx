@@ -97,6 +97,10 @@ export const RouterHead = component$(() => {
       <link rel="canonical" href={canonicalUrl} />
       <meta name="color-scheme" content="dark" />
 
+      {/* Google Fonts preconnects — Sunset Pixel typography */}
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+
       {/* hreflang alternates — all 8 locales + x-default */}
       {alternates.map(alt => (
         <link key={alt.hreflang} rel="alternate" hreflang={alt.hreflang} href={alt.href} />

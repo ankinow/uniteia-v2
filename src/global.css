@@ -1,6 +1,6 @@
 /**
- * UNITEIA · GLOBAL CSS v3.0
- * Dark theme premium. Portal de conteúdo multilíngue.
+ * UNITEIA · GLOBAL CSS v4.0
+ * "Neo Pixel × Sunset Saga" — Retro Digital Crepuscular
  * Stack: Qwik City + Tailwind v4 Oxide + OKLCH
  */
 
@@ -34,18 +34,35 @@
   font-display: swap;
 }
 
+/* ── Pixel Fonts (Google Fonts CDN) ── */
+/* Press Start 2P — display headings com charme retro */
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+/* VT323 — body pixelada e UI labels */
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
+/* ── Body Font (Google Fonts CDN) ── */
+/* Manrope — corpo legivel com geometria moderna */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+
+/* ── Editorial Font (Google Fonts CDN) ── */
+/* Playfair Display — contraste editorial para callouts/pull quotes */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap");
+
 /* ═══════════════════════════════════════════
    BASE
    ═══════════════════════════════════════════ */
 
 html {
-  background-color: var(--color-void);
-  color: var(--color-bone);
+  background-color: var(--sp-void);
+  color: var(--sp-ink);
   font-family: var(--font-family-sans);
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
+  /* Pixel rendering para bordas e imagens */
+  image-rendering: auto;
 }
 
 body {
@@ -55,20 +72,23 @@ body {
 }
 
 /* ═══════════════════════════════════════════
-   TYPOGRAPHY
+   TYPOGRAPHY — Sunset Pixel
    ═══════════════════════════════════════════ */
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family-display);
-  font-weight: 700;
-  line-height: 1.1;
+  font-weight: 400;
+  line-height: 1.4;
   text-wrap: balance;
-  color: var(--color-bone);
+  color: var(--sp-bone);
+  /* Pixel-perfect rendering para headings */
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
 }
 
-h1 { font-size: var(--font-size-display-xl); letter-spacing: -0.02em; margin-bottom: 2rem; }
-h2 { font-size: var(--font-size-display-lg); letter-spacing: -0.01em; margin-top: 3rem; margin-bottom: 1.5rem; }
-h3 { font-size: var(--font-size-display-md); letter-spacing: -0.005em; margin-top: 2rem; margin-bottom: 1rem; }
+h1 { font-size: var(--font-size-display-xl); letter-spacing: 0.02em; margin-bottom: 2rem; }
+h2 { font-size: var(--font-size-display-lg); letter-spacing: 0.01em; margin-top: 3rem; margin-bottom: 1.5rem; }
+h3 { font-size: var(--font-size-display-md); margin-top: 2rem; margin-bottom: 1rem; }
 h4 { font-size: var(--font-size-display-sm); margin-top: 1.5rem; margin-bottom: 0.75rem; }
 
 p, li {
@@ -76,11 +96,11 @@ p, li {
   text-wrap: pretty;
   margin-bottom: 1.5rem;
   line-height: 1.7;
-  color: var(--color-bone-muted);
+  color: var(--sp-muted);
 }
 
 b, strong {
-  color: var(--color-bone);
+  color: var(--sp-bone);
   font-weight: 600;
 }
 
@@ -89,25 +109,25 @@ b, strong {
    ═══════════════════════════════════════════ */
 
 a {
-  color: var(--color-accent);
+  color: var(--sp-gold);
   text-decoration: none;
   transition: color var(--transition-duration-fast) var(--ease-out);
 }
-a:hover { color: var(--color-accent-hi); }
+a:hover { color: var(--sp-amber); }
 
 /* ═══════════════════════════════════════════
-   FOCUS
+   FOCUS — Pixel border
    ═══════════════════════════════════════════ */
 
 :focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--color-void), 0 0 0 4px var(--color-accent);
-  border-radius: 2px;
+  box-shadow: 0 0 0 2px var(--sp-void), 0 0 0 4px var(--sp-gold);
+  border-radius: 0;
 }
 
 ::selection {
-  background-color: var(--color-accent);
-  color: var(--color-void);
+  background-color: var(--sp-gold);
+  color: var(--sp-void);
 }
 
 /* ═══════════════════════════════════════════
@@ -122,58 +142,104 @@ a:hover { color: var(--color-accent-hi); }
     padding: 0.625rem 1.25rem;
     font-weight: 500;
     font-size: 0.875rem;
+    font-family: var(--font-family-pixel);
+    border-radius: 0;
+    border: 2px solid transparent;
     transition-property: color, background-color, border-color, transform, box-shadow;
     transition-duration: var(--transition-duration-fast);
-    transition-timing-function: var(--ease-out);
+    transition-timing-function: var(--ease-pixel);
     cursor: pointer;
     touch-action: manipulation;
+    image-rendering: pixelated;
   }
   .btn:active {
-    transform: scale(0.96);
+    transform: translate(2px, 2px);
+    box-shadow: none;
   }
 
   .btn-primary {
     composes: btn;
-    background: var(--color-accent);
-    color: var(--color-void);
+    background: var(--sp-gold);
+    color: var(--sp-void);
+    border-color: var(--sp-gold);
+    box-shadow: var(--pixel-shadow-sm);
   }
   .btn-primary:hover {
-    background: var(--color-accent-hi);
-    transform: translateY(-1px);
+    background: var(--sp-amber);
+    border-color: var(--sp-amber);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--pixel-shadow-md);
   }
 
   .btn-ghost {
     composes: btn;
     background: transparent;
-    color: var(--color-bone-muted);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--sp-muted);
+    border: 2px solid var(--sp-ash);
   }
   .btn-ghost:hover {
-    color: var(--color-bone);
-    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--sp-bone);
+    border-color: var(--sp-gold);
   }
 }
 
 /* ═══════════════════════════════════════════
-   UTILITIES
+   UTILITIES — Sunset Pixel
    ═══════════════════════════════════════════ */
 
+/* ── Pixel Text ── */
+.pixel-text {
+  font-family: var(--font-family-pixel);
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  image-rendering: pixelated;
+}
+
+.pixel-display {
+  font-family: var(--font-family-display);
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  image-rendering: pixelated;
+  letter-spacing: 0.02em;
+}
+
+/* ── Editorial Contrast ── */
+.editorial-callout {
+  font-family: var(--font-family-editorial);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--sp-gold);
+  line-height: 1.3;
+}
+
+/* ── Surface Card (migrado para Sunset Pixel) ── */
 .surface-card {
-  background: var(--color-deep);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 0.5rem;
+  background: var(--sp-deep);
+  border: 2px solid var(--sp-ash);
+  border-radius: 0;
+  box-shadow: var(--pixel-shadow-sm);
   transition-property: border-color, transform, box-shadow;
   transition-duration: var(--transition-duration-base);
-  transition-timing-function: var(--ease-out);
+  transition-timing-function: var(--ease-pixel);
+}
+
+/* ── Surface Pixel (substitui surface-panel) ── */
+.surface-pixel {
+  background: var(--sp-deep);
+  border: 2px solid var(--sp-ash);
+  border-radius: 0;
+  box-shadow: var(--pixel-shadow-sm);
 }
 
 .surface-card:hover {
-  border-color: rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
+  border-color: var(--sp-gold);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--pixel-shadow-md);
 }
 
 .surface-card:active {
-  transform: scale(0.98);
+  transform: translate(2px, 2px);
+  box-shadow: none;
 }
 
 .text-balance { text-wrap: balance; }
@@ -186,76 +252,278 @@ a:hover { color: var(--color-accent-hi); }
   left: 0;
   z-index: var(--z-overlay);
   padding: 0.75rem 1.25rem;
-  background: var(--color-accent);
-  color: var(--color-void);
+  background: var(--sp-gold);
+  color: var(--sp-void);
   font-weight: 600;
+  font-family: var(--font-family-pixel);
+  border-radius: 0;
   transition: top var(--transition-duration-fast) var(--ease-out);
 }
 .skip-link:focus { top: 0; }
 
 /* ═══════════════════════════════════════════
-   THEME OVERRIDES (Light Mode)
+   TEXTURAS — 5 Camadas de Materialidade
+   ═══════════════════════════════════════════ */
+
+/* ── 1. Parchment Paper ── */
+.parchment {
+  background-color: var(--sp-parchment);
+  background-image:
+    radial-gradient(ellipse at 20% 80%, oklch(0.75 0.05 70 / 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, oklch(0.80 0.03 60 / 0.10) 0%, transparent 40%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      oklch(0.85 0.02 80 / 0.03) 2px,
+      oklch(0.85 0.02 80 / 0.03) 3px
+    );
+  border: 2px solid var(--sp-ash);
+  border-radius: 0;
+  box-shadow:
+    4px 4px 0 oklch(0.20 0.02 300 / 0.4),
+    inset 0 0 40px oklch(0.90 0.03 85 / 0.3);
+  color: var(--sp-void);
+}
+
+/* ── 2. Torn Paper Edge ── */
+.torn-paper {
+  filter: url(#torn-paper-filter);
+  border-radius: 0;
+}
+
+/* ── 3. Brush Stroke ── */
+.brush-stroke {
+  background:
+    linear-gradient(175deg,
+      transparent 0%,
+      var(--sp-amber) 20%,
+      var(--sp-ember) 50%,
+      var(--sp-gold) 80%,
+      transparent 100%
+    );
+  opacity: 0.15;
+  height: 4px;
+  border-radius: 0;
+}
+
+/* ── 4. Sunset Sky Background ── */
+.sunset-sky {
+  background:
+    linear-gradient(180deg,
+      var(--sp-void) 0%,
+      oklch(0.20 0.06 320) 30%,
+      oklch(0.35 0.10 30) 55%,
+      oklch(0.55 0.15 50) 70%,
+      oklch(0.70 0.18 60) 85%,
+      oklch(0.78 0.15 70) 100%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      oklch(0 0 0 / 0.03) 3px,
+      oklch(0 0 0 / 0.03) 4px
+    );
+}
+
+/* ── 5. Pixel Gold Rim Light ── */
+.pixel-gold-rim {
+  border: 2px solid var(--sp-gold);
+  border-radius: 0;
+  box-shadow:
+    4px 4px 0 oklch(0.20 0.02 300 / 0.5),
+    0 0 12px var(--sp-gold-glow),
+    inset 0 1px 0 oklch(0.94 0.02 85 / 0.1);
+}
+
+/* ── Sunset Sheen (reflexo dourado) ── */
+.sunset-sheen {
+  position: relative;
+}
+.sunset-sheen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    var(--sp-gold-glow) 0%,
+    transparent 30%,
+    oklch(0.58 0.22 35 / 0.04) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 0;
+}
+
+/* ═══════════════════════════════════════════
+   PIXEL BORDERS
+   ═══════════════════════════════════════════ */
+
+.pixel-border-2 {
+  border: 2px solid currentColor;
+  border-radius: 0;
+  box-shadow: 2px 2px 0 oklch(0 0 0 / 0.3);
+}
+
+.pixel-border-4 {
+  border: 4px solid;
+  border-image: repeating-linear-gradient(
+    90deg,
+    var(--sp-gold) 0px,
+    var(--sp-gold) 4px,
+    var(--sp-amber) 4px,
+    var(--sp-amber) 8px
+  ) 4;
+  border-radius: 0;
+}
+
+/* ── Pixel Frame (moldura ornamentada JRPG) ── */
+.pixel-frame {
+  border: 3px solid var(--sp-gold);
+  border-radius: 0;
+  outline: 1px solid var(--sp-ember);
+  outline-offset: -5px;
+  box-shadow:
+    0 0 0 2px var(--sp-void),
+    0 0 0 5px var(--sp-ash);
+}
+
+/* ═══════════════════════════════════════════
+   HUD ELEMENTS
+   ═══════════════════════════════════════════ */
+
+/* ── HUD Bar (progresso JRPG) ── */
+.hud-bar {
+  height: 10px;
+  background: var(--sp-mid);
+  border: 1px solid var(--sp-ash);
+  border-radius: 0;
+  image-rendering: pixelated;
+}
+.hud-bar-fill {
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--sp-gold) 0px,
+    var(--sp-gold) 4px,
+    var(--sp-amber) 4px,
+    var(--sp-amber) 6px,
+    var(--sp-ember) 6px,
+    var(--sp-ember) 8px
+  );
+}
+
+/* ── Pixel Heart (8×8 coracao para HUD) ── */
+.pixel-heart {
+  width: 8px;
+  height: 8px;
+  background: var(--sp-ember);
+  box-shadow:
+    2px 0 0 var(--sp-ember), 6px 0 0 var(--sp-ember),
+    0 2px 0 var(--sp-ember), 2px 2px 0 var(--sp-ember),
+    4px 2px 0 var(--sp-ember), 6px 2px 0 var(--sp-ember),
+    8px 2px 0 var(--sp-ember),
+    2px 4px 0 var(--sp-ember), 4px 4px 0 var(--sp-ember),
+    6px 4px 0 var(--sp-ember),
+    4px 6px 0 var(--sp-ember);
+  image-rendering: pixelated;
+}
+
+/* ── Pixel Divider ── */
+.pixel-divider-diamond {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--sp-gold);
+  font-family: var(--font-family-display);
+  font-size: 10px;
+}
+.pixel-divider-diamond::before,
+.pixel-divider-diamond::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    currentColor 0px,
+    currentColor 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+/* ═══════════════════════════════════════════
+   THEME OVERRIDES (Light Mode — Sunset Pixel)
    ═══════════════════════════════════════════ */
 
 .light {
+  --sp-void: oklch(0.98 0.005 85);
+  --sp-deep: oklch(0.96 0.005 85);
+  --sp-mid: oklch(0.93 0.005 85);
+  --sp-raised: oklch(1 0 0);
+  --sp-bone: oklch(0.22 0.02 310);
+  --sp-ink: oklch(0.30 0.02 310);
+  --sp-muted: oklch(0.48 0.02 310);
+  --sp-ash: oklch(0.70 0.01 300);
+  /* Tambem manter compatibilidade com tokens legados */
   --color-void: oklch(0.98 0.005 95);
   --color-deep: oklch(0.96 0.005 95);
   --color-mid: oklch(0.93 0.005 95);
   --color-raised: oklch(1 0 0);
   --color-bone: oklch(0.22 0 0);
   --color-bone-muted: oklch(0.48 0 0);
-  --color-washi-teal: oklch(0.56 0.1 190);
 }
 
 .light .btn-primary {
   color: oklch(1 0 0);
 }
 
-.light .share-pill {
-  background: rgba(0, 0, 0, 0.04);
-  border-color: rgba(0, 0, 0, 0.08);
-  color: var(--color-bone);
-}
-
-.light .share-pill:hover {
-  background: rgba(0, 0, 0, 0.08);
-  border-color: var(--color-accent);
+.light .parchment {
+  background-color: oklch(0.99 0.01 90);
+  color: var(--sp-void);
+  border-color: oklch(0.80 0.02 80);
 }
 
 .light body {
-  background-color: var(--color-void);
-  color: var(--color-bone);
+  background-color: var(--sp-void);
+  color: var(--sp-ink);
 }
 
-.light .surface-card,
-.light .surface-panel,
-.light .hud-panel {
-  background: var(--color-raised);
-  border-color: rgba(0, 0, 0, 0.08);
+.light .surface-card {
+  background: var(--sp-raised);
+  border-color: oklch(0.80 0.02 80);
 }
 
 .light .prose {
-  --tw-prose-body: var(--color-bone-muted);
-  --tw-prose-headings: var(--color-bone);
-  --tw-prose-links: var(--color-accent);
-  --tw-prose-bold: var(--color-bone);
+  --tw-prose-body: var(--sp-muted);
+  --tw-prose-headings: var(--sp-bone);
+  --tw-prose-links: var(--sp-gold);
+  --tw-prose-bold: var(--sp-bone);
 }
 
-.light .living-brief-hero {
-  background: linear-gradient(180deg, oklch(0.25 0.01 60) 0%, oklch(0.22 0 0) 100%);
-}
-
-.light .living-brief-collage {
-  background-color: oklch(0.99 0.005 95);
-}
-
-.light .torn-edges {
-  opacity: 0.1;
+.light .sunset-sky {
+  background:
+    linear-gradient(180deg,
+      oklch(0.98 0.005 85) 0%,
+      oklch(0.95 0.02 80) 30%,
+      oklch(0.90 0.05 70) 55%,
+      oklch(0.85 0.08 60) 70%,
+      oklch(0.78 0.10 50) 85%,
+      oklch(0.72 0.12 40) 100%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      oklch(0 0 0 / 0.02) 3px,
+      oklch(0 0 0 / 0.02) 4px
+    );
 }
 
 /* ── Skeleton Loading ── */
 .skeleton {
-  background-color: var(--color-mid);
+  background-color: var(--sp-mid);
   background-image: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0),

@@ -19,17 +19,17 @@ const mapDepthToDataAttr = (depth: DepthVariant | DepthPlane): DepthPlane => {
 }
 
 /**
- * Returns the glass CSS class when glass mode is active, or null otherwise.
+ * Returns the pixel-gold-rim class when depth variant is active.
+ * Neo Pixel × Sunset Saga — zero blur, pixel borders only.
  */
-const getGlassClass = (depth: DepthVariant | DepthPlane, glass?: boolean): string | null => {
-  // DEPRECATED R26: glass variant maps to surface-panel
-  if (depth === 'glass-light' || depth === 'glass' || glass) return 'surface-panel'
+const getPixelClass = (depth: DepthVariant | DepthPlane): string | null => {
+  if (depth === 'glass-light' || depth === 'glass') return 'pixel-gold-rim'
   return null
 }
 
 /**
- * Returns ue5-illusion and surface-panel classes when the card has depth or glass active
- * (Σ LOAD refinement — zero API break).
+ * Returns sunset-pixel visual upgrade for cards with depth.
+ * Neo Pixel × Sunset Saga — pixel borders + sunset sheen.
  */
 const getVisualUpgradeClass = (
   depth: DepthVariant | DepthPlane,
@@ -37,7 +37,7 @@ const getVisualUpgradeClass = (
   glass?: boolean
 ): string | null => {
   const hasDepth = depth2d5 || depth === 'glass-light' || glass || depth === 'glass'
-  return hasDepth ? 'ue5-illusion surface-panel' : null
+  return hasDepth ? 'sunset-sheen surface-pixel' : null
 }
 
 /**
@@ -104,9 +104,9 @@ export const DepthCard = component$<DepthSurfaceProps>(
       'surface-hud',
       'depth-surface',
       'depth-card',
-      visualUpgrade ? null : getGlassClass(depth, glass),
+      visualUpgrade ? null : getPixelClass(depth),
       visualUpgrade,
-      isCinematic ? 'neon-edge' : null,
+      isCinematic ? 'pixel-gold-rim' : null,
       isCollageEditorial
         ? 'corkboard paper-real-texture ink-effect scrapbook-layer clip-diagonal-a'
         : null,

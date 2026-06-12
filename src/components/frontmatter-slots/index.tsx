@@ -31,7 +31,7 @@ export const FrontmatterSlots = component$<FrontmatterSlotsProps>(props => {
       class={[
         'frontmatter-slots',
         'hud-panel',
-        'surface-panel',
+        'surface-pixel',
         'mt-6 flex flex-col gap-4 p-4',
         props.class,
       ]}
