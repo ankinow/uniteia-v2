@@ -6,14 +6,18 @@ import {
   useLocation,
 } from '@builder.io/qwik-city'
 import { ArticleRenderer } from '~/components/article-renderer'
+import { ArticleHero } from '~/components/article-hero'
 import { Breadcrumb } from '~/components/breadcrumb'
 import { CanvaComposition } from '~/components/canva/CanvaComposition'
 import { CTASection } from '~/components/cta-section'
+import { DepthCardThumbnail } from '~/components/depth-card-thumbnail'
+import { DiagramRenderer } from '~/components/diagram-renderer'
 import { JSONLD } from '~/components/json-ld'
 import { LivingBrief2Col } from '~/components/living-brief'
 import type { LivingBriefCollageProps } from '~/components/living-brief/types'
 import { MangaGrid } from '~/components/manga-grid'
 import { NewsletterForm } from '~/components/newsletter-form'
+import { ScreenshotFrame } from '~/components/screenshot-frame'
 import { ShareBar } from '~/components/share-bar'
 import { StoryboardGrid } from '~/components/storyboard-grid'
 import { TableOfContents } from '~/components/table-of-contents'
@@ -36,6 +40,16 @@ import { generateWebPageSchema } from '~/utils/schema-generators'
 import { estimateReadTime, extractDescription } from '~/utils/text-utils'
 
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code))
+
+/** Slugs with real FLUX-generated images — use Cloudflare Images CDN URLs */
+const HAS_REAL_IMAGES = new Set([
+  'magica-overview',
+  'magica-quickstart',
+  'magica-mcp-server',
+  'tencent-cloud-deal-stack-builders',
+  'opencode-vibecoders',
+  'multi-agent-vibecoding',
+])
 
 export const onStaticGenerate = async () => {
   const buildLocale = getBuildLocale()
@@ -194,15 +208,6 @@ export default component$(() => {
   }
 
   const canvasData = content.value.canvas
-  // All articles use real FLUX polaroid images — never generate procedural SVG shapes
-  const HAS_REAL_IMAGES = new Set([
-    'magica-overview',
-    'magica-quickstart',
-    'magica-mcp-server',
-    'tencent-cloud-deal-stack-builders',
-    'opencode-vibecoders',
-    'multi-agent-vibecoding',
-  ])
   const useCanvasCollage = !HAS_REAL_IMAGES.has(content.value.slug ?? '')
   const collage =
     useCanvasCollage && canvasData
@@ -313,10 +318,12 @@ export default component$(() => {
               (content.value.slug === 'opencode-vibecoders' ? 'terminal' : 'default'),
             heroImage:
               content.value.slug === 'opencode-vibecoders'
-                ? '/assets/flux/jrpg-opencode/hero-bg.webp'
+                ? 'https://uniteia.com/cdn-cgi/image/w=1920,h=1080,fit=cover,format=auto,q=90/assets/flux/jrpg-opencode/hero-bg.webp'
                 : content.value.slug === 'multi-agent-vibecoding'
-                  ? '/assets/flux/jrpg-opencode/agent-workflow.webp'
-                  : undefined,
+                  ? 'https://uniteia.com/cdn-cgi/image/w=1920,h=1080,fit=cover,format=auto,q=90/assets/flux/jrpg-opencode/agent-workflow.webp'
+                  : HAS_REAL_IMAGES.has(content.value.slug ?? '')
+                    ? `https://uniteia.com/cdn-cgi/image/w=1920,h=1080,fit=cover,format=auto,q=90/assets/flux/jrpg-magica/hero-insight.webp`
+                    : undefined,
             buttons: [],
           }}
           {...(collageAssets.value
@@ -721,29 +728,15 @@ export const head: DocumentHead = ({ resolveValue, params, url }) => {
       { property: 'og:locale', content: toBcp47(content.lang) },
       {
         property: 'og:image',
-        content: [
-          'magica-overview',
-          'magica-quickstart',
-          'magica-mcp-server',
-          'tencent-cloud-deal-stack-builders',
-          'opencode-vibecoders',
-          'multi-agent-vibecoding',
-        ].includes(slug)
-          ? 'https://uniteia.com/assets/flux/jrpg-opencode/hero-bg.webp'
+        content: HAS_REAL_IMAGES.has(slug)
+          ? `https://uniteia.com/cdn-cgi/image/w=1200,h=630,fit=cover,format=auto,q=90/assets/flux/jrpg-magica/${slug === 'magica-overview' ? 'hero-insight' : slug === 'magica-quickstart' ? 'hero-tutorial' : slug === 'magica-mcp-server' ? 'mcp-arch' : slug === 'tencent-cloud-deal-stack-builders' ? 'stack-builder' : slug === 'opencode-vibecoders' ? 'hero-bg' : 'agent-workflow'}.webp`
           : 'https://uniteia.com/og-image.png',
       },
       { name: 'twitter:card', content: 'summary_large_image' },
       {
         name: 'twitter:image',
-        content: [
-          'magica-overview',
-          'magica-quickstart',
-          'magica-mcp-server',
-          'tencent-cloud-deal-stack-builders',
-          'opencode-vibecoders',
-          'multi-agent-vibecoding',
-        ].includes(slug)
-          ? 'https://uniteia.com/assets/kawaii-vibecoder/hero-postit-collage.webp'
+        content: HAS_REAL_IMAGES.has(slug)
+          ? `https://uniteia.com/cdn-cgi/image/w=1200,h=600,fit=cover,format=auto,q=90/assets/flux/jrpg-magica/${slug === 'magica-overview' ? 'hero-insight' : slug === 'magica-quickstart' ? 'hero-tutorial' : slug === 'magica-mcp-server' ? 'mcp-arch' : slug === 'tencent-cloud-deal-stack-builders' ? 'stack-builder' : slug === 'opencode-vibecoders' ? 'hero-bg' : 'agent-workflow'}.webp`
           : 'https://uniteia.com/og-image.png',
       },
       { name: 'twitter:title', content: content.title },
