@@ -66,21 +66,19 @@ const localeExcludes = buildLocale
   : ['en', 'pt', 'es', 'fr', 'de', 'it', 'ja', 'zh'].flatMap(l => [`/${l}`, `/${l}/*`])
 const routes = {
   version: 1,
-  include: buildLocale ? ['/*'] : ['/', '/api/*', '/search'],
+  include: ['/*'],
   exclude: [
     ...localeExcludes,
-    '/aether-os',
-    '/aether-os/*',
-    '/verdict',
-    '/verdict/*',
-    '/privacy',
-    '/privacy/*',
-    '/terms',
-    '/terms/*',
     '/build/*',
     '/assets/*',
     '/favicon.ico',
     '/*.svg',
+    '/_headers',
+    '/_redirects',
+    '/robots.txt',
+    '/sitemap.xml',
+    '/manifest.json',
+    '/cdn-cgi/*',
   ],
 }
 writeFileSync(routesPath, JSON.stringify(routes, null, 2))
