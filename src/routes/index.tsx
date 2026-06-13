@@ -1,6 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import type { DocumentHead, RequestHandler } from '@builder.io/qwik-city'
 import { SUPPORTED_LANGUAGES } from '~/i18n/types'
+import { getBuildLocale } from '~/utils/build-locale'
 
 const LOCALE_DOMAINS: Record<string, string> = {
   en: 'https://en.uniteia.com',
@@ -14,17 +15,24 @@ const LOCALE_DOMAINS: Record<string, string> = {
 }
 
 /**
- * Root landing page — redirect to locale-specific domain (multi-locale)
- * or redirect to fixed locale (single-locale build).
+ * Root landing page.
+ * Single-locale build: redirects to /{locale}/
+ * Multi-locale build: redirects to {lang}.uniteia.com
  */
 export const onRequest: RequestHandler = async ({ request, redirect }) => {
-  // Single-locale build: redirect to the build's fixed locale
-  const buildLocale = (typeof process !== 'undefined' && process.env?.LOCALE) || ''
-  if (buildLocale && buildLocale.length === 2) {
+  const buildLocale = getBuildLocale()
+
+  // Single-locale build → redirect to that locale's path
+  if (buildLocale && buildLocale !== 'en') {
     throw redirect(302, `/${buildLocale}/`)
   }
 
-  // Multi-locale: auto-detect from Accept-Language header
+  // English build or multi-locale → redirect to /en/
+  if (buildLocale === 'en') {
+    throw redirect(302, '/en/')
+  }
+
+  // Multi-locale (no LOCALE set) → auto-detect and redirect to per-locale domain
   const acceptLang = request.headers.get('accept-language') || ''
   const preferredLang = (acceptLang.split(',')[0]?.split('-')[0] || 'en').toLowerCase()
 
