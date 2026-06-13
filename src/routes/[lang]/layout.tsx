@@ -6,7 +6,7 @@ import { LangSwitcher } from '~/components/lang-switcher'
 import { SearchInput } from '~/components/search-input'
 import { SiteShell } from '~/components/site-shell'
 import { ThemeToggle } from '~/components/theme-toggle'
-import { getTranslation, useProvideI18n } from '~/i18n/context'
+import { ensureTranslationsReady, getTranslation, useProvideI18n } from '~/i18n/context'
 import { isValidLocale } from '~/i18n/locale-validation'
 import {
   LANGUAGE_COOKIE_MAX_AGE,
@@ -32,8 +32,10 @@ export const onRequest: RequestHandler = async ({ params, cookie, url, redirect 
   }
 }
 
-export const useLanguage = routeLoader$<SupportedLanguage>(({ params }) => {
+export const useLanguage = routeLoader$<SupportedLanguage>(async ({ params }) => {
   const lang = params.lang
+  // Ensure per-locale translations are loaded before rendering
+  await ensureTranslationsReady()
   if (lang && SUPPORTED_LANGUAGES.some(l => l.code === lang)) return lang as SupportedLanguage
   return 'en'
 })
