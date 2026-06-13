@@ -20,39 +20,30 @@ export default component$(() => {
   return (
     <div class="min-h-screen flex flex-col items-center justify-center bg-void text-bone px-4">
       <div class="text-center space-y-8 max-w-md">
-        <header class="space-y-4">
-          <h1 class="text-4xl md:text-5xl font-bold tracking-tight">
-            Uni<span class="text-accent">Teia</span>
-          </h1>
-          <p class="text-bone-muted text-lg leading-relaxed">
-            Knowledge signals. Clean. Multilingual. No noise.
-          </p>
-        </header>
+        <h1 class="text-4xl md:text-5xl font-bold tracking-tight">
+          Uni<span class="text-accent">Teia</span>
+        </h1>
 
         <div class="flex flex-wrap justify-center gap-3" aria-label="Select language">
           {SUPPORTED_LANGUAGES.map(l => (
             <a
               key={l.code}
               href={`/${l.code}/`}
-              class="inline-flex px-4 py-2 rounded-lg border border-white/10 bg-deep hover:bg-mid hover:border-accent/30 transition-colors duration-150 active:scale-[0.96] text-bone no-underline text-sm font-medium whitespace-nowrap"
+              class="inline-flex px-4 py-2 rounded-lg border border-accent/20 bg-deep hover:bg-mid hover:border-accent/40 transition-colors duration-150 active:scale-[0.96] text-bone no-underline text-sm font-medium whitespace-nowrap"
             >
               {l.nativeName ?? l.code.toUpperCase()}
             </a>
           ))}
         </div>
-
-        <p class="text-bone/40 text-xs font-medium mt-4">
-          Crafted with ❤️ for learners, vibe-coders, and builders. By the UniTeia {'&'} LERMF team.
-        </p>
       </div>
     </div>
   )
 })
 
 export const head: DocumentHead = {
-  title: 'UniTeia OS — Knowledge Signals',
+  title: 'UniTeia',
   meta: [
-    { name: 'description', content: 'Multilingual knowledge portal. Clean signals, zero noise.' },
+    { name: 'description', content: 'Multilingual knowledge portal.' },
     { name: 'robots', content: 'index, follow' },
   ],
 }
