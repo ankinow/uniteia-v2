@@ -188,6 +188,7 @@ export class NvidiaNimEmbeddingProvider implements EmbeddingProvider {
           encoding_format: 'float',
           input_type: 'passage',
         }),
+        signal: AbortSignal.timeout(30000), // 30s timeout
       })
 
       if (!response.ok) {

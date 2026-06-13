@@ -90,6 +90,7 @@ export async function fetchTrendingRepos(): Promise<TrendingRepo[]> {
     const query = `q=topic:ai+created:>${weekAgo}&sort=stars&order=desc&per_page=10`
     const res = await fetch(`https://api.github.com/search/repositories?${query}`, {
       headers: { Accept: 'application/vnd.github.v3+json' },
+      signal: AbortSignal.timeout(10000), // 10s timeout
     })
     if (!res.ok) return getCache<TrendingRepo[]>('github-repos-fallback') || []
 
@@ -148,21 +149,25 @@ export async function fetchTopNews(): Promise<NewsItem[]> {
 
   try {
     // Get top story IDs
-    const idsRes = await fetch(`${HN_BASE}/topstories.json`)
+    const idsRes = await fetch(`${HN_BASE}/topstories.json`, {
+      signal: AbortSignal.timeout(10000), // 10s timeout
+    })
     if (!idsRes.ok) return getCache<NewsItem[]>('hn-news-fallback') || []
     const ids: number[] = await idsRes.json()
 
     // Fetch first 15 stories (filter to ~10 AI/tech related)
     const topIds = ids.slice(0, 15)
-    const items: NewsItem[] = []
-
-    for (const id of topIds) {
+    
+    // v0.5.0: Fetch items in parallel to avoid sequential RTT overhead (audit recommendation)
+    const itemPromises = topIds.map(async (id) => {
       try {
-        const itemRes = await fetch(`${HN_BASE}/item/${id}.json`)
-        if (!itemRes.ok) continue
+        const itemRes = await fetch(`${HN_BASE}/item/${id}.json`, {
+          signal: AbortSignal.timeout(5000), // 5s per item
+        })
+        if (!itemRes.ok) return null
         const item = await itemRes.json()
-        if (!item || item.type !== 'story' || !item.title) continue
-        items.push({
+        if (!item || item.type !== 'story' || !item.title) return null
+        return {
           id: item.id,
           title: item.title,
           url: item.url || `https://news.ycombinator.com/item?id=${item.id}`,
@@ -170,11 +175,13 @@ export async function fetchTopNews(): Promise<NewsItem[]> {
           by: item.by || 'anonymous',
           time: item.time,
           descendants: item.descendants || 0,
-        })
+        } as NewsItem
       } catch {
-        /* skip individual item errors */
+        return null
       }
-    }
+    })
+
+    const items = (await Promise.all(itemPromises)).filter((i): i is NewsItem => i !== null)
 
     // Sort by score
     const sorted = items.sort((a, b) => b.score - a.score)

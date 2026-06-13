@@ -65,13 +65,13 @@
   /* ── Primary CJK font stack ── */
   [lang="ja"],
   [lang="zh"] {
-    --font-cjk: 'Noto Sans JP', 'Noto Sans SC', sans-serif;
+    --font-cjk: "Noto Sans JP", "Noto Sans SC", sans-serif;
   }
 
   /* ── CJK monospace: use CJK fonts as primary, JetBrains Mono as fallback ── */
   [lang="ja"] .font-mono,
   [lang="zh"] .font-mono {
-    font-family: 'Noto Sans JP', 'Noto Sans SC', 'JetBrains Mono', monospace;
+    font-family: "Noto Sans JP", "Noto Sans SC", "JetBrains Mono", monospace;
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -114,12 +114,12 @@
 
   [lang="ja"] svg.diagram text,
   [lang="zh"] svg.diagram text {
-    font-family: 'Noto Sans JP', 'Noto Sans SC', 'M PLUS Rounded 1c', sans-serif;
+    font-family: "Noto Sans JP", "Noto Sans SC", "M PLUS Rounded 1c", sans-serif;
   }
 
   [lang="ja"] svg.diagram .font-mono,
   [lang="zh"] svg.diagram .font-mono {
-    font-family: 'Noto Sans JP', 'Noto Sans SC', 'JetBrains Mono', monospace;
+    font-family: "Noto Sans JP", "Noto Sans SC", "JetBrains Mono", monospace;
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -129,7 +129,7 @@
   /* ── Ensure numbers render correctly in CJK locales ── */
   [lang="ja"] .step-number,
   [lang="zh"] .step-number {
-    font-feature-settings: 'tnum';
+    font-feature-settings: "tnum";
   }
 
   [lang="ja"] .metric-value,
